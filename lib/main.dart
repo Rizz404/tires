@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:tires/core/theme/app_theme.dart';
 import 'package:tires/di/common_providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -53,7 +54,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: "Test App",
-      // theme: themeMode.getThemeData(context),
+      theme: AppTheme.lightTheme,
       builder: (context, child) => botToastBuilder(context, child),
       routerConfig: appRouter.config(
         navigatorObservers: () => [BotToastNavigatorObserver()],
