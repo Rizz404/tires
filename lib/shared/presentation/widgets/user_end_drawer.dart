@@ -2,26 +2,38 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
+import 'package:tires/di/common_providers.dart';
+import 'package:tires/l10n_generated/app_localizations.dart';
 
-class UserEndDrawer extends StatelessWidget {
+class UserEndDrawer extends ConsumerWidget {
   const UserEndDrawer({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    // Data statis untuk menggantikan provider
+  Widget build(BuildContext context, WidgetRef ref) {
+    // GUNAKAN L10n GLOBAL, BUKAN SharedL10n
+    final l10n = L10n.of(context)!;
+
     final Map<String, dynamic> userData = {
       'username': 'Jamaludin',
       'email': 'jamal.keren@example.com',
       'profilePicture': 'https://i.pravatar.cc/150?u=a042581f4e29026704d',
     };
     final bool isAuthenticated = userData.isNotEmpty;
-    const currentTheme = ThemeMode.system;
 
     final List<Map<String, dynamic>> userDrawerItems = [
-      {'icon': Icons.person, 'title': 'Profile', 'isActive': true},
-      {'icon': Icons.food_bank, 'title': 'Foods', 'isActive': false},
-      {'icon': Icons.receipt_long, 'title': 'Orders', 'isActive': false},
+      {'icon': Icons.person, 'title': l10n.bottomNavProfile, 'isActive': true},
+      {
+        'icon': Icons.food_bank,
+        'title': l10n.drawerItemFoods,
+        'isActive': false,
+      },
+      {
+        'icon': Icons.receipt_long,
+        'title': l10n.drawerItemOrders,
+        'isActive': false,
+      },
     ];
 
     return Drawer(
@@ -29,7 +41,7 @@ class UserEndDrawer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildDrawerHeader(context, userData),
+            _buildDrawerHeader(context, userData, l10n),
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -42,18 +54,17 @@ class UserEndDrawer extends StatelessWidget {
                       isActive: item['isActive'],
                       onTap: () {
                         Navigator.of(context).pop();
-                        // Logika navigasi bisa ditambahkan di sini
                         print('${item['title']} tapped');
                       },
                     );
                   }).toList(),
-                  _buildThemeSelector(context, currentTheme),
+                  _buildLanguageSelector(context, ref, l10n),
                 ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: _buildAuthButton(context, isAuthenticated),
+              child: _buildAuthButton(context, isAuthenticated, l10n),
             ),
           ],
         ),
@@ -64,6 +75,7 @@ class UserEndDrawer extends StatelessWidget {
   Widget _buildDrawerHeader(
     BuildContext context,
     Map<String, dynamic>? userData,
+    L10n l10n, // Ganti tipe parameter
   ) {
     return Container(
       padding: const EdgeInsets.all(16.0),
@@ -74,7 +86,7 @@ class UserEndDrawer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Main Menu',
+                l10n.drawerHeaderTitle,
                 style: context.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: context.colorScheme.primary,
@@ -118,13 +130,13 @@ class UserEndDrawer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      userData?['username'] ?? "Guest User",
+                      userData?['username'] ?? l10n.drawerGuestUser,
                       style: context.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      userData?['email'] ?? "Please login",
+                      userData?['email'] ?? l10n.drawerGuestLoginPrompt,
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: context.textTheme.bodyMedium?.color?.withOpacity(
                           0.7,
@@ -142,18 +154,24 @@ class UserEndDrawer extends StatelessWidget {
     );
   }
 
-  Widget _buildAuthButton(BuildContext context, bool isAuthenticated) {
+  Widget _buildAuthButton(
+    BuildContext context,
+    bool isAuthenticated,
+    L10n l10n, // Ganti tipe parameter
+  ) {
     return ElevatedButton.icon(
       onPressed: () {
         if (isAuthenticated) {
-          _showLogoutDialog(context);
+          _showLogoutDialog(context, l10n);
         } else {
           Navigator.of(context).pop();
           print('Navigate to Login Screen');
         }
       },
       icon: Icon(isAuthenticated ? Icons.logout : Icons.login),
-      label: Text(isAuthenticated ? "Logout" : "Login"),
+      label: Text(
+        isAuthenticated ? l10n.drawerActionLogout : l10n.drawerActionLogin,
+      ),
       style: ElevatedButton.styleFrom(
         backgroundColor: isAuthenticated
             ? context.colorScheme.error
@@ -164,20 +182,24 @@ class UserEndDrawer extends StatelessWidget {
     );
   }
 
-  void _showLogoutDialog(BuildContext context) {
+  void _showLogoutDialog(BuildContext context, L10n l10n) {
+    // Ganti tipe parameter
     showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog.adaptive(
-          title: Text('Logout', style: context.textTheme.titleLarge),
+          title: Text(
+            l10n.drawerLogoutDialogTitle,
+            style: context.textTheme.titleLarge,
+          ),
           content: Text(
-            'Are you sure you want to logout?',
+            l10n.drawerLogoutDialogContent,
             style: context.textTheme.bodyMedium,
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(),
-              child: const Text('Cancel'),
+              child: Text(l10n.drawerActionCancel),
             ),
             ElevatedButton(
               onPressed: () {
@@ -189,7 +211,7 @@ class UserEndDrawer extends StatelessWidget {
                 backgroundColor: context.colorScheme.error,
                 foregroundColor: context.colorScheme.onError,
               ),
-              child: const Text('Logout'),
+              child: Text(l10n.drawerActionLogout),
             ),
           ],
         );
@@ -204,6 +226,7 @@ class UserEndDrawer extends StatelessWidget {
     required bool isActive,
     required VoidCallback onTap,
   }) {
+    // ... implementasi widget ini tidak perlu diubah ...
     final activeColor = context.colorScheme.primary;
     final inactiveColor = context.colorScheme.onSurface.withOpacity(0.7);
 
@@ -231,7 +254,6 @@ class UserEndDrawer extends StatelessWidget {
       color: isActive ? activeColor.withOpacity(0.1) : context.theme.cardColor,
       elevation: 0,
       margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       child: ListTile(
         leading: Icon(icon, color: isActive ? activeColor : inactiveColor),
         title: Text(
@@ -247,16 +269,46 @@ class UserEndDrawer extends StatelessWidget {
     );
   }
 
-  Widget _buildThemeSelector(BuildContext context, ThemeMode currentTheme) {
-    // Implementasi selector tema bisa ditambahkan di sini
-    // Untuk saat ini, kita tampilkan saja sebagai ListTile biasa
+  Widget _buildLanguageSelector(
+    BuildContext context,
+    WidgetRef ref,
+    L10n l10n, // Ganti tipe parameter
+  ) {
     return _buildDrawerItem(
       context,
-      icon: Icons.palette_outlined,
-      title: 'Theme',
+      icon: Icons.translate,
+      title: l10n.drawerItemLanguage,
       isActive: false,
       onTap: () {
-        print('Theme selector tapped');
+        _showLanguageDialog(context, ref, l10n);
+      },
+    );
+  }
+
+  void _showLanguageDialog(BuildContext context, WidgetRef ref, L10n l10n) {
+    // Ganti tipe parameter
+    showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: Text(l10n.dialogTitleSelectLanguage),
+          children: [
+            SimpleDialogOption(
+              onPressed: () {
+                ref.read(localeProvider.notifier).state = const Locale('en');
+                Navigator.of(context).pop();
+              },
+              child: const Text('English'),
+            ),
+            SimpleDialogOption(
+              onPressed: () {
+                ref.read(localeProvider.notifier).state = const Locale('ja');
+                Navigator.of(context).pop();
+              },
+              child: const Text('日本語 (Japanese)'),
+            ),
+          ],
+        );
       },
     );
   }

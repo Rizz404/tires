@@ -7,7 +7,7 @@ import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/core/routes/auth_guard.dart';
 import 'package:tires/core/routes/duplicate_guard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tires/l10n/app_localizations.dart';
+import 'package:tires/l10n_generated/app_localizations.dart';
 
 final secureStorageProvider = Provider<FlutterSecureStorage>((ref) {
   throw UnimplementedError('secureStorageProvider not initialized');

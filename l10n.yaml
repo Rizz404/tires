@@ -1,5 +1,8 @@
-arb-dir: lib/l10n
+arb-dir: lib/l10n_generated
 template-arb-file: app_en.arb
 output-localization-file: app_localizations.dart
-# Todo: bisa tambahkan output-class untuk nama kelas yang lebih baik
 output-class: L10n
+output-dir: lib/l10n_generated
+synthetic-package: false
+nullable-getter: true
+preferred-supported-locales: ["en"]

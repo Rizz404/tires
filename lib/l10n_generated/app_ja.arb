@@ -1,0 +1,18 @@
+{
+  "@@locale": "ja",
+  "bottomNavHome": "ホーム",
+  "bottomNavReservations": "予約",
+  "bottomNavProfile": "プロフィール",
+  "drawerHeaderTitle": "メインメニュー",
+  "drawerGuestUser": "ゲストユーザー",
+  "drawerGuestLoginPrompt": "続行するにはログインしてください",
+  "drawerItemFoods": "食品",
+  "drawerItemOrders": "注文",
+  "drawerItemLanguage": "言語",
+  "drawerActionLogin": "ログイン",
+  "drawerActionLogout": "ログアウト",
+  "drawerLogoutDialogTitle": "ログアウトの確認",
+  "drawerLogoutDialogContent": "本当にログアウトしますか？",
+  "drawerActionCancel": "キャンセル",
+  "dialogTitleSelectLanguage": "言語を選択"
+}

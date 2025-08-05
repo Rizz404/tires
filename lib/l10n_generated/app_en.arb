@@ -1,0 +1,18 @@
+{
+  "@@locale": "en",
+  "bottomNavHome": "Home",
+  "bottomNavReservations": "Reservations",
+  "bottomNavProfile": "Profile",
+  "drawerHeaderTitle": "Main Menu",
+  "drawerGuestUser": "Guest User",
+  "drawerGuestLoginPrompt": "Please login to continue",
+  "drawerItemFoods": "Foods",
+  "drawerItemOrders": "Orders",
+  "drawerItemLanguage": "Language",
+  "drawerActionLogin": "Login",
+  "drawerActionLogout": "Logout",
+  "drawerLogoutDialogTitle": "Logout Confirmation",
+  "drawerLogoutDialogContent": "Are you sure you want to logout?",
+  "drawerActionCancel": "Cancel",
+  "dialogTitleSelectLanguage": "Select Language"
+}

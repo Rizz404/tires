@@ -19,7 +19,7 @@ import 'app_localizations_ja.dart';
 /// `supportedLocales` list. For example:
 ///
 /// ```dart
-/// import 'l10n/app_localizations.dart';
+/// import 'l10n_generated/app_localizations.dart';
 ///
 /// return MaterialApp(
 ///   localizationsDelegates: L10n.localizationsDelegates,
@@ -99,11 +99,95 @@ abstract class L10n {
     Locale('ja'),
   ];
 
-  /// No description provided for @homeScreenGreeting.
+  /// No description provided for @bottomNavHome.
   ///
   /// In en, this message translates to:
-  /// **'This is in English'**
-  String get homeScreenGreeting;
+  /// **'Home'**
+  String get bottomNavHome;
+
+  /// No description provided for @bottomNavReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservations'**
+  String get bottomNavReservations;
+
+  /// No description provided for @bottomNavProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get bottomNavProfile;
+
+  /// No description provided for @drawerHeaderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Main Menu'**
+  String get drawerHeaderTitle;
+
+  /// No description provided for @drawerGuestUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest User'**
+  String get drawerGuestUser;
+
+  /// No description provided for @drawerGuestLoginPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Please login to continue'**
+  String get drawerGuestLoginPrompt;
+
+  /// No description provided for @drawerItemFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'Foods'**
+  String get drawerItemFoods;
+
+  /// No description provided for @drawerItemOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders'**
+  String get drawerItemOrders;
+
+  /// No description provided for @drawerItemLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get drawerItemLanguage;
+
+  /// No description provided for @drawerActionLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get drawerActionLogin;
+
+  /// No description provided for @drawerActionLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get drawerActionLogout;
+
+  /// No description provided for @drawerLogoutDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout Confirmation'**
+  String get drawerLogoutDialogTitle;
+
+  /// No description provided for @drawerLogoutDialogContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to logout?'**
+  String get drawerLogoutDialogContent;
+
+  /// No description provided for @drawerActionCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get drawerActionCancel;
+
+  /// No description provided for @dialogTitleSelectLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Language'**
+  String get dialogTitleSelectLanguage;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

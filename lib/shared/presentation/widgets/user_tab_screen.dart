@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/shared/presentation/widgets/user_app_bar.dart';
 import 'package:tires/shared/presentation/widgets/user_end_drawer.dart';
@@ -22,21 +23,21 @@ class UserTabScreen extends StatelessWidget {
           onDestinationSelected: (index) {
             tabsRouter.setActiveIndex(index);
           },
-          destinations: const [
+          destinations: [
             NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home),
-              label: 'Home',
+              icon: const Icon(Icons.home_outlined),
+              selectedIcon: const Icon(Icons.home),
+              label: context.l10n.bottomNavHome,
             ),
             NavigationDestination(
-              icon: Icon(Icons.dinner_dining_outlined),
-              selectedIcon: Icon(Icons.dinner_dining),
-              label: 'Reservations',
+              icon: const Icon(Icons.dinner_dining_outlined),
+              selectedIcon: const Icon(Icons.dinner_dining),
+              label: context.l10n.bottomNavReservations,
             ),
             NavigationDestination(
-              icon: Icon(Icons.person_outlined),
-              selectedIcon: Icon(Icons.person),
-              label: 'Profile',
+              icon: const Icon(Icons.person_outlined),
+              selectedIcon: const Icon(Icons.person),
+              label: context.l10n.bottomNavProfile,
             ),
           ],
         );

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
 class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -27,7 +28,10 @@ class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titleWidget = AppText(title ?? 'Tire Installation Reservation');
+    final titleWidget = AppText(
+      title ?? 'Tire Installation Reservation',
+      color: context.colorScheme.surface,
+    );
     final actionButton = Builder(
       builder: (innerContext) => IconButton(
         icon: const Icon(Icons.menu),
