@@ -9,6 +9,9 @@ class L10nJa extends L10n {
   L10nJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get appName => 'タイヤ取付予約';
+
+  @override
   String get bottomNavHome => 'ホーム';
 
   @override

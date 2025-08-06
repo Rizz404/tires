@@ -99,6 +99,12 @@ abstract class L10n {
     Locale('ja'),
   ];
 
+  /// No description provided for @appName.
+  ///
+  /// In en, this message translates to:
+  /// **'Tire Installation Reservation'**
+  String get appName;
+
   /// No description provided for @bottomNavHome.
   ///
   /// In en, this message translates to:

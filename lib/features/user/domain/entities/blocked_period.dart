@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:tires/features/user/domain/entities/menu.dart';
+import 'package:tires/features/menu/domain/entities/menu.dart';
 
 class BlockedPeriod extends Equatable {
   final int id;

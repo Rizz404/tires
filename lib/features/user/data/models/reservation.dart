@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:tires/features/user/data/models/menu_model.dart';
+import 'package:tires/features/menu/data/models/menu_model.dart';
 import 'package:tires/features/user/data/models/user_model.dart';
 import 'package:tires/features/user/domain/entities/reservation.dart';
 

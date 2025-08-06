@@ -1,15 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:tires/core/constants/api_constants.dart';
 import 'package:tires/core/network/api_cursor_pagination_response.dart';
 import 'package:tires/core/network/api_error_response.dart';
 import 'package:tires/core/network/api_offset_pagination_response.dart';
 import 'package:tires/core/network/api_response.dart';
+import 'package:tires/core/network/locale_interceptor.dart';
 
 class DioClient {
   final Dio _dio;
+  LocaleInterceptor _localeInterceptor;
 
-  DioClient(this._dio) {
+  DioClient(this._dio) : _localeInterceptor = LocaleInterceptor() {
     _dio
       ..options.baseUrl = ApiConstants.baseUrl
       ..options.connectTimeout = const Duration(
@@ -19,6 +22,7 @@ class DioClient {
         milliseconds: ApiConstants.defaultReceiveTimeout,
       )
       ..options.responseType = ResponseType.json
+      ..interceptors.add(_localeInterceptor)
       ..interceptors.add(
         InterceptorsWrapper(
           onRequest: (options, handler) {
@@ -47,6 +51,11 @@ class DioClient {
     }
   }
 
+  // * Buat update bahasa
+  void updateLocale(Locale locale) {
+    _localeInterceptor.updateLocale(locale);
+  }
+
   // * GET dengan single ApiResponse
   Future<ApiResponse<T>> get<T>(
     String path, {
@@ -67,6 +76,27 @@ class DioClient {
         response.data as Map<String, dynamic>,
         fromJson,
       );
+    } on DioException catch (e) {
+      throw _handleError(e);
+    }
+  }
+
+  // * Get plain
+  Future<dynamic> getPlain(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+  }) async {
+    try {
+      final response = await _dio.get(
+        path,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+      );
+
+      return response.data;
     } on DioException catch (e) {
       throw _handleError(e);
     }

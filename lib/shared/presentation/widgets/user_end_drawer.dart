@@ -226,7 +226,6 @@ class UserEndDrawer extends ConsumerWidget {
     required bool isActive,
     required VoidCallback onTap,
   }) {
-    // ... implementasi widget ini tidak perlu diubah ...
     final activeColor = context.colorScheme.primary;
     final inactiveColor = context.colorScheme.onSurface.withOpacity(0.7);
 
@@ -295,14 +294,18 @@ class UserEndDrawer extends ConsumerWidget {
           children: [
             SimpleDialogOption(
               onPressed: () {
-                ref.read(localeProvider.notifier).state = const Locale('en');
+                ref
+                    .read(localeProvider.notifier)
+                    .changeLocale(const Locale('en'));
                 Navigator.of(context).pop();
               },
               child: const Text('English'),
             ),
             SimpleDialogOption(
               onPressed: () {
-                ref.read(localeProvider.notifier).state = const Locale('ja');
+                ref
+                    .read(localeProvider.notifier)
+                    .changeLocale(const Locale('ja'));
                 Navigator.of(context).pop();
               },
               child: const Text('日本語 (Japanese)'),

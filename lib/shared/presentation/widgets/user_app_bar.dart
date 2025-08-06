@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
@@ -29,7 +30,7 @@ class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final titleWidget = AppText(
-      title ?? 'Tire Installation Reservation',
+      title ?? context.l10n.appName,
       color: context.colorScheme.surface,
     );
     final actionButton = Builder(

@@ -9,6 +9,9 @@ class L10nId extends L10n {
   L10nId([String locale = 'id']) : super(locale);
 
   @override
+  String get appName => 'Tire Installation Reservation';
+
+  @override
   String get bottomNavHome => 'Home';
 
   @override

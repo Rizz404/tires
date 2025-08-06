@@ -9,6 +9,9 @@ class L10nEn extends L10n {
   L10nEn([String locale = 'en']) : super(locale);
 
   @override
+  String get appName => 'Tire Installation Reservation';
+
+  @override
   String get bottomNavHome => 'Home';
 
   @override

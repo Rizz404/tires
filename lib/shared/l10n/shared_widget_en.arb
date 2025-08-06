@@ -1,5 +1,6 @@
 {
     "@@locale": "en",
+    "appName": "Tire Installation Reservation",
     "bottomNavHome": "Home",
     "bottomNavReservations": "Reservations",
     "bottomNavProfile": "Profile",

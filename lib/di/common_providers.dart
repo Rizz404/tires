@@ -7,6 +7,8 @@ import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/core/routes/auth_guard.dart';
 import 'package:tires/core/routes/duplicate_guard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tires/core/storage/language_storage_service.dart';
+import 'package:tires/di/service_providers.dart';
 import 'package:tires/l10n_generated/app_localizations.dart';
 
 final secureStorageProvider = Provider<FlutterSecureStorage>((ref) {
@@ -31,6 +33,18 @@ final dioProvider = Provider<Dio>((ref) {
 
 final dioClientProvider = Provider<DioClient>((ref) {
   final _dio = ref.watch(dioProvider);
+  final dioClient = DioClient(_dio);
+
+  // * Listen ke locale dan update dio
+  ref.listen<Locale>(localeProvider, (previous, next) {
+    dioClient.updateLocale(next);
+  });
+
+  // * Set initial locale
+  final currentLocale = ref.read(localeProvider);
+
+  dioClient.updateLocale(currentLocale);
+
   return DioClient(_dio);
 });
 
@@ -48,6 +62,47 @@ final appRouterProvider = Provider<AppRouter>((ref) {
   return AppRouter(_authGuard, _duplicateGuard);
 });
 
-final localeProvider = StateProvider<Locale>((ref) {
-  return L10n.supportedLocales.first;
+final localeProvider = StateNotifierProvider<LocaleNotifier, Locale>((ref) {
+  final languageStorageService = ref.watch(languageStorageServiceProvider);
+  return LocaleNotifier(languageStorageService);
 });
+
+class LocaleNotifier extends StateNotifier<Locale> {
+  final LanguageStorageService _languageStorageService;
+
+  LocaleNotifier(this._languageStorageService)
+    : super(L10n.supportedLocales.first) {
+    _loadLocale();
+  }
+
+  Future<void> _loadLocale() async {
+    try {
+      final locale = await _languageStorageService.getLocale();
+      state = locale;
+    } catch (e) {
+      state = L10n.supportedLocales.first;
+    }
+  }
+
+  Future<void> changeLocale(Locale newLocale) async {
+    try {
+      if (L10n.supportedLocales.contains(newLocale)) {
+        await _languageStorageService.setLocale(newLocale);
+        state = newLocale;
+      } else {
+        throw ArgumentError('Unsupported locale: $newLocale');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> resetLocale() async {
+    try {
+      await _languageStorageService.removeLocale();
+      state = L10n.supportedLocales.first;
+    } catch (e) {
+      rethrow;
+    }
+  }
+}
