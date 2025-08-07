@@ -116,37 +116,37 @@ flutter:
     # Instrument Sans - Font utama dengan variasi yang sering digunakan
     - family: InstrumentSans
       fonts:
-        - asset: assets/fonts/Instrument_Sans/static/InstrumentSans-Regular.ttf
+        - asset: assets/fonts/InstrumentSans-Regular.ttf
           weight: 400
-        - asset: assets/fonts/Instrument_Sans/static/InstrumentSans-Medium.ttf
+        - asset: assets/fonts/InstrumentSans-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Instrument_Sans/static/InstrumentSans-SemiBold.ttf
+        - asset: assets/fonts/InstrumentSans-SemiBold.ttf
           weight: 600
-        - asset: assets/fonts/Instrument_Sans/static/InstrumentSans-Bold.ttf
+        - asset: assets/fonts/InstrumentSans-Bold.ttf
           weight: 700
 
     # Noto Sans - Font utama dengan variasi yang sering digunakan
     - family: NotoSans
       fonts:
-        - asset: assets/fonts/Noto_Sans/static/NotoSans-Light.ttf
+        - asset: assets/fonts/NotoSans-Light.ttf
           weight: 300
-        - asset: assets/fonts/Noto_Sans/static/NotoSans-Regular.ttf
+        - asset: assets/fonts/NotoSans-Regular.ttf
           weight: 400
-        - asset: assets/fonts/Noto_Sans/static/NotoSans-Medium.ttf
+        - asset: assets/fonts/NotoSans-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Noto_Sans/static/NotoSans-SemiBold.ttf
+        - asset: assets/fonts/NotoSans-SemiBold.ttf
           weight: 600
-        - asset: assets/fonts/Noto_Sans/static/NotoSans-Bold.ttf
+        - asset: assets/fonts/NotoSans-Bold.ttf
           weight: 700
 
     # Noto Sans JP - Untuk dukungan karakter Jepang jika diperlukan
     - family: NotoSansJP
       fonts:
-        - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf
+        - asset: assets/fonts/NotoSansJP-Regular.ttf
           weight: 400
-        - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Medium.ttf
+        - asset: assets/fonts/NotoSansJP-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Bold.ttf
+        - asset: assets/fonts/NotoSansJP-Bold.ttf
           weight: 700
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
