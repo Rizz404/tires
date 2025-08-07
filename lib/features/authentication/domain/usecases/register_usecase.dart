@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
 
@@ -22,16 +23,46 @@ class RegisterUsecase
 }
 
 class RegisterParams extends Equatable {
-  final String username;
   final String email;
   final String password;
+  final String fullName;
+  final String fullNameKana;
+  final String phoneNumber;
+  final String? companyName;
+  final String? department;
+  final String? companyAddress;
+  final String? homeAddress;
+  final DateTime dateOfBirth;
+  final UserGender gender;
 
   const RegisterParams({
-    required this.username,
     required this.email,
     required this.password,
+    required this.fullName,
+    required this.fullNameKana,
+    required this.phoneNumber,
+    this.companyName,
+    this.department,
+    this.companyAddress,
+    this.homeAddress,
+    required this.dateOfBirth,
+    required this.gender,
   });
 
   @override
-  List<Object> get props => [username, email, password];
+  List<Object?> get props {
+    return [
+      email,
+      password,
+      fullName,
+      fullNameKana,
+      phoneNumber,
+      companyName,
+      department,
+      companyAddress,
+      homeAddress,
+      dateOfBirth,
+      gender,
+    ];
+  }
 }

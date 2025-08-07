@@ -9,6 +9,224 @@ class L10nEn extends L10n {
   L10nEn([String locale = 'en']) : super(locale);
 
   @override
+  String get registerBrandName => 'RESERVATION ID';
+
+  @override
+  String get registerTitle => 'Create Your Account';
+
+  @override
+  String get registerLabelFullName => 'Full Name';
+
+  @override
+  String get registerLabelFullNameKana => 'Full Name (Kana)';
+
+  @override
+  String get registerLabelEmail => 'Email Address';
+
+  @override
+  String get registerLabelPhoneNumber => 'Phone Number';
+
+  @override
+  String get registerLabelCompanyName => 'Company Name';
+
+  @override
+  String get registerLabelDepartment => 'Department';
+
+  @override
+  String get registerLabelCompanyAddress => 'Company Address';
+
+  @override
+  String get registerLabelHomeAddress => 'Home Address';
+
+  @override
+  String get registerLabelDateOfBirth => 'Date of Birth';
+
+  @override
+  String get registerLabelGender => 'Gender';
+
+  @override
+  String get registerLabelPassword => 'Password';
+
+  @override
+  String get registerLabelConfirmPassword => 'Confirm Password';
+
+  @override
+  String get registerPlaceholderFullName => 'e.g., John Doe';
+
+  @override
+  String get registerPlaceholderFullNameKana => 'e.g., JOHN DOE';
+
+  @override
+  String get registerPlaceholderEmail => 'example@reservation.be';
+
+  @override
+  String get registerPlaceholderPhoneNumber => 'e.g., 08012345678';
+
+  @override
+  String get registerPlaceholderCompanyName => 'e.g., Acme Corporation';
+
+  @override
+  String get registerPlaceholderDepartment => 'e.g., Sales';
+
+  @override
+  String get registerPlaceholderCompanyAddress => 'Enter company address';
+
+  @override
+  String get registerPlaceholderHomeAddress => 'Enter home address';
+
+  @override
+  String get registerPlaceholderPassword => 'Minimum 8 characters';
+
+  @override
+  String get registerPlaceholderConfirmPassword => 'Confirm your password';
+
+  @override
+  String get registerGenderSelect => 'Select gender';
+
+  @override
+  String get registerGenderMale => 'Male';
+
+  @override
+  String get registerGenderFemale => 'Female';
+
+  @override
+  String get registerGenderOther => 'Other';
+
+  @override
+  String get registerButton => 'Register';
+
+  @override
+  String get registerAlreadyHaveAccount =>
+      'Already have a RESERVATION account?';
+
+  @override
+  String get registerSignInLink => 'Sign in here';
+
+  @override
+  String get registerTermsAgreement =>
+      'By registering, you agree to our terms of service and privacy policy.';
+
+  @override
+  String get registerTermsOfServiceLink => 'Terms of Service';
+
+  @override
+  String get registerPrivacyPolicyLink => 'Privacy Policy';
+
+  @override
+  String get registerContactUsLink => 'Contact Us';
+
+  @override
+  String get registerCopyright => '© RESERVATION';
+
+  @override
+  String get loginTitle => 'RESERVATION ID';
+
+  @override
+  String get loginEmailLabel => 'Email Address*';
+
+  @override
+  String get loginEmailPlaceholder => 'example@reservation.be';
+
+  @override
+  String get loginPasswordLabel => 'Password*';
+
+  @override
+  String get loginPasswordPlaceholder => '••••••••';
+
+  @override
+  String get loginRememberMe => 'Remember me';
+
+  @override
+  String get loginForgotPassword => 'Forgot your password?';
+
+  @override
+  String get loginButton => 'Login';
+
+  @override
+  String get loginNoAccountPrompt => 'Don\'t have a RESERVATION account?';
+
+  @override
+  String get loginSignupLink => 'Sign up now';
+
+  @override
+  String get inquirySidebarLocation => 'Location';
+
+  @override
+  String get inquirySidebarOpeningHours => 'Opening Hours';
+
+  @override
+  String get inquirySidebarClosed => 'Closed';
+
+  @override
+  String get inquirySidebarAboutUs => 'About Us';
+
+  @override
+  String get inquirySidebarTermsOfUse => 'Terms of Use';
+
+  @override
+  String get inquiryDayMonday => 'Monday';
+
+  @override
+  String get inquiryDayTuesday => 'Tuesday';
+
+  @override
+  String get inquiryDayWednesday => 'Wednesday';
+
+  @override
+  String get inquiryDayThursday => 'Thursday';
+
+  @override
+  String get inquiryDayFriday => 'Friday';
+
+  @override
+  String get inquiryDaySaturday => 'Saturday';
+
+  @override
+  String get inquiryDaySunday => 'Sunday';
+
+  @override
+  String get inquiryFormTitle => 'Inquiry';
+
+  @override
+  String get inquiryFormName => 'Name *';
+
+  @override
+  String get inquiryFormEmail => 'Email Address *';
+
+  @override
+  String get inquiryFormPhone => 'Phone Number';
+
+  @override
+  String get inquiryFormSubject => 'Subject *';
+
+  @override
+  String get inquiryFormInquiryContent => 'Inquiry Content *';
+
+  @override
+  String get inquiryFormSubmitButton => 'Submit Inquiry';
+
+  @override
+  String get inquiryPlaceholderName => 'Tokyo Taro Barang';
+
+  @override
+  String get inquiryPlaceholderEmail => 'your@email.com';
+
+  @override
+  String get inquiryPlaceholderPhone => '00-0000-0000';
+
+  @override
+  String get inquiryPlaceholderMessage =>
+      'Please enter the content of your inquiry';
+
+  @override
+  String get inquirySuccessMessage =>
+      'Your inquiry has been sent successfully!';
+
+  @override
+  String get inquiryErrorMessage =>
+      'There was an error sending your inquiry. Please try again later.';
+
+  @override
   String get appName => 'Tire Installation Reservation';
 
   @override

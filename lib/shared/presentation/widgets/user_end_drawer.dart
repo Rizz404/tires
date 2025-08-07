@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
+import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/di/common_providers.dart';
 import 'package:tires/l10n_generated/app_localizations.dart';
 
@@ -16,9 +18,9 @@ class UserEndDrawer extends ConsumerWidget {
     final l10n = L10n.of(context)!;
 
     final Map<String, dynamic> userData = {
-      'username': 'Jamaludin',
-      'email': 'jamal.keren@example.com',
-      'profilePicture': 'https://i.pravatar.cc/150?u=a042581f4e29026704d',
+      // 'username': 'Jamaludin',
+      // 'email': 'jamal.keren@example.com',
+      // 'profilePicture': 'https://i.pravatar.cc/150?u=a042581f4e29026704d',
     };
     final bool isAuthenticated = userData.isNotEmpty;
 
@@ -165,7 +167,7 @@ class UserEndDrawer extends ConsumerWidget {
           _showLogoutDialog(context, l10n);
         } else {
           Navigator.of(context).pop();
-          print('Navigate to Login Screen');
+          context.router.push(LoginRoute());
         }
       },
       icon: Icon(isAuthenticated ? Icons.logout : Icons.login),

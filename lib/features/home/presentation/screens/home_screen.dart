@@ -33,17 +33,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final errorMessage = ref.watch(menuErrorProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const AppText('Menu Services', style: AppTextStyle.title),
-        actions: [
-          IconButton(
-            onPressed: () {
-              ref.read(menuNotifierProvider.notifier).refreshMenus();
-            },
-            icon: const Icon(Icons.refresh),
-          ),
-        ],
-      ),
       body: ScreenWrapper(
         child: _buildBody(menuState, isLoading, errorMessage),
       ),
