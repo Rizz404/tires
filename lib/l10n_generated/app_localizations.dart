@@ -525,6 +525,114 @@ abstract class L10n {
   /// **'There was an error sending your inquiry. Please try again later.'**
   String get inquiryErrorMessage;
 
+  /// No description provided for @profileShowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Profile'**
+  String get profileShowTitle;
+
+  /// No description provided for @profileEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get profileEditTitle;
+
+  /// No description provided for @profileSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated successfully!'**
+  String get profileSuccessMessage;
+
+  /// No description provided for @profilePersonalInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Information'**
+  String get profilePersonalInfoTitle;
+
+  /// No description provided for @profileLabelFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get profileLabelFullName;
+
+  /// No description provided for @profileLabelFullNameKana.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name (Kana)'**
+  String get profileLabelFullNameKana;
+
+  /// No description provided for @profileLabelEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Address'**
+  String get profileLabelEmail;
+
+  /// No description provided for @profileLabelPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get profileLabelPhone;
+
+  /// No description provided for @profileLabelDob.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of Birth'**
+  String get profileLabelDob;
+
+  /// No description provided for @profileLabelAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Address'**
+  String get profileLabelAddress;
+
+  /// No description provided for @profileChangePasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get profileChangePasswordTitle;
+
+  /// No description provided for @profileLabelCurrentPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Password'**
+  String get profileLabelCurrentPassword;
+
+  /// No description provided for @profileLabelNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get profileLabelNewPassword;
+
+  /// No description provided for @profileLabelConfirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm New Password'**
+  String get profileLabelConfirmPassword;
+
+  /// No description provided for @profileButtonEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get profileButtonEdit;
+
+  /// No description provided for @profileButtonChangePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get profileButtonChangePassword;
+
+  /// No description provided for @profileButtonCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get profileButtonCancel;
+
+  /// No description provided for @profileButtonSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get profileButtonSaveChanges;
+
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:

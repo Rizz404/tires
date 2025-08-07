@@ -227,6 +227,60 @@ class L10nEn extends L10n {
       'There was an error sending your inquiry. Please try again later.';
 
   @override
+  String get profileShowTitle => 'My Profile';
+
+  @override
+  String get profileEditTitle => 'Edit Profile';
+
+  @override
+  String get profileSuccessMessage => 'Profile updated successfully!';
+
+  @override
+  String get profilePersonalInfoTitle => 'Personal Information';
+
+  @override
+  String get profileLabelFullName => 'Full Name';
+
+  @override
+  String get profileLabelFullNameKana => 'Full Name (Kana)';
+
+  @override
+  String get profileLabelEmail => 'Email Address';
+
+  @override
+  String get profileLabelPhone => 'Phone Number';
+
+  @override
+  String get profileLabelDob => 'Date of Birth';
+
+  @override
+  String get profileLabelAddress => 'Home Address';
+
+  @override
+  String get profileChangePasswordTitle => 'Change Password';
+
+  @override
+  String get profileLabelCurrentPassword => 'Current Password';
+
+  @override
+  String get profileLabelNewPassword => 'New Password';
+
+  @override
+  String get profileLabelConfirmPassword => 'Confirm New Password';
+
+  @override
+  String get profileButtonEdit => 'Edit Profile';
+
+  @override
+  String get profileButtonChangePassword => 'Change Password';
+
+  @override
+  String get profileButtonCancel => 'Cancel';
+
+  @override
+  String get profileButtonSaveChanges => 'Save Changes';
+
+  @override
   String get appName => 'Tire Installation Reservation';
 
   @override

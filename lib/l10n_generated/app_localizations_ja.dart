@@ -223,6 +223,60 @@ class L10nJa extends L10n {
   String get inquiryErrorMessage => 'お問い合わせの送信中にエラーが発生しました。後でもう一度お試しください。';
 
   @override
+  String get profileShowTitle => 'マイプロフィール';
+
+  @override
+  String get profileEditTitle => 'プロフィール編集';
+
+  @override
+  String get profileSuccessMessage => 'プロフィールは正常に更新されました！';
+
+  @override
+  String get profilePersonalInfoTitle => '個人情報';
+
+  @override
+  String get profileLabelFullName => '氏名';
+
+  @override
+  String get profileLabelFullNameKana => '氏名 (フリガナ)';
+
+  @override
+  String get profileLabelEmail => 'メールアドレス';
+
+  @override
+  String get profileLabelPhone => '電話番号';
+
+  @override
+  String get profileLabelDob => '生年月日';
+
+  @override
+  String get profileLabelAddress => '住所';
+
+  @override
+  String get profileChangePasswordTitle => 'パスワードの変更';
+
+  @override
+  String get profileLabelCurrentPassword => '現在のパスワード';
+
+  @override
+  String get profileLabelNewPassword => '新しいパスワード';
+
+  @override
+  String get profileLabelConfirmPassword => '新しいパスワード（確認）';
+
+  @override
+  String get profileButtonEdit => 'プロフィールを編集';
+
+  @override
+  String get profileButtonChangePassword => 'パスワードを変更する';
+
+  @override
+  String get profileButtonCancel => 'キャンセル';
+
+  @override
+  String get profileButtonSaveChanges => '変更を保存';
+
+  @override
   String get appName => 'タイヤ取付予約';
 
   @override

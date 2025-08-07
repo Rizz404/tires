@@ -1,0 +1,21 @@
+{
+  "@@locale": "ja",
+  "profileShowTitle": "マイプロフィール",
+  "profileEditTitle": "プロフィール編集",
+  "profileSuccessMessage": "プロフィールは正常に更新されました！",
+  "profilePersonalInfoTitle": "個人情報",
+  "profileLabelFullName": "氏名",
+  "profileLabelFullNameKana": "氏名 (フリガナ)",
+  "profileLabelEmail": "メールアドレス",
+  "profileLabelPhone": "電話番号",
+  "profileLabelDob": "生年月日",
+  "profileLabelAddress": "住所",
+  "profileChangePasswordTitle": "パスワードの変更",
+  "profileLabelCurrentPassword": "現在のパスワード",
+  "profileLabelNewPassword": "新しいパスワード",
+  "profileLabelConfirmPassword": "新しいパスワード（確認）",
+  "profileButtonEdit": "プロフィールを編集",
+  "profileButtonChangePassword": "パスワードを変更する",
+  "profileButtonCancel": "キャンセル",
+  "profileButtonSaveChanges": "変更を保存"
+}

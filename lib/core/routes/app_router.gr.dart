@@ -11,6 +11,54 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [ConfirmReservationScreen]
+class ConfirmReservationRoute extends PageRouteInfo<void> {
+  const ConfirmReservationRoute({List<PageRouteInfo>? children})
+    : super(ConfirmReservationRoute.name, initialChildren: children);
+
+  static const String name = 'ConfirmReservationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ConfirmReservationScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ConfirmedReservationScreen]
+class ConfirmedReservationRoute extends PageRouteInfo<void> {
+  const ConfirmedReservationRoute({List<PageRouteInfo>? children})
+    : super(ConfirmedReservationRoute.name, initialChildren: children);
+
+  static const String name = 'ConfirmedReservationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ConfirmedReservationScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [CreateReservationScreen]
+class CreateReservationRoute extends PageRouteInfo<void> {
+  const CreateReservationRoute({List<PageRouteInfo>? children})
+    : super(CreateReservationRoute.name, initialChildren: children);
+
+  static const String name = 'CreateReservationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CreateReservationScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [HomeScreen]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
@@ -27,63 +75,51 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [ListReservationScreen]
-class ListReservationRoute extends PageRouteInfo<void> {
-  const ListReservationRoute({List<PageRouteInfo>? children})
-    : super(ListReservationRoute.name, initialChildren: children);
+/// [InquiryScreen]
+class InquiryRoute extends PageRouteInfo<void> {
+  const InquiryRoute({List<PageRouteInfo>? children})
+    : super(InquiryRoute.name, initialChildren: children);
 
-  static const String name = 'ListReservationRoute';
+  static const String name = 'InquiryRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ListReservationScreen();
+      return const InquiryScreen();
     },
   );
 }
 
 /// generated route for
 /// [LoginScreen]
-class LoginRoute extends PageRouteInfo<LoginRouteArgs> {
-  LoginRoute({Key? key, List<PageRouteInfo>? children})
-    : super(
-        LoginRoute.name,
-        args: LoginRouteArgs(key: key),
-        initialChildren: children,
-      );
+class LoginRoute extends PageRouteInfo<void> {
+  const LoginRoute({List<PageRouteInfo>? children})
+    : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<LoginRouteArgs>(
-        orElse: () => const LoginRouteArgs(),
-      );
-      return LoginScreen(key: args.key);
+      return const LoginScreen();
     },
   );
 }
 
-class LoginRouteArgs {
-  const LoginRouteArgs({this.key});
+/// generated route for
+/// [MyReservationsScreen]
+class MyReservationsRoute extends PageRouteInfo<void> {
+  const MyReservationsRoute({List<PageRouteInfo>? children})
+    : super(MyReservationsRoute.name, initialChildren: children);
 
-  final Key? key;
+  static const String name = 'MyReservationsRoute';
 
-  @override
-  String toString() {
-    return 'LoginRouteArgs{key: $key}';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    if (other is! LoginRouteArgs) return false;
-    return key == other.key;
-  }
-
-  @override
-  int get hashCode => key.hashCode;
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const MyReservationsScreen();
+    },
+  );
 }
 
 /// generated route for
@@ -104,46 +140,34 @@ class ProfileRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [RegisterScreen]
-class RegisterRoute extends PageRouteInfo<RegisterRouteArgs> {
-  RegisterRoute({Key? key, List<PageRouteInfo>? children})
-    : super(
-        RegisterRoute.name,
-        args: RegisterRouteArgs(key: key),
-        initialChildren: children,
-      );
+class RegisterRoute extends PageRouteInfo<void> {
+  const RegisterRoute({List<PageRouteInfo>? children})
+    : super(RegisterRoute.name, initialChildren: children);
 
   static const String name = 'RegisterRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<RegisterRouteArgs>(
-        orElse: () => const RegisterRouteArgs(),
-      );
-      return RegisterScreen(key: args.key);
+      return const RegisterScreen();
     },
   );
 }
 
-class RegisterRouteArgs {
-  const RegisterRouteArgs({this.key});
+/// generated route for
+/// [ReservationSummaryScreen]
+class ReservationSummaryRoute extends PageRouteInfo<void> {
+  const ReservationSummaryRoute({List<PageRouteInfo>? children})
+    : super(ReservationSummaryRoute.name, initialChildren: children);
 
-  final Key? key;
+  static const String name = 'ReservationSummaryRoute';
 
-  @override
-  String toString() {
-    return 'RegisterRouteArgs{key: $key}';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    if (other is! RegisterRouteArgs) return false;
-    return key == other.key;
-  }
-
-  @override
-  int get hashCode => key.hashCode;
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ReservationSummaryScreen();
+    },
+  );
 }
 
 /// generated route for

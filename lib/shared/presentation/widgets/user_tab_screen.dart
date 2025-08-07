@@ -16,7 +16,7 @@ class UserTabScreen extends StatelessWidget {
         return const UserAppBar();
       },
       endDrawer: const UserEndDrawer(),
-      routes: const [HomeRoute(), ListReservationRoute(), ProfileRoute()],
+      routes: const [HomeRoute(), MyReservationsRoute(), ProfileRoute()],
       bottomNavigationBuilder: (_, tabsRouter) {
         return NavigationBar(
           selectedIndex: tabsRouter.activeIndex,

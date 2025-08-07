@@ -14,7 +14,6 @@ class UserEndDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // GUNAKAN L10n GLOBAL, BUKAN SharedL10n
     final l10n = L10n.of(context)!;
 
     final Map<String, dynamic> userData = {
@@ -24,17 +23,42 @@ class UserEndDrawer extends ConsumerWidget {
     };
     final bool isAuthenticated = userData.isNotEmpty;
 
+    // Get current active tab index to determine which is active
+    final tabsRouter = AutoTabsRouter.of(context, watch: true);
+    final currentTabIndex = tabsRouter.activeIndex;
+
     final List<Map<String, dynamic>> userDrawerItems = [
-      {'icon': Icons.person, 'title': l10n.bottomNavProfile, 'isActive': true},
       {
-        'icon': Icons.food_bank,
-        'title': l10n.drawerItemFoods,
-        'isActive': false,
+        'icon': Icons.home_outlined,
+        'selectedIcon': Icons.home,
+        'title': l10n.bottomNavHome,
+        'isActive': currentTabIndex == 0,
+        'type': 'tab',
+        'tabIndex': 0,
       },
       {
-        'icon': Icons.receipt_long,
-        'title': l10n.drawerItemOrders,
+        'icon': Icons.dinner_dining_outlined,
+        'selectedIcon': Icons.dinner_dining,
+        'title': l10n.bottomNavReservations,
+        'isActive': currentTabIndex == 1,
+        'type': 'tab',
+        'tabIndex': 1,
+      },
+      {
+        'icon': Icons.person_outlined,
+        'selectedIcon': Icons.person,
+        'title': l10n.bottomNavProfile,
+        'isActive': currentTabIndex == 2,
+        'type': 'tab',
+        'tabIndex': 2,
+      },
+      {
+        'icon': Icons.help_outline,
+        'selectedIcon': Icons.help,
+        'title': 'Inquiry',
         'isActive': false,
+        'type': 'route',
+        'route': InquiryRoute(),
       },
     ];
 
@@ -52,11 +76,30 @@ class UserEndDrawer extends ConsumerWidget {
                     return _buildDrawerItem(
                       context,
                       icon: item['icon'],
+                      selectedIcon: item['selectedIcon'],
                       title: item['title'],
                       isActive: item['isActive'],
                       onTap: () {
-                        Navigator.of(context).pop();
-                        print('${item['title']} tapped');
+                        Navigator.of(context).pop(); // Close drawer first
+
+                        final itemType = item['type'] as String;
+
+                        switch (itemType) {
+                          case 'tab':
+                            // Navigate to tab
+                            final tabIndex = item['tabIndex'] as int;
+                            tabsRouter.setActiveIndex(tabIndex);
+                            break;
+                          case 'route':
+                            // Navigate to external route
+                            final route = item['route'];
+                            if (route != null) {
+                              context.router.push(route);
+                            }
+                            break;
+                          default:
+                            print('Unknown navigation type: $itemType');
+                        }
                       },
                     );
                   }).toList(),
@@ -77,7 +120,7 @@ class UserEndDrawer extends ConsumerWidget {
   Widget _buildDrawerHeader(
     BuildContext context,
     Map<String, dynamic>? userData,
-    L10n l10n, // Ganti tipe parameter
+    L10n l10n,
   ) {
     return Container(
       padding: const EdgeInsets.all(16.0),
@@ -159,14 +202,14 @@ class UserEndDrawer extends ConsumerWidget {
   Widget _buildAuthButton(
     BuildContext context,
     bool isAuthenticated,
-    L10n l10n, // Ganti tipe parameter
+    L10n l10n,
   ) {
     return ElevatedButton.icon(
       onPressed: () {
+        Navigator.of(context).pop(); // Close drawer first
         if (isAuthenticated) {
           _showLogoutDialog(context, l10n);
         } else {
-          Navigator.of(context).pop();
           context.router.push(LoginRoute());
         }
       },
@@ -178,14 +221,15 @@ class UserEndDrawer extends ConsumerWidget {
         backgroundColor: isAuthenticated
             ? context.colorScheme.error
             : context.colorScheme.primary,
-        foregroundColor: context.colorScheme.onPrimary,
+        foregroundColor: isAuthenticated
+            ? context.colorScheme.onError
+            : context.colorScheme.onPrimary,
         padding: const EdgeInsets.symmetric(vertical: 12),
       ),
     );
   }
 
   void _showLogoutDialog(BuildContext context, L10n l10n) {
-    // Ganti tipe parameter
     showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
@@ -206,8 +250,10 @@ class UserEndDrawer extends ConsumerWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(dialogContext).pop();
-                Navigator.of(context).pop();
+                // Implement actual logout logic here
                 print('Logout action & navigate to login');
+                // You might want to navigate to login after logout
+                // context.router.pushAndClearStack(LoginRoute());
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: context.colorScheme.error,
@@ -224,12 +270,14 @@ class UserEndDrawer extends ConsumerWidget {
   Widget _buildDrawerItem(
     BuildContext context, {
     required IconData icon,
+    IconData? selectedIcon,
     required String title,
     required bool isActive,
     required VoidCallback onTap,
   }) {
     final activeColor = context.colorScheme.primary;
     final inactiveColor = context.colorScheme.onSurface.withOpacity(0.7);
+    final displayIcon = isActive && selectedIcon != null ? selectedIcon : icon;
 
     if (Platform.isIOS) {
       return Padding(
@@ -237,7 +285,10 @@ class UserEndDrawer extends ConsumerWidget {
         child: CupertinoListTile(
           backgroundColor: isActive ? activeColor.withOpacity(0.1) : null,
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          leading: Icon(icon, color: isActive ? activeColor : inactiveColor),
+          leading: Icon(
+            displayIcon,
+            color: isActive ? activeColor : inactiveColor,
+          ),
           title: Text(
             title,
             style: context.textTheme.bodyLarge?.copyWith(
@@ -256,7 +307,10 @@ class UserEndDrawer extends ConsumerWidget {
       elevation: 0,
       margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
       child: ListTile(
-        leading: Icon(icon, color: isActive ? activeColor : inactiveColor),
+        leading: Icon(
+          displayIcon,
+          color: isActive ? activeColor : inactiveColor,
+        ),
         title: Text(
           title,
           style: context.textTheme.bodyMedium?.copyWith(
@@ -273,7 +327,7 @@ class UserEndDrawer extends ConsumerWidget {
   Widget _buildLanguageSelector(
     BuildContext context,
     WidgetRef ref,
-    L10n l10n, // Ganti tipe parameter
+    L10n l10n,
   ) {
     return _buildDrawerItem(
       context,
@@ -287,7 +341,6 @@ class UserEndDrawer extends ConsumerWidget {
   }
 
   void _showLanguageDialog(BuildContext context, WidgetRef ref, L10n l10n) {
-    // Ganti tipe parameter
     showDialog(
       context: context,
       builder: (context) {
