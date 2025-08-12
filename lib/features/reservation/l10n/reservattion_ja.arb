@@ -46,5 +46,19 @@
     "timeHour": "時間",
     "timeHours": "時間",
     "timeMinute": "分",
-    "timeMinutes": "分"
+    "timeMinutes": "分",
+    "reservationStatusConfirmed": "確定済み",
+    "reservationStatusPending": "保留中",
+    "reservationStatusCompleted": "完了",
+    "reservationStatusCancelled": "キャンセル済み",
+    "reservationItemLabelDate": "日付",
+    "reservationItemLabelTime": "時間",
+    "reservationItemLabelPeople": "人数",
+    "reservationItemLabelNotes": "備考",
+    "reservationItemPeopleUnit": "名",
+    "reservationItemCancelButton": "予約をキャンセル",
+    "dateToday": "今日",
+    "dateTomorrow": "明日",
+    "myReservationMainTitle": "マイ予約",
+    "myReservationMainSubTitle": "すべての予約を一か所で管理・確認できます。"
 }

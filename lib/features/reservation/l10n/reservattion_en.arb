@@ -46,5 +46,20 @@
     "timeHour": "hour",
     "timeHours": "hours",
     "timeMinute": "minute",
-    "timeMinutes": "minutes"
+    "timeMinutes": "minutes",
+    "reservationStatusConfirmed": "Confirmed",
+    "reservationStatusPending": "Pending",
+    "reservationStatusCompleted": "Completed",
+    "reservationStatusCancelled": "Cancelled",
+    "reservationItemLabelDate": "Date",
+    "reservationItemLabelTime": "Time",
+    "reservationItemLabelPeople": "People",
+    "reservationItemLabelNotes": "Notes",
+    "reservationItemPeopleUnit": "people",
+    "reservationItemCancelButton": "Cancel Reservation",
+    "dateToday": "Today",
+    "dateTomorrow": "Tomorrow",
+    "myReservationMainTitle":"My Reservations",
+    "myReservationMainSubTitle":"Manage and view all your reservations in one place."
 }
+

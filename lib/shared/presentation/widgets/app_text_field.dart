@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-enum AppTextFieldType { email, password, text }
+enum AppTextFieldType { email, password, text, phone }
 
 class AppTextField extends StatefulWidget {
   final String name;
   final String label;
   final String? placeHolder;
   final AppTextFieldType type;
+  final int? maxLines;
   final String? Function(String?)? validator;
 
   const AppTextField({
     super.key,
     required this.name,
     required this.label,
-    this.placeHolder,
+    this.placeHolder, // Diubah dari placeHolder menjadi placeHolder
     this.type = AppTextFieldType.text,
+    this.maxLines,
     this.validator,
   });
 
@@ -28,18 +30,30 @@ class _AppTextFieldState extends State<AppTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final isPassword = widget.type == AppTextFieldType.password;
+
+    // Menentukan keyboard type berdasarkan enum
+    TextInputType getKeyboardType() {
+      switch (widget.type) {
+        case AppTextFieldType.email:
+          return TextInputType.emailAddress;
+        case AppTextFieldType.phone:
+          return TextInputType.phone;
+        default:
+          return TextInputType.text;
+      }
+    }
+
     return FormBuilderTextField(
       name: widget.name,
-      obscureText: widget.type == AppTextFieldType.password
-          ? _obscureText
-          : false,
-      keyboardType: widget.type == AppTextFieldType.email
-          ? TextInputType.emailAddress
-          : TextInputType.text,
+      maxLines: isPassword ? 1 : widget.maxLines,
+      obscureText: isPassword ? _obscureText : false,
+      keyboardType: getKeyboardType(),
       decoration: InputDecoration(
         labelText: widget.label,
-        hintText: widget.placeHolder,
-        suffixIcon: widget.type == AppTextFieldType.password
+        hintText:
+            widget.placeHolder, // Menggunakan properti placeHolder yang baru
+        suffixIcon: isPassword
             ? IconButton(
                 icon: Icon(
                   _obscureText ? Icons.visibility_off : Icons.visibility,

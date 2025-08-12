@@ -375,6 +375,12 @@ abstract class L10n {
   /// **'Sign up now'**
   String get loginSignupLink;
 
+  /// No description provided for @homePrimaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Our Service'**
+  String get homePrimaryTitle;
+
   /// No description provided for @inquirySidebarLocation.
   ///
   /// In en, this message translates to:
@@ -914,6 +920,90 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'minutes'**
   String get timeMinutes;
+
+  /// No description provided for @reservationStatusConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed'**
+  String get reservationStatusConfirmed;
+
+  /// No description provided for @reservationStatusPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get reservationStatusPending;
+
+  /// No description provided for @reservationStatusCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get reservationStatusCompleted;
+
+  /// No description provided for @reservationStatusCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get reservationStatusCancelled;
+
+  /// No description provided for @reservationItemLabelDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get reservationItemLabelDate;
+
+  /// No description provided for @reservationItemLabelTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get reservationItemLabelTime;
+
+  /// No description provided for @reservationItemLabelPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'People'**
+  String get reservationItemLabelPeople;
+
+  /// No description provided for @reservationItemLabelNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get reservationItemLabelNotes;
+
+  /// No description provided for @reservationItemPeopleUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'people'**
+  String get reservationItemPeopleUnit;
+
+  /// No description provided for @reservationItemCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Reservation'**
+  String get reservationItemCancelButton;
+
+  /// No description provided for @dateToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get dateToday;
+
+  /// No description provided for @dateTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get dateTomorrow;
+
+  /// No description provided for @myReservationMainTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Reservations'**
+  String get myReservationMainTitle;
+
+  /// No description provided for @myReservationMainSubTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage and view all your reservations in one place.'**
+  String get myReservationMainSubTitle;
 
   /// No description provided for @appName.
   ///

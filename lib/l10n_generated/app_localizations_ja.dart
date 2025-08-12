@@ -148,6 +148,9 @@ class L10nJa extends L10n {
   String get loginSignupLink => '今すぐ会員登録する';
 
   @override
+  String get homePrimaryTitle => '私たちのサービス';
+
+  @override
   String get inquirySidebarLocation => '所在地';
 
   @override
@@ -417,6 +420,48 @@ class L10nJa extends L10n {
 
   @override
   String get timeMinutes => '分';
+
+  @override
+  String get reservationStatusConfirmed => '確定済み';
+
+  @override
+  String get reservationStatusPending => '保留中';
+
+  @override
+  String get reservationStatusCompleted => '完了';
+
+  @override
+  String get reservationStatusCancelled => 'キャンセル済み';
+
+  @override
+  String get reservationItemLabelDate => '日付';
+
+  @override
+  String get reservationItemLabelTime => '時間';
+
+  @override
+  String get reservationItemLabelPeople => '人数';
+
+  @override
+  String get reservationItemLabelNotes => '備考';
+
+  @override
+  String get reservationItemPeopleUnit => '名';
+
+  @override
+  String get reservationItemCancelButton => '予約をキャンセル';
+
+  @override
+  String get dateToday => '今日';
+
+  @override
+  String get dateTomorrow => '明日';
+
+  @override
+  String get myReservationMainTitle => 'マイ予約';
+
+  @override
+  String get myReservationMainSubTitle => 'すべての予約を一か所で管理・確認できます。';
 
   @override
   String get appName => 'タイヤ取付予約';

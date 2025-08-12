@@ -1,5 +1,8 @@
+// file: lib/features/reservation/presentation/widgets/reservation_item.dart
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/theme/app_theme.dart';
 import 'package:tires/features/user/domain/entities/reservation.dart';
@@ -60,20 +63,26 @@ class ReservationItem extends StatelessWidget {
               const SizedBox(height: 8),
               Row(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: context.colorScheme.tertiary,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: AppText(
-                      '#${reservation.reservationNumber}',
-                      style: AppTextStyle.labelSmall,
-                      color: context.colorScheme.primary,
-                      fontWeight: FontWeight.w500,
+                  // --- PERBAIKAN OVERFLOW ---
+                  // Bungkus dengan Flexible agar bisa menyusut jika ruang terbatas.
+                  Flexible(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: context.colorScheme.tertiary,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: AppText(
+                        '#${reservation.reservationNumber}',
+                        style: AppTextStyle.labelSmall,
+                        color: context.colorScheme.primary,
+                        fontWeight: FontWeight.w500,
+                        overflow: TextOverflow
+                            .ellipsis, // Cegah teks overflow di dalam chip
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -84,7 +93,7 @@ class ReservationItem extends StatelessWidget {
                   ),
                   const SizedBox(width: 4),
                   AppText(
-                    '${reservation.menu.requiredTime} minutes',
+                    '${reservation.menu.requiredTime} ${context.l10n.timeMinutes}',
                     style: AppTextStyle.bodySmall,
                     color: context.colorScheme.onSurface.withOpacity(0.6),
                   ),
@@ -100,6 +109,7 @@ class ReservationItem extends StatelessWidget {
   }
 
   Widget _buildStatusBadge(BuildContext context, ReservationStatus status) {
+    final l10n = context.l10n;
     Color backgroundColor;
     Color textColor;
     String text;
@@ -108,22 +118,22 @@ class ReservationItem extends StatelessWidget {
       case ReservationStatus.confirmed:
         backgroundColor = AppTheme.success.withOpacity(0.15);
         textColor = AppTheme.success;
-        text = 'Confirmed';
+        text = l10n.reservationStatusConfirmed;
         break;
       case ReservationStatus.pending:
         backgroundColor = AppTheme.warning.withOpacity(0.15);
         textColor = AppTheme.warning;
-        text = 'Pending';
+        text = l10n.reservationStatusPending;
         break;
       case ReservationStatus.completed:
         backgroundColor = context.colorScheme.primary.withOpacity(0.15);
         textColor = context.colorScheme.primary;
-        text = 'Completed';
+        text = l10n.reservationStatusCompleted;
         break;
       case ReservationStatus.cancelled:
         backgroundColor = context.colorScheme.error.withOpacity(0.1);
         textColor = context.colorScheme.error;
-        text = 'Cancelled';
+        text = l10n.reservationStatusCancelled;
         break;
     }
 
@@ -144,6 +154,7 @@ class ReservationItem extends StatelessWidget {
 
   Widget _buildExpandedDetails(BuildContext context) {
     final locale = Localizations.localeOf(context).toString();
+    final l10n = context.l10n;
     return AnimatedCrossFade(
       firstChild: const SizedBox.shrink(),
       secondChild: Column(
@@ -152,7 +163,7 @@ class ReservationItem extends StatelessWidget {
           _buildDetailRowWithIcon(
             context,
             icon: Icons.calendar_today,
-            label: 'Date',
+            label: l10n.reservationItemLabelDate,
             value: DateFormat.yMMMMd(
               locale,
             ).format(reservation.reservationDatetime),
@@ -160,7 +171,7 @@ class ReservationItem extends StatelessWidget {
           _buildDetailRowWithIcon(
             context,
             icon: Icons.access_time_filled,
-            label: 'Time',
+            label: l10n.reservationItemLabelTime,
             value: DateFormat.Hm(
               locale,
             ).format(reservation.reservationDatetime),
@@ -168,14 +179,15 @@ class ReservationItem extends StatelessWidget {
           _buildDetailRowWithIcon(
             context,
             icon: Icons.people,
-            label: 'People',
-            value: '${reservation.numberOfPeople} people',
+            label: l10n.reservationItemLabelPeople,
+            value:
+                '${reservation.numberOfPeople} ${l10n.reservationItemPeopleUnit}',
           ),
           if (reservation.notes != null && reservation.notes!.isNotEmpty)
             _buildDetailRowWithIcon(
               context,
               icon: Icons.notes,
-              label: 'Notes',
+              label: l10n.reservationItemLabelNotes,
               value: reservation.notes!,
             ),
           if (reservation.status == ReservationStatus.pending ||
@@ -185,7 +197,7 @@ class ReservationItem extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: AppButton(
-                  text: 'Cancel Reservation',
+                  text: l10n.reservationItemCancelButton,
                   color: AppButtonColor.error,
                   onPressed: () {
                     // TODO: Implement cancel logic

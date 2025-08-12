@@ -1,3 +1,6 @@
+// file: lib/features/home/presentation/widgets/menu_tile.dart
+// Alternative solution keeping the original layout
+
 import 'package:flutter/material.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
@@ -16,77 +19,86 @@ class MenuTile extends StatelessWidget {
     final l10n = context.l10n;
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      elevation: 2,
-      shadowColor: context.theme.shadowColor.withOpacity(0.05),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 0,
+      shadowColor: Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(
+          color: Colors.grey.withOpacity(0.15), // border tipis
+          width: 1,
+        ),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Bagian Kiri: Nama menu dan waktu (Fleksibel)
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText(
-                        menu.name,
-                        style: AppTextStyle.titleMedium,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      const SizedBox(height: 4),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.access_time,
-                            size: 16,
-                            color: context.colorScheme.onSurface.withOpacity(
-                              0.6,
+            // Header with name and time
+            IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppText(
+                          menu.name,
+                          style: AppTextStyle.titleMedium,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.access_time,
+                              size: 16,
+                              color: context.colorScheme.onSurface.withOpacity(
+                                0.6,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 4),
-                          AppText(
-                            _formatTime(context, menu.requiredTime),
-                            style: AppTextStyle.bodySmall,
-                            color: context.colorScheme.onSurface.withOpacity(
-                              0.6,
+                            const SizedBox(width: 4),
+                            Flexible(
+                              child: AppText(
+                                _formatTime(context, menu.requiredTime),
+                                style: AppTextStyle.bodySmall,
+                                color: context.colorScheme.onSurface
+                                    .withOpacity(0.6),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                // Bagian Kanan: Harga dan tombol (Ukuran Natural)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    AppText(
-                      menu.price.formatted,
-                      style: AppTextStyle.titleMedium,
-                      fontWeight: FontWeight.bold,
-                      color: context.colorScheme.primary,
+                  const SizedBox(width: 16),
+                  // Price and Book Button - Using IntrinsicWidth to avoid infinite width
+                  IntrinsicWidth(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AppText(
+                          menu.price.formatted,
+                          style: AppTextStyle.titleMedium,
+                          fontWeight: FontWeight.bold,
+                          color: context.colorScheme.primary,
+                        ),
+                        const SizedBox(height: 8),
+                        AppButton(
+                          text: l10n.menuBookButton,
+                          onPressed: menu.isActive ? onBookPressed : null,
+                          color: AppButtonColor.primary,
+                          size: AppButtonSize.small,
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 8),
-                    // --- PERBAIKAN UTAMA ---
-                    // Hapus SizedBox yang membatasi lebar tombol.
-                    // Biarkan AppButton menentukan ukurannya sendiri.
-                    AppButton(
-                      text: l10n.menuBookButton,
-                      onPressed: menu.isActive ? onBookPressed : null,
-                      color: AppButtonColor.primary,
-                      size: AppButtonSize.small,
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
 
-            // Deskripsi (jika ada)
+            // Description (if any)
             if (menu.description != null && menu.description!.isNotEmpty) ...[
               const Divider(height: 24),
               AppText(
@@ -96,7 +108,7 @@ class MenuTile extends StatelessWidget {
               ),
             ],
 
-            // Indikator status jika tidak aktif
+            // Status indicator if not active
             if (!menu.isActive) ...[
               const SizedBox(height: 12),
               Container(

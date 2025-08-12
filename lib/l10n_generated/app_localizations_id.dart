@@ -149,6 +149,9 @@ class L10nId extends L10n {
   String get loginSignupLink => 'Sign up now';
 
   @override
+  String get homePrimaryTitle => 'Our Service';
+
+  @override
   String get inquirySidebarLocation => 'Location';
 
   @override
@@ -440,6 +443,49 @@ class L10nId extends L10n {
 
   @override
   String get timeMinutes => 'minutes';
+
+  @override
+  String get reservationStatusConfirmed => 'Confirmed';
+
+  @override
+  String get reservationStatusPending => 'Pending';
+
+  @override
+  String get reservationStatusCompleted => 'Completed';
+
+  @override
+  String get reservationStatusCancelled => 'Cancelled';
+
+  @override
+  String get reservationItemLabelDate => 'Date';
+
+  @override
+  String get reservationItemLabelTime => 'Time';
+
+  @override
+  String get reservationItemLabelPeople => 'People';
+
+  @override
+  String get reservationItemLabelNotes => 'Notes';
+
+  @override
+  String get reservationItemPeopleUnit => 'people';
+
+  @override
+  String get reservationItemCancelButton => 'Cancel Reservation';
+
+  @override
+  String get dateToday => 'Today';
+
+  @override
+  String get dateTomorrow => 'Tomorrow';
+
+  @override
+  String get myReservationMainTitle => 'My Reservations';
+
+  @override
+  String get myReservationMainSubTitle =>
+      'Manage and view all your reservations in one place.';
 
   @override
   String get appName => 'Tire Installation Reservation';

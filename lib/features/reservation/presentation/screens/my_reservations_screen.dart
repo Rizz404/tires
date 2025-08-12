@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
@@ -21,7 +23,6 @@ class MyReservationsScreen extends StatefulWidget {
 class _MyReservationsScreenState extends State<MyReservationsScreen> {
   String? _expandedReservationId;
 
-  // Mock data for demonstration with complete fields
   final List<Reservation> _mockReservations = [
     Reservation(
       id: 1,
@@ -107,35 +108,14 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
     return Scaffold(
       endDrawer: const UserEndDrawer(),
       body: ScreenWrapper(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(context),
-              const SizedBox(height: 16),
-              _buildStatsCard(context),
-              const SizedBox(height: 16),
-              ..._mockReservations.map((reservation) {
-                return ReservationItem(
-                  reservation: reservation,
-                  isExpanded:
-                      _expandedReservationId == reservation.reservationNumber,
-                  onTap: () {
-                    setState(() {
-                      if (_expandedReservationId ==
-                          reservation.reservationNumber) {
-                        _expandedReservationId =
-                            null; // Collapse if already expanded
-                      } else {
-                        _expandedReservationId =
-                            reservation.reservationNumber; // Expand new one
-                      }
-                    });
-                  },
-                );
-              }).toList(),
-            ],
-          ),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(child: _buildHeader(context)),
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
+            SliverToBoxAdapter(child: _buildStatsCard(context)),
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
+            _buildReservationList(context), // Gunakan SliverList untuk daftar
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -147,20 +127,103 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
     );
   }
 
+  // Method untuk membuat daftar reservasi dengan header tanggal
+  Widget _buildReservationList(BuildContext context) {
+    if (_mockReservations.isEmpty) {
+      return const SliverToBoxAdapter(
+        child: Center(child: AppText('No reservations found.')),
+      );
+    }
+
+    // Urutkan reservasi dari yang terbaru ke terlama
+    final sortedReservations = List<Reservation>.from(_mockReservations)
+      ..sort((a, b) => b.reservationDatetime.compareTo(a.reservationDatetime));
+
+    return SliverList(
+      delegate: SliverChildBuilderDelegate((context, index) {
+        final reservation = sortedReservations[index];
+        final bool isFirst = index == 0;
+        final bool isNewDay =
+            !isFirst &&
+            !DateUtils.isSameDay(
+              sortedReservations[index - 1].reservationDatetime,
+              reservation.reservationDatetime,
+            );
+
+        if (isFirst || isNewDay) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildDateHeader(context, reservation.reservationDatetime),
+              _buildReservationItem(reservation),
+            ],
+          );
+        }
+        return _buildReservationItem(reservation);
+      }, childCount: sortedReservations.length),
+    );
+  }
+
+  // Helper untuk membuat item reservasi
+  Widget _buildReservationItem(Reservation reservation) {
+    return ReservationItem(
+      reservation: reservation,
+      isExpanded: _expandedReservationId == reservation.reservationNumber,
+      onTap: () {
+        setState(() {
+          if (_expandedReservationId == reservation.reservationNumber) {
+            _expandedReservationId = null;
+          } else {
+            _expandedReservationId = reservation.reservationNumber;
+          }
+        });
+      },
+    );
+  }
+
+  // Helper untuk membuat header tanggal
+  Widget _buildDateHeader(BuildContext context, DateTime date) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final tomorrow = today.add(const Duration(days: 1));
+    final itemDate = DateTime(date.year, date.month, date.day);
+
+    String headerText;
+    final l10n = context.l10n;
+    final locale = Localizations.localeOf(context).toString();
+
+    if (itemDate == today) {
+      headerText = l10n.dateToday;
+    } else if (itemDate == tomorrow) {
+      headerText = l10n.dateTomorrow;
+    } else {
+      headerText = DateFormat.yMMMMd(locale).format(date);
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 16, bottom: 8, left: 4),
+      child: AppText(
+        headerText,
+        style: AppTextStyle.titleMedium,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
   Widget _buildHeader(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const AppText(
-            'My Reservations',
+          AppText(
+            context.l10n.myReservationMainTitle,
             style: AppTextStyle.headlineMedium,
             fontWeight: FontWeight.bold,
           ),
           const SizedBox(height: 4),
           AppText(
-            'Manage and view all your reservations in one place.',
+            context.l10n.myReservationMainSubTitle,
             style: AppTextStyle.bodyLarge,
             color: context.colorScheme.onSurface.withOpacity(0.7),
           ),
@@ -190,8 +253,16 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
               count: _mockReservations.length,
               label: 'Total Reservations',
             ),
-            _buildStatItem(context, count: pendingCount, label: 'Pending'),
-            _buildStatItem(context, count: confirmedCount, label: 'Confirmed'),
+            _buildStatItem(
+              context,
+              count: pendingCount,
+              label: context.l10n.reservationStatusPending,
+            ),
+            _buildStatItem(
+              context,
+              count: confirmedCount,
+              label: context.l10n.reservationStatusConfirmed,
+            ),
           ],
         ),
       ),

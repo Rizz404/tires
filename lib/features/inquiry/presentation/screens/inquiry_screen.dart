@@ -1,26 +1,20 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
-import 'package:tires/core/routes/app_router.dart';
-import 'package:tires/features/authentication/domain/usecases/register_usecase.dart';
-import 'package:tires/features/authentication/presentation/providers/auth_providers.dart';
+import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/features/authentication/presentation/providers/auth_state.dart';
-import 'package:tires/features/authentication/presentation/validations/auth_validators.dart';
-import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:tires/shared/presentation/utils/app_toast.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
-import 'package:tires/shared/presentation/widgets/app_checkbox.dart';
-import 'package:tires/shared/presentation/widgets/app_date_time_picker.dart';
-import 'package:tires/shared/presentation/widgets/app_radio_group.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/app_text_field.dart';
 import 'package:tires/shared/presentation/widgets/error_summary_box.dart';
 import 'package:tires/shared/presentation/widgets/loading_overlay.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
+import 'package:tires/shared/presentation/widgets/user_end_drawer.dart';
 
 @RoutePage()
 class InquiryScreen extends ConsumerStatefulWidget {
@@ -41,48 +35,34 @@ class _InquiryScreenState extends ConsumerState<InquiryScreen> {
 
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       final values = _formKey.currentState!.value;
-      final params = RegisterParams(
-        fullName: values['fullName'],
-        fullNameKana: values['fullNameKana'],
-        email: values['email'],
-        phoneNumber: values['phoneNumber'],
-        companyName: values['companyName'],
-        password: values['password'],
-        gender: values['gender'],
-        dateOfBirth: values['dateOfBirth'],
-        homeAddress: values['homeAddress'],
-      );
-      // ref.read(authNotifierProvider.notifier).profile(params);
+      final params = {
+        'name': values['name'],
+        'email': values['email'],
+        'phoneNumber': values['phoneNumber'],
+        'subject': values['subject'],
+        'message': values['message'],
+      };
 
-      AppToast.showSuccess(context, message: "Registration Submitted!");
-      context.router.replace(LoginRoute());
-    } else {
-      AppToast.showError(
+      // Simulasi sukses
+      AppToast.showSuccess(
         context,
-        message: "Please correct the errors in the form.",
+        message: context.l10n.inquirySuccessMessage,
       );
+      _formKey.currentState?.reset();
+      FocusScope.of(context).unfocus(); // Tutup keyboard
+    } else {
+      AppToast.showError(context, message: context.l10n.inquiryErrorMessage);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(authNotifierProvider, (previous, next) {
-      if (next.status == AuthStatus.error && next.failure != null) {
-        if (next.failure is ValidationFailure) {
-          setState(() {
-            _validationErrors = (next.failure as ValidationFailure).errors;
-          });
-        } else {
-          AppToast.showError(context, message: next.failure!.message);
-        }
-      }
-    });
-
-    final authState = ref.watch(authNotifierProvider);
-    final theme = Theme.of(context);
+    final authState = AuthState(); // Placeholder
     final l10n = context.l10n;
 
     return Scaffold(
+      appBar: AppBar(title: Text(l10n.inquiryFormTitle)),
+      endDrawer: const UserEndDrawer(),
       body: LoadingOverlay(
         isLoading: authState.status == AuthStatus.loading,
         child: ScreenWrapper(
@@ -90,89 +70,57 @@ class _InquiryScreenState extends ConsumerState<InquiryScreen> {
             key: _formKey,
             child: ListView(
               children: [
+                // _buildOfficeInfo(context),
+                // const SizedBox(height: 32),
+                _buildSectionTitle(l10n.inquiryFormTitle),
                 if (_validationErrors != null && _validationErrors!.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 24),
                     child: ErrorSummaryBox(errors: _validationErrors!),
                   ),
-                _buildSectionTitle(l10n.profileShowTitle),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: AppText(
-                    context.l10n.profilePersonalInfoTitle,
-                    style: AppTextStyle.titleLarge,
-                  ),
-                ),
                 AppTextField(
-                  name: 'fullName',
-                  label: l10n.profileLabelFullName,
-                  validator: AuthValidators.fullName,
-                ),
-                const SizedBox(height: 16),
-                AppTextField(
-                  name: 'fullNameKana',
-                  label: l10n.profileLabelFullNameKana,
-                  validator: AuthValidators.fullNameKana,
+                  name: 'name',
+                  label: l10n.inquiryFormName,
+                  placeHolder: l10n.inquiryPlaceholderName,
+                  validator: FormBuilderValidators.required(),
                 ),
                 const SizedBox(height: 16),
                 AppTextField(
                   name: 'email',
-                  label: l10n.profileLabelEmail,
+                  label: l10n.inquiryFormEmail,
+                  placeHolder: l10n.inquiryPlaceholderEmail,
                   type: AppTextFieldType.email,
-                  validator: AuthValidators.email,
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(),
+                    FormBuilderValidators.email(),
+                  ]),
                 ),
                 const SizedBox(height: 16),
                 AppTextField(
                   name: 'phoneNumber',
-                  label: l10n.profileLabelPhone,
-                  validator: AuthValidators.phoneNumber,
-                ),
-                const SizedBox(height: 16),
-                AppDateTimePicker(
-                  name: 'dateOfBirth',
-                  label: l10n.profileLabelDob,
-                  inputType: InputType.date,
-                  validator: AuthValidators.dateOfBirth,
-                  lastDate: DateTime.now(),
+                  label: l10n.inquiryFormPhone,
+                  placeHolder: l10n.inquiryPlaceholderPhone,
+                  // Phone is optional, so no validator
                 ),
                 const SizedBox(height: 16),
                 AppTextField(
-                  name: 'homeAddress',
-                  label: l10n.profileLabelAddress,
-                ),
-                const SizedBox(height: 48),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: AppText(
-                    context.l10n.profileChangePasswordTitle,
-                    style: AppTextStyle.titleLarge,
-                  ),
-                ),
-                AppTextField(
-                  name: 'password',
-                  label: l10n.profileLabelNewPassword,
-                  type: AppTextFieldType.password,
-                  validator: AuthValidators.password,
+                  name: 'subject',
+                  label: l10n.inquiryFormSubject,
+                  validator: FormBuilderValidators.required(),
                 ),
                 const SizedBox(height: 16),
                 AppTextField(
-                  name: 'confirmPassword',
-                  label: l10n.profileLabelConfirmPassword,
-                  type: AppTextFieldType.password,
-                  validator: (value) {
-                    final password =
-                        _formKey.currentState?.fields['password']?.value;
-                    return AuthValidators.confirmPassword(password ?? '')(
-                      value,
-                    );
-                  },
+                  name: 'message',
+                  label: l10n.inquiryFormInquiryContent,
+                  placeHolder: l10n.inquiryPlaceholderMessage,
+                  maxLines: 6,
+                  validator: FormBuilderValidators.required(),
                 ),
                 const SizedBox(height: 24),
                 AppButton(
-                  text: l10n.profileButtonSaveChanges,
-                  color: AppButtonColor.secondary,
-                  isLoading: authState.status == AuthStatus.loading,
+                  text: l10n.inquiryFormSubmitButton,
                   onPressed: () => _handleSubmit(ref),
+                  isLoading: authState.status == AuthStatus.loading,
                 ),
                 const SizedBox(height: 24),
               ],
@@ -185,8 +133,68 @@ class _InquiryScreenState extends ConsumerState<InquiryScreen> {
 
   Widget _buildSectionTitle(String title) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0, top: 8.0),
-      child: AppText(title, style: AppTextStyle.headlineSmall),
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: AppText(
+        title,
+        style: AppTextStyle.headlineSmall,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
+
+  // Widget _buildOfficeInfo(BuildContext context) {
+  //   final l10n = context.l10n;
+  //   return Card(
+  //     elevation: 2,
+  //     shadowColor: context.theme.shadowColor.withOpacity(0.05),
+  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+  //     child: Padding(
+  //       padding: const EdgeInsets.all(16.0),
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           AppText(
+  //             l10n.inquirySidebarOpeningHours,
+  //             style: AppTextStyle.titleMedium,
+  //             fontWeight: FontWeight.bold,
+  //           ),
+  //           const SizedBox(height: 8),
+  //           _buildOpeningHourRow(l10n.inquiryDayMonday, '09:00 - 18:00'),
+  //           _buildOpeningHourRow(l10n.inquiryDayTuesday, '09:00 - 18:00'),
+  //           _buildOpeningHourRow(l10n.inquiryDayWednesday, '09:00 - 18:00'),
+  //           _buildOpeningHourRow(l10n.inquiryDayThursday, '09:00 - 18:00'),
+  //           _buildOpeningHourRow(l10n.inquiryDayFriday, '09:00 - 18:00'),
+  //           _buildOpeningHourRow(l10n.inquiryDaySaturday, '09:00 - 17:00'),
+  //           _buildOpeningHourRow(
+  //             l10n.inquiryDaySunday,
+  //             l10n.inquirySidebarClosed,
+  //             isClosed: true,
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget _buildOpeningHourRow(
+  //   String day,
+  //   String hours, {
+  //   bool isClosed = false,
+  // }) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(vertical: 4),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         AppText(day, style: AppTextStyle.bodyMedium),
+  //         AppText(
+  //           hours,
+  //           style: AppTextStyle.bodyMedium,
+  //           fontWeight: isClosed ? FontWeight.bold : FontWeight.normal,
+  //           color: isClosed ? context.colorScheme.error : null,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

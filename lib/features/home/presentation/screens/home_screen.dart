@@ -91,14 +91,20 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-    return CustomScrollView(
-      slivers: [
-        const SliverToBoxAdapter(child: HomeCarousel()),
-        const SliverToBoxAdapter(
-          child: AppText('Our Services', style: AppTextStyle.headlineSmall),
-        ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate((context, index) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Carousel
+          const HomeCarousel(),
+          const SizedBox(height: 24),
+
+          // Services Title
+          const AppText('Our Services', style: AppTextStyle.headlineSmall),
+          const SizedBox(height: 16),
+
+          // Menu List
+          ...List.generate(_staticMenus.length, (index) {
             final menu = _staticMenus[index];
             return MenuTile(
               menu: menu,
@@ -106,9 +112,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 context.router.push(CreateReservationRoute());
               },
             );
-          }, childCount: _staticMenus.length),
-        ),
-      ],
+          }),
+
+          const SizedBox(height: 80),
+        ],
+      ),
     );
   }
 }
