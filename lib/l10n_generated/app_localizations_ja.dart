@@ -277,6 +277,148 @@ class L10nJa extends L10n {
   String get profileButtonSaveChanges => '変更を保存';
 
   @override
+  String get createReservationNotesTitle => '予約に関する注意事項';
+
+  @override
+  String get createReservationNotesContent1 => '作業時間はあくまで目安です';
+
+  @override
+  String get createReservationNotesContent2 => '作業内容によっては時間がかかる場合があります';
+
+  @override
+  String get createReservationNotesContent3 => '予約の締め切り：前日の23:59まで';
+
+  @override
+  String get createReservationNotesContent4 => '確認後のキャンセルはできません';
+
+  @override
+  String get confirmReservationBannerTitle => '予約情報の確認';
+
+  @override
+  String get confirmReservationBannerSubtitle => '予約手続きの進め方を選択してください。';
+
+  @override
+  String get confirmReservationWelcomeBack => 'Rizzさん、ようこそ！';
+
+  @override
+  String get confirmReservationLoggedInAs => 'RESERVA会員としてログインしています。';
+
+  @override
+  String get confirmReservationInfoUsageWarning => 'この予約にはあなたの会員情報が使用されます。';
+
+  @override
+  String get confirmReservationContinueButton => 'このアカウントで続ける';
+
+  @override
+  String get reservationSummaryBannerTitle => '最終確認';
+
+  @override
+  String get reservationSummaryBannerSubtitle => '予約を完了する前に、詳細をよくご確認ください。';
+
+  @override
+  String get reservationSummaryServiceDetailsTitle => 'サービス詳細';
+
+  @override
+  String get reservationSummaryCustomerInfoTitle => 'お客様情報';
+
+  @override
+  String get reservationSummaryLabelService => 'サービス';
+
+  @override
+  String get reservationSummaryLabelDuration => '所要時間';
+
+  @override
+  String get reservationSummaryLabelDate => '日付';
+
+  @override
+  String get reservationSummaryLabelTime => '時間';
+
+  @override
+  String get reservationSummaryLabelName => '氏名';
+
+  @override
+  String get reservationSummaryLabelNameKana => '氏名 (カナ)';
+
+  @override
+  String get reservationSummaryLabelEmail => 'メールアドレス';
+
+  @override
+  String get reservationSummaryLabelPhone => '電話番号';
+
+  @override
+  String get reservationSummaryLabelStatus => 'ステータス';
+
+  @override
+  String get reservationSummaryNotesTitle => '重要事項';
+
+  @override
+  String get reservationSummaryNotesContent1 => '予約時間の5分前までにお越しください。';
+
+  @override
+  String get reservationSummaryNotesContent2 => '確定後のキャンセルはできません。';
+
+  @override
+  String get reservationSummaryNotesContent3 => '予約の変更は、少なくとも24時間前までにお願いします。';
+
+  @override
+  String get reservationSummaryNotesContent4 =>
+      '必要に応じて、本人確認のため有効な身分証明書をご持参ください。';
+
+  @override
+  String get reservationSummaryTermsAndCondition => '利用規約に同意します ';
+
+  @override
+  String get reservationSummaryPrivacyPolicy => 'そしてプライバシーポリシー';
+
+  @override
+  String get confirmedReservationBannerTitle => '予約が確定しました！';
+
+  @override
+  String get confirmedReservationBannerSubtitle => 'ご予約が正常に送信されました。';
+
+  @override
+  String get confirmedReservationYourReservationNumber => 'あなたの予約番号';
+
+  @override
+  String get confirmedReservationWhatsNextTitle => '次のステップ';
+
+  @override
+  String get confirmedReservationWhatsNext1 => '確認メールがあなたのメールアドレスに送信されました。';
+
+  @override
+  String get confirmedReservationWhatsNext2 => '予約時間の5分前にはお越しください。';
+
+  @override
+  String get confirmedReservationWhatsNext3 => '本人確認のため、有効な身分証明書をご持参ください。';
+
+  @override
+  String get confirmedReservationWhatsNext4 => '変更が必要な場合は、お問い合わせください。';
+
+  @override
+  String get confirmedReservationViewMyReservationsButton => '予約一覧を見る';
+
+  @override
+  String get confirmedReservationBackToHomeButton => 'ホームに戻る';
+
+  @override
+  String get menuBookButton => '予約する';
+
+  @override
+  String get menuUnavailableStatus => '現在利用不可';
+
+  @override
+  String get timeHour => '時間';
+
+  @override
+  String get timeHours => '時間';
+
+  @override
+  String get timeMinute => '分';
+
+  @override
+  String get timeMinutes => '分';
+
+  @override
   String get appName => 'タイヤ取付予約';
 
   @override
@@ -298,12 +440,6 @@ class L10nJa extends L10n {
   String get drawerGuestLoginPrompt => '続行するにはログインしてください';
 
   @override
-  String get drawerItemFoods => '食品';
-
-  @override
-  String get drawerItemOrders => '注文';
-
-  @override
   String get drawerItemLanguage => '言語';
 
   @override
@@ -320,6 +456,9 @@ class L10nJa extends L10n {
 
   @override
   String get drawerActionCancel => 'キャンセル';
+
+  @override
+  String get drawerItemInquiry => 'お問い合わせ';
 
   @override
   String get dialogTitleSelectLanguage => '言語を選択';

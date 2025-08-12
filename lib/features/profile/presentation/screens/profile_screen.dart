@@ -186,7 +186,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Widget _buildSectionTitle(String title) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0, top: 8.0),
-      child: AppText(title, style: AppTextStyle.headline),
+      child: AppText(title, style: AppTextStyle.headlineSmall),
     );
   }
 }

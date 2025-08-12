@@ -633,6 +633,288 @@ abstract class L10n {
   /// **'Save Changes'**
   String get profileButtonSaveChanges;
 
+  /// No description provided for @createReservationNotesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Notes'**
+  String get createReservationNotesTitle;
+
+  /// No description provided for @createReservationNotesContent1.
+  ///
+  /// In en, this message translates to:
+  /// **'The work time is an approximate guide'**
+  String get createReservationNotesContent1;
+
+  /// No description provided for @createReservationNotesContent2.
+  ///
+  /// In en, this message translates to:
+  /// **'Please note that it may take some time depending on the work content'**
+  String get createReservationNotesContent2;
+
+  /// No description provided for @createReservationNotesContent3.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation deadline: Until 23:59 one day before'**
+  String get createReservationNotesContent3;
+
+  /// No description provided for @createReservationNotesContent4.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancellation not allowed after confirmation'**
+  String get createReservationNotesContent4;
+
+  /// No description provided for @confirmReservationBannerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Information'**
+  String get confirmReservationBannerTitle;
+
+  /// No description provided for @confirmReservationBannerSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please choose how you would like to proceed with your reservation.'**
+  String get confirmReservationBannerSubtitle;
+
+  /// No description provided for @confirmReservationWelcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back, Rizz!'**
+  String get confirmReservationWelcomeBack;
+
+  /// No description provided for @confirmReservationLoggedInAs.
+  ///
+  /// In en, this message translates to:
+  /// **'You are logged in as a RESERVA member.'**
+  String get confirmReservationLoggedInAs;
+
+  /// No description provided for @confirmReservationInfoUsageWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Your member information will be used for this reservation.'**
+  String get confirmReservationInfoUsageWarning;
+
+  /// No description provided for @confirmReservationContinueButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with This Account'**
+  String get confirmReservationContinueButton;
+
+  /// No description provided for @reservationSummaryBannerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Final Confirmation'**
+  String get reservationSummaryBannerTitle;
+
+  /// No description provided for @reservationSummaryBannerSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please review your reservation details carefully before completing the booking.'**
+  String get reservationSummaryBannerSubtitle;
+
+  /// No description provided for @reservationSummaryServiceDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Details'**
+  String get reservationSummaryServiceDetailsTitle;
+
+  /// No description provided for @reservationSummaryCustomerInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Information'**
+  String get reservationSummaryCustomerInfoTitle;
+
+  /// No description provided for @reservationSummaryLabelService.
+  ///
+  /// In en, this message translates to:
+  /// **'Service'**
+  String get reservationSummaryLabelService;
+
+  /// No description provided for @reservationSummaryLabelDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get reservationSummaryLabelDuration;
+
+  /// No description provided for @reservationSummaryLabelDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get reservationSummaryLabelDate;
+
+  /// No description provided for @reservationSummaryLabelTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get reservationSummaryLabelTime;
+
+  /// No description provided for @reservationSummaryLabelName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get reservationSummaryLabelName;
+
+  /// No description provided for @reservationSummaryLabelNameKana.
+  ///
+  /// In en, this message translates to:
+  /// **'Name (Kana)'**
+  String get reservationSummaryLabelNameKana;
+
+  /// No description provided for @reservationSummaryLabelEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get reservationSummaryLabelEmail;
+
+  /// No description provided for @reservationSummaryLabelPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get reservationSummaryLabelPhone;
+
+  /// No description provided for @reservationSummaryLabelStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get reservationSummaryLabelStatus;
+
+  /// No description provided for @reservationSummaryNotesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Important Notes'**
+  String get reservationSummaryNotesTitle;
+
+  /// No description provided for @reservationSummaryNotesContent1.
+  ///
+  /// In en, this message translates to:
+  /// **'Please arrive 5 minutes before your scheduled time.'**
+  String get reservationSummaryNotesContent1;
+
+  /// No description provided for @reservationSummaryNotesContent2.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancellation is not allowed after confirmation.'**
+  String get reservationSummaryNotesContent2;
+
+  /// No description provided for @reservationSummaryNotesContent3.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes to the reservation must be made at least 24 hours in advance.'**
+  String get reservationSummaryNotesContent3;
+
+  /// No description provided for @reservationSummaryNotesContent4.
+  ///
+  /// In en, this message translates to:
+  /// **'Please bring a valid ID for verification if necessary.'**
+  String get reservationSummaryNotesContent4;
+
+  /// No description provided for @reservationSummaryTermsAndCondition.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the Terms and Conditions '**
+  String get reservationSummaryTermsAndCondition;
+
+  /// No description provided for @reservationSummaryPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'and Privacy Policy'**
+  String get reservationSummaryPrivacyPolicy;
+
+  /// No description provided for @confirmedReservationBannerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Confirmed!'**
+  String get confirmedReservationBannerTitle;
+
+  /// No description provided for @confirmedReservationBannerSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your reservation has been successfully submitted.'**
+  String get confirmedReservationBannerSubtitle;
+
+  /// No description provided for @confirmedReservationYourReservationNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Reservation Number'**
+  String get confirmedReservationYourReservationNumber;
+
+  /// No description provided for @confirmedReservationWhatsNextTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s Next?'**
+  String get confirmedReservationWhatsNextTitle;
+
+  /// No description provided for @confirmedReservationWhatsNext1.
+  ///
+  /// In en, this message translates to:
+  /// **'A confirmation email has been sent to your email address.'**
+  String get confirmedReservationWhatsNext1;
+
+  /// No description provided for @confirmedReservationWhatsNext2.
+  ///
+  /// In en, this message translates to:
+  /// **'Please arrive 5 minutes before your scheduled time.'**
+  String get confirmedReservationWhatsNext2;
+
+  /// No description provided for @confirmedReservationWhatsNext3.
+  ///
+  /// In en, this message translates to:
+  /// **'Bring a valid ID for verification.'**
+  String get confirmedReservationWhatsNext3;
+
+  /// No description provided for @confirmedReservationWhatsNext4.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact us if you need to make any changes.'**
+  String get confirmedReservationWhatsNext4;
+
+  /// No description provided for @confirmedReservationViewMyReservationsButton.
+  ///
+  /// In en, this message translates to:
+  /// **'View My Reservations'**
+  String get confirmedReservationViewMyReservationsButton;
+
+  /// No description provided for @confirmedReservationBackToHomeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get confirmedReservationBackToHomeButton;
+
+  /// No description provided for @menuBookButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Book'**
+  String get menuBookButton;
+
+  /// No description provided for @menuUnavailableStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Currently Unavailable'**
+  String get menuUnavailableStatus;
+
+  /// No description provided for @timeHour.
+  ///
+  /// In en, this message translates to:
+  /// **'hour'**
+  String get timeHour;
+
+  /// No description provided for @timeHours.
+  ///
+  /// In en, this message translates to:
+  /// **'hours'**
+  String get timeHours;
+
+  /// No description provided for @timeMinute.
+  ///
+  /// In en, this message translates to:
+  /// **'minute'**
+  String get timeMinute;
+
+  /// No description provided for @timeMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'minutes'**
+  String get timeMinutes;
+
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
@@ -675,18 +957,6 @@ abstract class L10n {
   /// **'Please login to continue'**
   String get drawerGuestLoginPrompt;
 
-  /// No description provided for @drawerItemFoods.
-  ///
-  /// In en, this message translates to:
-  /// **'Foods'**
-  String get drawerItemFoods;
-
-  /// No description provided for @drawerItemOrders.
-  ///
-  /// In en, this message translates to:
-  /// **'Orders'**
-  String get drawerItemOrders;
-
   /// No description provided for @drawerItemLanguage.
   ///
   /// In en, this message translates to:
@@ -722,6 +992,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Cancel'**
   String get drawerActionCancel;
+
+  /// No description provided for @drawerItemInquiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Inquiry'**
+  String get drawerItemInquiry;
 
   /// No description provided for @dialogTitleSelectLanguage.
   ///

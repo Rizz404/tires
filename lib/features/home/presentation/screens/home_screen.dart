@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/home/presentation/widgets/home_carousel.dart';
 import 'package:tires/features/home/presentation/widgets/menu_tile.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
@@ -15,13 +16,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // --- Data Statis Pengganti Provider ---
+  // --- Static Data as Provider Replacement ---
   final List<Menu> _staticMenus = [
     const Menu(
       id: 1,
-      name: 'Service Spooring & Balancing',
+      name: 'Spooring & Balancing Service',
       description:
-          'Meluruskan posisi empat roda mobil sesuai spesifikasi pabrikan dan menyeimbangkan putarannya.',
+          'Aligning the position of the four car wheels according to manufacturer specifications and balancing their rotation.',
       requiredTime: 60,
       price: Price(amount: '250000', formatted: 'Rp 250.000', currency: 'IDR'),
       displayOrder: 1,
@@ -34,8 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     const Menu(
       id: 2,
-      name: 'Ganti Oli Mesin',
-      description: 'Penggantian oli mesin menggunakan produk berkualitas.',
+      name: 'Engine Oil Change',
+      description: 'Replacing engine oil using quality products.',
       requiredTime: 30,
       price: Price(amount: '450000', formatted: 'Rp 450.000', currency: 'IDR'),
       displayOrder: 2,
@@ -48,9 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     const Menu(
       id: 3,
-      name: 'Paket Servis Berkala 20.000 KM',
+      name: '20,000 KM Periodic Service Package',
       description:
-          'Pemeriksaan dan perawatan lengkap sesuai standar servis 20.000 KM.',
+          'Complete inspection and maintenance according to the 20,000 KM service standard.',
       requiredTime: 120,
       price: Price(amount: '850000', formatted: 'Rp 850.000', currency: 'IDR'),
       displayOrder: 3,
@@ -63,8 +64,9 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     const Menu(
       id: 4,
-      name: 'Pengecekan Rem',
-      description: 'Pemeriksaan kampas rem, minyak rem, dan komponen lainnya.',
+      name: 'Brake Inspection',
+      description:
+          'Inspection of brake pads, brake fluid, and other components.',
       requiredTime: 45,
       price: Price(amount: '150000', formatted: 'Rp 150.000', currency: 'IDR'),
       displayOrder: 4,
@@ -85,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildBody() {
     if (_staticMenus.isEmpty) {
       return const Center(
-        child: AppText('No menus available', style: AppTextStyle.body),
+        child: AppText('No menus available', style: AppTextStyle.bodyMedium),
       );
     }
 
@@ -93,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
       slivers: [
         const SliverToBoxAdapter(child: HomeCarousel()),
         const SliverToBoxAdapter(
-          child: AppText('Layanan Kami', style: AppTextStyle.headline),
+          child: AppText('Our Services', style: AppTextStyle.headlineSmall),
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate((context, index) {
@@ -101,21 +103,12 @@ class _HomeScreenState extends State<HomeScreen> {
             return MenuTile(
               menu: menu,
               onBookPressed: () {
-                _handleBookPressed(menu);
+                context.router.push(CreateReservationRoute());
               },
             );
           }, childCount: _staticMenus.length),
         ),
       ],
-    );
-  }
-
-  void _handleBookPressed(Menu menu) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: AppText('Booking ${menu.name}...'),
-        duration: const Duration(seconds: 2),
-      ),
     );
   }
 }

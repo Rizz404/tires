@@ -281,6 +281,167 @@ class L10nEn extends L10n {
   String get profileButtonSaveChanges => 'Save Changes';
 
   @override
+  String get createReservationNotesTitle => 'Reservation Notes';
+
+  @override
+  String get createReservationNotesContent1 =>
+      'The work time is an approximate guide';
+
+  @override
+  String get createReservationNotesContent2 =>
+      'Please note that it may take some time depending on the work content';
+
+  @override
+  String get createReservationNotesContent3 =>
+      'Reservation deadline: Until 23:59 one day before';
+
+  @override
+  String get createReservationNotesContent4 =>
+      'Cancellation not allowed after confirmation';
+
+  @override
+  String get confirmReservationBannerTitle => 'Booking Information';
+
+  @override
+  String get confirmReservationBannerSubtitle =>
+      'Please choose how you would like to proceed with your reservation.';
+
+  @override
+  String get confirmReservationWelcomeBack => 'Welcome back, Rizz!';
+
+  @override
+  String get confirmReservationLoggedInAs =>
+      'You are logged in as a RESERVA member.';
+
+  @override
+  String get confirmReservationInfoUsageWarning =>
+      'Your member information will be used for this reservation.';
+
+  @override
+  String get confirmReservationContinueButton => 'Continue with This Account';
+
+  @override
+  String get reservationSummaryBannerTitle => 'Final Confirmation';
+
+  @override
+  String get reservationSummaryBannerSubtitle =>
+      'Please review your reservation details carefully before completing the booking.';
+
+  @override
+  String get reservationSummaryServiceDetailsTitle => 'Service Details';
+
+  @override
+  String get reservationSummaryCustomerInfoTitle => 'Customer Information';
+
+  @override
+  String get reservationSummaryLabelService => 'Service';
+
+  @override
+  String get reservationSummaryLabelDuration => 'Duration';
+
+  @override
+  String get reservationSummaryLabelDate => 'Date';
+
+  @override
+  String get reservationSummaryLabelTime => 'Time';
+
+  @override
+  String get reservationSummaryLabelName => 'Name';
+
+  @override
+  String get reservationSummaryLabelNameKana => 'Name (Kana)';
+
+  @override
+  String get reservationSummaryLabelEmail => 'Email';
+
+  @override
+  String get reservationSummaryLabelPhone => 'Phone Number';
+
+  @override
+  String get reservationSummaryLabelStatus => 'Status';
+
+  @override
+  String get reservationSummaryNotesTitle => 'Important Notes';
+
+  @override
+  String get reservationSummaryNotesContent1 =>
+      'Please arrive 5 minutes before your scheduled time.';
+
+  @override
+  String get reservationSummaryNotesContent2 =>
+      'Cancellation is not allowed after confirmation.';
+
+  @override
+  String get reservationSummaryNotesContent3 =>
+      'Changes to the reservation must be made at least 24 hours in advance.';
+
+  @override
+  String get reservationSummaryNotesContent4 =>
+      'Please bring a valid ID for verification if necessary.';
+
+  @override
+  String get reservationSummaryTermsAndCondition =>
+      'I agree to the Terms and Conditions ';
+
+  @override
+  String get reservationSummaryPrivacyPolicy => 'and Privacy Policy';
+
+  @override
+  String get confirmedReservationBannerTitle => 'Booking Confirmed!';
+
+  @override
+  String get confirmedReservationBannerSubtitle =>
+      'Your reservation has been successfully submitted.';
+
+  @override
+  String get confirmedReservationYourReservationNumber =>
+      'Your Reservation Number';
+
+  @override
+  String get confirmedReservationWhatsNextTitle => 'What\'s Next?';
+
+  @override
+  String get confirmedReservationWhatsNext1 =>
+      'A confirmation email has been sent to your email address.';
+
+  @override
+  String get confirmedReservationWhatsNext2 =>
+      'Please arrive 5 minutes before your scheduled time.';
+
+  @override
+  String get confirmedReservationWhatsNext3 =>
+      'Bring a valid ID for verification.';
+
+  @override
+  String get confirmedReservationWhatsNext4 =>
+      'Contact us if you need to make any changes.';
+
+  @override
+  String get confirmedReservationViewMyReservationsButton =>
+      'View My Reservations';
+
+  @override
+  String get confirmedReservationBackToHomeButton => 'Back to Home';
+
+  @override
+  String get menuBookButton => 'Book';
+
+  @override
+  String get menuUnavailableStatus => 'Currently Unavailable';
+
+  @override
+  String get timeHour => 'hour';
+
+  @override
+  String get timeHours => 'hours';
+
+  @override
+  String get timeMinute => 'minute';
+
+  @override
+  String get timeMinutes => 'minutes';
+
+  @override
   String get appName => 'Tire Installation Reservation';
 
   @override
@@ -302,12 +463,6 @@ class L10nEn extends L10n {
   String get drawerGuestLoginPrompt => 'Please login to continue';
 
   @override
-  String get drawerItemFoods => 'Foods';
-
-  @override
-  String get drawerItemOrders => 'Orders';
-
-  @override
   String get drawerItemLanguage => 'Language';
 
   @override
@@ -324,6 +479,9 @@ class L10nEn extends L10n {
 
   @override
   String get drawerActionCancel => 'Cancel';
+
+  @override
+  String get drawerItemInquiry => 'Inquiry';
 
   @override
   String get dialogTitleSelectLanguage => 'Select Language';

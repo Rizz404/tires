@@ -17,19 +17,19 @@ class _HomeCarouselState extends State<HomeCarousel> {
 
   final List<Map<String, String>> _carouselData = [
     {
-      'image': 'https://placehold.co/600x400/E6F0FA/004080?text=Promo+Servis',
-      'title': 'Diskon Spesial Servis Berkala!',
-      'subtitle': 'Jaga kondisi mobil Anda tetap prima.',
+      'image': 'https://placehold.co/600x400/E6F0FA/004080?text=Service+Promo',
+      'title': 'Special Discount for Periodic Service!',
+      'subtitle': 'Keep your car in top condition.',
     },
     {
-      'image': 'https://placehold.co/600x400/FFF0E6/FF9900?text=Ban+Baru',
-      'title': 'Ganti Ban, Harga Teman',
-      'subtitle': 'Berbagai merek ban berkualitas tersedia.',
+      'image': 'https://placehold.co/600x400/FFF0E6/FF9900?text=New+Tires',
+      'title': 'Change Tires, Friendly Prices',
+      'subtitle': 'Various high-quality tire brands available.',
     },
     {
       'image': 'https://placehold.co/600x400/E0E0E0/333333?text=Spooring',
-      'title': 'Spooring & Balancing Akurat',
-      'subtitle': 'Berkendara lebih nyaman dan aman.',
+      'title': 'Accurate Spooring & Balancing',
+      'subtitle': 'Drive more comfortably and safely.',
     },
   ];
 
@@ -120,13 +120,13 @@ class _HomeCarouselState extends State<HomeCarousel> {
                           children: [
                             AppText(
                               item['title']!,
-                              style: AppTextStyle.headline,
+                              style: AppTextStyle.headlineSmall,
                               color: Colors.white,
                             ),
                             const SizedBox(height: 4),
                             AppText(
                               item['subtitle']!,
-                              style: AppTextStyle.body,
+                              style: AppTextStyle.bodyMedium,
                               color: Colors.white.withOpacity(0.9),
                             ),
                           ],

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
-// Enum for the button's visual style (filled, outlined, etc.)
 enum AppButtonVariant { filled, outlined, text }
 
-// Enum for the button's color scheme, aligning with the theme
-enum AppButtonColor { primary, secondary, success, error, neutral }
+enum AppButtonColor { primary, secondary, success, error, warning, neutral }
 
-// Enum for the button's size
 enum AppButtonSize { small, medium, large }
 
 class AppButton extends StatelessWidget {
@@ -38,8 +35,9 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    ({Color? backgroundColor, Color foregroundColor, BorderSide? side})
+    ({Color backgroundColor, Color foregroundColor, BorderSide? side})
     _getColorProps() {
+      // *  Udah dibennerin harusnya
       final colorMap = {
         AppButtonColor.primary: (
           bg: theme.colorScheme.primary,
@@ -47,12 +45,19 @@ class AppButton extends StatelessWidget {
         ),
         AppButtonColor.secondary: (
           bg: theme.colorScheme.secondary,
+          fg: theme.colorScheme.onSecondary,
+        ),
+        AppButtonColor.success: (
+          bg: const Color(0xFF28A745), // Success green
           fg: Colors.white,
         ),
-        AppButtonColor.success: (bg: Colors.green, fg: Colors.white),
         AppButtonColor.error: (
           bg: theme.colorScheme.error,
           fg: theme.colorScheme.onError,
+        ),
+        AppButtonColor.warning: (
+          bg: const Color(0xFFFFC107), // Warning yellow
+          fg: Colors.black87, // Dark text for yellow background
         ),
         AppButtonColor.neutral: (
           bg: theme.colorScheme.surfaceVariant,
@@ -111,6 +116,7 @@ class AppButton extends StatelessWidget {
     final colorProps = _getColorProps();
     final sizingProps = _getSizingProps();
 
+    // Progress indicator color should always contrast with background
     final progressIndicatorColor = variant == AppButtonVariant.filled
         ? colorProps.foregroundColor
         : colorProps.backgroundColor;
@@ -129,13 +135,29 @@ class AppButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (leadingIcon != null) ...[
-                leadingIcon!,
+                IconTheme(
+                  data: IconThemeData(
+                    color: colorProps.foregroundColor,
+                    size: 20,
+                  ),
+                  child: leadingIcon!,
+                ),
                 const SizedBox(width: 8),
               ],
-              AppText(text),
+              AppText(
+                text,
+                color: colorProps.foregroundColor,
+                fontWeight: FontWeight.w600,
+              ),
               if (trailingIcon != null) ...[
                 const SizedBox(width: 8),
-                trailingIcon!,
+                IconTheme(
+                  data: IconThemeData(
+                    color: colorProps.foregroundColor,
+                    size: 20,
+                  ),
+                  child: trailingIcon!,
+                ),
               ],
             ],
           );
@@ -143,21 +165,52 @@ class AppButton extends StatelessWidget {
     final baseStyle = ButtonStyle(
       padding: WidgetStateProperty.all(sizingProps.padding),
       textStyle: WidgetStateProperty.all(sizingProps.textStyle),
-      backgroundColor: WidgetStateProperty.all(colorProps.backgroundColor),
-      foregroundColor: WidgetStateProperty.all(colorProps.foregroundColor),
-      side: WidgetStateProperty.all(colorProps.side),
+      backgroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.disabled)) {
+          return theme.colorScheme.onSurface.withOpacity(0.12);
+        }
+        return colorProps.backgroundColor;
+      }),
+      foregroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.disabled)) {
+          return theme.colorScheme.onSurface.withOpacity(0.38);
+        }
+        return colorProps.foregroundColor;
+      }),
+      side: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.disabled) && colorProps.side != null) {
+          return BorderSide(
+            color: theme.colorScheme.onSurface.withOpacity(0.12),
+            width: colorProps.side!.width,
+          );
+        }
+        return colorProps.side;
+      }),
       minimumSize: isFullWidth
           ? WidgetStateProperty.all(Size.fromHeight(sizingProps.height))
-          : null,
+          : WidgetStateProperty.all(Size(88, sizingProps.height)),
       maximumSize: isFullWidth
           ? WidgetStateProperty.all(Size.fromHeight(sizingProps.height))
           : null,
-      elevation: variant == AppButtonVariant.filled
-          ? WidgetStateProperty.all(2)
-          : WidgetStateProperty.all(0),
+      elevation: WidgetStateProperty.resolveWith((states) {
+        if (variant == AppButtonVariant.filled &&
+            !states.contains(WidgetState.disabled)) {
+          return states.contains(WidgetState.pressed) ? 1 : 2;
+        }
+        return 0;
+      }),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
+      overlayColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.hovered)) {
+          return colorProps.foregroundColor.withOpacity(0.08);
+        }
+        if (states.contains(WidgetState.pressed)) {
+          return colorProps.foregroundColor.withOpacity(0.12);
+        }
+        return null;
+      }),
     );
 
     switch (variant) {

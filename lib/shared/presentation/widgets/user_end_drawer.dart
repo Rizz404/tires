@@ -23,9 +23,18 @@ class UserEndDrawer extends ConsumerWidget {
     };
     final bool isAuthenticated = userData.isNotEmpty;
 
-    // Get current active tab index to determine which is active
-    final tabsRouter = AutoTabsRouter.of(context, watch: true);
-    final currentTabIndex = tabsRouter.activeIndex;
+    // Safely check if AutoTabsRouter is available
+    TabsRouter? tabsRouter;
+    int currentTabIndex = -1;
+
+    try {
+      tabsRouter = AutoTabsRouter.of(context, watch: true);
+      currentTabIndex = tabsRouter.activeIndex;
+    } catch (e) {
+      // AutoTabsRouter not found in context - we're not in a tab screen
+      tabsRouter = null;
+      currentTabIndex = -1;
+    }
 
     final List<Map<String, dynamic>> userDrawerItems = [
       {
@@ -55,10 +64,10 @@ class UserEndDrawer extends ConsumerWidget {
       {
         'icon': Icons.help_outline,
         'selectedIcon': Icons.help,
-        'title': 'Inquiry',
+        'title': l10n.drawerItemInquiry,
         'isActive': false,
         'type': 'route',
-        'route': InquiryRoute(),
+        'route': const InquiryRoute(),
       },
     ];
 
@@ -86,9 +95,15 @@ class UserEndDrawer extends ConsumerWidget {
 
                         switch (itemType) {
                           case 'tab':
-                            // Navigate to tab
-                            final tabIndex = item['tabIndex'] as int;
-                            tabsRouter.setActiveIndex(tabIndex);
+                            // Navigate to tab - only if tabsRouter is available
+                            if (tabsRouter != null) {
+                              final tabIndex = item['tabIndex'] as int;
+                              tabsRouter.setActiveIndex(tabIndex);
+                            } else {
+                              // If not in tab context, navigate to UserTabScreen first
+                              context.router.push(const UserTabRoute());
+                              // Note: This will navigate to the first tab (index 0) by default
+                            }
                             break;
                           case 'route':
                             // Navigate to external route

@@ -144,7 +144,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       onTap: () => context.router.replace(RegisterRoute()),
                       child: AppText(
                         l10n.loginSignupLink,
-                        style: AppTextStyle.body,
+                        style: AppTextStyle.bodyMedium,
                         color: theme.colorScheme.primary,
                       ),
                     ),

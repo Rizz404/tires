@@ -259,7 +259,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       onTap: () => context.router.replace(LoginRoute()),
                       child: AppText(
                         l10n.registerSignInLink,
-                        style: AppTextStyle.body,
+                        style: AppTextStyle.bodyMedium,
                         color: theme.colorScheme.primary,
                       ),
                     ),
@@ -277,7 +277,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   Widget _buildSectionTitle(String title) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0, top: 8.0),
-      child: AppText(title, style: AppTextStyle.headline),
+      child: AppText(title, style: AppTextStyle.headlineSmall),
     );
   }
 }

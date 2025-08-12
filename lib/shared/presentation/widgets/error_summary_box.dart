@@ -28,7 +28,7 @@ class ErrorSummaryBox extends StatelessWidget {
               const SizedBox(width: 8),
               AppText(
                 'Please fix the following errors:',
-                style: AppTextStyle.title,
+                style: AppTextStyle.titleMedium,
                 color: theme.colorScheme.onErrorContainer,
               ),
             ],

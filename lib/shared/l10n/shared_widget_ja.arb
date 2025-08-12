@@ -7,13 +7,12 @@
     "drawerHeaderTitle": "メインメニュー",
     "drawerGuestUser": "ゲストユーザー",
     "drawerGuestLoginPrompt": "続行するにはログインしてください",
-    "drawerItemFoods": "食品",
-    "drawerItemOrders": "注文",
     "drawerItemLanguage": "言語",
     "drawerActionLogin": "ログイン",
     "drawerActionLogout": "ログアウト",
     "drawerLogoutDialogTitle": "ログアウトの確認",
     "drawerLogoutDialogContent": "本当にログアウトしますか？",
     "drawerActionCancel": "キャンセル",
+     "drawerItemInquiry": "お問い合わせ",
     "dialogTitleSelectLanguage": "言語を選択"
 }
