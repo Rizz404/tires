@@ -141,7 +141,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   children: [
                     AppText(l10n.loginNoAccountPrompt),
                     GestureDetector(
-                      onTap: () => context.router.replace(RegisterRoute()),
+                      onTap: () => context.router.replace(const RegisterRoute()),
                       child: AppText(
                         l10n.loginSignupLink,
                         style: AppTextStyle.bodyMedium,

@@ -225,7 +225,7 @@ class UserEndDrawer extends ConsumerWidget {
         if (isAuthenticated) {
           _showLogoutDialog(context, l10n);
         } else {
-          context.router.push(LoginRoute());
+          context.router.push(const LoginRoute());
         }
       },
       icon: Icon(isAuthenticated ? Icons.logout : Icons.login),

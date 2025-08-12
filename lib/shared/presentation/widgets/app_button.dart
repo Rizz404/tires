@@ -60,7 +60,7 @@ class AppButton extends StatelessWidget {
           fg: Colors.black87, // Dark text for yellow background
         ),
         AppButtonColor.neutral: (
-          bg: theme.colorScheme.surfaceVariant,
+          bg: theme.colorScheme.surfaceContainerHighest,
           fg: theme.colorScheme.onSurfaceVariant,
         ),
       };

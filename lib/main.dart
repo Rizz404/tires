@@ -33,17 +33,17 @@ Future<void> main() async {
     );
   } catch (e) {
     runApp(
-      ProviderScope(
+      const ProviderScope(
         child: MaterialApp(
           // Add localization support even in error case
-          localizationsDelegates: const [
+          localizationsDelegates: [
             L10n.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: L10n.supportedLocales,
-          home: const Scaffold(
+          home: Scaffold(
             body: Center(child: Text('Error initializing app')),
           ),
         ),

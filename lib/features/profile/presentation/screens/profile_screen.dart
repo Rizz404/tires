@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,12 +9,9 @@ import 'package:tires/features/authentication/domain/usecases/register_usecase.d
 import 'package:tires/features/authentication/presentation/providers/auth_providers.dart';
 import 'package:tires/features/authentication/presentation/providers/auth_state.dart';
 import 'package:tires/features/authentication/presentation/validations/auth_validators.dart';
-import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:tires/shared/presentation/utils/app_toast.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
-import 'package:tires/shared/presentation/widgets/app_checkbox.dart';
 import 'package:tires/shared/presentation/widgets/app_date_time_picker.dart';
-import 'package:tires/shared/presentation/widgets/app_radio_group.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/app_text_field.dart';
 import 'package:tires/shared/presentation/widgets/error_summary_box.dart';
@@ -55,7 +51,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       // ref.read(authNotifierProvider.notifier).profile(params);
 
       AppToast.showSuccess(context, message: "Registration Submitted!");
-      context.router.replace(LoginRoute());
+      context.router.replace(const LoginRoute());
     } else {
       AppToast.showError(
         context,

@@ -142,7 +142,7 @@ class ConfirmReservationScreen extends StatelessWidget {
               child: AppButton(
                 text: l10n.confirmReservationContinueButton,
                 onPressed: () {
-                  context.router.push(ReservationSummaryRoute());
+                  context.router.push(const ReservationSummaryRoute());
                 },
               ),
             ),

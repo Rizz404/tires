@@ -10,7 +10,7 @@ import 'package:tires/core/network/locale_interceptor.dart';
 
 class DioClient {
   final Dio _dio;
-  LocaleInterceptor _localeInterceptor;
+  final LocaleInterceptor _localeInterceptor;
 
   DioClient(this._dio) : _localeInterceptor = LocaleInterceptor() {
     _dio

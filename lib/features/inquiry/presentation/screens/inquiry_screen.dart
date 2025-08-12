@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
-import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/features/authentication/presentation/providers/auth_state.dart';
 import 'package:tires/shared/presentation/utils/app_toast.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';

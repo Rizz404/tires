@@ -518,7 +518,7 @@ class CreateReservationScreen extends ConsumerWidget {
       return Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: context.colorScheme.surfaceVariant,
+          color: context.colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Center(
@@ -716,7 +716,7 @@ class CreateReservationScreen extends ConsumerWidget {
         text: 'Confirm Reservation',
         color: AppButtonColor.primary,
         onPressed: () {
-          context.router.push(ConfirmReservationRoute());
+          context.router.push(const ConfirmReservationRoute());
         },
       ),
     );

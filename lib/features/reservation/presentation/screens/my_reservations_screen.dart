@@ -9,7 +9,6 @@ import 'package:tires/features/reservation/presentation/widgets/reservation_item
 import 'package:tires/features/user/domain/entities/reservation.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
-import 'package:tires/shared/presentation/widgets/user_app_bar.dart';
 import 'package:tires/shared/presentation/widgets/user_end_drawer.dart';
 
 @RoutePage()

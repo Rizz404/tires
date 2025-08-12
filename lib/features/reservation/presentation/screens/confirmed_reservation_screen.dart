@@ -82,7 +82,7 @@ class ConfirmedReservationScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Icon(Icons.check_circle, color: AppTheme.success, size: 48),
+          const Icon(Icons.check_circle, color: AppTheme.success, size: 48),
           const SizedBox(height: 12),
           AppText(
             l10n.confirmedReservationBannerTitle,
@@ -260,7 +260,7 @@ class ConfirmedReservationScreen extends StatelessWidget {
           text: l10n.confirmedReservationViewMyReservationsButton,
           color: AppButtonColor.primary,
           onPressed: () {
-            context.router.replaceAll([MyReservationsRoute()]);
+            context.router.replaceAll([const MyReservationsRoute()]);
           },
         ),
         const SizedBox(height: 12),

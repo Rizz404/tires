@@ -1,8 +1,6 @@
 import 'package:fpdart/src/either.dart';
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
-import 'package:tires/core/network/api_error_response.dart';
-import 'package:tires/core/network/validation_error_mapper.dart';
 import 'package:tires/core/storage/session_storage_service.dart';
 import 'package:tires/features/authentication/data/datasources/auth_remote_datasource.dart';
 import 'package:tires/features/authentication/domain/repositories/auth_repository.dart';

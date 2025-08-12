@@ -5,7 +5,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
-import 'package:tires/core/extensions/string_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/authentication/domain/usecases/register_usecase.dart';
 import 'package:tires/features/authentication/presentation/providers/auth_providers.dart';
@@ -58,7 +57,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       // ref.read(authNotifierProvider.notifier).register(params);
 
       AppToast.showSuccess(context, message: "Registration Submitted!");
-      context.router.replace(LoginRoute());
+      context.router.replace(const LoginRoute());
     } else {
       AppToast.showError(
         context,
@@ -256,7 +255,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   children: [
                     AppText(l10n.registerAlreadyHaveAccount),
                     GestureDetector(
-                      onTap: () => context.router.replace(LoginRoute()),
+                      onTap: () => context.router.replace(const LoginRoute()),
                       child: AppText(
                         l10n.registerSignInLink,
                         style: AppTextStyle.bodyMedium,
