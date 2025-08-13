@@ -99,6 +99,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/images/
     - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -150,3 +151,20 @@ flutter:
           weight: 700
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/splash_logo.png
+  branding: assets/images/branding.png
+  color_dark: "#000000"
+  image_dark: assets/images/splash_logo_dark.png
+
+  android: true
+  ios: true
+  web: false
+
+  android_12:
+    image: assets/images/splash_logo.png
+    color: "#ffffff"
+    image_dark: assets/images/splash_logo_dark.png
+    color_dark: "#000000"

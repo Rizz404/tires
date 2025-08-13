@@ -6,3 +6,7 @@ output-dir: lib/l10n_generated
 synthetic-package: false
 nullable-getter: true
 preferred-supported-locales: ["en"]
+# Tambahkan ini untuk generate report untranslated messages
+untranslated-messages-file: untranslated_messages.json
+# Atau jika mau suppress warning sementara
+# suppress-warnings: true

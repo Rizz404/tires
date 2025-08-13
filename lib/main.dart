@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -9,7 +10,8 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:tires/l10n_generated/app_localizations.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   try {
     // * Storage
@@ -18,6 +20,9 @@ Future<void> main() async {
       cacheOptions: const SharedPreferencesWithCacheOptions(allowList: {}),
     );
     final preferences = await SharedPreferences.getInstance();
+
+    // * Semua inisialisasi sudah selesai hapus splash
+    FlutterNativeSplash.remove();
 
     runApp(
       ProviderScope(
@@ -32,6 +37,8 @@ Future<void> main() async {
       ),
     );
   } catch (e) {
+    FlutterNativeSplash.remove();
+
     runApp(
       const ProviderScope(
         child: MaterialApp(
@@ -43,9 +50,7 @@ Future<void> main() async {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: L10n.supportedLocales,
-          home: Scaffold(
-            body: Center(child: Text('Error initializing app')),
-          ),
+          home: Scaffold(body: Center(child: Text('Error initializing app'))),
         ),
       ),
     );
