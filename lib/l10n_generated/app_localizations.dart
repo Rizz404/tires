@@ -1011,6 +1011,84 @@ abstract class L10n {
   /// **'Tire Installation Reservation'**
   String get appName;
 
+  /// No description provided for @appBarCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get appBarCalendar;
+
+  /// No description provided for @appBarInquiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Inquiry'**
+  String get appBarInquiry;
+
+  /// No description provided for @appBarLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get appBarLogin;
+
+  /// No description provided for @appBarReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservations'**
+  String get appBarReservations;
+
+  /// No description provided for @appBarProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get appBarProfile;
+
+  /// No description provided for @appBarLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get appBarLogout;
+
+  /// No description provided for @appBarHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get appBarHome;
+
+  /// No description provided for @appBarCreateReservation.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Reservation'**
+  String get appBarCreateReservation;
+
+  /// No description provided for @appBarConfirmReservation.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Reservation'**
+  String get appBarConfirmReservation;
+
+  /// No description provided for @appBarConfirmedReservation.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed Reservation'**
+  String get appBarConfirmedReservation;
+
+  /// No description provided for @appBarMyReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'My Reservations'**
+  String get appBarMyReservations;
+
+  /// No description provided for @appBarReservationSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Summary'**
+  String get appBarReservationSummary;
+
+  /// No description provided for @appBarRegister.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get appBarRegister;
+
   /// No description provided for @bottomNavHome.
   ///
   /// In en, this message translates to:

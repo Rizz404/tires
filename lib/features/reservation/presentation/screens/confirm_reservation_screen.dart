@@ -17,7 +17,7 @@ class ConfirmReservationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const UserAppBar(title: 'Confirm Reservation'),
+      appBar: UserAppBar(title: context.l10n.appBarConfirmReservation),
       endDrawer: const UserEndDrawer(),
       body: ScreenWrapper(
         child: SingleChildScrollView(

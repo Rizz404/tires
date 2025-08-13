@@ -61,7 +61,7 @@ class _ReservationSummaryScreenState extends State<ReservationSummaryScreen> {
     );
 
     return Scaffold(
-      appBar: const UserAppBar(title: 'Reservation Summary'),
+      appBar: UserAppBar(title: context.l10n.appBarReservationSummary),
       endDrawer: const UserEndDrawer(),
       body: ScreenWrapper(
         child: FormBuilder(

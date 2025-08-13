@@ -46,7 +46,7 @@ class ConfirmedReservationScreen extends StatelessWidget {
     );
 
     return Scaffold(
-      appBar: const UserAppBar(title: 'Booking Confirmed'),
+      appBar: UserAppBar(title: context.l10n.appBarConfirmedReservation),
       endDrawer: const UserEndDrawer(),
       body: ScreenWrapper(
         child: SingleChildScrollView(

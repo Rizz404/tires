@@ -60,7 +60,7 @@ class _InquiryScreenState extends ConsumerState<InquiryScreen> {
     final l10n = context.l10n;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.inquiryFormTitle)),
+      appBar: AppBar(title: Text(l10n.appBarInquiry)),
       endDrawer: const UserEndDrawer(),
       body: LoadingOverlay(
         isLoading: authState.status == AuthStatus.loading,

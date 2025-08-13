@@ -1,6 +1,19 @@
 {
     "@@locale": "ja",
     "appName": "タイヤ取付予約",
+    "appBarCalendar": "カレンダー",
+    "appBarInquiry": "お問い合わせ",
+    "appBarLogin": "ログイン",
+    "appBarReservations": "予約",
+    "appBarProfile": "プロフィール",
+    "appBarLogout": "ログアウト",
+    "appBarHome": "ホーム",
+    "appBarCreateReservation": "予約作成",
+    "appBarConfirmReservation": "予約確認",
+    "appBarConfirmedReservation": "予約確定",
+    "appBarMyReservations": "マイ予約",
+    "appBarReservationSummary": "予約概要",
+    "appBarRegister": "登録",
     "bottomNavHome": "ホーム",
     "bottomNavReservations": "予約",
     "bottomNavProfile": "プロフィール",
@@ -13,6 +26,6 @@
     "drawerLogoutDialogTitle": "ログアウトの確認",
     "drawerLogoutDialogContent": "本当にログアウトしますか？",
     "drawerActionCancel": "キャンセル",
-     "drawerItemInquiry": "お問い合わせ",
+    "drawerItemInquiry": "お問い合わせ",
     "dialogTitleSelectLanguage": "言語を選択"
 }

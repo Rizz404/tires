@@ -87,7 +87,7 @@ class CreateReservationScreen extends ConsumerWidget {
       });
     }
     return Scaffold(
-      appBar: const UserAppBar(),
+      appBar: UserAppBar(title: context.l10n.appBarCreateReservation),
       endDrawer: const UserEndDrawer(),
       body: ScreenWrapper(
         child: SingleChildScrollView(

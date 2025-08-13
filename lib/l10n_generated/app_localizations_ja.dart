@@ -467,6 +467,45 @@ class L10nJa extends L10n {
   String get appName => 'タイヤ取付予約';
 
   @override
+  String get appBarCalendar => 'カレンダー';
+
+  @override
+  String get appBarInquiry => 'お問い合わせ';
+
+  @override
+  String get appBarLogin => 'ログイン';
+
+  @override
+  String get appBarReservations => '予約';
+
+  @override
+  String get appBarProfile => 'プロフィール';
+
+  @override
+  String get appBarLogout => 'ログアウト';
+
+  @override
+  String get appBarHome => 'ホーム';
+
+  @override
+  String get appBarCreateReservation => '予約作成';
+
+  @override
+  String get appBarConfirmReservation => '予約確認';
+
+  @override
+  String get appBarConfirmedReservation => '予約確定';
+
+  @override
+  String get appBarMyReservations => 'マイ予約';
+
+  @override
+  String get appBarReservationSummary => '予約概要';
+
+  @override
+  String get appBarRegister => '登録';
+
+  @override
   String get bottomNavHome => 'ホーム';
 
   @override

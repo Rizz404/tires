@@ -491,6 +491,45 @@ class L10nId extends L10n {
   String get appName => 'Tire Installation Reservation';
 
   @override
+  String get appBarCalendar => 'Calendar';
+
+  @override
+  String get appBarInquiry => 'Inquiry';
+
+  @override
+  String get appBarLogin => 'Login';
+
+  @override
+  String get appBarReservations => 'Reservations';
+
+  @override
+  String get appBarProfile => 'Profile';
+
+  @override
+  String get appBarLogout => 'Logout';
+
+  @override
+  String get appBarHome => 'Home';
+
+  @override
+  String get appBarCreateReservation => 'Create Reservation';
+
+  @override
+  String get appBarConfirmReservation => 'Confirm Reservation';
+
+  @override
+  String get appBarConfirmedReservation => 'Confirmed Reservation';
+
+  @override
+  String get appBarMyReservations => 'My Reservations';
+
+  @override
+  String get appBarReservationSummary => 'Reservation Summary';
+
+  @override
+  String get appBarRegister => 'Register';
+
+  @override
   String get bottomNavHome => 'Home';
 
   @override
