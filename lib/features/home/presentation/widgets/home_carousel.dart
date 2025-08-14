@@ -16,40 +16,29 @@ class _HomeCarouselState extends State<HomeCarousel> {
   Timer? _timer;
 
   final List<Map<String, String>> _carouselData = [
-    {
-      'image': 'https://placehold.co/600x400/E6F0FA/004080?text=Service+Promo',
-      'title': 'Special Discount for Periodic Service!',
-      'subtitle': 'Keep your car in top condition.',
-    },
-    {
-      'image': 'https://placehold.co/600x400/FFF0E6/FF9900?text=New+Tires',
-      'title': 'Change Tires, Friendly Prices',
-      'subtitle': 'Various high-quality tire brands available.',
-    },
-    {
-      'image': 'https://placehold.co/600x400/E0E0E0/333333?text=Spooring',
-      'title': 'Accurate Spooring & Balancing',
-      'subtitle': 'Drive more comfortably and safely.',
-    },
+    {'image': 'assets/images/home-banner.jpg'},
   ];
 
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
-      if (_currentPage < _carouselData.length - 1) {
-        _currentPage++;
-      } else {
-        _currentPage = 0;
-      }
-      if (_pageController.hasClients) {
-        _pageController.animateToPage(
-          _currentPage,
-          duration: const Duration(milliseconds: 350),
-          curve: Curves.easeIn,
-        );
-      }
-    });
+    // Hanya jalankan timer jika ada lebih dari 1 gambar
+    if (_carouselData.length > 1) {
+      _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+        if (_currentPage < _carouselData.length - 1) {
+          _currentPage++;
+        } else {
+          _currentPage = 0;
+        }
+        if (_pageController.hasClients) {
+          _pageController.animateToPage(
+            _currentPage,
+            duration: const Duration(milliseconds: 350),
+            curve: Curves.easeIn,
+          );
+        }
+      });
+    }
   }
 
   @override
@@ -69,6 +58,10 @@ class _HomeCarouselState extends State<HomeCarousel> {
             child: PageView.builder(
               controller: _pageController,
               itemCount: _carouselData.length,
+              // Disable scrolling jika hanya ada 1 gambar
+              physics: _carouselData.length > 1
+                  ? null
+                  : const NeverScrollableScrollPhysics(),
               onPageChanged: (int page) {
                 setState(() {
                   _currentPage = page;
@@ -76,86 +69,79 @@ class _HomeCarouselState extends State<HomeCarousel> {
               },
               itemBuilder: (context, index) {
                 final item = _carouselData[index];
-                return Card(
-                  clipBehavior: Clip.antiAlias,
+                return Container(
                   margin: const EdgeInsets.symmetric(vertical: 8),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      Image.network(
-                        item['image']!,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => Container(
-                          color: context.colorScheme.tertiary,
-                          child: Center(
-                            child: Icon(
-                              Icons.image_not_supported,
-                              color: context.colorScheme.primary,
-                              size: 40,
+                  child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        // Menggunakan AspectRatio untuk menjaga proporsi gambar
+                        Image.asset(
+                          item['image']!,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Container(
+                                color: context.colorScheme.tertiary,
+                                child: Center(
+                                  child: Icon(
+                                    Icons.image_not_supported,
+                                    color: context.colorScheme.primary,
+                                    size: 40,
+                                  ),
+                                ),
+                              ),
+                        ),
+                        // Gradient overlay
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.black.withOpacity(0.3),
+                                  Colors.transparent,
+                                  Colors.black.withOpacity(0.3),
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.black.withOpacity(0.6),
-                              Colors.transparent,
-                              Colors.black.withOpacity(0.6),
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AppText(
-                              item['title']!,
-                              style: AppTextStyle.headlineSmall,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(height: 4),
-                            AppText(
-                              item['subtitle']!,
-                              style: AppTextStyle.bodyMedium,
-                              color: Colors.white.withOpacity(0.9),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
             ),
           ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(_carouselData.length, (index) {
-              return AnimatedContainer(
-                duration: const Duration(milliseconds: 150),
-                margin: const EdgeInsets.symmetric(horizontal: 4),
-                height: 8,
-                width: _currentPage == index ? 24 : 8,
-                decoration: BoxDecoration(
-                  color: _currentPage == index
-                      ? context.colorScheme.primary
-                      : Colors.grey.shade400,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              );
-            }),
-          ),
+          // Hanya tampilkan indikator jika ada lebih dari 1 gambar
+          if (_carouselData.length > 1) ...[
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(_carouselData.length, (index) {
+                return AnimatedContainer(
+                  duration: const Duration(milliseconds: 150),
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  height: 8,
+                  width: _currentPage == index ? 24 : 8,
+                  decoration: BoxDecoration(
+                    color: _currentPage == index
+                        ? context.colorScheme.primary
+                        : Colors.grey.shade400,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                );
+              }),
+            ),
+          ],
         ],
       ),
     );
