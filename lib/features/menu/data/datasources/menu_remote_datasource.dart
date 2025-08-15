@@ -1,8 +1,9 @@
+import 'package:tires/core/network/api_cursor_pagination_response.dart';
 import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/features/menu/data/models/menu_model.dart';
 
 abstract class MenuRemoteDatasource {
-  Future<List<MenuModel>> getMenus();
+  Future<ApiCursorPaginationResponse<MenuModel>> getMenuCursor();
 }
 
 class MenuRemoteDatasourceImpl implements MenuRemoteDatasource {
@@ -11,14 +12,14 @@ class MenuRemoteDatasourceImpl implements MenuRemoteDatasource {
   MenuRemoteDatasourceImpl(this._dioClient);
 
   @override
-  Future<List<MenuModel>> getMenus() async {
+  Future<ApiCursorPaginationResponse<MenuModel>> getMenuCursor() async {
     try {
-      final response = await _dioClient.getPlain(
-        "https://tire.fts.biz.id/api/v1/menus",
+      final response = await _dioClient.getWithCursor<MenuModel>(
+        "/menus",
+        fromJson: (item) => MenuModel.fromMap(item as Map<String, dynamic>),
       );
 
-      final List<dynamic> jsonList = response as List;
-      return jsonList.map((json) => MenuModel.fromJson(json)).toList();
+      return response;
     } catch (e) {
       rethrow;
     }

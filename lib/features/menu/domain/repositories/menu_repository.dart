@@ -1,7 +1,10 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 
 abstract class MenuRepository {
-  Future<Either<Failure, List<Menu>>> getMenus();
+  Future<Either<Failure, CursorPaginatedSuccess<Menu>>> getMenuCursor({
+    String? cursor,
+  });
 }

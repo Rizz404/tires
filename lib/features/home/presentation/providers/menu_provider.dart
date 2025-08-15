@@ -7,8 +7,8 @@ import 'package:tires/features/menu/domain/entities/menu.dart';
 final menuNotifierProvider = StateNotifierProvider<MenuNotifier, MenuState>((
   ref,
 ) {
-  final getMenusUsecase = ref.watch(getMenusUsecaseProvider);
-  return MenuNotifier(getMenusUsecase);
+  final getMenuCursorUsecase = ref.watch(getMenuCursorUsecaseProvider);
+  return MenuNotifier(getMenuCursorUsecase);
 });
 
 // Convenient computed providers

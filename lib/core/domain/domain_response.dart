@@ -30,13 +30,10 @@ class OffsetPaginatedSuccess<T> extends SuccessResponse<List<T>> {
 }
 
 class CursorPaginatedSuccess<T> extends SuccessResponse<List<T>> {
-  final Cursor cursor;
+  // Todo: Nanti benerin harusnya gak nullable
+  final Cursor? cursor;
 
-  CursorPaginatedSuccess({
-    required super.data,
-    required this.cursor,
-    super.message,
-  });
+  CursorPaginatedSuccess({required super.data, this.cursor, super.message});
 }
 
 class ActionSuccess extends SuccessResponse {

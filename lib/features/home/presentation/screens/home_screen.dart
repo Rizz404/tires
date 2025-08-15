@@ -1,83 +1,49 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/routes/app_router.dart';
+import 'package:tires/features/home/presentation/providers/menu_provider.dart';
+import 'package:tires/features/home/presentation/providers/menu_state.dart';
 import 'package:tires/features/home/presentation/widgets/home_carousel.dart';
 import 'package:tires/features/home/presentation/widgets/menu_tile.dart';
-import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
 
 @RoutePage()
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  // --- Static Data as Provider Replacement ---
-  final List<Menu> _staticMenus = [
-    const Menu(
-      id: 1,
-      name: 'Spooring & Balancing Service',
-      description:
-          'Aligning the position of the four car wheels according to manufacturer specifications and balancing their rotation.',
-      requiredTime: 60,
-      price: Price(amount: '250000', formatted: 'Rp 250.000', currency: 'IDR'),
-      displayOrder: 1,
-      isActive: true,
-      color: ColorInfo(
-        hex: '#004080',
-        rgbaLight: 'rgba(0, 64, 128, 0.1)',
-        textColor: '#FFFFFF',
-      ),
-    ),
-    const Menu(
-      id: 2,
-      name: 'Engine Oil Change',
-      description: 'Replacing engine oil using quality products.',
-      requiredTime: 30,
-      price: Price(amount: '450000', formatted: 'Rp 450.000', currency: 'IDR'),
-      displayOrder: 2,
-      isActive: true,
-      color: ColorInfo(
-        hex: '#FF9900',
-        rgbaLight: 'rgba(255, 153, 0, 0.1)',
-        textColor: '#FFFFFF',
-      ),
-    ),
-    const Menu(
-      id: 3,
-      name: '20,000 KM Periodic Service Package',
-      description:
-          'Complete inspection and maintenance according to the 20,000 KM service standard.',
-      requiredTime: 120,
-      price: Price(amount: '850000', formatted: 'Rp 850.000', currency: 'IDR'),
-      displayOrder: 3,
-      isActive: true,
-      color: ColorInfo(
-        hex: '#004080',
-        rgbaLight: 'rgba(0, 64, 128, 0.1)',
-        textColor: '#FFFFFF',
-      ),
-    ),
-    const Menu(
-      id: 4,
-      name: 'Brake Inspection',
-      description:
-          'Inspection of brake pads, brake fluid, and other components.',
-      requiredTime: 45,
-      price: Price(amount: '150000', formatted: 'Rp 150.000', currency: 'IDR'),
-      displayOrder: 4,
-      isActive: false,
-      color: ColorInfo(
-        hex: '#333333',
-        rgbaLight: 'rgba(51, 51, 51, 0.1)',
-        textColor: '#FFFFFF',
-      ),
-    ),
-  ];
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Panggil fetch data pertama kali saat screen dibuka
+    Future.microtask(
+      () => ref.read(menuNotifierProvider.notifier).getInitialMenus(),
+    );
+
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      ref.read(menuNotifierProvider.notifier).loadMoreMenus();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,37 +51,75 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildBody() {
-    if (_staticMenus.isEmpty) {
+    final state = ref.watch(menuNotifierProvider);
+
+    // Kondisi loading awal (data masih kosong)
+    if (state.status == MenuStatus.loading && state.menus.isEmpty) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    // Kondisi error
+    if (state.status == MenuStatus.error && state.menus.isEmpty) {
+      print(state.errorMessage);
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AppText(
+              state.errorMessage ?? 'An unknown error occurred.',
+              style: AppTextStyle.bodyMedium,
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                ref.read(menuNotifierProvider.notifier).getInitialMenus();
+              },
+              child: const AppText('Retry'),
+            ),
+          ],
+        ),
+      );
+    }
+
+    // Kondisi data kosong setelah fetch
+    if (state.menus.isEmpty) {
       return const Center(
         child: AppText('No menus available', style: AppTextStyle.bodyMedium),
       );
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Carousel
-          const HomeCarousel(),
-          const SizedBox(height: 24),
+    // Tampilan utama dengan data
+    return RefreshIndicator(
+      onRefresh: () => ref.read(menuNotifierProvider.notifier).refreshMenus(),
+      child: SingleChildScrollView(
+        controller: _scrollController,
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const HomeCarousel(),
+            const SizedBox(height: 24),
+            const AppText('Our Services', style: AppTextStyle.headlineSmall),
+            const SizedBox(height: 16),
+            ...state.menus.map((menu) {
+              return MenuTile(
+                menu: menu,
+                onBookPressed: () {
+                  context.router.push(CreateReservationRoute());
+                },
+              );
+            }).toList(),
 
-          // Services Title
-          const AppText('Our Services', style: AppTextStyle.headlineSmall),
-          const SizedBox(height: 16),
+            // Indikator loading di bagian bawah untuk pagination
+            if (state.status == MenuStatus.loadingMore)
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: Center(child: CircularProgressIndicator()),
+              ),
 
-          // Menu List
-          ...List.generate(_staticMenus.length, (index) {
-            final menu = _staticMenus[index];
-            return MenuTile(
-              menu: menu,
-              onBookPressed: () {
-                context.router.push(const CreateReservationRoute());
-              },
-            );
-          }),
-
-          const SizedBox(height: 80),
-        ],
+            const SizedBox(height: 80),
+          ],
+        ),
       ),
     );
   }

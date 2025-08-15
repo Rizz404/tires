@@ -20,7 +20,7 @@ final logoutUsecaseProvider = Provider<LogoutUsecase>((ref) {
   return LogoutUsecase(_authRepository);
 });
 
-final getMenusUsecaseProvider = Provider<GetMenusUsecase>((ref) {
+final getMenuCursorUsecaseProvider = Provider<GetMenusUsecase>((ref) {
   final _menuRepository = ref.watch(menuRepoProvider);
   return GetMenusUsecase(_menuRepository);
 });
