@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // * Font Families from CSS
-  static const String fontSans = 'InstrumentSans';
-  static const String fontJP = 'NotoSansJP';
-  static const String fontEN = 'NotoSans';
+  // * Font Families from CSS (Commented out as requested)
+  // static const String fontSans = 'InstrumentSans';
+  // static const String fontJP = 'NotoSansJP';
+  // static const String fontEN = 'NotoSans';
 
   // * Color Palette from CSS
   static const Color brand = Color(0xFF004080);
@@ -49,7 +50,7 @@ class AppTheme {
       ),
 
       // * Text Theme
-      textTheme: baseTheme.textTheme
+      textTheme: GoogleFonts.notoSansTextTheme(baseTheme.textTheme)
           .copyWith(
             headlineLarge: const TextStyle(
               fontSize: 24,
@@ -97,11 +98,7 @@ class AppTheme {
               fontWeight: FontWeight.w500,
             ),
           )
-          .apply(
-            fontFamily: fontSans,
-            bodyColor: mainText,
-            displayColor: mainText,
-          ),
+          .apply(bodyColor: mainText, displayColor: mainText),
 
       // * App Bar Theme
       appBarTheme: const AppBarTheme(
@@ -111,7 +108,6 @@ class AppTheme {
         shadowColor: Colors.black26,
         surfaceTintColor: Colors.transparent,
         titleTextStyle: TextStyle(
-          fontFamily: fontSans,
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: Colors.white,
@@ -126,12 +122,10 @@ class AppTheme {
         selectedItemColor: brand,
         unselectedItemColor: Colors.grey,
         selectedLabelStyle: TextStyle(
-          fontFamily: fontSans,
           fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
         unselectedLabelStyle: TextStyle(
-          fontFamily: fontSans,
           fontSize: 12,
           fontWeight: FontWeight.normal,
         ),
@@ -146,14 +140,12 @@ class AppTheme {
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
             return const TextStyle(
-              fontFamily: fontSans,
               fontSize: 12,
               fontWeight: FontWeight.w600,
               color: brand,
             );
           }
           return const TextStyle(
-            fontFamily: fontSans,
             fontSize: 12,
             fontWeight: FontWeight.normal,
             color: Colors.grey,
@@ -190,16 +182,11 @@ class AppTheme {
         selectedColor: brand,
         selectedTileColor: brandSub,
         titleTextStyle: TextStyle(
-          fontFamily: fontSans,
           fontSize: 16,
           fontWeight: FontWeight.w500,
           color: mainText,
         ),
-        subtitleTextStyle: TextStyle(
-          fontFamily: fontSans,
-          fontSize: 14,
-          color: Colors.grey,
-        ),
+        subtitleTextStyle: TextStyle(fontSize: 14, color: Colors.grey),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
@@ -209,7 +196,7 @@ class AppTheme {
       cardTheme: CardThemeData(
         color: Colors.white,
         elevation: 2,
-        shadowColor: Colors.grey.withValues(alpha: 0.2),
+        shadowColor: Colors.grey.withOpacity(0.2),
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -228,11 +215,7 @@ class AppTheme {
           surfaceTintColor: Colors.transparent,
           shadowColor: Colors.black26,
           elevation: 2,
-          textStyle: const TextStyle(
-            fontFamily: fontSans,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           minimumSize: const Size(88, 44),
@@ -245,11 +228,7 @@ class AppTheme {
           foregroundColor: brand,
           disabledForegroundColor: Colors.grey.shade600,
           side: const BorderSide(color: brand, width: 1),
-          textStyle: const TextStyle(
-            fontFamily: fontSans,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           minimumSize: const Size(88, 44),
@@ -261,11 +240,7 @@ class AppTheme {
         style: TextButton.styleFrom(
           foregroundColor: link,
           disabledForegroundColor: Colors.grey.shade600,
-          textStyle: const TextStyle(
-            fontFamily: fontSans,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
@@ -324,9 +299,9 @@ class AppTheme {
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: Colors.grey.shade200, width: 1),
         ),
-        hintStyle: TextStyle(fontFamily: fontSans, color: Colors.grey.shade500),
-        labelStyle: const TextStyle(fontFamily: fontSans, color: mainText),
-        errorStyle: const TextStyle(fontFamily: fontSans, color: error),
+        hintStyle: TextStyle(color: Colors.grey.shade500),
+        labelStyle: const TextStyle(color: mainText),
+        errorStyle: const TextStyle(color: error),
       ),
 
       // * Checkbox Theme
@@ -375,10 +350,7 @@ class AppTheme {
         thumbColor: brand,
         overlayColor: brandSub,
         valueIndicatorColor: brand,
-        valueIndicatorTextStyle: TextStyle(
-          fontFamily: fontSans,
-          color: Colors.white,
-        ),
+        valueIndicatorTextStyle: TextStyle(color: Colors.white),
       ),
 
       // * Progress Indicator Theme
@@ -393,13 +365,8 @@ class AppTheme {
         labelColor: brand,
         unselectedLabelColor: Colors.grey,
         indicatorColor: brand,
-        labelStyle: TextStyle(
-          fontFamily: fontSans,
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-        ),
+        labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         unselectedLabelStyle: TextStyle(
-          fontFamily: fontSans,
           fontSize: 14,
           fontWeight: FontWeight.normal,
         ),
@@ -413,16 +380,8 @@ class AppTheme {
         selectedColor: brandSub,
         secondarySelectedColor: brand,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-        labelStyle: const TextStyle(
-          fontFamily: fontSans,
-          fontSize: 14,
-          color: mainText,
-        ),
-        secondaryLabelStyle: const TextStyle(
-          fontFamily: fontSans,
-          fontSize: 14,
-          color: Colors.white,
-        ),
+        labelStyle: const TextStyle(fontSize: 14, color: mainText),
+        secondaryLabelStyle: const TextStyle(fontSize: 14, color: Colors.white),
         brightness: Brightness.light,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
@@ -434,16 +393,11 @@ class AppTheme {
         elevation: 24,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         titleTextStyle: const TextStyle(
-          fontFamily: fontSans,
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: mainText,
         ),
-        contentTextStyle: const TextStyle(
-          fontFamily: fontSans,
-          fontSize: 16,
-          color: mainText,
-        ),
+        contentTextStyle: const TextStyle(fontSize: 16, color: mainText),
       ),
 
       // * Bottom Sheet Theme
@@ -461,11 +415,7 @@ class AppTheme {
       // * Snack Bar Theme
       snackBarTheme: SnackBarThemeData(
         backgroundColor: mainText,
-        contentTextStyle: const TextStyle(
-          fontFamily: fontSans,
-          fontSize: 14,
-          color: Colors.white,
-        ),
+        contentTextStyle: const TextStyle(fontSize: 14, color: Colors.white),
         actionTextColor: mainButton,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -478,11 +428,7 @@ class AppTheme {
           color: mainText,
           borderRadius: BorderRadius.circular(6),
         ),
-        textStyle: const TextStyle(
-          fontFamily: fontSans,
-          fontSize: 12,
-          color: Colors.white,
-        ),
+        textStyle: const TextStyle(fontSize: 12, color: Colors.white),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       ),
 
@@ -492,11 +438,7 @@ class AppTheme {
         surfaceTintColor: Colors.transparent,
         elevation: 8,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        textStyle: const TextStyle(
-          fontFamily: fontSans,
-          fontSize: 14,
-          color: mainText,
-        ),
+        textStyle: const TextStyle(fontSize: 14, color: mainText),
       ),
 
       // * Divider Theme
@@ -509,27 +451,18 @@ class AppTheme {
       // * Banner Theme
       bannerTheme: const MaterialBannerThemeData(
         backgroundColor: brandSub,
-        contentTextStyle: TextStyle(
-          fontFamily: fontSans,
-          fontSize: 14,
-          color: mainText,
-        ),
+        contentTextStyle: TextStyle(fontSize: 14, color: mainText),
         padding: EdgeInsets.all(16),
       ),
 
       // * Data Table Theme
       dataTableTheme: const DataTableThemeData(
         headingTextStyle: TextStyle(
-          fontFamily: fontSans,
           fontSize: 14,
           fontWeight: FontWeight.w600,
           color: mainText,
         ),
-        dataTextStyle: TextStyle(
-          fontFamily: fontSans,
-          fontSize: 14,
-          color: mainText,
-        ),
+        dataTextStyle: TextStyle(fontSize: 14, color: mainText),
         columnSpacing: 24,
         horizontalMargin: 16,
         dividerThickness: 1,
@@ -557,14 +490,10 @@ class AppTheme {
           const EdgeInsets.symmetric(horizontal: 16),
         ),
         textStyle: WidgetStateProperty.all(
-          const TextStyle(fontFamily: fontSans, fontSize: 16, color: mainText),
+          const TextStyle(fontSize: 16, color: mainText),
         ),
         hintStyle: WidgetStateProperty.all(
-          TextStyle(
-            fontFamily: fontSans,
-            fontSize: 16,
-            color: Colors.grey.shade500,
-          ),
+          TextStyle(fontSize: 16, color: Colors.grey.shade500),
         ),
       ),
 
@@ -576,11 +505,7 @@ class AppTheme {
           selectedForegroundColor: Colors.white,
           selectedBackgroundColor: brand,
           side: const BorderSide(color: brand, width: 1),
-          textStyle: const TextStyle(
-            fontFamily: fontSans,
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
+          textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
       ),
@@ -595,43 +520,30 @@ class AppTheme {
       scaffoldBackgroundColor: Colors.white,
       barBackgroundColor: brand,
       primaryContrastingColor: Colors.white,
-
       textTheme: CupertinoTextThemeData(
-        textStyle: TextStyle(fontFamily: fontSans, color: mainText),
+        textStyle: TextStyle(color: mainText),
         actionTextStyle: TextStyle(
-          fontFamily: fontSans,
           fontSize: 16,
           fontWeight: FontWeight.w500,
           color: brand,
         ),
         tabLabelTextStyle: TextStyle(
-          fontFamily: fontSans,
           fontSize: 12,
           fontWeight: FontWeight.w500,
           color: Colors.grey,
         ),
         navLargeTitleTextStyle: TextStyle(
-          fontFamily: fontSans,
           fontSize: 24,
           fontWeight: FontWeight.bold,
           color: mainText,
         ),
         navTitleTextStyle: TextStyle(
-          fontFamily: fontSans,
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: Colors.white,
         ),
-        pickerTextStyle: TextStyle(
-          fontFamily: fontSans,
-          fontSize: 18,
-          color: mainText,
-        ),
-        dateTimePickerTextStyle: TextStyle(
-          fontFamily: fontSans,
-          fontSize: 18,
-          color: mainText,
-        ),
+        pickerTextStyle: TextStyle(fontSize: 18, color: mainText),
+        dateTimePickerTextStyle: TextStyle(fontSize: 18, color: mainText),
       ),
     );
   }
@@ -656,18 +568,15 @@ class AppTheme {
       ),
 
       // Add other dark theme configurations as needed
-      textTheme: baseTheme.textTheme.apply(
-        fontFamily: fontSans,
-        bodyColor: Colors.white,
-        displayColor: Colors.white,
-      ),
+      textTheme: GoogleFonts.notoSansTextTheme(
+        baseTheme.textTheme,
+      ).apply(bodyColor: Colors.white, displayColor: Colors.white),
 
       appBarTheme: const AppBarTheme(
         backgroundColor: Color(0xFF1E1E1E),
         foregroundColor: Colors.white,
         elevation: 1,
         titleTextStyle: TextStyle(
-          fontFamily: fontSans,
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: Colors.white,

@@ -3,7 +3,6 @@ template-arb-file: app_en.arb
 output-localization-file: app_localizations.dart
 output-class: L10n
 output-dir: lib/l10n_generated
-synthetic-package: false
 nullable-getter: true
 preferred-supported-locales: ["en"]
 # Tambahkan ini untuk generate report untranslated messages

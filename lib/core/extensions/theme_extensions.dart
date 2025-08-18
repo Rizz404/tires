@@ -34,7 +34,7 @@ extension ThemeExtensions on BuildContext {
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
 
   // * Akses ke tema input
-  InputDecorationTheme get inputTheme => Theme.of(this).inputDecorationTheme;
+  // InputDecorationTheme get inputTheme => Theme.of(this).inputDecorationTheme;
 
   // * Akses ke tema card
   CardThemeData get cardTheme => Theme.of(this).cardTheme;

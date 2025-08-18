@@ -3,6 +3,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tires/core/theme/app_theme.dart';
 import 'package:tires/di/common_providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,6 +15,9 @@ Future<void> main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   try {
+    // * Pre-cache main font selagi splash screen
+    await GoogleFonts.pendingFonts();
+
     // * Storage
     const secureStorage = FlutterSecureStorage();
     final preferencesWithCache = await SharedPreferencesWithCache.create(
