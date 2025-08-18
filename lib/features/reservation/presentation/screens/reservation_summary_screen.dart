@@ -111,7 +111,7 @@ class _ReservationSummaryScreenState extends State<ReservationSummaryScreen> {
                 AppText(
                   l10n.reservationSummaryBannerSubtitle,
                   style: AppTextStyle.bodyMedium,
-                  color: context.colorScheme.onSurface.withOpacity(0.8),
+                  color: context.colorScheme.onSurface.withValues(alpha: 0.8),
                 ),
               ],
             ),
@@ -127,7 +127,7 @@ class _ReservationSummaryScreenState extends State<ReservationSummaryScreen> {
 
     return Card(
       elevation: 2,
-      shadowColor: context.theme.shadowColor.withOpacity(0.05),
+      shadowColor: context.theme.shadowColor.withValues(alpha: 0.05),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,7 +221,7 @@ class _ReservationSummaryScreenState extends State<ReservationSummaryScreen> {
           AppText(
             label,
             style: AppTextStyle.bodyMedium,
-            color: context.colorScheme.onSurface.withOpacity(0.7),
+            color: context.colorScheme.onSurface.withValues(alpha: 0.7),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -248,7 +248,7 @@ class _ReservationSummaryScreenState extends State<ReservationSummaryScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppTheme.warning.withOpacity(0.1),
+        color: AppTheme.warning.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -272,7 +272,9 @@ class _ReservationSummaryScreenState extends State<ReservationSummaryScreen> {
                     child: Icon(
                       Icons.circle,
                       size: 6,
-                      color: context.colorScheme.onSurface.withOpacity(0.7),
+                      color: context.colorScheme.onSurface.withValues(
+                        alpha: 0.7,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -280,7 +282,9 @@ class _ReservationSummaryScreenState extends State<ReservationSummaryScreen> {
                     child: AppText(
                       note,
                       style: AppTextStyle.bodySmall,
-                      color: context.colorScheme.onSurface.withOpacity(0.9),
+                      color: context.colorScheme.onSurface.withValues(
+                        alpha: 0.9,
+                      ),
                     ),
                   ),
                 ],

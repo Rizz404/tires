@@ -145,7 +145,7 @@ class _InquiryScreenState extends ConsumerState<InquiryScreen> {
   //   final l10n = context.l10n;
   //   return Card(
   //     elevation: 2,
-  //     shadowColor: context.theme.shadowColor.withOpacity(0.05),
+  //     shadowColor: context.theme.shadowColor.withValues(alpha:0.05),
   //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
   //     child: Padding(
   //       padding: const EdgeInsets.all(16.0),

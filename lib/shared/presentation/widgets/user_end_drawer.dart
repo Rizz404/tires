@@ -168,14 +168,14 @@ class UserEndDrawer extends ConsumerWidget {
                   height: 48,
                   fit: BoxFit.cover,
                   placeholder: (context, url) => CircleAvatar(
-                    backgroundColor: context.colorScheme.primary.withOpacity(
-                      0.1,
+                    backgroundColor: context.colorScheme.primary.withValues(
+                      alpha: 0.1,
                     ),
                     child: const CupertinoActivityIndicator(),
                   ),
                   errorWidget: (context, url, error) => CircleAvatar(
-                    backgroundColor: context.colorScheme.primary.withOpacity(
-                      0.3,
+                    backgroundColor: context.colorScheme.primary.withValues(
+                      alpha: 0.3,
                     ),
                     child: Icon(
                       Icons.person,
@@ -198,8 +198,8 @@ class UserEndDrawer extends ConsumerWidget {
                     Text(
                       userData?['email'] ?? l10n.drawerGuestLoginPrompt,
                       style: context.textTheme.bodyMedium?.copyWith(
-                        color: context.textTheme.bodyMedium?.color?.withOpacity(
-                          0.7,
+                        color: context.textTheme.bodyMedium?.color?.withValues(
+                          alpha: 0.7,
                         ),
                       ),
                       overflow: TextOverflow.ellipsis,
@@ -291,14 +291,14 @@ class UserEndDrawer extends ConsumerWidget {
     required VoidCallback onTap,
   }) {
     final activeColor = context.colorScheme.primary;
-    final inactiveColor = context.colorScheme.onSurface.withOpacity(0.7);
+    final inactiveColor = context.colorScheme.onSurface.withValues(alpha: 0.7);
     final displayIcon = isActive && selectedIcon != null ? selectedIcon : icon;
 
     if (Platform.isIOS) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
         child: CupertinoListTile(
-          backgroundColor: isActive ? activeColor.withOpacity(0.1) : null,
+          backgroundColor: isActive ? activeColor.withValues(alpha: 0.1) : null,
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           leading: Icon(
             displayIcon,
@@ -318,7 +318,9 @@ class UserEndDrawer extends ConsumerWidget {
     }
 
     return Card(
-      color: isActive ? activeColor.withOpacity(0.1) : context.theme.cardColor,
+      color: isActive
+          ? activeColor.withValues(alpha: 0.1)
+          : context.theme.cardColor,
       elevation: 0,
       margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
       child: ListTile(

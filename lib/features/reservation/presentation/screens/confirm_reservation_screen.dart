@@ -66,7 +66,7 @@ class ConfirmReservationScreen extends StatelessWidget {
                 AppText(
                   l10n.confirmReservationBannerSubtitle,
                   style: AppTextStyle.bodyMedium,
-                  color: context.colorScheme.onSurface.withOpacity(0.8),
+                  color: context.colorScheme.onSurface.withValues(alpha: 0.8),
                 ),
               ],
             ),
@@ -80,7 +80,7 @@ class ConfirmReservationScreen extends StatelessWidget {
     final l10n = context.l10n;
     return Card(
       elevation: 4,
-      shadowColor: context.theme.shadowColor.withOpacity(0.1),
+      shadowColor: context.theme.shadowColor.withValues(alpha: 0.1),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -107,14 +107,14 @@ class ConfirmReservationScreen extends StatelessWidget {
             AppText(
               l10n.confirmReservationLoggedInAs,
               style: AppTextStyle.bodyMedium,
-              color: context.colorScheme.onSurface.withOpacity(0.7),
+              color: context.colorScheme.onSurface.withValues(alpha: 0.7),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                color: AppTheme.warning.withOpacity(0.15),
+                color: AppTheme.warning.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(

@@ -130,7 +130,7 @@ class CreateReservationScreen extends ConsumerWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).shadowColor.withOpacity(0.05),
+            color: Theme.of(context).shadowColor.withValues(alpha: 0.05),
             spreadRadius: 1,
             blurRadius: 4,
             offset: const Offset(0, 2),
@@ -145,7 +145,7 @@ class CreateReservationScreen extends ConsumerWidget {
             decoration: BoxDecoration(
               color: Color(
                 int.parse(menu.color.hex.replaceFirst('#', '0xFF')),
-              ).withOpacity(0.2),
+              ).withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(
@@ -169,7 +169,7 @@ class CreateReservationScreen extends ConsumerWidget {
                   AppText(
                     menu.description!,
                     style: AppTextStyle.bodyMedium,
-                    color: onSurfaceColor.withOpacity(0.7),
+                    color: onSurfaceColor.withValues(alpha: 0.7),
                   ),
                 ],
                 const SizedBox(height: 8),
@@ -178,19 +178,19 @@ class CreateReservationScreen extends ConsumerWidget {
                     Icon(
                       Icons.access_time,
                       size: 16,
-                      color: onSurfaceColor.withOpacity(0.7),
+                      color: onSurfaceColor.withValues(alpha: 0.7),
                     ),
                     const SizedBox(width: 4),
                     AppText(
                       '${menu.requiredTime} minutes',
                       style: AppTextStyle.bodyMedium,
-                      color: onSurfaceColor.withOpacity(0.7),
+                      color: onSurfaceColor.withValues(alpha: 0.7),
                     ),
                     const SizedBox(width: 16),
                     Icon(
                       Icons.monetization_on,
                       size: 16,
-                      color: onSurfaceColor.withOpacity(0.7),
+                      color: onSurfaceColor.withValues(alpha: 0.7),
                     ),
                     const SizedBox(width: 4),
                     AppText(
@@ -221,7 +221,9 @@ class CreateReservationScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         color: context.colorScheme.tertiary,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: context.colorScheme.primary.withOpacity(0.3)),
+        border: Border.all(
+          color: context.colorScheme.primary.withValues(alpha: 0.3),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -244,7 +246,9 @@ class CreateReservationScreen extends ConsumerWidget {
                     child: Icon(
                       Icons.circle,
                       size: 8,
-                      color: context.colorScheme.onSurface.withOpacity(0.8),
+                      color: context.colorScheme.onSurface.withValues(
+                        alpha: 0.8,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 6),
@@ -252,7 +256,9 @@ class CreateReservationScreen extends ConsumerWidget {
                     child: AppText(
                       note,
                       style: AppTextStyle.bodyMedium,
-                      color: context.colorScheme.onSurface.withOpacity(0.8),
+                      color: context.colorScheme.onSurface.withValues(
+                        alpha: 0.8,
+                      ),
                     ),
                   ),
                 ],
@@ -284,7 +290,7 @@ class CreateReservationScreen extends ConsumerWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).shadowColor.withOpacity(0.05),
+            color: Theme.of(context).shadowColor.withValues(alpha: 0.05),
             spreadRadius: 1,
             blurRadius: 4,
             offset: const Offset(0, 2),
@@ -333,8 +339,8 @@ class CreateReservationScreen extends ConsumerWidget {
                         day,
                         style: AppTextStyle.bodySmall,
                         fontWeight: FontWeight.bold,
-                        color: context.textTheme.bodySmall?.color?.withOpacity(
-                          0.7,
+                        color: context.textTheme.bodySmall?.color?.withValues(
+                          alpha: 0.7,
                         ),
                       ),
                     ),
@@ -410,8 +416,8 @@ class CreateReservationScreen extends ConsumerWidget {
       Color? borderColor;
 
       if (isPastDate) {
-        dayColor = Theme.of(context).disabledColor.withOpacity(0.5);
-        textColor = context.colorScheme.onSurface.withOpacity(0.4);
+        dayColor = Theme.of(context).disabledColor.withValues(alpha: 0.5);
+        textColor = context.colorScheme.onSurface.withValues(alpha: 0.4);
       } else if (isSelected) {
         dayColor = context.colorScheme.primary;
         textColor = context.colorScheme.onPrimary;
@@ -561,7 +567,7 @@ class CreateReservationScreen extends ConsumerWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).shadowColor.withOpacity(0.05),
+            color: Theme.of(context).shadowColor.withValues(alpha: 0.05),
             spreadRadius: 1,
             blurRadius: 4,
             offset: const Offset(0, 2),
@@ -593,8 +599,12 @@ class CreateReservationScreen extends ConsumerWidget {
 
               if (isBooked) {
                 bgColor = Theme.of(context).disabledColor;
-                textColor = context.colorScheme.onSurface.withOpacity(0.5);
-                borderColor = context.colorScheme.outline.withOpacity(0.5);
+                textColor = context.colorScheme.onSurface.withValues(
+                  alpha: 0.5,
+                );
+                borderColor = context.colorScheme.outline.withValues(
+                  alpha: 0.5,
+                );
               } else if (isSelected) {
                 bgColor = context.colorScheme.primary;
                 textColor = context.colorScheme.onPrimary;
@@ -647,9 +657,9 @@ class CreateReservationScreen extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppTheme.success.withOpacity(0.1),
+        color: AppTheme.success.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppTheme.success.withOpacity(0.4)),
+        border: Border.all(color: AppTheme.success.withValues(alpha: 0.4)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

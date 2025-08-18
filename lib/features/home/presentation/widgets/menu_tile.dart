@@ -24,7 +24,7 @@ class MenuTile extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(
-          color: Colors.grey.withOpacity(0.15), // border tipis
+          color: Colors.grey.withValues(alpha: 0.15), // border tipis
           width: 1,
         ),
       ),
@@ -53,8 +53,8 @@ class MenuTile extends StatelessWidget {
                             Icon(
                               Icons.access_time,
                               size: 16,
-                              color: context.colorScheme.onSurface.withOpacity(
-                                0.6,
+                              color: context.colorScheme.onSurface.withValues(
+                                alpha: 0.6,
                               ),
                             ),
                             const SizedBox(width: 4),
@@ -62,8 +62,9 @@ class MenuTile extends StatelessWidget {
                               child: AppText(
                                 _formatTime(context, menu.requiredTime),
                                 style: AppTextStyle.bodySmall,
-                                color: context.colorScheme.onSurface
-                                    .withOpacity(0.6),
+                                color: context.colorScheme.onSurface.withValues(
+                                  alpha: 0.6,
+                                ),
                               ),
                             ),
                           ],
@@ -104,7 +105,7 @@ class MenuTile extends StatelessWidget {
               AppText(
                 menu.description!,
                 style: AppTextStyle.bodyMedium,
-                color: context.colorScheme.onSurface.withOpacity(0.7),
+                color: context.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ],
 
@@ -114,7 +115,7 @@ class MenuTile extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: context.colorScheme.error.withOpacity(0.1),
+                  color: context.colorScheme.error.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: AppText(

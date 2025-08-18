@@ -25,7 +25,7 @@ class ReservationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: isExpanded ? 4 : 2,
-      shadowColor: context.theme.shadowColor.withOpacity(0.1),
+      shadowColor: context.theme.shadowColor.withValues(alpha: 0.1),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: InkWell(
@@ -89,13 +89,13 @@ class ReservationItem extends StatelessWidget {
                   Icon(
                     Icons.access_time,
                     size: 14,
-                    color: context.colorScheme.onSurface.withOpacity(0.6),
+                    color: context.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                   const SizedBox(width: 4),
                   AppText(
                     '${reservation.menu.requiredTime} ${context.l10n.timeMinutes}',
                     style: AppTextStyle.bodySmall,
-                    color: context.colorScheme.onSurface.withOpacity(0.6),
+                    color: context.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                 ],
               ),
@@ -116,22 +116,22 @@ class ReservationItem extends StatelessWidget {
 
     switch (status) {
       case ReservationStatus.confirmed:
-        backgroundColor = AppTheme.success.withOpacity(0.15);
+        backgroundColor = AppTheme.success.withValues(alpha: 0.15);
         textColor = AppTheme.success;
         text = l10n.reservationStatusConfirmed;
         break;
       case ReservationStatus.pending:
-        backgroundColor = AppTheme.warning.withOpacity(0.15);
+        backgroundColor = AppTheme.warning.withValues(alpha: 0.15);
         textColor = AppTheme.warning;
         text = l10n.reservationStatusPending;
         break;
       case ReservationStatus.completed:
-        backgroundColor = context.colorScheme.primary.withOpacity(0.15);
+        backgroundColor = context.colorScheme.primary.withValues(alpha: 0.15);
         textColor = context.colorScheme.primary;
         text = l10n.reservationStatusCompleted;
         break;
       case ReservationStatus.cancelled:
-        backgroundColor = context.colorScheme.error.withOpacity(0.1);
+        backgroundColor = context.colorScheme.error.withValues(alpha: 0.1);
         textColor = context.colorScheme.error;
         text = l10n.reservationStatusCancelled;
         break;

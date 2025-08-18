@@ -104,9 +104,9 @@ class _HomeCarouselState extends State<HomeCarousel> {
                               borderRadius: BorderRadius.circular(12),
                               gradient: LinearGradient(
                                 colors: [
-                                  Colors.black.withOpacity(0.3),
+                                  Colors.black.withValues(alpha: 0.3),
                                   Colors.transparent,
-                                  Colors.black.withOpacity(0.3),
+                                  Colors.black.withValues(alpha: 0.3),
                                 ],
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,

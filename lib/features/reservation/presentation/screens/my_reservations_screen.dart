@@ -224,7 +224,7 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
           AppText(
             context.l10n.myReservationMainSubTitle,
             style: AppTextStyle.bodyLarge,
-            color: context.colorScheme.onSurface.withOpacity(0.7),
+            color: context.colorScheme.onSurface.withValues(alpha: 0.7),
           ),
         ],
       ),
@@ -241,7 +241,7 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
 
     return Card(
       elevation: 2,
-      shadowColor: context.theme.shadowColor.withOpacity(0.05),
+      shadowColor: context.theme.shadowColor.withValues(alpha: 0.05),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
@@ -284,7 +284,7 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
         AppText(
           label,
           style: AppTextStyle.bodySmall,
-          color: context.colorScheme.onSurface.withOpacity(0.6),
+          color: context.colorScheme.onSurface.withValues(alpha: 0.6),
         ),
       ],
     );

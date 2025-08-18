@@ -167,20 +167,20 @@ class AppButton extends StatelessWidget {
       textStyle: WidgetStateProperty.all(sizingProps.textStyle),
       backgroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
-          return theme.colorScheme.onSurface.withOpacity(0.12);
+          return theme.colorScheme.onSurface.withValues(alpha: 0.12);
         }
         return colorProps.backgroundColor;
       }),
       foregroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
-          return theme.colorScheme.onSurface.withOpacity(0.38);
+          return theme.colorScheme.onSurface.withValues(alpha: 0.38);
         }
         return colorProps.foregroundColor;
       }),
       side: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled) && colorProps.side != null) {
           return BorderSide(
-            color: theme.colorScheme.onSurface.withOpacity(0.12),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.12),
             width: colorProps.side!.width,
           );
         }
@@ -204,10 +204,10 @@ class AppButton extends StatelessWidget {
       ),
       overlayColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.hovered)) {
-          return colorProps.foregroundColor.withOpacity(0.08);
+          return colorProps.foregroundColor.withValues(alpha: 0.08);
         }
         if (states.contains(WidgetState.pressed)) {
-          return colorProps.foregroundColor.withOpacity(0.12);
+          return colorProps.foregroundColor.withValues(alpha: 0.12);
         }
         return null;
       }),

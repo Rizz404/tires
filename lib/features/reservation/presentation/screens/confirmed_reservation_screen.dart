@@ -77,7 +77,7 @@ class ConfirmedReservationScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       decoration: BoxDecoration(
-        color: AppTheme.success.withOpacity(0.1),
+        color: AppTheme.success.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -95,7 +95,7 @@ class ConfirmedReservationScreen extends StatelessWidget {
             l10n.confirmedReservationBannerSubtitle,
             style: AppTextStyle.bodyMedium,
             textAlign: TextAlign.center,
-            color: context.colorScheme.onSurface.withOpacity(0.8),
+            color: context.colorScheme.onSurface.withValues(alpha: 0.8),
           ),
         ],
       ),
@@ -118,7 +118,7 @@ class ConfirmedReservationScreen extends StatelessWidget {
             AppText(
               l10n.confirmedReservationYourReservationNumber,
               style: AppTextStyle.bodyMedium,
-              color: context.colorScheme.onSurface.withOpacity(0.7),
+              color: context.colorScheme.onSurface.withValues(alpha: 0.7),
             ),
             const SizedBox(height: 4),
             AppText(
@@ -143,7 +143,9 @@ class ConfirmedReservationScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: context.colorScheme.surfaceContainerHighest.withOpacity(0.5),
+        color: context.colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.5,
+        ),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -187,7 +189,7 @@ class ConfirmedReservationScreen extends StatelessWidget {
     final locale = Localizations.localeOf(context).toString();
     return Card(
       elevation: 2,
-      shadowColor: context.theme.shadowColor.withOpacity(0.05),
+      shadowColor: context.theme.shadowColor.withValues(alpha: 0.05),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -297,7 +299,7 @@ class ConfirmedReservationScreen extends StatelessWidget {
           AppText(
             label,
             style: AppTextStyle.bodyMedium,
-            color: context.colorScheme.onSurface.withOpacity(0.7),
+            color: context.colorScheme.onSurface.withValues(alpha: 0.7),
           ),
           const SizedBox(width: 16),
           Expanded(
