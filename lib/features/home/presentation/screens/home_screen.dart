@@ -23,10 +23,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Panggil fetch data pertama kali saat screen dibuka
-    Future.microtask(
-      () => ref.read(menuNotifierProvider.notifier).getInitialMenus(),
-    );
 
     _scrollController.addListener(_onScroll);
   }
@@ -53,12 +49,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget _buildBody() {
     final state = ref.watch(menuNotifierProvider);
 
-    // Kondisi loading awal (data masih kosong)
     if (state.status == MenuStatus.loading && state.menus.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
 
-    // Kondisi error
     if (state.status == MenuStatus.error && state.menus.isEmpty) {
       print(state.errorMessage);
       return Center(
@@ -81,14 +75,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       );
     }
 
-    // Kondisi data kosong setelah fetch
     if (state.menus.isEmpty) {
       return const Center(
         child: AppText('No menus available', style: AppTextStyle.bodyMedium),
       );
     }
 
-    // Tampilan utama dengan data
     return RefreshIndicator(
       onRefresh: () => ref.read(menuNotifierProvider.notifier).refreshMenus(),
       child: SingleChildScrollView(
@@ -110,7 +102,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               );
             }).toList(),
 
-            // Indikator loading di bagian bawah untuk pagination
             if (state.status == MenuStatus.loadingMore)
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 20),

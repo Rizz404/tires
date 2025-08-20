@@ -41,10 +41,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         email: values['email'],
         password: values['password'],
       );
-      // ref.read(authNotifierProvider.notifier).login(params);
 
-      AppToast.showSuccess(context, message: "Login Submitted!");
-      context.router.replace(const HomeRoute()); // Navigate to a home route
+      // Actually call the login usecase
+      ref.read(authNotifierProvider.notifier).login(params);
     } else {
       AppToast.showError(
         context,
@@ -56,7 +55,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen(authNotifierProvider, (previous, next) {
-      if (next.status == AuthStatus.error && next.failure != null) {
+      // Handle authentication state changes
+      if (next.status == AuthStatus.authenticated) {
+        // User is authenticated, navigate to home
+        AppToast.showSuccess(context, message: "Login successful!");
+        context.router.replace(const HomeRoute());
+      } else if (next.status == AuthStatus.error && next.failure != null) {
+        // Handle login errors
         if (next.failure is ValidationFailure) {
           setState(() {
             _validationErrors = (next.failure as ValidationFailure).errors;
@@ -70,6 +75,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final authState = ref.watch(authNotifierProvider);
     final theme = Theme.of(context);
     final l10n = context.l10n;
+
+    // Show loading screen while checking authentication status
+    if (authState.status == AuthStatus.initial ||
+        (authState.status == AuthStatus.loading && authState.user == null)) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    // If user is already authenticated, show a brief loading then navigate
+    if (authState.status == AuthStatus.authenticated) {
+      // This will trigger navigation via the listener above
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
 
     return Scaffold(
       body: LoadingOverlay(
@@ -141,7 +158,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   children: [
                     AppText(l10n.loginNoAccountPrompt),
                     GestureDetector(
-                      onTap: () => context.router.replace(const RegisterRoute()),
+                      onTap: () =>
+                          context.router.replace(const RegisterRoute()),
                       child: AppText(
                         l10n.loginSignupLink,
                         style: AppTextStyle.bodyMedium,

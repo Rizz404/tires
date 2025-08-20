@@ -7,12 +7,17 @@ import 'package:tires/core/network/api_error_response.dart';
 import 'package:tires/core/network/api_offset_pagination_response.dart';
 import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/locale_interceptor.dart';
+import 'package:tires/core/network/auth_interceptor.dart';
+import 'package:tires/core/storage/session_storage_service.dart';
 
 class DioClient {
   final Dio _dio;
   final LocaleInterceptor _localeInterceptor;
+  final AuthInterceptor _authInterceptor;
 
-  DioClient(this._dio) : _localeInterceptor = LocaleInterceptor() {
+  DioClient(this._dio, SessionStorageService sessionStorageService)
+    : _localeInterceptor = LocaleInterceptor(),
+      _authInterceptor = AuthInterceptor(sessionStorageService) {
     _dio
       ..options.baseUrl = ApiConstants.baseUrl
       ..options.connectTimeout = const Duration(
@@ -23,20 +28,7 @@ class DioClient {
       )
       ..options.responseType = ResponseType.json
       ..interceptors.add(_localeInterceptor)
-      ..interceptors.add(
-        InterceptorsWrapper(
-          onRequest: (options, handler) {
-            const String? token = null;
-            if (token != null) {
-              options.headers['Authorization'] = 'Bearer $token';
-            }
-            return handler.next(options);
-          },
-          onError: (error, handler) {
-            return handler.next(error);
-          },
-        ),
-      );
+      ..interceptors.add(_authInterceptor);
 
     if (kDebugMode) {
       _dio.interceptors.add(
@@ -51,7 +43,7 @@ class DioClient {
     }
   }
 
-  // * Buat update bahasa
+  // * Update bahasa
   void updateLocale(Locale locale) {
     _localeInterceptor.updateLocale(locale);
   }

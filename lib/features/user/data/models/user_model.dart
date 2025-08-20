@@ -2,17 +2,16 @@ import 'dart:convert';
 
 import 'package:tires/features/user/data/models/password_reset_token_model.dart';
 import 'package:tires/features/user/data/models/session_model.dart';
-
-import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:tires/features/user/domain/entities/password_reset_token.dart';
 import 'package:tires/features/user/domain/entities/session.dart';
+import 'package:tires/features/user/domain/entities/user.dart';
 
 class UserModel extends User {
   UserModel({
     required super.id,
     required super.email,
     required super.emailVerifiedAt,
-    required super.password,
+    super.password,
     required super.fullName,
     required super.fullNameKana,
     required super.phoneNumber,
@@ -22,17 +21,47 @@ class UserModel extends User {
     super.homeAddress,
     super.dateOfBirth,
     required super.role,
-    required super.gender,
+    super.gender,
     required super.createdAt,
     required super.updatedAt,
-    required super.passwordResetToken,
-    required super.session,
+    super.passwordResetToken,
+    super.session,
   });
 
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      id: map['id']! as int,
+      email: map['email'] as String,
+      emailVerifiedAt: DateTime.parse(map['email_verified_at'] as String),
+      password: null, // Tidak ada di response login
+      fullName: map['full_name'] as String,
+      fullNameKana: map['full_name_kana'] as String,
+      phoneNumber: map['phone_number'] as String,
+      companyName: map['company_name'] as String?,
+      department: map['department'] as String?,
+      companyAddress: map['company_address'] as String?,
+      homeAddress: map['home_address'] as String?,
+      dateOfBirth: map['date_of_birth'] != null
+          ? DateTime.parse(map['date_of_birth'] as String)
+          : null,
+      role: UserRole.values.byName(map['role'] as String),
+      gender: map['gender'] != null
+          ? UserGender.values.byName(map['gender'] as String)
+          : null,
+      createdAt: DateTime.parse(map['created_at'] as String),
+      updatedAt: DateTime.parse(map['updated_at'] as String),
+      passwordResetToken: null, // Tidak ada di response login
+      session: null, // Tidak ada di response login
+    );
+  }
+
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
   UserModel copyWith({
-    String? id,
+    int? id,
     String? email,
-    bool? emailVerifiedAt,
+    DateTime? emailVerifiedAt,
     String? password,
     String? fullName,
     String? fullNameKana,
@@ -75,73 +104,25 @@ class UserModel extends User {
     return <String, dynamic>{
       'id': id,
       'email': email,
-      'emailVerifiedAt': emailVerifiedAt,
+      'email_verified_at': emailVerifiedAt.toIso8601String(),
       'password': password,
-      'fullName': fullName,
-      'fullNameKana': fullNameKana,
-      'phoneNumber': phoneNumber,
-      'companyName': companyName,
+      'full_name': fullName,
+      'full_name_kana': fullNameKana,
+      'phone_number': phoneNumber,
+      'company_name': companyName,
       'department': department,
-      'companyAddress': companyAddress,
-      'homeAddress': homeAddress,
-      'dateOfBirth': dateOfBirth?.toIso8601String(),
+      'company_address': companyAddress,
+      'home_address': homeAddress,
+      'date_of_birth': dateOfBirth?.toIso8601String(),
       'role': role.name,
-      'gender': gender.name,
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
-      'passwordResetToken': PasswordResetTokenModel(
-        email: this.email,
-        token: passwordResetToken.token,
-        createdAt: passwordResetToken.createdAt,
-      ).toMap(),
-      'session': SessionModel(
-        id: session.id,
-        userId: this.id,
-        ipAddress: session.ipAddress,
-        userAgent: session.userAgent,
-        payload: session.payload,
-        lastActivity: session.lastActivity,
-      ).toMap(),
+      'gender': gender?.name,
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
+      'password_reset_token': (passwordResetToken as PasswordResetTokenModel?)
+          ?.toMap(),
+      'session': (session as SessionModel?)?.toMap(),
     };
   }
 
-  factory UserModel.fromMap(Map<String, dynamic> map) {
-    return UserModel(
-      id: map['id'] as String,
-      email: map['email'] as String,
-      emailVerifiedAt: map['emailVerifiedAt'] as bool,
-      password: map['password'] as String,
-      fullName: map['fullName'] as String,
-      fullNameKana: map['fullNameKana'] as String,
-      phoneNumber: map['phoneNumber'] as String,
-      companyName: map['companyName'] != null
-          ? map['companyName'] as String
-          : null,
-      department: map['department'] != null
-          ? map['department'] as String
-          : null,
-      companyAddress: map['companyAddress'] != null
-          ? map['companyAddress'] as String
-          : null,
-      homeAddress: map['homeAddress'] != null
-          ? map['homeAddress'] as String
-          : null,
-      dateOfBirth: map['dateOfBirth'] != null
-          ? DateTime.parse(map['dateOfBirth'] as String)
-          : null,
-      role: UserRole.values.byName(map['role'] as String),
-      gender: UserGender.values.byName(map['gender'] as String),
-      createdAt: DateTime.parse(map['createdAt'] as String),
-      updatedAt: DateTime.parse(map['updatedAt'] as String),
-      passwordResetToken: PasswordResetTokenModel.fromMap(
-        map['passwordResetToken'] as Map<String, dynamic>,
-      ),
-      session: SessionModel.fromMap(map['session'] as Map<String, dynamic>),
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory UserModel.fromJson(String source) =>
-      UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

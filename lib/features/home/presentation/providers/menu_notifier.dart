@@ -1,18 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/features/home/presentation/providers/menu_state.dart';
-import 'package:tires/features/menu/domain/usecases/get_menus_usecase.dart';
+import 'package:tires/features/menu/domain/usecases/get_menu_cursor_usecase.dart';
 
 class MenuNotifier extends StateNotifier<MenuState> {
-  final GetMenusUsecase _getMenusUsecase;
+  final GetMenuCursorUsecase _getMenusUsecase;
 
-  MenuNotifier(this._getMenusUsecase) : super(const MenuState());
+  MenuNotifier(this._getMenusUsecase) : super(const MenuState()) {
+    getInitialMenus();
+  }
 
   Future<void> getInitialMenus() async {
     if (state.status == MenuStatus.loading) return;
 
     state = state.copyWith(status: MenuStatus.loading);
 
-    final result = await _getMenusUsecase(const GetMenusParams());
+    final result = await _getMenusUsecase(const GetMenuCursorParams());
 
     result.fold(
       (failure) {
@@ -39,22 +41,19 @@ class MenuNotifier extends StateNotifier<MenuState> {
     state = state.copyWith(status: MenuStatus.loadingMore);
 
     final result = await _getMenusUsecase(
-      GetMenusParams(cursor: state.nextCursor),
+      GetMenuCursorParams(cursor: state.nextCursor),
     );
 
     result.fold(
       (failure) {
-        // Saat gagal load more, kita kembali ke status loaded,
-        // tidak menampilkan error fullscreen.
         state = state.copyWith(
           status: MenuStatus.loaded,
-          errorMessage: failure.message, // Bisa ditampilkan di snackbar
+          errorMessage: failure.message,
         );
       },
       (success) {
         state = state.copyWith(
           status: MenuStatus.loaded,
-          // Gabungkan list yang lama dengan yang baru
           menus: [...state.menus, ...success.data ?? []],
           hasNextPage: success.cursor?.hasNextPage,
           nextCursor: success.cursor?.nextCursor,

@@ -6,24 +6,24 @@ import 'package:tires/core/usecases/usecase.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/menu/domain/repositories/menu_repository.dart';
 
-class GetMenusUsecase
-    implements Usecase<CursorPaginatedSuccess<Menu>, GetMenusParams> {
+class GetMenuCursorUsecase
+    implements Usecase<CursorPaginatedSuccess<Menu>, GetMenuCursorParams> {
   final MenuRepository _menuRepository;
 
-  GetMenusUsecase(this._menuRepository);
+  GetMenuCursorUsecase(this._menuRepository);
 
   @override
   Future<Either<Failure, CursorPaginatedSuccess<Menu>>> call(
-    GetMenusParams params,
+    GetMenuCursorParams params,
   ) async {
     return await _menuRepository.getMenuCursor(cursor: params.cursor);
   }
 }
 
-class GetMenusParams extends Equatable {
+class GetMenuCursorParams extends Equatable {
   final String? cursor;
 
-  const GetMenusParams({this.cursor});
+  const GetMenuCursorParams({this.cursor});
 
   @override
   List<Object?> get props => [cursor];

@@ -33,7 +33,8 @@ final dioProvider = Provider<Dio>((ref) {
 
 final dioClientProvider = Provider<DioClient>((ref) {
   final _dio = ref.watch(dioProvider);
-  final dioClient = DioClient(_dio);
+  final _sessionStorageService = ref.watch(sessionStorageServiceProvider);
+  final dioClient = DioClient(_dio, _sessionStorageService);
 
   // * Listen ke locale dan update dio
   ref.listen<Locale>(localeProvider, (previous, next) {
@@ -45,7 +46,7 @@ final dioClientProvider = Provider<DioClient>((ref) {
 
   dioClient.updateLocale(currentLocale);
 
-  return DioClient(_dio);
+  return DioClient(_dio, _sessionStorageService);
 });
 
 final authGuardProvider = Provider<AuthGuard>((ref) {

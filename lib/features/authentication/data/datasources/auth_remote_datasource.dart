@@ -3,11 +3,12 @@ import 'dart:convert';
 import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
-import 'package:tires/features/user/data/models/user_model.dart';
+import 'package:tires/features/authentication/data/models/auth_model.dart';
 
 abstract class AuthRemoteDatasource {
-  Future<ApiResponse<UserModel>> register(RegisterPayload payload);
-  Future<ApiResponse<UserModel>> login(LoginPayload payload);
+  Future<ApiResponse<AuthModel>> register(RegisterPayload payload);
+  Future<ApiResponse<AuthModel>> login(LoginPayload payload);
+  Future<void> logout();
 }
 
 class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
@@ -16,12 +17,27 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   AuthRemoteDatasourceImpl(this._dioClient);
 
   @override
-  Future<ApiResponse<UserModel>> register(RegisterPayload payload) async {
+  Future<ApiResponse<AuthModel>> register(RegisterPayload payload) async {
     try {
       final response = await _dioClient.post(
         ApiEndpoints.login,
         data: payload.toJson(),
-        fromJson: (json) => UserModel.fromMap(json as Map<String, dynamic>),
+        fromJson: (json) => AuthModel.fromMap(json as Map<String, dynamic>),
+      );
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<AuthModel>> login(LoginPayload payload) async {
+    try {
+      final response = await _dioClient.post(
+        ApiEndpoints.login,
+        data: payload.toJson(),
+        fromJson: (json) => AuthModel.fromMap(json as Map<String, dynamic>),
       );
       return response;
     } catch (e) {
@@ -30,18 +46,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<UserModel>> login(LoginPayload payload) async {
-    try {
-      final response = await _dioClient.post(
-        ApiEndpoints.login,
-        data: payload.toJson(),
-        fromJson: (json) => UserModel.fromMap(json as Map<String, dynamic>),
-      );
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
+  Future<void> logout() async {}
 }
 
 // * Payload kaga butuh equatable di params baru butuh

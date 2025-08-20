@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:tires/core/storage/session_storage_keys.dart';
 import 'package:tires/core/storage/session_storage_service.dart';
-// import 'package:tires/features/user/data/models/user_mapper.dart';
+import 'package:tires/features/user/data/mapper/user_mapper.dart';
 import 'package:tires/features/user/data/models/user_model.dart';
 import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,26 +38,6 @@ class SessionStorageServiceImpl implements SessionStorageService {
   }
 
   @override
-  Future<String?> getRefreshToken() async {
-    return await _flutterSecureStorage.read(
-      key: SessionStorageKeys.refreshTokenKey,
-    );
-  }
-
-  @override
-  Future<void> saveRefreshToken(String token) async {
-    _flutterSecureStorage.write(
-      key: SessionStorageKeys.refreshTokenKey,
-      value: token,
-    );
-  }
-
-  @override
-  Future<void> deleteRefreshToken() async {
-    _flutterSecureStorage.delete(key: SessionStorageKeys.refreshTokenKey);
-  }
-
-  @override
   Future<User?> getUser() async {
     final userJson = await _sharedPreferencesWithCache.getString(
       SessionStorageKeys.userKey,
@@ -65,7 +45,7 @@ class SessionStorageServiceImpl implements SessionStorageService {
 
     if (userJson != null) {
       final userModelJson = UserModel.fromJson(jsonDecode(userJson));
-      // return userModelJson.toEntity();
+      return userModelJson.toEntity();
     }
 
     return null;
@@ -73,11 +53,11 @@ class SessionStorageServiceImpl implements SessionStorageService {
 
   @override
   Future<void> saveUser(User user) async {
-    // final userModel = user.toModel();
-    // await _sharedPreferencesWithCache.setString(
-    //   SessionStorageKeys.userKey,
-    //   jsonDecode(userModel.toJson()),
-    // );
+    final userModel = user.toModel();
+    await _sharedPreferencesWithCache.setString(
+      SessionStorageKeys.userKey,
+      jsonDecode(userModel.toJson()),
+    );
   }
 
   @override

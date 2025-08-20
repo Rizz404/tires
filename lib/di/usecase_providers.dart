@@ -3,7 +3,7 @@ import 'package:tires/di/repository_providers.dart';
 import 'package:tires/features/authentication/domain/usecases/login_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/logout_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/register_usecase.dart';
-import 'package:tires/features/menu/domain/usecases/get_menus_usecase.dart';
+import 'package:tires/features/menu/domain/usecases/get_menu_cursor_usecase.dart';
 
 final registerUsecaseProvider = Provider<RegisterUsecase>((ref) {
   final _authRepository = ref.watch(authRepoProvider);
@@ -20,7 +20,7 @@ final logoutUsecaseProvider = Provider<LogoutUsecase>((ref) {
   return LogoutUsecase(_authRepository);
 });
 
-final getMenuCursorUsecaseProvider = Provider<GetMenusUsecase>((ref) {
+final getMenuCursorUsecaseProvider = Provider<GetMenuCursorUsecase>((ref) {
   final _menuRepository = ref.watch(menuRepoProvider);
-  return GetMenusUsecase(_menuRepository);
+  return GetMenuCursorUsecase(_menuRepository);
 });
