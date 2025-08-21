@@ -143,4 +143,25 @@ class AuthRepositoryImpl extends AuthRepository {
       return Left(ServerFailure(message: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, ItemSuccessResponse<Auth?>>> getCurrentAuth() async {
+    try {
+      final token = await _sessionStorageService.getAccessToken();
+      final user = await _sessionStorageService.getUser();
+
+      if (user != null && token != null) {
+        return Right(
+          ItemSuccessResponse(
+            data: Auth(user: user, token: token),
+          ),
+        );
+      }
+      return Right(ItemSuccessResponse(data: null));
+    } on ApiErrorResponse catch (e) {
+      return Left(ServerFailure(message: e.message, code: e.code));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
 }

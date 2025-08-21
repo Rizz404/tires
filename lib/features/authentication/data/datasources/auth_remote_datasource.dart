@@ -22,7 +22,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   Future<ApiResponse<AuthModel>> register(RegisterPayload payload) async {
     try {
       final response = await _dioClient.post(
-        ApiEndpoints.login,
+        ApiEndpoints.register,
         data: payload.toJson(),
         fromJson: (json) => AuthModel.fromMap(json as Map<String, dynamic>),
       );

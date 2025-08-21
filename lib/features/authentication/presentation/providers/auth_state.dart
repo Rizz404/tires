@@ -3,7 +3,15 @@ import 'package:equatable/equatable.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/features/user/domain/entities/user.dart';
 
-enum AuthStatus { initial, loading, authenticated, unauthenticated, error }
+enum AuthStatus {
+  initial,
+  loading,
+  authenticated,
+  unauthenticated,
+  error,
+  passwordResetEmailSent,
+  passwordResetSuccess,
+}
 
 class AuthState extends Equatable {
   final AuthStatus status;

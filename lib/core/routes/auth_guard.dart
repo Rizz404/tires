@@ -14,7 +14,10 @@ class AuthGuard extends AutoRouteGuard {
     if (accessToken != null && accessToken.isNotEmpty) {
       resolver.next(true);
     } else {
-      router.push(const LoginRoute());
+      // Selalu redirect ke UserTabRoute (home) untuk unauthenticated users
+      // User tetap bisa akses home, tapi untuk fitur yang perlu auth
+      // akan diminta login di level component/screen
+      router.pushAndPopUntil(const UserTabRoute(), predicate: (_) => false);
       resolver.next(false);
     }
   }

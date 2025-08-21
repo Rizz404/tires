@@ -135,7 +135,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        // TODO: Navigate to forgot password screen
+                        context.router.push(const ForgotPasswordRoute());
                       },
                       child: AppText(
                         l10n.loginForgotPassword,
@@ -160,8 +160,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   children: [
                     AppText(l10n.loginNoAccountPrompt),
                     GestureDetector(
-                      onTap: () =>
-                          context.router.replace(const RegisterRoute()),
+                      onTap: () => context.router.push(const RegisterRoute()),
                       child: AppText(
                         l10n.loginSignupLink,
                         style: AppTextStyle.bodyMedium,

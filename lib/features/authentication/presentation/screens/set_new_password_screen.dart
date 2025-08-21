@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/error/failure.dart';
-import 'package:tires/features/authentication/domain/usecases/forgot_password_usecase.dart';
+import 'package:tires/core/routes/app_router.dart';
+import 'package:tires/features/authentication/domain/usecases/set_new_password_usecase.dart';
 import 'package:tires/features/authentication/presentation/providers/auth_providers.dart';
 import 'package:tires/features/authentication/presentation/providers/auth_state.dart';
 import 'package:tires/features/authentication/presentation/validations/auth_validators.dart';
@@ -16,15 +17,15 @@ import 'package:tires/shared/presentation/widgets/loading_overlay.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
 
 @RoutePage()
-class ForgotPasswordScreen extends ConsumerStatefulWidget {
-  const ForgotPasswordScreen({super.key});
+class SetNewPasswordScreen extends ConsumerStatefulWidget {
+  const SetNewPasswordScreen({super.key});
 
   @override
-  ConsumerState<ForgotPasswordScreen> createState() =>
-      _ForgotPasswordScreenState();
+  ConsumerState<SetNewPasswordScreen> createState() =>
+      _SetNewPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
+class _SetNewPasswordScreenState extends ConsumerState<SetNewPasswordScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   List<DomainValidationError>? _validationErrors;
 
@@ -35,9 +36,12 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
 
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       final values = _formKey.currentState!.value;
-      final params = ForgotPasswordParams(email: values['email']);
+      final params = SetNewPasswordParams(
+        newPassword: values['newPassword'],
+        confirmNewPassword: values['confirmNewPassword'],
+      );
 
-      ref.read(authNotifierProvider.notifier).forgotPassword(params);
+      ref.read(authNotifierProvider.notifier).setNewPassword(params);
     } else {
       // Todo: Add translation for formCorrectionMessage
       AppToast.showError(
@@ -50,13 +54,15 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen(authNotifierProvider, (previous, next) {
-      if (next.status == AuthStatus.passwordResetEmailSent) {
-        // Todo: Add translation for passwordResetEmailSentMessage
+      if (next.status == AuthStatus.passwordResetSuccess) {
+        // Todo: Add translation for passwordResetSuccessMessage
         AppToast.showSuccess(
           context,
           message:
-              "An email with a password reset link has been sent. Please check your inbox.",
+              "Your password has been updated successfully. Please log in.",
         );
+        // Navigate to Login, not Home, as the user is not authenticated yet.
+        context.router.replace(const LoginRoute());
       } else if (next.status == AuthStatus.error && next.failure != null) {
         if (next.failure is ValidationFailure) {
           setState(() {
@@ -70,16 +76,12 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
 
     final authState = ref.watch(authNotifierProvider);
 
-    // This part seems to handle loading state before the screen is ready
-    // and redirects if authenticated. Keeping it as is.
     if (authState.status == AuthStatus.initial ||
         (authState.status == AuthStatus.loading && authState.user == null)) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     if (authState.status == AuthStatus.authenticated) {
-      // It's better to use AutoRouter to navigate away than showing a spinner
-      // For now, let's assume this is intended behavior.
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
@@ -92,16 +94,16 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Todo: Add translation for forgotPasswordTitle
+                // Todo: Add translation for setNewPasswordTitle
                 const AppText(
-                  'Forgot Your Password?',
+                  'Set a New Password',
                   style: AppTextStyle.titleLarge,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 8),
-                // Todo: Add translation for forgotPasswordSubtitle
+                // Todo: Add translation for setNewPasswordSubtitle
                 const AppText(
-                  'No worries! Enter your email and we will send you a reset link.',
+                  'Your new password must be different from previous used passwords.',
                   style: AppTextStyle.bodyMedium,
                   textAlign: TextAlign.center,
                 ),
@@ -111,19 +113,35 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                     padding: const EdgeInsets.only(bottom: 24),
                     child: ErrorSummaryBox(errors: _validationErrors!),
                   ),
-                // Todo: Add translation for forgotPasswordEmailLabel
-                // Todo: Add translation for forgotPasswordEmailPlaceholder
+                // Todo: Add translation for setNewPasswordLabel
+                // Todo: Add translation for setNewPasswordPlaceholder
                 AppTextField(
-                  name: 'email',
-                  label: 'Email Address',
-                  placeHolder: 'Enter your email address',
-                  type: AppTextFieldType.email,
-                  validator: AuthValidators.email,
+                  name: 'newPassword',
+                  label: 'New Password',
+                  placeHolder: 'Enter your new password',
+                  type: AppTextFieldType.password,
+                  validator: AuthValidators.password,
+                ),
+                const SizedBox(height: 16),
+                // Todo: Add translation for confirmNewPasswordLabel
+                // Todo: Add translation for confirmNewPasswordPlaceholder
+                AppTextField(
+                  name: 'confirmNewPassword',
+                  label: 'Confirm New Password',
+                  placeHolder: 'Confirm your new password',
+                  type: AppTextFieldType.password,
+                  validator: (value) {
+                    final newPassword =
+                        _formKey.currentState?.fields['newPassword']?.value;
+                    return AuthValidators.confirmPassword(newPassword ?? '')(
+                      value,
+                    );
+                  },
                 ),
                 const SizedBox(height: 24),
-                // Todo: Add translation for forgotPasswordButton
+                // Todo: Add translation for setNewPasswordButton
                 AppButton(
-                  text: 'Send Reset Link',
+                  text: 'Update Password',
                   color: AppButtonColor.secondary,
                   isLoading: authState.status == AuthStatus.loading,
                   onPressed: () => _handleSubmit(ref),

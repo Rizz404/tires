@@ -6,7 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
+import 'package:tires/core/usecases/usecase.dart';
 import 'package:tires/di/common_providers.dart';
+import 'package:tires/features/authentication/presentation/providers/auth_providers.dart';
+import 'package:tires/features/authentication/presentation/providers/auth_state.dart';
+import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:tires/l10n_generated/app_localizations.dart';
 
 class UserEndDrawer extends ConsumerWidget {
@@ -14,16 +18,33 @@ class UserEndDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Listen untuk logout navigation - perbaiki logika kondisi
+    ref.listen<AuthState>(authNotifierProvider, (previous, next) {
+      // Cek apakah user baru saja logout (dari authenticated ke unauthenticated)
+      final wasAuthenticated = previous?.status == AuthStatus.authenticated;
+      final isNowUnauthenticated = next.status == AuthStatus.unauthenticated;
+
+      if (wasAuthenticated && isNowUnauthenticated) {
+        // Pastikan context masih valid sebelum navigasi
+        if (context.mounted) {
+          // Gunakan WidgetsBinding untuk delay navigasi setelah frame selesai
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (context.mounted) {
+              context.router.pushAndPopUntil(
+                const LoginRoute(),
+                predicate: (_) => false,
+              );
+            }
+          });
+        }
+      }
+    });
+
     final l10n = L10n.of(context)!;
+    final authState = ref.watch(authNotifierProvider);
+    final user = authState.user;
+    final isAuthenticated = authState.status == AuthStatus.authenticated;
 
-    final Map<String, dynamic> userData = {
-      // 'username': 'Jamaludin',
-      // 'email': 'jamal.keren@example.com',
-      // 'profilePicture': 'https://i.pravatar.cc/150?u=a042581f4e29026704d',
-    };
-    final bool isAuthenticated = userData.isNotEmpty;
-
-    // Safely check if AutoTabsRouter is available
     TabsRouter? tabsRouter;
     int currentTabIndex = -1;
 
@@ -31,7 +52,6 @@ class UserEndDrawer extends ConsumerWidget {
       tabsRouter = AutoTabsRouter.of(context, watch: true);
       currentTabIndex = tabsRouter.activeIndex;
     } catch (e) {
-      // AutoTabsRouter not found in context - we're not in a tab screen
       tabsRouter = null;
       currentTabIndex = -1;
     }
@@ -76,7 +96,7 @@ class UserEndDrawer extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildDrawerHeader(context, userData, l10n),
+            _buildDrawerHeader(context, user, l10n),
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -89,24 +109,20 @@ class UserEndDrawer extends ConsumerWidget {
                       title: item['title'],
                       isActive: item['isActive'],
                       onTap: () {
-                        Navigator.of(context).pop(); // Close drawer first
+                        Navigator.of(context).pop();
 
                         final itemType = item['type'] as String;
 
                         switch (itemType) {
                           case 'tab':
-                            // Navigate to tab - only if tabsRouter is available
                             if (tabsRouter != null) {
                               final tabIndex = item['tabIndex'] as int;
                               tabsRouter.setActiveIndex(tabIndex);
                             } else {
-                              // If not in tab context, navigate to UserTabScreen first
                               context.router.push(const UserTabRoute());
-                              // Note: This will navigate to the first tab (index 0) by default
                             }
                             break;
                           case 'route':
-                            // Navigate to external route
                             final route = item['route'];
                             if (route != null) {
                               context.router.push(route);
@@ -124,7 +140,7 @@ class UserEndDrawer extends ConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: _buildAuthButton(context, isAuthenticated, l10n),
+              child: _buildAuthButton(context, ref, isAuthenticated, l10n),
             ),
           ],
         ),
@@ -132,11 +148,7 @@ class UserEndDrawer extends ConsumerWidget {
     );
   }
 
-  Widget _buildDrawerHeader(
-    BuildContext context,
-    Map<String, dynamic>? userData,
-    L10n l10n,
-  ) {
+  Widget _buildDrawerHeader(BuildContext context, User? user, L10n l10n) {
     return Container(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -163,7 +175,8 @@ class UserEndDrawer extends ConsumerWidget {
             children: [
               ClipOval(
                 child: CachedNetworkImage(
-                  imageUrl: userData?['profilePicture'] ?? '',
+                  imageUrl:
+                      'https://i.pinimg.com/1200x/02/fd/cf/02fdcf30afcfd72937d0cc7f14c34240.jpg',
                   width: 48,
                   height: 48,
                   fit: BoxFit.cover,
@@ -190,13 +203,13 @@ class UserEndDrawer extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      userData?['username'] ?? l10n.drawerGuestUser,
+                      user?.fullName ?? l10n.drawerGuestUser,
                       style: context.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      userData?['email'] ?? l10n.drawerGuestLoginPrompt,
+                      user?.email ?? l10n.drawerGuestLoginPrompt,
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: context.textTheme.bodyMedium?.color?.withValues(
                           alpha: 0.7,
@@ -216,15 +229,16 @@ class UserEndDrawer extends ConsumerWidget {
 
   Widget _buildAuthButton(
     BuildContext context,
+    WidgetRef ref,
     bool isAuthenticated,
     L10n l10n,
   ) {
     return ElevatedButton.icon(
       onPressed: () {
-        Navigator.of(context).pop(); // Close drawer first
         if (isAuthenticated) {
-          _showLogoutDialog(context, l10n);
+          _showLogoutDialog(context, ref, l10n);
         } else {
+          Navigator.of(context).pop();
           context.router.push(const LoginRoute());
         }
       },
@@ -244,7 +258,7 @@ class UserEndDrawer extends ConsumerWidget {
     );
   }
 
-  void _showLogoutDialog(BuildContext context, L10n l10n) {
+  void _showLogoutDialog(BuildContext context, WidgetRef ref, L10n l10n) {
     showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
@@ -264,11 +278,12 @@ class UserEndDrawer extends ConsumerWidget {
             ),
             ElevatedButton(
               onPressed: () {
+                // Tutup dialog dulu
                 Navigator.of(dialogContext).pop();
-                // Implement actual logout logic here
-                print('Logout action & navigate to login');
-                // You might want to navigate to login after logout
-                // context.router.pushAndClearStack(LoginRoute());
+                // Tutup drawer
+                Navigator.of(context).pop();
+                // Baru panggil logout - navigasi akan ditangani oleh listener
+                ref.read(authNotifierProvider.notifier).logout(NoParams());
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: context.colorScheme.error,

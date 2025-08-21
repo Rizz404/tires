@@ -3,8 +3,10 @@ import 'package:tires/core/routes/auth_guard.dart';
 import 'package:tires/core/routes/duplicate_guard.dart';
 import 'package:tires/features/announcement/presentation/screens/admin_list_announcement_screen.dart';
 import 'package:tires/features/announcement/presentation/screens/admin_upsert_announcement_screen.dart';
+import 'package:tires/features/authentication/presentation/screens/forgot_password_screen.dart';
 import 'package:tires/features/authentication/presentation/screens/login_screen.dart';
 import 'package:tires/features/authentication/presentation/screens/register_screen.dart';
+import 'package:tires/features/authentication/presentation/screens/set_new_password_screen.dart';
 import 'package:tires/features/availability/presentation/screens/admin_list_availability_screen.dart';
 import 'package:tires/features/blocked/presentation/screens/admin_list_blocked_screen.dart';
 import 'package:tires/features/blocked/presentation/screens/admin_upsert_blocked_screen.dart';
@@ -46,6 +48,8 @@ class AppRouter extends RootStackRouter {
     // * Authentication routes
     AutoRoute(page: LoginRoute.page),
     AutoRoute(page: RegisterRoute.page),
+    AutoRoute(page: ForgotPasswordRoute.page),
+    AutoRoute(page: SetNewPasswordRoute.page),
 
     // * User inquiry routes
     AutoRoute(page: InquiryRoute.page, guards: [_authGuard]),
@@ -106,11 +110,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: UserTabRoute.page,
       initial: true,
-      guards: [_authGuard],
       children: [
         AutoRoute(page: HomeRoute.page),
-        AutoRoute(page: MyReservationsRoute.page),
-        AutoRoute(page: ProfileRoute.page),
+        AutoRoute(page: MyReservationsRoute.page, guards: [_authGuard]),
+        AutoRoute(page: ProfileRoute.page, guards: [_authGuard]),
       ],
     ),
   ];

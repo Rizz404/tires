@@ -21,4 +21,5 @@ abstract class AuthRepository {
     SetNewPasswordParams params,
   );
   Future<Either<Failure, ActionSuccess>> logout();
+  Future<Either<Failure, ItemSuccessResponse<Auth?>>> getCurrentAuth();
 }
