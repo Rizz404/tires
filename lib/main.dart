@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tires/core/storage/session_storage_keys.dart';
 import 'package:tires/core/theme/app_theme.dart';
 import 'package:tires/di/common_providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,7 +22,9 @@ Future<void> main() async {
     // * Storage
     const secureStorage = FlutterSecureStorage();
     final preferencesWithCache = await SharedPreferencesWithCache.create(
-      cacheOptions: const SharedPreferencesWithCacheOptions(allowList: {}),
+      cacheOptions: const SharedPreferencesWithCacheOptions(
+        allowList: {SessionStorageKeys.userKey},
+      ),
     );
     final preferences = await SharedPreferences.getInstance();
 

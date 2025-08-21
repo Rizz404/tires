@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:logger/logger.dart';
 import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/core/routes/auth_guard.dart';
@@ -27,6 +28,10 @@ final sharedPreferencesWithCacheProvider = Provider<SharedPreferencesWithCache>(
   },
 );
 
+final loggerProvider = Provider<Logger>((ref) {
+  return Logger();
+});
+
 final dioProvider = Provider<Dio>((ref) {
   return Dio();
 });
@@ -50,7 +55,8 @@ final dioClientProvider = Provider<DioClient>((ref) {
 });
 
 final authGuardProvider = Provider<AuthGuard>((ref) {
-  return AuthGuard();
+  final _sessionStorageService = ref.watch(sessionStorageServiceProvider);
+  return AuthGuard(_sessionStorageService);
 });
 
 final duplicateGuardProvider = Provider<DuplicateGuard>((ref) {

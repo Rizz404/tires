@@ -5,6 +5,7 @@ enum AppTextFieldType { email, password, text, phone }
 
 class AppTextField extends StatefulWidget {
   final String name;
+  final String? initialValue;
   final String label;
   final String? placeHolder;
   final AppTextFieldType type;
@@ -14,8 +15,9 @@ class AppTextField extends StatefulWidget {
   const AppTextField({
     super.key,
     required this.name,
+    this.initialValue,
     required this.label,
-    this.placeHolder, // Diubah dari placeHolder menjadi placeHolder
+    this.placeHolder,
     this.type = AppTextFieldType.text,
     this.maxLines,
     this.validator,
@@ -46,6 +48,7 @@ class _AppTextFieldState extends State<AppTextField> {
 
     return FormBuilderTextField(
       name: widget.name,
+      initialValue: widget.initialValue,
       maxLines: isPassword ? 1 : widget.maxLines,
       obscureText: isPassword ? _obscureText : false,
       keyboardType: getKeyboardType(),

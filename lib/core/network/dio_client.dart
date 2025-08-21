@@ -1,13 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:tires/core/constants/api_constants.dart';
 import 'package:tires/core/network/api_cursor_pagination_response.dart';
 import 'package:tires/core/network/api_error_response.dart';
 import 'package:tires/core/network/api_offset_pagination_response.dart';
 import 'package:tires/core/network/api_response.dart';
-import 'package:tires/core/network/locale_interceptor.dart';
 import 'package:tires/core/network/auth_interceptor.dart';
+import 'package:tires/core/network/locale_interceptor.dart';
+import 'package:tires/core/network/logger_interceptor.dart';
 import 'package:tires/core/storage/session_storage_service.dart';
 
 class DioClient {
@@ -32,12 +34,17 @@ class DioClient {
 
     if (kDebugMode) {
       _dio.interceptors.add(
-        LogInterceptor(
-          request: true,
-          requestHeader: true,
-          requestBody: true,
-          responseHeader: true,
-          responseBody: true,
+        LoggerInterceptor(
+          Logger(
+            printer: PrettyPrinter(
+              methodCount: 0,
+              errorMethodCount: 5,
+              lineLength: 80,
+              colors: true,
+              printEmojis: true,
+              printTime: false,
+            ),
+          ),
         ),
       );
     }
@@ -54,7 +61,7 @@ class DioClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
-    required T Function(dynamic json) fromJson,
+    T Function(dynamic json)? fromJson,
   }) async {
     try {
       final response = await _dio.get(
@@ -151,7 +158,7 @@ class DioClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
-    required T Function(dynamic json) fromJson,
+    T Function(dynamic json)? fromJson,
   }) async {
     try {
       final response = await _dio.post(
@@ -178,7 +185,7 @@ class DioClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
-    required T Function(dynamic json) fromJson,
+    T Function(dynamic json)? fromJson,
   }) async {
     try {
       final response = await _dio.put(
@@ -205,7 +212,7 @@ class DioClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
-    required T Function(dynamic json) fromJson,
+    T Function(dynamic json)? fromJson,
   }) async {
     try {
       final response = await _dio.patch(
@@ -232,7 +239,7 @@ class DioClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
-    required T Function(dynamic json) fromJson,
+    T Function(dynamic json)? fromJson,
   }) async {
     try {
       final response = await _dio.delete(

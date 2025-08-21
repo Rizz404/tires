@@ -22,18 +22,18 @@ class ApiResponse<T> extends Equatable {
 
   factory ApiResponse.fromMap(
     Map<String, dynamic> map,
-    T Function(dynamic json) fromJsonT,
+    T Function(dynamic json)? fromJsonT,
   ) {
     return ApiResponse<T>(
       success: map['success'] as bool,
       message: map['message'] as String,
-      data: fromJsonT(map['data']),
+      data: fromJsonT != null ? fromJsonT(map['data']) : map['data'] as T,
     );
   }
 
   factory ApiResponse.fromJson(
     String source,
-    T Function(dynamic json) fromJsonT,
+    T Function(dynamic json)? fromJsonT,
   ) => ApiResponse.fromMap(json.decode(source), fromJsonT);
 
   @override

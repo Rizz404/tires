@@ -8,10 +8,10 @@ import 'package:tires/features/authentication/data/datasources/auth_remote_datas
 import 'package:tires/features/authentication/data/mapper/auth_mapper.dart';
 import 'package:tires/features/authentication/domain/entities/auth.dart';
 import 'package:tires/features/authentication/domain/repositories/auth_repository.dart';
+import 'package:tires/features/authentication/domain/usecases/forgot_password_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/login_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/register_usecase.dart';
-import 'package:tires/features/user/data/mapper/user_mapper.dart';
-import 'package:tires/features/user/domain/entities/user.dart';
+import 'package:tires/features/authentication/domain/usecases/set_new_password_usecase.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   final AuthRemoteDatasource _authRemoteDatasource;
@@ -61,6 +61,59 @@ class AuthRepositoryImpl extends AuthRepository {
       await _sessionStorageService.saveUser(apiResponse.data.user);
 
       return Right(ItemSuccessResponse(data: apiResponse.data.toEntity()));
+    } on ApiErrorResponse catch (e) {
+      if (e.code == 422 || e.error != null) {
+        return Left(
+          ValidationFailure(
+            message: e.message,
+            code: e.code,
+            errors: e.error?.map((err) => err.toEntity()).toList(),
+          ),
+        );
+      }
+      return Left(ServerFailure(message: e.message, code: e.code));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ActionSuccess>> forgotPassword(
+    ForgotPasswordParams params,
+  ) async {
+    try {
+      final apiResponse = await _authRemoteDatasource.forgotPassword(
+        ForgotPasswordPayload(email: params.email),
+      );
+      return Right(ActionSuccess(message: apiResponse.message));
+    } on ApiErrorResponse catch (e) {
+      if (e.code == 422 || e.error != null) {
+        return Left(
+          ValidationFailure(
+            message: e.message,
+            code: e.code,
+            errors: e.error?.map((err) => err.toEntity()).toList(),
+          ),
+        );
+      }
+      return Left(ServerFailure(message: e.message, code: e.code));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ActionSuccess>> setNewPassword(
+    SetNewPasswordParams params,
+  ) async {
+    try {
+      final apiResponse = await _authRemoteDatasource.setNewPassword(
+        SetNewPasswordPayload(
+          newPassword: params.newPassword,
+          confirmNewPassword: params.confirmNewPassword,
+        ),
+      );
+      return Right(ActionSuccess(message: apiResponse.message));
     } on ApiErrorResponse catch (e) {
       if (e.code == 422 || e.error != null) {
         return Left(

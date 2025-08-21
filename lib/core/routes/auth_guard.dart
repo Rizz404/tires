@@ -1,9 +1,21 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:tires/core/routes/app_router.dart';
+import 'package:tires/core/storage/session_storage_service.dart';
 
 class AuthGuard extends AutoRouteGuard {
-  @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) {
-    // TODO: implement onNavigation
-  }
+  final SessionStorageService _sessionStorageService;
 
+  AuthGuard(this._sessionStorageService);
+
+  @override
+  void onNavigation(NavigationResolver resolver, StackRouter router) async {
+    final accessToken = await _sessionStorageService.getAccessToken();
+
+    if (accessToken != null && accessToken.isNotEmpty) {
+      resolver.next(true);
+    } else {
+      router.push(const LoginRoute());
+      resolver.next(false);
+    }
+  }
 }

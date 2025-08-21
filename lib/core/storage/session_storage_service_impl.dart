@@ -7,10 +7,12 @@ import 'package:tires/features/user/data/mapper/user_mapper.dart';
 import 'package:tires/features/user/data/models/user_model.dart';
 import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:logger/logger.dart';
 
 class SessionStorageServiceImpl implements SessionStorageService {
   final FlutterSecureStorage _flutterSecureStorage;
   final SharedPreferencesWithCache _sharedPreferencesWithCache;
+  final Logger _logger = Logger();
 
   SessionStorageServiceImpl(
     this._flutterSecureStorage,
@@ -19,22 +21,26 @@ class SessionStorageServiceImpl implements SessionStorageService {
 
   @override
   Future<String?> getAccessToken() async {
-    return await _flutterSecureStorage.read(
+    final token = await _flutterSecureStorage.read(
       key: SessionStorageKeys.accessTokenKey,
     );
+    _logger.i("Get Access Token: $token");
+    return token;
   }
 
   @override
   Future<void> saveAccessToken(String token) async {
-    _flutterSecureStorage.write(
+    await _flutterSecureStorage.write(
       key: SessionStorageKeys.accessTokenKey,
       value: token,
     );
+    _logger.i("Saved Access Token: $token");
   }
 
   @override
   Future<void> deleteAccessToken() async {
-    _flutterSecureStorage.delete(key: SessionStorageKeys.accessTokenKey);
+    await _flutterSecureStorage.delete(key: SessionStorageKeys.accessTokenKey);
+    _logger.w("Deleted Access Token");
   }
 
   @override
@@ -45,9 +51,12 @@ class SessionStorageServiceImpl implements SessionStorageService {
 
     if (userJson != null) {
       final userModelJson = UserModel.fromJson(jsonDecode(userJson));
-      return userModelJson.toEntity();
+      final user = userModelJson.toEntity();
+      _logger.i("Get User: ${user.toString()}");
+      return user;
     }
 
+    _logger.w("No user found in storage");
     return null;
   }
 
@@ -56,12 +65,14 @@ class SessionStorageServiceImpl implements SessionStorageService {
     final userModel = user.toModel();
     await _sharedPreferencesWithCache.setString(
       SessionStorageKeys.userKey,
-      jsonDecode(userModel.toJson()),
+      jsonEncode(userModel.toJson()),
     );
+    _logger.i("Saved User: ${user.toString()}");
   }
 
   @override
   Future<void> deleteUser() async {
     await _sharedPreferencesWithCache.remove(SessionStorageKeys.userKey);
+    _logger.w("Deleted User");
   }
 }
