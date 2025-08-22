@@ -197,6 +197,7 @@
     "adminDrawerItemBusinessInformation",
     "adminDrawerItemContact",
     "adminDrawerItemCustomerManagement",
-    "adminDrawerItemMenu"
+    "adminDrawerItemMenu",
+    "pressAgainToExit"
   ]
 }

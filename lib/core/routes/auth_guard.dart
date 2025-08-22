@@ -9,13 +9,25 @@ class AuthGuard extends AutoRouteGuard {
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
-    final accessToken = await _sessionStorageService.getAccessToken();
+    try {
+      final accessToken = await _sessionStorageService.getAccessToken();
 
-    if (accessToken != null && accessToken.isNotEmpty) {
-      resolver.next(true);
-    } else {
-      // If not authenticated, redirect to the Login page and prevent navigation.
-      router.pushAndPopUntil(const LoginRoute(), predicate: (_) => false);
+      // Debug print untuk memastikan token
+      print('AuthGuard - Access Token: $accessToken');
+
+      if (accessToken != null && accessToken.isNotEmpty) {
+        print('AuthGuard - User authenticated, allowing navigation');
+        resolver.next(true);
+      } else {
+        print('AuthGuard - User not authenticated, redirecting to login');
+        // Redirect ke login dan clear navigation stack
+        await router.push(const LoginRoute());
+        resolver.next(false);
+      }
+    } catch (e) {
+      print('AuthGuard - Error checking authentication: $e');
+      // Jika error, redirect ke login untuk safety
+      await router.pushAndPopUntil(const LoginRoute(), predicate: (_) => false);
       resolver.next(false);
     }
   }

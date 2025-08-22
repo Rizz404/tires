@@ -18,13 +18,15 @@ class UserEndDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Listen untuk logout navigation - perbaiki logika kondisi
     ref.listen<AuthState>(authNotifierProvider, (previous, next) {
-      // Cek apakah user baru saja logout (dari authenticated ke unauthenticated)
-      final wasAuthenticated = previous?.status == AuthStatus.authenticated;
-      final isNowUnauthenticated = next.status == AuthStatus.unauthenticated;
+      // Cek apakah user baru saja logout (dari ada user menjadi tidak ada user)
+      final wasUserPresent = previous?.user != null;
+      final isUserAbsent = next.user == null;
 
-      if (wasAuthenticated && isNowUnauthenticated) {
+      // Tambahkan pengecekan agar tidak terpanggil saat inisialisasi awal
+      final wasNotInitial = previous?.status != AuthStatus.initial;
+
+      if (wasUserPresent && isUserAbsent && wasNotInitial) {
         // Pastikan context masih valid sebelum navigasi
         if (context.mounted) {
           // Gunakan WidgetsBinding untuk delay navigasi setelah frame selesai

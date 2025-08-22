@@ -605,4 +605,7 @@ class L10nJa extends L10n {
 
   @override
   String get adminDrawerItemMenu => 'メニュー管理';
+
+  @override
+  String get pressAgainToExit => 'もう一度押すと終了します';
 }

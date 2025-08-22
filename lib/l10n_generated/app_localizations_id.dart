@@ -630,4 +630,7 @@ class L10nId extends L10n {
 
   @override
   String get adminDrawerItemMenu => 'Menu Management';
+
+  @override
+  String get pressAgainToExit => 'Press Again To Exit';
 }

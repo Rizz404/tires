@@ -47,79 +47,131 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
     // * Authentication routes
-    AutoRoute(page: LoginRoute.page),
-    AutoRoute(page: RegisterRoute.page),
-    AutoRoute(page: ForgotPasswordRoute.page),
-    AutoRoute(page: SetNewPasswordRoute.page),
+    AutoRoute(page: LoginRoute.page, path: '/login'),
+    AutoRoute(page: RegisterRoute.page, path: '/register'),
+    AutoRoute(page: ForgotPasswordRoute.page, path: '/forgot-password'),
+    AutoRoute(page: SetNewPasswordRoute.page, path: '/set-new-password'),
 
-    // * User inquiry routes
-    AutoRoute(page: InquiryRoute.page, guards: [_authGuard]),
+    // * Standalone protected routes
+    AutoRoute(page: InquiryRoute.page, path: '/inquiry', guards: [_authGuard]),
+    AutoRoute(
+      page: CreateReservationRoute.page,
+      path: '/create-reservation',
+      guards: [_authGuard],
+    ),
+    AutoRoute(
+      page: ConfirmReservationRoute.page,
+      path: '/confirm-reservation',
+      guards: [_authGuard],
+    ),
+    AutoRoute(
+      page: ReservationSummaryRoute.page,
+      path: '/reservation-summary',
+      guards: [_authGuard],
+    ),
+    AutoRoute(
+      page: ConfirmedReservationRoute.page,
+      path: '/confirmed-reservation',
+      guards: [_authGuard],
+    ),
 
-    // * User reservation routes
-    AutoRoute(page: CreateReservationRoute.page, guards: [_authGuard]),
-    AutoRoute(page: ConfirmReservationRoute.page, guards: [_authGuard]),
-    AutoRoute(page: ReservationSummaryRoute.page, guards: [_authGuard]),
-    AutoRoute(page: ConfirmedReservationRoute.page, guards: [_authGuard]),
-
-    // * Admin Announcement Management
-    AutoRoute(page: AdminUpsertAnnouncementRoute.page, guards: [_authGuard]),
-
-    // * Admin Availability Management
-    AutoRoute(page: AdminListAvailabilityRoute.page, guards: [_authGuard]),
-
-    // * Admin Blocked Management
-    AutoRoute(page: AdminListBlockedRoute.page, guards: [_authGuard]),
-    AutoRoute(page: AdminUpsertBlockedRoute.page, guards: [_authGuard]),
-
-    // * Admin Business Information Management
+    // * Admin routes - ALL need authentication
+    AutoRoute(
+      page: AdminUpsertAnnouncementRoute.page,
+      path: '/admin/announcement/upsert',
+      guards: [_authGuard],
+    ),
+    AutoRoute(
+      page: AdminListAvailabilityRoute.page,
+      path: '/admin/availability',
+      guards: [_authGuard],
+    ),
+    AutoRoute(
+      page: AdminListBlockedRoute.page,
+      path: '/admin/blocked',
+      guards: [_authGuard],
+    ),
+    AutoRoute(
+      page: AdminUpsertBlockedRoute.page,
+      path: '/admin/blocked/upsert',
+      guards: [_authGuard],
+    ),
     AutoRoute(
       page: AdminListBussinessInformationRoute.page,
+      path: '/admin/business-info',
       guards: [_authGuard],
     ),
     AutoRoute(
       page: AdminUpsertBussinessInformationRoute.page,
+      path: '/admin/business-info/upsert',
       guards: [_authGuard],
     ),
-
-    // * Admin Calendar Management
-    AutoRoute(page: AdminUpsertCalendarRoute.page, guards: [_authGuard]),
-
-    // * Admin Contact Management
-    AutoRoute(page: AdminListContactRoute.page, guards: [_authGuard]),
-    AutoRoute(page: AdminUpsertContactRoute.page, guards: [_authGuard]),
-
-    // * Admin Customer Management
+    AutoRoute(
+      page: AdminUpsertCalendarRoute.page,
+      path: '/admin/calendar/upsert',
+      guards: [_authGuard],
+    ),
+    AutoRoute(
+      page: AdminListContactRoute.page,
+      path: '/admin/contact',
+      guards: [_authGuard],
+    ),
+    AutoRoute(
+      page: AdminUpsertContactRoute.page,
+      path: '/admin/contact/upsert',
+      guards: [_authGuard],
+    ),
     AutoRoute(
       page: AdminListCustomerManagementRoute.page,
+      path: '/admin/customer',
       guards: [_authGuard],
     ),
     AutoRoute(
       page: AdminUpsertCustomerManagementRoute.page,
+      path: '/admin/customer/upsert',
+      guards: [_authGuard],
+    ),
+    AutoRoute(
+      page: AdminListMenuRoute.page,
+      path: '/admin/menu',
+      guards: [_authGuard],
+    ),
+    AutoRoute(
+      page: AdminUpsertMenuRoute.page,
+      path: '/admin/menu/upsert',
       guards: [_authGuard],
     ),
 
-    // * Admin Menu Management
-    AutoRoute(page: AdminListMenuRoute.page, guards: [_authGuard]),
-    AutoRoute(page: AdminUpsertMenuRoute.page, guards: [_authGuard]),
-
+    // ! gak bisa pake auth guard di tab screen
     // * Admin tab navigation
     AutoRoute(
       page: AdminTabRoute.page,
+      path: '/admin',
+      guards: [_authGuard],
       children: [
-        AutoRoute(page: AdminDashboardRoute.page, guards: [_authGuard]),
-        AutoRoute(page: AdminListCalendarRoute.page, guards: [_authGuard]),
-        AutoRoute(page: AdminListAnnouncementRoute.page, guards: [_authGuard]),
+        AutoRoute(page: AdminDashboardRoute.page, path: 'dashboard'),
+        AutoRoute(page: AdminListCalendarRoute.page, path: 'calendar'),
+        AutoRoute(page: AdminListAnnouncementRoute.page, path: 'announcements'),
       ],
     ),
 
-    // * User tab navigation (main app flow)
+    // * User tab navigation
     AutoRoute(
       page: UserTabRoute.page,
+      path: '/',
       initial: true,
       children: [
-        AutoRoute(page: HomeRoute.page),
-        AutoRoute(page: MyReservationsRoute.page, guards: [_authGuard]),
-        AutoRoute(page: ProfileRoute.page, guards: [_authGuard]),
+        AutoRoute(page: HomeRoute.page, path: 'home'),
+        AutoRoute(
+          page: MyReservationsRoute.page,
+          path: 'reservations',
+          guards: [_authGuard],
+        ),
+        AutoRoute(
+          page: ProfileRoute.page,
+          path: 'profile',
+          guards: [_authGuard],
+        ),
       ],
     ),
   ];

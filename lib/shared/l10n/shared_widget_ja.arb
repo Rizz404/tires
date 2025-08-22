@@ -37,5 +37,6 @@
     "adminDrawerItemBusinessInformation": "ビジネス情報",
     "adminDrawerItemContact": "連絡先管理",
     "adminDrawerItemCustomerManagement": "顧客管理",
-    "adminDrawerItemMenu": "メニュー管理"
+    "adminDrawerItemMenu": "メニュー管理",
+    "pressAgainToExit": "もう一度押すと終了します"
 }

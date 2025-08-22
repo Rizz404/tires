@@ -1286,6 +1286,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Menu Management'**
   String get adminDrawerItemMenu;
+
+  /// No description provided for @pressAgainToExit.
+  ///
+  /// In en, this message translates to:
+  /// **'Press Again To Exit'**
+  String get pressAgainToExit;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {
