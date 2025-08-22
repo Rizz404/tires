@@ -59,12 +59,14 @@ class Pagination {
 }
 
 class Cursor {
-  final String nextCursor;
+  final String? nextCursor;
+  final String? previousCursor;
   final bool hasNextPage;
   final int perPage;
 
   Cursor({
     required this.nextCursor,
+    this.previousCursor,
     required this.hasNextPage,
     required this.perPage,
   });

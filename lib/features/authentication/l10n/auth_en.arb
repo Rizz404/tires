@@ -45,5 +45,14 @@
   "loginForgotPassword": "Forgot your password?",
   "loginButton": "Login",
   "loginNoAccountPrompt": "Don't have a RESERVATION account?",
-  "loginSignupLink": "Sign up now"
+  "loginSignupLink": "Sign up now",
+  "forgotPasswordTitle": "Forgot Your Password?",
+  "forgotPasswordSubtitle": "No worries! Enter your email and we will send you a reset link.",
+  "forgotPasswordEmailLabel": "Email Address",
+  "forgotPasswordEmailPlaceholder": "Enter your email address",
+  "forgotPasswordButton": "Send Reset Link",
+  "forgotPasswordSuccessMessage": "An email with a password reset link has been sent. Please check your inbox.",
+  "forgotPasswordFormError": "Please correct the errors in the form.",
+  "forgotPasswordRemembered": "Remembered your password?",
+  "forgotPasswordBackToLogin": "Back to Login"
 }

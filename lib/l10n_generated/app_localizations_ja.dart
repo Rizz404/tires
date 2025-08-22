@@ -148,6 +148,35 @@ class L10nJa extends L10n {
   String get loginSignupLink => '今すぐ会員登録する';
 
   @override
+  String get forgotPasswordTitle => 'パスワードをお忘れですか？';
+
+  @override
+  String get forgotPasswordSubtitle =>
+      'ご心配なく！メールアドレスを入力していただければ、リセット用のリンクをお送りします。';
+
+  @override
+  String get forgotPasswordEmailLabel => 'メールアドレス';
+
+  @override
+  String get forgotPasswordEmailPlaceholder => 'メールアドレスを入力してください';
+
+  @override
+  String get forgotPasswordButton => 'リセットリンクを送信';
+
+  @override
+  String get forgotPasswordSuccessMessage =>
+      'パスワードリセット用のリンクが記載されたメールを送信しました。受信トレイをご確認ください。';
+
+  @override
+  String get forgotPasswordFormError => 'フォームのエラーを修正してください。';
+
+  @override
+  String get forgotPasswordRemembered => 'パスワードを思い出しましたか？';
+
+  @override
+  String get forgotPasswordBackToLogin => 'ログインに戻る';
+
+  @override
   String get homePrimaryTitle => '私たちのサービス';
 
   @override
@@ -506,16 +535,19 @@ class L10nJa extends L10n {
   String get appBarRegister => '登録';
 
   @override
-  String get bottomNavHome => 'ホーム';
+  String get userBottomNavHome => 'ホーム';
 
   @override
-  String get bottomNavReservations => '予約';
+  String get userBottomNavReservations => '予約';
 
   @override
-  String get bottomNavProfile => 'プロフィール';
+  String get userBottomNavProfile => 'プロフィール';
 
   @override
   String get drawerHeaderTitle => 'メインメニュー';
+
+  @override
+  String get adminDrawerHeaderTitle => '管理者メニュー';
 
   @override
   String get drawerGuestUser => 'ゲストユーザー';
@@ -546,4 +578,31 @@ class L10nJa extends L10n {
 
   @override
   String get dialogTitleSelectLanguage => '言語を選択';
+
+  @override
+  String get adminBottomNavDashboard => 'ダッシュボード';
+
+  @override
+  String get adminBottomNavCalendar => 'カレンダー';
+
+  @override
+  String get adminBottomNavAnnouncements => 'お知らせ';
+
+  @override
+  String get adminDrawerItemAvailability => '空き状況管理';
+
+  @override
+  String get adminDrawerItemBlocked => 'ブロック管理';
+
+  @override
+  String get adminDrawerItemBusinessInformation => 'ビジネス情報';
+
+  @override
+  String get adminDrawerItemContact => '連絡先管理';
+
+  @override
+  String get adminDrawerItemCustomerManagement => '顧客管理';
+
+  @override
+  String get adminDrawerItemMenu => 'メニュー管理';
 }

@@ -27,17 +27,17 @@ class UserTabScreen extends StatelessWidget {
             NavigationDestination(
               icon: const Icon(Icons.home_outlined),
               selectedIcon: const Icon(Icons.home),
-              label: context.l10n.bottomNavHome,
+              label: context.l10n.userBottomNavHome,
             ),
             NavigationDestination(
               icon: const Icon(Icons.dinner_dining_outlined),
               selectedIcon: const Icon(Icons.dinner_dining),
-              label: context.l10n.bottomNavReservations,
+              label: context.l10n.userBottomNavReservations,
             ),
             NavigationDestination(
               icon: const Icon(Icons.person_outlined),
               selectedIcon: const Icon(Icons.person),
-              label: context.l10n.bottomNavProfile,
+              label: context.l10n.userBottomNavProfile,
             ),
           ],
         );

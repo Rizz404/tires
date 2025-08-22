@@ -375,6 +375,60 @@ abstract class L10n {
   /// **'Sign up now'**
   String get loginSignupLink;
 
+  /// No description provided for @forgotPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Your Password?'**
+  String get forgotPasswordTitle;
+
+  /// No description provided for @forgotPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No worries! Enter your email and we will send you a reset link.'**
+  String get forgotPasswordSubtitle;
+
+  /// No description provided for @forgotPasswordEmailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Address'**
+  String get forgotPasswordEmailLabel;
+
+  /// No description provided for @forgotPasswordEmailPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email address'**
+  String get forgotPasswordEmailPlaceholder;
+
+  /// No description provided for @forgotPasswordButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Reset Link'**
+  String get forgotPasswordButton;
+
+  /// No description provided for @forgotPasswordSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'An email with a password reset link has been sent. Please check your inbox.'**
+  String get forgotPasswordSuccessMessage;
+
+  /// No description provided for @forgotPasswordFormError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please correct the errors in the form.'**
+  String get forgotPasswordFormError;
+
+  /// No description provided for @forgotPasswordRemembered.
+  ///
+  /// In en, this message translates to:
+  /// **'Remembered your password?'**
+  String get forgotPasswordRemembered;
+
+  /// No description provided for @forgotPasswordBackToLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Login'**
+  String get forgotPasswordBackToLogin;
+
   /// No description provided for @homePrimaryTitle.
   ///
   /// In en, this message translates to:
@@ -1089,29 +1143,35 @@ abstract class L10n {
   /// **'Register'**
   String get appBarRegister;
 
-  /// No description provided for @bottomNavHome.
+  /// No description provided for @userBottomNavHome.
   ///
   /// In en, this message translates to:
   /// **'Home'**
-  String get bottomNavHome;
+  String get userBottomNavHome;
 
-  /// No description provided for @bottomNavReservations.
+  /// No description provided for @userBottomNavReservations.
   ///
   /// In en, this message translates to:
   /// **'Reservations'**
-  String get bottomNavReservations;
+  String get userBottomNavReservations;
 
-  /// No description provided for @bottomNavProfile.
+  /// No description provided for @userBottomNavProfile.
   ///
   /// In en, this message translates to:
   /// **'Profile'**
-  String get bottomNavProfile;
+  String get userBottomNavProfile;
 
   /// No description provided for @drawerHeaderTitle.
   ///
   /// In en, this message translates to:
   /// **'Main Menu'**
   String get drawerHeaderTitle;
+
+  /// No description provided for @adminDrawerHeaderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin Menu'**
+  String get adminDrawerHeaderTitle;
 
   /// No description provided for @drawerGuestUser.
   ///
@@ -1172,6 +1232,60 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Select Language'**
   String get dialogTitleSelectLanguage;
+
+  /// No description provided for @adminBottomNavDashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get adminBottomNavDashboard;
+
+  /// No description provided for @adminBottomNavCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get adminBottomNavCalendar;
+
+  /// No description provided for @adminBottomNavAnnouncements.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcements'**
+  String get adminBottomNavAnnouncements;
+
+  /// No description provided for @adminDrawerItemAvailability.
+  ///
+  /// In en, this message translates to:
+  /// **'Availability'**
+  String get adminDrawerItemAvailability;
+
+  /// No description provided for @adminDrawerItemBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked Management'**
+  String get adminDrawerItemBlocked;
+
+  /// No description provided for @adminDrawerItemBusinessInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Business Info'**
+  String get adminDrawerItemBusinessInformation;
+
+  /// No description provided for @adminDrawerItemContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Management'**
+  String get adminDrawerItemContact;
+
+  /// No description provided for @adminDrawerItemCustomerManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Management'**
+  String get adminDrawerItemCustomerManagement;
+
+  /// No description provided for @adminDrawerItemMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu Management'**
+  String get adminDrawerItemMenu;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

@@ -9,6 +9,7 @@ import 'package:tires/features/authentication/domain/usecases/login_usecase.dart
 import 'package:tires/features/authentication/presentation/providers/auth_providers.dart';
 import 'package:tires/features/authentication/presentation/providers/auth_state.dart';
 import 'package:tires/features/authentication/presentation/validations/auth_validators.dart';
+import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:tires/shared/presentation/utils/app_toast.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
 import 'package:tires/shared/presentation/widgets/app_checkbox.dart';
@@ -56,10 +57,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     ref.listen(authNotifierProvider, (previous, next) {
       // Handle authentication state changes
-      if (next.status == AuthStatus.authenticated) {
-        // User is authenticated, navigate to home
+      if (next.status == AuthStatus.authenticated && next.user != null) {
+        // User is authenticated, navigate based on role and clear the stack
         AppToast.showSuccess(context, message: "Login successful!");
-        context.router.replace(const HomeRoute());
+        if (next.user!.role == UserRole.admin) {
+          context.router.pushAndPopUntil(
+            const AdminDashboardRoute(),
+            predicate: (_) => false,
+          );
+        } else {
+          context.router.pushAndPopUntil(
+            const HomeRoute(),
+            predicate: (_) => false,
+          );
+        }
       } else if (next.status == AuthStatus.error && next.failure != null) {
         // Handle login errors
         if (next.failure is ValidationFailure) {
@@ -76,15 +87,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final theme = Theme.of(context);
     final l10n = context.l10n;
 
-    // Show loading screen while checking authentication status
     if (authState.status == AuthStatus.initial ||
         (authState.status == AuthStatus.loading && authState.user == null)) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
-
-    // If user is already authenticated, show a brief loading then navigate
-    if (authState.status == AuthStatus.authenticated) {
-      // This will trigger navigation via the listener above
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 

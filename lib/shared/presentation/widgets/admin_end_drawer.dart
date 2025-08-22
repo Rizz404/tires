@@ -13,21 +13,17 @@ import 'package:tires/features/authentication/presentation/providers/auth_state.
 import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:tires/l10n_generated/app_localizations.dart';
 
-class UserEndDrawer extends ConsumerWidget {
-  const UserEndDrawer({Key? key}) : super(key: key);
+class AdminEndDrawer extends ConsumerWidget {
+  const AdminEndDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Listen untuk logout navigation - perbaiki logika kondisi
     ref.listen<AuthState>(authNotifierProvider, (previous, next) {
-      // Cek apakah user baru saja logout (dari authenticated ke unauthenticated)
       final wasAuthenticated = previous?.status == AuthStatus.authenticated;
       final isNowUnauthenticated = next.status == AuthStatus.unauthenticated;
 
       if (wasAuthenticated && isNowUnauthenticated) {
-        // Pastikan context masih valid sebelum navigasi
         if (context.mounted) {
-          // Gunakan WidgetsBinding untuk delay navigasi setelah frame selesai
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (context.mounted) {
               context.router.pushAndPopUntil(
@@ -57,38 +53,78 @@ class UserEndDrawer extends ConsumerWidget {
       currentTabIndex = -1;
     }
 
-    final List<Map<String, dynamic>> userDrawerItems = [
+    final List<Map<String, dynamic>> adminDrawerItems = [
       {
-        'icon': Icons.home_outlined,
-        'selectedIcon': Icons.home,
-        'title': l10n.userBottomNavHome,
+        'icon': Icons.dashboard_outlined,
+        'selectedIcon': Icons.dashboard,
+        'title': l10n.adminBottomNavDashboard,
         'isActive': currentTabIndex == 0,
         'type': 'tab',
         'tabIndex': 0,
       },
       {
-        'icon': Icons.dinner_dining_outlined,
-        'selectedIcon': Icons.dinner_dining,
-        'title': l10n.userBottomNavReservations,
+        'icon': Icons.calendar_today_outlined,
+        'selectedIcon': Icons.calendar_today,
+        'title': l10n.adminBottomNavCalendar,
         'isActive': currentTabIndex == 1,
         'type': 'tab',
         'tabIndex': 1,
       },
       {
-        'icon': Icons.person_outlined,
-        'selectedIcon': Icons.person,
-        'title': l10n.userBottomNavProfile,
+        'icon': Icons.campaign_outlined,
+        'selectedIcon': Icons.campaign,
+        'title': l10n.adminBottomNavAnnouncements,
         'isActive': currentTabIndex == 2,
         'type': 'tab',
         'tabIndex': 2,
       },
       {
-        'icon': Icons.help_outline,
-        'selectedIcon': Icons.help,
-        'title': l10n.drawerItemInquiry,
+        'icon': Icons.event_available_outlined,
+        'selectedIcon': Icons.event_available,
+        'title': l10n.adminDrawerItemAvailability,
         'isActive': false,
         'type': 'route',
-        'route': const InquiryRoute(),
+        'route': const AdminListAvailabilityRoute(),
+      },
+      {
+        'icon': Icons.block_outlined,
+        'selectedIcon': Icons.block,
+        'title': l10n.adminDrawerItemBlocked,
+        'isActive': false,
+        'type': 'route',
+        'route': const AdminListBlockedRoute(),
+      },
+      {
+        'icon': Icons.business_outlined,
+        'selectedIcon': Icons.business,
+        'title': l10n.adminDrawerItemBusinessInformation,
+        'isActive': false,
+        'type': 'route',
+        'route': const AdminListBussinessInformationRoute(),
+      },
+      {
+        'icon': Icons.contact_page_outlined,
+        'selectedIcon': Icons.contact_page,
+        'title': l10n.adminDrawerItemContact,
+        'isActive': false,
+        'type': 'route',
+        'route': const AdminListContactRoute(),
+      },
+      {
+        'icon': Icons.people_alt_outlined,
+        'selectedIcon': Icons.people_alt,
+        'title': l10n.adminDrawerItemCustomerManagement,
+        'isActive': false,
+        'type': 'route',
+        'route': const AdminListCustomerManagementRoute(),
+      },
+      {
+        'icon': Icons.menu_book_outlined,
+        'selectedIcon': Icons.menu_book,
+        'title': l10n.adminDrawerItemMenu,
+        'isActive': false,
+        'type': 'route',
+        'route': const AdminListMenuRoute(),
       },
     ];
 
@@ -102,7 +138,7 @@ class UserEndDrawer extends ConsumerWidget {
               child: ListView(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 children: [
-                  ...userDrawerItems.map((item) {
+                  ...adminDrawerItems.map((item) {
                     return _buildDrawerItem(
                       context,
                       icon: item['icon'],
@@ -120,7 +156,7 @@ class UserEndDrawer extends ConsumerWidget {
                               final tabIndex = item['tabIndex'] as int;
                               tabsRouter.setActiveIndex(tabIndex);
                             } else {
-                              context.router.push(const UserTabRoute());
+                              context.router.push(const AdminTabRoute());
                             }
                             break;
                           case 'route':
@@ -159,7 +195,7 @@ class UserEndDrawer extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                l10n.drawerHeaderTitle,
+                l10n.adminDrawerHeaderTitle,
                 style: context.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: context.colorScheme.primary,
@@ -279,11 +315,8 @@ class UserEndDrawer extends ConsumerWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                // Tutup dialog dulu
                 Navigator.of(dialogContext).pop();
-                // Tutup drawer
                 Navigator.of(context).pop();
-                // Baru panggil logout - navigasi akan ditangani oleh listener
                 ref.read(authNotifierProvider.notifier).logout(NoParams());
               },
               style: ElevatedButton.styleFrom(

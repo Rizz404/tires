@@ -149,6 +149,36 @@ class L10nId extends L10n {
   String get loginSignupLink => 'Sign up now';
 
   @override
+  String get forgotPasswordTitle => 'Forgot Your Password?';
+
+  @override
+  String get forgotPasswordSubtitle =>
+      'No worries! Enter your email and we will send you a reset link.';
+
+  @override
+  String get forgotPasswordEmailLabel => 'Email Address';
+
+  @override
+  String get forgotPasswordEmailPlaceholder => 'Enter your email address';
+
+  @override
+  String get forgotPasswordButton => 'Send Reset Link';
+
+  @override
+  String get forgotPasswordSuccessMessage =>
+      'An email with a password reset link has been sent. Please check your inbox.';
+
+  @override
+  String get forgotPasswordFormError =>
+      'Please correct the errors in the form.';
+
+  @override
+  String get forgotPasswordRemembered => 'Remembered your password?';
+
+  @override
+  String get forgotPasswordBackToLogin => 'Back to Login';
+
+  @override
   String get homePrimaryTitle => 'Our Service';
 
   @override
@@ -530,16 +560,19 @@ class L10nId extends L10n {
   String get appBarRegister => 'Register';
 
   @override
-  String get bottomNavHome => 'Home';
+  String get userBottomNavHome => 'Home';
 
   @override
-  String get bottomNavReservations => 'Reservations';
+  String get userBottomNavReservations => 'Reservations';
 
   @override
-  String get bottomNavProfile => 'Profile';
+  String get userBottomNavProfile => 'Profile';
 
   @override
   String get drawerHeaderTitle => 'Main Menu';
+
+  @override
+  String get adminDrawerHeaderTitle => 'Admin Menu';
 
   @override
   String get drawerGuestUser => 'Guest User';
@@ -570,4 +603,31 @@ class L10nId extends L10n {
 
   @override
   String get dialogTitleSelectLanguage => 'Select Language';
+
+  @override
+  String get adminBottomNavDashboard => 'Dashboard';
+
+  @override
+  String get adminBottomNavCalendar => 'Calendar';
+
+  @override
+  String get adminBottomNavAnnouncements => 'Announcements';
+
+  @override
+  String get adminDrawerItemAvailability => 'Availability';
+
+  @override
+  String get adminDrawerItemBlocked => 'Blocked Management';
+
+  @override
+  String get adminDrawerItemBusinessInformation => 'Business Info';
+
+  @override
+  String get adminDrawerItemContact => 'Contact Management';
+
+  @override
+  String get adminDrawerItemCustomerManagement => 'Customer Management';
+
+  @override
+  String get adminDrawerItemMenu => 'Menu Management';
 }

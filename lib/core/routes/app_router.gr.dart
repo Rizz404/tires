@@ -11,17 +11,17 @@
 part of 'app_router.dart';
 
 /// generated route for
-/// [AdminDasboardScreen]
-class AdminDasboardRoute extends PageRouteInfo<void> {
-  const AdminDasboardRoute({List<PageRouteInfo>? children})
-    : super(AdminDasboardRoute.name, initialChildren: children);
+/// [AdminDashboardScreen]
+class AdminDashboardRoute extends PageRouteInfo<void> {
+  const AdminDashboardRoute({List<PageRouteInfo>? children})
+    : super(AdminDashboardRoute.name, initialChildren: children);
 
-  static const String name = 'AdminDasboardRoute';
+  static const String name = 'AdminDashboardRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const AdminDasboardScreen();
+      return const AdminDashboardScreen();
     },
   );
 }
@@ -150,6 +150,22 @@ class AdminListMenuRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const AdminListMenuScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [AdminTabScreen]
+class AdminTabRoute extends PageRouteInfo<void> {
+  const AdminTabRoute({List<PageRouteInfo>? children})
+    : super(AdminTabRoute.name, initialChildren: children);
+
+  static const String name = 'AdminTabRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AdminTabScreen();
     },
   );
 }

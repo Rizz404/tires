@@ -18,7 +18,7 @@ import 'package:tires/features/contact/presentation/screens/admin_list_contact_s
 import 'package:tires/features/contact/presentation/screens/admin_upsert_contact_screen.dart';
 import 'package:tires/features/customer_management/presentation/screens/admin_list_customer_management_screen.dart';
 import 'package:tires/features/customer_management/presentation/screens/admin_upsert_customer_management_screen.dart';
-import 'package:tires/features/dashboard/presentation/screens/admin_dasboard_screen.dart';
+import 'package:tires/features/dashboard/presentation/screens/admin_dashboard_screen.dart';
 import 'package:tires/features/home/presentation/screens/home_screen.dart';
 import 'package:tires/features/inquiry/presentation/screens/inquiry_screen.dart';
 import 'package:tires/features/menu/presentation/screens/admin_list_menu_screen.dart';
@@ -29,6 +29,7 @@ import 'package:tires/features/reservation/presentation/screens/confirmed_reserv
 import 'package:tires/features/reservation/presentation/screens/create_reservation_screen.dart';
 import 'package:tires/features/reservation/presentation/screens/my_reservations_screen.dart';
 import 'package:tires/features/reservation/presentation/screens/reservation_summary_screen.dart';
+import 'package:tires/shared/presentation/widgets/admin_tab_screen.dart';
 import 'package:tires/shared/presentation/widgets/user_tab_screen.dart';
 
 part 'app_router.gr.dart';
@@ -60,11 +61,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ReservationSummaryRoute.page, guards: [_authGuard]),
     AutoRoute(page: ConfirmedReservationRoute.page, guards: [_authGuard]),
 
-    // * Admin Dashboard
-    AutoRoute(page: AdminDasboardRoute.page, guards: [_authGuard]),
-
     // * Admin Announcement Management
-    AutoRoute(page: AdminListAnnouncementRoute.page, guards: [_authGuard]),
     AutoRoute(page: AdminUpsertAnnouncementRoute.page, guards: [_authGuard]),
 
     // * Admin Availability Management
@@ -85,7 +82,6 @@ class AppRouter extends RootStackRouter {
     ),
 
     // * Admin Calendar Management
-    AutoRoute(page: AdminListCalendarRoute.page, guards: [_authGuard]),
     AutoRoute(page: AdminUpsertCalendarRoute.page, guards: [_authGuard]),
 
     // * Admin Contact Management
@@ -105,6 +101,16 @@ class AppRouter extends RootStackRouter {
     // * Admin Menu Management
     AutoRoute(page: AdminListMenuRoute.page, guards: [_authGuard]),
     AutoRoute(page: AdminUpsertMenuRoute.page, guards: [_authGuard]),
+
+    // * Admin tab navigation
+    AutoRoute(
+      page: AdminTabRoute.page,
+      children: [
+        AutoRoute(page: AdminDashboardRoute.page, guards: [_authGuard]),
+        AutoRoute(page: AdminListCalendarRoute.page, guards: [_authGuard]),
+        AutoRoute(page: AdminListAnnouncementRoute.page, guards: [_authGuard]),
+      ],
+    ),
 
     // * User tab navigation (main app flow)
     AutoRoute(

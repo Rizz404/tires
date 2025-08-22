@@ -45,5 +45,14 @@
   "loginForgotPassword": "パスワードをお忘れですか？",
   "loginButton": "ログイン",
   "loginNoAccountPrompt": "RESERVATIONアカウントをお持ちでない方へ",
-  "loginSignupLink": "今すぐ会員登録する"
+  "loginSignupLink": "今すぐ会員登録する",
+  "forgotPasswordTitle": "パスワードをお忘れですか？",
+  "forgotPasswordSubtitle": "ご心配なく！メールアドレスを入力していただければ、リセット用のリンクをお送りします。",
+  "forgotPasswordEmailLabel": "メールアドレス",
+  "forgotPasswordEmailPlaceholder": "メールアドレスを入力してください",
+  "forgotPasswordButton": "リセットリンクを送信",
+  "forgotPasswordSuccessMessage": "パスワードリセット用のリンクが記載されたメールを送信しました。受信トレイをご確認ください。",
+  "forgotPasswordFormError": "フォームのエラーを修正してください。",
+  "forgotPasswordRemembered": "パスワードを思い出しましたか？",
+  "forgotPasswordBackToLogin": "ログインに戻る"
 }
