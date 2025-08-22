@@ -10,7 +10,7 @@ import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/core/theme/app_theme.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
-import 'package:tires/features/user/domain/entities/reservation.dart';
+import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
 import 'package:tires/shared/presentation/widgets/app_checkbox.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';

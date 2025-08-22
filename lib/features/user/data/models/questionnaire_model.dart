@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:tires/features/user/data/models/reservation.dart';
+import 'package:tires/features/reservation/data/models/reservation_model.dart';
 import 'package:tires/features/user/domain/entities/questionnare.dart';
 
 class QuestionnaireModel extends Questionnaire {

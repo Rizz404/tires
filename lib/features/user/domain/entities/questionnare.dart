@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:tires/features/user/domain/entities/reservation.dart';
+import 'package:tires/features/reservation/domain/entities/reservation.dart';
 
 class Questionnaire extends Equatable {
   final int id;

@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:tires/features/menu/data/mapper/menu_mapper.dart';
 import 'package:tires/features/menu/data/models/menu_model.dart';
+import 'package:tires/features/reservation/domain/entities/reservation.dart';
+import 'package:tires/features/user/data/mapper/user_mapper.dart';
 import 'package:tires/features/user/data/models/user_model.dart';
-import 'package:tires/features/user/domain/entities/reservation.dart';
 
 class ReservationModel extends Reservation {
   const ReservationModel({
@@ -62,40 +64,40 @@ class ReservationModel extends Reservation {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'reservationNumber': reservationNumber,
+      'reservation_number': reservationNumber,
       'user': (user as UserModel?)?.toMap(),
-      'fullName': fullName,
-      'fullNameKana': fullNameKana,
+      'full_name': fullName,
+      'full_name_kana': fullNameKana,
       'email': email,
-      'phoneNumber': phoneNumber,
+      'phone_number': phoneNumber,
       'menu': (menu as MenuModel).toMap(),
-      'reservationDatetime': reservationDatetime.toIso8601String(),
-      'numberOfPeople': numberOfPeople,
+      'reservation_datetime': reservationDatetime.toIso8601String(),
+      'number_of_people': numberOfPeople,
       'amount': amount,
       'status': status.name,
       'notes': notes,
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
     };
   }
 
   factory ReservationModel.fromMap(Map<String, dynamic> map) {
     return ReservationModel(
       id: map['id']?.toInt() ?? 0,
-      reservationNumber: map['reservationNumber'] ?? '',
+      reservationNumber: map['reservation_number'] ?? '',
       user: map['user'] != null ? UserModel.fromMap(map['user']) : null,
-      fullName: map['fullName'],
-      fullNameKana: map['fullNameKana'],
+      fullName: map['full_name'],
+      fullNameKana: map['full_name_kana'],
       email: map['email'],
-      phoneNumber: map['phoneNumber'],
+      phoneNumber: map['phone_number'],
       menu: MenuModel.fromMap(map['menu']),
-      reservationDatetime: DateTime.parse(map['reservationDatetime']),
-      numberOfPeople: map['numberOfPeople']?.toInt() ?? 0,
+      reservationDatetime: DateTime.parse(map['reservation_datetime']),
+      numberOfPeople: map['number_of_people']?.toInt() ?? 0,
       amount: map['amount']?.toDouble() ?? 0.0,
       status: ReservationStatus.values.byName(map['status']),
       notes: map['notes'],
-      createdAt: DateTime.parse(map['createdAt']),
-      updatedAt: DateTime.parse(map['updatedAt']),
+      createdAt: DateTime.parse(map['created_at']),
+      updatedAt: DateTime.parse(map['updated_at']),
     );
   }
 
@@ -103,12 +105,12 @@ class ReservationModel extends Reservation {
     return ReservationModel(
       id: entity.id,
       reservationNumber: entity.reservationNumber,
-      user: entity.user,
+      user: entity.user?.toModel(),
       fullName: entity.fullName,
       fullNameKana: entity.fullNameKana,
       email: entity.email,
       phoneNumber: entity.phoneNumber,
-      menu: entity.menu,
+      menu: entity.menu.toModel(),
       reservationDatetime: entity.reservationDatetime,
       numberOfPeople: entity.numberOfPeople,
       amount: entity.amount,

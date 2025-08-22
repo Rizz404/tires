@@ -6,7 +6,7 @@ import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/reservation/presentation/widgets/reservation_item.dart';
-import 'package:tires/features/user/domain/entities/reservation.dart';
+import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:tires/shared/presentation/widgets/user_end_drawer.dart';
