@@ -18,31 +18,6 @@ class UserEndDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen<AuthState>(authNotifierProvider, (previous, next) {
-      // Cek apakah user baru saja logout (dari ada user menjadi tidak ada user)
-      final wasUserPresent = previous?.user != null;
-      final isUserAbsent = next.user == null;
-
-      // Tambahkan pengecekan agar tidak terpanggil saat inisialisasi awal
-      final wasNotInitial = previous?.status != AuthStatus.initial;
-
-      if (wasUserPresent && isUserAbsent && wasNotInitial) {
-        // Pastikan context masih valid sebelum navigasi
-        if (context.mounted) {
-          // Gunakan WidgetsBinding untuk delay navigasi setelah frame selesai
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (context.mounted) {
-              context.router.pushAndPopUntil(
-                const UserTabRoute(),
-                predicate: (_) => false,
-              );
-              context.router.push(const LoginRoute());
-            }
-          });
-        }
-      }
-    });
-
     final l10n = L10n.of(context)!;
     final authState = ref.watch(authNotifierProvider);
     final user = authState.user;
@@ -283,9 +258,7 @@ class UserEndDrawer extends ConsumerWidget {
               onPressed: () {
                 // Tutup dialog dulu
                 Navigator.of(dialogContext).pop();
-                // Tutup drawer
-                Navigator.of(context).pop();
-                // Baru panggil logout - navigasi akan ditangani oleh listener
+                // Panggil logout, navigasi akan ditangani oleh listener di parent
                 ref.read(authNotifierProvider.notifier).logout(NoParams());
               },
               style: ElevatedButton.styleFrom(

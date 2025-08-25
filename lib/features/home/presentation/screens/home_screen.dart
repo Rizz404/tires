@@ -76,41 +76,61 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     }
 
     if (state.menus.isEmpty) {
-      return const Center(
-        child: AppText('No menus available', style: AppTextStyle.bodyMedium),
+      return RefreshIndicator(
+        onRefresh: () => ref.read(menuNotifierProvider.notifier).refreshMenus(),
+        child: ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          children: const [
+            Center(
+              child: AppText('No menus available', style: AppTextStyle.bodyMedium),
+            ),
+          ],
+        ),
       );
     }
 
     return RefreshIndicator(
       onRefresh: () => ref.read(menuNotifierProvider.notifier).refreshMenus(),
-      child: SingleChildScrollView(
+      child: CustomScrollView(
         controller: _scrollController,
         physics: const AlwaysScrollableScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const HomeCarousel(),
-            const SizedBox(height: 24),
-            const AppText('Our Services', style: AppTextStyle.headlineSmall),
-            const SizedBox(height: 16),
-            ...state.menus.map((menu) {
+        slivers: [
+          const SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                HomeCarousel(),
+                SizedBox(height: 24),
+                AppText('Our Services', style: AppTextStyle.headlineSmall),
+                SizedBox(height: 16),
+              ],
+            ),
+          ),
+          SliverList.builder(
+            itemCount: state.menus.length,
+            itemBuilder: (context, index) {
+              final menu = state.menus[index];
               return MenuTile(
                 menu: menu,
                 onBookPressed: () {
                   context.router.push(CreateReservationRoute());
                 },
               );
-            }).toList(),
-
-            if (state.status == MenuStatus.loadingMore)
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child: Center(child: CircularProgressIndicator()),
-              ),
-
-            const SizedBox(height: 80),
-          ],
-        ),
+            },
+          ),
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                if (state.status == MenuStatus.loadingMore)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                const SizedBox(height: 80),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

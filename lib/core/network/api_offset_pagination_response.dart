@@ -5,7 +5,7 @@ class ApiOffsetPaginationResponse<T> extends ApiResponse<List<T>> {
   final Pagination pagination;
 
   ApiOffsetPaginationResponse({
-    required super.success,
+    required super.status,
     required super.message,
     required super.data,
     required this.pagination,
@@ -16,7 +16,7 @@ class ApiOffsetPaginationResponse<T> extends ApiResponse<List<T>> {
     T Function(dynamic json) fromJsonT,
   ) {
     return ApiOffsetPaginationResponse<T>(
-      success: map['success'] as bool,
+      status: map['status'] as String,
       message: map['message'] as String,
       data: (map['data'] as List<dynamic>)
           .map((item) => fromJsonT(item))
@@ -27,13 +27,13 @@ class ApiOffsetPaginationResponse<T> extends ApiResponse<List<T>> {
 
   @override
   ApiOffsetPaginationResponse<T> copyWith({
-    bool? success,
+    String? status,
     String? message,
     List<T>? data,
     Pagination? pagination,
   }) {
     return ApiOffsetPaginationResponse<T>(
-      success: success ?? this.success,
+      status: status ?? this.status,
       message: message ?? this.message,
       data: data ?? this.data,
       pagination: pagination ?? this.pagination,
@@ -42,9 +42,9 @@ class ApiOffsetPaginationResponse<T> extends ApiResponse<List<T>> {
 
   @override
   String toString() {
-    return 'ApiOffsetPaginationResponse(success: $success, message: $message, data: $data, pagination: $pagination)';
+    return 'ApiOffsetPaginationResponse(status: $status, message: $message, data: $data, pagination: $pagination)';
   }
 
   @override
-  List<Object?> get props => [success, message, data, pagination];
+  List<Object?> get props => [status, message, data, pagination];
 }

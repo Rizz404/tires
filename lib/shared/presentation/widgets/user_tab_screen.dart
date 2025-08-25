@@ -25,6 +25,16 @@ class _UserTabScreenState extends ConsumerState<UserTabScreen> {
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
 
+    ref.listen<AuthState>(authNotifierProvider, (previous, next) {
+      final wasAuthenticated = previous?.status == AuthStatus.authenticated;
+      final isNowUnauthenticated = next.status == AuthStatus.unauthenticated;
+
+      if (wasAuthenticated && isNowUnauthenticated) {
+        // This ensures we only navigate on actual logout.
+        context.router.replaceAll([const LoginRoute()]);
+      }
+    });
+
     return AutoTabsRouter(
       routes: const [HomeRoute(), MyReservationsRoute(), ProfileRoute()],
       builder: (context, child) {
@@ -42,7 +52,7 @@ class _UserTabScreenState extends ConsumerState<UserTabScreen> {
             final now = DateTime.now();
             final backButtonHasNotBeenPressedOrWasLongAgo =
                 _lastPressedAt == null ||
-                    now.difference(_lastPressedAt!) > const Duration(seconds: 2);
+                now.difference(_lastPressedAt!) > const Duration(seconds: 2);
 
             if (backButtonHasNotBeenPressedOrWasLongAgo) {
               _lastPressedAt = now;

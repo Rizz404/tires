@@ -6,6 +6,7 @@ import 'package:tires/features/menu/data/datasources/menu_remote_datasource.dart
 import 'package:tires/features/menu/data/mapper/menu_mapper.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/menu/domain/repositories/menu_repository.dart';
+import 'package:tires/features/menu/domain/usecases/get_menu_cursor_usecase.dart';
 import 'package:tires/shared/data/mapper/cursor_mapper.dart';
 
 class MenuRepositoryImpl implements MenuRepository {
@@ -14,11 +15,17 @@ class MenuRepositoryImpl implements MenuRepository {
   MenuRepositoryImpl(this._menuRemoteDatasource);
 
   @override
-  Future<Either<Failure, CursorPaginatedSuccess<Menu>>> getMenuCursor({
-    String? cursor,
-  }) async {
+  Future<Either<Failure, CursorPaginatedSuccess<Menu>>> getMenuCursor(
+    GetMenuCursorParams params,
+  ) async {
     try {
-      final result = await _menuRemoteDatasource.getMenuCursor();
+      final result = await _menuRemoteDatasource.getMenuCursor(
+        GetMenuCursorPayload(
+          paginate: params.paginate,
+          perPage: params.perPage,
+          cursor: params.cursor,
+        ),
+      );
 
       return Right(
         CursorPaginatedSuccess<Menu>(

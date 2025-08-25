@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/di/common_providers.dart';
-import 'package:tires/di/service_providers.dart';
 import 'package:tires/features/authentication/data/datasources/auth_remote_datasource.dart';
 import 'package:tires/features/menu/data/datasources/menu_remote_datasource.dart';
 

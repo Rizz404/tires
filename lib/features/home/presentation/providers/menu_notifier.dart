@@ -14,7 +14,9 @@ class MenuNotifier extends StateNotifier<MenuState> {
 
     state = state.copyWith(status: MenuStatus.loading);
 
-    final result = await _getMenusUsecase(const GetMenuCursorParams());
+    final result = await _getMenusUsecase(
+      const GetMenuCursorParams(paginate: true, perPage: 15),
+    );
 
     result.fold(
       (failure) {
@@ -41,7 +43,11 @@ class MenuNotifier extends StateNotifier<MenuState> {
     state = state.copyWith(status: MenuStatus.loadingMore);
 
     final result = await _getMenusUsecase(
-      GetMenuCursorParams(cursor: state.nextCursor),
+      GetMenuCursorParams(
+        paginate: true,
+        perPage: 15,
+        cursor: state.nextCursor,
+      ),
     );
 
     result.fold(

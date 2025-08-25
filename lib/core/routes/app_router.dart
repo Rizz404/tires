@@ -160,18 +160,11 @@ class AppRouter extends RootStackRouter {
       page: UserTabRoute.page,
       path: '/',
       initial: true,
+      guards: [_authGuard],
       children: [
         AutoRoute(page: HomeRoute.page, path: 'home'),
-        AutoRoute(
-          page: MyReservationsRoute.page,
-          path: 'reservations',
-          guards: [_authGuard],
-        ),
-        AutoRoute(
-          page: ProfileRoute.page,
-          path: 'profile',
-          guards: [_authGuard],
-        ),
+        AutoRoute(page: MyReservationsRoute.page, path: 'reservations'),
+        AutoRoute(page: ProfileRoute.page, path: 'profile'),
       ],
     ),
   ];

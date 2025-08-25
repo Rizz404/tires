@@ -6,7 +6,7 @@ class ApiCursorPaginationResponse<T> extends ApiResponse<List<T>> {
   final Cursor? cursor;
 
   ApiCursorPaginationResponse({
-    required super.success,
+    required super.status,
     required super.message,
     required super.data,
     required this.cursor,
@@ -19,7 +19,7 @@ class ApiCursorPaginationResponse<T> extends ApiResponse<List<T>> {
     final cursorData = map['cursor'];
 
     return ApiCursorPaginationResponse<T>(
-      success: map['success'] as bool,
+      status: map['status'] as String,
       message: map['message'] as String,
       data: (map['data'] as List<dynamic>)
           .map((item) => fromJsonT(item))
@@ -32,13 +32,13 @@ class ApiCursorPaginationResponse<T> extends ApiResponse<List<T>> {
 
   @override
   ApiCursorPaginationResponse<T> copyWith({
-    bool? success,
+    String? status,
     String? message,
     List<T>? data,
     Cursor? cursor,
   }) {
     return ApiCursorPaginationResponse<T>(
-      success: success ?? this.success,
+      status: status ?? this.status,
       message: message ?? this.message,
       data: data ?? this.data,
       cursor: cursor ?? this.cursor,
@@ -47,9 +47,9 @@ class ApiCursorPaginationResponse<T> extends ApiResponse<List<T>> {
 
   @override
   String toString() {
-    return 'ApiCursorPaginationResponse(success: $success, message: $message, data: $data, cursor: $cursor)';
+    return 'ApiCursorPaginationResponse(status: $status, message: $message, data: $data, cursor: $cursor)';
   }
 
   @override
-  List<Object?> get props => [success, message, data, cursor];
+  List<Object?> get props => [status, message, data, cursor];
 }

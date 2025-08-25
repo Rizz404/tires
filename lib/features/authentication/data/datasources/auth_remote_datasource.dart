@@ -9,8 +9,8 @@ import 'package:tires/features/authentication/data/models/auth_model.dart';
 abstract class AuthRemoteDatasource {
   Future<ApiResponse<AuthModel>> register(RegisterPayload payload);
   Future<ApiResponse<AuthModel>> login(LoginPayload payload);
-  Future<ApiResponse<void>> forgotPassword(ForgotPasswordPayload params);
-  Future<ApiResponse<void>> setNewPassword(SetNewPasswordPayload params);
+  Future<ApiResponse<void>> forgotPassword(ForgotPasswordPayload payload);
+  Future<ApiResponse<void>> setNewPassword(SetNewPasswordPayload payload);
 }
 
 class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
@@ -48,11 +48,13 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<void>> forgotPassword(ForgotPasswordPayload params) async {
+  Future<ApiResponse<void>> forgotPassword(
+    ForgotPasswordPayload payload,
+  ) async {
     try {
       final response = await _dioClient.post(
         ApiEndpoints.forgotPassword,
-        data: params.toJson(),
+        data: payload.toJson(),
       );
       return response;
     } catch (e) {
@@ -61,11 +63,13 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<void>> setNewPassword(SetNewPasswordPayload params) async {
+  Future<ApiResponse<void>> setNewPassword(
+    SetNewPasswordPayload payload,
+  ) async {
     try {
       final response = await _dioClient.post(
         ApiEndpoints.setNewPassword,
-        data: params.toJson(),
+        data: payload.toJson(),
       );
       return response;
     } catch (e) {
@@ -74,7 +78,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   }
 }
 
-// * Payload kaga butuh equatable di params baru butuh
+// * Payload kaga butuh equatable di payload baru butuh
 class RegisterPayload {
   final String username;
   final String email;

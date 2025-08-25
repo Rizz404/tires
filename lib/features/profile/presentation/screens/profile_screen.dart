@@ -48,7 +48,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         dateOfBirth: values['dateOfBirth'],
         homeAddress: values['homeAddress'],
       );
-      // ref.read(authNotifierProvider.notifier).profile(params);
 
       AppToast.showSuccess(context, message: "Registration Submitted!");
       context.router.replace(const LoginRoute());

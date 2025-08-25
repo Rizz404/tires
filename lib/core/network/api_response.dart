@@ -2,19 +2,19 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class ApiResponse<T> extends Equatable {
-  final bool success;
+  final String status;
   final String message;
   final T data;
 
   const ApiResponse({
-    required this.success,
+    required this.status,
     required this.message,
     required this.data,
   });
 
-  ApiResponse<T> copyWith({bool? success, String? message, T? data}) {
+  ApiResponse<T> copyWith({String? status, String? message, T? data}) {
     return ApiResponse<T>(
-      success: success ?? this.success,
+      status: status ?? this.status,
       message: message ?? this.message,
       data: data ?? this.data,
     );
@@ -25,7 +25,7 @@ class ApiResponse<T> extends Equatable {
     T Function(dynamic json)? fromJsonT,
   ) {
     return ApiResponse<T>(
-      success: map['success'] as bool,
+      status: map['status'] as String,
       message: map['message'] as String,
       data: fromJsonT != null ? fromJsonT(map['data']) : map['data'] as T,
     );
@@ -37,5 +37,5 @@ class ApiResponse<T> extends Equatable {
   ) => ApiResponse.fromMap(json.decode(source), fromJsonT);
 
   @override
-  List<Object?> get props => [success, message, data];
+  List<Object?> get props => [status, message, data];
 }

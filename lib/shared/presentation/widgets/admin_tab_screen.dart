@@ -27,17 +27,13 @@ class _AdminTabScreenState extends ConsumerState<AdminTabScreen> {
 
     ref.listen<AuthState>(authNotifierProvider, (previous, next) {
       if (next.status == AuthStatus.unauthenticated) {
-        AutoRouter.of(context).replace(const LoginRoute());
+        context.router.replaceAll([const LoginRoute()]);
       }
     });
 
     if (authState.status == AuthStatus.loading ||
         authState.status == AuthStatus.initial) {
-      return const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     if (authState.status == AuthStatus.authenticated) {
@@ -62,8 +58,7 @@ class _AdminTabScreenState extends ConsumerState<AdminTabScreen> {
               final now = DateTime.now();
               final backButtonHasNotBeenPressedOrWasLongAgo =
                   _lastPressedAt == null ||
-                      now.difference(_lastPressedAt!) >
-                          const Duration(seconds: 2);
+                  now.difference(_lastPressedAt!) > const Duration(seconds: 2);
 
               if (backButtonHasNotBeenPressedOrWasLongAgo) {
                 _lastPressedAt = now;
@@ -109,10 +104,6 @@ class _AdminTabScreenState extends ConsumerState<AdminTabScreen> {
       );
     }
 
-    return const Scaffold(
-      body: Center(
-        child: Text('Redirecting...'),
-      ),
-    );
+    return const Scaffold(body: Center(child: Text('Redirecting...')));
   }
 }
