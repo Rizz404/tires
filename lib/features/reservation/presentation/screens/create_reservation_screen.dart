@@ -2,10 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:collection/collection.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/core/theme/app_theme.dart';
+import 'package:tires/features/availability/domain/entities/availability_day.dart';
+import 'package:tires/features/availability/presentation/providers/availability_provider.dart';
+import 'package:tires/features/availability/presentation/providers/availability_state.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
@@ -20,103 +24,124 @@ final selectedTimeProvider = StateProvider<String?>((ref) => null);
 final selectedMenuProvider = StateProvider<Menu?>((ref) => null);
 final currentMonthProvider = StateProvider<DateTime>((ref) => DateTime.now());
 
-// * Mock data untuk testing
-final mockReservationsProvider = Provider<List<Reservation>>((ref) {
-  // * Mock existing reservations untuk testing
-  return [
-    // * Mock reservation untuk hari ini jam 10:00
-    Reservation(
-      id: 1,
-      reservationNumber: 'RES001',
-      menu: const Menu(
-        id: 1,
-        name: 'Oil Change',
-        description: 'Premium oil change service',
-        requiredTime: 40,
-        price: Price(amount: '50000', formatted: '¥50,000', currency: 'JPY'),
-        displayOrder: 1,
-        isActive: true,
-        color: ColorInfo(
-          hex: '#FF6B6B',
-          rgbaLight: 'rgba(255, 107, 107, 0.1)',
-          textColor: '#FFFFFF',
-        ),
-      ),
-      reservationDatetime: DateTime(
-        DateTime.now().year,
-        DateTime.now().month,
-        DateTime.now().day,
-        10,
-        0,
-      ),
-      numberOfPeople: 1,
-      amount: 50000,
-      status: ReservationStatus.confirmed,
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    ),
-  ];
-});
-
 @RoutePage()
 class CreateReservationScreen extends ConsumerWidget {
-  const CreateReservationScreen({super.key});
+  final Menu menu;
+
+  const CreateReservationScreen({super.key, required this.menu});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedDate = ref.watch(selectedDateProvider);
     final selectedTime = ref.watch(selectedTimeProvider);
     final selectedMenu = ref.watch(selectedMenuProvider);
-    final mockMenu = const Menu(
-      id: 1,
-      name: 'Oil Change',
-      description: 'Premium oil change service with high-quality synthetic oil',
-      requiredTime: 40,
-      price: Price(amount: '50000', formatted: '¥50,000', currency: 'JPY'),
-      displayOrder: 1,
-      isActive: true,
-      color: ColorInfo(
-        hex: '#FF6B6B',
-        rgbaLight: 'rgba(255, 107, 107, 0.1)',
-        textColor: '#FFFFFF',
-      ),
-    );
+    final currentMonth = ref.watch(currentMonthProvider);
+    final availabilityState = ref.watch(availabilityNotifierProvider);
+
+    // Set the passed menu as selected menu if not already set
     if (selectedMenu == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        ref.read(selectedMenuProvider.notifier).state = mockMenu;
+        ref.read(selectedMenuProvider.notifier).state = menu;
       });
     }
+
+    // Initialize availability data when menu changes or month changes
+    ref.listen(selectedMenuProvider, (previous, next) {
+      if (next != null) {
+        ref
+            .read(availabilityNotifierProvider.notifier)
+            .getAvailabilityCalendar(
+              menuId: next.id.toString(),
+              targetMonth: currentMonth,
+            );
+      }
+    });
+
+    ref.listen(currentMonthProvider, (previous, next) {
+      final currentSelectedMenu = ref.read(selectedMenuProvider);
+      if (currentSelectedMenu != null && previous != next) {
+        ref
+            .read(availabilityNotifierProvider.notifier)
+            .getAvailabilityCalendar(
+              menuId: currentSelectedMenu.id.toString(),
+              targetMonth: next,
+            );
+      }
+    });
+
+    // Initial load
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (availabilityState.status == AvailabilityStatus.initial) {
+        ref
+            .read(availabilityNotifierProvider.notifier)
+            .getAvailabilityCalendar(
+              menuId: menu.id.toString(),
+              targetMonth: currentMonth,
+            );
+      }
+    });
     return Scaffold(
       appBar: UserAppBar(title: context.l10n.appBarCreateReservation),
       endDrawer: const UserEndDrawer(),
       body: ScreenWrapper(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildMenuDetail(context, mockMenu),
-              const SizedBox(height: 24),
-              _buildReservationNotes(context),
-              const SizedBox(height: 24),
-              _buildCalendar(context, ref),
-              const SizedBox(height: 24),
-              if (selectedDate != null) ...[
-                _buildTimeSlots(context, ref, selectedDate),
-                const SizedBox(height: 24),
-              ],
-              if (selectedDate != null && selectedTime != null) ...[
-                _buildBookingSummary(
-                  context,
-                  mockMenu,
-                  selectedDate,
-                  selectedTime,
+        child: availabilityState.status == AvailabilityStatus.loading
+            ? const Center(child: CircularProgressIndicator())
+            : availabilityState.status == AvailabilityStatus.error
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppText(
+                      availabilityState.errorMessage ?? 'An error occurred',
+                      style: AppTextStyle.bodyMedium,
+                    ),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () {
+                        ref
+                            .read(availabilityNotifierProvider.notifier)
+                            .refreshAvailabilityCalendar(
+                              menuId: menu.id.toString(),
+                              targetMonth: currentMonth,
+                            );
+                      },
+                      child: const AppText('Retry'),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 24),
-                _buildConfirmButton(context),
-              ],
-            ],
-          ),
-        ),
+              )
+            : SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildMenuDetail(context, menu),
+                    const SizedBox(height: 24),
+                    _buildReservationNotes(context),
+                    const SizedBox(height: 24),
+                    _buildCalendar(context, ref, availabilityState),
+                    const SizedBox(height: 24),
+                    if (selectedDate != null) ...[
+                      _buildTimeSlots(
+                        context,
+                        ref,
+                        selectedDate,
+                        availabilityState,
+                      ),
+                      const SizedBox(height: 24),
+                    ],
+                    if (selectedDate != null && selectedTime != null) ...[
+                      _buildBookingSummary(
+                        context,
+                        menu,
+                        selectedDate,
+                        selectedTime,
+                      ),
+                      const SizedBox(height: 24),
+                      _buildConfirmButton(context),
+                    ],
+                  ],
+                ),
+              ),
       ),
     );
   }
@@ -270,10 +295,13 @@ class CreateReservationScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildCalendar(BuildContext context, WidgetRef ref) {
+  Widget _buildCalendar(
+    BuildContext context,
+    WidgetRef ref,
+    AvailabilityState availabilityState,
+  ) {
     final currentMonth = ref.watch(currentMonthProvider);
     final selectedDate = ref.watch(selectedDateProvider);
-    final existingReservations = ref.watch(mockReservationsProvider);
     final locale = Localizations.localeOf(context).toString();
 
     final dateSymbols = DateFormat.E(locale).dateSymbols;
@@ -353,7 +381,7 @@ class CreateReservationScreen extends ConsumerWidget {
             context,
             currentMonth,
             selectedDate,
-            existingReservations,
+            availabilityState,
             ref,
           ),
         ],
@@ -365,7 +393,7 @@ class CreateReservationScreen extends ConsumerWidget {
     BuildContext context,
     DateTime currentMonth,
     DateTime? selectedDate,
-    List<Reservation> existingReservations,
+    AvailabilityState availabilityState,
     WidgetRef ref,
   ) {
     final firstDayOfMonth = DateTime(currentMonth.year, currentMonth.month, 1);
@@ -376,6 +404,9 @@ class CreateReservationScreen extends ConsumerWidget {
     );
     final firstWeekday = firstDayOfMonth.weekday % 7;
     final today = DateTime.now();
+
+    // Get availability days from API response
+    final availabilityDays = availabilityState.availabilityCalendar?.days ?? [];
 
     List<Widget> weeks = [];
     List<Widget> currentWeek = [];
@@ -390,26 +421,27 @@ class CreateReservationScreen extends ConsumerWidget {
           date.year == today.year &&
           date.month == today.month &&
           date.day == today.day;
-      final isPastDate = date.isBefore(
-        DateTime(today.year, today.month, today.day),
-      );
       final isSelected =
           selectedDate != null &&
           date.year == selectedDate.year &&
           date.month == selectedDate.month &&
           date.day == selectedDate.day;
 
-      final reservationsOnDate = existingReservations
-          .where(
-            (r) =>
-                r.reservationDatetime.year == date.year &&
-                r.reservationDatetime.month == date.month &&
-                r.reservationDatetime.day == date.day,
-          )
-          .toList();
-      final hasPartialBookings =
-          reservationsOnDate.isNotEmpty && reservationsOnDate.length < 8;
-      final isFullyBooked = reservationsOnDate.length >= 8;
+      // Find availability data for this day
+      final dayAvailability = availabilityDays.where((availDay) {
+        final availDate = DateTime.parse(availDay.date);
+        return availDate.year == date.year &&
+            availDate.month == date.month &&
+            availDate.day == date.day;
+      }).firstOrNull;
+
+      final isPastDate =
+          dayAvailability?.isPastDate ??
+          date.isBefore(DateTime(today.year, today.month, today.day));
+      final hasAvailableHours = dayAvailability?.hasAvailableHours ?? false;
+      final reservationCount = dayAvailability?.reservationCount ?? 0;
+      final isFullyBooked =
+          dayAvailability?.bookingStatus == BookingStatus.fullyBooked;
 
       Color? dayColor;
       Color textColor;
@@ -437,7 +469,7 @@ class CreateReservationScreen extends ConsumerWidget {
       currentWeek.add(
         Expanded(
           child: GestureDetector(
-            onTap: isPastDate || isFullyBooked
+            onTap: isPastDate || isFullyBooked || !hasAvailableHours
                 ? null
                 : () {
                     ref.read(selectedDateProvider.notifier).state = date;
@@ -460,7 +492,7 @@ class CreateReservationScreen extends ConsumerWidget {
                     color: textColor,
                     fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
                   ),
-                  if (hasPartialBookings && !isFullyBooked && !isSelected)
+                  if (reservationCount > 0 && !isFullyBooked && !isSelected)
                     Positioned(
                       bottom: 4,
                       child: Container(
@@ -498,9 +530,9 @@ class CreateReservationScreen extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
     DateTime selectedDate,
+    AvailabilityState availabilityState,
   ) {
     final selectedTime = ref.watch(selectedTimeProvider);
-    final existingReservations = ref.watch(mockReservationsProvider);
     final now = DateTime.now();
     final locale = Localizations.localeOf(context).toString();
 
@@ -508,6 +540,18 @@ class CreateReservationScreen extends ConsumerWidget {
         selectedDate.year == now.year &&
         selectedDate.month == now.month &&
         selectedDate.day == now.day;
+
+    // Find availability data for selected date
+    final availabilityDays = availabilityState.availabilityCalendar?.days ?? [];
+    final dayAvailability = availabilityDays.where((availDay) {
+      final availDate = DateTime.parse(availDay.date);
+      return availDate.year == selectedDate.year &&
+          availDate.month == selectedDate.month &&
+          availDate.day == selectedDate.day;
+    }).firstOrNull;
+
+    // Use blocked hours from API
+    final blockedHours = dayAvailability?.blockedHours ?? [];
 
     final businessHours = {
       1: {'start': 9, 'end': 18},
@@ -551,15 +595,6 @@ class CreateReservationScreen extends ConsumerWidget {
       }).toList();
     }
 
-    final reservationsOnDate = existingReservations
-        .where(
-          (r) =>
-              r.reservationDatetime.year == selectedDate.year &&
-              r.reservationDatetime.month == selectedDate.month &&
-              r.reservationDatetime.day == selectedDate.day,
-        )
-        .toList();
-
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -587,17 +622,14 @@ class CreateReservationScreen extends ConsumerWidget {
             spacing: 8,
             runSpacing: 8,
             children: timeSlots.map((time) {
-              final isBooked = reservationsOnDate.any(
-                (r) =>
-                    DateFormat('HH:mm').format(r.reservationDatetime) == time,
-              );
+              final isBlocked = blockedHours.contains(time);
               final isSelected = selectedTime == time;
 
               Color? bgColor;
               Color textColor;
               Color borderColor;
 
-              if (isBooked) {
+              if (isBlocked) {
                 bgColor = Theme.of(context).disabledColor;
                 textColor = context.colorScheme.onSurface.withValues(
                   alpha: 0.5,
@@ -616,7 +648,7 @@ class CreateReservationScreen extends ConsumerWidget {
               }
 
               return GestureDetector(
-                onTap: isBooked
+                onTap: isBlocked
                     ? null
                     : () {
                         ref.read(selectedTimeProvider.notifier).state = time;

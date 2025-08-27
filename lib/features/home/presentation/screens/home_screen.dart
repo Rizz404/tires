@@ -82,7 +82,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           physics: const AlwaysScrollableScrollPhysics(),
           children: const [
             Center(
-              child: AppText('No menus available', style: AppTextStyle.bodyMedium),
+              child: AppText(
+                'No menus available',
+                style: AppTextStyle.bodyMedium,
+              ),
             ),
           ],
         ),
@@ -113,7 +116,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               return MenuTile(
                 menu: menu,
                 onBookPressed: () {
-                  context.router.push(CreateReservationRoute());
+                  context.router.push(CreateReservationRoute(menu: menu));
                 },
               );
             },

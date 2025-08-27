@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:tires/core/routes/auth_guard.dart';
 import 'package:tires/core/routes/duplicate_guard.dart';
 import 'package:tires/features/announcement/presentation/screens/admin_list_announcement_screen.dart';
@@ -21,6 +22,7 @@ import 'package:tires/features/customer_management/presentation/screens/admin_up
 import 'package:tires/features/dashboard/presentation/screens/admin_dashboard_screen.dart';
 import 'package:tires/features/home/presentation/screens/home_screen.dart';
 import 'package:tires/features/inquiry/presentation/screens/inquiry_screen.dart';
+import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/menu/presentation/screens/admin_list_menu_screen.dart';
 import 'package:tires/features/menu/presentation/screens/admin_upsert_menu_screen.dart';
 import 'package:tires/features/profile/presentation/screens/profile_screen.dart';

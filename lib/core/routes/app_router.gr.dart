@@ -319,18 +319,49 @@ class ConfirmedReservationRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [CreateReservationScreen]
-class CreateReservationRoute extends PageRouteInfo<void> {
-  const CreateReservationRoute({List<PageRouteInfo>? children})
-    : super(CreateReservationRoute.name, initialChildren: children);
+class CreateReservationRoute extends PageRouteInfo<CreateReservationRouteArgs> {
+  CreateReservationRoute({
+    Key? key,
+    required Menu menu,
+    List<PageRouteInfo>? children,
+  }) : super(
+         CreateReservationRoute.name,
+         args: CreateReservationRouteArgs(key: key, menu: menu),
+         initialChildren: children,
+       );
 
   static const String name = 'CreateReservationRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const CreateReservationScreen();
+      final args = data.argsAs<CreateReservationRouteArgs>();
+      return CreateReservationScreen(key: args.key, menu: args.menu);
     },
   );
+}
+
+class CreateReservationRouteArgs {
+  const CreateReservationRouteArgs({this.key, required this.menu});
+
+  final Key? key;
+
+  final Menu menu;
+
+  @override
+  String toString() {
+    return 'CreateReservationRouteArgs{key: $key, menu: $menu}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CreateReservationRouteArgs) return false;
+    return key == other.key && menu == other.menu;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ menu.hashCode;
 }
 
 /// generated route for

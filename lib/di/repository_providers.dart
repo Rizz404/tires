@@ -3,6 +3,8 @@ import 'package:tires/di/datasource_providers.dart';
 import 'package:tires/di/service_providers.dart';
 import 'package:tires/features/authentication/data/repositories/auth_repository_impl.dart';
 import 'package:tires/features/authentication/domain/repositories/auth_repository.dart';
+import 'package:tires/features/availability/data/repositories/availability_repository_impl.dart';
+import 'package:tires/features/availability/domain/repositories/availability_repository.dart';
 import 'package:tires/features/menu/data/datasources/menu_repository_impl.dart';
 import 'package:tires/features/menu/domain/repositories/menu_repository.dart';
 
@@ -16,4 +18,11 @@ final menuRepoProvider = Provider<MenuRepository>((ref) {
   final _menuRemoteDatasource = ref.watch(menuRemoteDatasourceProvider);
 
   return MenuRepositoryImpl(_menuRemoteDatasource);
+});
+
+final availabilityRepoProvider = Provider<AvailabilityRepository>((ref) {
+  final _availabilityRemoteDatasource = ref.watch(
+    availabilityRemoteDatasourceProvider,
+  );
+  return AvailabilityRepositoryImpl(_availabilityRemoteDatasource);
 });

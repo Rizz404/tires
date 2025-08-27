@@ -118,7 +118,7 @@ class _AdminListCalendarScreenState
               return MenuTile(
                 menu: menu,
                 onBookPressed: () {
-                  context.router.push(CreateReservationRoute());
+                  context.router.push(CreateReservationRoute(menu: menu));
                 },
               );
             },
