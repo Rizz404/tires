@@ -5,6 +5,8 @@ import 'package:tires/features/availability/data/datasources/availability_remote
 import 'package:tires/features/availability/data/datasources/availability_remote_datasource_impl.dart';
 import 'package:tires/features/customer_management/data/datasources/customer_remote_datasource.dart';
 import 'package:tires/features/menu/data/datasources/menu_remote_datasource.dart';
+import 'package:tires/features/user/data/datasources/current_user_remote_datasource.dart';
+import 'package:tires/features/user/data/datasources/current_user_remote_datasource_impl.dart';
 
 final authRemoteDatasourceProvider = Provider<AuthRemoteDatasource>((ref) {
   final _dioClient = ref.watch(dioClientProvider);
@@ -28,3 +30,10 @@ final availabilityRemoteDatasourceProvider =
       final _dioClient = ref.watch(dioClientProvider);
       return AvailabilityRemoteDatasourceImpl(_dioClient);
     });
+
+final userRemoteDatasourceProvider = Provider<CurrentUserRemoteDatasource>((
+  ref,
+) {
+  final _dioClient = ref.watch(dioClientProvider);
+  return CurrentUserRemoteDatasourceImpl(_dioClient);
+});

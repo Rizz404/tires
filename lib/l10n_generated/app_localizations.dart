@@ -633,6 +633,12 @@ abstract class L10n {
   /// **'Phone Number'**
   String get profileLabelPhone;
 
+  /// No description provided for @profileLabelCompany.
+  ///
+  /// In en, this message translates to:
+  /// **'Company Name'**
+  String get profileLabelCompany;
+
   /// No description provided for @profileLabelDob.
   ///
   /// In en, this message translates to:
@@ -674,6 +680,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Edit Profile'**
   String get profileButtonEdit;
+
+  /// No description provided for @profileButtonUpdateProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Profile'**
+  String get profileButtonUpdateProfile;
 
   /// No description provided for @profileButtonChangePassword.
   ///

@@ -75,4 +75,7 @@ class ApiEndpoints {
 
   // --- Availability Endpoints ---
   static const String availability = _availabilityPrefix;
+
+  // --- Profile Endpoints ---
+  static const String profile = '/profile';
 }

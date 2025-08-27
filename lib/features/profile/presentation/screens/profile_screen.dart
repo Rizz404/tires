@@ -4,11 +4,14 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
-import 'package:tires/core/routes/app_router.dart';
-import 'package:tires/features/authentication/domain/usecases/register_usecase.dart';
 import 'package:tires/features/authentication/presentation/providers/auth_providers.dart';
 import 'package:tires/features/authentication/presentation/providers/auth_state.dart';
 import 'package:tires/features/authentication/presentation/validations/auth_validators.dart';
+import 'package:tires/features/user/domain/entities/user.dart';
+import 'package:tires/features/user/presentation/providers/current_user_get_state.dart';
+import 'package:tires/features/user/presentation/providers/current_user_mutation_state.dart';
+import 'package:tires/features/user/presentation/providers/current_user_providers.dart';
+import 'package:tires/l10n_generated/app_localizations.dart';
 import 'package:tires/shared/presentation/utils/app_toast.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
 import 'package:tires/shared/presentation/widgets/app_date_time_picker.dart';
@@ -28,29 +31,69 @@ class ProfileScreen extends ConsumerStatefulWidget {
 
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
+  final _passwordFormKey = GlobalKey<FormBuilderState>();
   List<DomainValidationError>? _validationErrors;
+  User? _currentUser;
 
-  void _handleSubmit(WidgetRef ref) {
+  @override
+  void initState() {
+    super.initState();
+    // Get current user data on screen initialization
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadCurrentUser();
+    });
+  }
+
+  void _loadCurrentUser() {
+    final authState = ref.read(authNotifierProvider);
+    if (authState.status == AuthStatus.authenticated &&
+        authState.user != null) {
+      _currentUser = authState.user;
+      _populateForm();
+    } else {
+      // If no user in auth state, fetch from user provider
+      ref.read(currentUserGetNotifierProvider.notifier).getCurrentUser();
+    }
+  }
+
+  void _populateForm() {
+    if (_currentUser != null && _formKey.currentState != null) {
+      _formKey.currentState!.patchValue({
+        'fullName': _currentUser!.fullName,
+        'fullNameKana': _currentUser!.fullNameKana,
+        'email': _currentUser!.email,
+        'phoneNumber': _currentUser!.phoneNumber,
+        'companyName': _currentUser!.companyName ?? '',
+        'dateOfBirth': _currentUser!.dateOfBirth,
+        'homeAddress': _currentUser!.homeAddress ?? '',
+      });
+    }
+  }
+
+  void _handleUpdateProfile(WidgetRef ref) {
     setState(() {
       _validationErrors = null;
     });
 
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       final values = _formKey.currentState!.value;
-      final params = RegisterParams(
-        fullName: values['fullName'],
-        fullNameKana: values['fullNameKana'],
-        email: values['email'],
-        phoneNumber: values['phoneNumber'],
-        companyName: values['companyName'],
-        password: values['password'],
-        gender: values['gender'],
-        dateOfBirth: values['dateOfBirth'],
-        homeAddress: values['homeAddress'],
-      );
 
-      AppToast.showSuccess(context, message: "Registration Submitted!");
-      context.router.replace(const LoginRoute());
+      ref
+          .read(currentUserMutationNotifierProvider.notifier)
+          .updateCurrentUser(
+            fullName: values['fullName'],
+            fullNameKana: values['fullNameKana'],
+            email: values['email'],
+            phoneNumber: values['phoneNumber'],
+            companyName: values['companyName']?.isEmpty == true
+                ? null
+                : values['companyName'],
+            homeAddress: values['homeAddress']?.isEmpty == true
+                ? null
+                : values['homeAddress'],
+            dateOfBirth: values['dateOfBirth'],
+            gender: values['gender'],
+          );
     } else {
       AppToast.showError(
         context,
@@ -59,10 +102,65 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     }
   }
 
+  void _handleChangePassword(WidgetRef ref) {
+    setState(() {
+      _validationErrors = null;
+    });
+
+    if (_passwordFormKey.currentState?.saveAndValidate() ?? false) {
+      final values = _passwordFormKey.currentState!.value;
+
+      ref
+          .read(currentUserMutationNotifierProvider.notifier)
+          .updatePassword(
+            currentPassword: values['currentPassword'] ?? '',
+            newPassword: values['password'] ?? '',
+            confirmPassword: values['confirmPassword'] ?? '',
+          );
+    } else {
+      AppToast.showError(
+        context,
+        message: "Please correct the errors in the password form.",
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    ref.listen(authNotifierProvider, (previous, next) {
-      if (next.status == AuthStatus.error && next.failure != null) {
+    // Listen to user get state changes
+    ref.listen(currentUserGetNotifierProvider, (previous, next) {
+      if (next.status == CurrentUserGetStatus.success && next.user != null) {
+        setState(() {
+          _currentUser = next.user;
+        });
+        _populateForm();
+      } else if (next.status == CurrentUserGetStatus.error &&
+          next.errorMessage != null) {
+        AppToast.showError(context, message: next.errorMessage!);
+      }
+    });
+
+    // Listen to user mutation state changes
+    ref.listen(currentUserMutationNotifierProvider, (previous, next) {
+      if (next.status == CurrentUserMutationStatus.success) {
+        if (next.updatedUser != null) {
+          // Update local user data and auth state
+          setState(() {
+            _currentUser = next.updatedUser;
+          });
+          // Refresh auth state with updated user
+          ref.read(authNotifierProvider.notifier).checkAuthenticationStatus();
+        }
+        AppToast.showSuccess(
+          context,
+          message: next.successMessage ?? 'Operation completed successfully',
+        );
+        // Clear password form after successful password change
+        if (next.successMessage?.contains('Password') == true) {
+          _passwordFormKey.currentState?.reset();
+        }
+      } else if (next.status == CurrentUserMutationStatus.error &&
+          next.failure != null) {
         if (next.failure is ValidationFailure) {
           setState(() {
             _validationErrors = (next.failure as ValidationFailure).errors;
@@ -73,17 +171,20 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       }
     });
 
-    final authState = ref.watch(authNotifierProvider);
-    final theme = Theme.of(context);
+    final userGetState = ref.watch(currentUserGetNotifierProvider);
+    final userMutationState = ref.watch(currentUserMutationNotifierProvider);
     final l10n = context.l10n;
+
+    final isLoading =
+        userGetState.status == CurrentUserGetStatus.loading ||
+        userMutationState.status == CurrentUserMutationStatus.loading;
 
     return Scaffold(
       body: LoadingOverlay(
-        isLoading: authState.status == AuthStatus.loading,
+        isLoading: isLoading,
         child: ScreenWrapper(
-          child: FormBuilder(
-            key: _formKey,
-            child: ListView(
+          child: SingleChildScrollView(
+            child: Column(
               children: [
                 if (_validationErrors != null && _validationErrors!.isNotEmpty)
                   Padding(
@@ -91,84 +192,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     child: ErrorSummaryBox(errors: _validationErrors!),
                   ),
                 _buildSectionTitle(l10n.profileShowTitle),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: AppText(
-                    context.l10n.profilePersonalInfoTitle,
-                    style: AppTextStyle.titleLarge,
-                  ),
-                ),
-                AppTextField(
-                  name: 'fullName',
-                  label: l10n.profileLabelFullName,
-                  validator: AuthValidators.fullName,
-                ),
-                const SizedBox(height: 16),
-                AppTextField(
-                  name: 'fullNameKana',
-                  label: l10n.profileLabelFullNameKana,
-                  validator: AuthValidators.fullNameKana,
-                ),
-                const SizedBox(height: 16),
-                AppTextField(
-                  name: 'email',
-                  label: l10n.profileLabelEmail,
-                  type: AppTextFieldType.email,
-                  validator: AuthValidators.email,
-                ),
-                const SizedBox(height: 16),
-                AppTextField(
-                  name: 'phoneNumber',
-                  label: l10n.profileLabelPhone,
-                  validator: AuthValidators.phoneNumber,
-                ),
-                const SizedBox(height: 16),
-                AppDateTimePicker(
-                  name: 'dateOfBirth',
-                  label: l10n.profileLabelDob,
-                  inputType: InputType.date,
-                  validator: AuthValidators.dateOfBirth,
-                  lastDate: DateTime.now(),
-                ),
-                const SizedBox(height: 16),
-                AppTextField(
-                  name: 'homeAddress',
-                  label: l10n.profileLabelAddress,
-                ),
+
+                // Personal Info Section
+                _buildPersonalInfoSection(l10n),
                 const SizedBox(height: 48),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: AppText(
-                    context.l10n.profileChangePasswordTitle,
-                    style: AppTextStyle.titleLarge,
-                  ),
-                ),
-                AppTextField(
-                  name: 'password',
-                  label: l10n.profileLabelNewPassword,
-                  type: AppTextFieldType.password,
-                  validator: AuthValidators.password,
-                ),
-                const SizedBox(height: 16),
-                AppTextField(
-                  name: 'confirmPassword',
-                  label: l10n.profileLabelConfirmPassword,
-                  type: AppTextFieldType.password,
-                  validator: (value) {
-                    final password =
-                        _formKey.currentState?.fields['password']?.value;
-                    return AuthValidators.confirmPassword(password ?? '')(
-                      value,
-                    );
-                  },
-                ),
-                const SizedBox(height: 24),
-                AppButton(
-                  text: l10n.profileButtonSaveChanges,
-                  color: AppButtonColor.secondary,
-                  isLoading: authState.status == AuthStatus.loading,
-                  onPressed: () => _handleSubmit(ref),
-                ),
+
+                // Password Change Section
+                _buildPasswordChangeSection(l10n),
                 const SizedBox(height: 24),
               ],
             ),
@@ -182,6 +212,114 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0, top: 8.0),
       child: AppText(title, style: AppTextStyle.headlineSmall),
+    );
+  }
+
+  Widget _buildPersonalInfoSection(L10n l10n) {
+    return FormBuilder(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: AppText(
+              l10n.profilePersonalInfoTitle,
+              style: AppTextStyle.titleLarge,
+            ),
+          ),
+          AppTextField(
+            name: 'fullName',
+            label: l10n.profileLabelFullName,
+            validator: AuthValidators.fullName,
+          ),
+          const SizedBox(height: 16),
+          AppTextField(
+            name: 'fullNameKana',
+            label: l10n.profileLabelFullNameKana,
+            validator: AuthValidators.fullNameKana,
+          ),
+          const SizedBox(height: 16),
+          AppTextField(
+            name: 'email',
+            label: l10n.profileLabelEmail,
+            type: AppTextFieldType.email,
+            validator: AuthValidators.email,
+          ),
+          const SizedBox(height: 16),
+          AppTextField(
+            name: 'phoneNumber',
+            label: l10n.profileLabelPhone,
+            validator: AuthValidators.phoneNumber,
+          ),
+          const SizedBox(height: 16),
+          AppTextField(name: 'companyName', label: l10n.profileLabelCompany),
+          const SizedBox(height: 16),
+          AppDateTimePicker(
+            name: 'dateOfBirth',
+            label: l10n.profileLabelDob,
+            inputType: InputType.date,
+            validator: AuthValidators.dateOfBirth,
+            lastDate: DateTime.now(),
+          ),
+          const SizedBox(height: 16),
+          AppTextField(name: 'homeAddress', label: l10n.profileLabelAddress),
+          const SizedBox(height: 24),
+          AppButton(
+            text: l10n.profileButtonUpdateProfile,
+            color: AppButtonColor.secondary,
+            onPressed: () => _handleUpdateProfile(ref),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPasswordChangeSection(dynamic l10n) {
+    return FormBuilder(
+      key: _passwordFormKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: AppText(
+              l10n.profileChangePasswordTitle,
+              style: AppTextStyle.titleLarge,
+            ),
+          ),
+          AppTextField(
+            name: 'currentPassword',
+            label: l10n.profileLabelCurrentPassword ?? 'Current Password',
+            type: AppTextFieldType.password,
+            validator: AuthValidators.password,
+          ),
+          const SizedBox(height: 16),
+          AppTextField(
+            name: 'password',
+            label: l10n.profileLabelNewPassword,
+            type: AppTextFieldType.password,
+            validator: AuthValidators.password,
+          ),
+          const SizedBox(height: 16),
+          AppTextField(
+            name: 'confirmPassword',
+            label: l10n.profileLabelConfirmPassword,
+            type: AppTextFieldType.password,
+            validator: (value) {
+              final password =
+                  _passwordFormKey.currentState?.fields['password']?.value;
+              return AuthValidators.confirmPassword(password ?? '')(value);
+            },
+          ),
+          const SizedBox(height: 24),
+          AppButton(
+            text: l10n.profileButtonChangePassword ?? 'Change Password',
+            color: AppButtonColor.primary,
+            onPressed: () => _handleChangePassword(ref),
+          ),
+        ],
+      ),
     );
   }
 }

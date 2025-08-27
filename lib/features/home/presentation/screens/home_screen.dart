@@ -54,7 +54,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     }
 
     if (state.status == MenuStatus.error && state.menus.isEmpty) {
-      print(state.errorMessage);
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

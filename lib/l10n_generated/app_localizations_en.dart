@@ -284,6 +284,9 @@ class L10nEn extends L10n {
   String get profileLabelPhone => 'Phone Number';
 
   @override
+  String get profileLabelCompany => 'Company Name';
+
+  @override
   String get profileLabelDob => 'Date of Birth';
 
   @override
@@ -303,6 +306,9 @@ class L10nEn extends L10n {
 
   @override
   String get profileButtonEdit => 'Edit Profile';
+
+  @override
+  String get profileButtonUpdateProfile => 'Update Profile';
 
   @override
   String get profileButtonChangePassword => 'Change Password';

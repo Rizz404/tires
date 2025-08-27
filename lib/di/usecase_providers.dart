@@ -8,6 +8,11 @@ import 'package:tires/features/authentication/domain/usecases/register_usecase.d
 import 'package:tires/features/authentication/domain/usecases/set_new_password_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/get_menu_cursor_usecase.dart';
+import 'package:tires/features/user/domain/usecases/delete_current_user_account_usecase.dart';
+import 'package:tires/features/user/domain/usecases/get_current_user_usecase.dart';
+import 'package:tires/features/user/domain/usecases/get_current_user_reservations_cursor_usecase.dart';
+import 'package:tires/features/user/domain/usecases/update_current_user_password_usecase.dart';
+import 'package:tires/features/user/domain/usecases/update_current_user_usecase.dart';
 
 final registerUsecaseProvider = Provider<RegisterUsecase>((ref) {
   final _authRepository = ref.watch(authRepoProvider);
@@ -50,3 +55,32 @@ final getCustomerCursorUsecaseProvider = Provider<GetCustomerCursorUsecase>((
   final _customerRepository = ref.watch(customerRepoProvider);
   return GetCustomerCursorUsecase(_customerRepository);
 });
+
+// User Usecase Providers
+final getCurrentUserUsecaseProvider = Provider<GetCurrentUserUsecase>((ref) {
+  final _userRepository = ref.watch(userRepoProvider);
+  return GetCurrentUserUsecase(_userRepository);
+});
+
+final updateUserUsecaseProvider = Provider<UpdateCurrentUserUsecase>((ref) {
+  final _userRepository = ref.watch(userRepoProvider);
+  return UpdateCurrentUserUsecase(_userRepository);
+});
+
+final updateUserPasswordUsecaseProvider =
+    Provider<UpdateCurrentUserPasswordUsecase>((ref) {
+      final _userRepository = ref.watch(userRepoProvider);
+      return UpdateCurrentUserPasswordUsecase(_userRepository);
+    });
+
+final getUserReservationsCursorUsecaseProvider =
+    Provider<GetCurrentUserReservationsCursorUsecase>((ref) {
+      final _userRepository = ref.watch(userRepoProvider);
+      return GetCurrentUserReservationsCursorUsecase(_userRepository);
+    });
+
+final deleteUserAccountUsecaseProvider =
+    Provider<DeleteCurrentUserAccountUsecase>((ref) {
+      final _userRepository = ref.watch(userRepoProvider);
+      return DeleteCurrentUserAccountUsecase(_userRepository);
+    });

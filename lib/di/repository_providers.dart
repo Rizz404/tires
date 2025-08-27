@@ -9,6 +9,8 @@ import 'package:tires/features/customer_management/data/datasources/customer_rep
 import 'package:tires/features/customer_management/domain/repositories/customer_repository.dart';
 import 'package:tires/features/menu/data/datasources/menu_repository_impl.dart';
 import 'package:tires/features/menu/domain/repositories/menu_repository.dart';
+import 'package:tires/features/user/data/repositories/current_user_repository_impl.dart';
+import 'package:tires/features/user/domain/repositories/current_user_repository.dart';
 
 final authRepoProvider = Provider<AuthRepository>((ref) {
   final _authRemoteDatasource = ref.watch(authRemoteDatasourceProvider);
@@ -33,4 +35,13 @@ final availabilityRepoProvider = Provider<AvailabilityRepository>((ref) {
     availabilityRemoteDatasourceProvider,
   );
   return AvailabilityRepositoryImpl(_availabilityRemoteDatasource);
+});
+
+final userRepoProvider = Provider<CurrentUserRepository>((ref) {
+  final _userRemoteDatasource = ref.watch(userRemoteDatasourceProvider);
+  final _sessionStorageService = ref.watch(sessionStorageServiceProvider);
+  return CurrentUserRepositoryImpl(
+    _userRemoteDatasource,
+    _sessionStorageService,
+  );
 });

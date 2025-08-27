@@ -279,6 +279,9 @@ class L10nJa extends L10n {
   String get profileLabelPhone => '電話番号';
 
   @override
+  String get profileLabelCompany => '会社名';
+
+  @override
   String get profileLabelDob => '生年月日';
 
   @override
@@ -298,6 +301,9 @@ class L10nJa extends L10n {
 
   @override
   String get profileButtonEdit => 'プロフィールを編集';
+
+  @override
+  String get profileButtonUpdateProfile => 'プロフィールを更新';
 
   @override
   String get profileButtonChangePassword => 'パスワードを変更する';

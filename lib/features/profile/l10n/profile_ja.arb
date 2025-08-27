@@ -8,6 +8,7 @@
   "profileLabelFullNameKana": "氏名 (フリガナ)",
   "profileLabelEmail": "メールアドレス",
   "profileLabelPhone": "電話番号",
+  "profileLabelCompany": "会社名",
   "profileLabelDob": "生年月日",
   "profileLabelAddress": "住所",
   "profileChangePasswordTitle": "パスワードの変更",
@@ -15,6 +16,7 @@
   "profileLabelNewPassword": "新しいパスワード",
   "profileLabelConfirmPassword": "新しいパスワード（確認）",
   "profileButtonEdit": "プロフィールを編集",
+  "profileButtonUpdateProfile": "プロフィールを更新",
   "profileButtonChangePassword": "パスワードを変更する",
   "profileButtonCancel": "キャンセル",
   "profileButtonSaveChanges": "変更を保存"
