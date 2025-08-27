@@ -49,48 +49,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget _buildBody() {
     final state = ref.watch(menuNotifierProvider);
 
-    if (state.status == MenuStatus.loading && state.menus.isEmpty) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
-    if (state.status == MenuStatus.error && state.menus.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AppText(
-              state.errorMessage ?? 'An unknown error occurred.',
-              style: AppTextStyle.bodyMedium,
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                ref.read(menuNotifierProvider.notifier).getInitialMenus();
-              },
-              child: const AppText('Retry'),
-            ),
-          ],
-        ),
-      );
-    }
-
-    if (state.menus.isEmpty) {
-      return RefreshIndicator(
-        onRefresh: () => ref.read(menuNotifierProvider.notifier).refreshMenus(),
-        child: ListView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          children: const [
-            Center(
-              child: AppText(
-                'No menus available',
-                style: AppTextStyle.bodyMedium,
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
     return RefreshIndicator(
       onRefresh: () => ref.read(menuNotifierProvider.notifier).refreshMenus(),
       child: CustomScrollView(
@@ -108,18 +66,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ],
             ),
           ),
-          SliverList.builder(
-            itemCount: state.menus.length,
-            itemBuilder: (context, index) {
-              final menu = state.menus[index];
-              return MenuTile(
-                menu: menu,
-                onBookPressed: () {
-                  context.router.push(CreateReservationRoute(menu: menu));
-                },
-              );
-            },
-          ),
+          _buildMenuSection(state),
           SliverToBoxAdapter(
             child: Column(
               children: [
@@ -134,6 +81,75 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildMenuSection(MenuState state) {
+    // Initial loading state - show loading indicator
+    if (state.status == MenuStatus.loading && state.menus.isEmpty) {
+      return const SliverToBoxAdapter(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 40),
+          child: Center(child: CircularProgressIndicator()),
+        ),
+      );
+    }
+
+    // Error state - show error message with retry button
+    if (state.status == MenuStatus.error && state.menus.isEmpty) {
+      return SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 40),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppText(
+                  state.errorMessage ?? 'An unknown error occurred.',
+                  style: AppTextStyle.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () {
+                    ref.read(menuNotifierProvider.notifier).getInitialMenus();
+                  },
+                  child: const AppText('Retry'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    // No menus available
+    if (state.menus.isEmpty) {
+      return const SliverToBoxAdapter(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 40),
+          child: Center(
+            child: AppText(
+              'No menus available',
+              style: AppTextStyle.bodyMedium,
+            ),
+          ),
+        ),
+      );
+    }
+
+    // Show menu list
+    return SliverList.builder(
+      itemCount: state.menus.length,
+      itemBuilder: (context, index) {
+        final menu = state.menus[index];
+        return MenuTile(
+          menu: menu,
+          onBookPressed: () {
+            context.router.push(CreateReservationRoute(menu: menu));
+          },
+        );
+      },
     );
   }
 }

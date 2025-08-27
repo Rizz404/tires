@@ -4,8 +4,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
-import 'package:tires/features/authentication/presentation/providers/auth_providers.dart';
-import 'package:tires/features/authentication/presentation/providers/auth_state.dart';
 import 'package:tires/features/authentication/presentation/validations/auth_validators.dart';
 import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:tires/features/user/presentation/providers/current_user_get_state.dart';
@@ -34,27 +32,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   final _passwordFormKey = GlobalKey<FormBuilderState>();
   List<DomainValidationError>? _validationErrors;
   User? _currentUser;
-
-  @override
-  void initState() {
-    super.initState();
-    // Get current user data on screen initialization
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadCurrentUser();
-    });
-  }
-
-  void _loadCurrentUser() {
-    final authState = ref.read(authNotifierProvider);
-    if (authState.status == AuthStatus.authenticated &&
-        authState.user != null) {
-      _currentUser = authState.user;
-      _populateForm();
-    } else {
-      // If no user in auth state, fetch from user provider
-      ref.read(currentUserGetNotifierProvider.notifier).getCurrentUser();
-    }
-  }
 
   void _populateForm() {
     if (_currentUser != null && _formKey.currentState != null) {
@@ -144,12 +121,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     ref.listen(currentUserMutationNotifierProvider, (previous, next) {
       if (next.status == CurrentUserMutationStatus.success) {
         if (next.updatedUser != null) {
-          // Update local user data and auth state
+          // Update local user data
           setState(() {
             _currentUser = next.updatedUser;
           });
-          // Refresh auth state with updated user
-          ref.read(authNotifierProvider.notifier).checkAuthenticationStatus();
+          _populateForm();
         }
         AppToast.showSuccess(
           context,
