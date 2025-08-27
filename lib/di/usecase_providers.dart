@@ -6,6 +6,7 @@ import 'package:tires/features/authentication/domain/usecases/login_usecase.dart
 import 'package:tires/features/authentication/domain/usecases/logout_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/register_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/set_new_password_usecase.dart';
+import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/get_menu_cursor_usecase.dart';
 
 final registerUsecaseProvider = Provider<RegisterUsecase>((ref) {
@@ -41,4 +42,11 @@ final getCurrentAuthUsecaseProvider = Provider<GetCurrentAuthUsecase>((ref) {
 final getMenuCursorUsecaseProvider = Provider<GetMenuCursorUsecase>((ref) {
   final _menuRepository = ref.watch(menuRepoProvider);
   return GetMenuCursorUsecase(_menuRepository);
+});
+
+final getCustomerCursorUsecaseProvider = Provider<GetCustomerCursorUsecase>((
+  ref,
+) {
+  final _customerRepository = ref.watch(customerRepoProvider);
+  return GetCustomerCursorUsecase(_customerRepository);
 });

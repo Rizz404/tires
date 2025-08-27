@@ -29,7 +29,7 @@ class AvailabilityRemoteDatasourceImpl implements AvailabilityRemoteDatasource {
       };
 
       final response = await _dioClient.get(
-        ApiEndpoints.calendar,
+        ApiEndpoints.reservationCalendar,
         queryParameters: queryParameters,
       );
 
