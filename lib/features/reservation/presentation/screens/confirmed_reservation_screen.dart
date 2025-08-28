@@ -21,6 +21,7 @@ class ConfirmedReservationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mockReservation = Reservation(
+      isGuest: true,
       id: 1,
       reservationNumber: 'RES-20250812-001',
       fullName: 'Rizki Darmawan',

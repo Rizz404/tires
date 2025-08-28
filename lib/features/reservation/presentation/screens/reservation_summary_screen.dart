@@ -34,6 +34,7 @@ class _ReservationSummaryScreenState extends State<ReservationSummaryScreen> {
   Widget build(BuildContext context) {
     // Mock reservation data for demonstration
     final mockReservation = Reservation(
+      isGuest: true,
       id: 1,
       reservationNumber: 'RES-20250812-001',
       fullName: 'Rizki Darmawan',

@@ -8,6 +8,8 @@ import 'package:tires/features/home/presentation/widgets/home_carousel.dart';
 import 'package:tires/features/home/presentation/widgets/menu_tile.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
+import 'package:tires/shared/presentation/widgets/debug_section.dart';
+import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 @RoutePage()
 class HomeScreen extends ConsumerStatefulWidget {
@@ -66,7 +68,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ],
             ),
           ),
-          _buildMenuSection(state),
+          // Debug section example (remove kDebugMode check for demo)
+          if (true) // Change to kDebugMode for production
+            // SliverToBoxAdapter(child: _buildHomeDebugSection()),
+            _buildMenuSection(state),
           SliverToBoxAdapter(
             child: Column(
               children: [
@@ -83,6 +88,48 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
     );
   }
+
+  // Widget _buildHomeDebugSection() {
+  //   return DebugSection.createApiTestSection(
+  //     context: context,
+  //     title: '🏠 Home Screen Debug',
+  //     apiActions: [
+  //       DebugAction.testApi(
+  //         label: 'Test Menu API',
+  //         onPressed: () {
+  //           final state = ref.read(menuNotifierProvider);
+  //           DebugHelper.logApiResponse({
+  //             'menu_count': state.menus.length,
+  //             'status': state.status.toString(),
+  //             'has_next_page': state.hasNextPage,
+  //             'error': state.errorMessage,
+  //           }, endpoint: 'Home Menu State Test');
+  //         },
+  //       ),
+  //       DebugAction.refresh(
+  //         label: 'Force Refresh Menus',
+  //         onPressed: () {
+  //           ref.read(menuNotifierProvider.notifier).refreshMenus();
+  //         },
+  //         debugEndpoint: 'Home Menu Refresh',
+  //       ),
+  //       DebugAction.inspect(
+  //         label: 'Inspect First Menu',
+  //         onPressed: () {
+  //           final state = ref.read(menuNotifierProvider);
+  //           if (state.menus.isNotEmpty) {
+  //             final firstMenu = state.menus.first;
+  //             DebugHelper.logApiResponse({
+  //               'menu_id': firstMenu.id,
+  //               'menu_name': firstMenu.name,
+  //               'menu_type': firstMenu.runtimeType.toString(),
+  //             }, endpoint: 'First Menu Inspection');
+  //           }
+  //         },
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildMenuSection(MenuState state) {
     // Initial loading state - show loading indicator

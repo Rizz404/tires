@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/features/authentication/presentation/validations/auth_validators.dart';
@@ -113,6 +114,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         _populateForm();
       } else if (next.status == CurrentUserGetStatus.error &&
           next.errorMessage != null) {
+        debugPrint(next.errorMessage);
         AppToast.showError(context, message: next.errorMessage!);
       }
     });

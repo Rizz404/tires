@@ -1,122 +1,59 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
-import 'package:tires/core/routes/app_router.dart';
-import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/reservation/presentation/widgets/reservation_item.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
+import 'package:tires/features/user/presentation/providers/current_user_providers.dart';
+import 'package:tires/features/user/presentation/providers/current_user_reservations_state.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:tires/shared/presentation/widgets/user_end_drawer.dart';
+import 'package:tires/shared/presentation/utils/debug_helper.dart';
+import 'package:tires/shared/presentation/widgets/debug_section.dart';
 
 @RoutePage()
-class MyReservationsScreen extends StatefulWidget {
+class MyReservationsScreen extends ConsumerStatefulWidget {
   const MyReservationsScreen({super.key});
 
   @override
-  State<MyReservationsScreen> createState() => _MyReservationsScreenState();
+  ConsumerState<MyReservationsScreen> createState() =>
+      _MyReservationsScreenState();
 }
 
-class _MyReservationsScreenState extends State<MyReservationsScreen> {
+class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
+  final ScrollController _scrollController = ScrollController();
   String? _expandedReservationId;
 
-  final List<Reservation> _mockReservations = [
-    Reservation(
-      id: 1,
-      reservationNumber: '202508121514',
-      menu: const Menu(
-        id: 101,
-        name:
-            'Change tires by bringing your own (removal and removal of season tires, etc.)',
-        description: 'Includes tire balancing and pressure check.',
-        requiredTime: 30,
-        price: Price(amount: '30000', formatted: '¥30,000', currency: 'JPY'),
-        displayOrder: 1,
-        isActive: true,
-        color: ColorInfo(hex: '#FFA726', rgbaLight: '', textColor: ''),
-      ),
-      status: ReservationStatus.pending,
-      reservationDatetime: DateTime(2025, 8, 27, 17, 0),
-      numberOfPeople: 1,
-      notes: 'Booking via website. Customer will wait in the lounge.',
-      amount: 30000,
-      fullName: 'Budi Santoso',
-      fullNameKana: 'ブディ サントソ',
-      email: 'budi.santoso@example.com',
-      phoneNumber: '0812-3456-7890',
-      createdAt: DateTime(2025, 8, 12, 15, 14),
-      updatedAt: DateTime(2025, 8, 12, 15, 14),
-    ),
-    Reservation(
-      id: 2,
-      reservationNumber: '202507201030',
-      menu: const Menu(
-        id: 102,
-        name: 'Premium Car Wash & Wax',
-        description:
-            'Exterior wash, interior vacuum, and premium waxing service.',
-        requiredTime: 60,
-        price: Price(amount: '50000', formatted: '¥50,000', currency: 'JPY'),
-        displayOrder: 2,
-        isActive: true,
-        color: ColorInfo(hex: '#42A5F5', rgbaLight: '', textColor: ''),
-      ),
-      status: ReservationStatus.confirmed,
-      reservationDatetime: DateTime(2025, 8, 20, 10, 30),
-      numberOfPeople: 1,
-      amount: 50000,
-      fullName: 'Citra Lestari',
-      fullNameKana: 'チトラ レスタリ',
-      email: 'citra.lestari@example.com',
-      phoneNumber: '0811-2233-4455',
-      notes: null,
-      createdAt: DateTime(2025, 7, 20, 10, 30),
-      updatedAt: DateTime(2025, 7, 21, 11, 0),
-    ),
-    Reservation(
-      id: 3,
-      reservationNumber: '202506150900',
-      menu: const Menu(
-        id: 103,
-        name: 'Basic Maintenance Check',
-        description: 'Includes oil check, fluid levels, and brake inspection.',
-        requiredTime: 45,
-        price: Price(amount: '45000', formatted: '¥45,000', currency: 'JPY'),
-        displayOrder: 3,
-        isActive: true,
-        color: ColorInfo(hex: '#66BB6A', rgbaLight: '', textColor: ''),
-      ),
-      status: ReservationStatus.completed,
-      reservationDatetime: DateTime(2025, 6, 15, 9, 0),
-      numberOfPeople: 1,
-      amount: 45000,
-      fullName: 'Ahmad Subarjo',
-      fullNameKana: 'アフマド スバルジョ',
-      email: 'ahmad.subarjo@example.com',
-      phoneNumber: '0856-7890-1234',
-      notes: 'Customer reported a slight noise from the front right wheel.',
-      createdAt: DateTime(2025, 6, 1, 18, 0),
-      updatedAt: DateTime(2025, 6, 15, 10, 0),
-    ),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      ref
+          .read(currentUserReservationsNotifierProvider.notifier)
+          .loadMoreReservations();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       endDrawer: const UserEndDrawer(),
-      body: ScreenWrapper(
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(child: _buildHeader(context)),
-            const SliverToBoxAdapter(child: SizedBox(height: 16)),
-            SliverToBoxAdapter(child: _buildStatsCard(context)),
-            const SliverToBoxAdapter(child: SizedBox(height: 16)),
-            _buildReservationList(context), // Gunakan SliverList untuk daftar
-          ],
-        ),
-      ),
+      body: ScreenWrapper(child: _buildBody()),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // context.router.push( CreateReservationRoute(menu: menu));
@@ -126,16 +63,161 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
     );
   }
 
+  Widget _buildBody() {
+    final state = ref.watch(currentUserReservationsNotifierProvider);
+
+    return RefreshIndicator(
+      onRefresh: () => ref
+          .read(currentUserReservationsNotifierProvider.notifier)
+          .refreshReservations(),
+      child: CustomScrollView(
+        controller: _scrollController,
+        physics: const AlwaysScrollableScrollPhysics(),
+        slivers: [
+          SliverToBoxAdapter(child: _buildHeader(context)),
+          const SliverToBoxAdapter(child: SizedBox(height: 16)),
+          SliverToBoxAdapter(
+            child: _buildStatsCard(context, state.reservations),
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 16)),
+          // Add debug section in development
+          if (true) // Replace with kDebugMode for production
+            // SliverToBoxAdapter(child: _buildDebugSection(context)),
+            _buildReservationList(context, state),
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                if (state.status == CurrentUserReservationsStatus.loadingMore)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                const SizedBox(height: 80),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Widget _buildDebugSection(BuildContext context) {
+  //   return DebugSection(
+  //     title: '🔧 Reservation Debug Tools',
+  //     actions: [
+  //       DebugAction.refresh(
+  //         label: 'Refresh with Debug',
+  //         onPressed: () {
+  //           ref
+  //               .read(currentUserReservationsNotifierProvider.notifier)
+  //               .getInitialReservations();
+  //         },
+  //         debugEndpoint: 'Manual Refresh Triggered - Reservations',
+  //       ),
+  //       DebugAction.clear(
+  //         label: 'Clear Cache',
+  //         onPressed: () {
+  //           // Add cache clearing logic here if needed
+  //           ref
+  //               .read(currentUserReservationsNotifierProvider.notifier)
+  //               .refreshReservations();
+  //         },
+  //       ),
+  //       DebugAction.testApi(
+  //         label: 'Test Load More',
+  //         onPressed: () {
+  //           ref
+  //               .read(currentUserReservationsNotifierProvider.notifier)
+  //               .loadMoreReservations();
+  //         },
+  //       ),
+  //       DebugAction.viewLogs(
+  //         label: 'Show Logs',
+  //         context: context,
+  //         message: 'Check console for reservation debugging logs',
+  //       ),
+  //       DebugAction.inspect(
+  //         label: 'Inspect State',
+  //         onPressed: () {
+  //           final state = ref.read(currentUserReservationsNotifierProvider);
+  //           DebugHelper.logApiResponse({
+  //             'status': state.status.toString(),
+  //             'reservations_count': state.reservations.length,
+  //             'has_next_page': state.hasNextPage,
+  //             'cursor': state.cursor?.toString(),
+  //             'error_message': state.errorMessage,
+  //           }, endpoint: 'Current Reservations State');
+  //         },
+  //       ),
+  //     ],
+  //   );
+  // }
+
   // Method untuk membuat daftar reservasi dengan header tanggal
-  Widget _buildReservationList(BuildContext context) {
-    if (_mockReservations.isEmpty) {
+  Widget _buildReservationList(
+    BuildContext context,
+    CurrentUserReservationsState state,
+  ) {
+    // Initial loading state - show loading indicator
+    if (state.status == CurrentUserReservationsStatus.loading &&
+        state.reservations.isEmpty) {
       return const SliverToBoxAdapter(
-        child: Center(child: AppText('No reservations found.')),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 40),
+          child: Center(child: CircularProgressIndicator()),
+        ),
+      );
+    }
+
+    // Error state - show error message with retry button
+    if (state.status == CurrentUserReservationsStatus.error &&
+        state.reservations.isEmpty) {
+      debugPrint('Error: ${state.errorMessage}');
+      return SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 40),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppText(
+                  state.errorMessage ?? 'An unknown error occurred.',
+                  style: AppTextStyle.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () {
+                    ref
+                        .read(currentUserReservationsNotifierProvider.notifier)
+                        .getInitialReservations();
+                  },
+                  child: const AppText('Retry'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    // No reservations available
+    if (state.reservations.isEmpty) {
+      return const SliverToBoxAdapter(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 40),
+          child: Center(
+            child: AppText(
+              'No reservations found.',
+              style: AppTextStyle.bodyMedium,
+            ),
+          ),
+        ),
       );
     }
 
     // Urutkan reservasi dari yang terbaru ke terlama
-    final sortedReservations = List<Reservation>.from(_mockReservations)
+    final sortedReservations = List<Reservation>.from(state.reservations)
       ..sort((a, b) => b.reservationDatetime.compareTo(a.reservationDatetime));
 
     return SliverList(
@@ -231,11 +313,11 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
     );
   }
 
-  Widget _buildStatsCard(BuildContext context) {
-    final pendingCount = _mockReservations
+  Widget _buildStatsCard(BuildContext context, List<Reservation> reservations) {
+    final pendingCount = reservations
         .where((r) => r.status == ReservationStatus.pending)
         .length;
-    final confirmedCount = _mockReservations
+    final confirmedCount = reservations
         .where((r) => r.status == ReservationStatus.confirmed)
         .length;
 
@@ -249,7 +331,7 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
           children: [
             _buildStatItem(
               context,
-              count: _mockReservations.length,
+              count: reservations.length,
               label: 'Total Reservations',
             ),
             _buildStatItem(

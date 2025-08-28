@@ -9,6 +9,7 @@ import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/features/reservation/data/models/reservation_model.dart';
 import 'package:tires/features/user/data/datasources/current_user_remote_datasource.dart';
 import 'package:tires/features/user/data/models/user_model.dart';
+import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
   final DioClient _dioClient;
@@ -117,13 +118,23 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
 
       final response = await _dioClient.getWithCursor<ReservationModel>(
         '${ApiEndpoints.profile}/reservations',
-        fromJson: (item) =>
-            ReservationModel.fromMap(item as Map<String, dynamic>),
+        fromJson: (item) {
+          DebugHelper.logMapDetails(
+            item as Map<String, dynamic>,
+            title: 'Raw Reservation Item from API',
+          );
+          return ReservationModel.fromMap(item);
+        },
         queryParameters: queryParameters,
       );
 
       return response;
     } catch (e) {
+      DebugHelper.safeCast(
+        e,
+        'getCurrentUserReservations_error',
+        defaultValue: 'rethrowing error',
+      );
       rethrow;
     }
   }
