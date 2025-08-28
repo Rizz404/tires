@@ -8,6 +8,10 @@ import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/core/theme/app_theme.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
+import 'package:tires/features/reservation/domain/entities/reservation_amount.dart';
+import 'package:tires/features/reservation/domain/entities/reservation_customer_info.dart';
+import 'package:tires/features/reservation/domain/entities/reservation_status.dart';
+import 'package:tires/features/reservation/domain/entities/reservation_user.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
@@ -21,13 +25,21 @@ class ConfirmedReservationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mockReservation = Reservation(
-      isGuest: true,
       id: 1,
       reservationNumber: 'RES-20250812-001',
-      fullName: 'Rizki Darmawan',
-      fullNameKana: 'リズキ ダルマワン',
-      email: 'rizki.darmawan@example.com',
-      phoneNumber: '081234567890',
+      user: const ReservationUser(
+        id: 1,
+        fullName: 'Rizki Darmawan',
+        email: 'rizki.darmawan@example.com',
+        phoneNumber: '081234567890',
+      ),
+      customerInfo: const ReservationCustomerInfo(
+        fullName: 'Rizki Darmawan',
+        fullNameKana: 'リズキ ダルマワン',
+        email: 'rizki.darmawan@example.com',
+        phoneNumber: '081234567890',
+        isGuest: true,
+      ),
       menu: const Menu(
         id: 1,
         name: 'Premium Oil Change',
@@ -40,8 +52,11 @@ class ConfirmedReservationScreen extends StatelessWidget {
       ),
       reservationDatetime: DateTime(2025, 8, 15, 14, 0),
       numberOfPeople: 1,
-      amount: 75000,
-      status: ReservationStatus.confirmed,
+      amount: const ReservationAmount(raw: '75000', formatted: '¥75,000'),
+      status: const ReservationStatus(
+        value: ReservationStatusValue.confirmed,
+        label: 'Confirmed',
+      ),
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
@@ -226,27 +241,27 @@ class ConfirmedReservationScreen extends StatelessWidget {
           ),
           _buildDetailRow(
             l10n.reservationSummaryLabelName,
-            reservation.fullName ?? '-',
+            reservation.customerInfo.fullName,
             context,
           ),
           _buildDetailRow(
             l10n.reservationSummaryLabelNameKana,
-            reservation.fullNameKana ?? '-',
+            reservation.customerInfo.fullNameKana,
             context,
           ),
           _buildDetailRow(
             l10n.reservationSummaryLabelEmail,
-            reservation.email ?? '-',
+            reservation.customerInfo.email,
             context,
           ),
           _buildDetailRow(
             l10n.reservationSummaryLabelPhone,
-            reservation.phoneNumber ?? '-',
+            reservation.customerInfo.phoneNumber,
             context,
           ),
           _buildDetailRow(
             l10n.reservationSummaryLabelStatus,
-            reservation.status.name.capitalize(),
+            reservation.status.label,
             context,
           ),
         ],

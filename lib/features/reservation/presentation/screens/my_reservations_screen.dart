@@ -6,6 +6,7 @@ import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/features/reservation/presentation/widgets/reservation_item.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
+import 'package:tires/features/reservation/domain/entities/reservation_status.dart';
 import 'package:tires/features/user/presentation/providers/current_user_providers.dart';
 import 'package:tires/features/user/presentation/providers/current_user_reservations_state.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
@@ -82,8 +83,8 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
           const SliverToBoxAdapter(child: SizedBox(height: 16)),
           // Add debug section in development
           if (true) // Replace with kDebugMode for production
-            // SliverToBoxAdapter(child: _buildDebugSection(context)),
-            _buildReservationList(context, state),
+            SliverToBoxAdapter(child: _buildDebugSection(context)),
+          _buildReservationList(context, state),
           SliverToBoxAdapter(
             child: Column(
               children: [
@@ -101,57 +102,57 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
     );
   }
 
-  // Widget _buildDebugSection(BuildContext context) {
-  //   return DebugSection(
-  //     title: '🔧 Reservation Debug Tools',
-  //     actions: [
-  //       DebugAction.refresh(
-  //         label: 'Refresh with Debug',
-  //         onPressed: () {
-  //           ref
-  //               .read(currentUserReservationsNotifierProvider.notifier)
-  //               .getInitialReservations();
-  //         },
-  //         debugEndpoint: 'Manual Refresh Triggered - Reservations',
-  //       ),
-  //       DebugAction.clear(
-  //         label: 'Clear Cache',
-  //         onPressed: () {
-  //           // Add cache clearing logic here if needed
-  //           ref
-  //               .read(currentUserReservationsNotifierProvider.notifier)
-  //               .refreshReservations();
-  //         },
-  //       ),
-  //       DebugAction.testApi(
-  //         label: 'Test Load More',
-  //         onPressed: () {
-  //           ref
-  //               .read(currentUserReservationsNotifierProvider.notifier)
-  //               .loadMoreReservations();
-  //         },
-  //       ),
-  //       DebugAction.viewLogs(
-  //         label: 'Show Logs',
-  //         context: context,
-  //         message: 'Check console for reservation debugging logs',
-  //       ),
-  //       DebugAction.inspect(
-  //         label: 'Inspect State',
-  //         onPressed: () {
-  //           final state = ref.read(currentUserReservationsNotifierProvider);
-  //           DebugHelper.logApiResponse({
-  //             'status': state.status.toString(),
-  //             'reservations_count': state.reservations.length,
-  //             'has_next_page': state.hasNextPage,
-  //             'cursor': state.cursor?.toString(),
-  //             'error_message': state.errorMessage,
-  //           }, endpoint: 'Current Reservations State');
-  //         },
-  //       ),
-  //     ],
-  //   );
-  // }
+  Widget _buildDebugSection(BuildContext context) {
+    return DebugSection(
+      title: '🔧 Reservation Debug Tools',
+      actions: [
+        DebugAction.refresh(
+          label: 'Refresh with Debug',
+          onPressed: () {
+            ref
+                .read(currentUserReservationsNotifierProvider.notifier)
+                .getInitialReservations();
+          },
+          debugEndpoint: 'Manual Refresh Triggered - Reservations',
+        ),
+        DebugAction.clear(
+          label: 'Clear Cache',
+          onPressed: () {
+            // Add cache clearing logic here if needed
+            ref
+                .read(currentUserReservationsNotifierProvider.notifier)
+                .refreshReservations();
+          },
+        ),
+        DebugAction.testApi(
+          label: 'Test Load More',
+          onPressed: () {
+            ref
+                .read(currentUserReservationsNotifierProvider.notifier)
+                .loadMoreReservations();
+          },
+        ),
+        DebugAction.viewLogs(
+          label: 'Show Logs',
+          context: context,
+          message: 'Check console for reservation debugging logs',
+        ),
+        DebugAction.inspect(
+          label: 'Inspect State',
+          onPressed: () {
+            final state = ref.read(currentUserReservationsNotifierProvider);
+            DebugHelper.logApiResponse({
+              'status': state.status.toString(),
+              'reservations_count': state.reservations.length,
+              'has_next_page': state.hasNextPage,
+              'cursor': state.cursor?.toString(),
+              'error_message': state.errorMessage,
+            }, endpoint: 'Current Reservations State');
+          },
+        ),
+      ],
+    );
+  }
 
   // Method untuk membuat daftar reservasi dengan header tanggal
   Widget _buildReservationList(
@@ -315,10 +316,10 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
 
   Widget _buildStatsCard(BuildContext context, List<Reservation> reservations) {
     final pendingCount = reservations
-        .where((r) => r.status == ReservationStatus.pending)
+        .where((r) => r.status == ReservationStatusValue.pending)
         .length;
     final confirmedCount = reservations
-        .where((r) => r.status == ReservationStatus.confirmed)
+        .where((r) => r.status == ReservationStatusValue.confirmed)
         .length;
 
     return Card(

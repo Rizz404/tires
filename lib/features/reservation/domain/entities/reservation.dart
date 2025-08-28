@@ -1,23 +1,19 @@
 import 'package:equatable/equatable.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
-import 'package:tires/features/user/domain/entities/user.dart';
-
-enum ReservationStatus { pending, confirmed, completed, cancelled }
+import 'package:tires/features/reservation/domain/entities/reservation_amount.dart';
+import 'package:tires/features/reservation/domain/entities/reservation_customer_info.dart';
+import 'package:tires/features/reservation/domain/entities/reservation_status.dart';
+import 'package:tires/features/reservation/domain/entities/reservation_user.dart';
 
 class Reservation extends Equatable {
   final int id;
   final String reservationNumber;
-  final User? user;
-  final String? fullName;
-  final String? fullNameKana;
-  final String? email;
-  final String? phoneNumber;
-  final bool isGuest;
+  final ReservationUser? user;
+  final ReservationCustomerInfo customerInfo;
   final Menu menu;
   final DateTime reservationDatetime;
   final int numberOfPeople;
-  final double amount;
-  final String? formattedAmount;
+  final ReservationAmount amount;
   final ReservationStatus status;
   final String? notes;
   final DateTime createdAt;
@@ -27,16 +23,11 @@ class Reservation extends Equatable {
     required this.id,
     required this.reservationNumber,
     this.user,
-    this.fullName,
-    this.fullNameKana,
-    this.email,
-    this.phoneNumber,
-    required this.isGuest,
+    required this.customerInfo,
     required this.menu,
     required this.reservationDatetime,
     required this.numberOfPeople,
     required this.amount,
-    this.formattedAmount,
     required this.status,
     this.notes,
     required this.createdAt,
@@ -48,16 +39,11 @@ class Reservation extends Equatable {
     id,
     reservationNumber,
     user,
-    fullName,
-    fullNameKana,
-    email,
-    phoneNumber,
-    isGuest,
+    customerInfo,
     menu,
     reservationDatetime,
     numberOfPeople,
     amount,
-    formattedAmount,
     status,
     notes,
     createdAt,

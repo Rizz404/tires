@@ -6,6 +6,7 @@ import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/theme/app_theme.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
+import 'package:tires/features/reservation/domain/entities/reservation_status.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
@@ -103,34 +104,37 @@ class ReservationItem extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 16),
-        _buildStatusBadge(context, reservation.status),
+        _buildStatusBadge(context, reservation.status.value),
       ],
     );
   }
 
-  Widget _buildStatusBadge(BuildContext context, ReservationStatus status) {
+  Widget _buildStatusBadge(
+    BuildContext context,
+    ReservationStatusValue status,
+  ) {
     final l10n = context.l10n;
     Color backgroundColor;
     Color textColor;
     String text;
 
     switch (status) {
-      case ReservationStatus.confirmed:
+      case ReservationStatusValue.confirmed:
         backgroundColor = AppTheme.success.withValues(alpha: 0.15);
         textColor = AppTheme.success;
         text = l10n.reservationStatusConfirmed;
         break;
-      case ReservationStatus.pending:
+      case ReservationStatusValue.pending:
         backgroundColor = AppTheme.warning.withValues(alpha: 0.15);
         textColor = AppTheme.warning;
         text = l10n.reservationStatusPending;
         break;
-      case ReservationStatus.completed:
+      case ReservationStatusValue.completed:
         backgroundColor = context.colorScheme.primary.withValues(alpha: 0.15);
         textColor = context.colorScheme.primary;
         text = l10n.reservationStatusCompleted;
         break;
-      case ReservationStatus.cancelled:
+      case ReservationStatusValue.cancelled:
         backgroundColor = context.colorScheme.error.withValues(alpha: 0.1);
         textColor = context.colorScheme.error;
         text = l10n.reservationStatusCancelled;
@@ -190,8 +194,8 @@ class ReservationItem extends StatelessWidget {
               label: l10n.reservationItemLabelNotes,
               value: reservation.notes!,
             ),
-          if (reservation.status == ReservationStatus.pending ||
-              reservation.status == ReservationStatus.confirmed)
+          if (reservation.status.value == ReservationStatusValue.pending ||
+              reservation.status.value == ReservationStatusValue.confirmed)
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: SizedBox(

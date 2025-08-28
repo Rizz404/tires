@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:tires/features/menu/data/mapper/menu_mapper.dart';
 import 'package:tires/features/menu/data/models/menu_model.dart';
+import 'package:tires/features/reservation/data/mapper/reservation_mapper.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
-import 'package:tires/features/user/data/mapper/user_mapper.dart';
-import 'package:tires/features/user/data/models/user_model.dart';
+import 'package:tires/features/reservation/data/models/reservation_amount_model.dart';
+import 'package:tires/features/reservation/data/models/reservation_customer_info_model.dart';
+import 'package:tires/features/reservation/data/models/reservation_status_model.dart';
+import 'package:tires/features/reservation/data/models/reservation_user_model.dart';
 import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class ReservationModel extends Reservation {
@@ -12,16 +15,11 @@ class ReservationModel extends Reservation {
     required super.id,
     required super.reservationNumber,
     super.user,
-    super.fullName,
-    super.fullNameKana,
-    super.email,
-    super.phoneNumber,
-    required super.isGuest,
+    required super.customerInfo,
     required super.menu,
     required super.reservationDatetime,
     required super.numberOfPeople,
     required super.amount,
-    super.formattedAmount,
     required super.status,
     super.notes,
     required super.createdAt,
@@ -31,18 +29,13 @@ class ReservationModel extends Reservation {
   ReservationModel copyWith({
     int? id,
     String? reservationNumber,
-    UserModel? user,
-    String? fullName,
-    String? fullNameKana,
-    String? email,
-    String? phoneNumber,
-    bool? isGuest,
+    ReservationUserModel? user,
+    ReservationCustomerInfoModel? customerInfo,
     MenuModel? menu,
     DateTime? reservationDatetime,
     int? numberOfPeople,
-    double? amount,
-    String? formattedAmount,
-    ReservationStatus? status,
+    ReservationAmountModel? amount,
+    ReservationStatusModel? status,
     String? notes,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -51,16 +44,11 @@ class ReservationModel extends Reservation {
       id: id ?? this.id,
       reservationNumber: reservationNumber ?? this.reservationNumber,
       user: user ?? this.user,
-      fullName: fullName ?? this.fullName,
-      fullNameKana: fullNameKana ?? this.fullNameKana,
-      email: email ?? this.email,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      isGuest: isGuest ?? this.isGuest,
+      customerInfo: customerInfo ?? this.customerInfo,
       menu: menu ?? this.menu,
       reservationDatetime: reservationDatetime ?? this.reservationDatetime,
       numberOfPeople: numberOfPeople ?? this.numberOfPeople,
       amount: amount ?? this.amount,
-      formattedAmount: formattedAmount ?? this.formattedAmount,
       status: status ?? this.status,
       notes: notes ?? this.notes,
       createdAt: createdAt ?? this.createdAt,
@@ -72,19 +60,13 @@ class ReservationModel extends Reservation {
     return {
       'id': id,
       'reservation_number': reservationNumber,
-      'user': (user as UserModel?)?.toMap(),
-      'customer_info': {
-        'full_name': fullName,
-        'full_name_kana': fullNameKana,
-        'email': email,
-        'phone_number': phoneNumber,
-        'is_guest': isGuest,
-      },
+      'user': (user as ReservationUserModel?)?.toMap(),
+      'customer_info': (customerInfo as ReservationCustomerInfoModel).toMap(),
       'menu': (menu as MenuModel).toMap(),
       'reservation_datetime': reservationDatetime.toIso8601String(),
       'number_of_people': numberOfPeople,
-      'amount': {'raw': amount.toString(), 'formatted': formattedAmount},
-      'status': {'value': status.name, 'label': _getStatusLabel(status)},
+      'amount': (amount as ReservationAmountModel).toMap(),
+      'status': (status as ReservationStatusModel).toMap(),
       'notes': notes,
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
@@ -94,10 +76,13 @@ class ReservationModel extends Reservation {
   factory ReservationModel.fromMap(Map<String, dynamic> map) {
     DebugHelper.traceModelCreation('ReservationModel', map);
 
-    final customerInfo = DebugHelper.safeExtractMap(map, 'customer_info');
+    final customerInfoData = DebugHelper.safeExtractMap(map, 'customer_info');
     final amountData = DebugHelper.safeExtractMap(map, 'amount');
     final statusData = DebugHelper.safeExtractMap(map, 'status');
     final menuData = DebugHelper.safeExtractMap(map, 'menu');
+    final userData = map['user'] != null
+        ? DebugHelper.safeExtractMap(map, 'user')
+        : null;
 
     // Parse dates safely
     final reservationDatetime =
@@ -124,32 +109,8 @@ class ReservationModel extends Reservation {
             defaultValue: '',
           ) ??
           '',
-      user: map['user'] != null
-          ? UserModel.fromMap(DebugHelper.safeExtractMap(map, 'user'))
-          : null,
-      fullName: DebugHelper.safeCast<String>(
-        customerInfo['full_name'],
-        'customer_info.full_name',
-      ),
-      fullNameKana: DebugHelper.safeCast<String>(
-        customerInfo['full_name_kana'],
-        'customer_info.full_name_kana',
-      ),
-      email: DebugHelper.safeCast<String>(
-        customerInfo['email'],
-        'customer_info.email',
-      ),
-      phoneNumber: DebugHelper.safeCast<String>(
-        customerInfo['phone_number'],
-        'customer_info.phone_number',
-      ),
-      isGuest:
-          DebugHelper.safeCast<bool>(
-            customerInfo['is_guest'],
-            'customer_info.is_guest',
-            defaultValue: false,
-          ) ??
-          false,
+      user: userData != null ? ReservationUserModel.fromMap(userData) : null,
+      customerInfo: ReservationCustomerInfoModel.fromMap(customerInfoData),
       menu: MenuModel.fromMap(menuData),
       reservationDatetime: reservationDatetime,
       numberOfPeople:
@@ -159,45 +120,16 @@ class ReservationModel extends Reservation {
             defaultValue: 1,
           ) ??
           1,
-      amount: _parseAmount(amountData),
-      formattedAmount: DebugHelper.safeCast<String>(
-        amountData['formatted'],
-        'amount.formatted',
+      amount: ReservationAmountModel.fromMap(amountData),
+      status: ReservationStatusModel.fromMap(statusData),
+      notes: DebugHelper.safeCast<String>(
+        map['notes'],
+        'notes',
+        defaultValue: null,
       ),
-      status: _parseStatus(
-        DebugHelper.safeCast<String>(statusData['value'], 'status.value'),
-      ),
-      notes: DebugHelper.safeCast<String>(map['notes'], 'notes'),
       createdAt: createdAt,
       updatedAt: updatedAt,
     );
-  }
-
-  static double _parseAmount(Map<String, dynamic> amountData) {
-    final rawAmount = amountData['raw'];
-    if (rawAmount == null) {
-      DebugHelper.safeCast(null, 'amount.raw', defaultValue: 0.0);
-      return 0.0;
-    }
-
-    if (rawAmount is double) {
-      return rawAmount;
-    }
-
-    if (rawAmount is int) {
-      return rawAmount.toDouble();
-    }
-
-    if (rawAmount is String) {
-      return double.tryParse(rawAmount) ?? 0.0;
-    }
-
-    DebugHelper.safeCast(
-      rawAmount,
-      'amount.raw (unknown type)',
-      defaultValue: 0.0,
-    );
-    return 0.0;
   }
 
   factory ReservationModel.fromEntity(Reservation entity) {
@@ -205,51 +137,16 @@ class ReservationModel extends Reservation {
       id: entity.id,
       reservationNumber: entity.reservationNumber,
       user: entity.user?.toModel(),
-      fullName: entity.fullName,
-      fullNameKana: entity.fullNameKana,
-      email: entity.email,
-      phoneNumber: entity.phoneNumber,
-      isGuest: entity.isGuest,
+      customerInfo: entity.customerInfo.toModel(),
       menu: entity.menu.toModel(),
       reservationDatetime: entity.reservationDatetime,
       numberOfPeople: entity.numberOfPeople,
-      amount: entity.amount,
-      formattedAmount: entity.formattedAmount,
-      status: entity.status,
+      amount: entity.amount.toModel(),
+      status: entity.status.toModel(),
       notes: entity.notes,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
     );
-  }
-
-  static ReservationStatus _parseStatus(String? statusValue) {
-    if (statusValue == null) return ReservationStatus.pending;
-
-    switch (statusValue.toLowerCase()) {
-      case 'pending':
-        return ReservationStatus.pending;
-      case 'confirmed':
-        return ReservationStatus.confirmed;
-      case 'completed':
-        return ReservationStatus.completed;
-      case 'cancelled':
-        return ReservationStatus.cancelled;
-      default:
-        return ReservationStatus.pending;
-    }
-  }
-
-  static String _getStatusLabel(ReservationStatus status) {
-    switch (status) {
-      case ReservationStatus.pending:
-        return 'Pending';
-      case ReservationStatus.confirmed:
-        return 'Confirmed';
-      case ReservationStatus.completed:
-        return 'Completed';
-      case ReservationStatus.cancelled:
-        return 'Cancelled';
-    }
   }
 
   String toJson() => json.encode(toMap());
