@@ -3,6 +3,8 @@ import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/network/api_error_response.dart';
 import 'package:tires/core/storage/session_storage_service.dart';
+import 'package:tires/features/customer_management/data/mapper/customer_dashboard_mapper.dart';
+import 'package:tires/features/customer_management/domain/entities/customer_dashboard.dart';
 import 'package:tires/features/reservation/data/mapper/reservation_mapper.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/user/data/datasources/current_user_remote_datasource.dart';
@@ -37,12 +39,10 @@ class CurrentUserRepositoryImpl implements CurrentUserRepository {
       // If not cached, fetch from remote
       final result = await _userRemoteDatasource.getCurrentUser();
 
-      return result.fold((failure) => Left(failure), (success) async {
-        final user = success.data!.toEntity();
-        // Cache the user data for future use
-        await _sessionStorageService.saveUser(user);
-        return Right(ItemSuccessResponse(data: user, message: success.message));
-      });
+      final user = result.data.toEntity();
+      // Cache the user data for future use
+      await _sessionStorageService.saveUser(user);
+      return Right(ItemSuccessResponse(data: user, message: result.message));
     } on ApiErrorResponse catch (e) {
       return Left(ServerFailure(message: e.message, code: e.code));
     } catch (e) {
@@ -77,14 +77,12 @@ class CurrentUserRepositoryImpl implements CurrentUserRepository {
         gender: gender,
       );
 
-      return result.fold((failure) => Left(failure), (success) async {
-        final updatedUser = success.data!.toEntity();
-        // Update the cached user data with the new information
-        await _sessionStorageService.saveUser(updatedUser);
-        return Right(
-          ItemSuccessResponse(data: updatedUser, message: success.message),
-        );
-      });
+      final updatedUser = result.data.toEntity();
+      // Update the cached user data with the new information
+      await _sessionStorageService.saveUser(updatedUser);
+      return Right(
+        ItemSuccessResponse(data: updatedUser, message: result.message),
+      );
     } on ApiErrorResponse catch (e) {
       return Left(ServerFailure(message: e.message, code: e.code));
     } catch (e) {
@@ -105,7 +103,24 @@ class CurrentUserRepositoryImpl implements CurrentUserRepository {
         confirmPassword: confirmPassword,
       );
 
-      return result;
+      return Right(ActionSuccess(message: result.message));
+    } on ApiErrorResponse catch (e) {
+      return Left(ServerFailure(message: e.message, code: e.code));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccessResponse<CustomerDashboard>>>
+  getCurrentUserDashboard() async {
+    try {
+      final result = await _userRemoteDatasource.getCurrentUserDashboard();
+
+      final dashboard = result.data.toEntity();
+      return Right(
+        ItemSuccessResponse(data: dashboard, message: result.message),
+      );
     } on ApiErrorResponse catch (e) {
       return Left(ServerFailure(message: e.message, code: e.code));
     } catch (e) {
@@ -147,12 +162,10 @@ class CurrentUserRepositoryImpl implements CurrentUserRepository {
     try {
       final result = await _userRemoteDatasource.deleteCurrentUserAccount();
 
-      return result.fold((failure) => Left(failure), (success) async {
-        // Clear all user data from local storage when account is deleted
-        await _sessionStorageService.deleteUser();
-        await _sessionStorageService.deleteAccessToken();
-        return Right(success);
-      });
+      // Clear all user data from local storage when account is deleted
+      await _sessionStorageService.deleteUser();
+      await _sessionStorageService.deleteAccessToken();
+      return Right(ActionSuccess(message: result.message));
     } on ApiErrorResponse catch (e) {
       return Left(ServerFailure(message: e.message, code: e.code));
     } catch (e) {

@@ -1,11 +1,8 @@
-import 'package:fpdart/fpdart.dart';
-import 'package:tires/core/domain/domain_response.dart';
-import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/network/api_cursor_pagination_response.dart';
 import 'package:tires/core/network/api_endpoints.dart';
-import 'package:tires/core/network/api_error_response.dart';
 import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
+import 'package:tires/features/customer_management/data/models/customer_dashboard_model.dart';
 import 'package:tires/features/reservation/data/models/reservation_model.dart';
 import 'package:tires/features/user/data/datasources/current_user_remote_datasource.dart';
 import 'package:tires/features/user/data/models/user_model.dart';
@@ -17,27 +14,21 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
   CurrentUserRemoteDatasourceImpl(this._dioClient);
 
   @override
-  Future<Either<Failure, ItemSuccessResponse<UserModel>>>
-  getCurrentUser() async {
+  Future<ApiResponse<UserModel>> getCurrentUser() async {
     try {
-      final response = await _dioClient.get(ApiEndpoints.customerProfile);
-
-      final apiResponse = ApiResponse<Map<String, dynamic>>.fromMap(
-        response.data,
-        (json) => json as Map<String, dynamic>,
+      final response = await _dioClient.get<UserModel>(
+        ApiEndpoints.customerProfile,
+        fromJson: (json) => UserModel.fromMap(json as Map<String, dynamic>),
       );
 
-      final user = UserModel.fromMap(apiResponse.data);
-      return Right(ItemSuccessResponse(data: user));
-    } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return response;
     } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
+      rethrow;
     }
   }
 
   @override
-  Future<Either<Failure, ItemSuccessResponse<UserModel>>> updateCurrentUser({
+  Future<ApiResponse<UserModel>> updateCurrentUser({
     required String fullName,
     required String fullNameKana,
     required String email,
@@ -63,35 +54,27 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
         if (gender != null) 'gender': gender,
       };
 
-      final response = await _dioClient.put(
+      final response = await _dioClient.put<UserModel>(
         ApiEndpoints.customerProfile,
         data: data,
+        fromJson: (json) {
+          // Add debugging to catch type errors in update user
+          DebugHelper.logMapDetails(
+            json as Map<String, dynamic>,
+            title: 'Update User API Response Data',
+          );
+          return UserModel.fromMap(json);
+        },
       );
 
-      final apiResponse = ApiResponse<Map<String, dynamic>>.fromMap(
-        response.data,
-        (json) => json as Map<String, dynamic>,
-      );
-
-      // Add debugging to catch type errors in update user
-      DebugHelper.logMapDetails(
-        apiResponse.data,
-        title: 'Update User API Response Data',
-      );
-
-      final user = UserModel.fromMap(apiResponse.data);
-      return Right(
-        ItemSuccessResponse(data: user, message: apiResponse.message),
-      );
-    } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return response;
     } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
+      rethrow;
     }
   }
 
   @override
-  Future<Either<Failure, ActionSuccess>> updateCurrentUserPassword({
+  Future<ApiResponse<dynamic>> updateCurrentUserPassword({
     required String currentPassword,
     required String newPassword,
     required String confirmPassword,
@@ -103,16 +86,39 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
         'password_confirmation': confirmPassword,
       };
 
-      await _dioClient.put(
+      final response = await _dioClient.put(
         '${ApiEndpoints.customerProfile}/password',
         data: data,
       );
 
-      return Right(ActionSuccess());
-    } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return response;
     } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<CustomerDashboardModel>> getCurrentUserDashboard() async {
+    try {
+      final response = await _dioClient.get<CustomerDashboardModel>(
+        '${ApiEndpoints.customerProfile}/dashboard',
+        fromJson: (json) {
+          DebugHelper.logMapDetails(
+            json as Map<String, dynamic>,
+            title: 'Customer Dashboard API Response Data',
+          );
+          return CustomerDashboardModel.fromMap(json);
+        },
+      );
+
+      return response;
+    } catch (e) {
+      DebugHelper.safeCast(
+        e,
+        'getCurrentUserDashboard_error',
+        defaultValue: 'rethrowing error',
+      );
+      rethrow;
     }
   }
 
@@ -154,14 +160,12 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
   }
 
   @override
-  Future<Either<Failure, ActionSuccess>> deleteCurrentUserAccount() async {
+  Future<ApiResponse<dynamic>> deleteCurrentUserAccount() async {
     try {
-      await _dioClient.delete(ApiEndpoints.customerProfile);
-      return Right(ActionSuccess());
-    } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      final response = await _dioClient.delete(ApiEndpoints.customerProfile);
+      return response;
     } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
+      rethrow;
     }
   }
 }

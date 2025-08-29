@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
+import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/reservation/presentation/widgets/reservation_item.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/reservation/domain/entities/reservation_status.dart';
@@ -57,7 +58,7 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
       body: ScreenWrapper(child: _buildBody()),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // context.router.push( CreateReservationRoute(menu: menu));
+          context.router.push(const HomeRoute());
         },
         child: const Icon(Icons.add),
       ),
@@ -333,7 +334,7 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
             _buildStatItem(
               context,
               count: reservations.length,
-              label: 'Total Reservations',
+              label: context.l10n.myReservationTotalReservations,
             ),
             _buildStatItem(
               context,

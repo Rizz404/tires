@@ -993,6 +993,79 @@ class L10nId extends L10n {
       'Manage and view all your reservations in one place.';
 
   @override
+  String get myReservationPageTitle => 'My Reservations';
+
+  @override
+  String get myReservationSubtitle =>
+      'Manage and view all your reservations in one place.';
+
+  @override
+  String get myReservationTotalReservations => 'Total Reservations';
+
+  @override
+  String get myReservationPending => 'Pending';
+
+  @override
+  String get myReservationConfirmed => 'Confirmed';
+
+  @override
+  String get myReservationNewReservation => 'New Reservation';
+
+  @override
+  String get myReservationRequiredTime => ':time minutes';
+
+  @override
+  String get myReservationDate => 'Date';
+
+  @override
+  String get myReservationTime => 'Time';
+
+  @override
+  String get myReservationPeopleLabel => 'People';
+
+  @override
+  String get myReservationPeopleCount => ':count people';
+
+  @override
+  String get myReservationNotes => 'Notes:';
+
+  @override
+  String get myReservationCancelButton => 'Cancel';
+
+  @override
+  String get myReservationNoReservationsTitle => 'No Reservations Yet';
+
+  @override
+  String get myReservationNoReservationsBody =>
+      'You haven\'t made any reservations yet. Start by creating your first reservation and enjoy our services.';
+
+  @override
+  String get myReservationCreateFirstReservation => 'Create First Reservation';
+
+  @override
+  String get myReservationModalCancelTitle => 'Cancel Reservation';
+
+  @override
+  String get myReservationModalCancelBody =>
+      'Are you sure you want to cancel this reservation? This action cannot be undone.';
+
+  @override
+  String get myReservationModalKeepButton => 'Keep Reservation';
+
+  @override
+  String get myReservationModalConfirmCancelButton => 'Yes, Cancel';
+
+  @override
+  String get myReservationModalFeatureSoonTitle => 'Feature Coming Soon';
+
+  @override
+  String get myReservationModalFeatureSoonBody =>
+      'Reservation cancellation feature will be implemented soon.';
+
+  @override
+  String get myReservationModalGotItButton => 'Got it';
+
+  @override
   String get appName => 'Tire Installation Reservation';
 
   @override

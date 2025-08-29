@@ -949,6 +949,77 @@ class L10nJa extends L10n {
   String get myReservationMainSubTitle => 'すべての予約を一か所で管理・確認できます。';
 
   @override
+  String get myReservationPageTitle => 'マイ予約';
+
+  @override
+  String get myReservationSubtitle => 'すべての予約をこのページで管理・確認できます';
+
+  @override
+  String get myReservationTotalReservations => '予約総数';
+
+  @override
+  String get myReservationPending => '保留中';
+
+  @override
+  String get myReservationConfirmed => '確定済み';
+
+  @override
+  String get myReservationNewReservation => '新規予約';
+
+  @override
+  String get myReservationRequiredTime => ':time 分';
+
+  @override
+  String get myReservationDate => '日付';
+
+  @override
+  String get myReservationTime => '時間';
+
+  @override
+  String get myReservationPeopleLabel => '人数';
+
+  @override
+  String get myReservationPeopleCount => ':count 名';
+
+  @override
+  String get myReservationNotes => '備考:';
+
+  @override
+  String get myReservationCancelButton => 'キャンセル';
+
+  @override
+  String get myReservationNoReservationsTitle => '現在、予約はありません';
+
+  @override
+  String get myReservationNoReservationsBody =>
+      'まだ予約がありません。まずは初めての予約を作成して、当店のサービスをご利用ください。';
+
+  @override
+  String get myReservationCreateFirstReservation => '最初の予約を作成する';
+
+  @override
+  String get myReservationModalCancelTitle => '予約をキャンセル';
+
+  @override
+  String get myReservationModalCancelBody =>
+      'この予約をキャンセルしてもよろしいですか？この操作は元に戻せません。';
+
+  @override
+  String get myReservationModalKeepButton => '予約を維持';
+
+  @override
+  String get myReservationModalConfirmCancelButton => 'はい、キャンセルします';
+
+  @override
+  String get myReservationModalFeatureSoonTitle => '機能は近日公開予定';
+
+  @override
+  String get myReservationModalFeatureSoonBody => '予約キャンセル機能は近日中に実装される予定です。';
+
+  @override
+  String get myReservationModalGotItButton => '了解しました';
+
+  @override
   String get appName => 'タイヤ取付予約';
 
   @override

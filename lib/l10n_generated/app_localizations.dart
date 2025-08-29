@@ -1852,6 +1852,144 @@ abstract class L10n {
   /// **'Manage and view all your reservations in one place.'**
   String get myReservationMainSubTitle;
 
+  /// No description provided for @myReservationPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Reservations'**
+  String get myReservationPageTitle;
+
+  /// No description provided for @myReservationSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage and view all your reservations in one place.'**
+  String get myReservationSubtitle;
+
+  /// No description provided for @myReservationTotalReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Reservations'**
+  String get myReservationTotalReservations;
+
+  /// No description provided for @myReservationPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get myReservationPending;
+
+  /// No description provided for @myReservationConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed'**
+  String get myReservationConfirmed;
+
+  /// No description provided for @myReservationNewReservation.
+  ///
+  /// In en, this message translates to:
+  /// **'New Reservation'**
+  String get myReservationNewReservation;
+
+  /// No description provided for @myReservationRequiredTime.
+  ///
+  /// In en, this message translates to:
+  /// **':time minutes'**
+  String get myReservationRequiredTime;
+
+  /// No description provided for @myReservationDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get myReservationDate;
+
+  /// No description provided for @myReservationTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get myReservationTime;
+
+  /// No description provided for @myReservationPeopleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'People'**
+  String get myReservationPeopleLabel;
+
+  /// No description provided for @myReservationPeopleCount.
+  ///
+  /// In en, this message translates to:
+  /// **':count people'**
+  String get myReservationPeopleCount;
+
+  /// No description provided for @myReservationNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes:'**
+  String get myReservationNotes;
+
+  /// No description provided for @myReservationCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get myReservationCancelButton;
+
+  /// No description provided for @myReservationNoReservationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No Reservations Yet'**
+  String get myReservationNoReservationsTitle;
+
+  /// No description provided for @myReservationNoReservationsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t made any reservations yet. Start by creating your first reservation and enjoy our services.'**
+  String get myReservationNoReservationsBody;
+
+  /// No description provided for @myReservationCreateFirstReservation.
+  ///
+  /// In en, this message translates to:
+  /// **'Create First Reservation'**
+  String get myReservationCreateFirstReservation;
+
+  /// No description provided for @myReservationModalCancelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Reservation'**
+  String get myReservationModalCancelTitle;
+
+  /// No description provided for @myReservationModalCancelBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to cancel this reservation? This action cannot be undone.'**
+  String get myReservationModalCancelBody;
+
+  /// No description provided for @myReservationModalKeepButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Reservation'**
+  String get myReservationModalKeepButton;
+
+  /// No description provided for @myReservationModalConfirmCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, Cancel'**
+  String get myReservationModalConfirmCancelButton;
+
+  /// No description provided for @myReservationModalFeatureSoonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Feature Coming Soon'**
+  String get myReservationModalFeatureSoonTitle;
+
+  /// No description provided for @myReservationModalFeatureSoonBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation cancellation feature will be implemented soon.'**
+  String get myReservationModalFeatureSoonBody;
+
+  /// No description provided for @myReservationModalGotItButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get myReservationModalGotItButton;
+
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
