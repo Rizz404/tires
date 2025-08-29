@@ -576,6 +576,76 @@ class L10nId extends L10n {
       'Export functionality will be implemented';
 
   @override
+  String get adminDashboardAnnouncementCloseTooltip => 'Close announcement';
+
+  @override
+  String get adminDashboardTodoTitle => 'To Do';
+
+  @override
+  String get adminDashboardTodoTodayReservations => 'Today\'s Reservations';
+
+  @override
+  String get adminDashboardTodoContacts => 'Contacts';
+
+  @override
+  String get adminDashboardTodoCasesUnit => 'Cases';
+
+  @override
+  String get adminDashboardContactTitle => 'Contact';
+
+  @override
+  String get adminDashboardContactReceivedAt => 'Received At';
+
+  @override
+  String get adminDashboardContactCustomerName => 'Customer Name';
+
+  @override
+  String get adminDashboardContactSubject => 'Subject';
+
+  @override
+  String get adminDashboardContactNoPending => 'No pending contacts';
+
+  @override
+  String get adminDashboardContactSeeMore => 'See more';
+
+  @override
+  String get adminDashboardReservationTitle => 'Today\'s Reservations';
+
+  @override
+  String get adminDashboardReservationTime => 'Time';
+
+  @override
+  String get adminDashboardReservationService => 'Service';
+
+  @override
+  String get adminDashboardReservationCustomerName => 'Customer Name';
+
+  @override
+  String get adminDashboardReservationNoReservationsToday =>
+      'No reservations today';
+
+  @override
+  String get adminDashboardStatusTitle =>
+      'Reservations/Customer Status (:date)';
+
+  @override
+  String get adminDashboardStatusReservations => 'Reservations';
+
+  @override
+  String get adminDashboardStatusNewCustomers => 'New Customers';
+
+  @override
+  String get adminDashboardStatusCasesUnit => 'Cases';
+
+  @override
+  String get adminDashboardJavascriptConfirmCloseAnnouncement =>
+      'Are you sure you want to close this announcement?';
+
+  @override
+  String get adminDashboardJavascriptDeactivationError =>
+      'An error occurred while deactivating the announcement.';
+
+  @override
   String get homePrimaryTitle => 'Our Service';
 
   @override

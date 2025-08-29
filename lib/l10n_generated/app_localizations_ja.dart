@@ -557,6 +557,74 @@ class L10nJa extends L10n {
       'エクスポート機能は後ほど実装されます';
 
   @override
+  String get adminDashboardAnnouncementCloseTooltip => 'お知らせを閉じる';
+
+  @override
+  String get adminDashboardTodoTitle => 'To Do';
+
+  @override
+  String get adminDashboardTodoTodayReservations => '本日の予約';
+
+  @override
+  String get adminDashboardTodoContacts => 'お問い合わせ';
+
+  @override
+  String get adminDashboardTodoCasesUnit => '件';
+
+  @override
+  String get adminDashboardContactTitle => 'お問い合わせ';
+
+  @override
+  String get adminDashboardContactReceivedAt => '受信日時';
+
+  @override
+  String get adminDashboardContactCustomerName => '顧客名';
+
+  @override
+  String get adminDashboardContactSubject => '件名';
+
+  @override
+  String get adminDashboardContactNoPending => '未対応のお問い合わせはありません';
+
+  @override
+  String get adminDashboardContactSeeMore => 'もっと見る';
+
+  @override
+  String get adminDashboardReservationTitle => '本日の予約';
+
+  @override
+  String get adminDashboardReservationTime => '時間';
+
+  @override
+  String get adminDashboardReservationService => 'サービス';
+
+  @override
+  String get adminDashboardReservationCustomerName => '顧客名';
+
+  @override
+  String get adminDashboardReservationNoReservationsToday => '本日の予約はありません';
+
+  @override
+  String get adminDashboardStatusTitle => '予約・顧客状況（:date）';
+
+  @override
+  String get adminDashboardStatusReservations => '予約数';
+
+  @override
+  String get adminDashboardStatusNewCustomers => '新規顧客数';
+
+  @override
+  String get adminDashboardStatusCasesUnit => '件';
+
+  @override
+  String get adminDashboardJavascriptConfirmCloseAnnouncement =>
+      'このお知らせを閉じてもよろしいですか？';
+
+  @override
+  String get adminDashboardJavascriptDeactivationError =>
+      'お知らせの非表示中にエラーが発生しました。';
+
+  @override
   String get homePrimaryTitle => '私たちのサービス';
 
   @override

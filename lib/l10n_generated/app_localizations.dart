@@ -1078,6 +1078,138 @@ abstract class L10n {
   /// **'Export functionality will be implemented'**
   String get adminUpsertCustomerManagementJsAlertsExportPlaceholder;
 
+  /// No description provided for @adminDashboardAnnouncementCloseTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Close announcement'**
+  String get adminDashboardAnnouncementCloseTooltip;
+
+  /// No description provided for @adminDashboardTodoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'To Do'**
+  String get adminDashboardTodoTitle;
+
+  /// No description provided for @adminDashboardTodoTodayReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Reservations'**
+  String get adminDashboardTodoTodayReservations;
+
+  /// No description provided for @adminDashboardTodoContacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Contacts'**
+  String get adminDashboardTodoContacts;
+
+  /// No description provided for @adminDashboardTodoCasesUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Cases'**
+  String get adminDashboardTodoCasesUnit;
+
+  /// No description provided for @adminDashboardContactTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact'**
+  String get adminDashboardContactTitle;
+
+  /// No description provided for @adminDashboardContactReceivedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Received At'**
+  String get adminDashboardContactReceivedAt;
+
+  /// No description provided for @adminDashboardContactCustomerName.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Name'**
+  String get adminDashboardContactCustomerName;
+
+  /// No description provided for @adminDashboardContactSubject.
+  ///
+  /// In en, this message translates to:
+  /// **'Subject'**
+  String get adminDashboardContactSubject;
+
+  /// No description provided for @adminDashboardContactNoPending.
+  ///
+  /// In en, this message translates to:
+  /// **'No pending contacts'**
+  String get adminDashboardContactNoPending;
+
+  /// No description provided for @adminDashboardContactSeeMore.
+  ///
+  /// In en, this message translates to:
+  /// **'See more'**
+  String get adminDashboardContactSeeMore;
+
+  /// No description provided for @adminDashboardReservationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Reservations'**
+  String get adminDashboardReservationTitle;
+
+  /// No description provided for @adminDashboardReservationTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get adminDashboardReservationTime;
+
+  /// No description provided for @adminDashboardReservationService.
+  ///
+  /// In en, this message translates to:
+  /// **'Service'**
+  String get adminDashboardReservationService;
+
+  /// No description provided for @adminDashboardReservationCustomerName.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Name'**
+  String get adminDashboardReservationCustomerName;
+
+  /// No description provided for @adminDashboardReservationNoReservationsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'No reservations today'**
+  String get adminDashboardReservationNoReservationsToday;
+
+  /// No description provided for @adminDashboardStatusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservations/Customer Status (:date)'**
+  String get adminDashboardStatusTitle;
+
+  /// No description provided for @adminDashboardStatusReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservations'**
+  String get adminDashboardStatusReservations;
+
+  /// No description provided for @adminDashboardStatusNewCustomers.
+  ///
+  /// In en, this message translates to:
+  /// **'New Customers'**
+  String get adminDashboardStatusNewCustomers;
+
+  /// No description provided for @adminDashboardStatusCasesUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Cases'**
+  String get adminDashboardStatusCasesUnit;
+
+  /// No description provided for @adminDashboardJavascriptConfirmCloseAnnouncement.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to close this announcement?'**
+  String get adminDashboardJavascriptConfirmCloseAnnouncement;
+
+  /// No description provided for @adminDashboardJavascriptDeactivationError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while deactivating the announcement.'**
+  String get adminDashboardJavascriptDeactivationError;
+
   /// No description provided for @homePrimaryTitle.
   ///
   /// In en, this message translates to:
