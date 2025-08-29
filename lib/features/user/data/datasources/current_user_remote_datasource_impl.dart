@@ -20,7 +20,7 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
   Future<Either<Failure, ItemSuccessResponse<UserModel>>>
   getCurrentUser() async {
     try {
-      final response = await _dioClient.get(ApiEndpoints.profile);
+      final response = await _dioClient.get(ApiEndpoints.customerProfile);
 
       final apiResponse = ApiResponse<Map<String, dynamic>>.fromMap(
         response.data,
@@ -63,7 +63,10 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
         if (gender != null) 'gender': gender,
       };
 
-      final response = await _dioClient.put(ApiEndpoints.profile, data: data);
+      final response = await _dioClient.put(
+        ApiEndpoints.customerProfile,
+        data: data,
+      );
 
       final apiResponse = ApiResponse<Map<String, dynamic>>.fromMap(
         response.data,
@@ -92,7 +95,10 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
         'password_confirmation': confirmPassword,
       };
 
-      await _dioClient.put('${ApiEndpoints.profile}/password', data: data);
+      await _dioClient.put(
+        '${ApiEndpoints.customerProfile}/password',
+        data: data,
+      );
 
       return Right(ActionSuccess());
     } on ApiErrorResponse catch (e) {
@@ -117,7 +123,7 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
       };
 
       final response = await _dioClient.getWithCursor<ReservationModel>(
-        '${ApiEndpoints.profile}/reservations',
+        ApiEndpoints.customerReservations,
         fromJson: (item) {
           DebugHelper.logMapDetails(
             item as Map<String, dynamic>,
@@ -142,7 +148,7 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
   @override
   Future<Either<Failure, ActionSuccess>> deleteCurrentUserAccount() async {
     try {
-      await _dioClient.delete(ApiEndpoints.profile);
+      await _dioClient.delete(ApiEndpoints.customerProfile);
       return Right(ActionSuccess());
     } on ApiErrorResponse catch (e) {
       return Left(ServerFailure(message: e.message, code: e.code));

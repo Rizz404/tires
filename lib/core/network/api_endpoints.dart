@@ -1,7 +1,11 @@
 class ApiEndpoints {
   ApiEndpoints._();
 
-  // --- Prefixes ---
+  // --- Role Prefixes ---
+  static const String _adminPrefix = '/admin';
+  static const String _customerPrefix = '/customer';
+
+  // --- Api Prefixes ---
   static const String _authPrefix = '/auth';
   static const String _menuPrefix = '/menus';
   static const String _userPrefix = '/users';
@@ -15,67 +19,73 @@ class ApiEndpoints {
   static const String _questionnairePrefix = '/questionnaires';
   static const String _tireStoragePrefix = '/tire-storages';
   static const String _availabilityPrefix = '/availability';
+  static const String _profilePrefix = '$_customerPrefix/profile';
 
   // --- Auth Endpoints ---
   static const String register = '$_authPrefix/register';
   static const String login = '$_authPrefix/login';
-  static const String forgotPassword = '$_authPrefix/forgot-password';
-  static const String setNewPassword = '$_authPrefix/reset-password';
 
-  // --- Menu Endpoints ---
-  static const String menus = _menuPrefix;
+  // --- Admin Endpoints ---
+  static const String adminMenus = '$_adminPrefix$_menuPrefix';
+  static const String adminUsers = '$_adminPrefix$_userPrefix';
+  static const String adminReservations = '$_adminPrefix$_reservationPrefix';
+  static const String adminReservationCalendar =
+      '$_adminPrefix$_reservationPrefix/calendar';
+  static const String adminAnnouncements = '$_adminPrefix$_announcementPrefix';
+  static const String adminBlockedPeriods =
+      '$_adminPrefix$_blockedPeriodPrefix';
+  static const String adminBusinessSettings =
+      '$_adminPrefix$_businessSettingPrefix';
+  static const String adminContacts = '$_adminPrefix$_contactPrefix';
+  static const String adminFaqs = '$_adminPrefix$_faqPrefix';
+  static const String adminPayments = '$_adminPrefix$_paymentPrefix';
+  static const String adminQuestionnaires =
+      '$_adminPrefix$_questionnairePrefix';
+  static const String adminTireStorages = '$_adminPrefix$_tireStoragePrefix';
+  static const String adminAvailability = '$_adminPrefix$_availabilityPrefix';
+
+  // --- Customer Endpoints ---
+  static const String customerProfile = _profilePrefix;
+  static const String customerMenus = '$_customerPrefix$_menuPrefix';
+  static const String customerUsers = '$_customerPrefix$_userPrefix';
+  static const String customerReservations =
+      '$_customerPrefix$_reservationPrefix';
+  static const String customerReservationCalendar =
+      '$_customerPrefix$_reservationPrefix/calendar';
+  static const String customerAnnouncements =
+      '$_customerPrefix$_announcementPrefix';
+  static const String customerBlockedPeriods =
+      '$_customerPrefix$_blockedPeriodPrefix';
+  static const String customerBusinessSettings =
+      '$_customerPrefix$_businessSettingPrefix';
+  static const String customerContacts = '$_customerPrefix$_contactPrefix';
+  static const String customerFaqs = '$_customerPrefix$_faqPrefix';
+  static const String customerPayments = '$_customerPrefix$_paymentPrefix';
+  static const String customerQuestionnaires =
+      '$_customerPrefix$_questionnairePrefix';
+  static const String customerTireStorages =
+      '$_customerPrefix$_tireStoragePrefix';
+  static const String customerAvailability =
+      '$_customerPrefix$_availabilityPrefix';
+  static const String forgotPassword = '$_customerPrefix/forgot-password';
+  static const String setNewPassword = '$_customerPrefix/change-password';
+
+  // --- Shared Endpoints (Get by ID) ---
   static String menuById(String menuId) => '$_menuPrefix/$menuId';
-
-  // --- User Endpoints ---
-  static const String users = _userPrefix;
   static String userById(String userId) => '$_userPrefix/$userId';
-
-  // --- Reservation Endpoints ---
-  static const String reservations = _reservationPrefix;
-  static const String reservationCalendar = "$_reservationPrefix/calendar";
   static String reservationById(String reservationId) =>
       '$_reservationPrefix/$reservationId';
-
-  // --- Announcement Endpoints ---
-  static const String announcements = _announcementPrefix;
   static String announcementById(String announcementId) =>
       '$_announcementPrefix/$announcementId';
-
-  // --- Blocked Period Endpoints ---
-  static const String blockedPeriods = _blockedPeriodPrefix;
   static String blockedPeriodById(String blockedPeriodId) =>
       '$_blockedPeriodPrefix/$blockedPeriodId';
-
-  // --- Business Setting Endpoints ---
-  static const String businessSettings = _businessSettingPrefix;
   static String businessSettingById(String settingId) =>
       '$_businessSettingPrefix/$settingId';
-
-  // --- Contact Endpoints ---
-  static const String contacts = _contactPrefix;
   static String contactById(String contactId) => '$_contactPrefix/$contactId';
-
-  // --- FAQ Endpoints ---
-  static const String faqs = _faqPrefix;
   static String faqById(String faqId) => '$_faqPrefix/$faqId';
-
-  // --- Payment Endpoints ---
-  static const String payments = _paymentPrefix;
   static String paymentById(String paymentId) => '$_paymentPrefix/$paymentId';
-
-  // --- Questionnaire Endpoints ---
-  static const String questionnaires = _questionnairePrefix;
   static String questionnaireById(String questionnaireId) =>
       '$_questionnairePrefix/$questionnaireId';
-
-  // --- Tire Storage Endpoints ---
-  static const String tireStorages = _tireStoragePrefix;
   static String tireStorageById(String tireStorageId) =>
       '$_tireStoragePrefix/$tireStorageId';
-
-  // --- Availability Endpoints ---
-  static const String availability = _availabilityPrefix;
-
-  // --- Profile Endpoints ---
-  static const String profile = '/profile';
 }

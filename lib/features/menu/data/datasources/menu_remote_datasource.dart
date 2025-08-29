@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import 'package:tires/core/network/api_cursor_pagination_response.dart';
+import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/features/menu/data/models/menu_model.dart';
 
@@ -24,7 +25,7 @@ class MenuRemoteDatasourceImpl implements MenuRemoteDatasource {
   ) async {
     try {
       final response = await _dioClient.getWithCursor<MenuModel>(
-        "/menus",
+        ApiEndpoints.customerMenus,
         fromJson: (item) => MenuModel.fromMap(item as Map<String, dynamic>),
         queryParameters: payload.toMap(),
       );

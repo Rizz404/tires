@@ -29,6 +29,10 @@ class DioClient {
         milliseconds: ApiConstants.defaultReceiveTimeout,
       )
       ..options.responseType = ResponseType.json
+      ..options.headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
       ..interceptors.add(_localeInterceptor)
       ..interceptors.add(_authInterceptor);
 
@@ -70,6 +74,17 @@ class DioClient {
         options: options,
         cancelToken: cancelToken,
       );
+
+      // Check if response is HTML instead of JSON
+      if (response.data is String &&
+          (response.data as String).trim().startsWith('<!DOCTYPE html>')) {
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          message:
+              'Server returned HTML instead of JSON. Check API endpoint: $path',
+        );
+      }
 
       return ApiResponse.fromMap(
         response.data as Map<String, dynamic>,
@@ -117,6 +132,17 @@ class DioClient {
         cancelToken: cancelToken,
       );
 
+      // Check if response is HTML instead of JSON
+      if (response.data is String &&
+          (response.data as String).trim().startsWith('<!DOCTYPE html>')) {
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          message:
+              'Server returned HTML instead of JSON. Check API endpoint: $path',
+        );
+      }
+
       return ApiOffsetPaginationResponse.fromMap(
         response.data as Map<String, dynamic>,
         fromJson,
@@ -141,6 +167,17 @@ class DioClient {
         options: options,
         cancelToken: cancelToken,
       );
+
+      // Check if response is HTML instead of JSON
+      if (response.data is String &&
+          (response.data as String).trim().startsWith('<!DOCTYPE html>')) {
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          message:
+              'Server returned HTML instead of JSON. Check API endpoint: $path',
+        );
+      }
 
       return ApiCursorPaginationResponse.fromMap(
         response.data as Map<String, dynamic>,
@@ -263,6 +300,18 @@ class DioClient {
   ApiErrorResponse _handleError(DioException error) {
     if (error.response != null && error.response!.data != null) {
       try {
+        // Check if response is HTML instead of JSON
+        if (error.response!.data is String &&
+            (error.response!.data as String).trim().startsWith(
+              '<!DOCTYPE html>',
+            )) {
+          return ApiErrorResponse(
+            message:
+                'Server returned HTML instead of JSON. Check API endpoint configuration.',
+            code: error.response!.statusCode,
+          );
+        }
+
         return ApiErrorResponse.fromMap(
           error.response!.data as Map<String, dynamic>,
         );
