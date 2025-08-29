@@ -82,8 +82,8 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 16)),
           // Add debug section in development
-          if (true) // Replace with kDebugMode for production
-            SliverToBoxAdapter(child: _buildDebugSection(context)),
+          // if (true) // Replace with kDebugMode for production
+          //   SliverToBoxAdapter(child: _buildDebugSection(context)),
           _buildReservationList(context, state),
           SliverToBoxAdapter(
             child: Column(
@@ -102,7 +102,7 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
     );
   }
 
-  Widget _buildDebugSection(BuildContext context) {
+  /*  Widget _buildDebugSection(BuildContext context) {
     return DebugSection(
       title: '🔧 Reservation Debug Tools',
       actions: [
@@ -153,7 +153,7 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
       ],
     );
   }
-
+ */
   // Method untuk membuat daftar reservasi dengan header tanggal
   Widget _buildReservationList(
     BuildContext context,

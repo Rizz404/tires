@@ -42,7 +42,7 @@ class CustomerTableWidget extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               AppText(
-                'No customers found',
+                context.l10n.adminListCustomerManagementTableEmptyTitle,
                 style: AppTextStyle.bodyLarge,
                 color: context.colorScheme.onSurface.withValues(alpha: 0.6),
               ),
@@ -61,17 +61,22 @@ class CustomerTableWidget extends StatelessWidget {
 
     return Card(
       elevation: 2,
-      child: Column(
-        children: [
-          _buildTableHeader(context),
-          const Divider(height: 1),
-          ...customers.map((customer) => _buildTableRow(context, customer)),
-          if (isLoading)
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Center(child: CircularProgressIndicator()),
-            ),
-        ],
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: IntrinsicWidth(
+          child: Column(
+            children: [
+              _buildTableHeader(context),
+              const Divider(height: 1),
+              ...customers.map((customer) => _buildTableRow(context, customer)),
+              if (isLoading)
+                const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Center(child: CircularProgressIndicator()),
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -88,50 +93,60 @@ class CustomerTableWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Expanded(
-            flex: 3,
+          SizedBox(
+            width: 200,
             child: AppText(
-              'Customer',
+              context.l10n.adminListCustomerManagementTableHeaderCustomer,
               style: AppTextStyle.titleSmall,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const Expanded(
-            flex: 3,
+          SizedBox(
+            width: 180,
             child: AppText(
-              'Contact Info',
+              context.l10n.adminListCustomerManagementTableHeaderContactInfo,
               style: AppTextStyle.titleSmall,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const Expanded(
-            flex: 2,
+          SizedBox(
+            width: 120,
             child: AppText(
-              'Status',
+              context.l10n.adminListCustomerManagementTableHeaderStatus,
               style: AppTextStyle.titleSmall,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const Expanded(
-            flex: 2,
+          SizedBox(
+            width: 120,
             child: AppText(
-              'Reservations',
+              context.l10n.adminListCustomerManagementTableHeaderReservations,
               style: AppTextStyle.titleSmall,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const Expanded(
-            flex: 2,
+          SizedBox(
+            width: 140,
             child: AppText(
-              'Last Reservation',
+              context.l10n.adminListCustomerManagementTableHeaderTotalAmount,
               style: AppTextStyle.titleSmall,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(
-            width: 48,
+          SizedBox(
+            width: 140,
             child: AppText(
-              'Actions',
+              context
+                  .l10n
+                  .adminListCustomerManagementTableHeaderLastReservation,
+              style: AppTextStyle.titleSmall,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            width: 80,
+            child: AppText(
+              context.l10n.adminListCustomerManagementTableHeaderActions,
               style: AppTextStyle.titleSmall,
               fontWeight: FontWeight.bold,
               textAlign: TextAlign.center,
@@ -156,17 +171,22 @@ class CustomerTableWidget extends StatelessWidget {
       child: Row(
         children: [
           // Customer Column
-          Expanded(flex: 3, child: _buildCustomerInfo(context, customer)),
+          SizedBox(width: 200, child: _buildCustomerInfo(context, customer)),
           // Contact Info Column
-          Expanded(flex: 3, child: _buildContactInfo(context, customer)),
+          SizedBox(width: 180, child: _buildContactInfo(context, customer)),
           // Status Column
-          Expanded(flex: 2, child: _buildStatusInfo(context, customer)),
+          SizedBox(width: 120, child: _buildStatusInfo(context, customer)),
           // Reservations Column
-          Expanded(flex: 2, child: _buildReservationsCount(context, customer)),
+          SizedBox(
+            width: 120,
+            child: _buildReservationsCount(context, customer),
+          ),
+          // Total Amount Column
+          SizedBox(width: 140, child: _buildTotalAmount(context, customer)),
           // Last Reservation Column
-          Expanded(flex: 2, child: _buildLastReservation(context, customer)),
+          SizedBox(width: 140, child: _buildLastReservation(context, customer)),
           // Actions Column
-          SizedBox(width: 48, child: _buildActions(context, customer)),
+          SizedBox(width: 80, child: _buildActions(context, customer)),
         ],
       ),
     );
@@ -255,7 +275,11 @@ class CustomerTableWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           child: AppText(
-            isRegistered ? 'Registered' : 'Guest',
+            isRegistered
+                ? context
+                      .l10n
+                      .adminListCustomerManagementTableStatusBadgeRegistered
+                : context.l10n.adminListCustomerManagementTableStatusBadgeGuest,
             style: AppTextStyle.labelSmall,
             fontWeight: FontWeight.w500,
             color: isRegistered
@@ -264,11 +288,7 @@ class CustomerTableWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 4),
-        AppText(
-          isFirstTime ? 'First Time' : 'Repeat',
-          style: AppTextStyle.bodySmall,
-          color: context.colorScheme.onSurface.withValues(alpha: 0.6),
-        ),
+        _buildTypeBadge(context, customer),
       ],
     );
   }
@@ -285,7 +305,8 @@ class CustomerTableWidget extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
         AppText(
-          count == 1 ? 'reservation' : 'reservations',
+          context.l10n.adminListCustomerManagementTableReservationsCount
+              .replaceFirst(':count', count.toString()),
           style: AppTextStyle.bodySmall,
           color: context.colorScheme.onSurface.withValues(alpha: 0.6),
         ),
@@ -302,9 +323,11 @@ class CustomerTableWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           AppText(
-            'No reservations',
+            context.l10n.adminListCustomerManagementTableEmptyDescription,
             style: AppTextStyle.bodySmall,
             color: context.colorScheme.onSurface.withValues(alpha: 0.5),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       );
@@ -361,7 +384,63 @@ class CustomerTableWidget extends StatelessWidget {
         size: 20,
         color: context.colorScheme.primary,
       ),
-      tooltip: 'View customer details',
+      tooltip: context
+          .l10n
+          .adminListCustomerManagementTableActionsTooltipViewDetails,
+    );
+  }
+
+  Widget _buildTotalAmount(BuildContext context, User customer) {
+    final amount = _getMockTotalAmount(customer);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        AppText(
+          '¥${NumberFormat('#,###').format(amount)}',
+          style: AppTextStyle.bodyMedium,
+          fontWeight: FontWeight.w600,
+        ),
+        AppText(
+          'Total spent',
+          style: AppTextStyle.bodySmall,
+          color: context.colorScheme.onSurface.withValues(alpha: 0.6),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTypeBadge(BuildContext context, User customer) {
+    final reservationCount = _getMockReservationCount(customer);
+    final isDormant = _isDormantCustomer(customer);
+
+    String label;
+    Color color;
+
+    if (isDormant) {
+      label = context.l10n.adminListCustomerManagementTableTypeBadgeDormant;
+      color = Colors.orange;
+    } else if (reservationCount == 0) {
+      label = context.l10n.adminListCustomerManagementTableTypeBadgeFirstTime;
+      color = Colors.blue;
+    } else {
+      label = context.l10n.adminListCustomerManagementTableTypeBadgeRepeat;
+      color = Colors.green;
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: color.withValues(alpha: 0.3), width: 1),
+      ),
+      child: AppText(
+        label,
+        style: AppTextStyle.labelSmall,
+        fontWeight: FontWeight.w500,
+        color: color,
+      ),
     );
   }
 
@@ -374,6 +453,20 @@ class CustomerTableWidget extends StatelessWidget {
   }
 
   // Mock data helpers - replace with actual data later
+  int _getMockTotalAmount(User customer) {
+    final reservationCount = _getMockReservationCount(customer);
+    if (reservationCount == 0) return 0;
+    // Mock calculation: each reservation costs between 5000-20000 yen
+    final baseAmount = (customer.id % 4 + 1) * 5000;
+    return baseAmount * reservationCount;
+  }
+
+  bool _isDormantCustomer(User customer) {
+    // Mock logic for dormant customers (no reservations in last 6 months)
+    final id = customer.id;
+    return id % 8 == 0;
+  }
+
   int _getMockReservationCount(User customer) {
     // Mock logic based on user ID
     final id = customer.id;

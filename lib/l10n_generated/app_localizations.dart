@@ -429,6 +429,655 @@ abstract class L10n {
   /// **'Back to Login'**
   String get forgotPasswordBackToLogin;
 
+  /// No description provided for @adminListCustomerManagementTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Management'**
+  String get adminListCustomerManagementTitle;
+
+  /// No description provided for @adminListCustomerManagementDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage customer data and their reservation history.'**
+  String get adminListCustomerManagementDescription;
+
+  /// No description provided for @adminListCustomerManagementStatsFirstTime.
+  ///
+  /// In en, this message translates to:
+  /// **'First Time'**
+  String get adminListCustomerManagementStatsFirstTime;
+
+  /// No description provided for @adminListCustomerManagementStatsRepeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat'**
+  String get adminListCustomerManagementStatsRepeat;
+
+  /// No description provided for @adminListCustomerManagementStatsDormant.
+  ///
+  /// In en, this message translates to:
+  /// **'Dormant'**
+  String get adminListCustomerManagementStatsDormant;
+
+  /// No description provided for @adminListCustomerManagementFiltersSearchPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by name, email, or phone number...'**
+  String get adminListCustomerManagementFiltersSearchPlaceholder;
+
+  /// No description provided for @adminListCustomerManagementFiltersAllTypes.
+  ///
+  /// In en, this message translates to:
+  /// **'All Customer Types'**
+  String get adminListCustomerManagementFiltersAllTypes;
+
+  /// No description provided for @adminListCustomerManagementFiltersFirstTime.
+  ///
+  /// In en, this message translates to:
+  /// **'First Time'**
+  String get adminListCustomerManagementFiltersFirstTime;
+
+  /// No description provided for @adminListCustomerManagementFiltersRepeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat Customer'**
+  String get adminListCustomerManagementFiltersRepeat;
+
+  /// No description provided for @adminListCustomerManagementFiltersDormant.
+  ///
+  /// In en, this message translates to:
+  /// **'Dormant'**
+  String get adminListCustomerManagementFiltersDormant;
+
+  /// No description provided for @adminListCustomerManagementFiltersReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get adminListCustomerManagementFiltersReset;
+
+  /// No description provided for @adminListCustomerManagementTableHeaderCustomer.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer'**
+  String get adminListCustomerManagementTableHeaderCustomer;
+
+  /// No description provided for @adminListCustomerManagementTableHeaderContactInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Info'**
+  String get adminListCustomerManagementTableHeaderContactInfo;
+
+  /// No description provided for @adminListCustomerManagementTableHeaderStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminListCustomerManagementTableHeaderStatus;
+
+  /// No description provided for @adminListCustomerManagementTableHeaderReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservations'**
+  String get adminListCustomerManagementTableHeaderReservations;
+
+  /// No description provided for @adminListCustomerManagementTableHeaderTotalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get adminListCustomerManagementTableHeaderTotalAmount;
+
+  /// No description provided for @adminListCustomerManagementTableHeaderLastReservation.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Reservation'**
+  String get adminListCustomerManagementTableHeaderLastReservation;
+
+  /// No description provided for @adminListCustomerManagementTableHeaderActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get adminListCustomerManagementTableHeaderActions;
+
+  /// No description provided for @adminListCustomerManagementTableStatusBadgeRegistered.
+  ///
+  /// In en, this message translates to:
+  /// **'Registered'**
+  String get adminListCustomerManagementTableStatusBadgeRegistered;
+
+  /// No description provided for @adminListCustomerManagementTableStatusBadgeGuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest'**
+  String get adminListCustomerManagementTableStatusBadgeGuest;
+
+  /// No description provided for @adminListCustomerManagementTableTypeBadgeFirstTime.
+  ///
+  /// In en, this message translates to:
+  /// **'First Time'**
+  String get adminListCustomerManagementTableTypeBadgeFirstTime;
+
+  /// No description provided for @adminListCustomerManagementTableTypeBadgeRepeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat'**
+  String get adminListCustomerManagementTableTypeBadgeRepeat;
+
+  /// No description provided for @adminListCustomerManagementTableTypeBadgeDormant.
+  ///
+  /// In en, this message translates to:
+  /// **'Dormant'**
+  String get adminListCustomerManagementTableTypeBadgeDormant;
+
+  /// No description provided for @adminListCustomerManagementTableReservationsCount.
+  ///
+  /// In en, this message translates to:
+  /// **':count times'**
+  String get adminListCustomerManagementTableReservationsCount;
+
+  /// No description provided for @adminListCustomerManagementTableActionsTooltipViewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get adminListCustomerManagementTableActionsTooltipViewDetails;
+
+  /// No description provided for @adminListCustomerManagementTableActionsTooltipSendMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Message'**
+  String get adminListCustomerManagementTableActionsTooltipSendMessage;
+
+  /// No description provided for @adminListCustomerManagementTableEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No customers found'**
+  String get adminListCustomerManagementTableEmptyTitle;
+
+  /// No description provided for @adminListCustomerManagementTableEmptyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'There are no customers registered or matching the selected filters.'**
+  String get adminListCustomerManagementTableEmptyDescription;
+
+  /// No description provided for @adminListCustomerManagementPaginationPrevious.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get adminListCustomerManagementPaginationPrevious;
+
+  /// No description provided for @adminListCustomerManagementPaginationNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get adminListCustomerManagementPaginationNext;
+
+  /// No description provided for @adminListCustomerManagementModalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Message'**
+  String get adminListCustomerManagementModalTitle;
+
+  /// No description provided for @adminListCustomerManagementModalSubject.
+  ///
+  /// In en, this message translates to:
+  /// **'Subject'**
+  String get adminListCustomerManagementModalSubject;
+
+  /// No description provided for @adminListCustomerManagementModalSubjectPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter subject'**
+  String get adminListCustomerManagementModalSubjectPlaceholder;
+
+  /// No description provided for @adminListCustomerManagementModalMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get adminListCustomerManagementModalMessage;
+
+  /// No description provided for @adminListCustomerManagementModalMessagePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your message'**
+  String get adminListCustomerManagementModalMessagePlaceholder;
+
+  /// No description provided for @adminListCustomerManagementModalCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminListCustomerManagementModalCancel;
+
+  /// No description provided for @adminListCustomerManagementModalSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Message'**
+  String get adminListCustomerManagementModalSend;
+
+  /// No description provided for @adminListCustomerManagementAlertsValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill in both subject and message'**
+  String get adminListCustomerManagementAlertsValidationError;
+
+  /// No description provided for @adminListCustomerManagementAlertsSendSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Message sent successfully!'**
+  String get adminListCustomerManagementAlertsSendSuccess;
+
+  /// No description provided for @adminListCustomerManagementAlertsSendError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send message'**
+  String get adminListCustomerManagementAlertsSendError;
+
+  /// No description provided for @adminUpsertCustomerManagementHeaderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Detail'**
+  String get adminUpsertCustomerManagementHeaderTitle;
+
+  /// No description provided for @adminUpsertCustomerManagementHeaderSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'View detailed customer information and history.'**
+  String get adminUpsertCustomerManagementHeaderSubtitle;
+
+  /// No description provided for @adminUpsertCustomerManagementHeaderSendMessageButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Message'**
+  String get adminUpsertCustomerManagementHeaderSendMessageButton;
+
+  /// No description provided for @adminUpsertCustomerManagementHeaderExportButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get adminUpsertCustomerManagementHeaderExportButton;
+
+  /// No description provided for @adminUpsertCustomerManagementStatsTotalReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Reservations'**
+  String get adminUpsertCustomerManagementStatsTotalReservations;
+
+  /// No description provided for @adminUpsertCustomerManagementStatsTotalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get adminUpsertCustomerManagementStatsTotalAmount;
+
+  /// No description provided for @adminUpsertCustomerManagementStatsTireStorage.
+  ///
+  /// In en, this message translates to:
+  /// **'Tire Storage'**
+  String get adminUpsertCustomerManagementStatsTireStorage;
+
+  /// No description provided for @adminUpsertCustomerManagementSidebarStatusRegistered.
+  ///
+  /// In en, this message translates to:
+  /// **'Registered'**
+  String get adminUpsertCustomerManagementSidebarStatusRegistered;
+
+  /// No description provided for @adminUpsertCustomerManagementSidebarStatusGuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest'**
+  String get adminUpsertCustomerManagementSidebarStatusGuest;
+
+  /// No description provided for @adminUpsertCustomerManagementSidebarEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get adminUpsertCustomerManagementSidebarEmail;
+
+  /// No description provided for @adminUpsertCustomerManagementSidebarPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get adminUpsertCustomerManagementSidebarPhone;
+
+  /// No description provided for @adminUpsertCustomerManagementSidebarCompany.
+  ///
+  /// In en, this message translates to:
+  /// **'Company'**
+  String get adminUpsertCustomerManagementSidebarCompany;
+
+  /// No description provided for @adminUpsertCustomerManagementSidebarDepartment.
+  ///
+  /// In en, this message translates to:
+  /// **'Department'**
+  String get adminUpsertCustomerManagementSidebarDepartment;
+
+  /// No description provided for @adminUpsertCustomerManagementSidebarDob.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of Birth'**
+  String get adminUpsertCustomerManagementSidebarDob;
+
+  /// No description provided for @adminUpsertCustomerManagementSidebarGender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get adminUpsertCustomerManagementSidebarGender;
+
+  /// No description provided for @adminUpsertCustomerManagementSidebarGuestInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest Customer'**
+  String get adminUpsertCustomerManagementSidebarGuestInfoTitle;
+
+  /// No description provided for @adminUpsertCustomerManagementSidebarGuestInfoBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This customer made reservations as a guest. Limited information available.'**
+  String get adminUpsertCustomerManagementSidebarGuestInfoBody;
+
+  /// No description provided for @adminUpsertCustomerManagementTabsCustomerInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Info'**
+  String get adminUpsertCustomerManagementTabsCustomerInfo;
+
+  /// No description provided for @adminUpsertCustomerManagementTabsReservationHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation History'**
+  String get adminUpsertCustomerManagementTabsReservationHistory;
+
+  /// No description provided for @adminUpsertCustomerManagementTabsTireStorage.
+  ///
+  /// In en, this message translates to:
+  /// **'Tire Storage'**
+  String get adminUpsertCustomerManagementTabsTireStorage;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Information'**
+  String get adminUpsertCustomerManagementMainContentCustomerInfoTitle;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get adminUpsertCustomerManagementMainContentCustomerInfoFullName;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoFullNameKana.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name (Kana)'**
+  String get adminUpsertCustomerManagementMainContentCustomerInfoFullNameKana;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get adminUpsertCustomerManagementMainContentCustomerInfoEmail;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get adminUpsertCustomerManagementMainContentCustomerInfoPhoneNumber;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoCompanyName.
+  ///
+  /// In en, this message translates to:
+  /// **'Company Name'**
+  String get adminUpsertCustomerManagementMainContentCustomerInfoCompanyName;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoDepartment.
+  ///
+  /// In en, this message translates to:
+  /// **'Department'**
+  String get adminUpsertCustomerManagementMainContentCustomerInfoDepartment;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoDob.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of Birth'**
+  String get adminUpsertCustomerManagementMainContentCustomerInfoDob;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoGender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get adminUpsertCustomerManagementMainContentCustomerInfoGender;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoAddressesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Addresses'**
+  String get adminUpsertCustomerManagementMainContentCustomerInfoAddressesTitle;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoCompanyAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Company Address'**
+  String get adminUpsertCustomerManagementMainContentCustomerInfoCompanyAddress;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoHomeAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Address'**
+  String get adminUpsertCustomerManagementMainContentCustomerInfoHomeAddress;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoGuestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest Customer'**
+  String get adminUpsertCustomerManagementMainContentCustomerInfoGuestTitle;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoGuestBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This customer made reservations as a guest. Only basic reservation information is available.'**
+  String get adminUpsertCustomerManagementMainContentCustomerInfoGuestBody;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoGuestNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name:'**
+  String get adminUpsertCustomerManagementMainContentCustomerInfoGuestNameLabel;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoGuestNameKanaLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name (Kana):'**
+  String
+  get adminUpsertCustomerManagementMainContentCustomerInfoGuestNameKanaLabel;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoGuestEmailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email:'**
+  String
+  get adminUpsertCustomerManagementMainContentCustomerInfoGuestEmailLabel;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentCustomerInfoGuestPhoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone:'**
+  String
+  get adminUpsertCustomerManagementMainContentCustomerInfoGuestPhoneLabel;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentReservationHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation History'**
+  String get adminUpsertCustomerManagementMainContentReservationHistoryTitle;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentReservationHistoryCountText.
+  ///
+  /// In en, this message translates to:
+  /// **':count reservations'**
+  String
+  get adminUpsertCustomerManagementMainContentReservationHistoryCountText;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentReservationHistoryDateTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Date & Time:'**
+  String get adminUpsertCustomerManagementMainContentReservationHistoryDateTime;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentReservationHistoryPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'People:'**
+  String get adminUpsertCustomerManagementMainContentReservationHistoryPeople;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentReservationHistoryMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu:'**
+  String get adminUpsertCustomerManagementMainContentReservationHistoryMenu;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentReservationHistoryAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount:'**
+  String get adminUpsertCustomerManagementMainContentReservationHistoryAmount;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentReservationHistoryNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes:'**
+  String get adminUpsertCustomerManagementMainContentReservationHistoryNotes;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentReservationHistoryViewDetailsLink.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String
+  get adminUpsertCustomerManagementMainContentReservationHistoryViewDetailsLink;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentReservationHistoryNoRecords.
+  ///
+  /// In en, this message translates to:
+  /// **'No reservation history found.'**
+  String
+  get adminUpsertCustomerManagementMainContentReservationHistoryNoRecords;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentTireStorageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tire Storage'**
+  String get adminUpsertCustomerManagementMainContentTireStorageTitle;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentTireStorageCountText.
+  ///
+  /// In en, this message translates to:
+  /// **':count storage records'**
+  String get adminUpsertCustomerManagementMainContentTireStorageCountText;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentTireStorageStartDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date:'**
+  String get adminUpsertCustomerManagementMainContentTireStorageStartDate;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentTireStoragePlannedEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'Planned End:'**
+  String get adminUpsertCustomerManagementMainContentTireStoragePlannedEnd;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentTireStorageStorageFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage Fee:'**
+  String get adminUpsertCustomerManagementMainContentTireStorageStorageFee;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentTireStorageDaysRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Days Remaining:'**
+  String get adminUpsertCustomerManagementMainContentTireStorageDaysRemaining;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentTireStorageDaysRemainingText.
+  ///
+  /// In en, this message translates to:
+  /// **':days days'**
+  String
+  get adminUpsertCustomerManagementMainContentTireStorageDaysRemainingText;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentTireStorageNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes:'**
+  String get adminUpsertCustomerManagementMainContentTireStorageNotes;
+
+  /// No description provided for @adminUpsertCustomerManagementMainContentTireStorageNoRecords.
+  ///
+  /// In en, this message translates to:
+  /// **'No tire storage records found.'**
+  String get adminUpsertCustomerManagementMainContentTireStorageNoRecords;
+
+  /// No description provided for @adminUpsertCustomerManagementModalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Message to :name'**
+  String get adminUpsertCustomerManagementModalTitle;
+
+  /// No description provided for @adminUpsertCustomerManagementModalSubjectLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Subject'**
+  String get adminUpsertCustomerManagementModalSubjectLabel;
+
+  /// No description provided for @adminUpsertCustomerManagementModalSubjectPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter subject'**
+  String get adminUpsertCustomerManagementModalSubjectPlaceholder;
+
+  /// No description provided for @adminUpsertCustomerManagementModalMessageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get adminUpsertCustomerManagementModalMessageLabel;
+
+  /// No description provided for @adminUpsertCustomerManagementModalMessagePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your message'**
+  String get adminUpsertCustomerManagementModalMessagePlaceholder;
+
+  /// No description provided for @adminUpsertCustomerManagementModalCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminUpsertCustomerManagementModalCancelButton;
+
+  /// No description provided for @adminUpsertCustomerManagementModalSendButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Message'**
+  String get adminUpsertCustomerManagementModalSendButton;
+
+  /// No description provided for @adminUpsertCustomerManagementJsAlertsFillFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill in both subject and message'**
+  String get adminUpsertCustomerManagementJsAlertsFillFields;
+
+  /// No description provided for @adminUpsertCustomerManagementJsAlertsSendSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Message sent successfully!'**
+  String get adminUpsertCustomerManagementJsAlertsSendSuccess;
+
+  /// No description provided for @adminUpsertCustomerManagementJsAlertsSendFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send message'**
+  String get adminUpsertCustomerManagementJsAlertsSendFailed;
+
+  /// No description provided for @adminUpsertCustomerManagementJsAlertsExportPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Export functionality will be implemented'**
+  String get adminUpsertCustomerManagementJsAlertsExportPlaceholder;
+
   /// No description provided for @homePrimaryTitle.
   ///
   /// In en, this message translates to:

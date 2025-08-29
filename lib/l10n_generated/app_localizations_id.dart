@@ -179,6 +179,403 @@ class L10nId extends L10n {
   String get forgotPasswordBackToLogin => 'Back to Login';
 
   @override
+  String get adminListCustomerManagementTitle => 'Customer Management';
+
+  @override
+  String get adminListCustomerManagementDescription =>
+      'Manage customer data and their reservation history.';
+
+  @override
+  String get adminListCustomerManagementStatsFirstTime => 'First Time';
+
+  @override
+  String get adminListCustomerManagementStatsRepeat => 'Repeat';
+
+  @override
+  String get adminListCustomerManagementStatsDormant => 'Dormant';
+
+  @override
+  String get adminListCustomerManagementFiltersSearchPlaceholder =>
+      'Search by name, email, or phone number...';
+
+  @override
+  String get adminListCustomerManagementFiltersAllTypes => 'All Customer Types';
+
+  @override
+  String get adminListCustomerManagementFiltersFirstTime => 'First Time';
+
+  @override
+  String get adminListCustomerManagementFiltersRepeat => 'Repeat Customer';
+
+  @override
+  String get adminListCustomerManagementFiltersDormant => 'Dormant';
+
+  @override
+  String get adminListCustomerManagementFiltersReset => 'Reset';
+
+  @override
+  String get adminListCustomerManagementTableHeaderCustomer => 'Customer';
+
+  @override
+  String get adminListCustomerManagementTableHeaderContactInfo =>
+      'Contact Info';
+
+  @override
+  String get adminListCustomerManagementTableHeaderStatus => 'Status';
+
+  @override
+  String get adminListCustomerManagementTableHeaderReservations =>
+      'Reservations';
+
+  @override
+  String get adminListCustomerManagementTableHeaderTotalAmount =>
+      'Total Amount';
+
+  @override
+  String get adminListCustomerManagementTableHeaderLastReservation =>
+      'Last Reservation';
+
+  @override
+  String get adminListCustomerManagementTableHeaderActions => 'Actions';
+
+  @override
+  String get adminListCustomerManagementTableStatusBadgeRegistered =>
+      'Registered';
+
+  @override
+  String get adminListCustomerManagementTableStatusBadgeGuest => 'Guest';
+
+  @override
+  String get adminListCustomerManagementTableTypeBadgeFirstTime => 'First Time';
+
+  @override
+  String get adminListCustomerManagementTableTypeBadgeRepeat => 'Repeat';
+
+  @override
+  String get adminListCustomerManagementTableTypeBadgeDormant => 'Dormant';
+
+  @override
+  String get adminListCustomerManagementTableReservationsCount =>
+      ':count times';
+
+  @override
+  String get adminListCustomerManagementTableActionsTooltipViewDetails =>
+      'View Details';
+
+  @override
+  String get adminListCustomerManagementTableActionsTooltipSendMessage =>
+      'Send Message';
+
+  @override
+  String get adminListCustomerManagementTableEmptyTitle => 'No customers found';
+
+  @override
+  String get adminListCustomerManagementTableEmptyDescription =>
+      'There are no customers registered or matching the selected filters.';
+
+  @override
+  String get adminListCustomerManagementPaginationPrevious => 'Previous';
+
+  @override
+  String get adminListCustomerManagementPaginationNext => 'Next';
+
+  @override
+  String get adminListCustomerManagementModalTitle => 'Send Message';
+
+  @override
+  String get adminListCustomerManagementModalSubject => 'Subject';
+
+  @override
+  String get adminListCustomerManagementModalSubjectPlaceholder =>
+      'Enter subject';
+
+  @override
+  String get adminListCustomerManagementModalMessage => 'Message';
+
+  @override
+  String get adminListCustomerManagementModalMessagePlaceholder =>
+      'Enter your message';
+
+  @override
+  String get adminListCustomerManagementModalCancel => 'Cancel';
+
+  @override
+  String get adminListCustomerManagementModalSend => 'Send Message';
+
+  @override
+  String get adminListCustomerManagementAlertsValidationError =>
+      'Please fill in both subject and message';
+
+  @override
+  String get adminListCustomerManagementAlertsSendSuccess =>
+      'Message sent successfully!';
+
+  @override
+  String get adminListCustomerManagementAlertsSendError =>
+      'Failed to send message';
+
+  @override
+  String get adminUpsertCustomerManagementHeaderTitle => 'Customer Detail';
+
+  @override
+  String get adminUpsertCustomerManagementHeaderSubtitle =>
+      'View detailed customer information and history.';
+
+  @override
+  String get adminUpsertCustomerManagementHeaderSendMessageButton =>
+      'Send Message';
+
+  @override
+  String get adminUpsertCustomerManagementHeaderExportButton => 'Export';
+
+  @override
+  String get adminUpsertCustomerManagementStatsTotalReservations =>
+      'Total Reservations';
+
+  @override
+  String get adminUpsertCustomerManagementStatsTotalAmount => 'Total Amount';
+
+  @override
+  String get adminUpsertCustomerManagementStatsTireStorage => 'Tire Storage';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarStatusRegistered =>
+      'Registered';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarStatusGuest => 'Guest';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarEmail => 'Email';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarPhone => 'Phone';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarCompany => 'Company';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarDepartment => 'Department';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarDob => 'Date of Birth';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarGender => 'Gender';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarGuestInfoTitle =>
+      'Guest Customer';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarGuestInfoBody =>
+      'This customer made reservations as a guest. Limited information available.';
+
+  @override
+  String get adminUpsertCustomerManagementTabsCustomerInfo => 'Customer Info';
+
+  @override
+  String get adminUpsertCustomerManagementTabsReservationHistory =>
+      'Reservation History';
+
+  @override
+  String get adminUpsertCustomerManagementTabsTireStorage => 'Tire Storage';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoTitle =>
+      'Customer Information';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoFullName =>
+      'Full Name';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoFullNameKana =>
+      'Full Name (Kana)';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoEmail =>
+      'Email';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoPhoneNumber =>
+      'Phone Number';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoCompanyName =>
+      'Company Name';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoDepartment =>
+      'Department';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoDob =>
+      'Date of Birth';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoGender =>
+      'Gender';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentCustomerInfoAddressesTitle =>
+      'Addresses';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentCustomerInfoCompanyAddress =>
+      'Company Address';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoHomeAddress =>
+      'Home Address';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoGuestTitle =>
+      'Guest Customer';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoGuestBody =>
+      'This customer made reservations as a guest. Only basic reservation information is available.';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentCustomerInfoGuestNameLabel =>
+      'Name:';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentCustomerInfoGuestNameKanaLabel =>
+      'Name (Kana):';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentCustomerInfoGuestEmailLabel =>
+      'Email:';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentCustomerInfoGuestPhoneLabel =>
+      'Phone:';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentReservationHistoryTitle =>
+      'Reservation History';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentReservationHistoryCountText =>
+      ':count reservations';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentReservationHistoryDateTime =>
+      'Date & Time:';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentReservationHistoryPeople =>
+      'People:';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentReservationHistoryMenu =>
+      'Menu:';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentReservationHistoryAmount =>
+      'Amount:';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentReservationHistoryNotes =>
+      'Notes:';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentReservationHistoryViewDetailsLink =>
+      'View Details';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentReservationHistoryNoRecords =>
+      'No reservation history found.';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStorageTitle =>
+      'Tire Storage';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStorageCountText =>
+      ':count storage records';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStorageStartDate =>
+      'Start Date:';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStoragePlannedEnd =>
+      'Planned End:';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStorageStorageFee =>
+      'Storage Fee:';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStorageDaysRemaining =>
+      'Days Remaining:';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentTireStorageDaysRemainingText =>
+      ':days days';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStorageNotes =>
+      'Notes:';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStorageNoRecords =>
+      'No tire storage records found.';
+
+  @override
+  String get adminUpsertCustomerManagementModalTitle => 'Send Message to :name';
+
+  @override
+  String get adminUpsertCustomerManagementModalSubjectLabel => 'Subject';
+
+  @override
+  String get adminUpsertCustomerManagementModalSubjectPlaceholder =>
+      'Enter subject';
+
+  @override
+  String get adminUpsertCustomerManagementModalMessageLabel => 'Message';
+
+  @override
+  String get adminUpsertCustomerManagementModalMessagePlaceholder =>
+      'Enter your message';
+
+  @override
+  String get adminUpsertCustomerManagementModalCancelButton => 'Cancel';
+
+  @override
+  String get adminUpsertCustomerManagementModalSendButton => 'Send Message';
+
+  @override
+  String get adminUpsertCustomerManagementJsAlertsFillFields =>
+      'Please fill in both subject and message';
+
+  @override
+  String get adminUpsertCustomerManagementJsAlertsSendSuccess =>
+      'Message sent successfully!';
+
+  @override
+  String get adminUpsertCustomerManagementJsAlertsSendFailed =>
+      'Failed to send message';
+
+  @override
+  String get adminUpsertCustomerManagementJsAlertsExportPlaceholder =>
+      'Export functionality will be implemented';
+
+  @override
   String get homePrimaryTitle => 'Our Service';
 
   @override

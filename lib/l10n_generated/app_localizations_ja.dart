@@ -177,6 +177,386 @@ class L10nJa extends L10n {
   String get forgotPasswordBackToLogin => 'ログインに戻る';
 
   @override
+  String get adminListCustomerManagementTitle => '顧客管理';
+
+  @override
+  String get adminListCustomerManagementDescription => '顧客データと予約履歴を管理します。';
+
+  @override
+  String get adminListCustomerManagementStatsFirstTime => '新規顧客';
+
+  @override
+  String get adminListCustomerManagementStatsRepeat => 'リピーター';
+
+  @override
+  String get adminListCustomerManagementStatsDormant => '休眠顧客';
+
+  @override
+  String get adminListCustomerManagementFiltersSearchPlaceholder =>
+      '名前、メールアドレス、電話番号で検索...';
+
+  @override
+  String get adminListCustomerManagementFiltersAllTypes => 'すべての顧客タイプ';
+
+  @override
+  String get adminListCustomerManagementFiltersFirstTime => '新規顧客';
+
+  @override
+  String get adminListCustomerManagementFiltersRepeat => 'リピート顧客';
+
+  @override
+  String get adminListCustomerManagementFiltersDormant => '休眠顧客';
+
+  @override
+  String get adminListCustomerManagementFiltersReset => 'リセット';
+
+  @override
+  String get adminListCustomerManagementTableHeaderCustomer => '顧客';
+
+  @override
+  String get adminListCustomerManagementTableHeaderContactInfo => '連絡先情報';
+
+  @override
+  String get adminListCustomerManagementTableHeaderStatus => 'ステータス';
+
+  @override
+  String get adminListCustomerManagementTableHeaderReservations => '予約';
+
+  @override
+  String get adminListCustomerManagementTableHeaderTotalAmount => '合計金額';
+
+  @override
+  String get adminListCustomerManagementTableHeaderLastReservation => '最終予約';
+
+  @override
+  String get adminListCustomerManagementTableHeaderActions => '操作';
+
+  @override
+  String get adminListCustomerManagementTableStatusBadgeRegistered => '登録済み';
+
+  @override
+  String get adminListCustomerManagementTableStatusBadgeGuest => 'ゲスト';
+
+  @override
+  String get adminListCustomerManagementTableTypeBadgeFirstTime => '新規';
+
+  @override
+  String get adminListCustomerManagementTableTypeBadgeRepeat => 'リピート';
+
+  @override
+  String get adminListCustomerManagementTableTypeBadgeDormant => '休眠';
+
+  @override
+  String get adminListCustomerManagementTableReservationsCount => ':count 回';
+
+  @override
+  String get adminListCustomerManagementTableActionsTooltipViewDetails =>
+      '詳細を表示';
+
+  @override
+  String get adminListCustomerManagementTableActionsTooltipSendMessage =>
+      'メッセージを送信';
+
+  @override
+  String get adminListCustomerManagementTableEmptyTitle => '顧客が見つかりません';
+
+  @override
+  String get adminListCustomerManagementTableEmptyDescription =>
+      '登録されている、または選択されたフィルターに一致する顧客がいません。';
+
+  @override
+  String get adminListCustomerManagementPaginationPrevious => '前へ';
+
+  @override
+  String get adminListCustomerManagementPaginationNext => '次へ';
+
+  @override
+  String get adminListCustomerManagementModalTitle => 'メッセージを送信';
+
+  @override
+  String get adminListCustomerManagementModalSubject => '件名';
+
+  @override
+  String get adminListCustomerManagementModalSubjectPlaceholder =>
+      '件名を入力してください';
+
+  @override
+  String get adminListCustomerManagementModalMessage => 'メッセージ';
+
+  @override
+  String get adminListCustomerManagementModalMessagePlaceholder =>
+      'メッセージ本文を入力してください';
+
+  @override
+  String get adminListCustomerManagementModalCancel => 'キャンセル';
+
+  @override
+  String get adminListCustomerManagementModalSend => '送信';
+
+  @override
+  String get adminListCustomerManagementAlertsValidationError =>
+      '件名とメッセージの両方を入力してください';
+
+  @override
+  String get adminListCustomerManagementAlertsSendSuccess =>
+      'メッセージが正常に送信されました！';
+
+  @override
+  String get adminListCustomerManagementAlertsSendError => 'メッセージの送信に失敗しました';
+
+  @override
+  String get adminUpsertCustomerManagementHeaderTitle => '顧客詳細';
+
+  @override
+  String get adminUpsertCustomerManagementHeaderSubtitle => '顧客の詳細情報と履歴を表示します。';
+
+  @override
+  String get adminUpsertCustomerManagementHeaderSendMessageButton => 'メッセージを送信';
+
+  @override
+  String get adminUpsertCustomerManagementHeaderExportButton => 'エクスポート';
+
+  @override
+  String get adminUpsertCustomerManagementStatsTotalReservations => '総予約数';
+
+  @override
+  String get adminUpsertCustomerManagementStatsTotalAmount => '合計金額';
+
+  @override
+  String get adminUpsertCustomerManagementStatsTireStorage => 'タイヤ保管';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarStatusRegistered => '登録済み';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarStatusGuest => 'ゲスト';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarEmail => 'メールアドレス';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarPhone => '電話番号';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarCompany => '会社名';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarDepartment => '部署';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarDob => '生年月日';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarGender => '性別';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarGuestInfoTitle => 'ゲスト顧客';
+
+  @override
+  String get adminUpsertCustomerManagementSidebarGuestInfoBody =>
+      'この顧客はゲストとして予約を行いました。利用可能な情報は限られています。';
+
+  @override
+  String get adminUpsertCustomerManagementTabsCustomerInfo => '顧客情報';
+
+  @override
+  String get adminUpsertCustomerManagementTabsReservationHistory => '予約履歴';
+
+  @override
+  String get adminUpsertCustomerManagementTabsTireStorage => 'タイヤ保管';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoTitle =>
+      '顧客情報';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoFullName =>
+      '氏名';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoFullNameKana =>
+      '氏名（カナ）';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoEmail =>
+      'メールアドレス';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoPhoneNumber =>
+      '電話番号';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoCompanyName =>
+      '会社名';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoDepartment =>
+      '部署';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoDob => '生年月日';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoGender => '性別';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentCustomerInfoAddressesTitle =>
+      '住所';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentCustomerInfoCompanyAddress =>
+      '会社住所';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoHomeAddress =>
+      '自宅住所';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoGuestTitle =>
+      'ゲスト顧客';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentCustomerInfoGuestBody =>
+      'この顧客はゲストとして予約を行いました。基本的な予約情報のみが利用可能です。';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentCustomerInfoGuestNameLabel =>
+      '名前：';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentCustomerInfoGuestNameKanaLabel =>
+      '名前（カナ）：';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentCustomerInfoGuestEmailLabel =>
+      'メール：';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentCustomerInfoGuestPhoneLabel =>
+      '電話：';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentReservationHistoryTitle =>
+      '予約履歴';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentReservationHistoryCountText =>
+      '予約 :count件';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentReservationHistoryDateTime =>
+      '日時：';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentReservationHistoryPeople =>
+      '人数：';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentReservationHistoryMenu =>
+      'メニュー：';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentReservationHistoryAmount =>
+      '金額：';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentReservationHistoryNotes =>
+      '備考：';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentReservationHistoryViewDetailsLink =>
+      '詳細を見る';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentReservationHistoryNoRecords =>
+      '予約履歴が見つかりません。';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStorageTitle =>
+      'タイヤ保管';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStorageCountText =>
+      '保管記録 :count件';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStorageStartDate =>
+      '開始日：';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStoragePlannedEnd =>
+      '終了予定日：';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStorageStorageFee =>
+      '保管料：';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStorageDaysRemaining =>
+      '残り日数：';
+
+  @override
+  String
+  get adminUpsertCustomerManagementMainContentTireStorageDaysRemainingText =>
+      ':days日';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStorageNotes => '備考：';
+
+  @override
+  String get adminUpsertCustomerManagementMainContentTireStorageNoRecords =>
+      'タイヤ保管記録が見つかりません。';
+
+  @override
+  String get adminUpsertCustomerManagementModalTitle => ':name にメッセージを送信';
+
+  @override
+  String get adminUpsertCustomerManagementModalSubjectLabel => '件名';
+
+  @override
+  String get adminUpsertCustomerManagementModalSubjectPlaceholder =>
+      '件名を入力してください';
+
+  @override
+  String get adminUpsertCustomerManagementModalMessageLabel => 'メッセージ';
+
+  @override
+  String get adminUpsertCustomerManagementModalMessagePlaceholder =>
+      'メッセージを入力してください';
+
+  @override
+  String get adminUpsertCustomerManagementModalCancelButton => 'キャンセル';
+
+  @override
+  String get adminUpsertCustomerManagementModalSendButton => 'メッセージを送信';
+
+  @override
+  String get adminUpsertCustomerManagementJsAlertsFillFields =>
+      '件名とメッセージの両方を入力してください';
+
+  @override
+  String get adminUpsertCustomerManagementJsAlertsSendSuccess =>
+      'メッセージが正常に送信されました！';
+
+  @override
+  String get adminUpsertCustomerManagementJsAlertsSendFailed =>
+      'メッセージの送信に失敗しました';
+
+  @override
+  String get adminUpsertCustomerManagementJsAlertsExportPlaceholder =>
+      'エクスポート機能は後ほど実装されます';
+
+  @override
   String get homePrimaryTitle => '私たちのサービス';
 
   @override

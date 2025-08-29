@@ -73,8 +73,16 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
         (json) => json as Map<String, dynamic>,
       );
 
+      // Add debugging to catch type errors in update user
+      DebugHelper.logMapDetails(
+        apiResponse.data,
+        title: 'Update User API Response Data',
+      );
+
       final user = UserModel.fromMap(apiResponse.data);
-      return Right(ItemSuccessResponse(data: user));
+      return Right(
+        ItemSuccessResponse(data: user, message: apiResponse.message),
+      );
     } on ApiErrorResponse catch (e) {
       return Left(ServerFailure(message: e.message, code: e.code));
     } catch (e) {

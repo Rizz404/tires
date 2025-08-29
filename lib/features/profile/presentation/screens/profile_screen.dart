@@ -7,6 +7,7 @@ import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/features/authentication/presentation/validations/auth_validators.dart';
 import 'package:tires/features/user/domain/entities/user.dart';
+import 'package:tires/shared/presentation/widgets/app_radio_group.dart';
 import 'package:tires/features/user/presentation/providers/current_user_get_state.dart';
 import 'package:tires/features/user/presentation/providers/current_user_mutation_state.dart';
 import 'package:tires/features/user/presentation/providers/current_user_providers.dart';
@@ -33,6 +34,20 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   final _passwordFormKey = GlobalKey<FormBuilderState>();
   List<DomainValidationError>? _validationErrors;
   User? _currentUser;
+  bool _isSubmitting = false; // Add flag to prevent multiple submissions
+
+  // Helper function to convert UserGender enum to string
+  String? _genderToString(UserGender? gender) {
+    if (gender == null) return null;
+    switch (gender) {
+      case UserGender.male:
+        return 'male';
+      case UserGender.female:
+        return 'female';
+      case UserGender.other:
+        return 'other';
+    }
+  }
 
   void _populateForm() {
     if (_currentUser != null && _formKey.currentState != null) {
@@ -44,13 +59,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         'companyName': _currentUser!.companyName ?? '',
         'dateOfBirth': _currentUser!.dateOfBirth,
         'homeAddress': _currentUser!.homeAddress ?? '',
+        'gender': _currentUser!.gender,
       });
     }
   }
 
   void _handleUpdateProfile(WidgetRef ref) {
+    if (_isSubmitting) return; // Prevent multiple submissions
+
     setState(() {
       _validationErrors = null;
+      _isSubmitting = true;
     });
 
     if (_formKey.currentState?.saveAndValidate() ?? false) {
@@ -70,9 +89,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 ? null
                 : values['homeAddress'],
             dateOfBirth: values['dateOfBirth'],
-            gender: values['gender'],
+            gender: _genderToString(values['gender']),
           );
     } else {
+      setState(() {
+        _isSubmitting = false;
+      });
       AppToast.showError(
         context,
         message: "Please correct the errors in the form.",
@@ -81,8 +103,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   }
 
   void _handleChangePassword(WidgetRef ref) {
+    if (_isSubmitting) return; // Prevent multiple submissions
+
     setState(() {
       _validationErrors = null;
+      _isSubmitting = true;
     });
 
     if (_passwordFormKey.currentState?.saveAndValidate() ?? false) {
@@ -96,6 +121,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             confirmPassword: values['confirmPassword'] ?? '',
           );
     } else {
+      setState(() {
+        _isSubmitting = false;
+      });
       AppToast.showError(
         context,
         message: "Please correct the errors in the password form.",
@@ -121,6 +149,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
     // Listen to user mutation state changes
     ref.listen(currentUserMutationNotifierProvider, (previous, next) {
+      // Reset submission flag when operation completes
+      if (next.status != CurrentUserMutationStatus.loading) {
+        setState(() {
+          _isSubmitting = false;
+        });
+      }
+
       if (next.status == CurrentUserMutationStatus.success) {
         if (next.updatedUser != null) {
           // Update local user data
@@ -242,11 +277,30 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           ),
           const SizedBox(height: 16),
           AppTextField(name: 'homeAddress', label: l10n.profileLabelAddress),
+          const SizedBox(height: 16),
+          AppRadioGroup<UserGender>(
+            name: 'gender',
+            label: l10n.registerLabelGender ?? 'Gender',
+            options: [
+              FormBuilderFieldOption(
+                value: UserGender.male,
+                child: Text(l10n.registerGenderMale ?? 'Male'),
+              ),
+              FormBuilderFieldOption(
+                value: UserGender.female,
+                child: Text(l10n.registerGenderFemale ?? 'Female'),
+              ),
+              FormBuilderFieldOption(
+                value: UserGender.other,
+                child: Text(l10n.registerGenderOther ?? 'Other'),
+              ),
+            ],
+          ),
           const SizedBox(height: 24),
           AppButton(
             text: l10n.profileButtonUpdateProfile,
             color: AppButtonColor.secondary,
-            onPressed: () => _handleUpdateProfile(ref),
+            onPressed: _isSubmitting ? null : () => _handleUpdateProfile(ref),
           ),
         ],
       ),
@@ -294,7 +348,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           AppButton(
             text: l10n.profileButtonChangePassword ?? 'Change Password',
             color: AppButtonColor.primary,
-            onPressed: () => _handleChangePassword(ref),
+            onPressed: _isSubmitting ? null : () => _handleChangePassword(ref),
           ),
         ],
       ),

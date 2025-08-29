@@ -29,30 +29,63 @@ class UserModel extends User {
   });
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
-    return UserModel(
-      id: map['id']! as int,
-      email: map['email'] as String,
-      emailVerifiedAt: DateTime.parse(map['email_verified_at'] as String),
-      password: null, // Tidak ada di response login
-      fullName: map['full_name'] as String,
-      fullNameKana: map['full_name_kana'] as String,
-      phoneNumber: map['phone_number'] as String,
-      companyName: map['company_name'] as String?,
-      department: map['department'] as String?,
-      companyAddress: map['company_address'] as String?,
-      homeAddress: map['home_address'] as String?,
-      dateOfBirth: map['date_of_birth'] != null
-          ? DateTime.parse(map['date_of_birth'] as String)
-          : null,
-      role: UserRole.values.byName(map['role'] as String),
-      gender: map['gender'] != null
-          ? UserGender.values.byName(map['gender'] as String)
-          : null,
-      createdAt: DateTime.parse(map['created_at'] as String),
-      updatedAt: DateTime.parse(map['updated_at'] as String),
-      passwordResetToken: null, // Tidak ada di response login
-      session: null, // Tidak ada di response login
-    );
+    try {
+      // Add debugging for critical fields that might cause type errors
+      final roleValue = map['role'];
+      final genderValue = map['gender'];
+
+      // Safe role parsing
+      UserRole role;
+      try {
+        role = UserRole.values.byName(roleValue as String);
+      } catch (e) {
+        print(
+          'Warning: Invalid role value "$roleValue", defaulting to customer',
+        );
+        role = UserRole.customer;
+      }
+
+      // Safe gender parsing
+      UserGender? gender;
+      if (genderValue != null) {
+        try {
+          gender = UserGender.values.byName(genderValue as String);
+        } catch (e) {
+          print(
+            'Warning: Invalid gender value "$genderValue", setting to null',
+          );
+          gender = null;
+        }
+      }
+
+      return UserModel(
+        id: map['id']! as int,
+        email: map['email'] as String,
+        emailVerifiedAt: DateTime.parse(map['email_verified_at'] as String),
+        password: null, // Tidak ada di response login
+        fullName: map['full_name'] as String,
+        fullNameKana: map['full_name_kana'] as String,
+        phoneNumber: map['phone_number'] as String,
+        companyName: map['company_name'] as String?,
+        department: map['department'] as String?,
+        companyAddress: map['company_address'] as String?,
+        homeAddress: map['home_address'] as String?,
+        dateOfBirth: map['date_of_birth'] != null
+            ? DateTime.parse(map['date_of_birth'] as String)
+            : null,
+        role: role,
+        gender: gender,
+        createdAt: DateTime.parse(map['created_at'] as String),
+        updatedAt: DateTime.parse(map['updated_at'] as String),
+        passwordResetToken: null, // Tidak ada di response login
+        session: null, // Tidak ada di response login
+      );
+    } catch (e, stackTrace) {
+      print('Error parsing UserModel from map: $e');
+      print('Map data: $map');
+      print('Stack trace: $stackTrace');
+      rethrow;
+    }
   }
 
   factory UserModel.fromJson(String source) =>
