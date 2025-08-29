@@ -108,7 +108,15 @@
   "createReservationNotesContent4": "Cancellation not allowed after confirmation",
   "confirmReservationBannerTitle": "Booking Information",
   "confirmReservationBannerSubtitle": "Please choose how you would like to proceed with your reservation.",
-  "confirmReservationWelcomeBack": "Welcome back, Rizz!",
+  "confirmReservationWelcomeBack": "Welcome back, {name}!",
+  "@confirmReservationWelcomeBack": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "User's full name"
+      }
+    }
+  },
   "confirmReservationLoggedInAs": "You are logged in as a RESERVA member.",
   "confirmReservationInfoUsageWarning": "Your member information will be used for this reservation.",
   "confirmReservationContinueButton": "Continue with This Account",

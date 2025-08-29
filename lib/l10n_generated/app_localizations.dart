@@ -750,8 +750,8 @@ abstract class L10n {
   /// No description provided for @confirmReservationWelcomeBack.
   ///
   /// In en, this message translates to:
-  /// **'Welcome back, Rizz!'**
-  String get confirmReservationWelcomeBack;
+  /// **'Welcome back, {name}!'**
+  String confirmReservationWelcomeBack(String name);
 
   /// No description provided for @confirmReservationLoggedInAs.
   ///

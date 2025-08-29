@@ -108,7 +108,15 @@
   "createReservationNotesContent4": "確認後のキャンセルはできません",
   "confirmReservationBannerTitle": "予約情報の確認",
   "confirmReservationBannerSubtitle": "予約手続きの進め方を選択してください。",
-  "confirmReservationWelcomeBack": "Rizzさん、ようこそ！",
+  "confirmReservationWelcomeBack": "{name}さん、ようこそ！",
+  "@confirmReservationWelcomeBack": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "User's full name"
+      }
+    }
+  },
   "confirmReservationLoggedInAs": "RESERVA会員としてログインしています。",
   "confirmReservationInfoUsageWarning": "この予約にはあなたの会員情報が使用されます。",
   "confirmReservationContinueButton": "このアカウントで続ける",

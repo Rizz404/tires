@@ -336,7 +336,9 @@ class L10nJa extends L10n {
   String get confirmReservationBannerSubtitle => '予約手続きの進め方を選択してください。';
 
   @override
-  String get confirmReservationWelcomeBack => 'Rizzさん、ようこそ！';
+  String confirmReservationWelcomeBack(String name) {
+    return '$nameさん、ようこそ！';
+  }
 
   @override
   String get confirmReservationLoggedInAs => 'RESERVA会員としてログインしています。';

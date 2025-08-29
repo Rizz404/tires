@@ -346,7 +346,9 @@ class L10nEn extends L10n {
       'Please choose how you would like to proceed with your reservation.';
 
   @override
-  String get confirmReservationWelcomeBack => 'Welcome back, Rizz!';
+  String confirmReservationWelcomeBack(String name) {
+    return 'Welcome back, $name!';
+  }
 
   @override
   String get confirmReservationLoggedInAs =>

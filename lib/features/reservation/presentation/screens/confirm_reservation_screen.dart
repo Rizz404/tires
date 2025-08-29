@@ -1,21 +1,24 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/core/theme/app_theme.dart';
+import 'package:tires/features/user/presentation/providers/current_user_providers.dart';
+import 'package:tires/features/user/presentation/providers/current_user_get_state.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
-import 'package:tires/shared/presentation/widgets/app_text.dart'; // Import AppText
+import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:tires/shared/presentation/widgets/user_app_bar.dart';
 import 'package:tires/shared/presentation/widgets/user_end_drawer.dart';
 
 @RoutePage()
-class ConfirmReservationScreen extends StatelessWidget {
+class ConfirmReservationScreen extends ConsumerWidget {
   const ConfirmReservationScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: UserAppBar(title: context.l10n.appBarConfirmReservation),
       endDrawer: const UserEndDrawer(),
@@ -25,7 +28,7 @@ class ConfirmReservationScreen extends StatelessWidget {
             children: [
               _buildBannerInfo(context),
               const SizedBox(height: 24),
-              _buildUserInfo(context),
+              _buildUserInfo(context, ref),
             ],
           ),
         ),
@@ -54,7 +57,6 @@ class ConfirmReservationScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Menggunakan style 'titleMedium' untuk judul di banner.
                 AppText(
                   l10n.confirmReservationBannerTitle,
                   style: AppTextStyle.titleMedium,
@@ -62,7 +64,6 @@ class ConfirmReservationScreen extends StatelessWidget {
                   color: context.colorScheme.primary,
                 ),
                 const SizedBox(height: 4),
-                // Menggunakan style 'bodyMedium' untuk sub-judul atau teks deskriptif.
                 AppText(
                   l10n.confirmReservationBannerSubtitle,
                   style: AppTextStyle.bodyMedium,
@@ -76,8 +77,21 @@ class ConfirmReservationScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildUserInfo(BuildContext context) {
+  Widget _buildUserInfo(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
+    final currentUserState = ref.watch(currentUserGetNotifierProvider);
+
+    if (currentUserState.status == CurrentUserGetStatus.loading) {
+      return const Card(
+        child: Padding(
+          padding: EdgeInsets.all(24),
+          child: Center(child: CircularProgressIndicator()),
+        ),
+      );
+    }
+
+    final userName = currentUserState.user?.fullName ?? 'User';
+
     return Card(
       elevation: 4,
       shadowColor: context.theme.shadowColor.withValues(alpha: 0.1),
@@ -96,14 +110,12 @@ class ConfirmReservationScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            // Menggunakan style 'headlineSmall' untuk teks sambutan yang menonjol.
             AppText(
-              l10n.confirmReservationWelcomeBack,
+              l10n.confirmReservationWelcomeBack(userName),
               style: AppTextStyle.headlineSmall,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 4),
-            // Menggunakan 'bodyMedium' lagi untuk info tambahan di bawah sambutan.
             AppText(
               l10n.confirmReservationLoggedInAs,
               style: AppTextStyle.bodyMedium,
@@ -126,7 +138,6 @@ class ConfirmReservationScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    // Menggunakan style 'bodySmall' untuk teks peringatan yang lebih kecil namun penting.
                     child: AppText(
                       l10n.confirmReservationInfoUsageWarning,
                       style: AppTextStyle.bodySmall,
