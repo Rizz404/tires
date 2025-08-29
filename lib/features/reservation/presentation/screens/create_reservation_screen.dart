@@ -2,16 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:collection/collection.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/core/theme/app_theme.dart';
 import 'package:tires/features/availability/domain/entities/availability_day.dart';
+import 'package:tires/features/availability/domain/entities/availability_calendar.dart';
 import 'package:tires/features/availability/presentation/providers/availability_provider.dart';
 import 'package:tires/features/availability/presentation/providers/availability_state.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
-import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:tires/shared/presentation/widgets/user_app_bar.dart';
@@ -23,6 +22,113 @@ final selectedDateProvider = StateProvider<DateTime?>((ref) => null);
 final selectedTimeProvider = StateProvider<String?>((ref) => null);
 final selectedMenuProvider = StateProvider<Menu?>((ref) => null);
 final currentMonthProvider = StateProvider<DateTime>((ref) => DateTime.now());
+
+// TODO: Mock availability state provider - remove when API is ready
+final mockAvailabilityStateProvider = StateProvider<AvailabilityState>((ref) {
+  final currentMonth = ref.watch(currentMonthProvider);
+  return AvailabilityState(
+    status: AvailabilityStatus.success,
+    availabilityCalendar: _generateMockAvailabilityCalendar(currentMonth),
+  );
+});
+
+// TODO: Mock data generation function - remove when API is ready
+AvailabilityCalendar _generateMockAvailabilityCalendar(DateTime currentMonth) {
+  final availabilityDays = <AvailabilityDay>[];
+  final today = DateTime.now();
+
+  // Generate mock data for the current month
+  final firstDayOfMonth = DateTime(currentMonth.year, currentMonth.month, 1);
+  final lastDayOfMonth = DateTime(currentMonth.year, currentMonth.month + 1, 0);
+
+  for (int day = 1; day <= lastDayOfMonth.day; day++) {
+    final date = DateTime(currentMonth.year, currentMonth.month, day);
+    final isToday =
+        date.year == today.year &&
+        date.month == today.month &&
+        date.day == today.day;
+    final isPastDate = date.isBefore(
+      DateTime(today.year, today.month, today.day),
+    );
+
+    // Mock logic: weekends have limited availability, past dates are blocked
+    final weekday = date.weekday;
+    final isSunday = weekday == 7;
+    final isSaturday = weekday == 6;
+
+    BookingStatus bookingStatus;
+    bool hasAvailableHours;
+    List<String> blockedHours;
+    int reservationCount;
+
+    if (isPastDate) {
+      bookingStatus = BookingStatus.past;
+      hasAvailableHours = false;
+      blockedHours = [];
+      reservationCount = 0;
+    } else if (isSunday) {
+      bookingStatus = BookingStatus.noAvailableHours;
+      hasAvailableHours = false;
+      blockedHours = [];
+      reservationCount = 0;
+    } else if (isSaturday) {
+      // Saturday: limited hours, some bookings
+      bookingStatus = BookingStatus.available;
+      hasAvailableHours = true;
+      blockedHours = ['15:00', '16:00']; // afternoon blocked
+      reservationCount = 2;
+    } else {
+      // Weekdays: simulate different booking statuses
+      if (day % 5 == 0) {
+        // Every 5th day is fully booked
+        bookingStatus = BookingStatus.fullyBooked;
+        hasAvailableHours = false;
+        blockedHours = [];
+        reservationCount = 8;
+      } else if (day % 3 == 0) {
+        // Every 3rd day has heavy bookings
+        bookingStatus = BookingStatus.available;
+        hasAvailableHours = true;
+        blockedHours = ['10:00', '11:00', '14:00', '15:00'];
+        reservationCount = 4;
+      } else {
+        // Regular availability
+        bookingStatus = BookingStatus.available;
+        hasAvailableHours = true;
+        blockedHours = day % 2 == 0
+            ? ['12:00']
+            : []; // lunch break on even days
+        reservationCount = day % 4 == 0 ? 2 : 1;
+      }
+    }
+
+    final availabilityDay = AvailabilityDay(
+      date: date.toIso8601String().split('T')[0], // YYYY-MM-DD format
+      day: day,
+      isCurrentMonth: true,
+      isToday: isToday,
+      isPastDate: isPastDate,
+      hasAvailableHours: hasAvailableHours,
+      bookingStatus: bookingStatus,
+      blockedHours: blockedHours,
+      reservationCount: reservationCount,
+    );
+
+    availabilityDays.add(availabilityDay);
+  }
+
+  // Create mock availability calendar
+  return AvailabilityCalendar(
+    days: availabilityDays,
+    currentMonth: DateFormat('yyyy-MM').format(currentMonth),
+    previousMonth: DateFormat(
+      'yyyy-MM',
+    ).format(DateTime(currentMonth.year, currentMonth.month - 1)),
+    nextMonth: DateFormat(
+      'yyyy-MM',
+    ).format(DateTime(currentMonth.year, currentMonth.month + 1)),
+  );
+}
 
 @RoutePage()
 class CreateReservationScreen extends ConsumerWidget {
@@ -36,7 +142,9 @@ class CreateReservationScreen extends ConsumerWidget {
     final selectedTime = ref.watch(selectedTimeProvider);
     final selectedMenu = ref.watch(selectedMenuProvider);
     final currentMonth = ref.watch(currentMonthProvider);
-    final availabilityState = ref.watch(availabilityNotifierProvider);
+    // TODO: Use mock availability state instead of real API
+    // final availabilityState = ref.watch(availabilityNotifierProvider);
+    final availabilityState = ref.watch(mockAvailabilityStateProvider);
 
     // Set the passed menu as selected menu if not already set
     if (selectedMenu == null) {
@@ -45,41 +153,55 @@ class CreateReservationScreen extends ConsumerWidget {
       });
     }
 
+    // TODO: Comment out API calls temporarily - replace with mock data
     // Initialize availability data when menu changes or month changes
-    ref.listen(selectedMenuProvider, (previous, next) {
-      if (next != null) {
-        ref
-            .read(availabilityNotifierProvider.notifier)
-            .getAvailabilityCalendar(
-              menuId: next.id.toString(),
-              targetMonth: currentMonth,
-            );
-      }
-    });
+    // ref.listen(selectedMenuProvider, (previous, next) {
+    //   if (next != null) {
+    //     ref
+    //         .read(availabilityNotifierProvider.notifier)
+    //         .getAvailabilityCalendar(
+    //           menuId: next.id.toString(),
+    //           targetMonth: currentMonth,
+    //         );
+    //   }
+    // });
 
-    ref.listen(currentMonthProvider, (previous, next) {
-      final currentSelectedMenu = ref.read(selectedMenuProvider);
-      if (currentSelectedMenu != null && previous != next) {
-        ref
-            .read(availabilityNotifierProvider.notifier)
-            .getAvailabilityCalendar(
-              menuId: currentSelectedMenu.id.toString(),
-              targetMonth: next,
-            );
-      }
-    });
+    // ref.listen(currentMonthProvider, (previous, next) {
+    //   final currentSelectedMenu = ref.read(selectedMenuProvider);
+    //   if (currentSelectedMenu != null && previous != next) {
+    //     ref
+    //         .read(availabilityNotifierProvider.notifier)
+    //         .getAvailabilityCalendar(
+    //           menuId: currentSelectedMenu.id.toString(),
+    //           targetMonth: next,
+    //         );
+    //   }
+    // });
 
-    // Initial load
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (availabilityState.status == AvailabilityStatus.initial) {
-        ref
-            .read(availabilityNotifierProvider.notifier)
-            .getAvailabilityCalendar(
-              menuId: menu.id.toString(),
-              targetMonth: currentMonth,
-            );
-      }
-    });
+    // // Initial load
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   if (availabilityState.status == AvailabilityStatus.initial) {
+    //     ref
+    //         .read(availabilityNotifierProvider.notifier)
+    //         .getAvailabilityCalendar(
+    //           menuId: menu.id.toString(),
+    //           targetMonth: currentMonth,
+    //         );
+    //   }
+    // });
+
+    // Mock data for testing - replace API calls
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   if (availabilityState.status == AvailabilityStatus.initial) {
+    //     _loadMockAvailabilityData(ref, currentMonth);
+    //   }
+    // });
+
+    // ref.listen(currentMonthProvider, (previous, next) {
+    //   if (previous != next) {
+    //     _loadMockAvailabilityData(ref, next);
+    //   }
+    // });
     return Scaffold(
       appBar: UserAppBar(title: context.l10n.appBarCreateReservation),
       endDrawer: const UserEndDrawer(),
@@ -98,12 +220,16 @@ class CreateReservationScreen extends ConsumerWidget {
                     const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
-                        ref
-                            .read(availabilityNotifierProvider.notifier)
-                            .refreshAvailabilityCalendar(
-                              menuId: menu.id.toString(),
-                              targetMonth: currentMonth,
-                            );
+                        // TODO: Comment out API call temporarily
+                        // ref
+                        //     .read(availabilityNotifierProvider.notifier)
+                        //     .refreshAvailabilityCalendar(
+                        //       menuId: menu.id.toString(),
+                        //       targetMonth: currentMonth,
+                        //     );
+
+                        // Use mock data instead - trigger rebuild
+                        ref.invalidate(mockAvailabilityStateProvider);
                       },
                       child: const AppText('Retry'),
                     ),
