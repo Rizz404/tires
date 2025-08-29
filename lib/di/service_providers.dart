@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/core/services/provider_invalidation_service.dart';
 import 'package:tires/core/storage/language_storage_service.dart';
 import 'package:tires/core/storage/language_storage_service_impl.dart';
 import 'package:tires/core/storage/session_storage_service.dart';
@@ -21,3 +22,8 @@ final languageStorageServiceProvider = Provider<LanguageStorageService>((ref) {
   final _sharedPreferences = ref.watch(sharedPreferencesProvider);
   return LanguageStorageServiceImpl(_sharedPreferences);
 });
+
+final providerInvalidationServiceProvider =
+    Provider<ProviderInvalidationService>((ref) {
+      return ProviderInvalidationServiceImpl();
+    });

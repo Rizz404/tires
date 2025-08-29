@@ -24,6 +24,7 @@ class ApiEndpoints {
   // --- Auth Endpoints ---
   static const String register = '$_authPrefix/register';
   static const String login = '$_authPrefix/login';
+  static const String logout = '$_authPrefix/logout';
 
   // --- Admin Endpoints ---
   static const String adminMenus = '$_adminPrefix$_menuPrefix';

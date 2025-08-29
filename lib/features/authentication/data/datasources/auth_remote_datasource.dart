@@ -9,6 +9,7 @@ import 'package:tires/features/authentication/data/models/auth_model.dart';
 abstract class AuthRemoteDatasource {
   Future<ApiResponse<AuthModel>> register(RegisterPayload payload);
   Future<ApiResponse<AuthModel>> login(LoginPayload payload);
+  Future<ApiResponse<void>> logout();
   Future<ApiResponse<void>> forgotPassword(ForgotPasswordPayload payload);
   Future<ApiResponse<void>> setNewPassword(SetNewPasswordPayload payload);
 }
@@ -41,6 +42,16 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         data: payload.toJson(),
         fromJson: (json) => AuthModel.fromMap(json as Map<String, dynamic>),
       );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<void>> logout() async {
+    try {
+      final response = await _dioClient.post(ApiEndpoints.logout);
       return response;
     } catch (e) {
       rethrow;

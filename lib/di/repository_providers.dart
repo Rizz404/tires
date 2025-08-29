@@ -15,7 +15,14 @@ import 'package:tires/features/user/domain/repositories/current_user_repository.
 final authRepoProvider = Provider<AuthRepository>((ref) {
   final _authRemoteDatasource = ref.watch(authRemoteDatasourceProvider);
   final _sessionStorageService = ref.watch(sessionStorageServiceProvider);
-  return AuthRepositoryImpl(_authRemoteDatasource, _sessionStorageService);
+  final _providerInvalidationService = ref.watch(
+    providerInvalidationServiceProvider,
+  );
+  return AuthRepositoryImpl(
+    _authRemoteDatasource,
+    _sessionStorageService,
+    _providerInvalidationService,
+  );
 });
 
 final menuRepoProvider = Provider<MenuRepository>((ref) {

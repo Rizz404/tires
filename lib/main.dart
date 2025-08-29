@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tires/core/services/provider_invalidation_setup.dart';
 import 'package:tires/core/storage/session_storage_keys.dart';
 import 'package:tires/core/theme/app_theme.dart';
 import 'package:tires/di/common_providers.dart';
@@ -69,6 +70,9 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Setup provider invalidation callback on first build
+    setupProviderInvalidation(ref);
+
     final appRouter = ref.watch(appRouterProvider);
     final currentLocale = ref.watch(localeProvider);
     // final themeMode = ref.watch(themeProvider);

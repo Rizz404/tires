@@ -3,6 +3,7 @@ import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/network/api_error_response.dart';
 import 'package:tires/core/network/validation_error_mapper.dart';
+import 'package:tires/core/services/provider_invalidation_service.dart';
 import 'package:tires/core/storage/session_storage_service.dart';
 import 'package:tires/features/authentication/data/datasources/auth_remote_datasource.dart';
 import 'package:tires/features/authentication/data/mapper/auth_mapper.dart';
@@ -16,8 +17,13 @@ import 'package:tires/features/authentication/domain/usecases/set_new_password_u
 class AuthRepositoryImpl extends AuthRepository {
   final AuthRemoteDatasource _authRemoteDatasource;
   final SessionStorageService _sessionStorageService;
+  final ProviderInvalidationService _providerInvalidationService;
 
-  AuthRepositoryImpl(this._authRemoteDatasource, this._sessionStorageService);
+  AuthRepositoryImpl(
+    this._authRemoteDatasource,
+    this._sessionStorageService,
+    this._providerInvalidationService,
+  );
 
   @override
   Future<Either<Failure, ItemSuccessResponse<Auth>>> register(
@@ -133,12 +139,15 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Either<Failure, ActionSuccess>> logout() async {
     try {
+      final apiResponse = await _authRemoteDatasource.logout();
+
       await _sessionStorageService.deleteAccessToken();
       await _sessionStorageService.deleteUser();
 
-      return Right(ActionSuccess(message: "Logout successfully"));
-    } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      // Invalidate all user-related providers to ensure fresh data on next login
+      _providerInvalidationService.invalidateUserRelatedProviders();
+
+      return Right(ActionSuccess(message: apiResponse.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
