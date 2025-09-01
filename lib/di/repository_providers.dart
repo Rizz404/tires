@@ -7,6 +7,8 @@ import 'package:tires/features/availability/data/repositories/availability_repos
 import 'package:tires/features/availability/domain/repositories/availability_repository.dart';
 import 'package:tires/features/customer_management/data/datasources/customer_repository_impl.dart';
 import 'package:tires/features/customer_management/domain/repositories/customer_repository.dart';
+import 'package:tires/features/inquiry/data/repositories/inquiry_repository_impl.dart';
+import 'package:tires/features/inquiry/domain/repositories/inquiry_repository.dart';
 import 'package:tires/features/menu/data/datasources/menu_repository_impl.dart';
 import 'package:tires/features/menu/domain/repositories/menu_repository.dart';
 import 'package:tires/features/user/data/repositories/current_user_repository_impl.dart';
@@ -51,4 +53,9 @@ final userRepoProvider = Provider<CurrentUserRepository>((ref) {
     _userRemoteDatasource,
     _sessionStorageService,
   );
+});
+
+final inquiryRepoProvider = Provider<InquiryRepository>((ref) {
+  final _inquiryRemoteDatasource = ref.watch(inquiryRemoteDatasourceProvider);
+  return InquiryRepositoryImpl(_inquiryRemoteDatasource);
 });

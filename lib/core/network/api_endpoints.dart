@@ -14,6 +14,7 @@ class ApiEndpoints {
   static const String _blockedPeriodPrefix = '/blocked-periods';
   static const String _businessSettingPrefix = '/business-settings';
   static const String _contactPrefix = '/contacts';
+  static const String _inquiryPrefix = '/inquiry';
   static const String _faqPrefix = '/faqs';
   static const String _paymentPrefix = '/payments';
   static const String _questionnairePrefix = '/questionnaires';
@@ -60,6 +61,7 @@ class ApiEndpoints {
   static const String customerBusinessSettings =
       '$_customerPrefix$_businessSettingPrefix';
   static const String customerContacts = '$_customerPrefix$_contactPrefix';
+  static const String customerInquiry = '$_customerPrefix$_inquiryPrefix';
   static const String customerFaqs = '$_customerPrefix$_faqPrefix';
   static const String customerPayments = '$_customerPrefix$_paymentPrefix';
   static const String customerQuestionnaires =

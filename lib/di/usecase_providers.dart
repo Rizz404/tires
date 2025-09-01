@@ -7,6 +7,7 @@ import 'package:tires/features/authentication/domain/usecases/logout_usecase.dar
 import 'package:tires/features/authentication/domain/usecases/register_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/set_new_password_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
+import 'package:tires/features/inquiry/domain/usecases/create_inquiry_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/get_menu_cursor_usecase.dart';
 import 'package:tires/features/user/domain/usecases/delete_current_user_account_usecase.dart';
 import 'package:tires/features/user/domain/usecases/get_current_user_usecase.dart';
@@ -84,3 +85,9 @@ final deleteUserAccountUsecaseProvider =
       final _userRepository = ref.watch(userRepoProvider);
       return DeleteCurrentUserAccountUsecase(_userRepository);
     });
+
+// Inquiry Usecase Providers
+final createInquiryUsecaseProvider = Provider<CreateInquiryUsecase>((ref) {
+  final _inquiryRepository = ref.watch(inquiryRepoProvider);
+  return CreateInquiryUsecase(_inquiryRepository);
+});
