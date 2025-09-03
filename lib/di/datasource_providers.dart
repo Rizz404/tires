@@ -6,6 +6,7 @@ import 'package:tires/features/availability/data/datasources/availability_remote
 import 'package:tires/features/customer_management/data/datasources/customer_remote_datasource.dart';
 import 'package:tires/features/inquiry/data/datasources/inquiry_remote_datasource.dart';
 import 'package:tires/features/menu/data/datasources/menu_remote_datasource.dart';
+import 'package:tires/features/reservation/data/datasources/reservation_remote_datasource.dart';
 import 'package:tires/features/user/data/datasources/current_user_remote_datasource.dart';
 import 'package:tires/features/user/data/datasources/current_user_remote_datasource_impl.dart';
 
@@ -45,3 +46,9 @@ final inquiryRemoteDatasourceProvider = Provider<InquiryRemoteDatasource>((
   final _dioClient = ref.watch(dioClientProvider);
   return InquiryRemoteDatasourceImpl(_dioClient);
 });
+
+final reservationRemoteDatasourceProvider =
+    Provider<ReservationRemoteDatasource>((ref) {
+      final _dioClient = ref.watch(dioClientProvider);
+      return ReservationRemoteDatasourceImpl(_dioClient);
+    });

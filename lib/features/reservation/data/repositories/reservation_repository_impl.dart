@@ -2,45 +2,117 @@ import 'package:fpdart/src/either.dart';
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/network/api_error_response.dart';
-import 'package:tires/core/network/validation_error_mapper.dart';
-import 'package:tires/core/storage/session_storage_service.dart';
 import 'package:tires/features/reservation/data/datasources/reservation_remote_datasource.dart';
+import 'package:tires/features/reservation/data/mapper/available_hour_mapper.dart';
+import 'package:tires/features/reservation/data/mapper/calendar_mapper.dart';
 import 'package:tires/features/reservation/data/mapper/reservation_mapper.dart';
+import 'package:tires/features/reservation/domain/entities/available_hour.dart';
+import 'package:tires/features/reservation/domain/entities/calendar.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/reservation/domain/repositories/reservation_repository.dart';
+import 'package:tires/shared/data/mapper/cursor_mapper.dart';
 
-class ReservationRepositoryImpl extends ReservationRepository {
+class ReservationRepositoryImpl implements ReservationRepository {
   final ReservationRemoteDatasource _reservationRemoteDatasource;
 
   ReservationRepositoryImpl(this._reservationRemoteDatasource);
 
   @override
   Future<Either<Failure, ItemSuccessResponse<Reservation>>>
-  createReservation() {
-    // TODO: implement createReservation
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failure, ItemSuccessResponse<Reservation>>> deleteReservation({
-    required String id,
-  }) {
-    // TODO: implement deleteReservation
-    throw UnimplementedError();
+  createReservation() async {
+    // TODO: implement createReservation - method not available in datasource
+    throw UnimplementedError(
+      'createReservation method not implemented in datasource',
+    );
   }
 
   @override
   Future<Either<Failure, CursorPaginatedSuccess<Reservation>>>
-  getReservationCursor({String? cursor}) {
-    // TODO: implement getReservationCursor
-    throw UnimplementedError();
+  getReservationsCursor({
+    required bool paginate,
+    required int perPage,
+    String? cursor,
+  }) async {
+    try {
+      final result = await _reservationRemoteDatasource.getReservationsCursor(
+        paginate: paginate,
+        perPage: perPage,
+        cursor: cursor,
+      );
+
+      return Right(
+        CursorPaginatedSuccess<Reservation>(
+          data: result.data
+              .map((reservation) => reservation.toEntity())
+              .toList(),
+          cursor: result.cursor?.toEntity(),
+        ),
+      );
+    } on ApiErrorResponse catch (e) {
+      return Left(ServerFailure(message: e.message, code: e.code));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccessResponse<Calendar>>>
+  getReservationCalendar({String? month, required String menuId}) async {
+    try {
+      final result = await _reservationRemoteDatasource.getReservationCalendar(
+        month: month,
+        menuId: menuId,
+      );
+
+      final calendar = result.data.toEntity();
+      return Right(
+        ItemSuccessResponse(data: calendar, message: result.message),
+      );
+    } on ApiErrorResponse catch (e) {
+      return Left(ServerFailure(message: e.message, code: e.code));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccessResponse<AvailableHour>>>
+  getReservationAvailableHours({
+    required String date,
+    required String menuId,
+  }) async {
+    try {
+      final result = await _reservationRemoteDatasource
+          .getReservationAvailableHours(date: date, menuId: menuId);
+
+      final calendar = result.data.toEntity();
+      return Right(
+        ItemSuccessResponse(data: calendar, message: result.message),
+      );
+    } on ApiErrorResponse catch (e) {
+      return Left(ServerFailure(message: e.message, code: e.code));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
   }
 
   @override
   Future<Either<Failure, ItemSuccessResponse<Reservation>>> updateReservation({
     required String id,
-  }) {
-    // TODO: implement updateReservation
-    throw UnimplementedError();
+  }) async {
+    // TODO: implement updateReservation - method not available in datasource
+    throw UnimplementedError(
+      'updateReservation method not implemented in datasource',
+    );
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccessResponse<Reservation>>> deleteReservation({
+    required String id,
+  }) async {
+    // TODO: implement deleteReservation - method not available in datasource
+    throw UnimplementedError(
+      'deleteReservation method not implemented in datasource',
+    );
   }
 }

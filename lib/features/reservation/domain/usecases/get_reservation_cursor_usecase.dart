@@ -1,5 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
+
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/usecases/usecase.dart';
@@ -20,16 +22,24 @@ class GetReservationCursorUsecase
   Future<Either<Failure, CursorPaginatedSuccess<Reservation>>> call(
     GetReservationCursorParams params,
   ) async {
-    return await _reservationRepository.getReservationCursor(
+    return await _reservationRepository.getReservationsCursor(
       cursor: params.cursor,
+      paginate: params.paginate,
+      perPage: params.perPage,
     );
   }
 }
 
 class GetReservationCursorParams extends Equatable {
+  final bool paginate;
+  final int perPage;
   final String? cursor;
 
-  const GetReservationCursorParams({this.cursor});
+  const GetReservationCursorParams({
+    required this.paginate,
+    required this.perPage,
+    this.cursor,
+  });
 
   @override
   List<Object?> get props => [cursor];

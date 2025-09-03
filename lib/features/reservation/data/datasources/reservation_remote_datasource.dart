@@ -1,16 +1,27 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
+import 'package:tires/core/network/api_cursor_pagination_response.dart';
 import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
+import 'package:tires/features/reservation/data/models/available_hour_model.dart';
+import 'package:tires/features/reservation/data/models/calendar_model.dart';
 import 'package:tires/features/reservation/data/models/reservation_model.dart';
+import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 abstract class ReservationRemoteDatasource {
-  Future<ApiResponse<ReservationModel>> register(RegisterPayload payload);
-  Future<ApiResponse<ReservationModel>> login(LoginPayload payload);
-  Future<ApiResponse<void>> forgotPassword(ForgotPasswordPayload params);
-  Future<ApiResponse<void>> setNewPassword(SetNewPasswordPayload params);
+  Future<ApiCursorPaginationResponse<ReservationModel>> getReservationsCursor({
+    required bool paginate,
+    required int perPage,
+    String? cursor,
+  });
+  // * Contoh month 2025-08, 2025-09, 2025-10, 2025-11, 2025-12
+  Future<ApiResponse<CalendarModel>> getReservationCalendar({
+    required String menuId,
+    String? month,
+  });
+  Future<ApiResponse<AvailableHourModel>> getReservationAvailableHours({
+    required String date,
+    required String menuId,
+  });
 }
 
 class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
@@ -19,170 +30,103 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
   ReservationRemoteDatasourceImpl(this._dioClient);
 
   @override
-  Future<ApiResponse<ReservationModel>> register(
-    RegisterPayload payload,
-  ) async {
+  Future<ApiCursorPaginationResponse<ReservationModel>> getReservationsCursor({
+    required bool paginate,
+    required int perPage,
+    String? cursor,
+  }) async {
     try {
-      final response = await _dioClient.post(
-        ApiEndpoints.register,
-        data: payload.toJson(),
-        fromJson: (json) =>
-            ReservationModel.fromMap(json as Map<String, dynamic>),
+      final queryParameters = {
+        'paginate': paginate.toString(),
+        'per_page': perPage.toString(),
+        if (cursor != null) 'cursor': cursor,
+      };
+
+      final response = await _dioClient.getWithCursor<ReservationModel>(
+        ApiEndpoints.adminReservations,
+        fromJson: (item) {
+          DebugHelper.logMapDetails(
+            item as Map<String, dynamic>,
+            title: 'Raw Reservation Item from API',
+          );
+          return ReservationModel.fromMap(item);
+        },
+        queryParameters: queryParameters,
       );
 
       return response;
     } catch (e) {
+      DebugHelper.safeCast(
+        e,
+        'getReservationsCursor_error',
+        defaultValue: 'rethrowing error',
+      );
       rethrow;
     }
   }
 
   @override
-  Future<ApiResponse<ReservationModel>> login(LoginPayload payload) async {
+  Future<ApiResponse<CalendarModel>> getReservationCalendar({
+    required String menuId,
+    String? month,
+  }) async {
     try {
-      final response = await _dioClient.post(
-        ApiEndpoints.login,
-        data: payload.toJson(),
-        fromJson: (json) =>
-            ReservationModel.fromMap(json as Map<String, dynamic>),
+      final queryParameters = <String, String>{'menu_id': menuId};
+      if (month != null) {
+        queryParameters['month'] = month;
+      }
+
+      final response = await _dioClient.get<CalendarModel>(
+        ApiEndpoints.customerReservationCalendar,
+        fromJson: (json) {
+          DebugHelper.logMapDetails(
+            json as Map<String, dynamic>,
+            title: 'Calendar API Response Data',
+          );
+          return CalendarModel.fromMap(json);
+        },
+        queryParameters: queryParameters.isNotEmpty ? queryParameters : null,
       );
+
       return response;
     } catch (e) {
+      DebugHelper.safeCast(
+        e,
+        'getReservationCalendar_error',
+        defaultValue: 'rethrowing error',
+      );
       rethrow;
     }
   }
 
   @override
-  Future<ApiResponse<void>> forgotPassword(ForgotPasswordPayload params) async {
+  Future<ApiResponse<AvailableHourModel>> getReservationAvailableHours({
+    required String date,
+    required String menuId,
+  }) async {
     try {
-      final response = await _dioClient.post(
-        ApiEndpoints.forgotPassword,
-        data: params.toJson(),
+      final queryParameters = <String, String>{'menu_id': menuId, 'date': date};
+
+      final response = await _dioClient.get<AvailableHourModel>(
+        ApiEndpoints.customerReservationAvailableHours,
+        fromJson: (json) {
+          DebugHelper.logMapDetails(
+            json as Map<String, dynamic>,
+            title: 'AvailableHours API Response Data',
+          );
+          return AvailableHourModel.fromMap(json);
+        },
+        queryParameters: queryParameters.isNotEmpty ? queryParameters : null,
       );
+
       return response;
     } catch (e) {
+      DebugHelper.safeCast(
+        e,
+        'getReservationAvailableHours_error',
+        defaultValue: 'rethrowing error',
+      );
       rethrow;
     }
   }
-
-  @override
-  Future<ApiResponse<void>> setNewPassword(SetNewPasswordPayload params) async {
-    try {
-      final response = await _dioClient.post(
-        ApiEndpoints.setNewPassword,
-        data: params.toJson(),
-      );
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
-}
-
-// * Payload kaga butuh equatable di params baru butuh
-class RegisterPayload {
-  final String username;
-  final String email;
-  final String password;
-
-  const RegisterPayload({
-    required this.username,
-    required this.email,
-    required this.password,
-  });
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'username': username,
-      'email': email,
-      'password': password,
-    };
-  }
-
-  factory RegisterPayload.fromMap(Map<String, dynamic> map) {
-    return RegisterPayload(
-      username: map['username'] as String,
-      email: map['email'] as String,
-      password: map['password'] as String,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory RegisterPayload.fromJson(String source) =>
-      RegisterPayload.fromMap(json.decode(source) as Map<String, dynamic>);
-}
-
-class LoginPayload {
-  final String email;
-  final String password;
-
-  const LoginPayload({required this.email, required this.password});
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{'email': email, 'password': password};
-  }
-
-  factory LoginPayload.fromMap(Map<String, dynamic> map) {
-    return LoginPayload(
-      email: map['email'] as String,
-      password: map['password'] as String,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory LoginPayload.fromJson(String source) =>
-      LoginPayload.fromMap(json.decode(source) as Map<String, dynamic>);
-}
-
-class ForgotPasswordPayload {
-  final String email;
-
-  const ForgotPasswordPayload({required this.email});
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{'email': email};
-  }
-
-  factory ForgotPasswordPayload.fromMap(Map<String, dynamic> map) {
-    return ForgotPasswordPayload(email: map['email'] as String);
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory ForgotPasswordPayload.fromJson(String source) =>
-      ForgotPasswordPayload.fromMap(
-        json.decode(source) as Map<String, dynamic>,
-      );
-}
-
-class SetNewPasswordPayload {
-  final String newPassword;
-  final String confirmNewPassword;
-
-  const SetNewPasswordPayload({
-    required this.newPassword,
-    required this.confirmNewPassword,
-  });
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'newPassword': newPassword,
-      'confirmNewPassword': confirmNewPassword,
-    };
-  }
-
-  factory SetNewPasswordPayload.fromMap(Map<String, dynamic> map) {
-    return SetNewPasswordPayload(
-      newPassword: map['newPassword'] as String,
-      confirmNewPassword: map['confirmNewPassword'] as String,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory SetNewPasswordPayload.fromJson(String source) =>
-      SetNewPasswordPayload.fromMap(
-        json.decode(source) as Map<String, dynamic>,
-      );
 }

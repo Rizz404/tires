@@ -9,6 +9,12 @@ import 'package:tires/features/authentication/domain/usecases/set_new_password_u
 import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
 import 'package:tires/features/inquiry/domain/usecases/create_inquiry_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/get_menu_cursor_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/create_reservation_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/delete_reservation_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_reservation_available_hours_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_reservation_calendar_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_reservation_cursor_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/update_reservation_usecase.dart';
 import 'package:tires/features/user/domain/usecases/delete_current_user_account_usecase.dart';
 import 'package:tires/features/user/domain/usecases/get_current_user_dashboard_usecase.dart';
 import 'package:tires/features/user/domain/usecases/get_current_user_usecase.dart';
@@ -98,3 +104,43 @@ final createInquiryUsecaseProvider = Provider<CreateInquiryUsecase>((ref) {
   final _inquiryRepository = ref.watch(inquiryRepoProvider);
   return CreateInquiryUsecase(_inquiryRepository);
 });
+
+// Reservation Usecase Providers
+final getReservationCursorUsecaseProvider =
+    Provider<GetReservationCursorUsecase>((ref) {
+      final _reservationRepository = ref.watch(reservationRepoProvider);
+      return GetReservationCursorUsecase(_reservationRepository);
+    });
+
+final createReservationUsecaseProvider = Provider<CreateReservationUsecase>((
+  ref,
+) {
+  final _reservationRepository = ref.watch(reservationRepoProvider);
+  return CreateReservationUsecase(_reservationRepository);
+});
+
+final updateReservationUsecaseProvider = Provider<UpdateReservationUsecase>((
+  ref,
+) {
+  final _reservationRepository = ref.watch(reservationRepoProvider);
+  return UpdateReservationUsecase(_reservationRepository);
+});
+
+final deleteReservationUsecaseProvider = Provider<DeleteReservationUsecase>((
+  ref,
+) {
+  final _reservationRepository = ref.watch(reservationRepoProvider);
+  return DeleteReservationUsecase(_reservationRepository);
+});
+
+final getReservationCalendarUsecaseProvider =
+    Provider<GetReservationCalendarUsecase>((ref) {
+      final _reservationRepository = ref.watch(reservationRepoProvider);
+      return GetReservationCalendarUsecase(_reservationRepository);
+    });
+
+final getReservationAvailableHoursUsecaseProvider =
+    Provider<GetReservationAvailableHoursUsecase>((ref) {
+      final _reservationRepository = ref.watch(reservationRepoProvider);
+      return GetReservationAvailableHoursUsecase(_reservationRepository);
+    });

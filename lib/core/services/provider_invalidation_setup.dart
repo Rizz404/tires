@@ -3,6 +3,7 @@ import 'package:tires/core/services/provider_invalidation_service.dart';
 import 'package:tires/di/service_providers.dart';
 import 'package:tires/features/customer_management/presentation/providers/customer_provider.dart';
 import 'package:tires/features/home/presentation/providers/menu_provider.dart';
+import 'package:tires/features/reservation/presentation/providers/reservation_providers.dart';
 import 'package:tires/features/reservation/presentation/screens/create_reservation_screen.dart';
 import 'package:tires/features/user/presentation/providers/current_user_providers.dart';
 
@@ -30,8 +31,8 @@ void setupProviderInvalidation(WidgetRef ref) {
     ref.invalidate(selectedMenuProvider);
     ref.invalidate(currentMonthProvider);
 
-    // Invalidate mock availability state if it contains user data
-    ref.invalidate(mockAvailabilityStateProvider);
+    // // Invalidate mock availability state if it contains user data
+    // ref.invalidate(mockAvailabilityStateProvider);
 
     // Additional cleanup for any computed providers
     ref.invalidate(menusProvider);

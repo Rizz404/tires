@@ -10,6 +10,7 @@ class ApiEndpoints {
   static const String _menuPrefix = '/menus';
   static const String _userPrefix = '/users';
   static const String _reservationPrefix = '/reservations';
+  static const String _bookingPrefix = '/booking';
   static const String _announcementPrefix = '/announcements';
   static const String _blockedPeriodPrefix = '/blocked-periods';
   static const String _businessSettingPrefix = '/business-settings';
@@ -53,7 +54,9 @@ class ApiEndpoints {
   static const String customerReservations =
       '$_customerPrefix$_reservationPrefix';
   static const String customerReservationCalendar =
-      '$_customerPrefix$_reservationPrefix/calendar';
+      '$_customerPrefix$_bookingPrefix/calendar-data';
+  static const String customerReservationAvailableHours =
+      '$_customerPrefix$_bookingPrefix/available-hours';
   static const String customerAnnouncements =
       '$_customerPrefix$_announcementPrefix';
   static const String customerBlockedPeriods =
