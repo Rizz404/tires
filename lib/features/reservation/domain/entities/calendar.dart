@@ -1,11 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-
-import 'package:tires/features/menu/domain/entities/menu.dart';
-import 'package:tires/features/reservation/domain/entities/reservation_amount.dart';
-import 'package:tires/features/reservation/domain/entities/reservation_customer_info.dart';
-import 'package:tires/features/reservation/domain/entities/reservation_status.dart';
-import 'package:tires/features/reservation/domain/entities/reservation_user.dart';
 
 enum BookingStatus { available, past }
 

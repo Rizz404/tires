@@ -7,10 +7,7 @@ class ReservationCalendarGetNotifier
   final GetReservationCalendarUsecase _getReservationCalendarUsecase;
 
   ReservationCalendarGetNotifier(this._getReservationCalendarUsecase)
-    : super(const ReservationCalendarGetState()) {
-    // Note: Calendar requires menuId parameter, so no automatic initialization
-    // Will be called when menu is selected
-  }
+    : super(const ReservationCalendarGetState()) {}
 
   Future<void> getInitialCalendar({
     String? month,
@@ -23,7 +20,6 @@ class ReservationCalendarGetNotifier
     String? month,
     required String menuId,
   }) async {
-    // Prevent duplicate loading if already in progress
     if (state.status == ReservationCalendarGetStatus.loading) return;
 
     state = state.copyWith(status: ReservationCalendarGetStatus.loading);

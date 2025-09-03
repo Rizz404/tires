@@ -1,10 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tires/core/services/provider_invalidation_service.dart';
 import 'package:tires/di/service_providers.dart';
 import 'package:tires/features/customer_management/presentation/providers/customer_provider.dart';
 import 'package:tires/features/home/presentation/providers/menu_provider.dart';
 import 'package:tires/features/reservation/presentation/providers/reservation_providers.dart';
-import 'package:tires/features/reservation/presentation/screens/create_reservation_screen.dart';
 import 'package:tires/features/user/presentation/providers/current_user_providers.dart';
 
 /// Initializes the provider invalidation service with the necessary callback
