@@ -10,6 +10,7 @@ import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/reservation/domain/entities/reservation_status.dart';
 import 'package:tires/features/user/presentation/providers/current_user_providers.dart';
 import 'package:tires/features/user/presentation/providers/current_user_reservations_state.dart';
+import 'package:tires/features/user/presentation/providers/current_user_dashboard_get_state.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:tires/shared/presentation/widgets/user_end_drawer.dart';
@@ -67,20 +68,26 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
 
   Widget _buildBody() {
     final state = ref.watch(currentUserReservationsNotifierProvider);
+    final dashboardState = ref.watch(currentUserDashboardGetNotifierProvider);
 
     return RefreshIndicator(
-      onRefresh: () => ref
-          .read(currentUserReservationsNotifierProvider.notifier)
-          .refreshReservations(),
+      onRefresh: () async {
+        await Future.wait([
+          ref
+              .read(currentUserReservationsNotifierProvider.notifier)
+              .refreshReservations(),
+          ref
+              .read(currentUserDashboardGetNotifierProvider.notifier)
+              .refreshDashboard(),
+        ]);
+      },
       child: CustomScrollView(
         controller: _scrollController,
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(child: _buildHeader(context)),
           const SliverToBoxAdapter(child: SizedBox(height: 16)),
-          SliverToBoxAdapter(
-            child: _buildStatsCard(context, state.reservations),
-          ),
+          SliverToBoxAdapter(child: _buildStatsCard(context, dashboardState)),
           const SliverToBoxAdapter(child: SizedBox(height: 16)),
           // Add debug section in development
           // if (true) // Replace with kDebugMode for production
@@ -315,14 +322,72 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
     );
   }
 
-  Widget _buildStatsCard(BuildContext context, List<Reservation> reservations) {
-    final pendingCount = reservations
-        .where((r) => r.status == ReservationStatusValue.pending)
-        .length;
-    final confirmedCount = reservations
-        .where((r) => r.status == ReservationStatusValue.confirmed)
-        .length;
+  Widget _buildStatsCard(
+    BuildContext context,
+    CurrentUserDashboardGetState dashboardState,
+  ) {
+    // Show loading state when dashboard is loading
+    if (dashboardState.status == CurrentUserDashboardGetStatus.loading) {
+      return Card(
+        elevation: 2,
+        shadowColor: context.theme.shadowColor.withValues(alpha: 0.05),
+        child: const Padding(
+          padding: EdgeInsets.all(32),
+          child: Center(child: CircularProgressIndicator()),
+        ),
+      );
+    }
 
+    // Show error state or fallback to local data
+    if (dashboardState.status == CurrentUserDashboardGetStatus.error ||
+        dashboardState.dashboard == null) {
+      // Fallback to local reservation data calculation
+      final reservationsState = ref.watch(
+        currentUserReservationsNotifierProvider,
+      );
+      final reservations = reservationsState.reservations;
+      final pendingCount = reservations
+          .where((r) => r.status.value == ReservationStatusValue.pending)
+          .length;
+      final confirmedCount = reservations
+          .where((r) => r.status.value == ReservationStatusValue.confirmed)
+          .length;
+
+      return Card(
+        elevation: 2,
+        shadowColor: context.theme.shadowColor.withValues(alpha: 0.05),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildStatItem(
+                    context,
+                    count: reservations.length,
+                    label: context.l10n.myReservationTotalReservations,
+                  ),
+                  _buildStatItem(
+                    context,
+                    count: pendingCount,
+                    label: context.l10n.reservationStatusPending,
+                  ),
+                  _buildStatItem(
+                    context,
+                    count: confirmedCount,
+                    label: context.l10n.reservationStatusConfirmed,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Use dashboard summary data
+    final summary = dashboardState.dashboard!.summary;
     return Card(
       elevation: 2,
       shadowColor: context.theme.shadowColor.withValues(alpha: 0.05),
@@ -333,17 +398,17 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
           children: [
             _buildStatItem(
               context,
-              count: reservations.length,
+              count: summary.totalReservations,
               label: context.l10n.myReservationTotalReservations,
             ),
             _buildStatItem(
               context,
-              count: pendingCount,
+              count: summary.pendingReservations,
               label: context.l10n.reservationStatusPending,
             ),
             _buildStatItem(
               context,
-              count: confirmedCount,
+              count: summary.completedReservations,
               label: context.l10n.reservationStatusConfirmed,
             ),
           ],

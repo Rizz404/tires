@@ -22,7 +22,11 @@ extension CustomerDashboardEntityMapper on CustomerDashboard {
 
 extension SummaryModelMapper on SummaryModel {
   Summary toEntity() {
-    return Summary(totalReservations: totalReservations);
+    return Summary(
+      totalReservations: totalReservations,
+      pendingReservations: pendingReservations,
+      completedReservations: completedReservations,
+    );
   }
 }
 

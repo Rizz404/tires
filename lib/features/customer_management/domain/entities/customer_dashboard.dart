@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
@@ -17,8 +18,14 @@ class CustomerDashboard extends Equatable {
 
 class Summary extends Equatable {
   final int totalReservations;
+  final int pendingReservations;
+  final int completedReservations;
 
-  const Summary({required this.totalReservations});
+  const Summary({
+    required this.totalReservations,
+    required this.pendingReservations,
+    required this.completedReservations,
+  });
 
   @override
   List<Object> get props => [totalReservations];

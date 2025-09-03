@@ -68,7 +68,11 @@ class CustomerDashboardModel extends CustomerDashboard {
 }
 
 class SummaryModel extends Summary {
-  SummaryModel({required super.totalReservations});
+  SummaryModel({
+    required super.totalReservations,
+    required super.pendingReservations,
+    required super.completedReservations,
+  });
 
   factory SummaryModel.fromMap(Map<String, dynamic> map) {
     DebugHelper.traceModelCreation('SummaryModel', map);
@@ -81,28 +85,58 @@ class SummaryModel extends Summary {
             defaultValue: 0,
           ) ??
           0,
+      pendingReservations:
+          DebugHelper.safeCast<int>(
+            map['total_reservations'],
+            'total_reservations',
+            defaultValue: 0,
+          ) ??
+          0,
+      completedReservations:
+          DebugHelper.safeCast<int>(
+            map['completed_reservations'],
+            'completed_reservations',
+            defaultValue: 0,
+          ) ??
+          0,
     );
   }
 
   factory SummaryModel.fromEntity(Summary entity) {
-    return SummaryModel(totalReservations: entity.totalReservations);
+    return SummaryModel(
+      totalReservations: entity.totalReservations,
+      pendingReservations: entity.pendingReservations,
+      completedReservations: entity.completedReservations,
+    );
   }
 
   factory SummaryModel.fromJson(String source) =>
       SummaryModel.fromMap(json.decode(source));
 
   Map<String, dynamic> toMap() {
-    return {'total_reservations': totalReservations};
+    return {
+      'total_reservations': totalReservations,
+      'pending_reservations': pendingReservations,
+      'completed_reservations': completedReservations,
+    };
   }
 
   String toJson() => json.encode(toMap());
 
-  SummaryModel copyWith({int? totalReservations}) {
+  SummaryModel copyWith({
+    int? totalReservations,
+    int? pendingReservations,
+    int? completedReservations,
+  }) {
     return SummaryModel(
       totalReservations: totalReservations ?? this.totalReservations,
+      pendingReservations: pendingReservations ?? this.pendingReservations,
+      completedReservations:
+          completedReservations ?? this.completedReservations,
     );
   }
 
   @override
-  String toString() => 'SummaryModel(totalReservations: $totalReservations)';
+  String toString() =>
+      'SummaryModel(totalReservations: $totalReservations, pendingReservations: $pendingReservations, completedReservations: $completedReservations)';
 }
