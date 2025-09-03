@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
 class AppDropdownItem<T> {
@@ -10,7 +11,8 @@ class AppDropdownItem<T> {
 }
 
 class AppDropdown<T> extends StatelessWidget {
-  final T? value;
+  final String name;
+  final T? initialValue;
   final List<AppDropdownItem<T>> items;
   final ValueChanged<T?>? onChanged;
   final String? hintText;
@@ -21,10 +23,12 @@ class AppDropdown<T> extends StatelessWidget {
   final Widget? prefixIcon;
   final bool isExpanded;
   final double? width;
+  final String? Function(T?)? validator;
 
   const AppDropdown({
     super.key,
-    this.value,
+    required this.name,
+    this.initialValue,
     required this.items,
     this.onChanged,
     this.hintText,
@@ -35,16 +39,19 @@ class AppDropdown<T> extends StatelessWidget {
     this.prefixIcon,
     this.isExpanded = true,
     this.width,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    Widget dropdown = DropdownButtonFormField<T>(
-      value: value,
-      onChanged: enabled ? onChanged : null,
-      isExpanded: isExpanded,
+    Widget dropdown = FormBuilderDropdown<T>(
+      name: name,
+      initialValue: initialValue,
+      enabled: enabled,
+      onChanged: onChanged,
+      validator: validator,
       items: items.map((item) {
         return DropdownMenuItem<T>(
           value: item.value,
@@ -64,6 +71,7 @@ class AppDropdown<T> extends StatelessWidget {
           ),
         );
       }).toList(),
+      isExpanded: isExpanded,
       decoration: InputDecoration(
         labelText: label,
         hintText: hintText ?? 'Select option',

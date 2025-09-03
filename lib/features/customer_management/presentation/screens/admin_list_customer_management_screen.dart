@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/features/user/domain/entities/user.dart';
@@ -27,12 +28,12 @@ class AdminListCustomerManagementScreen extends ConsumerStatefulWidget {
 class _AdminListCustomerManagementScreenState
     extends ConsumerState<AdminListCustomerManagementScreen> {
   final ScrollController _scrollController = ScrollController();
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   bool _isLoading = false;
   List<User> _customers = [];
   List<User> _filteredCustomers = [];
   String _searchQuery = '';
   String _selectedFilter = 'all';
-  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -45,7 +46,6 @@ class _AdminListCustomerManagementScreenState
   void dispose() {
     _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
-    _searchController.dispose();
     super.dispose();
   }
 
@@ -216,122 +216,133 @@ class _AdminListCustomerManagementScreenState
   }
 
   Widget _buildFilters(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: AppSearchField(
-                controller: _searchController,
-                hintText: context
-                    .l10n
-                    .adminListCustomerManagementFiltersSearchPlaceholder,
-                onChanged: (value) {
-                  setState(() {
-                    _searchQuery = value;
-                  });
-                  _applyFilters();
-                },
-                onClear: () {
-                  setState(() {
-                    _searchQuery = '';
-                  });
-                  _applyFilters();
-                },
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: AppDropdown<String>(
-                value: _selectedFilter,
-                hintText:
-                    context.l10n.adminListCustomerManagementFiltersAllTypes,
-                items: [
-                  AppDropdownItem(
-                    value: 'all',
-                    label:
-                        context.l10n.adminListCustomerManagementFiltersAllTypes,
-                    icon: const Icon(Icons.list_alt, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'first_time',
-                    label: context
-                        .l10n
-                        .adminListCustomerManagementFiltersFirstTime,
-                    icon: const Icon(Icons.fiber_new, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'repeat',
-                    label:
-                        context.l10n.adminListCustomerManagementFiltersRepeat,
-                    icon: const Icon(Icons.repeat, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'dormant',
-                    label:
-                        context.l10n.adminListCustomerManagementFiltersDormant,
-                    icon: const Icon(Icons.schedule, size: 18),
-                  ),
-                ],
-                onChanged: (value) {
-                  setState(() {
-                    _selectedFilter = value ?? 'all';
-                  });
-                  _applyFilters();
-                },
-              ),
-            ),
-          ],
-        ),
-        if (_searchQuery.isNotEmpty || _selectedFilter != 'all') ...[
-          const SizedBox(height: 12),
+    return FormBuilder(
+      key: _formKey,
+      child: Column(
+        children: [
           Row(
             children: [
-              if (_searchQuery.isNotEmpty)
-                Chip(
-                  label: AppText('Search: $_searchQuery'),
-                  deleteIcon: const Icon(Icons.close, size: 16),
-                  onDeleted: () {
-                    _searchController.clear();
+              Expanded(
+                flex: 2,
+                child: AppSearchField(
+                  name: 'search_query',
+                  hintText: context
+                      .l10n
+                      .adminListCustomerManagementFiltersSearchPlaceholder,
+                  initialValue: _searchQuery,
+                  onChanged: (value) {
+                    setState(() {
+                      _searchQuery = value ?? '';
+                    });
+                    _applyFilters();
+                  },
+                  onClear: () {
                     setState(() {
                       _searchQuery = '';
                     });
                     _applyFilters();
                   },
                 ),
-              if (_searchQuery.isNotEmpty && _selectedFilter != 'all')
-                const SizedBox(width: 8),
-              if (_selectedFilter != 'all')
-                Chip(
-                  label: AppText('Filter: ${_getFilterLabel(_selectedFilter)}'),
-                  deleteIcon: const Icon(Icons.close, size: 16),
-                  onDeleted: () {
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: AppDropdown<String>(
+                  name: 'customer_filter',
+                  initialValue: _selectedFilter,
+                  hintText:
+                      context.l10n.adminListCustomerManagementFiltersAllTypes,
+                  items: [
+                    AppDropdownItem(
+                      value: 'all',
+                      label: context
+                          .l10n
+                          .adminListCustomerManagementFiltersAllTypes,
+                      icon: const Icon(Icons.list_alt, size: 18),
+                    ),
+                    AppDropdownItem(
+                      value: 'first_time',
+                      label: context
+                          .l10n
+                          .adminListCustomerManagementFiltersFirstTime,
+                      icon: const Icon(Icons.fiber_new, size: 18),
+                    ),
+                    AppDropdownItem(
+                      value: 'repeat',
+                      label:
+                          context.l10n.adminListCustomerManagementFiltersRepeat,
+                      icon: const Icon(Icons.repeat, size: 18),
+                    ),
+                    AppDropdownItem(
+                      value: 'dormant',
+                      label: context
+                          .l10n
+                          .adminListCustomerManagementFiltersDormant,
+                      icon: const Icon(Icons.schedule, size: 18),
+                    ),
+                  ],
+                  onChanged: (value) {
                     setState(() {
-                      _selectedFilter = 'all';
+                      _selectedFilter = value ?? 'all';
                     });
                     _applyFilters();
                   },
                 ),
-              const Spacer(),
-              TextButton.icon(
-                onPressed: () {
-                  _searchController.clear();
-                  setState(() {
-                    _searchQuery = '';
-                    _selectedFilter = 'all';
-                  });
-                  _applyFilters();
-                },
-                icon: const Icon(Icons.clear_all, size: 16),
-                label: AppText(
-                  context.l10n.adminListCustomerManagementFiltersReset,
-                ),
               ),
             ],
           ),
+          if (_searchQuery.isNotEmpty || _selectedFilter != 'all') ...[
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                if (_searchQuery.isNotEmpty)
+                  Chip(
+                    label: AppText('Search: $_searchQuery'),
+                    deleteIcon: const Icon(Icons.close, size: 16),
+                    onDeleted: () {
+                      _formKey.currentState?.fields['search_query']?.didChange(
+                        '',
+                      );
+                      setState(() {
+                        _searchQuery = '';
+                      });
+                      _applyFilters();
+                    },
+                  ),
+                if (_searchQuery.isNotEmpty && _selectedFilter != 'all')
+                  const SizedBox(width: 8),
+                if (_selectedFilter != 'all')
+                  Chip(
+                    label: AppText(
+                      'Filter: ${_getFilterLabel(_selectedFilter)}',
+                    ),
+                    deleteIcon: const Icon(Icons.close, size: 16),
+                    onDeleted: () {
+                      setState(() {
+                        _selectedFilter = 'all';
+                      });
+                      _applyFilters();
+                    },
+                  ),
+                const Spacer(),
+                TextButton.icon(
+                  onPressed: () {
+                    _formKey.currentState?.reset();
+                    setState(() {
+                      _searchQuery = '';
+                      _selectedFilter = 'all';
+                    });
+                    _applyFilters();
+                  },
+                  icon: const Icon(Icons.clear_all, size: 16),
+                  label: AppText(
+                    context.l10n.adminListCustomerManagementFiltersReset,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ],
-      ],
+      ),
     );
   }
 

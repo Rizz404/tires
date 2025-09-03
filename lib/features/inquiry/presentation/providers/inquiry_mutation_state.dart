@@ -1,31 +1,32 @@
 import 'package:equatable/equatable.dart';
 import 'package:tires/core/error/failure.dart';
-import 'package:tires/features/inquiry/domain/entities/contact.dart';
+import 'package:tires/features/inquiry/domain/entities/inquiry_response.dart';
 
 enum InquiryMutationStatus { initial, loading, success, error }
 
 class InquiryMutationState extends Equatable {
   final InquiryMutationStatus status;
-  final Contact? createdContact;
+  final InquiryResponse? createdInquiryResponse;
   final Failure? failure;
   final String? successMessage;
 
   const InquiryMutationState({
     this.status = InquiryMutationStatus.initial,
-    this.createdContact,
+    this.createdInquiryResponse,
     this.failure,
     this.successMessage,
   });
 
   InquiryMutationState copyWith({
     InquiryMutationStatus? status,
-    Contact? createdContact,
+    InquiryResponse? createdInquiryResponse,
     Failure? failure,
     String? successMessage,
   }) {
     return InquiryMutationState(
       status: status ?? this.status,
-      createdContact: createdContact ?? this.createdContact,
+      createdInquiryResponse:
+          createdInquiryResponse ?? this.createdInquiryResponse,
       failure: failure ?? this.failure,
       successMessage: successMessage ?? this.successMessage,
     );
@@ -34,7 +35,7 @@ class InquiryMutationState extends Equatable {
   InquiryMutationState copyWithClearError() {
     return InquiryMutationState(
       status: status,
-      createdContact: createdContact,
+      createdInquiryResponse: createdInquiryResponse,
       failure: null,
       successMessage: successMessage,
     );
@@ -43,12 +44,17 @@ class InquiryMutationState extends Equatable {
   InquiryMutationState copyWithClearSuccess() {
     return InquiryMutationState(
       status: status,
-      createdContact: createdContact,
+      createdInquiryResponse: createdInquiryResponse,
       failure: failure,
       successMessage: null,
     );
   }
 
   @override
-  List<Object?> get props => [status, createdContact, failure, successMessage];
+  List<Object?> get props => [
+    status,
+    createdInquiryResponse,
+    failure,
+    successMessage,
+  ];
 }

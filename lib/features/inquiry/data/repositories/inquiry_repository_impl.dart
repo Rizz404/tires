@@ -4,8 +4,8 @@ import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/network/api_error_response.dart';
 import 'package:tires/core/network/validation_error_mapper.dart';
 import 'package:tires/features/inquiry/data/datasources/inquiry_remote_datasource.dart';
-import 'package:tires/features/inquiry/data/mapper/contact_mapper.dart';
-import 'package:tires/features/inquiry/domain/entities/contact.dart';
+import 'package:tires/features/inquiry/data/mapper/inquiry_response_mapper.dart';
+import 'package:tires/features/inquiry/domain/entities/inquiry_response.dart';
 import 'package:tires/features/inquiry/domain/repositories/inquiry_repository.dart';
 
 class InquiryRepositoryImpl implements InquiryRepository {
@@ -14,7 +14,7 @@ class InquiryRepositoryImpl implements InquiryRepository {
   InquiryRepositoryImpl(this._inquiryRemoteDatasource);
 
   @override
-  Future<Either<Failure, ItemSuccessResponse<Contact>>> createInquiry({
+  Future<Either<Failure, ItemSuccessResponse<InquiryResponse>>> createInquiry({
     required String name,
     required String email,
     String? phone,

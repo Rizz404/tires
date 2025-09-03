@@ -38,7 +38,7 @@ class InquiryMutationNotifier extends StateNotifier<InquiryMutationState> {
         state = state
             .copyWith(
               status: InquiryMutationStatus.success,
-              createdContact: success.data,
+              createdInquiryResponse: success.data,
               successMessage: success.message ?? 'Inquiry sent successfully',
             )
             .copyWithClearError();

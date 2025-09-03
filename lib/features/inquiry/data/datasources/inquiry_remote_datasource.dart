@@ -1,10 +1,10 @@
 import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
-import 'package:tires/features/inquiry/data/models/contact_model.dart';
+import 'package:tires/features/inquiry/data/models/inquiry_response_model.dart';
 
 abstract class InquiryRemoteDatasource {
-  Future<ApiResponse<ContactModel>> createInquiry({
+  Future<ApiResponse<InquiryResponseModel>> createInquiry({
     required String name,
     required String email,
     String? phone,
@@ -19,7 +19,7 @@ class InquiryRemoteDatasourceImpl implements InquiryRemoteDatasource {
   InquiryRemoteDatasourceImpl(this._dioClient);
 
   @override
-  Future<ApiResponse<ContactModel>> createInquiry({
+  Future<ApiResponse<InquiryResponseModel>> createInquiry({
     required String name,
     required String email,
     String? phone,
@@ -35,11 +35,11 @@ class InquiryRemoteDatasourceImpl implements InquiryRemoteDatasource {
         "message": message,
       };
 
-      final response = await _dioClient.post<ContactModel>(
+      final response = await _dioClient.post<InquiryResponseModel>(
         ApiEndpoints.customerInquiry,
         data: data,
         fromJson: (json) {
-          return ContactModel.fromMap(json as Map<String, dynamic>);
+          return InquiryResponseModel.fromMap(json as Map<String, dynamic>);
         },
       );
 

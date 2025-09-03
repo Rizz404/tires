@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
 class AppSearchField extends StatefulWidget {
+  final String name;
   final String? hintText;
   final String? initialValue;
   final ValueChanged<String>? onChanged;
@@ -12,9 +14,12 @@ class AppSearchField extends StatefulWidget {
   final TextEditingController? controller;
   final Widget? prefixIcon;
   final bool showClearButton;
+  final String? Function(String?)? validator;
+  final String? label;
 
   const AppSearchField({
     super.key,
+    required this.name,
     this.hintText,
     this.initialValue,
     this.onChanged,
@@ -25,6 +30,8 @@ class AppSearchField extends StatefulWidget {
     this.controller,
     this.prefixIcon,
     this.showClearButton = true,
+    this.validator,
+    this.label,
   });
 
   @override
@@ -32,44 +39,28 @@ class AppSearchField extends StatefulWidget {
 }
 
 class _AppSearchFieldState extends State<AppSearchField> {
-  late TextEditingController _controller;
+  late GlobalKey<FormBuilderFieldState> _fieldKey;
   bool _hasText = false;
 
   @override
   void initState() {
     super.initState();
-    _controller = widget.controller ?? TextEditingController();
-
-    if (widget.initialValue != null) {
-      _controller.text = widget.initialValue!;
-      _hasText = widget.initialValue!.isNotEmpty;
-    }
-
-    _controller.addListener(_onTextChanged);
+    _fieldKey = GlobalKey<FormBuilderFieldState>();
+    _hasText = widget.initialValue?.isNotEmpty ?? false;
   }
 
-  @override
-  void dispose() {
-    if (widget.controller == null) {
-      _controller.dispose();
-    } else {
-      _controller.removeListener(_onTextChanged);
-    }
-    super.dispose();
-  }
-
-  void _onTextChanged() {
-    final hasText = _controller.text.isNotEmpty;
+  void _onTextChanged(String? value) {
+    final hasText = (value?.isNotEmpty) ?? false;
     if (_hasText != hasText) {
       setState(() {
         _hasText = hasText;
       });
     }
-    widget.onChanged?.call(_controller.text);
+    widget.onChanged?.call(value ?? '');
   }
 
   void _clearText() {
-    _controller.clear();
+    _fieldKey.currentState?.didChange('');
     widget.onClear?.call();
     widget.onChanged?.call('');
   }
@@ -78,11 +69,16 @@ class _AppSearchFieldState extends State<AppSearchField> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return TextField(
-      controller: _controller,
+    return FormBuilderTextField(
+      key: _fieldKey,
+      name: widget.name,
+      initialValue: widget.initialValue,
+      controller: widget.controller,
       enabled: widget.enabled,
-      onChanged: widget.onChanged,
+      onChanged: _onTextChanged,
+      validator: widget.validator,
       decoration: InputDecoration(
+        labelText: widget.label,
         hintText: widget.hintText ?? 'Search...',
         hintStyle: theme.textTheme.bodyMedium?.copyWith(
           color: theme.colorScheme.onSurface.withValues(alpha: 0.6),

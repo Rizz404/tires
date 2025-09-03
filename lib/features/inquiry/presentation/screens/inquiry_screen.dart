@@ -148,8 +148,8 @@ class _InquiryScreenState extends ConsumerState<InquiryScreen> {
                 const SizedBox(height: 24),
                 // Simple debug example
                 if (true) // Change to kDebugMode for production
-                  _buildSimpleDebugSection(),
-                const SizedBox(height: 24),
+                  // _buildSimpleDebugSection(),
+                  const SizedBox(height: 24),
               ],
             ),
           ),
@@ -213,50 +213,50 @@ class _InquiryScreenState extends ConsumerState<InquiryScreen> {
     );
   }
 
-  Widget _buildSimpleDebugSection() {
-    return DebugSection(
-      title: '📝 Inquiry Form Debug',
-      actions: [
-        DebugAction.inspect(
-          label: 'Inspect Form Values',
-          onPressed: () {
-            final formValues = _formKey.currentState?.value ?? {};
-            DebugHelper.logMapDetails(
-              Map<String, dynamic>.from(formValues),
-              title: 'Current Form Values',
-            );
-          },
-        ),
-        DebugAction.inspect(
-          label: 'Inspect Inquiry State',
-          onPressed: () {
-            final state = ref.read(inquiryMutationNotifierProvider);
-            print('\n=== Inquiry Mutation State Debug ===');
-            print('Status: ${state.status}');
-            print('Success Message: ${state.successMessage}');
-            print('Failure: ${state.failure}');
-            print('Created Contact: ${state.createdContact}');
-            print('=== End Debug ===\n');
-          },
-        ),
-        DebugAction.clear(
-          label: 'Clear Form',
-          onPressed: () {
-            _formKey.currentState?.reset();
-            setState(() {
-              _validationErrors = null;
-            });
-            ref.read(inquiryMutationNotifierProvider.notifier).clearState();
-          },
-        ),
-        DebugAction.viewLogs(
-          label: 'Show Debug Info',
-          context: context,
-          message: 'Form and state debug information logged to console',
-        ),
-      ],
-    );
-  }
+  // Widget _buildSimpleDebugSection() {
+  //   return DebugSection(
+  //     title: '📝 Inquiry Form Debug',
+  //     actions: [
+  //       DebugAction.inspect(
+  //         label: 'Inspect Form Values',
+  //         onPressed: () {
+  //           final formValues = _formKey.currentState?.value ?? {};
+  //           DebugHelper.logMapDetails(
+  //             Map<String, dynamic>.from(formValues),
+  //             title: 'Current Form Values',
+  //           );
+  //         },
+  //       ),
+  //       DebugAction.inspect(
+  //         label: 'Inspect Inquiry State',
+  //         onPressed: () {
+  //           final state = ref.read(inquiryMutationNotifierProvider);
+  //           print('\n=== Inquiry Mutation State Debug ===');
+  //           print('Status: ${state.status}');
+  //           print('Success Message: ${state.successMessage}');
+  //           print('Failure: ${state.failure}');
+  //           print('Created Contact: ${state.createdContact}');
+  //           print('=== End Debug ===\n');
+  //         },
+  //       ),
+  //       DebugAction.clear(
+  //         label: 'Clear Form',
+  //         onPressed: () {
+  //           _formKey.currentState?.reset();
+  //           setState(() {
+  //             _validationErrors = null;
+  //           });
+  //           ref.read(inquiryMutationNotifierProvider.notifier).clearState();
+  //         },
+  //       ),
+  //       DebugAction.viewLogs(
+  //         label: 'Show Debug Info',
+  //         context: context,
+  //         message: 'Form and state debug information logged to console',
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildSectionTitle(String title) {
     return Padding(

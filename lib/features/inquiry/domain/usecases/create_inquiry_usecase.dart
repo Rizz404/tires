@@ -3,17 +3,18 @@ import 'package:fpdart/fpdart.dart';
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/usecases/usecase.dart';
-import 'package:tires/features/inquiry/domain/entities/contact.dart';
+import 'package:tires/features/inquiry/domain/entities/inquiry_response.dart';
 import 'package:tires/features/inquiry/domain/repositories/inquiry_repository.dart';
 
 class CreateInquiryUsecase
-    implements Usecase<ItemSuccessResponse<Contact>, CreateInquiryParams> {
+    implements
+        Usecase<ItemSuccessResponse<InquiryResponse>, CreateInquiryParams> {
   final InquiryRepository _inquiryRepository;
 
   CreateInquiryUsecase(this._inquiryRepository);
 
   @override
-  Future<Either<Failure, ItemSuccessResponse<Contact>>> call(
+  Future<Either<Failure, ItemSuccessResponse<InquiryResponse>>> call(
     CreateInquiryParams params,
   ) async {
     return await _inquiryRepository.createInquiry(

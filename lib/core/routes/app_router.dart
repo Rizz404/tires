@@ -49,7 +49,7 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
     // * Authentication routes
-    AutoRoute(page: LoginRoute.page, path: '/login'),
+    AutoRoute(page: LoginRoute.page, path: '/login', initial: true),
     AutoRoute(page: RegisterRoute.page, path: '/register'),
     AutoRoute(page: ForgotPasswordRoute.page, path: '/forgot-password'),
     AutoRoute(page: SetNewPasswordRoute.page, path: '/set-new-password'),
@@ -161,7 +161,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: UserTabRoute.page,
       path: '/',
-      initial: true,
       guards: [_authGuard],
       children: [
         AutoRoute(page: HomeRoute.page, path: 'home'),
