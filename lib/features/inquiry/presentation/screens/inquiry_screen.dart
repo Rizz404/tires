@@ -74,6 +74,22 @@ class _InquiryScreenState extends ConsumerState<InquiryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Watch the current user state and populate form immediately if user exists
+    final userGetState = ref.watch(inquiryUserGetNotifierProvider);
+
+    // Check if user data is available and form needs to be populated
+    if (userGetState.status == CurrentUserGetStatus.success &&
+        userGetState.user != null &&
+        _currentUser != userGetState.user) {
+      // Update current user and populate form
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() {
+          _currentUser = userGetState.user;
+        });
+        _populateForm();
+      });
+    }
+
     // Listen to user get state changes
     ref.listen(inquiryUserGetNotifierProvider, (previous, next) {
       if (next.status == CurrentUserGetStatus.success && next.user != null) {
@@ -102,7 +118,8 @@ class _InquiryScreenState extends ConsumerState<InquiryScreen> {
           context,
           message: next.successMessage ?? context.l10n.inquirySuccessMessage,
         );
-        _formKey.currentState?.reset();
+        // Only clear subject and message fields, keep user data
+        _formKey.currentState?.patchValue({'subject': '', 'message': ''});
         FocusScope.of(context).unfocus();
         // Clear success message after showing toast
         ref.read(inquiryMutationNotifierProvider.notifier).clearSuccess();
@@ -121,7 +138,6 @@ class _InquiryScreenState extends ConsumerState<InquiryScreen> {
       }
     });
 
-    final userGetState = ref.watch(inquiryUserGetNotifierProvider);
     final inquiryMutationState = ref.watch(inquiryMutationNotifierProvider);
     final l10n = context.l10n;
 

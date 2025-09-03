@@ -133,6 +133,22 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Watch the current user state and populate form immediately if user exists
+    final userGetState = ref.watch(currentUserGetNotifierProvider);
+
+    // Check if user data is available and form needs to be populated
+    if (userGetState.status == CurrentUserGetStatus.success &&
+        userGetState.user != null &&
+        _currentUser != userGetState.user) {
+      // Update current user and populate form
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() {
+          _currentUser = userGetState.user;
+        });
+        _populateForm();
+      });
+    }
+
     // Listen to user get state changes
     ref.listen(currentUserGetNotifierProvider, (previous, next) {
       if (next.status == CurrentUserGetStatus.success && next.user != null) {
@@ -184,7 +200,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       }
     });
 
-    final userGetState = ref.watch(currentUserGetNotifierProvider);
     final userMutationState = ref.watch(currentUserMutationNotifierProvider);
     final l10n = context.l10n;
 
