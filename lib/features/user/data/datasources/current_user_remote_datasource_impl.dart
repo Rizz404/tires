@@ -54,7 +54,7 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
         if (gender != null) 'gender': gender,
       };
 
-      final response = await _dioClient.put<UserModel>(
+      final response = await _dioClient.patch<UserModel>(
         ApiEndpoints.customerProfile,
         data: data,
         fromJson: (json) {
@@ -86,7 +86,7 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
         'password_confirmation': confirmPassword,
       };
 
-      final response = await _dioClient.put(
+      final response = await _dioClient.patch(
         '${ApiEndpoints.customerProfile}/password',
         data: data,
       );

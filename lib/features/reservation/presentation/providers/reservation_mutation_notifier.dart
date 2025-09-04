@@ -16,10 +16,20 @@ class ReservationMutationNotifier
     this._deleteReservationUsecase,
   ) : super(const ReservationMutationState());
 
-  Future<void> createReservation() async {
+  Future<void> createReservation({
+    required int menuId,
+    required DateTime reservationDatetime,
+    int? numberOfPeople,
+    required int amount,
+  }) async {
     state = state.copyWith(status: ReservationMutationStatus.loading);
 
-    const params = CreateReservationParams();
+    final params = CreateReservationParams(
+      menuId: menuId,
+      reservationDatetime: reservationDatetime,
+      amount: amount,
+      numberOfPeople: numberOfPeople ?? 1,
+    );
     final response = await _createReservationUsecase(params);
 
     response.fold(

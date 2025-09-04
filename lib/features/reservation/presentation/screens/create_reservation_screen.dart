@@ -6,6 +6,10 @@ import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
+import 'package:tires/features/reservation/domain/entities/reservation.dart';
+import 'package:tires/features/reservation/domain/entities/reservation_amount.dart';
+import 'package:tires/features/reservation/domain/entities/reservation_customer_info.dart';
+import 'package:tires/features/reservation/domain/entities/reservation_status.dart';
 import 'package:tires/features/reservation/presentation/providers/reservation_providers.dart';
 import 'package:tires/features/reservation/presentation/widgets/booking_summary_card.dart';
 import 'package:tires/features/reservation/presentation/widgets/reservation_calendar.dart';
@@ -106,7 +110,7 @@ class CreateReservationScreen extends ConsumerWidget {
                   selectedTime: selectedTime,
                 ),
                 const SizedBox(height: 24),
-                _buildConfirmButton(context),
+                _buildConfirmButton(context, ref),
               ],
             ],
           ),
@@ -264,13 +268,65 @@ class CreateReservationScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildConfirmButton(BuildContext context) {
+  Widget _buildConfirmButton(BuildContext context, WidgetRef ref) {
     return SizedBox(
       width: double.infinity,
       child: AppButton(
         text: 'Confirm Reservation',
         color: AppButtonColor.primary,
         onPressed: () {
+          final selectedDate = ref.read(selectedDateProvider);
+          final selectedTime = ref.read(selectedTimeProvider);
+          final selectedMenu = ref.read(selectedMenuProvider);
+
+          if (selectedDate == null ||
+              selectedTime == null ||
+              selectedMenu == null) {
+            return;
+          }
+
+          final timeParts = selectedTime.split(':');
+          final hour = int.parse(timeParts[0]);
+          final minute = int.parse(timeParts[1]);
+          final reservationDateTime = DateTime(
+            selectedDate.year,
+            selectedDate.month,
+            selectedDate.day,
+            hour,
+            minute,
+          );
+
+          final now = DateTime.now();
+          final pendingReservation = Reservation(
+            id: 0,
+            reservationNumber: '',
+            createdAt: now,
+            updatedAt: now,
+            reservationDatetime: reservationDateTime,
+            menu: selectedMenu,
+            amount: ReservationAmount(
+              raw: selectedMenu.price.formatted,
+              formatted: selectedMenu.price.formatted,
+            ),
+            status: const ReservationStatus(
+              value: ReservationStatusValue.pending,
+              label: 'Pending',
+            ),
+            numberOfPeople: 1,
+            customerInfo: const ReservationCustomerInfo(
+              fullName: '',
+              fullNameKana: '',
+              email: '',
+              phoneNumber: '',
+              isGuest: false,
+            ),
+            user: null,
+            notes: null,
+          );
+
+          ref.read(pendingReservationProvider.notifier).state =
+              pendingReservation;
+
           context.router.push(const ConfirmReservationRoute());
         },
       ),

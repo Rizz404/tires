@@ -6,7 +6,12 @@ import 'package:tires/features/reservation/domain/entities/calendar.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 
 abstract class ReservationRepository {
-  Future<Either<Failure, ItemSuccessResponse<Reservation>>> createReservation();
+  Future<Either<Failure, ItemSuccessResponse<Reservation>>> createReservation({
+    required int menuId,
+    required DateTime reservationDatetime,
+    int numberOfPeople = 1,
+    required int amount,
+  });
   Future<Either<Failure, CursorPaginatedSuccess<Reservation>>>
   getReservationsCursor({
     required bool paginate,

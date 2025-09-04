@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/reservation/domain/entities/reservation_amount.dart';
 import 'package:tires/features/reservation/domain/entities/reservation_customer_info.dart';
@@ -49,4 +50,34 @@ class Reservation extends Equatable {
     createdAt,
     updatedAt,
   ];
+
+  Reservation copyWith({
+    int? id,
+    String? reservationNumber,
+    ReservationUser? user,
+    ReservationCustomerInfo? customerInfo,
+    Menu? menu,
+    DateTime? reservationDatetime,
+    int? numberOfPeople,
+    ReservationAmount? amount,
+    ReservationStatus? status,
+    String? notes,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return Reservation(
+      id: id ?? this.id,
+      reservationNumber: reservationNumber ?? this.reservationNumber,
+      user: user ?? this.user,
+      customerInfo: customerInfo ?? this.customerInfo,
+      menu: menu ?? this.menu,
+      reservationDatetime: reservationDatetime ?? this.reservationDatetime,
+      numberOfPeople: numberOfPeople ?? this.numberOfPeople,
+      amount: amount ?? this.amount,
+      status: status ?? this.status,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
 }

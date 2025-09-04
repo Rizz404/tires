@@ -1,5 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
+
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/usecases/usecase.dart';
@@ -17,13 +19,33 @@ class CreateReservationUsecase
   Future<Either<Failure, ItemSuccessResponse<Reservation>>> call(
     CreateReservationParams params,
   ) async {
-    return await _reservationRepository.createReservation();
+    return await _reservationRepository.createReservation(
+      menuId: params.menuId,
+      reservationDatetime: params.reservationDatetime,
+      numberOfPeople: params.numberOfPeople,
+      amount: params.amount,
+    );
   }
 }
 
 class CreateReservationParams extends Equatable {
-  const CreateReservationParams();
+  final int menuId;
+  final DateTime reservationDatetime;
+  final int numberOfPeople;
+  final int amount;
+
+  const CreateReservationParams({
+    required this.menuId,
+    required this.reservationDatetime,
+    this.numberOfPeople = 1,
+    required this.amount,
+  });
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [
+    menuId,
+    reservationDatetime,
+    numberOfPeople,
+    amount,
+  ];
 }

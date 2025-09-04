@@ -53,6 +53,8 @@ class ApiEndpoints {
   static const String customerUsers = '$_customerPrefix$_userPrefix';
   static const String customerReservations =
       '$_customerPrefix$_reservationPrefix';
+  static const String customerCreateReservation =
+      '$_customerPrefix$_bookingPrefix/create-reservation';
   static const String customerReservationCalendar =
       '$_customerPrefix$_bookingPrefix/calendar-data';
   static const String customerReservationAvailableHours =

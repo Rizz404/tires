@@ -18,12 +18,31 @@ class ReservationRepositoryImpl implements ReservationRepository {
   ReservationRepositoryImpl(this._reservationRemoteDatasource);
 
   @override
-  Future<Either<Failure, ItemSuccessResponse<Reservation>>>
-  createReservation() async {
-    // TODO: implement createReservation - method not available in datasource
-    throw UnimplementedError(
-      'createReservation method not implemented in datasource',
-    );
+  Future<Either<Failure, ItemSuccessResponse<Reservation>>> createReservation({
+    required int menuId,
+    required DateTime reservationDatetime,
+    int numberOfPeople = 1,
+    required int amount,
+  }) async {
+    try {
+      final result = await _reservationRemoteDatasource.createReservation(
+        menuId: menuId,
+        reservationDatetime: reservationDatetime,
+        numberOfPeople: numberOfPeople,
+        amount: amount,
+      );
+
+      return Right(
+        ItemSuccessResponse<Reservation>(
+          data: result.data,
+          message: result.message,
+        ),
+      );
+    } on ApiErrorResponse catch (e) {
+      return Left(ServerFailure(message: e.message, code: e.code));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
   }
 
   @override

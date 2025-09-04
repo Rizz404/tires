@@ -26,35 +26,35 @@ class ReservationModel extends Reservation {
     required super.updatedAt,
   });
 
-  ReservationModel copyWith({
-    int? id,
-    String? reservationNumber,
-    ReservationUserModel? user,
-    ReservationCustomerInfoModel? customerInfo,
-    MenuModel? menu,
-    DateTime? reservationDatetime,
-    int? numberOfPeople,
-    ReservationAmountModel? amount,
-    ReservationStatusModel? status,
-    String? notes,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-  }) {
-    return ReservationModel(
-      id: id ?? this.id,
-      reservationNumber: reservationNumber ?? this.reservationNumber,
-      user: user ?? this.user,
-      customerInfo: customerInfo ?? this.customerInfo,
-      menu: menu ?? this.menu,
-      reservationDatetime: reservationDatetime ?? this.reservationDatetime,
-      numberOfPeople: numberOfPeople ?? this.numberOfPeople,
-      amount: amount ?? this.amount,
-      status: status ?? this.status,
-      notes: notes ?? this.notes,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-    );
-  }
+  // ReservationModel copyWith({
+  //   int? id,
+  //   String? reservationNumber,
+  //   ReservationUserModel? user,
+  //   ReservationCustomerInfoModel? customerInfo,
+  //   MenuModel? menu,
+  //   DateTime? reservationDatetime,
+  //   int? numberOfPeople,
+  //   ReservationAmountModel? amount,
+  //   ReservationStatusModel? status,
+  //   String? notes,
+  //   DateTime? createdAt,
+  //   DateTime? updatedAt,
+  // }) {
+  //   return ReservationModel(
+  //     id: id ?? this.id,
+  //     reservationNumber: reservationNumber ?? this.reservationNumber,
+  //     user: user ?? this.user,
+  //     customerInfo: customerInfo ?? this.customerInfo,
+  //     menu: menu ?? this.menu,
+  //     reservationDatetime: reservationDatetime ?? this.reservationDatetime,
+  //     numberOfPeople: numberOfPeople ?? this.numberOfPeople,
+  //     amount: amount ?? this.amount,
+  //     status: status ?? this.status,
+  //     notes: notes ?? this.notes,
+  //     createdAt: createdAt ?? this.createdAt,
+  //     updatedAt: updatedAt ?? this.updatedAt,
+  //   );
+  // }
 
   Map<String, dynamic> toMap() {
     return {

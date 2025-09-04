@@ -2,94 +2,201 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/core/theme/app_theme.dart';
-import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
-import 'package:tires/features/reservation/domain/entities/reservation_amount.dart';
-import 'package:tires/features/reservation/domain/entities/reservation_customer_info.dart';
-import 'package:tires/features/reservation/domain/entities/reservation_status.dart';
-import 'package:tires/features/reservation/domain/entities/reservation_user.dart';
+import 'package:tires/features/reservation/presentation/providers/reservation_mutation_state.dart';
+import 'package:tires/features/reservation/presentation/providers/reservation_providers.dart';
+import 'package:tires/shared/presentation/utils/app_toast.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
 import 'package:tires/shared/presentation/widgets/app_checkbox.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
+import 'package:tires/shared/presentation/widgets/loading_overlay.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:tires/shared/presentation/widgets/user_app_bar.dart';
 import 'package:tires/shared/presentation/widgets/user_end_drawer.dart';
 
 @RoutePage()
-class ReservationSummaryScreen extends StatefulWidget {
+class ReservationSummaryScreen extends ConsumerStatefulWidget {
   const ReservationSummaryScreen({super.key});
 
   @override
-  State<ReservationSummaryScreen> createState() =>
+  ConsumerState<ReservationSummaryScreen> createState() =>
       _ReservationSummaryScreenState();
 }
 
-class _ReservationSummaryScreenState extends State<ReservationSummaryScreen> {
+class _ReservationSummaryScreenState
+    extends ConsumerState<ReservationSummaryScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override
   Widget build(BuildContext context) {
-    // Mock reservation data for demonstration
-    final mockReservation = Reservation(
-      id: 1,
-      reservationNumber: 'RES-20250812-001',
-      user: const ReservationUser(
-        id: 1,
-        fullName: 'Rizki Darmawan',
-        email: 'rizki.darmawan@example.com',
-        phoneNumber: '081234567890',
-      ),
-      customerInfo: const ReservationCustomerInfo(
-        fullName: 'Rizki Darmawan',
-        fullNameKana: 'リズキ ダルマワン',
-        email: 'rizki.darmawan@example.com',
-        phoneNumber: '081234567890',
-        isGuest: true,
-      ),
-      menu: const Menu(
-        id: 1,
-        name: 'Premium Oil Change',
-        description: 'High-quality synthetic oil change',
-        requiredTime: 45,
-        price: Price(amount: '75000', formatted: '¥75,000', currency: 'JPY'),
-        displayOrder: 1,
-        isActive: true,
-        color: ColorInfo(hex: '#FF6B6B', rgbaLight: '', textColor: ''),
-      ),
-      reservationDatetime: DateTime.now().add(
-        const Duration(days: 3, hours: 2),
-      ),
-      numberOfPeople: 1,
-      amount: const ReservationAmount(raw: '75000', formatted: '¥75,000'),
-      status: const ReservationStatus(
-        value: ReservationStatusValue.pending,
-        label: 'Pending',
-      ),
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    );
+    final reservation = ref.watch(pendingReservationProvider);
+    final mutationState = ref.watch(reservationMutationNotifierProvider);
+    final isLoading = mutationState.status == ReservationMutationStatus.loading;
 
-    return Scaffold(
-      appBar: UserAppBar(title: context.l10n.appBarReservationSummary),
-      endDrawer: const UserEndDrawer(),
-      body: ScreenWrapper(
-        child: FormBuilder(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                _buildBannerInfo(context),
-                const SizedBox(height: 24),
-                _buildSummary(context, mockReservation),
-              ],
+    ref.listen<ReservationMutationState>(reservationMutationNotifierProvider, (
+      previous,
+      next,
+    ) {
+      // Saat error, tampilkan toast
+      if (next.status == ReservationMutationStatus.error) {
+        AppToast.showError(
+          context,
+          message: next.failure?.message ?? 'An error occurred',
+        );
+        ref.read(reservationMutationNotifierProvider.notifier).clearError();
+      }
+      // Saat sukses, navigasi
+      if (next.status == ReservationMutationStatus.success) {
+        // State TIDAK dibersihkan agar bisa diakses di halaman berikutnya
+        // ref.invalidate(pendingReservationProvider);
+        // ref.read(reservationMutationNotifierProvider.notifier).clearState();
+        context.router.push(const ConfirmedReservationRoute());
+      }
+    });
+
+    if (reservation == null) {
+      return Scaffold(
+        appBar: UserAppBar(title: context.l10n.appBarReservationSummary),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const AppText('Reservation data not found.'),
+              const SizedBox(height: 16),
+              AppButton(
+                text: 'Back to Home',
+                onPressed: () {
+                  context.router.replaceAll([const HomeRoute()]);
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return LoadingOverlay(
+      isLoading: isLoading,
+      child: Scaffold(
+        appBar: UserAppBar(title: context.l10n.appBarReservationSummary),
+        endDrawer: const UserEndDrawer(),
+        body: ScreenWrapper(
+          child: FormBuilder(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 24),
+                child: Column(
+                  children: [
+                    _buildBannerInfo(context),
+                    const SizedBox(height: 24),
+                    _buildSummary(context, reservation),
+                  ],
+                ),
+              ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSummary(BuildContext context, Reservation reservation) {
+    return Card(
+      elevation: 2,
+      shadowColor: context.theme.shadowColor.withValues(alpha: 0.05),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildSectionHeader(
+              context,
+              context.l10n.reservationSummaryServiceDetailsTitle,
+            ),
+            _buildDetailRow(
+              context.l10n.reservationSummaryLabelService,
+              reservation.menu.name,
+            ),
+            _buildDetailRow(
+              context.l10n.reservationSummaryLabelDuration,
+              '${reservation.menu.requiredTime} minutes',
+            ),
+            _buildDetailRow(
+              context.l10n.reservationSummaryLabelDate,
+              DateFormat.yMMMMd(
+                Localizations.localeOf(context).toString(),
+              ).format(reservation.reservationDatetime),
+            ),
+            _buildDetailRow(
+              context.l10n.reservationSummaryLabelTime,
+              DateFormat.Hm(
+                Localizations.localeOf(context).toString(),
+              ).format(reservation.reservationDatetime),
+            ),
+            const Divider(height: 32),
+            _buildSectionHeader(
+              context,
+              context.l10n.reservationSummaryCustomerInfoTitle,
+            ),
+            _buildDetailRow(
+              context.l10n.reservationSummaryLabelName,
+              reservation.customerInfo.fullName,
+            ),
+            _buildDetailRow(
+              context.l10n.reservationSummaryLabelNameKana,
+              reservation.customerInfo.fullNameKana,
+            ),
+            _buildDetailRow(
+              context.l10n.reservationSummaryLabelEmail,
+              reservation.customerInfo.email,
+            ),
+            _buildDetailRow(
+              context.l10n.reservationSummaryLabelPhone,
+              reservation.customerInfo.phoneNumber,
+            ),
+            _buildDetailRow(
+              context.l10n.reservationSummaryLabelStatus,
+              reservation.status.label,
+            ),
+            const Divider(height: 32),
+            _buildReservationSummaryNotes(context),
+            const SizedBox(height: 24),
+            _buildTermsCheckbox(context),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: AppButton(
+                text: "Complete booking",
+                onPressed: () {
+                  if (_formKey.currentState?.saveAndValidate() ?? false) {
+                    final rawAmountString = reservation.amount.raw.replaceAll(
+                      RegExp(r'[^0-9]'),
+                      '',
+                    );
+                    final amountAsInt = int.parse(rawAmountString);
+
+                    ref
+                        .read(reservationMutationNotifierProvider.notifier)
+                        .createReservation(
+                          menuId: reservation.menu.id,
+                          reservationDatetime: reservation.reservationDatetime,
+                          amount: amountAsInt,
+                          numberOfPeople: reservation.numberOfPeople,
+                        );
+                  }
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -129,84 +236,6 @@ class _ReservationSummaryScreenState extends State<ReservationSummaryScreen> {
                   color: context.colorScheme.onSurface.withValues(alpha: 0.8),
                 ),
               ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSummary(BuildContext context, Reservation reservation) {
-    final l10n = context.l10n;
-    final locale = Localizations.localeOf(context).toString();
-
-    return Card(
-      elevation: 2,
-      shadowColor: context.theme.shadowColor.withValues(alpha: 0.05),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildSectionHeader(
-            context,
-            l10n.reservationSummaryServiceDetailsTitle,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelService,
-            reservation.menu.name,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelDuration,
-            '${reservation.menu.requiredTime} minutes',
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelDate,
-            DateFormat.yMMMMd(locale).format(reservation.reservationDatetime),
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelTime,
-            DateFormat.Hm(locale).format(reservation.reservationDatetime),
-          ),
-          const Divider(height: 32),
-          _buildSectionHeader(
-            context,
-            l10n.reservationSummaryCustomerInfoTitle,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelName,
-            reservation.customerInfo.fullName,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelNameKana,
-            reservation.customerInfo.fullNameKana,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelEmail,
-            reservation.customerInfo.email,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelPhone,
-            reservation.customerInfo.phoneNumber,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelStatus,
-            reservation.status.label,
-          ),
-          const Divider(height: 32),
-          _buildReservationSummaryNotes(context),
-          const SizedBox(height: 24),
-          _buildTermsCheckbox(context),
-          const SizedBox(height: 24),
-          SizedBox(
-            width: double.infinity,
-            child: AppButton(
-              text: "Complete booking",
-              onPressed: () {
-                if (_formKey.currentState?.saveAndValidate() ?? false) {
-                  // All validations passed.
-                  context.router.push(const ConfirmedReservationRoute());
-                }
-              },
             ),
           ),
         ],
@@ -331,7 +360,6 @@ class _ReservationSummaryScreenState extends State<ReservationSummaryScreen> {
               ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  // TODO: Open privacy policy link
                   debugPrint('Privacy Policy tapped');
                 },
             ),

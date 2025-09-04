@@ -1,16 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/core/theme/app_theme.dart';
-import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
-import 'package:tires/features/reservation/domain/entities/reservation_amount.dart';
-import 'package:tires/features/reservation/domain/entities/reservation_customer_info.dart';
-import 'package:tires/features/reservation/domain/entities/reservation_status.dart';
-import 'package:tires/features/reservation/domain/entities/reservation_user.dart';
+import 'package:tires/features/reservation/presentation/providers/reservation_providers.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
@@ -18,47 +15,38 @@ import 'package:tires/shared/presentation/widgets/user_app_bar.dart';
 import 'package:tires/shared/presentation/widgets/user_end_drawer.dart';
 
 @RoutePage()
-class ConfirmedReservationScreen extends StatelessWidget {
+class ConfirmedReservationScreen extends ConsumerWidget {
   const ConfirmedReservationScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final mockReservation = Reservation(
-      id: 1,
-      reservationNumber: 'RES-20250812-001',
-      user: const ReservationUser(
-        id: 1,
-        fullName: 'Rizki Darmawan',
-        email: 'rizki.darmawan@example.com',
-        phoneNumber: '081234567890',
-      ),
-      customerInfo: const ReservationCustomerInfo(
-        fullName: 'Rizki Darmawan',
-        fullNameKana: 'リズキ ダルマワン',
-        email: 'rizki.darmawan@example.com',
-        phoneNumber: '081234567890',
-        isGuest: true,
-      ),
-      menu: const Menu(
-        id: 1,
-        name: 'Premium Oil Change',
-        description: 'High-quality synthetic oil change',
-        requiredTime: 45,
-        price: Price(amount: '75000', formatted: '¥75,000', currency: 'JPY'),
-        displayOrder: 1,
-        isActive: true,
-        color: ColorInfo(hex: '#FF6B6B', rgbaLight: '', textColor: ''),
-      ),
-      reservationDatetime: DateTime(2025, 8, 15, 14, 0),
-      numberOfPeople: 1,
-      amount: const ReservationAmount(raw: '75000', formatted: '¥75,000'),
-      status: const ReservationStatus(
-        value: ReservationStatusValue.confirmed,
-        label: 'Confirmed',
-      ),
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mutationState = ref.watch(reservationMutationNotifierProvider);
+    final reservation = mutationState.reservation;
+
+    if (reservation == null) {
+      return Scaffold(
+        appBar: UserAppBar(title: context.l10n.appBarConfirmedReservation),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const AppText('Confirmed reservation data not found.'),
+              const SizedBox(height: 16),
+              AppButton(
+                text: 'Back to Home',
+                onPressed: () {
+                  ref.invalidate(pendingReservationProvider);
+                  ref
+                      .read(reservationMutationNotifierProvider.notifier)
+                      .clearState();
+                  context.router.replaceAll([const HomeRoute()]);
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       appBar: UserAppBar(title: context.l10n.appBarConfirmedReservation),
@@ -70,16 +58,13 @@ class ConfirmedReservationScreen extends StatelessWidget {
             children: [
               _buildBannerInfo(context),
               const SizedBox(height: 24),
-              _buildReservationNumber(
-                context,
-                mockReservation.reservationNumber,
-              ),
+              _buildReservationNumber(context, reservation.reservationNumber),
               const SizedBox(height: 24),
               _buildWhatsNext(context),
               const SizedBox(height: 24),
-              _buildSummary(context, mockReservation),
+              _buildSummary(context, reservation),
               const SizedBox(height: 24),
-              _buildActionButtons(context),
+              _buildActionButtons(context, ref),
             ],
           ),
         ),
@@ -268,8 +253,15 @@ class ConfirmedReservationScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButtons(BuildContext context) {
+  Widget _buildActionButtons(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
+
+    void cleanUpStateAndNavigate(VoidCallback navigateAction) {
+      ref.invalidate(pendingReservationProvider);
+      ref.read(reservationMutationNotifierProvider.notifier).clearState();
+      navigateAction();
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -277,7 +269,9 @@ class ConfirmedReservationScreen extends StatelessWidget {
           text: l10n.confirmedReservationViewMyReservationsButton,
           color: AppButtonColor.primary,
           onPressed: () {
-            context.router.replaceAll([const MyReservationsRoute()]);
+            cleanUpStateAndNavigate(() {
+              context.router.replaceAll([const MyReservationsRoute()]);
+            });
           },
         ),
         const SizedBox(height: 12),
@@ -285,7 +279,9 @@ class ConfirmedReservationScreen extends StatelessWidget {
           text: l10n.confirmedReservationBackToHomeButton,
           color: AppButtonColor.secondary,
           onPressed: () {
-            context.router.popUntil((route) => route.isFirst);
+            cleanUpStateAndNavigate(() {
+              context.router.popUntil((route) => route.isFirst);
+            });
           },
         ),
       ],

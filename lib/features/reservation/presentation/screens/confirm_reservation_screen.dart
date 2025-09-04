@@ -5,6 +5,9 @@ import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/core/theme/app_theme.dart';
+import 'package:tires/features/reservation/domain/entities/reservation_customer_info.dart';
+import 'package:tires/features/reservation/domain/entities/reservation_user.dart';
+import 'package:tires/features/reservation/presentation/providers/reservation_providers.dart';
 import 'package:tires/features/user/presentation/providers/current_user_providers.dart';
 import 'package:tires/features/user/presentation/providers/current_user_get_state.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
@@ -19,6 +22,49 @@ class ConfirmReservationScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // * Listener untuk memperbarui data reservasi dengan info user
+    ref.listen<CurrentUserGetState>(currentUserGetNotifierProvider, (
+      previous,
+      next,
+    ) {
+      // * Jalankan logika hanya saat data user berhasil dimuat
+      final isDataLoaded =
+          previous?.status != CurrentUserGetStatus.success &&
+          next.status == CurrentUserGetStatus.success;
+
+      if (isDataLoaded && next.user != null) {
+        final currentUser = next.user!;
+        final currentReservation = ref.read(pendingReservationProvider);
+
+        if (currentReservation != null) {
+          // * Buat objek customer info dari data user
+          final customerInfoFromUser = ReservationCustomerInfo(
+            fullName: currentUser.fullName,
+            fullNameKana: currentUser.fullNameKana,
+            email: currentUser.email,
+            phoneNumber: currentUser.phoneNumber,
+            isGuest: false, // * User sudah login, jadi bukan guest
+          );
+          final userReservationFromUser = ReservationUser(
+            id: currentUser.id,
+            fullName: currentUser.fullName,
+            email: currentUser.email,
+            phoneNumber: currentUser.phoneNumber,
+          );
+
+          // * Salin objek reservasi dan perbarui field customerInfo dan user
+          final updatedReservation = currentReservation.copyWith(
+            customerInfo: customerInfoFromUser,
+            user: userReservationFromUser,
+          );
+
+          // * Simpan kembali ke provider
+          ref.read(pendingReservationProvider.notifier).state =
+              updatedReservation;
+        }
+      }
+    });
+
     return Scaffold(
       appBar: UserAppBar(title: context.l10n.appBarConfirmReservation),
       endDrawer: const UserEndDrawer(),

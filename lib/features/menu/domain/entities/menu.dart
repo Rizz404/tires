@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
 class Menu extends Equatable {
@@ -49,7 +50,7 @@ class Price extends Equatable {
   });
 
   @override
-  List<Object?> get props => [amount, formatted, currency];
+  List<Object> get props => [amount, formatted, currency];
 }
 
 class ColorInfo extends Equatable {

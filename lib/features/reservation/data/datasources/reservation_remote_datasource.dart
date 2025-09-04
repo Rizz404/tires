@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:tires/core/network/api_cursor_pagination_response.dart';
 import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/api_response.dart';
@@ -8,6 +9,12 @@ import 'package:tires/features/reservation/data/models/reservation_model.dart';
 import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 abstract class ReservationRemoteDatasource {
+  Future<ApiResponse<ReservationModel>> createReservation({
+    required int menuId,
+    required DateTime reservationDatetime,
+    int numberOfPeople = 1,
+    required int amount,
+  });
   Future<ApiCursorPaginationResponse<ReservationModel>> getReservationsCursor({
     required bool paginate,
     required int perPage,
@@ -28,6 +35,48 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
   final DioClient _dioClient;
 
   ReservationRemoteDatasourceImpl(this._dioClient);
+
+  @override
+  Future<ApiResponse<ReservationModel>> createReservation({
+    required int menuId,
+    required DateTime reservationDatetime,
+    int numberOfPeople = 1,
+    required int amount,
+  }) async {
+    try {
+      final formattedDatetime = DateFormat(
+        'yyyy-MM-dd HH:mm:ss',
+      ).format(reservationDatetime);
+
+      final data = {
+        'menu_id': menuId,
+        'reservation_datetime': formattedDatetime,
+        'number_of_people': numberOfPeople,
+        'amount': amount,
+      };
+
+      final response = await _dioClient.post<ReservationModel>(
+        ApiEndpoints.customerCreateReservation,
+        data: data,
+        fromJson: (item) {
+          DebugHelper.logMapDetails(
+            item as Map<String, dynamic>,
+            title: 'Create reservation from API',
+          );
+          return ReservationModel.fromMap(item);
+        },
+      );
+
+      return response;
+    } catch (e) {
+      DebugHelper.safeCast(
+        e,
+        'createReservation_error',
+        defaultValue: 'rethrowing error',
+      );
+      rethrow;
+    }
+  }
 
   @override
   Future<ApiCursorPaginationResponse<ReservationModel>> getReservationsCursor({
