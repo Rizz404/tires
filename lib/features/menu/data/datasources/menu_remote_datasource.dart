@@ -25,7 +25,7 @@ class MenuRemoteDatasourceImpl implements MenuRemoteDatasource {
   ) async {
     try {
       final response = await _dioClient.getWithCursor<MenuModel>(
-        ApiEndpoints.customerMenus,
+        ApiEndpoints.publicMenus,
         fromJson: (item) => MenuModel.fromMap(item as Map<String, dynamic>),
         queryParameters: payload.toMap(),
       );

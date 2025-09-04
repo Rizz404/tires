@@ -4,6 +4,7 @@ class ApiEndpoints {
   // --- Role Prefixes ---
   static const String _adminPrefix = '/admin';
   static const String _customerPrefix = '/customer';
+  static const String _publicPrefix = '/public';
 
   // --- Api Prefixes ---
   static const String _authPrefix = '/auth';
@@ -78,7 +79,10 @@ class ApiEndpoints {
   static const String forgotPassword = '$_customerPrefix/forgot-password';
   static const String setNewPassword = '$_customerPrefix/change-password';
 
-  // --- Shared Endpoints (Get by ID) ---
+  // --- Public Endpoints ---
+  static String publicMenus = '$_publicPrefix$_menuPrefix';
+
+  // --- Shared Endpoints ---
   static String menuById(String menuId) => '$_menuPrefix/$menuId';
   static String userById(String userId) => '$_userPrefix/$userId';
   static String reservationById(String reservationId) =>

@@ -18,6 +18,13 @@ class AdminEndDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen<AuthState>(authNotifierProvider, (previous, next) {
+      if (next.status == AuthStatus.unauthenticated &&
+          ModalRoute.of(context)?.isCurrent == true) {
+        context.router.replaceAll([const LoginRoute()]);
+      }
+    });
+
     final l10n = L10n.of(context)!;
     final authState = ref.watch(authNotifierProvider);
     final user = authState.user;
