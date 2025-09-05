@@ -13,11 +13,19 @@ import 'package:tires/features/authentication/presentation/providers/auth_state.
 import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:tires/l10n_generated/app_localizations.dart';
 
-class AdminEndDrawer extends ConsumerWidget {
+class AdminEndDrawer extends ConsumerStatefulWidget {
   const AdminEndDrawer({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AdminEndDrawer> createState() => _AdminEndDrawerState();
+}
+
+class _AdminEndDrawerState extends ConsumerState<AdminEndDrawer> {
+  final Map<String, bool> _expandedSections = {};
+
+  @override
+  Widget build(BuildContext context) {
+    final ref = this.ref;
     ref.listen<AuthState>(authNotifierProvider, (previous, next) {
       if (next.status == AuthStatus.unauthenticated &&
           ModalRoute.of(context)?.isCurrent == true) {
@@ -41,81 +49,6 @@ class AdminEndDrawer extends ConsumerWidget {
       currentTabIndex = -1;
     }
 
-    final List<Map<String, dynamic>> adminDrawerItems = [
-      {
-        'icon': Icons.dashboard_outlined,
-        'selectedIcon': Icons.dashboard,
-        'title': l10n.adminBottomNavDashboard,
-        'isActive': currentTabIndex == 0,
-        'type': 'tab',
-        'tabIndex': 0,
-      },
-      {
-        'icon': Icons.calendar_today_outlined,
-        'selectedIcon': Icons.calendar_today,
-        'title': l10n.adminBottomNavCalendar,
-        'isActive': currentTabIndex == 1,
-        'type': 'tab',
-        'tabIndex': 1,
-      },
-      {
-        'icon': Icons.campaign_outlined,
-        'selectedIcon': Icons.campaign,
-        'title': l10n.adminBottomNavAnnouncements,
-        'isActive': currentTabIndex == 2,
-        'type': 'tab',
-        'tabIndex': 2,
-      },
-      {
-        'icon': Icons.event_available_outlined,
-        'selectedIcon': Icons.event_available,
-        'title': l10n.adminDrawerItemAvailability,
-        'isActive': false,
-        'type': 'route',
-        'route': const AdminListAvailabilityRoute(),
-      },
-      {
-        'icon': Icons.block_outlined,
-        'selectedIcon': Icons.block,
-        'title': l10n.adminDrawerItemBlocked,
-        'isActive': false,
-        'type': 'route',
-        'route': const AdminListBlockedRoute(),
-      },
-      {
-        'icon': Icons.business_outlined,
-        'selectedIcon': Icons.business,
-        'title': l10n.adminDrawerItemBusinessInformation,
-        'isActive': false,
-        'type': 'route',
-        'route': const AdminListBussinessInformationRoute(),
-      },
-      {
-        'icon': Icons.contact_page_outlined,
-        'selectedIcon': Icons.contact_page,
-        'title': l10n.adminDrawerItemContact,
-        'isActive': false,
-        'type': 'route',
-        'route': const AdminListContactRoute(),
-      },
-      {
-        'icon': Icons.people_alt_outlined,
-        'selectedIcon': Icons.people_alt,
-        'title': l10n.adminDrawerItemCustomerManagement,
-        'isActive': false,
-        'type': 'route',
-        'route': const AdminListCustomerManagementRoute(),
-      },
-      {
-        'icon': Icons.menu_book_outlined,
-        'selectedIcon': Icons.menu_book,
-        'title': l10n.adminDrawerItemMenu,
-        'isActive': false,
-        'type': 'route',
-        'route': const AdminListMenuRoute(),
-      },
-    ];
-
     return Drawer(
       child: SafeArea(
         child: Column(
@@ -126,49 +59,247 @@ class AdminEndDrawer extends ConsumerWidget {
               child: ListView(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 children: [
-                  ...adminDrawerItems.map((item) {
-                    return _buildDrawerItem(
+                  // Dashboard
+                  _buildDrawerItem(
+                    context,
+                    icon: Icons.dashboard_outlined,
+                    selectedIcon: Icons.dashboard,
+                    title: l10n.adminBottomNavDashboard,
+                    isActive: currentTabIndex == 0,
+                    onTap: () =>
+                        _handleNavigation(context, tabsRouter, 'tab', 0, null),
+                  ),
+
+                  // Reservation Management Group
+                  _buildExpandableSection(
+                    context,
+                    sectionKey: 'reservation',
+                    title:
+                        'Reservation Management', // You might want to add this to l10n
+                    icon: Icons.event_note_outlined,
+                    selectedIcon: Icons.event_note,
+                    children: [
+                      _buildDrawerItem(
+                        context,
+                        icon: Icons.calendar_today_outlined,
+                        selectedIcon: Icons.calendar_today,
+                        title: l10n.adminBottomNavCalendar,
+                        isActive: currentTabIndex == 1,
+                        onTap: () => _handleNavigation(
+                          context,
+                          tabsRouter,
+                          'tab',
+                          1,
+                          null,
+                        ),
+                        isChild: true,
+                      ),
+                      _buildDrawerItem(
+                        context,
+                        icon: Icons.block_outlined,
+                        selectedIcon: Icons.block,
+                        title: l10n.adminDrawerItemBlocked,
+                        isActive: false,
+                        onTap: () => _handleNavigation(
+                          context,
+                          tabsRouter,
+                          'route',
+                          null,
+                          const AdminListBlockedRoute(),
+                        ),
+                        isChild: true,
+                      ),
+                      _buildDrawerItem(
+                        context,
+                        icon: Icons.event_available_outlined,
+                        selectedIcon: Icons.event_available,
+                        title: l10n.adminDrawerItemAvailability,
+                        isActive: false,
+                        onTap: () => _handleNavigation(
+                          context,
+                          tabsRouter,
+                          'route',
+                          null,
+                          const AdminListAvailabilityRoute(),
+                        ),
+                        isChild: true,
+                      ),
+                    ],
+                  ),
+
+                  // Customer Support Group
+                  _buildExpandableSection(
+                    context,
+                    sectionKey: 'support',
+                    title:
+                        'Customer Support', // You might want to add this to l10n
+                    icon: Icons.support_agent_outlined,
+                    selectedIcon: Icons.support_agent,
+                    children: [
+                      _buildDrawerItem(
+                        context,
+                        icon: Icons.contact_page_outlined,
+                        selectedIcon: Icons.contact_page,
+                        title: l10n.adminDrawerItemContact,
+                        isActive: false,
+                        onTap: () => _handleNavigation(
+                          context,
+                          tabsRouter,
+                          'route',
+                          null,
+                          const AdminListContactRoute(),
+                        ),
+                        isChild: true,
+                      ),
+                      _buildDrawerItem(
+                        context,
+                        icon: Icons.campaign_outlined,
+                        selectedIcon: Icons.campaign,
+                        title: l10n.adminBottomNavAnnouncements,
+                        isActive: currentTabIndex == 2,
+                        onTap: () => _handleNavigation(
+                          context,
+                          tabsRouter,
+                          'tab',
+                          2,
+                          null,
+                        ),
+                        isChild: true,
+                      ),
+                    ],
+                  ),
+
+                  // Other standalone items
+                  _buildDrawerItem(
+                    context,
+                    icon: Icons.business_outlined,
+                    selectedIcon: Icons.business,
+                    title: l10n.adminDrawerItemBusinessInformation,
+                    isActive: false,
+                    onTap: () => _handleNavigation(
                       context,
-                      icon: item['icon'],
-                      selectedIcon: item['selectedIcon'],
-                      title: item['title'],
-                      isActive: item['isActive'],
-                      onTap: () {
-                        Navigator.of(context).pop();
-
-                        final itemType = item['type'] as String;
-
-                        switch (itemType) {
-                          case 'tab':
-                            if (tabsRouter != null) {
-                              final tabIndex = item['tabIndex'] as int;
-                              tabsRouter.setActiveIndex(tabIndex);
-                            } else {
-                              context.router.push(const AdminTabRoute());
-                            }
-                            break;
-                          case 'route':
-                            final route = item['route'];
-                            if (route != null) {
-                              context.router.push(route);
-                            }
-                            break;
-                          default:
-                            print('Unknown navigation type: $itemType');
-                        }
-                      },
-                    );
-                  }).toList(),
-                  _buildLanguageSelector(context, ref, l10n),
+                      tabsRouter,
+                      'route',
+                      null,
+                      const AdminListBussinessInformationRoute(),
+                    ),
+                  ),
+                  _buildDrawerItem(
+                    context,
+                    icon: Icons.people_alt_outlined,
+                    selectedIcon: Icons.people_alt,
+                    title: l10n.adminDrawerItemCustomerManagement,
+                    isActive: false,
+                    onTap: () => _handleNavigation(
+                      context,
+                      tabsRouter,
+                      'route',
+                      null,
+                      const AdminListCustomerManagementRoute(),
+                    ),
+                  ),
+                  _buildDrawerItem(
+                    context,
+                    icon: Icons.menu_book_outlined,
+                    selectedIcon: Icons.menu_book,
+                    title: l10n.adminDrawerItemMenu,
+                    isActive: false,
+                    onTap: () => _handleNavigation(
+                      context,
+                      tabsRouter,
+                      'route',
+                      null,
+                      const AdminListMenuRoute(),
+                    ),
+                  ),
                 ],
               ),
             ),
+            // Sticky Language Selector at bottom
+            _buildStickyLanguageSelector(context, ref, l10n),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: _buildAuthButton(context, ref, isAuthenticated, l10n),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _handleNavigation(
+    BuildContext context,
+    TabsRouter? tabsRouter,
+    String type,
+    int? tabIndex,
+    PageRouteInfo? route,
+  ) {
+    Navigator.of(context).pop();
+
+    switch (type) {
+      case 'tab':
+        if (tabsRouter != null && tabIndex != null) {
+          tabsRouter.setActiveIndex(tabIndex);
+        } else {
+          context.router.push(const AdminTabRoute());
+        }
+        break;
+      case 'route':
+        if (route != null) {
+          context.router.push(route);
+        }
+        break;
+      default:
+        print('Unknown navigation type: $type');
+    }
+  }
+
+  Widget _buildExpandableSection(
+    BuildContext context, {
+    required String sectionKey,
+    required String title,
+    required IconData icon,
+    IconData? selectedIcon,
+    required List<Widget> children,
+  }) {
+    final isExpanded = _expandedSections[sectionKey] ?? false;
+    final activeColor = context.colorScheme.primary;
+    final inactiveColor = context.colorScheme.onSurface.withValues(alpha: 0.7);
+
+    return Card(
+      elevation: 0,
+      margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 2.0),
+      child: Column(
+        children: [
+          ListTile(
+            leading: Icon(icon, color: inactiveColor),
+            title: Text(
+              title,
+              style: context.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            trailing: AnimatedRotation(
+              turns: isExpanded ? 0.5 : 0,
+              duration: const Duration(milliseconds: 200),
+              child: Icon(Icons.keyboard_arrow_down, color: inactiveColor),
+            ),
+            onTap: () {
+              setState(() {
+                _expandedSections[sectionKey] = !isExpanded;
+              });
+            },
+            dense: true,
+          ),
+          AnimatedCrossFade(
+            firstChild: const SizedBox.shrink(),
+            secondChild: Column(children: children),
+            crossFadeState: isExpanded
+                ? CrossFadeState.showSecond
+                : CrossFadeState.showFirst,
+            duration: const Duration(milliseconds: 200),
+          ),
+        ],
       ),
     );
   }
@@ -325,6 +456,7 @@ class AdminEndDrawer extends ConsumerWidget {
     required String title,
     required bool isActive,
     required VoidCallback onTap,
+    bool isChild = false,
   }) {
     final activeColor = context.colorScheme.primary;
     final inactiveColor = context.colorScheme.onSurface.withValues(alpha: 0.7);
@@ -332,19 +464,26 @@ class AdminEndDrawer extends ConsumerWidget {
 
     if (Platform.isIOS) {
       return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+        padding: EdgeInsets.only(
+          left: isChild ? 24.0 : 8.0,
+          right: 8.0,
+          top: 2.0,
+          bottom: 2.0,
+        ),
         child: CupertinoListTile(
           backgroundColor: isActive ? activeColor.withValues(alpha: 0.1) : null,
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           leading: Icon(
             displayIcon,
             color: isActive ? activeColor : inactiveColor,
+            size: isChild ? 20 : 24,
           ),
           title: Text(
             title,
             style: context.textTheme.bodyLarge?.copyWith(
               color: isActive ? activeColor : null,
               fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+              fontSize: isChild ? 14 : null,
             ),
           ),
           trailing: const Icon(CupertinoIcons.right_chevron, size: 16),
@@ -353,43 +492,85 @@ class AdminEndDrawer extends ConsumerWidget {
       );
     }
 
-    return Card(
-      color: isActive
-          ? activeColor.withValues(alpha: 0.1)
-          : context.theme.cardColor,
-      elevation: 0,
-      margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-      child: ListTile(
-        leading: Icon(
-          displayIcon,
-          color: isActive ? activeColor : inactiveColor,
-        ),
-        title: Text(
-          title,
-          style: context.textTheme.bodyMedium?.copyWith(
-            color: isActive ? activeColor : null,
-            fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+    return Container(
+      margin: EdgeInsets.only(
+        left: isChild ? 24.0 : 12.0,
+        right: 12.0,
+        top: 2.0,
+        bottom: 2.0,
+      ),
+      child: Card(
+        color: isActive
+            ? activeColor.withValues(alpha: 0.1)
+            : context.theme.cardColor,
+        elevation: 0,
+        child: ListTile(
+          leading: Icon(
+            displayIcon,
+            color: isActive ? activeColor : inactiveColor,
+            size: isChild ? 20 : 24,
           ),
+          title: Text(
+            title,
+            style: context.textTheme.bodyMedium?.copyWith(
+              color: isActive ? activeColor : null,
+              fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+              fontSize: isChild ? 14 : null,
+            ),
+          ),
+          onTap: onTap,
+          dense: true,
         ),
-        onTap: onTap,
-        dense: true,
       ),
     );
   }
 
-  Widget _buildLanguageSelector(
+  Widget _buildStickyLanguageSelector(
     BuildContext context,
     WidgetRef ref,
     L10n l10n,
   ) {
-    return _buildDrawerItem(
-      context,
-      icon: Icons.translate,
-      title: l10n.drawerItemLanguage,
-      isActive: false,
-      onTap: () {
-        _showLanguageDialog(context, ref, l10n);
-      },
+    return Container(
+      decoration: BoxDecoration(
+        color: context.colorScheme.surface,
+        border: Border(
+          top: BorderSide(
+            color: context.colorScheme.outline.withValues(alpha: 0.2),
+            width: 1,
+          ),
+        ),
+      ),
+      child: Card(
+        elevation: 4,
+        margin: const EdgeInsets.all(12.0),
+        child: ListTile(
+          leading: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: context.colorScheme.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              Icons.translate,
+              color: context.colorScheme.primary,
+              size: 20,
+            ),
+          ),
+          title: Text(
+            l10n.drawerItemLanguage,
+            style: context.textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          trailing: Icon(
+            Icons.keyboard_arrow_right,
+            color: context.colorScheme.onSurface.withValues(alpha: 0.7),
+          ),
+          onTap: () {
+            _showLanguageDialog(context, ref, l10n);
+          },
+        ),
+      ),
     );
   }
 
@@ -397,28 +578,42 @@ class AdminEndDrawer extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) {
-        return SimpleDialog(
-          title: Text(l10n.dialogTitleSelectLanguage),
-          children: [
-            SimpleDialogOption(
-              onPressed: () {
-                ref
-                    .read(localeProvider.notifier)
-                    .changeLocale(const Locale('en'));
-                Navigator.of(context).pop();
-              },
-              child: const Text('English'),
-            ),
-            SimpleDialogOption(
-              onPressed: () {
-                ref
-                    .read(localeProvider.notifier)
-                    .changeLocale(const Locale('ja'));
-                Navigator.of(context).pop();
-              },
-              child: const Text('日本語 (Japanese)'),
-            ),
-          ],
+        return AlertDialog(
+          title: Text(
+            l10n.dialogTitleSelectLanguage,
+            style: context.textTheme.titleLarge,
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const CircleAvatar(
+                  radius: 16,
+                  child: Text('🇺🇸', style: TextStyle(fontSize: 16)),
+                ),
+                title: const Text('English'),
+                onTap: () {
+                  ref
+                      .read(localeProvider.notifier)
+                      .changeLocale(const Locale('en'));
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                leading: const CircleAvatar(
+                  radius: 16,
+                  child: Text('🇯🇵', style: TextStyle(fontSize: 16)),
+                ),
+                title: const Text('日本語 (Japanese)'),
+                onTap: () {
+                  ref
+                      .read(localeProvider.notifier)
+                      .changeLocale(const Locale('ja'));
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
         );
       },
     );
