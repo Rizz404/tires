@@ -13,8 +13,6 @@ import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/app_search_field.dart';
 import 'package:tires/shared/presentation/widgets/app_dropdown.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
-import 'package:tires/shared/presentation/widgets/debug_section.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 @RoutePage()
 class AdminListCustomerManagementScreen extends ConsumerStatefulWidget {
@@ -124,9 +122,6 @@ class _AdminListCustomerManagementScreenState
           const SliverToBoxAdapter(child: SizedBox(height: 16)),
           SliverToBoxAdapter(child: _buildFilters(context)),
           const SliverToBoxAdapter(child: SizedBox(height: 16)),
-          // Add debug section in development
-          // if (true) // Replace with kDebugMode for production
-          //   SliverToBoxAdapter(child: _buildDebugSection(context)),
           SliverToBoxAdapter(
             child: CustomerTableWidget(
               customers: _filteredCustomers,
@@ -151,48 +146,6 @@ class _AdminListCustomerManagementScreenState
     );
   }
 
-  /*  Widget _buildDebugSection(BuildContext context) {
-    return DebugSection(
-      title: '👥 Customer Management Debug',
-      actions: [
-        DebugAction.refresh(
-          label: 'Refresh Customers',
-          onPressed: _refreshCustomers,
-          debugEndpoint: 'Customer Management Refresh',
-        ),
-        DebugAction.clear(
-          label: 'Clear Data',
-          onPressed: () {
-            setState(() {
-              _customers.clear();
-            });
-          },
-        ),
-        DebugAction.testApi(label: 'Load More', onPressed: _loadMoreCustomers),
-        DebugAction.viewLogs(
-          label: 'Show Logs',
-          context: context,
-          message: 'Check console for customer management logs',
-        ),
-        DebugAction.inspect(
-          label: 'Inspect Data',
-          onPressed: () {
-            DebugHelper.logApiResponse({
-              'total_customers': _customers.length,
-              'is_loading': _isLoading,
-              'registered_count': _customers
-                  .where((c) => c.companyName != null || c.department != null)
-                  .length,
-              'guest_count': _customers
-                  .where((c) => c.companyName == null && c.department == null)
-                  .length,
-            }, endpoint: 'Customer Management State');
-          },
-        ),
-      ],
-    );
-  }
- */
   Widget _buildHeader(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 8),

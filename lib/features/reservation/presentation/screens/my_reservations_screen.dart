@@ -14,8 +14,6 @@ import 'package:tires/features/user/presentation/providers/current_user_dashboar
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:tires/shared/presentation/widgets/user_end_drawer.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
-import 'package:tires/shared/presentation/widgets/debug_section.dart';
 
 @RoutePage()
 class MyReservationsScreen extends ConsumerStatefulWidget {

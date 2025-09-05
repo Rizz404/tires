@@ -44,7 +44,6 @@ class _ReservationSummaryScreenState
       previous,
       next,
     ) {
-      // Saat error, tampilkan toast
       if (next.status == ReservationMutationStatus.error) {
         AppToast.showError(
           context,
@@ -52,27 +51,38 @@ class _ReservationSummaryScreenState
         );
         ref.read(reservationMutationNotifierProvider.notifier).clearError();
       }
-      // Saat sukses, navigasi
-      if (next.status == ReservationMutationStatus.success) {
-        // State TIDAK dibersihkan agar bisa diakses di halaman berikutnya
-        // ref.invalidate(pendingReservationProvider);
-        // ref.read(reservationMutationNotifierProvider.notifier).clearState();
-        context.router.push(const ConfirmedReservationRoute());
+
+      if (next.status == ReservationMutationStatus.success &&
+          next.reservation != null) {
+        // Store confirmed reservation data BEFORE clearing pending reservation
+        ref.read(confirmedReservationProvider.notifier).state =
+            next.reservation;
+
+        // Navigate to confirmed screen
+        context.router.replaceAll([const ConfirmedReservationRoute()]);
+
+        // Clear pending reservation only after navigation
+        ref.read(pendingReservationProvider.notifier).state = null;
       }
     });
 
-    if (reservation == null) {
+    // Validate reservation data
+    if (reservation == null ||
+        reservation.customerInfo.fullName.isEmpty ||
+        reservation.menu.name.isEmpty) {
       return Scaffold(
         appBar: UserAppBar(title: context.l10n.appBarReservationSummary),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const AppText('Reservation data not found.'),
+              const AppText('Reservation data is incomplete or missing.'),
               const SizedBox(height: 16),
               AppButton(
                 text: 'Back to Home',
                 onPressed: () {
+                  // Clear any incomplete reservation data
+                  ref.read(pendingReservationProvider.notifier).state = null;
                   context.router.replaceAll([const HomeRoute()]);
                 },
               ),
@@ -182,16 +192,24 @@ class _ReservationSummaryScreenState
                       RegExp(r'[^0-9]'),
                       '',
                     );
-                    final amountAsInt = int.parse(rawAmountString);
+                    final amountAsInt = int.tryParse(rawAmountString) ?? 0;
 
-                    ref
-                        .read(reservationMutationNotifierProvider.notifier)
-                        .createReservation(
-                          menuId: reservation.menu.id,
-                          reservationDatetime: reservation.reservationDatetime,
-                          amount: amountAsInt,
-                          numberOfPeople: reservation.numberOfPeople,
-                        );
+                    if (amountAsInt > 0) {
+                      ref
+                          .read(reservationMutationNotifierProvider.notifier)
+                          .createReservation(
+                            menuId: reservation.menu.id,
+                            reservationDatetime:
+                                reservation.reservationDatetime,
+                            amount: amountAsInt,
+                            numberOfPeople: reservation.numberOfPeople,
+                          );
+                    } else {
+                      AppToast.showError(
+                        context,
+                        message: 'Invalid amount. Please try again.',
+                      );
+                    }
                   }
                 },
               ),

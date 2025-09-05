@@ -32,6 +32,8 @@ import 'package:tires/features/reservation/presentation/screens/confirmed_reserv
 import 'package:tires/features/reservation/presentation/screens/create_reservation_screen.dart';
 import 'package:tires/features/reservation/presentation/screens/my_reservations_screen.dart';
 import 'package:tires/features/reservation/presentation/screens/reservation_summary_screen.dart';
+import 'package:tires/features/static/presentation/screens/privacy_policy_screen.dart';
+import 'package:tires/features/static/presentation/screens/terms_of_service_screen.dart';
 import 'package:tires/shared/presentation/widgets/admin_tab_screen.dart';
 import 'package:tires/shared/presentation/widgets/user_tab_screen.dart';
 

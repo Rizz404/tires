@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 /// Callback type for invalidating providers during logout
 typedef ProviderInvalidationCallback = void Function();
 
@@ -25,7 +27,7 @@ class ProviderInvalidationServiceImpl implements ProviderInvalidationService {
       _invalidationCallback?.call();
     } catch (e) {
       // Log error but don't throw to avoid breaking logout process
-      print(
+      debugPrint(
         'Warning: Some providers could not be invalidated during logout: $e',
       );
     }

@@ -101,7 +101,7 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
   Future<ApiResponse<CustomerDashboardModel>> getCurrentUserDashboard() async {
     try {
       final response = await _dioClient.get<CustomerDashboardModel>(
-        '${ApiEndpoints.customerProfile}/dashboard',
+        ApiEndpoints.customerDashboard,
         fromJson: (json) {
           DebugHelper.logMapDetails(
             json as Map<String, dynamic>,

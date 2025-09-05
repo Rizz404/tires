@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
-import 'package:tires/shared/presentation/widgets/admin_app_bar.dart';
 import 'package:tires/shared/presentation/widgets/admin_end_drawer.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';

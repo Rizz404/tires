@@ -11,20 +11,6 @@ extension ThemeModeExtension on ThemeMode {
       orElse: () => ThemeMode.system,
     );
   }
-
-  // ThemeData getThemeData(BuildContext context) {
-  //   switch (this) {
-  //     case ThemeMode.light:
-  //       return AppTheme.lightTheme;
-  //     case ThemeMode.dark:
-  //       return AppTheme.darkTheme;
-  //     case ThemeMode.system:
-  //       final brightness = MediaQuery.platformBrightnessOf(context);
-  //       return brightness == Brightness.dark
-  //           ? AppTheme.darkTheme
-  //           : AppTheme.lightTheme;
-  //   }
-  // }
 }
 
 extension ThemeExtensions on BuildContext {

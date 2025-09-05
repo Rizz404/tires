@@ -65,7 +65,6 @@ final reservationAvailableHoursGetNotifierProvider =
       );
     });
 
-// Separate state providers for create reservation screen with auto dispose
 final selectedDateProvider = StateProvider.autoDispose<DateTime?>(
   (ref) => null,
 );
@@ -76,3 +75,5 @@ final currentMonthProvider = StateProvider.autoDispose<DateTime>(
 );
 
 final pendingReservationProvider = StateProvider<Reservation?>((ref) => null);
+
+final confirmedReservationProvider = StateProvider<Reservation?>((ref) => null);

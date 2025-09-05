@@ -445,6 +445,22 @@ class MyReservationsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [PrivacyPolicyScreen]
+class PrivacyPolicyRoute extends PageRouteInfo<void> {
+  const PrivacyPolicyRoute({List<PageRouteInfo>? children})
+    : super(PrivacyPolicyRoute.name, initialChildren: children);
+
+  static const String name = 'PrivacyPolicyRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PrivacyPolicyScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [ProfileScreen]
 class ProfileRoute extends PageRouteInfo<void> {
   const ProfileRoute({List<PageRouteInfo>? children})
@@ -504,6 +520,22 @@ class SetNewPasswordRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SetNewPasswordScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [TermsOfServiceScreen]
+class TermsOfServiceRoute extends PageRouteInfo<void> {
+  const TermsOfServiceRoute({List<PageRouteInfo>? children})
+    : super(TermsOfServiceRoute.name, initialChildren: children);
+
+  static const String name = 'TermsOfServiceRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TermsOfServiceScreen();
     },
   );
 }

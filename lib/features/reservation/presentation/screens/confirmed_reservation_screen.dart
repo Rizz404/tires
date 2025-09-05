@@ -20,55 +20,107 @@ class ConfirmedReservationScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final confirmedReservation = ref.watch(confirmedReservationProvider);
     final mutationState = ref.watch(reservationMutationNotifierProvider);
-    final reservation = mutationState.reservation;
+    final reservationFromMutation = mutationState.reservation;
 
-    if (reservation == null) {
-      return Scaffold(
+    final reservation = confirmedReservation ?? reservationFromMutation;
+    debugPrint('confirmed reservation: $reservation');
+
+    return WillPopScope(
+      onWillPop: () async {
+        _cleanUpAndNavigateHome(ref, context);
+        return false;
+      },
+      child: Scaffold(
         appBar: UserAppBar(title: context.l10n.appBarConfirmedReservation),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const AppText('Confirmed reservation data not found.'),
-              const SizedBox(height: 16),
-              AppButton(
-                text: 'Back to Home',
-                onPressed: () {
-                  ref.invalidate(pendingReservationProvider);
-                  ref
-                      .read(reservationMutationNotifierProvider.notifier)
-                      .clearState();
-                  context.router.replaceAll([const HomeRoute()]);
-                },
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return Scaffold(
-      appBar: UserAppBar(title: context.l10n.appBarConfirmedReservation),
-      endDrawer: const UserEndDrawer(),
-      body: ScreenWrapper(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildBannerInfo(context),
-              const SizedBox(height: 24),
-              _buildReservationNumber(context, reservation.reservationNumber),
-              const SizedBox(height: 24),
-              _buildWhatsNext(context),
-              const SizedBox(height: 24),
-              _buildSummary(context, reservation),
-              const SizedBox(height: 24),
-              _buildActionButtons(context, ref),
-            ],
-          ),
+        endDrawer: const UserEndDrawer(),
+        body: ScreenWrapper(
+          child: reservation == null
+              ? _buildErrorView(context, ref)
+              : _buildSuccessView(context, ref, reservation),
         ),
       ),
+    );
+  }
+
+  void _cleanUpAndNavigateHome(WidgetRef ref, BuildContext context) {
+    ref.read(reservationMutationNotifierProvider.notifier).clearState();
+    ref.read(confirmedReservationProvider.notifier).state = null;
+    ref.read(pendingReservationProvider.notifier).state = null;
+    context.router.replaceAll([const HomeRoute()]);
+  }
+
+  Widget _buildSuccessView(
+    BuildContext context,
+    WidgetRef ref,
+    Reservation reservation,
+  ) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _buildBannerInfo(context),
+          const SizedBox(height: 24),
+          _buildReservationNumber(context, reservation.reservationNumber),
+          const SizedBox(height: 24),
+          _buildWhatsNext(context),
+          const SizedBox(height: 24),
+          _buildSummary(context, reservation),
+          const SizedBox(height: 24),
+          _buildActionButtons(context, ref),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildErrorView(BuildContext context, WidgetRef ref) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const AppText('Confirmed reservation data not found.'),
+          const SizedBox(height: 16),
+          AppButton(
+            text: 'Back to Home',
+            onPressed: () {
+              _cleanUpAndNavigateHome(ref, context);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionButtons(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+
+    void cleanUpStateAndNavigate(PageRouteInfo route) {
+      ref.read(reservationMutationNotifierProvider.notifier).clearState();
+      ref.read(confirmedReservationProvider.notifier).state = null;
+      ref.read(pendingReservationProvider.notifier).state = null;
+      context.router.replaceAll([route]);
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        AppButton(
+          text: l10n.confirmedReservationViewMyReservationsButton,
+          color: AppButtonColor.primary,
+          onPressed: () {
+            cleanUpStateAndNavigate(const MyReservationsRoute());
+          },
+        ),
+        const SizedBox(height: 12),
+        AppButton(
+          text: l10n.confirmedReservationBackToHomeButton,
+          color: AppButtonColor.secondary,
+          onPressed: () {
+            cleanUpStateAndNavigate(const HomeRoute());
+          },
+        ),
+      ],
     );
   }
 
@@ -191,100 +243,68 @@ class ConfirmedReservationScreen extends ConsumerWidget {
       elevation: 2,
       shadowColor: context.theme.shadowColor.withValues(alpha: 0.05),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildSectionHeader(
-            context,
-            l10n.reservationSummaryServiceDetailsTitle,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelService,
-            reservation.menu.name,
-            context,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelDuration,
-            '${reservation.menu.requiredTime} minutes',
-            context,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelDate,
-            DateFormat.yMMMMd(locale).format(reservation.reservationDatetime),
-            context,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelTime,
-            DateFormat.Hm(locale).format(reservation.reservationDatetime),
-            context,
-          ),
-          const Divider(height: 32),
-          _buildSectionHeader(
-            context,
-            l10n.reservationSummaryCustomerInfoTitle,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelName,
-            reservation.customerInfo.fullName,
-            context,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelNameKana,
-            reservation.customerInfo.fullNameKana,
-            context,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelEmail,
-            reservation.customerInfo.email,
-            context,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelPhone,
-            reservation.customerInfo.phoneNumber,
-            context,
-          ),
-          _buildDetailRow(
-            l10n.reservationSummaryLabelStatus,
-            reservation.status.label,
-            context,
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildSectionHeader(
+              context,
+              l10n.reservationSummaryServiceDetailsTitle,
+            ),
+            _buildDetailRow(
+              l10n.reservationSummaryLabelService,
+              reservation.menu.name,
+              context,
+            ),
+            _buildDetailRow(
+              l10n.reservationSummaryLabelDuration,
+              '${reservation.menu.requiredTime} minutes',
+              context,
+            ),
+            _buildDetailRow(
+              l10n.reservationSummaryLabelDate,
+              DateFormat.yMMMMd(locale).format(reservation.reservationDatetime),
+              context,
+            ),
+            _buildDetailRow(
+              l10n.reservationSummaryLabelTime,
+              DateFormat.Hm(locale).format(reservation.reservationDatetime),
+              context,
+            ),
+            const Divider(height: 32),
+            _buildSectionHeader(
+              context,
+              l10n.reservationSummaryCustomerInfoTitle,
+            ),
+            _buildDetailRow(
+              l10n.reservationSummaryLabelName,
+              reservation.customerInfo.fullName,
+              context,
+            ),
+            _buildDetailRow(
+              l10n.reservationSummaryLabelNameKana,
+              reservation.customerInfo.fullNameKana,
+              context,
+            ),
+            _buildDetailRow(
+              l10n.reservationSummaryLabelEmail,
+              reservation.customerInfo.email,
+              context,
+            ),
+            _buildDetailRow(
+              l10n.reservationSummaryLabelPhone,
+              reservation.customerInfo.phoneNumber,
+              context,
+            ),
+            _buildDetailRow(
+              l10n.reservationSummaryLabelStatus,
+              reservation.status.label,
+              context,
+            ),
+          ],
+        ),
       ),
-    );
-  }
-
-  Widget _buildActionButtons(BuildContext context, WidgetRef ref) {
-    final l10n = context.l10n;
-
-    void cleanUpStateAndNavigate(VoidCallback navigateAction) {
-      ref.invalidate(pendingReservationProvider);
-      ref.read(reservationMutationNotifierProvider.notifier).clearState();
-      navigateAction();
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        AppButton(
-          text: l10n.confirmedReservationViewMyReservationsButton,
-          color: AppButtonColor.primary,
-          onPressed: () {
-            cleanUpStateAndNavigate(() {
-              context.router.replaceAll([const MyReservationsRoute()]);
-            });
-          },
-        ),
-        const SizedBox(height: 12),
-        AppButton(
-          text: l10n.confirmedReservationBackToHomeButton,
-          color: AppButtonColor.secondary,
-          onPressed: () {
-            cleanUpStateAndNavigate(() {
-              context.router.popUntil((route) => route.isFirst);
-            });
-          },
-        ),
-      ],
     );
   }
 

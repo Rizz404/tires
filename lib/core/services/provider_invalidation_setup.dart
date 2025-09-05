@@ -29,9 +29,6 @@ void setupProviderInvalidation(WidgetRef ref) {
     ref.invalidate(selectedMenuProvider);
     ref.invalidate(currentMonthProvider);
 
-    // // Invalidate mock availability state if it contains user data
-    // ref.invalidate(mockAvailabilityStateProvider);
-
     // Additional cleanup for any computed providers
     ref.invalidate(menusProvider);
     ref.invalidate(activeMenusProvider);

@@ -17,51 +17,76 @@ import 'package:tires/shared/presentation/widgets/user_app_bar.dart';
 import 'package:tires/shared/presentation/widgets/user_end_drawer.dart';
 
 @RoutePage()
-class ConfirmReservationScreen extends ConsumerWidget {
+class ConfirmReservationScreen extends ConsumerStatefulWidget {
   const ConfirmReservationScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // * Listener untuk memperbarui data reservasi dengan info user
+  ConsumerState<ConfirmReservationScreen> createState() =>
+      _ConfirmReservationScreenState();
+}
+
+class _ConfirmReservationScreenState
+    extends ConsumerState<ConfirmReservationScreen> {
+  bool _hasInitializedUserData = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize user data immediately
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _updateReservationWithUserData();
+    });
+  }
+
+  void _updateReservationWithUserData() {
+    final currentUserState = ref.read(currentUserGetNotifierProvider);
+    final currentReservation = ref.read(pendingReservationProvider);
+
+    // Update reservation data if user is available and reservation exists
+    if (currentUserState.status == CurrentUserGetStatus.success &&
+        currentUserState.user != null &&
+        currentReservation != null &&
+        !_hasInitializedUserData) {
+      final currentUser = currentUserState.user!;
+
+      // Create customer info from user data
+      final customerInfoFromUser = ReservationCustomerInfo(
+        fullName: currentUser.fullName,
+        fullNameKana: currentUser.fullNameKana,
+        email: currentUser.email,
+        phoneNumber: currentUser.phoneNumber,
+        isGuest: false,
+      );
+
+      final userReservationFromUser = ReservationUser(
+        id: currentUser.id,
+        fullName: currentUser.fullName,
+        email: currentUser.email,
+        phoneNumber: currentUser.phoneNumber,
+      );
+
+      // Update the reservation with user data
+      final updatedReservation = currentReservation.copyWith(
+        customerInfo: customerInfoFromUser,
+        user: userReservationFromUser,
+      );
+
+      ref.read(pendingReservationProvider.notifier).state = updatedReservation;
+      _hasInitializedUserData = true;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Listen for user state changes
     ref.listen<CurrentUserGetState>(currentUserGetNotifierProvider, (
       previous,
       next,
     ) {
-      // * Jalankan logika hanya saat data user berhasil dimuat
-      final isDataLoaded =
-          previous?.status != CurrentUserGetStatus.success &&
-          next.status == CurrentUserGetStatus.success;
-
-      if (isDataLoaded && next.user != null) {
-        final currentUser = next.user!;
-        final currentReservation = ref.read(pendingReservationProvider);
-
-        if (currentReservation != null) {
-          // * Buat objek customer info dari data user
-          final customerInfoFromUser = ReservationCustomerInfo(
-            fullName: currentUser.fullName,
-            fullNameKana: currentUser.fullNameKana,
-            email: currentUser.email,
-            phoneNumber: currentUser.phoneNumber,
-            isGuest: false, // * User sudah login, jadi bukan guest
-          );
-          final userReservationFromUser = ReservationUser(
-            id: currentUser.id,
-            fullName: currentUser.fullName,
-            email: currentUser.email,
-            phoneNumber: currentUser.phoneNumber,
-          );
-
-          // * Salin objek reservasi dan perbarui field customerInfo dan user
-          final updatedReservation = currentReservation.copyWith(
-            customerInfo: customerInfoFromUser,
-            user: userReservationFromUser,
-          );
-
-          // * Simpan kembali ke provider
-          ref.read(pendingReservationProvider.notifier).state =
-              updatedReservation;
-        }
+      if (next.status == CurrentUserGetStatus.success &&
+          next.user != null &&
+          !_hasInitializedUserData) {
+        _updateReservationWithUserData();
       }
     });
 
@@ -74,7 +99,7 @@ class ConfirmReservationScreen extends ConsumerWidget {
             children: [
               _buildBannerInfo(context),
               const SizedBox(height: 24),
-              _buildUserInfo(context, ref),
+              _buildUserInfo(context),
             ],
           ),
         ),
@@ -123,7 +148,7 @@ class ConfirmReservationScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildUserInfo(BuildContext context, WidgetRef ref) {
+  Widget _buildUserInfo(BuildContext context) {
     final l10n = context.l10n;
     final currentUserState = ref.watch(currentUserGetNotifierProvider);
 
@@ -199,7 +224,22 @@ class ConfirmReservationScreen extends ConsumerWidget {
               child: AppButton(
                 text: l10n.confirmReservationContinueButton,
                 onPressed: () {
-                  context.router.push(const ReservationSummaryRoute());
+                  // Ensure reservation data is updated before proceeding
+                  final reservation = ref.read(pendingReservationProvider);
+                  if (reservation != null) {
+                    context.router.push(const ReservationSummaryRoute());
+                  } else {
+                    // Handle error case - reservation data is missing
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'Reservation data is missing. Please try again.',
+                        ),
+                        backgroundColor: Theme.of(context).colorScheme.error,
+                      ),
+                    );
+                    context.router.replaceAll([const HomeRoute()]);
+                  }
                 },
               ),
             ),
