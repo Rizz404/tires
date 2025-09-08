@@ -95,9 +95,7 @@ class UserEndDrawer extends ConsumerWidget {
                       isActive: item['isActive'],
                       onTap: () {
                         Navigator.of(context).pop();
-
                         final itemType = item['type'] as String;
-
                         switch (itemType) {
                           case 'tab':
                             if (tabsRouter != null) {
@@ -119,10 +117,10 @@ class UserEndDrawer extends ConsumerWidget {
                       },
                     );
                   }).toList(),
-                  _buildLanguageSelector(context, ref, l10n),
                 ],
               ),
             ),
+            _buildStickyLanguageSelector(context, ref, l10n),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: _buildAuthButton(context, ref, isAuthenticated, l10n),
@@ -299,6 +297,7 @@ class UserEndDrawer extends ConsumerWidget {
           leading: Icon(
             displayIcon,
             color: isActive ? activeColor : inactiveColor,
+            size: 24,
           ),
           title: Text(
             title,
@@ -313,43 +312,84 @@ class UserEndDrawer extends ConsumerWidget {
       );
     }
 
-    return Card(
-      color: isActive
-          ? activeColor.withValues(alpha: 0.1)
-          : context.theme.cardColor,
-      elevation: 0,
-      margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-      child: ListTile(
-        leading: Icon(
-          displayIcon,
-          color: isActive ? activeColor : inactiveColor,
-        ),
-        title: Text(
-          title,
-          style: context.textTheme.bodyMedium?.copyWith(
-            color: isActive ? activeColor : null,
-            fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+    return Container(
+      margin: const EdgeInsets.only(
+        left: 12.0,
+        right: 12.0,
+        top: 2.0,
+        bottom: 2.0,
+      ),
+      child: Card(
+        color: isActive
+            ? activeColor.withValues(alpha: 0.1)
+            : context.theme.cardColor,
+        elevation: 0,
+        child: ListTile(
+          leading: Icon(
+            displayIcon,
+            color: isActive ? activeColor : inactiveColor,
+            size: 24,
           ),
+          title: Text(
+            title,
+            style: context.textTheme.bodyMedium?.copyWith(
+              color: isActive ? activeColor : null,
+              fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+            ),
+          ),
+          onTap: onTap,
+          dense: true,
         ),
-        onTap: onTap,
-        dense: true,
       ),
     );
   }
 
-  Widget _buildLanguageSelector(
+  Widget _buildStickyLanguageSelector(
     BuildContext context,
     WidgetRef ref,
     L10n l10n,
   ) {
-    return _buildDrawerItem(
-      context,
-      icon: Icons.translate,
-      title: l10n.drawerItemLanguage,
-      isActive: false,
-      onTap: () {
-        _showLanguageDialog(context, ref, l10n);
-      },
+    return Container(
+      decoration: BoxDecoration(
+        color: context.colorScheme.surface,
+        border: Border(
+          top: BorderSide(
+            color: context.colorScheme.outline.withValues(alpha: 0.2),
+            width: 1,
+          ),
+        ),
+      ),
+      child: Card(
+        elevation: 4,
+        margin: const EdgeInsets.all(12.0),
+        child: ListTile(
+          leading: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: context.colorScheme.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              Icons.translate,
+              color: context.colorScheme.primary,
+              size: 20,
+            ),
+          ),
+          title: Text(
+            l10n.drawerItemLanguage,
+            style: context.textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          trailing: Icon(
+            Icons.keyboard_arrow_right,
+            color: context.colorScheme.onSurface.withValues(alpha: 0.7),
+          ),
+          onTap: () {
+            _showLanguageDialog(context, ref, l10n);
+          },
+        ),
+      ),
     );
   }
 
@@ -357,28 +397,42 @@ class UserEndDrawer extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) {
-        return SimpleDialog(
-          title: Text(l10n.dialogTitleSelectLanguage),
-          children: [
-            SimpleDialogOption(
-              onPressed: () {
-                ref
-                    .read(localeProvider.notifier)
-                    .changeLocale(const Locale('en'));
-                Navigator.of(context).pop();
-              },
-              child: const Text('English'),
-            ),
-            SimpleDialogOption(
-              onPressed: () {
-                ref
-                    .read(localeProvider.notifier)
-                    .changeLocale(const Locale('ja'));
-                Navigator.of(context).pop();
-              },
-              child: const Text('日本語 (Japanese)'),
-            ),
-          ],
+        return AlertDialog(
+          title: Text(
+            l10n.dialogTitleSelectLanguage,
+            style: context.textTheme.titleLarge,
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const CircleAvatar(
+                  radius: 16,
+                  child: Text('🇺🇸', style: TextStyle(fontSize: 16)),
+                ),
+                title: const Text('English'),
+                onTap: () {
+                  ref
+                      .read(localeProvider.notifier)
+                      .changeLocale(const Locale('en'));
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                leading: const CircleAvatar(
+                  radius: 16,
+                  child: Text('🇯🇵', style: TextStyle(fontSize: 16)),
+                ),
+                title: const Text('日本語 (Japanese)'),
+                onTap: () {
+                  ref
+                      .read(localeProvider.notifier)
+                      .changeLocale(const Locale('ja'));
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
         );
       },
     );
