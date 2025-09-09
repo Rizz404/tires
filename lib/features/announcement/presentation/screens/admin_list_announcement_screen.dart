@@ -172,10 +172,11 @@ class _AdminListAnnouncementScreenState
           ),
           const SizedBox(height: 16),
           AppButton(
-            color: AppButtonColor.neutral,
+            color: AppButtonColor.primary,
             isFullWidth: false,
             text: 'Add Announcement',
             leadingIcon: const Icon(Icons.add),
+            onPressed: () {},
           ),
         ],
       ),
