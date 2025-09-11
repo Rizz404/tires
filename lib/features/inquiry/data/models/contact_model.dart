@@ -44,20 +44,24 @@ class ContactModel extends Contact {
     }
 
     return ContactModel(
-      id: map['id']! as int,
+      id: map['id'] as int? ?? 0,
       user: user,
       fullName: map['full_name'] as String?,
       email: map['email'] as String?,
       phoneNumber: map['phone_number'] as String?,
-      subject: map['subject']! as String,
-      message: map['message']! as String,
+      subject: map['subject'] as String? ?? '',
+      message: map['message'] as String? ?? '',
       status: status,
       adminReply: map['admin_reply'] as String?,
       repliedAt: map['replied_at'] != null
           ? DateTime.parse(map['replied_at'] as String)
           : null,
-      createdAt: DateTime.parse(map['created_at'] as String),
-      updatedAt: DateTime.parse(map['updated_at'] as String),
+      createdAt: map['created_at'] != null
+          ? DateTime.parse(map['created_at'] as String)
+          : DateTime.now(),
+      updatedAt: map['updated_at'] != null
+          ? DateTime.parse(map['updated_at'] as String)
+          : DateTime.now(),
     );
   }
 

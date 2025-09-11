@@ -30,6 +30,7 @@ class ApiEndpoints {
   static const String logout = '$_authPrefix/logout';
 
   // --- Admin Endpoints ---
+  static const String adminDashboard = '$_adminPrefix/dashboard';
   static const String adminMenus = '$_adminPrefix$_menuPrefix';
   static const String adminUsers = '$_adminPrefix$_userPrefix';
   static const String adminReservations = '$_adminPrefix$_reservationPrefix';

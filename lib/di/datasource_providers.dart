@@ -5,6 +5,7 @@ import 'package:tires/features/authentication/data/datasources/auth_remote_datas
 import 'package:tires/features/availability/data/datasources/availability_remote_datasource.dart';
 import 'package:tires/features/availability/data/datasources/availability_remote_datasource_impl.dart';
 import 'package:tires/features/customer_management/data/datasources/customer_remote_datasource.dart';
+import 'package:tires/features/dashboard/data/datasources/dashboard_remote_datasource.dart';
 import 'package:tires/features/inquiry/data/datasources/inquiry_remote_datasource.dart';
 import 'package:tires/features/menu/data/datasources/menu_remote_datasource.dart';
 import 'package:tires/features/reservation/data/datasources/reservation_remote_datasource.dart';
@@ -59,3 +60,10 @@ final announcementRemoteDatasourceProvider =
       final _dioClient = ref.watch(dioClientProvider);
       return AnnouncementRemoteDatasourceImpl(_dioClient);
     });
+
+final dashboardRemoteDatasourceProvider = Provider<DashboardRemoteDataSource>((
+  ref,
+) {
+  final _dioClient = ref.watch(dioClientProvider);
+  return DashboardRemoteDataSourceImpl(_dioClient);
+});

@@ -682,6 +682,307 @@ class L10nJa extends L10n {
   String get forgotPasswordBackToLogin => 'ログインに戻る';
 
   @override
+  String get adminUpsertBusinessInformationScreenPageTitle => '事業者設定の編集';
+
+  @override
+  String get adminUpsertBusinessInformationScreenPageSubtitle =>
+      '事業者情報と営業時間を更新します';
+
+  @override
+  String get adminUpsertBusinessInformationScreenPageBackToSettings => '設定に戻る';
+
+  @override
+  String get adminUpsertBusinessInformationScreenSectionHeadersBasicInfo =>
+      '基本情報';
+
+  @override
+  String get adminUpsertBusinessInformationScreenSectionHeadersBusinessHours =>
+      '営業時間';
+
+  @override
+  String get adminUpsertBusinessInformationScreenSectionHeadersSiteSettings =>
+      'サイト設定';
+
+  @override
+  String get adminUpsertBusinessInformationScreenSectionHeadersDescImage =>
+      '説明と画像';
+
+  @override
+  String get adminUpsertBusinessInformationScreenSectionHeadersPoliciesTerms =>
+      '規約とポリシー';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsShopName => '店舗名';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsPhoneNumber => '電話番号';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsAddress => '住所';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsWebsiteUrl =>
+      'ウェブサイトURL';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsClosed => '定休日';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsOpenTime => '開店時間';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsCloseTime => '閉店時間';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsSiteName => 'サイト名';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsMakeSitePublic =>
+      'サイトを公開する';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsReplyEmail =>
+      '返信先メールアドレス';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsGoogleAnalyticsId =>
+      'GoogleアナリティクスID';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsShopDescription =>
+      '店舗の説明';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsAccessInformation =>
+      'アクセス情報';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsTopImage => 'トップ画像';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsImagePreview =>
+      '画像プレビュー';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsTermsOfUse => '利用規約';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsPrivacyPolicy =>
+      'プライバシーポリシー';
+
+  @override
+  String get adminUpsertBusinessInformationScreenPlaceholdersWebsiteUrl =>
+      'https://example.com';
+
+  @override
+  String
+  get adminUpsertBusinessInformationScreenPlaceholdersGoogleAnalyticsId =>
+      'GA-XXXXXXXXX-X';
+
+  @override
+  String get adminUpsertBusinessInformationScreenPlaceholdersShopDescription =>
+      'お店の説明を入力してください...';
+
+  @override
+  String
+  get adminUpsertBusinessInformationScreenPlaceholdersAccessInformation =>
+      'お店へのアクセス方法...';
+
+  @override
+  String get adminUpsertBusinessInformationScreenPlaceholdersTermsOfUse =>
+      '利用規約を入力してください...';
+
+  @override
+  String get adminUpsertBusinessInformationScreenPlaceholdersPrivacyPolicy =>
+      'プライバシーポリシーを入力してください...';
+
+  @override
+  String get adminUpsertBusinessInformationScreenDaysMonday => '月曜';
+
+  @override
+  String get adminUpsertBusinessInformationScreenDaysTuesday => '火曜';
+
+  @override
+  String get adminUpsertBusinessInformationScreenDaysWednesday => '水曜';
+
+  @override
+  String get adminUpsertBusinessInformationScreenDaysThursday => '木曜';
+
+  @override
+  String get adminUpsertBusinessInformationScreenDaysFriday => '金曜';
+
+  @override
+  String get adminUpsertBusinessInformationScreenDaysSaturday => '土曜';
+
+  @override
+  String get adminUpsertBusinessInformationScreenDaysSunday => '日曜';
+
+  @override
+  String get adminUpsertBusinessInformationScreenButtonsCancel => 'キャンセル';
+
+  @override
+  String get adminUpsertBusinessInformationScreenButtonsSaveChanges => '変更を保存';
+
+  @override
+  String get businessSettingsNotificationSuccessUpdate =>
+      'Business settings updated successfully.';
+
+  @override
+  String get businessSettingsNotificationErrorUpdate => 'An error occurred: ';
+
+  @override
+  String get adminListBusinessInformationScreenTitle => '事業設定';
+
+  @override
+  String get adminListBusinessInformationScreenDescription => '事業情報と設定を管理します';
+
+  @override
+  String get adminListBusinessInformationScreenEditButton => '設定を編集';
+
+  @override
+  String get adminListBusinessInformationScreenCreateButton => '設定を作成';
+
+  @override
+  String get adminListBusinessInformationScreenNotSet => '未設定';
+
+  @override
+  String get adminListBusinessInformationScreenBasicInfoTitle => '基本情報';
+
+  @override
+  String get adminListBusinessInformationScreenBasicInfoShopName => '店舗名';
+
+  @override
+  String get adminListBusinessInformationScreenBasicInfoPhoneNumber => '電話番号';
+
+  @override
+  String get adminListBusinessInformationScreenBasicInfoAddress => '住所';
+
+  @override
+  String get adminListBusinessInformationScreenBasicInfoWebsiteUrl =>
+      'ウェブサイトURL';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursTitle => '営業時間';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursNotSet =>
+      '営業時間が設定されていません';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursClosed => '休業';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursDaysMonday => '月曜';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursDaysTuesday => '火曜';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursDaysWednesday =>
+      '水曜';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursDaysThursday =>
+      '木曜';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursDaysFriday => '金曜';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursDaysSaturday =>
+      '土曜';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursDaysSunday => '日曜';
+
+  @override
+  String get adminListBusinessInformationScreenSiteSettingsTitle => 'サイト設定';
+
+  @override
+  String get adminListBusinessInformationScreenSiteSettingsSiteName => 'サイト名';
+
+  @override
+  String get adminListBusinessInformationScreenSiteSettingsSiteStatus =>
+      'サイトステータス';
+
+  @override
+  String get adminListBusinessInformationScreenSiteSettingsPublic => '公開';
+
+  @override
+  String get adminListBusinessInformationScreenSiteSettingsPrivate => '非公開';
+
+  @override
+  String get adminListBusinessInformationScreenSiteSettingsReplyEmail =>
+      '返信先メールアドレス';
+
+  @override
+  String get adminListBusinessInformationScreenSiteSettingsGoogleAnalyticsId =>
+      'GoogleアナリティクスID';
+
+  @override
+  String get adminListBusinessInformationScreenDescriptionImageTitle => '説明と画像';
+
+  @override
+  String
+  get adminListBusinessInformationScreenDescriptionImageShopDescriptionLabel =>
+      '店舗の説明';
+
+  @override
+  String
+  get adminListBusinessInformationScreenDescriptionImageShopDescriptionNotSet =>
+      '説明が設定されていません';
+
+  @override
+  String get adminListBusinessInformationScreenDescriptionImageTopImageLabel =>
+      'トップ画像';
+
+  @override
+  String get adminListBusinessInformationScreenDescriptionImageTopImageNotSet =>
+      '画像がアップロードされていません';
+
+  @override
+  String
+  get adminListBusinessInformationScreenDescriptionImageAccessInformationLabel =>
+      'アクセス情報';
+
+  @override
+  String
+  get adminListBusinessInformationScreenDescriptionImageAccessInformationNotSet =>
+      'アクセス情報が設定されていません';
+
+  @override
+  String get adminListBusinessInformationScreenPoliciesTermsTitle => 'ポリシーと規約';
+
+  @override
+  String get adminListBusinessInformationScreenPoliciesTermsTermsOfUseLabel =>
+      '利用規約';
+
+  @override
+  String get adminListBusinessInformationScreenPoliciesTermsTermsOfUseNotSet =>
+      '利用規約が設定されていません';
+
+  @override
+  String
+  get adminListBusinessInformationScreenPoliciesTermsPrivacyPolicyLabel =>
+      'プライバシーポリシー';
+
+  @override
+  String
+  get adminListBusinessInformationScreenPoliciesTermsPrivacyPolicyNotSet =>
+      'プライバシーポリシーが設定されていません';
+
+  @override
+  String get adminListBusinessInformationScreenNotFoundTitle => '事業設定が見つかりません';
+
+  @override
+  String get adminListBusinessInformationScreenNotFoundDescription =>
+      '事業設定を作成して始めましょう。';
+
+  @override
+  String get adminListBusinessInformationScreenNotFoundCreateButton =>
+      '事業設定を作成する';
+
+  @override
   String get adminListCustomerManagementTitle => '顧客管理';
 
   @override

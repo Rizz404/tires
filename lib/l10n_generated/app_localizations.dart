@@ -1329,6 +1329,514 @@ abstract class L10n {
   /// **'Back to Login'**
   String get forgotPasswordBackToLogin;
 
+  /// No description provided for @adminUpsertBusinessInformationScreenPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Business Settings'**
+  String get adminUpsertBusinessInformationScreenPageTitle;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenPageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Update your business information and operating hours'**
+  String get adminUpsertBusinessInformationScreenPageSubtitle;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenPageBackToSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Settings'**
+  String get adminUpsertBusinessInformationScreenPageBackToSettings;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenSectionHeadersBasicInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Information'**
+  String get adminUpsertBusinessInformationScreenSectionHeadersBasicInfo;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenSectionHeadersBusinessHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Business Hours'**
+  String get adminUpsertBusinessInformationScreenSectionHeadersBusinessHours;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenSectionHeadersSiteSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Site Settings'**
+  String get adminUpsertBusinessInformationScreenSectionHeadersSiteSettings;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenSectionHeadersDescImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Description & Image'**
+  String get adminUpsertBusinessInformationScreenSectionHeadersDescImage;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenSectionHeadersPoliciesTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'Policies & Terms'**
+  String get adminUpsertBusinessInformationScreenSectionHeadersPoliciesTerms;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsShopName.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop Name'**
+  String get adminUpsertBusinessInformationScreenLabelsShopName;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get adminUpsertBusinessInformationScreenLabelsPhoneNumber;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get adminUpsertBusinessInformationScreenLabelsAddress;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsWebsiteUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Website URL'**
+  String get adminUpsertBusinessInformationScreenLabelsWebsiteUrl;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get adminUpsertBusinessInformationScreenLabelsClosed;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsOpenTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Time'**
+  String get adminUpsertBusinessInformationScreenLabelsOpenTime;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsCloseTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Close Time'**
+  String get adminUpsertBusinessInformationScreenLabelsCloseTime;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsSiteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Site Name'**
+  String get adminUpsertBusinessInformationScreenLabelsSiteName;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsMakeSitePublic.
+  ///
+  /// In en, this message translates to:
+  /// **'Make site public'**
+  String get adminUpsertBusinessInformationScreenLabelsMakeSitePublic;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsReplyEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply Email'**
+  String get adminUpsertBusinessInformationScreenLabelsReplyEmail;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsGoogleAnalyticsId.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Analytics ID'**
+  String get adminUpsertBusinessInformationScreenLabelsGoogleAnalyticsId;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsShopDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop Description'**
+  String get adminUpsertBusinessInformationScreenLabelsShopDescription;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsAccessInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Access Information'**
+  String get adminUpsertBusinessInformationScreenLabelsAccessInformation;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsTopImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Image'**
+  String get adminUpsertBusinessInformationScreenLabelsTopImage;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsImagePreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Image Preview'**
+  String get adminUpsertBusinessInformationScreenLabelsImagePreview;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsTermsOfUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
+  String get adminUpsertBusinessInformationScreenLabelsTermsOfUse;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenLabelsPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get adminUpsertBusinessInformationScreenLabelsPrivacyPolicy;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenPlaceholdersWebsiteUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'https://example.com'**
+  String get adminUpsertBusinessInformationScreenPlaceholdersWebsiteUrl;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenPlaceholdersGoogleAnalyticsId.
+  ///
+  /// In en, this message translates to:
+  /// **'GA-XXXXXXXXX-X'**
+  String get adminUpsertBusinessInformationScreenPlaceholdersGoogleAnalyticsId;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenPlaceholdersShopDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe your business...'**
+  String get adminUpsertBusinessInformationScreenPlaceholdersShopDescription;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenPlaceholdersAccessInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'How to get to your business...'**
+  String get adminUpsertBusinessInformationScreenPlaceholdersAccessInformation;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenPlaceholdersTermsOfUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your terms of use...'**
+  String get adminUpsertBusinessInformationScreenPlaceholdersTermsOfUse;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenPlaceholdersPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your privacy policy...'**
+  String get adminUpsertBusinessInformationScreenPlaceholdersPrivacyPolicy;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenDaysMonday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get adminUpsertBusinessInformationScreenDaysMonday;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenDaysTuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get adminUpsertBusinessInformationScreenDaysTuesday;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenDaysWednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get adminUpsertBusinessInformationScreenDaysWednesday;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenDaysThursday.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get adminUpsertBusinessInformationScreenDaysThursday;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenDaysFriday.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get adminUpsertBusinessInformationScreenDaysFriday;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenDaysSaturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get adminUpsertBusinessInformationScreenDaysSaturday;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenDaysSunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get adminUpsertBusinessInformationScreenDaysSunday;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenButtonsCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminUpsertBusinessInformationScreenButtonsCancel;
+
+  /// No description provided for @adminUpsertBusinessInformationScreenButtonsSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get adminUpsertBusinessInformationScreenButtonsSaveChanges;
+
+  /// No description provided for @businessSettingsNotificationSuccessUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Business settings updated successfully.'**
+  String get businessSettingsNotificationSuccessUpdate;
+
+  /// No description provided for @businessSettingsNotificationErrorUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred: '**
+  String get businessSettingsNotificationErrorUpdate;
+
+  /// No description provided for @adminListBusinessInformationScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Business Settings'**
+  String get adminListBusinessInformationScreenTitle;
+
+  /// No description provided for @adminListBusinessInformationScreenDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage your business information and settings'**
+  String get adminListBusinessInformationScreenDescription;
+
+  /// No description provided for @adminListBusinessInformationScreenEditButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Settings'**
+  String get adminListBusinessInformationScreenEditButton;
+
+  /// No description provided for @adminListBusinessInformationScreenCreateButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Settings'**
+  String get adminListBusinessInformationScreenCreateButton;
+
+  /// No description provided for @adminListBusinessInformationScreenNotSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get adminListBusinessInformationScreenNotSet;
+
+  /// No description provided for @adminListBusinessInformationScreenBasicInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Information'**
+  String get adminListBusinessInformationScreenBasicInfoTitle;
+
+  /// No description provided for @adminListBusinessInformationScreenBasicInfoShopName.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop Name'**
+  String get adminListBusinessInformationScreenBasicInfoShopName;
+
+  /// No description provided for @adminListBusinessInformationScreenBasicInfoPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get adminListBusinessInformationScreenBasicInfoPhoneNumber;
+
+  /// No description provided for @adminListBusinessInformationScreenBasicInfoAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get adminListBusinessInformationScreenBasicInfoAddress;
+
+  /// No description provided for @adminListBusinessInformationScreenBasicInfoWebsiteUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Website URL'**
+  String get adminListBusinessInformationScreenBasicInfoWebsiteUrl;
+
+  /// No description provided for @adminListBusinessInformationScreenBusinessHoursTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Business Hours'**
+  String get adminListBusinessInformationScreenBusinessHoursTitle;
+
+  /// No description provided for @adminListBusinessInformationScreenBusinessHoursNotSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Business hours not set'**
+  String get adminListBusinessInformationScreenBusinessHoursNotSet;
+
+  /// No description provided for @adminListBusinessInformationScreenBusinessHoursClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get adminListBusinessInformationScreenBusinessHoursClosed;
+
+  /// No description provided for @adminListBusinessInformationScreenBusinessHoursDaysMonday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get adminListBusinessInformationScreenBusinessHoursDaysMonday;
+
+  /// No description provided for @adminListBusinessInformationScreenBusinessHoursDaysTuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get adminListBusinessInformationScreenBusinessHoursDaysTuesday;
+
+  /// No description provided for @adminListBusinessInformationScreenBusinessHoursDaysWednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get adminListBusinessInformationScreenBusinessHoursDaysWednesday;
+
+  /// No description provided for @adminListBusinessInformationScreenBusinessHoursDaysThursday.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get adminListBusinessInformationScreenBusinessHoursDaysThursday;
+
+  /// No description provided for @adminListBusinessInformationScreenBusinessHoursDaysFriday.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get adminListBusinessInformationScreenBusinessHoursDaysFriday;
+
+  /// No description provided for @adminListBusinessInformationScreenBusinessHoursDaysSaturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get adminListBusinessInformationScreenBusinessHoursDaysSaturday;
+
+  /// No description provided for @adminListBusinessInformationScreenBusinessHoursDaysSunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get adminListBusinessInformationScreenBusinessHoursDaysSunday;
+
+  /// No description provided for @adminListBusinessInformationScreenSiteSettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Site Settings'**
+  String get adminListBusinessInformationScreenSiteSettingsTitle;
+
+  /// No description provided for @adminListBusinessInformationScreenSiteSettingsSiteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Site Name'**
+  String get adminListBusinessInformationScreenSiteSettingsSiteName;
+
+  /// No description provided for @adminListBusinessInformationScreenSiteSettingsSiteStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Site Status'**
+  String get adminListBusinessInformationScreenSiteSettingsSiteStatus;
+
+  /// No description provided for @adminListBusinessInformationScreenSiteSettingsPublic.
+  ///
+  /// In en, this message translates to:
+  /// **'Public'**
+  String get adminListBusinessInformationScreenSiteSettingsPublic;
+
+  /// No description provided for @adminListBusinessInformationScreenSiteSettingsPrivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Private'**
+  String get adminListBusinessInformationScreenSiteSettingsPrivate;
+
+  /// No description provided for @adminListBusinessInformationScreenSiteSettingsReplyEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply Email'**
+  String get adminListBusinessInformationScreenSiteSettingsReplyEmail;
+
+  /// No description provided for @adminListBusinessInformationScreenSiteSettingsGoogleAnalyticsId.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Analytics ID'**
+  String get adminListBusinessInformationScreenSiteSettingsGoogleAnalyticsId;
+
+  /// No description provided for @adminListBusinessInformationScreenDescriptionImageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Description & Image'**
+  String get adminListBusinessInformationScreenDescriptionImageTitle;
+
+  /// No description provided for @adminListBusinessInformationScreenDescriptionImageShopDescriptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop Description'**
+  String
+  get adminListBusinessInformationScreenDescriptionImageShopDescriptionLabel;
+
+  /// No description provided for @adminListBusinessInformationScreenDescriptionImageShopDescriptionNotSet.
+  ///
+  /// In en, this message translates to:
+  /// **'No description set'**
+  String
+  get adminListBusinessInformationScreenDescriptionImageShopDescriptionNotSet;
+
+  /// No description provided for @adminListBusinessInformationScreenDescriptionImageTopImageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Image'**
+  String get adminListBusinessInformationScreenDescriptionImageTopImageLabel;
+
+  /// No description provided for @adminListBusinessInformationScreenDescriptionImageTopImageNotSet.
+  ///
+  /// In en, this message translates to:
+  /// **'No image uploaded'**
+  String get adminListBusinessInformationScreenDescriptionImageTopImageNotSet;
+
+  /// No description provided for @adminListBusinessInformationScreenDescriptionImageAccessInformationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Access Information'**
+  String
+  get adminListBusinessInformationScreenDescriptionImageAccessInformationLabel;
+
+  /// No description provided for @adminListBusinessInformationScreenDescriptionImageAccessInformationNotSet.
+  ///
+  /// In en, this message translates to:
+  /// **'No access information set'**
+  String
+  get adminListBusinessInformationScreenDescriptionImageAccessInformationNotSet;
+
+  /// No description provided for @adminListBusinessInformationScreenPoliciesTermsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Policies & Terms'**
+  String get adminListBusinessInformationScreenPoliciesTermsTitle;
+
+  /// No description provided for @adminListBusinessInformationScreenPoliciesTermsTermsOfUseLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
+  String get adminListBusinessInformationScreenPoliciesTermsTermsOfUseLabel;
+
+  /// No description provided for @adminListBusinessInformationScreenPoliciesTermsTermsOfUseNotSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of use not set'**
+  String get adminListBusinessInformationScreenPoliciesTermsTermsOfUseNotSet;
+
+  /// No description provided for @adminListBusinessInformationScreenPoliciesTermsPrivacyPolicyLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get adminListBusinessInformationScreenPoliciesTermsPrivacyPolicyLabel;
+
+  /// No description provided for @adminListBusinessInformationScreenPoliciesTermsPrivacyPolicyNotSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy policy not set'**
+  String get adminListBusinessInformationScreenPoliciesTermsPrivacyPolicyNotSet;
+
+  /// No description provided for @adminListBusinessInformationScreenNotFoundTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No Business Settings Found'**
+  String get adminListBusinessInformationScreenNotFoundTitle;
+
+  /// No description provided for @adminListBusinessInformationScreenNotFoundDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Get started by creating your business settings.'**
+  String get adminListBusinessInformationScreenNotFoundDescription;
+
+  /// No description provided for @adminListBusinessInformationScreenNotFoundCreateButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Business Settings'**
+  String get adminListBusinessInformationScreenNotFoundCreateButton;
+
   /// No description provided for @adminListCustomerManagementTitle.
   ///
   /// In en, this message translates to:

@@ -25,6 +25,7 @@ import 'package:tires/features/user/domain/usecases/get_current_user_usecase.dar
 import 'package:tires/features/user/domain/usecases/get_current_user_reservations_cursor_usecase.dart';
 import 'package:tires/features/user/domain/usecases/update_current_user_password_usecase.dart';
 import 'package:tires/features/user/domain/usecases/update_current_user_usecase.dart';
+import 'package:tires/features/dashboard/domain/usecases/get_dashboard_usecase.dart';
 
 final registerUsecaseProvider = Provider<RegisterUsecase>((ref) {
   final _authRepository = ref.watch(authRepoProvider);
@@ -174,4 +175,9 @@ final deleteAnnouncementUsecaseProvider = Provider<DeleteAnnouncementUsecase>((
 ) {
   final _announcementRepository = ref.watch(announcementRepoProvider);
   return DeleteAnnouncementUsecase(_announcementRepository);
+});
+
+final getDashboardUsecaseProvider = Provider<GetDashboardUsecase>((ref) {
+  final _dashboardRepository = ref.watch(dashboardRepoProvider);
+  return GetDashboardUsecase(_dashboardRepository);
 });

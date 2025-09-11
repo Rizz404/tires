@@ -17,6 +17,8 @@ import 'package:tires/features/reservation/data/repositories/reservation_reposit
 import 'package:tires/features/reservation/domain/repositories/reservation_repository.dart';
 import 'package:tires/features/user/data/repositories/current_user_repository_impl.dart';
 import 'package:tires/features/user/domain/repositories/current_user_repository.dart';
+import 'package:tires/features/dashboard/data/repositories/dashboard_repository_impl.dart';
+import 'package:tires/features/dashboard/domain/repositories/dashboard_repository.dart';
 
 final authRepoProvider = Provider<AuthRepository>((ref) {
   final _authRemoteDatasource = ref.watch(authRemoteDatasourceProvider);
@@ -76,4 +78,11 @@ final announcementRepoProvider = Provider<AnnouncementRepository>((ref) {
     announcementRemoteDatasourceProvider,
   );
   return AnnouncementRepositoryImpl(_announcementRemoteDatasource);
+});
+
+final dashboardRepoProvider = Provider<DashboardRepository>((ref) {
+  final _dashboardRemoteDatasource = ref.watch(
+    dashboardRemoteDatasourceProvider,
+  );
+  return DashboardRepositoryImpl(_dashboardRemoteDatasource);
 });

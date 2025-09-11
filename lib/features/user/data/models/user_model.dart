@@ -59,13 +59,15 @@ class UserModel extends User {
       }
 
       return UserModel(
-        id: map['id']! as int,
-        email: map['email'] as String,
-        emailVerifiedAt: DateTime.parse(map['email_verified_at'] as String),
+        id: map['id'] as int? ?? 0,
+        email: map['email'] as String? ?? '',
+        emailVerifiedAt: map['email_verified_at'] != null
+            ? DateTime.parse(map['email_verified_at'] as String)
+            : DateTime.now(),
         password: null, // Tidak ada di response login
-        fullName: map['full_name'] as String,
-        fullNameKana: map['full_name_kana'] as String,
-        phoneNumber: map['phone_number'] as String,
+        fullName: map['full_name'] as String? ?? 'Unknown',
+        fullNameKana: map['full_name_kana'] as String? ?? '',
+        phoneNumber: map['phone_number'] as String? ?? '',
         companyName: map['company_name'] as String?,
         department: map['department'] as String?,
         companyAddress: map['company_address'] as String?,
@@ -75,8 +77,12 @@ class UserModel extends User {
             : null,
         role: role,
         gender: gender,
-        createdAt: DateTime.parse(map['created_at'] as String),
-        updatedAt: DateTime.parse(map['updated_at'] as String),
+        createdAt: map['created_at'] != null
+            ? DateTime.parse(map['created_at'] as String)
+            : DateTime.now(),
+        updatedAt: map['updated_at'] != null
+            ? DateTime.parse(map['updated_at'] as String)
+            : DateTime.now(),
         passwordResetToken: null, // Tidak ada di response login
         session: null, // Tidak ada di response login
       );

@@ -718,6 +718,327 @@ class L10nEn extends L10n {
   String get forgotPasswordBackToLogin => 'Back to Login';
 
   @override
+  String get adminUpsertBusinessInformationScreenPageTitle =>
+      'Edit Business Settings';
+
+  @override
+  String get adminUpsertBusinessInformationScreenPageSubtitle =>
+      'Update your business information and operating hours';
+
+  @override
+  String get adminUpsertBusinessInformationScreenPageBackToSettings =>
+      'Back to Settings';
+
+  @override
+  String get adminUpsertBusinessInformationScreenSectionHeadersBasicInfo =>
+      'Basic Information';
+
+  @override
+  String get adminUpsertBusinessInformationScreenSectionHeadersBusinessHours =>
+      'Business Hours';
+
+  @override
+  String get adminUpsertBusinessInformationScreenSectionHeadersSiteSettings =>
+      'Site Settings';
+
+  @override
+  String get adminUpsertBusinessInformationScreenSectionHeadersDescImage =>
+      'Description & Image';
+
+  @override
+  String get adminUpsertBusinessInformationScreenSectionHeadersPoliciesTerms =>
+      'Policies & Terms';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsShopName => 'Shop Name';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsPhoneNumber =>
+      'Phone Number';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsAddress => 'Address';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsWebsiteUrl =>
+      'Website URL';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsClosed => 'Closed';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsOpenTime => 'Open Time';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsCloseTime =>
+      'Close Time';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsSiteName => 'Site Name';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsMakeSitePublic =>
+      'Make site public';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsReplyEmail =>
+      'Reply Email';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsGoogleAnalyticsId =>
+      'Google Analytics ID';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsShopDescription =>
+      'Shop Description';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsAccessInformation =>
+      'Access Information';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsTopImage => 'Top Image';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsImagePreview =>
+      'Image Preview';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsTermsOfUse =>
+      'Terms of Use';
+
+  @override
+  String get adminUpsertBusinessInformationScreenLabelsPrivacyPolicy =>
+      'Privacy Policy';
+
+  @override
+  String get adminUpsertBusinessInformationScreenPlaceholdersWebsiteUrl =>
+      'https://example.com';
+
+  @override
+  String
+  get adminUpsertBusinessInformationScreenPlaceholdersGoogleAnalyticsId =>
+      'GA-XXXXXXXXX-X';
+
+  @override
+  String get adminUpsertBusinessInformationScreenPlaceholdersShopDescription =>
+      'Describe your business...';
+
+  @override
+  String
+  get adminUpsertBusinessInformationScreenPlaceholdersAccessInformation =>
+      'How to get to your business...';
+
+  @override
+  String get adminUpsertBusinessInformationScreenPlaceholdersTermsOfUse =>
+      'Enter your terms of use...';
+
+  @override
+  String get adminUpsertBusinessInformationScreenPlaceholdersPrivacyPolicy =>
+      'Enter your privacy policy...';
+
+  @override
+  String get adminUpsertBusinessInformationScreenDaysMonday => 'Monday';
+
+  @override
+  String get adminUpsertBusinessInformationScreenDaysTuesday => 'Tuesday';
+
+  @override
+  String get adminUpsertBusinessInformationScreenDaysWednesday => 'Wednesday';
+
+  @override
+  String get adminUpsertBusinessInformationScreenDaysThursday => 'Thursday';
+
+  @override
+  String get adminUpsertBusinessInformationScreenDaysFriday => 'Friday';
+
+  @override
+  String get adminUpsertBusinessInformationScreenDaysSaturday => 'Saturday';
+
+  @override
+  String get adminUpsertBusinessInformationScreenDaysSunday => 'Sunday';
+
+  @override
+  String get adminUpsertBusinessInformationScreenButtonsCancel => 'Cancel';
+
+  @override
+  String get adminUpsertBusinessInformationScreenButtonsSaveChanges =>
+      'Save Changes';
+
+  @override
+  String get businessSettingsNotificationSuccessUpdate =>
+      'Business settings updated successfully.';
+
+  @override
+  String get businessSettingsNotificationErrorUpdate => 'An error occurred: ';
+
+  @override
+  String get adminListBusinessInformationScreenTitle => 'Business Settings';
+
+  @override
+  String get adminListBusinessInformationScreenDescription =>
+      'Manage your business information and settings';
+
+  @override
+  String get adminListBusinessInformationScreenEditButton => 'Edit Settings';
+
+  @override
+  String get adminListBusinessInformationScreenCreateButton =>
+      'Create Settings';
+
+  @override
+  String get adminListBusinessInformationScreenNotSet => 'Not set';
+
+  @override
+  String get adminListBusinessInformationScreenBasicInfoTitle =>
+      'Basic Information';
+
+  @override
+  String get adminListBusinessInformationScreenBasicInfoShopName => 'Shop Name';
+
+  @override
+  String get adminListBusinessInformationScreenBasicInfoPhoneNumber =>
+      'Phone Number';
+
+  @override
+  String get adminListBusinessInformationScreenBasicInfoAddress => 'Address';
+
+  @override
+  String get adminListBusinessInformationScreenBasicInfoWebsiteUrl =>
+      'Website URL';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursTitle =>
+      'Business Hours';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursNotSet =>
+      'Business hours not set';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursClosed => 'Closed';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursDaysMonday =>
+      'Monday';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursDaysTuesday =>
+      'Tuesday';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursDaysWednesday =>
+      'Wednesday';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursDaysThursday =>
+      'Thursday';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursDaysFriday =>
+      'Friday';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursDaysSaturday =>
+      'Saturday';
+
+  @override
+  String get adminListBusinessInformationScreenBusinessHoursDaysSunday =>
+      'Sunday';
+
+  @override
+  String get adminListBusinessInformationScreenSiteSettingsTitle =>
+      'Site Settings';
+
+  @override
+  String get adminListBusinessInformationScreenSiteSettingsSiteName =>
+      'Site Name';
+
+  @override
+  String get adminListBusinessInformationScreenSiteSettingsSiteStatus =>
+      'Site Status';
+
+  @override
+  String get adminListBusinessInformationScreenSiteSettingsPublic => 'Public';
+
+  @override
+  String get adminListBusinessInformationScreenSiteSettingsPrivate => 'Private';
+
+  @override
+  String get adminListBusinessInformationScreenSiteSettingsReplyEmail =>
+      'Reply Email';
+
+  @override
+  String get adminListBusinessInformationScreenSiteSettingsGoogleAnalyticsId =>
+      'Google Analytics ID';
+
+  @override
+  String get adminListBusinessInformationScreenDescriptionImageTitle =>
+      'Description & Image';
+
+  @override
+  String
+  get adminListBusinessInformationScreenDescriptionImageShopDescriptionLabel =>
+      'Shop Description';
+
+  @override
+  String
+  get adminListBusinessInformationScreenDescriptionImageShopDescriptionNotSet =>
+      'No description set';
+
+  @override
+  String get adminListBusinessInformationScreenDescriptionImageTopImageLabel =>
+      'Top Image';
+
+  @override
+  String get adminListBusinessInformationScreenDescriptionImageTopImageNotSet =>
+      'No image uploaded';
+
+  @override
+  String
+  get adminListBusinessInformationScreenDescriptionImageAccessInformationLabel =>
+      'Access Information';
+
+  @override
+  String
+  get adminListBusinessInformationScreenDescriptionImageAccessInformationNotSet =>
+      'No access information set';
+
+  @override
+  String get adminListBusinessInformationScreenPoliciesTermsTitle =>
+      'Policies & Terms';
+
+  @override
+  String get adminListBusinessInformationScreenPoliciesTermsTermsOfUseLabel =>
+      'Terms of Use';
+
+  @override
+  String get adminListBusinessInformationScreenPoliciesTermsTermsOfUseNotSet =>
+      'Terms of use not set';
+
+  @override
+  String
+  get adminListBusinessInformationScreenPoliciesTermsPrivacyPolicyLabel =>
+      'Privacy Policy';
+
+  @override
+  String
+  get adminListBusinessInformationScreenPoliciesTermsPrivacyPolicyNotSet =>
+      'Privacy policy not set';
+
+  @override
+  String get adminListBusinessInformationScreenNotFoundTitle =>
+      'No Business Settings Found';
+
+  @override
+  String get adminListBusinessInformationScreenNotFoundDescription =>
+      'Get started by creating your business settings.';
+
+  @override
+  String get adminListBusinessInformationScreenNotFoundCreateButton =>
+      'Create Business Settings';
+
+  @override
   String get adminListCustomerManagementTitle => 'Customer Management';
 
   @override
