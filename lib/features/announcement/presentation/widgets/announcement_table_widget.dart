@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 // Pastikan path import ini benar sesuai lokasi file entity baru Anda
-import 'package:tires/features/user/domain/entities/announcement.dart';
+import 'package:tires/features/announcement/domain/entities/announcement.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
 class AnnouncementTableWidget extends StatelessWidget {
@@ -155,8 +155,8 @@ class AnnouncementTableWidget extends StatelessWidget {
           SizedBox(
             width: 150,
             child: AppText(
-              announcement.startDate != null
-                  ? DateFormat('dd MMM yyyy').format(announcement.startDate!)
+              announcement.publishedAt != null
+                  ? DateFormat('dd MMM yyyy').format(announcement.publishedAt!)
                   : '-',
               color: context.colorScheme.onSurface.withOpacity(0.7),
             ),

@@ -22,7 +22,7 @@ class UpdateReservationUsecase
 }
 
 class UpdateReservationParams extends Equatable {
-  final String id;
+  final int id;
 
   const UpdateReservationParams({required this.id});
 

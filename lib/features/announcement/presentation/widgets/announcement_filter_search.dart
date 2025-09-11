@@ -106,25 +106,12 @@ class AnnouncementFilterSearch extends StatelessWidget {
                         const SizedBox(width: 16),
                         Expanded(
                           child: FormBuilderDateTimePicker(
-                            name: 'start_date',
+                            name: 'published_at',
                             inputType: InputType.date,
                             decoration: InputDecoration(
                               labelText: context
                                   .l10n
                                   .adminListAnnouncementScreenFiltersStartDateLabel,
-                            ),
-                            format: DateFormat('dd/MM/yyyy'),
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: FormBuilderDateTimePicker(
-                            name: 'end_date',
-                            inputType: InputType.date,
-                            decoration: InputDecoration(
-                              labelText: context
-                                  .l10n
-                                  .adminListAnnouncementScreenFiltersEndDateLabel,
                             ),
                             format: DateFormat('dd/MM/yyyy'),
                           ),

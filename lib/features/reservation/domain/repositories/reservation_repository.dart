@@ -23,9 +23,9 @@ abstract class ReservationRepository {
   Future<Either<Failure, ItemSuccessResponse<AvailableHour>>>
   getReservationAvailableHours({required String date, required String menuId});
   Future<Either<Failure, ItemSuccessResponse<Reservation>>> updateReservation({
-    required String id,
+    required int id,
   });
   Future<Either<Failure, ItemSuccessResponse<Reservation>>> deleteReservation({
-    required String id,
+    required int id,
   });
 }

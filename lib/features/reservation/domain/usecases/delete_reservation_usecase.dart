@@ -22,7 +22,7 @@ class DeleteReservationUsecase
 }
 
 class DeleteReservationParams extends Equatable {
-  final String id;
+  final int id;
 
   const DeleteReservationParams({required this.id});
 

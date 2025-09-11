@@ -651,21 +651,21 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
   List<AnnouncementItem> _generateMockAnnouncements() {
     return [
       AnnouncementItem(
-        id: '1',
+        id: 1,
         title: '[Welcome to Our New Online Reservation System]',
         description:
             'We are excited to announce the launch of our new online reservation system. You...',
         date: DateTime.now().subtract(const Duration(minutes: 30)),
       ),
       AnnouncementItem(
-        id: '2',
+        id: 2,
         title: '[Extended Business Hours During Winter Season]',
         description:
             'Starting December 1st, we will be extending our business hours to better...',
         date: DateTime.now().subtract(const Duration(hours: 2)),
       ),
       AnnouncementItem(
-        id: '3',
+        id: 3,
         title: '[Tire Storage Service Now Available]',
         description:
             'We now offer professional tire storage services. Keep your seasonal tires in...',
@@ -677,31 +677,31 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
   List<ContactItem> _generateMockContacts() {
     return [
       ContactItem(
-        id: '1',
+        id: 1,
         customerName: 'Customer',
         subject: 'Aspernatur tempore quis corrupti.',
         receivedAt: DateTime.now().subtract(const Duration(hours: 1)),
       ),
       ContactItem(
-        id: '2',
+        id: 2,
         customerName: 'Customer',
         subject: 'In hic officia cum accusamus voluptatem.',
         receivedAt: DateTime.now().subtract(const Duration(hours: 2)),
       ),
       ContactItem(
-        id: '3',
+        id: 3,
         customerName: 'Customer',
         subject: 'Velit quae earum aut id velit suscipit.',
         receivedAt: DateTime.now().subtract(const Duration(hours: 3)),
       ),
       ContactItem(
-        id: '4',
+        id: 4,
         customerName: 'Customer',
         subject: 'Et voluptatum et dolorem ut commodi.',
         receivedAt: DateTime.now().subtract(const Duration(hours: 4)),
       ),
       ContactItem(
-        id: '5',
+        id: 5,
         customerName: 'Customer',
         subject: 'Deleniti soluta atque voluptatum odit.',
         receivedAt: DateTime.now().subtract(const Duration(hours: 5)),
@@ -712,20 +712,20 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
   List<ReservationItem> _generateMockReservations() {
     return [
       ReservationItem(
-        id: '1',
+        id: 1,
         time: DateTime(2025, 8, 29, 6, 0),
         service: 'Installation of tires purchased at our store',
         customerName: 'Myrtice Barton',
       ),
       ReservationItem(
-        id: '2',
+        id: 2,
         time: DateTime(2025, 8, 29, 9, 0),
         service:
             'Replacement and installation of tires brought in (tires shipped directly to our store)',
         customerName: 'Mas Ambarkusum',
       ),
       ReservationItem(
-        id: '3',
+        id: 3,
         time: DateTime(2025, 8, 29, 9, 0),
         service: 'Installation of tires purchased at our store',
         customerName: 'test',
@@ -736,7 +736,7 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
 
 // Data models
 class AnnouncementItem {
-  final String id;
+  final int id;
   final String title;
   final String description;
   final DateTime date;
@@ -750,7 +750,7 @@ class AnnouncementItem {
 }
 
 class ContactItem {
-  final String id;
+  final int id;
   final String customerName;
   final String subject;
   final DateTime receivedAt;
@@ -764,7 +764,7 @@ class ContactItem {
 }
 
 class ReservationItem {
-  final String id;
+  final int id;
   final DateTime time;
   final String service;
   final String customerName;

@@ -1,27 +1,28 @@
 import 'package:equatable/equatable.dart';
+import 'package:tires/features/announcement/domain/entities/announcement_translation.dart';
 
 class Announcement extends Equatable {
   final int id;
   final String title;
   final String content;
-  final DateTime? startDate;
-  final DateTime? endDate;
+  final DateTime? publishedAt;
   final bool isActive;
   final Meta meta;
+  final AnnouncementTranslation? translations;
 
   Announcement({
     required this.id,
     required this.title,
     required this.content,
-    this.startDate,
-    this.endDate,
+    this.publishedAt,
     required this.isActive,
     required this.meta,
+    this.translations,
   });
 
   @override
   List<Object?> get props {
-    return [id, title, content, startDate, endDate, isActive, meta];
+    return [id, title, content, publishedAt, isActive, meta, translations];
   }
 }
 

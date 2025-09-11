@@ -117,7 +117,7 @@ class ReservationRepositoryImpl implements ReservationRepository {
 
   @override
   Future<Either<Failure, ItemSuccessResponse<Reservation>>> updateReservation({
-    required String id,
+    required int id,
   }) async {
     // TODO: implement updateReservation - method not available in datasource
     throw UnimplementedError(
@@ -127,7 +127,7 @@ class ReservationRepositoryImpl implements ReservationRepository {
 
   @override
   Future<Either<Failure, ItemSuccessResponse<Reservation>>> deleteReservation({
-    required String id,
+    required int id,
   }) async {
     // TODO: implement deleteReservation - method not available in datasource
     throw UnimplementedError(

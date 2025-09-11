@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:tires/features/user/domain/entities/announcement.dart';
+import 'package:tires/features/announcement/domain/entities/announcement.dart';
+import 'package:tires/features/announcement/domain/entities/announcement_translation.dart';
 import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class AnnouncementModel extends Announcement {
@@ -7,22 +8,18 @@ class AnnouncementModel extends Announcement {
     required super.id,
     required super.title,
     required super.content,
-    super.startDate,
-    super.endDate,
+    super.publishedAt,
     required super.isActive,
     required MetaModel super.meta,
+    super.translations,
   });
 
   factory AnnouncementModel.fromMap(Map<String, dynamic> map) {
     DebugHelper.traceModelCreation('AnnouncementModel', map);
     try {
-      final startDateString = DebugHelper.safeCast<String>(
-        map['start_date'],
-        'start_date',
-      );
-      final endDateString = DebugHelper.safeCast<String>(
-        map['end_date'],
-        'end_date',
+      final publishedAtString = DebugHelper.safeCast<String>(
+        map['published_at'],
+        'published_at',
       );
 
       return AnnouncementModel(
@@ -41,11 +38,8 @@ class AnnouncementModel extends Announcement {
               defaultValue: '',
             ) ??
             '',
-        startDate: startDateString != null
-            ? DateTime.tryParse(startDateString)
-            : null,
-        endDate: endDateString != null
-            ? DateTime.tryParse(endDateString)
+        publishedAt: publishedAtString != null
+            ? DateTime.tryParse(publishedAtString)
             : null,
         isActive:
             DebugHelper.safeCast<bool>(
@@ -57,6 +51,11 @@ class AnnouncementModel extends Announcement {
         meta: map['meta'] != null && map['meta'] is Map<String, dynamic>
             ? MetaModel.fromMap(map['meta'])
             : MetaModel(locale: 'en', fallbackUsed: true),
+        translations:
+            map['translations'] != null &&
+                map['translations'] is Map<String, dynamic>
+            ? AnnouncementTranslationModel.fromMap(map['translations'])
+            : null,
       );
     } catch (e, stackTrace) {
       print('❌ Error in AnnouncementModel.fromMap: $e');
@@ -74,10 +73,10 @@ class AnnouncementModel extends Announcement {
       'id': id,
       'title': title,
       'content': content,
-      'start_date': startDate?.toIso8601String(),
-      'end_date': endDate?.toIso8601String(),
+      'published_at': publishedAt?.toIso8601String(),
       'is_active': isActive,
       'meta': (meta as MetaModel).toMap(),
+      'translations': (translations as AnnouncementTranslationModel?)?.toMap(),
     };
   }
 
@@ -109,5 +108,62 @@ class MetaModel extends Meta {
 
   Map<String, dynamic> toMap() {
     return {'locale': locale, 'fallback_used': fallbackUsed};
+  }
+}
+
+class AnnouncementTranslationModel extends AnnouncementTranslation {
+  const AnnouncementTranslationModel({
+    required AnnouncementContentModel super.en,
+    required AnnouncementContentModel super.ja,
+  });
+
+  factory AnnouncementTranslationModel.fromMap(Map<String, dynamic> map) {
+    DebugHelper.traceModelCreation('AnnouncementTranslationModel', map);
+    return AnnouncementTranslationModel(
+      en: map['en'] != null && map['en'] is Map<String, dynamic>
+          ? AnnouncementContentModel.fromMap(map['en'])
+          : const AnnouncementContentModel(title: '', content: ''),
+      ja: map['ja'] != null && map['ja'] is Map<String, dynamic>
+          ? AnnouncementContentModel.fromMap(map['ja'])
+          : const AnnouncementContentModel(title: '', content: ''),
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'en': (en as AnnouncementContentModel).toMap(),
+      'ja': (ja as AnnouncementContentModel).toMap(),
+    };
+  }
+}
+
+class AnnouncementContentModel extends AnnouncementContent {
+  const AnnouncementContentModel({
+    required super.title,
+    required super.content,
+  });
+
+  factory AnnouncementContentModel.fromMap(Map<String, dynamic> map) {
+    DebugHelper.traceModelCreation('AnnouncementContentModel', map);
+    return AnnouncementContentModel(
+      title:
+          DebugHelper.safeCast<String>(
+            map['title'],
+            'title',
+            defaultValue: '',
+          ) ??
+          '',
+      content:
+          DebugHelper.safeCast<String>(
+            map['content'],
+            'content',
+            defaultValue: '',
+          ) ??
+          '',
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {'title': title, 'content': content};
   }
 }

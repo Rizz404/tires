@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 
 class Session extends Equatable {
-  final String id;
+  final int id;
   final String? userId;
   final String? ipAddress;
   final String? userAgent;

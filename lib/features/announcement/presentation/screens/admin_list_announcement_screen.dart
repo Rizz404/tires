@@ -8,7 +8,7 @@ import 'package:tires/features/announcement/presentation/widgets/announcement_fi
 import 'package:tires/features/announcement/presentation/widgets/announcement_table_widget.dart';
 import 'package:tires/features/announcement/presentation/providers/announcements_state.dart';
 import 'package:tires/features/announcement/presentation/providers/announcement_providers.dart';
-import 'package:tires/features/user/domain/entities/announcement.dart';
+import 'package:tires/features/announcement/domain/entities/announcement.dart';
 import 'package:tires/shared/presentation/widgets/admin_end_drawer.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
@@ -61,8 +61,7 @@ class _AdminListAnnouncementScreenState
     if (formValues != null) {
       final searchQuery = formValues['search'] as String? ?? '';
       final selectedStatus = formValues['status'] as String? ?? 'all';
-      final startDateFilter = formValues['start_date'] as DateTime?;
-      final endDateFilter = formValues['end_date'] as DateTime?;
+      final publishedAtFilter = formValues['published_at'] as DateTime?;
 
       if (searchQuery.isNotEmpty) {
         final query = searchQuery.toLowerCase();
@@ -77,24 +76,12 @@ class _AdminListAnnouncementScreenState
             .where((ann) => ann.isActive == isActive)
             .toList();
       }
-      if (startDateFilter != null) {
+      if (publishedAtFilter != null) {
         filteredAnnouncements = filteredAnnouncements
             .where(
               (ann) =>
-                  ann.startDate != null &&
-                  !ann.startDate!.isBefore(startDateFilter),
-            )
-            .toList();
-      }
-      if (endDateFilter != null) {
-        final inclusiveEndDate = endDateFilter
-            .add(const Duration(days: 1))
-            .subtract(const Duration(microseconds: 1));
-        filteredAnnouncements = filteredAnnouncements
-            .where(
-              (ann) =>
-                  ann.startDate != null &&
-                  !ann.startDate!.isAfter(inclusiveEndDate),
+                  ann.publishedAt != null &&
+                  !ann.publishedAt!.isBefore(publishedAtFilter),
             )
             .toList();
       }
@@ -172,11 +159,11 @@ class _AdminListAnnouncementScreenState
     final active = state.announcements.where((a) => a.isActive).length;
     final inactive = total - active;
     final today = state.announcements.where((a) {
-      if (a.startDate == null) return false;
+      if (a.publishedAt == null) return false;
       final now = DateTime.now();
-      return a.startDate!.year == now.year &&
-          a.startDate!.month == now.month &&
-          a.startDate!.day == now.day;
+      return a.publishedAt!.year == now.year &&
+          a.publishedAt!.month == now.month &&
+          a.publishedAt!.day == now.day;
     }).length;
 
     return Column(

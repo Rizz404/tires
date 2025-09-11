@@ -14,7 +14,7 @@ class SessionModel extends Session {
 
   factory SessionModel.fromMap(Map<String, dynamic> map) {
     return SessionModel(
-      id: map['id'] as String,
+      id: map['id'] as int,
       userId: map['userId'] != null ? map['userId'] : null,
       ipAddress: map['ipAddress'] != null ? map['ipAddress'] : null,
       userAgent: map['userAgent'] != null ? map['userAgent'] : null,

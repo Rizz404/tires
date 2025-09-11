@@ -32,7 +32,7 @@ class Job extends Equatable {
 }
 
 class JobBatch extends Equatable {
-  final String id;
+  final int id;
   final String name;
   final int totalJobs;
   final int pendingJobs;

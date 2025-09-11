@@ -6,9 +6,10 @@ import 'package:tires/features/announcement/data/datasources/announcement_remote
 import 'package:tires/features/announcement/data/mapper/announcement_mapper.dart';
 import 'package:tires/features/announcement/domain/repositories/announcement_repository.dart';
 import 'package:tires/features/announcement/domain/usecases/create_announcement_usecase.dart';
+import 'package:tires/features/announcement/domain/usecases/delete_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/update_announcement_usecase.dart';
-import 'package:tires/features/user/domain/entities/announcement.dart';
+import 'package:tires/features/announcement/domain/entities/announcement.dart';
 import 'package:tires/shared/data/mapper/cursor_mapper.dart';
 
 class AnnouncementRepositoryImpl implements AnnouncementRepository {
@@ -26,7 +27,10 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
       );
 
       return Right(
-        ItemSuccessResponse<Announcement>(data: result.data.toEntity()),
+        ItemSuccessResponse<Announcement>(
+          data: result.data.toEntity(),
+          message: result.message,
+        ),
       );
     } on ApiErrorResponse catch (e) {
       return Left(ServerFailure(message: e.message, code: e.code));
@@ -49,6 +53,7 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
               .map((announcement) => announcement.toEntity())
               .toList(),
           cursor: result.cursor?.toEntity(),
+          message: result.message,
         ),
       );
     } on ApiErrorResponse catch (e) {
@@ -68,8 +73,28 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
       );
 
       return Right(
-        ItemSuccessResponse<Announcement>(data: result.data.toEntity()),
+        ItemSuccessResponse<Announcement>(
+          data: result.data.toEntity(),
+          message: result.message,
+        ),
       );
+    } on ApiErrorResponse catch (e) {
+      return Left(ServerFailure(message: e.message, code: e.code));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ActionSuccess>> deleteAnnouncement(
+    DeleteAnnouncementParams params,
+  ) async {
+    try {
+      final result = await _announcementRemoteDatasource.deleteAnnouncement(
+        params,
+      );
+
+      return Right(ActionSuccess(message: result.message));
     } on ApiErrorResponse catch (e) {
       return Left(ServerFailure(message: e.message, code: e.code));
     } catch (e) {

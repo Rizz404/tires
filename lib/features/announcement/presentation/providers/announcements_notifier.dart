@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
 import 'package:tires/features/announcement/presentation/providers/announcements_state.dart';
-import 'package:tires/features/user/domain/entities/announcement.dart';
+import 'package:tires/features/announcement/domain/entities/announcement.dart';
 
 class AnnouncementsNotifier extends StateNotifier<AnnouncementsState> {
   final GetAnnouncementsCursorUsecase _getUsersCursorUsecase;

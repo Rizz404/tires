@@ -52,7 +52,7 @@ class ReservationMutationNotifier
     );
   }
 
-  Future<void> updateReservation({required String id}) async {
+  Future<void> updateReservation({required int id}) async {
     state = state.copyWith(status: ReservationMutationStatus.loading);
 
     final params = UpdateReservationParams(id: id);
@@ -78,7 +78,7 @@ class ReservationMutationNotifier
     );
   }
 
-  Future<void> deleteReservation({required String id}) async {
+  Future<void> deleteReservation({required int id}) async {
     state = state.copyWith(status: ReservationMutationStatus.loading);
 
     final params = DeleteReservationParams(id: id);
