@@ -17,7 +17,6 @@ class CurrentUserReservationsNotifier
     bool paginate = true,
     int perPage = 10,
   }) async {
-    // Prevent duplicate loading if already in progress
     if (state.status == CurrentUserReservationsStatus.loading) return;
 
     state = state.copyWith(status: CurrentUserReservationsStatus.loading);

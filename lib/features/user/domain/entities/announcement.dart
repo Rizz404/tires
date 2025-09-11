@@ -2,49 +2,35 @@ import 'package:equatable/equatable.dart';
 
 class Announcement extends Equatable {
   final int id;
-  final bool isActive;
-  final DateTime? publishedAt;
-  final List<AnnouncementTranslation> translations;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-
-  const Announcement({
-    required this.id,
-    required this.isActive,
-    this.publishedAt,
-    required this.translations,
-    required this.createdAt,
-    required this.updatedAt,
-  });
-
-  @override
-  List<Object?> get props => [
-    id,
-    isActive,
-    publishedAt,
-    translations,
-    createdAt,
-    updatedAt,
-  ];
-}
-
-class AnnouncementTranslation extends Equatable {
-  final int id;
-  final String locale;
   final String title;
   final String content;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final DateTime? startDate;
+  final DateTime? endDate;
+  final bool isActive;
+  final Meta meta;
 
-  const AnnouncementTranslation({
+  Announcement({
     required this.id,
-    required this.locale,
     required this.title,
     required this.content,
-    required this.createdAt,
-    required this.updatedAt,
+    this.startDate,
+    this.endDate,
+    required this.isActive,
+    required this.meta,
   });
 
   @override
-  List<Object?> get props => [id, locale, title, content, createdAt, updatedAt];
+  List<Object?> get props {
+    return [id, title, content, startDate, endDate, isActive, meta];
+  }
+}
+
+class Meta extends Equatable {
+  final String locale;
+  final bool fallbackUsed;
+
+  Meta({required this.locale, required this.fallbackUsed});
+
+  @override
+  List<Object> get props => [locale, fallbackUsed];
 }

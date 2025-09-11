@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/di/repository_providers.dart';
+import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/forgot_password_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/get_current_auth_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/login_usecase.dart';
@@ -143,4 +144,10 @@ final getReservationAvailableHoursUsecaseProvider =
     Provider<GetReservationAvailableHoursUsecase>((ref) {
       final _reservationRepository = ref.watch(reservationRepoProvider);
       return GetReservationAvailableHoursUsecase(_reservationRepository);
+    });
+
+final getAnnouncementsCursorUsecaseProvider =
+    Provider<GetAnnouncementsCursorUsecase>((ref) {
+      final _announcementRepository = ref.watch(announcementRepoProvider);
+      return GetAnnouncementsCursorUsecase(_announcementRepository);
     });

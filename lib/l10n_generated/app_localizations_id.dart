@@ -9,6 +9,545 @@ class L10nId extends L10n {
   L10nId([String locale = 'id']) : super(locale);
 
   @override
+  String get adminUpsertAnnouncementScreenPageTitle => 'Add Announcement';
+
+  @override
+  String get adminUpsertAnnouncementScreenPageDescription =>
+      'Create a new announcement with multilingual support.';
+
+  @override
+  String get adminUpsertAnnouncementScreenHeaderTitle => 'Add Announcement';
+
+  @override
+  String get adminUpsertAnnouncementScreenHeaderDescription =>
+      'Create a new announcement with multilingual support.';
+
+  @override
+  String get adminUpsertAnnouncementScreenBackButton => 'Back';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormSectionTitle =>
+      'Announcement Information';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormSectionDescription =>
+      'Fill out the form below to create a new announcement with English and Japanese support.';
+
+  @override
+  String get adminUpsertAnnouncementScreenTabEnglish => 'English';
+
+  @override
+  String get adminUpsertAnnouncementScreenTabJapanese => 'Japanese (日本語)';
+
+  @override
+  String get adminUpsertAnnouncementScreenEnSectionTitle => 'English Content';
+
+  @override
+  String get adminUpsertAnnouncementScreenEnSectionDescription =>
+      'Fill in the title and content in English.';
+
+  @override
+  String get adminUpsertAnnouncementScreenEnTitleLabel => 'Title (English)';
+
+  @override
+  String get adminUpsertAnnouncementScreenEnTitlePlaceholder =>
+      'Enter the announcement title in English...';
+
+  @override
+  String get adminUpsertAnnouncementScreenEnContentLabel => 'Content (English)';
+
+  @override
+  String get adminUpsertAnnouncementScreenEnContentPlaceholder =>
+      'Enter the announcement content in English...';
+
+  @override
+  String get adminUpsertAnnouncementScreenEnContentHelper =>
+      'Write the announcement content in English.';
+
+  @override
+  String get adminUpsertAnnouncementScreenJaSectionTitle =>
+      'コンテンツ (Japanese Content)';
+
+  @override
+  String get adminUpsertAnnouncementScreenJaSectionDescription =>
+      'Fill in the title and content in Japanese.';
+
+  @override
+  String get adminUpsertAnnouncementScreenJaTitleLabel =>
+      'タイトル (Japanese Title)';
+
+  @override
+  String get adminUpsertAnnouncementScreenJaTitlePlaceholder =>
+      '日本語でお知らせのタイトルを入力してください...';
+
+  @override
+  String get adminUpsertAnnouncementScreenJaContentLabel =>
+      'コンテンツ (Japanese Content)';
+
+  @override
+  String get adminUpsertAnnouncementScreenJaContentPlaceholder =>
+      '日本語でお知らせの内容を入力してください...';
+
+  @override
+  String get adminUpsertAnnouncementScreenJaContentHelper =>
+      '日本語でお知らせの内容を記入してください。';
+
+  @override
+  String get adminUpsertAnnouncementScreenCommonSettingsTitle =>
+      'Common Settings';
+
+  @override
+  String get adminUpsertAnnouncementScreenPublishedAtLabel =>
+      'Publication Date & Time';
+
+  @override
+  String get adminUpsertAnnouncementScreenPublishedAtHelper =>
+      'If left empty, the current time will be used.';
+
+  @override
+  String get adminUpsertAnnouncementScreenStatusLabel => 'Status';
+
+  @override
+  String get adminUpsertAnnouncementScreenStatusActive => 'Active';
+
+  @override
+  String get adminUpsertAnnouncementScreenStatusInactive => 'Inactive';
+
+  @override
+  String get adminUpsertAnnouncementScreenPreviewTitle => 'Preview';
+
+  @override
+  String get adminUpsertAnnouncementScreenPreviewShow => 'Show Preview';
+
+  @override
+  String get adminUpsertAnnouncementScreenPreviewHide => 'Hide Preview';
+
+  @override
+  String get adminUpsertAnnouncementScreenPreviewTitlePlaceholder =>
+      'Announcement title will appear here';
+
+  @override
+  String get adminUpsertAnnouncementScreenPreviewContentPlaceholder =>
+      'Announcement content will appear here';
+
+  @override
+  String get adminUpsertAnnouncementScreenPreviewDateNotSelected =>
+      'Date not selected';
+
+  @override
+  String get adminUpsertAnnouncementScreenCancelButton => 'Cancel';
+
+  @override
+  String get adminUpsertAnnouncementScreenSaveButton => 'Save Announcement';
+
+  @override
+  String get adminUpsertAnnouncementScreenRequiredField => '*';
+
+  @override
+  String get adminUpsertAnnouncementScreenMaxCharacters =>
+      'Maximum 255 characters';
+
+  @override
+  String get adminUpsertAnnouncementScreenMaxCharactersJa => '最大255文字';
+
+  @override
+  String get adminUpsertAnnouncementScreenEditTitle => 'Edit Announcement';
+
+  @override
+  String get adminUpsertAnnouncementScreenEditSubtitle =>
+      'Update multilingual announcement information';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormCardTitle =>
+      'Edit Announcement Information';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormCardSubtitle =>
+      'Update the form below to edit the multilingual announcement';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormCreatedAt => 'Created at';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormTabsTranslationFilledTooltip =>
+      'Translation filled';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormJapaneseSectionTitle =>
+      'Japanese Content';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormJapaneseSectionSubtitle =>
+      'Edit the title and content in Japanese';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormCommonSettingsTitle =>
+      'General Settings';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormTranslationInfoTitle =>
+      'Translation Information';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormTranslationInfoLanguageEn =>
+      'English';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormTranslationInfoLanguageJa =>
+      'Japanese';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormTranslationInfoAvailable =>
+      'Available';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormTranslationInfoNotAvailable =>
+      'Not Available';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormAnnouncementInfoTitle =>
+      'Announcement Information';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormAnnouncementInfoUpdatedAt =>
+      'Updated at';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormAnnouncementInfoPublishedAt =>
+      'Published at';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormAnnouncementInfoId => 'ID';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormPreviewTitle => 'Preview Changes';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormPreviewLangEn => 'English';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormPreviewLangJa => 'Japanese';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormButtonsViewDetails =>
+      'View Details';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormButtonsUpdate =>
+      'Update Announcement';
+
+  @override
+  String get announcementNotificationCreated =>
+      'Announcement created successfully.';
+
+  @override
+  String get announcementNotificationUpdated =>
+      'Announcement updated successfully.';
+
+  @override
+  String get announcementNotificationDeleted =>
+      'Announcement deleted successfully.';
+
+  @override
+  String get announcementNotificationNotFound => 'Announcement not found.';
+
+  @override
+  String get announcementNotificationStatusChanged =>
+      'Announcement status changed successfully.';
+
+  @override
+  String get announcementNotificationBulkDeleted =>
+      'Announcements deleted successfully.';
+
+  @override
+  String get announcementNotificationBulkStatusChanged =>
+      'Announcements status changed successfully.';
+
+  @override
+  String get announcementNotificationNoneDeleted =>
+      'No announcements were deleted.';
+
+  @override
+  String get announcementNotificationInvalidData => 'Invalid data provided.';
+
+  @override
+  String announcementNotificationError(String message) {
+    return 'An error occurred: $message';
+  }
+
+  @override
+  String get adminListAnnouncementScreenTitle => 'Announcement Management';
+
+  @override
+  String get adminListAnnouncementScreenSubtitle =>
+      'Manage announcements for customers';
+
+  @override
+  String get adminListAnnouncementScreenAddButton => 'Add Announcement';
+
+  @override
+  String get adminListAnnouncementScreenStatsTotal => 'Total Announcements';
+
+  @override
+  String get adminListAnnouncementScreenStatsActive => 'Active';
+
+  @override
+  String get adminListAnnouncementScreenStatsInactive => 'Inactive';
+
+  @override
+  String get adminListAnnouncementScreenStatsToday => 'Today';
+
+  @override
+  String get adminListAnnouncementScreenFiltersTitle => 'Filter & Search';
+
+  @override
+  String get adminListAnnouncementScreenFiltersStatusLabel => 'Status';
+
+  @override
+  String get adminListAnnouncementScreenFiltersAllStatuses => 'All Statuses';
+
+  @override
+  String get adminListAnnouncementScreenFiltersStartDateLabel => 'Start Date';
+
+  @override
+  String get adminListAnnouncementScreenFiltersEndDateLabel => 'End Date';
+
+  @override
+  String get adminListAnnouncementScreenFiltersSearchLabel => 'Search';
+
+  @override
+  String get adminListAnnouncementScreenFiltersSearchPlaceholder =>
+      'Search title or content...';
+
+  @override
+  String get adminListAnnouncementScreenFiltersFilterButton => 'Filter';
+
+  @override
+  String get adminListAnnouncementScreenFiltersResetButton => 'Reset';
+
+  @override
+  String get adminListAnnouncementScreenBulkActionsActivateButton => 'Activate';
+
+  @override
+  String get adminListAnnouncementScreenBulkActionsDeactivateButton =>
+      'Deactivate';
+
+  @override
+  String get adminListAnnouncementScreenBulkActionsDeleteButton => 'Delete';
+
+  @override
+  String get adminListAnnouncementScreenListTitle => 'Announcements List';
+
+  @override
+  String get adminListAnnouncementScreenTableHeadersTitle => 'Title';
+
+  @override
+  String get adminListAnnouncementScreenTableHeadersContent => 'Content';
+
+  @override
+  String get adminListAnnouncementScreenTableHeadersPublishDate =>
+      'Publish Date';
+
+  @override
+  String get adminListAnnouncementScreenTableHeadersStatus => 'Status';
+
+  @override
+  String get adminListAnnouncementScreenTableHeadersActions => 'Actions';
+
+  @override
+  String get adminListAnnouncementScreenTableStatusActive => 'Active';
+
+  @override
+  String get adminListAnnouncementScreenTableStatusInactive => 'Inactive';
+
+  @override
+  String get adminListAnnouncementScreenTableActionsTooltipView =>
+      'View Details';
+
+  @override
+  String get adminListAnnouncementScreenTableActionsTooltipEdit => 'Edit';
+
+  @override
+  String get adminListAnnouncementScreenTableActionsTooltipDeactivate =>
+      'Deactivate';
+
+  @override
+  String get adminListAnnouncementScreenTableActionsTooltipActivate =>
+      'Activate';
+
+  @override
+  String get adminListAnnouncementScreenTableActionsTooltipDelete => 'Delete';
+
+  @override
+  String get adminListAnnouncementScreenEmptyTitle => 'No announcements found';
+
+  @override
+  String get adminListAnnouncementScreenEmptyDescription =>
+      'There are no announcements created yet, or none match the applied filters.';
+
+  @override
+  String get adminListAnnouncementScreenDeleteModalTitle => 'Confirm Deletion';
+
+  @override
+  String get adminListAnnouncementScreenDeleteModalCancelButton => 'Cancel';
+
+  @override
+  String get adminListAnnouncementScreenDeleteModalDeleteButton => 'Delete';
+
+  @override
+  String get adminListAnnouncementScreenJsShowFilters => 'Show Filters';
+
+  @override
+  String get adminListAnnouncementScreenJsHideFilters => 'Hide Filters';
+
+  @override
+  String adminListAnnouncementScreenJsSelectedText(String count) {
+    return '$count item(s) selected';
+  }
+
+  @override
+  String get adminListAnnouncementScreenJsDeleteSingleConfirm =>
+      'Are you sure you want to delete this announcement?';
+
+  @override
+  String adminListAnnouncementScreenJsDeleteMultipleConfirm(String count) {
+    return 'Are you sure you want to delete $count announcement(s)?';
+  }
+
+  @override
+  String get adminListAnnouncementScreenJsSelectAtLeastOne =>
+      'Please select at least one announcement.';
+
+  @override
+  String get adminListAnnouncementScreenJsErrorStatus =>
+      'An error occurred while changing the status.';
+
+  @override
+  String get adminListAnnouncementScreenJsErrorDelete =>
+      'An error occurred while deleting.';
+
+  @override
+  String get adminListAnnouncementScreenJsErrorToggleStatus =>
+      'An error occurred while changing the status';
+
+  @override
+  String get adminListAnnouncementScreenDetailHeaderBackToList =>
+      'Back to List';
+
+  @override
+  String get adminListAnnouncementScreenDetailHeaderTitle =>
+      'Announcement Detail';
+
+  @override
+  String get adminListAnnouncementScreenDetailStatusCardTitle =>
+      'Announcement Status';
+
+  @override
+  String get adminListAnnouncementScreenDetailStatusCardDescriptionPrefix =>
+      'This announcement is currently';
+
+  @override
+  String get adminListAnnouncementScreenDetailStatusCardActive => 'Active';
+
+  @override
+  String get adminListAnnouncementScreenDetailStatusCardInactive => 'Inactive';
+
+  @override
+  String get adminListAnnouncementScreenDetailStatusCardCreatedAt =>
+      'Created at';
+
+  @override
+  String get adminListAnnouncementScreenDetailStatusCardUpdatedAtPrefix =>
+      'Updated:';
+
+  @override
+  String get adminListAnnouncementScreenDetailMainCardPublishDateLabel =>
+      'Publish Date:';
+
+  @override
+  String get adminListAnnouncementScreenDetailMainCardNotPublishedYet =>
+      'Not published yet';
+
+  @override
+  String get adminListAnnouncementScreenDetailMainCardContentTitle =>
+      'Announcement Content';
+
+  @override
+  String get adminListAnnouncementScreenDetailMainCardAdditionalInfoTitle =>
+      'Additional Information';
+
+  @override
+  String get adminListAnnouncementScreenDetailAdditionalInfoId => 'ID:';
+
+  @override
+  String get adminListAnnouncementScreenDetailAdditionalInfoStatus => 'Status:';
+
+  @override
+  String get adminListAnnouncementScreenDetailAdditionalInfoPublished =>
+      'Published:';
+
+  @override
+  String get adminListAnnouncementScreenDetailAdditionalInfoCreated =>
+      'Created:';
+
+  @override
+  String get adminListAnnouncementScreenDetailAdditionalInfoUpdated =>
+      'Updated:';
+
+  @override
+  String get adminListAnnouncementScreenDetailAdditionalInfoCharactersLabel =>
+      'Characters:';
+
+  @override
+  String get adminListAnnouncementScreenDetailAdditionalInfoCharactersUnit =>
+      'characters';
+
+  @override
+  String get adminListAnnouncementScreenDetailActionsTitle => 'Quick Actions';
+
+  @override
+  String get adminListAnnouncementScreenDetailActionsDescription =>
+      'Manage this announcement easily';
+
+  @override
+  String get adminListAnnouncementScreenDetailActionsEdit =>
+      'Edit Announcement';
+
+  @override
+  String get adminListAnnouncementScreenDetailActionsDeactivate => 'Deactivate';
+
+  @override
+  String get adminListAnnouncementScreenDetailActionsActivate => 'Activate';
+
+  @override
+  String get adminListAnnouncementScreenDetailDeleteModalTitle =>
+      'Confirm Deletion';
+
+  @override
+  String get adminListAnnouncementScreenDetailDeleteModalTextLine1 =>
+      'Are you sure you want to delete this announcement?';
+
+  @override
+  String get adminListAnnouncementScreenDetailDeleteModalTextLine2 =>
+      'This action cannot be undone.';
+
+  @override
+  String get adminListAnnouncementScreenDetailDeleteModalCancelButton =>
+      'Cancel';
+
+  @override
+  String get adminListAnnouncementScreenDetailDeleteModalDeleteButton =>
+      'Delete';
+
+  @override
+  String get adminListAnnouncementScreenDetailAlertsToggleStatusError =>
+      'An error occurred while changing the status';
+
+  @override
+  String get adminListAnnouncementScreenDetailAlertsDeleteError =>
+      'An error occurred while deleting the announcement';
+
+  @override
   String get registerBrandName => 'RESERVATION ID';
 
   @override

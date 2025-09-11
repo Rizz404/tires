@@ -9,6 +9,511 @@ class L10nJa extends L10n {
   L10nJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get adminUpsertAnnouncementScreenPageTitle => 'お知らせを追加';
+
+  @override
+  String get adminUpsertAnnouncementScreenPageDescription =>
+      '多言語対応で新しいお知らせを作成します。';
+
+  @override
+  String get adminUpsertAnnouncementScreenHeaderTitle => 'お知らせを追加';
+
+  @override
+  String get adminUpsertAnnouncementScreenHeaderDescription =>
+      '多言語対応で新しいお知らせを作成します。';
+
+  @override
+  String get adminUpsertAnnouncementScreenBackButton => '戻る';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormSectionTitle => 'お知らせ情報';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormSectionDescription =>
+      '以下のフォームに記入して、英語と日本語に対応した新しいお知らせを作成してください。';
+
+  @override
+  String get adminUpsertAnnouncementScreenTabEnglish => 'English';
+
+  @override
+  String get adminUpsertAnnouncementScreenTabJapanese => '日本語';
+
+  @override
+  String get adminUpsertAnnouncementScreenEnSectionTitle => 'English Content';
+
+  @override
+  String get adminUpsertAnnouncementScreenEnSectionDescription =>
+      'タイトルと内容を英語で入力してください。';
+
+  @override
+  String get adminUpsertAnnouncementScreenEnTitleLabel => 'Title (English)';
+
+  @override
+  String get adminUpsertAnnouncementScreenEnTitlePlaceholder =>
+      'Enter the announcement title in English...';
+
+  @override
+  String get adminUpsertAnnouncementScreenEnContentLabel => 'Content (English)';
+
+  @override
+  String get adminUpsertAnnouncementScreenEnContentPlaceholder =>
+      'Enter the announcement content in English...';
+
+  @override
+  String get adminUpsertAnnouncementScreenEnContentHelper =>
+      'お知らせの内容を英語で記入してください。';
+
+  @override
+  String get adminUpsertAnnouncementScreenJaSectionTitle =>
+      'コンテンツ (Japanese Content)';
+
+  @override
+  String get adminUpsertAnnouncementScreenJaSectionDescription =>
+      'タイトルと内容を日本語で入力してください。';
+
+  @override
+  String get adminUpsertAnnouncementScreenJaTitleLabel =>
+      'タイトル (Japanese Title)';
+
+  @override
+  String get adminUpsertAnnouncementScreenJaTitlePlaceholder =>
+      '日本語でお知らせのタイトルを入力してください...';
+
+  @override
+  String get adminUpsertAnnouncementScreenJaContentLabel =>
+      'コンテンツ (Japanese Content)';
+
+  @override
+  String get adminUpsertAnnouncementScreenJaContentPlaceholder =>
+      '日本語でお知らせの内容を入力してください...';
+
+  @override
+  String get adminUpsertAnnouncementScreenJaContentHelper =>
+      '日本語でお知らせの内容を記入してください。';
+
+  @override
+  String get adminUpsertAnnouncementScreenCommonSettingsTitle => '共通設定';
+
+  @override
+  String get adminUpsertAnnouncementScreenPublishedAtLabel => '公開日時';
+
+  @override
+  String get adminUpsertAnnouncementScreenPublishedAtHelper =>
+      '空の場合、現在時刻が使用されます。';
+
+  @override
+  String get adminUpsertAnnouncementScreenStatusLabel => 'ステータス';
+
+  @override
+  String get adminUpsertAnnouncementScreenStatusActive => '有効';
+
+  @override
+  String get adminUpsertAnnouncementScreenStatusInactive => '無効';
+
+  @override
+  String get adminUpsertAnnouncementScreenPreviewTitle => 'プレビュー';
+
+  @override
+  String get adminUpsertAnnouncementScreenPreviewShow => 'プレビューを表示';
+
+  @override
+  String get adminUpsertAnnouncementScreenPreviewHide => 'プレビューを非表示';
+
+  @override
+  String get adminUpsertAnnouncementScreenPreviewTitlePlaceholder =>
+      'お知らせのタイトルはここに表示されます';
+
+  @override
+  String get adminUpsertAnnouncementScreenPreviewContentPlaceholder =>
+      'お知らせの内容はここに表示されます';
+
+  @override
+  String get adminUpsertAnnouncementScreenPreviewDateNotSelected =>
+      '日付が選択されていません';
+
+  @override
+  String get adminUpsertAnnouncementScreenCancelButton => 'キャンセル';
+
+  @override
+  String get adminUpsertAnnouncementScreenSaveButton => 'お知らせを保存';
+
+  @override
+  String get adminUpsertAnnouncementScreenRequiredField => '*';
+
+  @override
+  String get adminUpsertAnnouncementScreenMaxCharacters =>
+      'Maximum 255 characters';
+
+  @override
+  String get adminUpsertAnnouncementScreenMaxCharactersJa => '最大255文字';
+
+  @override
+  String get adminUpsertAnnouncementScreenEditTitle => 'お知らせを編集';
+
+  @override
+  String get adminUpsertAnnouncementScreenEditSubtitle => '多言語のお知らせ情報を更新';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormCardTitle => 'お知らせ情報の編集';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormCardSubtitle =>
+      '以下のフォームを更新して、多言語のお知らせを編集してください';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormCreatedAt => '作成日時';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormTabsTranslationFilledTooltip =>
+      '翻訳済み';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormJapaneseSectionTitle =>
+      '日本語のコンテンツ';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormJapaneseSectionSubtitle =>
+      '日本語でタイトルとコンテンツを編集';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormCommonSettingsTitle => '一般設定';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormTranslationInfoTitle => '翻訳情報';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormTranslationInfoLanguageEn => '英語';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormTranslationInfoLanguageJa =>
+      '日本語';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormTranslationInfoAvailable =>
+      '利用可能';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormTranslationInfoNotAvailable =>
+      '利用不可';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormAnnouncementInfoTitle => 'お知らせ情報';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormAnnouncementInfoUpdatedAt =>
+      '更新日時';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormAnnouncementInfoPublishedAt =>
+      '公開日時';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormAnnouncementInfoId => 'ID';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormPreviewTitle => '変更のプレビュー';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormPreviewLangEn => 'English';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormPreviewLangJa => '日本語';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormButtonsViewDetails => '詳細を見る';
+
+  @override
+  String get adminUpsertAnnouncementScreenFormButtonsUpdate => 'お知らせを更新';
+
+  @override
+  String get announcementNotificationCreated => 'お知らせが正常に作成されました。';
+
+  @override
+  String get announcementNotificationUpdated => 'お知らせが正常に更新されました。';
+
+  @override
+  String get announcementNotificationDeleted => 'お知らせが正常に削除されました。';
+
+  @override
+  String get announcementNotificationNotFound => 'お知らせが見つかりません。';
+
+  @override
+  String get announcementNotificationStatusChanged => 'お知らせのステータスが正常に変更されました。';
+
+  @override
+  String get announcementNotificationBulkDeleted => '選択されたお知らせが正常に削除されました。';
+
+  @override
+  String get announcementNotificationBulkStatusChanged =>
+      '選択されたお知らせのステータスが正常に変更されました。';
+
+  @override
+  String get announcementNotificationNoneDeleted => '削除されたお知らせはありません。';
+
+  @override
+  String get announcementNotificationInvalidData => '無効なデータが提供されました。';
+
+  @override
+  String announcementNotificationError(String message) {
+    return 'エラーが発生しました: $message';
+  }
+
+  @override
+  String get adminListAnnouncementScreenTitle => 'お知らせ管理';
+
+  @override
+  String get adminListAnnouncementScreenSubtitle => '顧客向けのお知らせを管理します';
+
+  @override
+  String get adminListAnnouncementScreenAddButton => 'お知らせを追加';
+
+  @override
+  String get adminListAnnouncementScreenStatsTotal => '総お知らせ数';
+
+  @override
+  String get adminListAnnouncementScreenStatsActive => '有効';
+
+  @override
+  String get adminListAnnouncementScreenStatsInactive => '無効';
+
+  @override
+  String get adminListAnnouncementScreenStatsToday => '本日';
+
+  @override
+  String get adminListAnnouncementScreenFiltersTitle => '絞り込みと検索';
+
+  @override
+  String get adminListAnnouncementScreenFiltersStatusLabel => 'ステータス';
+
+  @override
+  String get adminListAnnouncementScreenFiltersAllStatuses => 'すべてのステータス';
+
+  @override
+  String get adminListAnnouncementScreenFiltersStartDateLabel => '開始日';
+
+  @override
+  String get adminListAnnouncementScreenFiltersEndDateLabel => '終了日';
+
+  @override
+  String get adminListAnnouncementScreenFiltersSearchLabel => '検索';
+
+  @override
+  String get adminListAnnouncementScreenFiltersSearchPlaceholder =>
+      'タイトルや内容で検索...';
+
+  @override
+  String get adminListAnnouncementScreenFiltersFilterButton => '絞り込む';
+
+  @override
+  String get adminListAnnouncementScreenFiltersResetButton => 'リセット';
+
+  @override
+  String get adminListAnnouncementScreenBulkActionsActivateButton => '有効化';
+
+  @override
+  String get adminListAnnouncementScreenBulkActionsDeactivateButton => '無効化';
+
+  @override
+  String get adminListAnnouncementScreenBulkActionsDeleteButton => '削除';
+
+  @override
+  String get adminListAnnouncementScreenListTitle => 'お知らせ一覧';
+
+  @override
+  String get adminListAnnouncementScreenTableHeadersTitle => 'タイトル';
+
+  @override
+  String get adminListAnnouncementScreenTableHeadersContent => '内容';
+
+  @override
+  String get adminListAnnouncementScreenTableHeadersPublishDate => '公開日';
+
+  @override
+  String get adminListAnnouncementScreenTableHeadersStatus => 'ステータス';
+
+  @override
+  String get adminListAnnouncementScreenTableHeadersActions => '操作';
+
+  @override
+  String get adminListAnnouncementScreenTableStatusActive => '有効';
+
+  @override
+  String get adminListAnnouncementScreenTableStatusInactive => '無効';
+
+  @override
+  String get adminListAnnouncementScreenTableActionsTooltipView => '詳細を表示';
+
+  @override
+  String get adminListAnnouncementScreenTableActionsTooltipEdit => '編集';
+
+  @override
+  String get adminListAnnouncementScreenTableActionsTooltipDeactivate => '無効化';
+
+  @override
+  String get adminListAnnouncementScreenTableActionsTooltipActivate => '有効化';
+
+  @override
+  String get adminListAnnouncementScreenTableActionsTooltipDelete => '削除';
+
+  @override
+  String get adminListAnnouncementScreenEmptyTitle => 'お知らせが見つかりません';
+
+  @override
+  String get adminListAnnouncementScreenEmptyDescription =>
+      'まだお知らせが作成されていないか、適用されたフィルターに一致するものがありません。';
+
+  @override
+  String get adminListAnnouncementScreenDeleteModalTitle => '削除の確認';
+
+  @override
+  String get adminListAnnouncementScreenDeleteModalCancelButton => 'キャンセル';
+
+  @override
+  String get adminListAnnouncementScreenDeleteModalDeleteButton => '削除';
+
+  @override
+  String get adminListAnnouncementScreenJsShowFilters => 'フィルターを表示';
+
+  @override
+  String get adminListAnnouncementScreenJsHideFilters => 'フィルターを非表示';
+
+  @override
+  String adminListAnnouncementScreenJsSelectedText(String count) {
+    return '$count 件の項目が選択されています';
+  }
+
+  @override
+  String get adminListAnnouncementScreenJsDeleteSingleConfirm =>
+      'このお知らせを削除してもよろしいですか？';
+
+  @override
+  String adminListAnnouncementScreenJsDeleteMultipleConfirm(String count) {
+    return '$count件のお知らせを削除してもよろしいですか？';
+  }
+
+  @override
+  String get adminListAnnouncementScreenJsSelectAtLeastOne =>
+      '少なくとも1つのお知らせを選択してください。';
+
+  @override
+  String get adminListAnnouncementScreenJsErrorStatus =>
+      'ステータスの変更中にエラーが発生しました。';
+
+  @override
+  String get adminListAnnouncementScreenJsErrorDelete => '削除中にエラーが発生しました。';
+
+  @override
+  String get adminListAnnouncementScreenJsErrorToggleStatus =>
+      'ステータスの変更中にエラーが発生しました';
+
+  @override
+  String get adminListAnnouncementScreenDetailHeaderBackToList => '一覧に戻る';
+
+  @override
+  String get adminListAnnouncementScreenDetailHeaderTitle => 'お知らせ詳細';
+
+  @override
+  String get adminListAnnouncementScreenDetailStatusCardTitle => 'お知らせのステータス';
+
+  @override
+  String get adminListAnnouncementScreenDetailStatusCardDescriptionPrefix =>
+      'このお知らせは現在';
+
+  @override
+  String get adminListAnnouncementScreenDetailStatusCardActive => '有効';
+
+  @override
+  String get adminListAnnouncementScreenDetailStatusCardInactive => '無効';
+
+  @override
+  String get adminListAnnouncementScreenDetailStatusCardCreatedAt => '作成日時';
+
+  @override
+  String get adminListAnnouncementScreenDetailStatusCardUpdatedAtPrefix =>
+      '更新:';
+
+  @override
+  String get adminListAnnouncementScreenDetailMainCardPublishDateLabel =>
+      '公開日:';
+
+  @override
+  String get adminListAnnouncementScreenDetailMainCardNotPublishedYet =>
+      'まだ公開されていません';
+
+  @override
+  String get adminListAnnouncementScreenDetailMainCardContentTitle => 'お知らせ内容';
+
+  @override
+  String get adminListAnnouncementScreenDetailMainCardAdditionalInfoTitle =>
+      '追加情報';
+
+  @override
+  String get adminListAnnouncementScreenDetailAdditionalInfoId => 'ID:';
+
+  @override
+  String get adminListAnnouncementScreenDetailAdditionalInfoStatus => 'ステータス:';
+
+  @override
+  String get adminListAnnouncementScreenDetailAdditionalInfoPublished =>
+      '公開日時:';
+
+  @override
+  String get adminListAnnouncementScreenDetailAdditionalInfoCreated => '作成日時:';
+
+  @override
+  String get adminListAnnouncementScreenDetailAdditionalInfoUpdated => '更新日時:';
+
+  @override
+  String get adminListAnnouncementScreenDetailAdditionalInfoCharactersLabel =>
+      '文字数:';
+
+  @override
+  String get adminListAnnouncementScreenDetailAdditionalInfoCharactersUnit =>
+      '文字';
+
+  @override
+  String get adminListAnnouncementScreenDetailActionsTitle => 'クイックアクション';
+
+  @override
+  String get adminListAnnouncementScreenDetailActionsDescription =>
+      'このお知らせを簡単に管理します';
+
+  @override
+  String get adminListAnnouncementScreenDetailActionsEdit => 'お知らせを編集';
+
+  @override
+  String get adminListAnnouncementScreenDetailActionsDeactivate => '無効化';
+
+  @override
+  String get adminListAnnouncementScreenDetailActionsActivate => '有効化';
+
+  @override
+  String get adminListAnnouncementScreenDetailDeleteModalTitle => '削除の確認';
+
+  @override
+  String get adminListAnnouncementScreenDetailDeleteModalTextLine1 =>
+      'このお知らせを削除してもよろしいですか？';
+
+  @override
+  String get adminListAnnouncementScreenDetailDeleteModalTextLine2 =>
+      'この操作は元に戻せません。';
+
+  @override
+  String get adminListAnnouncementScreenDetailDeleteModalCancelButton =>
+      'キャンセル';
+
+  @override
+  String get adminListAnnouncementScreenDetailDeleteModalDeleteButton => '削除';
+
+  @override
+  String get adminListAnnouncementScreenDetailAlertsToggleStatusError =>
+      'ステータスの変更中にエラーが発生しました';
+
+  @override
+  String get adminListAnnouncementScreenDetailAlertsDeleteError =>
+      'お知らせの削除中にエラーが発生しました';
+
+  @override
   String get registerBrandName => 'RESERVATION ID';
 
   @override

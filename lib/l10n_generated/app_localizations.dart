@@ -99,6 +99,906 @@ abstract class L10n {
     Locale('ja'),
   ];
 
+  /// No description provided for @adminUpsertAnnouncementScreenPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Announcement'**
+  String get adminUpsertAnnouncementScreenPageTitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenPageDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new announcement with multilingual support.'**
+  String get adminUpsertAnnouncementScreenPageDescription;
+
+  /// No description provided for @adminUpsertAnnouncementScreenHeaderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Announcement'**
+  String get adminUpsertAnnouncementScreenHeaderTitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenHeaderDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new announcement with multilingual support.'**
+  String get adminUpsertAnnouncementScreenHeaderDescription;
+
+  /// No description provided for @adminUpsertAnnouncementScreenBackButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get adminUpsertAnnouncementScreenBackButton;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement Information'**
+  String get adminUpsertAnnouncementScreenFormSectionTitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormSectionDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill out the form below to create a new announcement with English and Japanese support.'**
+  String get adminUpsertAnnouncementScreenFormSectionDescription;
+
+  /// No description provided for @adminUpsertAnnouncementScreenTabEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get adminUpsertAnnouncementScreenTabEnglish;
+
+  /// No description provided for @adminUpsertAnnouncementScreenTabJapanese.
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese (日本語)'**
+  String get adminUpsertAnnouncementScreenTabJapanese;
+
+  /// No description provided for @adminUpsertAnnouncementScreenEnSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'English Content'**
+  String get adminUpsertAnnouncementScreenEnSectionTitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenEnSectionDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill in the title and content in English.'**
+  String get adminUpsertAnnouncementScreenEnSectionDescription;
+
+  /// No description provided for @adminUpsertAnnouncementScreenEnTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Title (English)'**
+  String get adminUpsertAnnouncementScreenEnTitleLabel;
+
+  /// No description provided for @adminUpsertAnnouncementScreenEnTitlePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the announcement title in English...'**
+  String get adminUpsertAnnouncementScreenEnTitlePlaceholder;
+
+  /// No description provided for @adminUpsertAnnouncementScreenEnContentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Content (English)'**
+  String get adminUpsertAnnouncementScreenEnContentLabel;
+
+  /// No description provided for @adminUpsertAnnouncementScreenEnContentPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the announcement content in English...'**
+  String get adminUpsertAnnouncementScreenEnContentPlaceholder;
+
+  /// No description provided for @adminUpsertAnnouncementScreenEnContentHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Write the announcement content in English.'**
+  String get adminUpsertAnnouncementScreenEnContentHelper;
+
+  /// No description provided for @adminUpsertAnnouncementScreenJaSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'コンテンツ (Japanese Content)'**
+  String get adminUpsertAnnouncementScreenJaSectionTitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenJaSectionDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill in the title and content in Japanese.'**
+  String get adminUpsertAnnouncementScreenJaSectionDescription;
+
+  /// No description provided for @adminUpsertAnnouncementScreenJaTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'タイトル (Japanese Title)'**
+  String get adminUpsertAnnouncementScreenJaTitleLabel;
+
+  /// No description provided for @adminUpsertAnnouncementScreenJaTitlePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'日本語でお知らせのタイトルを入力してください...'**
+  String get adminUpsertAnnouncementScreenJaTitlePlaceholder;
+
+  /// No description provided for @adminUpsertAnnouncementScreenJaContentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'コンテンツ (Japanese Content)'**
+  String get adminUpsertAnnouncementScreenJaContentLabel;
+
+  /// No description provided for @adminUpsertAnnouncementScreenJaContentPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'日本語でお知らせの内容を入力してください...'**
+  String get adminUpsertAnnouncementScreenJaContentPlaceholder;
+
+  /// No description provided for @adminUpsertAnnouncementScreenJaContentHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'日本語でお知らせの内容を記入してください。'**
+  String get adminUpsertAnnouncementScreenJaContentHelper;
+
+  /// No description provided for @adminUpsertAnnouncementScreenCommonSettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Common Settings'**
+  String get adminUpsertAnnouncementScreenCommonSettingsTitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenPublishedAtLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Publication Date & Time'**
+  String get adminUpsertAnnouncementScreenPublishedAtLabel;
+
+  /// No description provided for @adminUpsertAnnouncementScreenPublishedAtHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'If left empty, the current time will be used.'**
+  String get adminUpsertAnnouncementScreenPublishedAtHelper;
+
+  /// No description provided for @adminUpsertAnnouncementScreenStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminUpsertAnnouncementScreenStatusLabel;
+
+  /// No description provided for @adminUpsertAnnouncementScreenStatusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get adminUpsertAnnouncementScreenStatusActive;
+
+  /// No description provided for @adminUpsertAnnouncementScreenStatusInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get adminUpsertAnnouncementScreenStatusInactive;
+
+  /// No description provided for @adminUpsertAnnouncementScreenPreviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get adminUpsertAnnouncementScreenPreviewTitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenPreviewShow.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Preview'**
+  String get adminUpsertAnnouncementScreenPreviewShow;
+
+  /// No description provided for @adminUpsertAnnouncementScreenPreviewHide.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide Preview'**
+  String get adminUpsertAnnouncementScreenPreviewHide;
+
+  /// No description provided for @adminUpsertAnnouncementScreenPreviewTitlePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement title will appear here'**
+  String get adminUpsertAnnouncementScreenPreviewTitlePlaceholder;
+
+  /// No description provided for @adminUpsertAnnouncementScreenPreviewContentPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement content will appear here'**
+  String get adminUpsertAnnouncementScreenPreviewContentPlaceholder;
+
+  /// No description provided for @adminUpsertAnnouncementScreenPreviewDateNotSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Date not selected'**
+  String get adminUpsertAnnouncementScreenPreviewDateNotSelected;
+
+  /// No description provided for @adminUpsertAnnouncementScreenCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminUpsertAnnouncementScreenCancelButton;
+
+  /// No description provided for @adminUpsertAnnouncementScreenSaveButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Announcement'**
+  String get adminUpsertAnnouncementScreenSaveButton;
+
+  /// No description provided for @adminUpsertAnnouncementScreenRequiredField.
+  ///
+  /// In en, this message translates to:
+  /// **'*'**
+  String get adminUpsertAnnouncementScreenRequiredField;
+
+  /// No description provided for @adminUpsertAnnouncementScreenMaxCharacters.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum 255 characters'**
+  String get adminUpsertAnnouncementScreenMaxCharacters;
+
+  /// No description provided for @adminUpsertAnnouncementScreenMaxCharactersJa.
+  ///
+  /// In en, this message translates to:
+  /// **'最大255文字'**
+  String get adminUpsertAnnouncementScreenMaxCharactersJa;
+
+  /// No description provided for @adminUpsertAnnouncementScreenEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Announcement'**
+  String get adminUpsertAnnouncementScreenEditTitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenEditSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Update multilingual announcement information'**
+  String get adminUpsertAnnouncementScreenEditSubtitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Announcement Information'**
+  String get adminUpsertAnnouncementScreenFormCardTitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormCardSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Update the form below to edit the multilingual announcement'**
+  String get adminUpsertAnnouncementScreenFormCardSubtitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormCreatedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Created at'**
+  String get adminUpsertAnnouncementScreenFormCreatedAt;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormTabsTranslationFilledTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation filled'**
+  String get adminUpsertAnnouncementScreenFormTabsTranslationFilledTooltip;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormJapaneseSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese Content'**
+  String get adminUpsertAnnouncementScreenFormJapaneseSectionTitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormJapaneseSectionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit the title and content in Japanese'**
+  String get adminUpsertAnnouncementScreenFormJapaneseSectionSubtitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormCommonSettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'General Settings'**
+  String get adminUpsertAnnouncementScreenFormCommonSettingsTitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormTranslationInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation Information'**
+  String get adminUpsertAnnouncementScreenFormTranslationInfoTitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormTranslationInfoLanguageEn.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get adminUpsertAnnouncementScreenFormTranslationInfoLanguageEn;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormTranslationInfoLanguageJa.
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese'**
+  String get adminUpsertAnnouncementScreenFormTranslationInfoLanguageJa;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormTranslationInfoAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get adminUpsertAnnouncementScreenFormTranslationInfoAvailable;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormTranslationInfoNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Available'**
+  String get adminUpsertAnnouncementScreenFormTranslationInfoNotAvailable;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormAnnouncementInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement Information'**
+  String get adminUpsertAnnouncementScreenFormAnnouncementInfoTitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormAnnouncementInfoUpdatedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated at'**
+  String get adminUpsertAnnouncementScreenFormAnnouncementInfoUpdatedAt;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormAnnouncementInfoPublishedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Published at'**
+  String get adminUpsertAnnouncementScreenFormAnnouncementInfoPublishedAt;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormAnnouncementInfoId.
+  ///
+  /// In en, this message translates to:
+  /// **'ID'**
+  String get adminUpsertAnnouncementScreenFormAnnouncementInfoId;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormPreviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview Changes'**
+  String get adminUpsertAnnouncementScreenFormPreviewTitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormPreviewLangEn.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get adminUpsertAnnouncementScreenFormPreviewLangEn;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormPreviewLangJa.
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese'**
+  String get adminUpsertAnnouncementScreenFormPreviewLangJa;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormButtonsViewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get adminUpsertAnnouncementScreenFormButtonsViewDetails;
+
+  /// No description provided for @adminUpsertAnnouncementScreenFormButtonsUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Announcement'**
+  String get adminUpsertAnnouncementScreenFormButtonsUpdate;
+
+  /// No description provided for @announcementNotificationCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement created successfully.'**
+  String get announcementNotificationCreated;
+
+  /// No description provided for @announcementNotificationUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement updated successfully.'**
+  String get announcementNotificationUpdated;
+
+  /// No description provided for @announcementNotificationDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement deleted successfully.'**
+  String get announcementNotificationDeleted;
+
+  /// No description provided for @announcementNotificationNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement not found.'**
+  String get announcementNotificationNotFound;
+
+  /// No description provided for @announcementNotificationStatusChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement status changed successfully.'**
+  String get announcementNotificationStatusChanged;
+
+  /// No description provided for @announcementNotificationBulkDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcements deleted successfully.'**
+  String get announcementNotificationBulkDeleted;
+
+  /// No description provided for @announcementNotificationBulkStatusChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcements status changed successfully.'**
+  String get announcementNotificationBulkStatusChanged;
+
+  /// No description provided for @announcementNotificationNoneDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'No announcements were deleted.'**
+  String get announcementNotificationNoneDeleted;
+
+  /// No description provided for @announcementNotificationInvalidData.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid data provided.'**
+  String get announcementNotificationInvalidData;
+
+  /// No description provided for @announcementNotificationError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred: {message}'**
+  String announcementNotificationError(String message);
+
+  /// No description provided for @adminListAnnouncementScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement Management'**
+  String get adminListAnnouncementScreenTitle;
+
+  /// No description provided for @adminListAnnouncementScreenSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage announcements for customers'**
+  String get adminListAnnouncementScreenSubtitle;
+
+  /// No description provided for @adminListAnnouncementScreenAddButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Announcement'**
+  String get adminListAnnouncementScreenAddButton;
+
+  /// No description provided for @adminListAnnouncementScreenStatsTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Announcements'**
+  String get adminListAnnouncementScreenStatsTotal;
+
+  /// No description provided for @adminListAnnouncementScreenStatsActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get adminListAnnouncementScreenStatsActive;
+
+  /// No description provided for @adminListAnnouncementScreenStatsInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get adminListAnnouncementScreenStatsInactive;
+
+  /// No description provided for @adminListAnnouncementScreenStatsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get adminListAnnouncementScreenStatsToday;
+
+  /// No description provided for @adminListAnnouncementScreenFiltersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter & Search'**
+  String get adminListAnnouncementScreenFiltersTitle;
+
+  /// No description provided for @adminListAnnouncementScreenFiltersStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminListAnnouncementScreenFiltersStatusLabel;
+
+  /// No description provided for @adminListAnnouncementScreenFiltersAllStatuses.
+  ///
+  /// In en, this message translates to:
+  /// **'All Statuses'**
+  String get adminListAnnouncementScreenFiltersAllStatuses;
+
+  /// No description provided for @adminListAnnouncementScreenFiltersStartDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get adminListAnnouncementScreenFiltersStartDateLabel;
+
+  /// No description provided for @adminListAnnouncementScreenFiltersEndDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get adminListAnnouncementScreenFiltersEndDateLabel;
+
+  /// No description provided for @adminListAnnouncementScreenFiltersSearchLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get adminListAnnouncementScreenFiltersSearchLabel;
+
+  /// No description provided for @adminListAnnouncementScreenFiltersSearchPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Search title or content...'**
+  String get adminListAnnouncementScreenFiltersSearchPlaceholder;
+
+  /// No description provided for @adminListAnnouncementScreenFiltersFilterButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get adminListAnnouncementScreenFiltersFilterButton;
+
+  /// No description provided for @adminListAnnouncementScreenFiltersResetButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get adminListAnnouncementScreenFiltersResetButton;
+
+  /// No description provided for @adminListAnnouncementScreenBulkActionsActivateButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Activate'**
+  String get adminListAnnouncementScreenBulkActionsActivateButton;
+
+  /// No description provided for @adminListAnnouncementScreenBulkActionsDeactivateButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Deactivate'**
+  String get adminListAnnouncementScreenBulkActionsDeactivateButton;
+
+  /// No description provided for @adminListAnnouncementScreenBulkActionsDeleteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminListAnnouncementScreenBulkActionsDeleteButton;
+
+  /// No description provided for @adminListAnnouncementScreenListTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcements List'**
+  String get adminListAnnouncementScreenListTitle;
+
+  /// No description provided for @adminListAnnouncementScreenTableHeadersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get adminListAnnouncementScreenTableHeadersTitle;
+
+  /// No description provided for @adminListAnnouncementScreenTableHeadersContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get adminListAnnouncementScreenTableHeadersContent;
+
+  /// No description provided for @adminListAnnouncementScreenTableHeadersPublishDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish Date'**
+  String get adminListAnnouncementScreenTableHeadersPublishDate;
+
+  /// No description provided for @adminListAnnouncementScreenTableHeadersStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminListAnnouncementScreenTableHeadersStatus;
+
+  /// No description provided for @adminListAnnouncementScreenTableHeadersActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get adminListAnnouncementScreenTableHeadersActions;
+
+  /// No description provided for @adminListAnnouncementScreenTableStatusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get adminListAnnouncementScreenTableStatusActive;
+
+  /// No description provided for @adminListAnnouncementScreenTableStatusInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get adminListAnnouncementScreenTableStatusInactive;
+
+  /// No description provided for @adminListAnnouncementScreenTableActionsTooltipView.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get adminListAnnouncementScreenTableActionsTooltipView;
+
+  /// No description provided for @adminListAnnouncementScreenTableActionsTooltipEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get adminListAnnouncementScreenTableActionsTooltipEdit;
+
+  /// No description provided for @adminListAnnouncementScreenTableActionsTooltipDeactivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Deactivate'**
+  String get adminListAnnouncementScreenTableActionsTooltipDeactivate;
+
+  /// No description provided for @adminListAnnouncementScreenTableActionsTooltipActivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Activate'**
+  String get adminListAnnouncementScreenTableActionsTooltipActivate;
+
+  /// No description provided for @adminListAnnouncementScreenTableActionsTooltipDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminListAnnouncementScreenTableActionsTooltipDelete;
+
+  /// No description provided for @adminListAnnouncementScreenEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No announcements found'**
+  String get adminListAnnouncementScreenEmptyTitle;
+
+  /// No description provided for @adminListAnnouncementScreenEmptyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'There are no announcements created yet, or none match the applied filters.'**
+  String get adminListAnnouncementScreenEmptyDescription;
+
+  /// No description provided for @adminListAnnouncementScreenDeleteModalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Deletion'**
+  String get adminListAnnouncementScreenDeleteModalTitle;
+
+  /// No description provided for @adminListAnnouncementScreenDeleteModalCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminListAnnouncementScreenDeleteModalCancelButton;
+
+  /// No description provided for @adminListAnnouncementScreenDeleteModalDeleteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminListAnnouncementScreenDeleteModalDeleteButton;
+
+  /// No description provided for @adminListAnnouncementScreenJsShowFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Filters'**
+  String get adminListAnnouncementScreenJsShowFilters;
+
+  /// No description provided for @adminListAnnouncementScreenJsHideFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide Filters'**
+  String get adminListAnnouncementScreenJsHideFilters;
+
+  /// No description provided for @adminListAnnouncementScreenJsSelectedText.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} item(s) selected'**
+  String adminListAnnouncementScreenJsSelectedText(String count);
+
+  /// No description provided for @adminListAnnouncementScreenJsDeleteSingleConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this announcement?'**
+  String get adminListAnnouncementScreenJsDeleteSingleConfirm;
+
+  /// No description provided for @adminListAnnouncementScreenJsDeleteMultipleConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {count} announcement(s)?'**
+  String adminListAnnouncementScreenJsDeleteMultipleConfirm(String count);
+
+  /// No description provided for @adminListAnnouncementScreenJsSelectAtLeastOne.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one announcement.'**
+  String get adminListAnnouncementScreenJsSelectAtLeastOne;
+
+  /// No description provided for @adminListAnnouncementScreenJsErrorStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while changing the status.'**
+  String get adminListAnnouncementScreenJsErrorStatus;
+
+  /// No description provided for @adminListAnnouncementScreenJsErrorDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while deleting.'**
+  String get adminListAnnouncementScreenJsErrorDelete;
+
+  /// No description provided for @adminListAnnouncementScreenJsErrorToggleStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while changing the status'**
+  String get adminListAnnouncementScreenJsErrorToggleStatus;
+
+  /// No description provided for @adminListAnnouncementScreenDetailHeaderBackToList.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to List'**
+  String get adminListAnnouncementScreenDetailHeaderBackToList;
+
+  /// No description provided for @adminListAnnouncementScreenDetailHeaderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement Detail'**
+  String get adminListAnnouncementScreenDetailHeaderTitle;
+
+  /// No description provided for @adminListAnnouncementScreenDetailStatusCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement Status'**
+  String get adminListAnnouncementScreenDetailStatusCardTitle;
+
+  /// No description provided for @adminListAnnouncementScreenDetailStatusCardDescriptionPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'This announcement is currently'**
+  String get adminListAnnouncementScreenDetailStatusCardDescriptionPrefix;
+
+  /// No description provided for @adminListAnnouncementScreenDetailStatusCardActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get adminListAnnouncementScreenDetailStatusCardActive;
+
+  /// No description provided for @adminListAnnouncementScreenDetailStatusCardInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get adminListAnnouncementScreenDetailStatusCardInactive;
+
+  /// No description provided for @adminListAnnouncementScreenDetailStatusCardCreatedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Created at'**
+  String get adminListAnnouncementScreenDetailStatusCardCreatedAt;
+
+  /// No description provided for @adminListAnnouncementScreenDetailStatusCardUpdatedAtPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated:'**
+  String get adminListAnnouncementScreenDetailStatusCardUpdatedAtPrefix;
+
+  /// No description provided for @adminListAnnouncementScreenDetailMainCardPublishDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish Date:'**
+  String get adminListAnnouncementScreenDetailMainCardPublishDateLabel;
+
+  /// No description provided for @adminListAnnouncementScreenDetailMainCardNotPublishedYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not published yet'**
+  String get adminListAnnouncementScreenDetailMainCardNotPublishedYet;
+
+  /// No description provided for @adminListAnnouncementScreenDetailMainCardContentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement Content'**
+  String get adminListAnnouncementScreenDetailMainCardContentTitle;
+
+  /// No description provided for @adminListAnnouncementScreenDetailMainCardAdditionalInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional Information'**
+  String get adminListAnnouncementScreenDetailMainCardAdditionalInfoTitle;
+
+  /// No description provided for @adminListAnnouncementScreenDetailAdditionalInfoId.
+  ///
+  /// In en, this message translates to:
+  /// **'ID:'**
+  String get adminListAnnouncementScreenDetailAdditionalInfoId;
+
+  /// No description provided for @adminListAnnouncementScreenDetailAdditionalInfoStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status:'**
+  String get adminListAnnouncementScreenDetailAdditionalInfoStatus;
+
+  /// No description provided for @adminListAnnouncementScreenDetailAdditionalInfoPublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Published:'**
+  String get adminListAnnouncementScreenDetailAdditionalInfoPublished;
+
+  /// No description provided for @adminListAnnouncementScreenDetailAdditionalInfoCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Created:'**
+  String get adminListAnnouncementScreenDetailAdditionalInfoCreated;
+
+  /// No description provided for @adminListAnnouncementScreenDetailAdditionalInfoUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated:'**
+  String get adminListAnnouncementScreenDetailAdditionalInfoUpdated;
+
+  /// No description provided for @adminListAnnouncementScreenDetailAdditionalInfoCharactersLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Characters:'**
+  String get adminListAnnouncementScreenDetailAdditionalInfoCharactersLabel;
+
+  /// No description provided for @adminListAnnouncementScreenDetailAdditionalInfoCharactersUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'characters'**
+  String get adminListAnnouncementScreenDetailAdditionalInfoCharactersUnit;
+
+  /// No description provided for @adminListAnnouncementScreenDetailActionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get adminListAnnouncementScreenDetailActionsTitle;
+
+  /// No description provided for @adminListAnnouncementScreenDetailActionsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage this announcement easily'**
+  String get adminListAnnouncementScreenDetailActionsDescription;
+
+  /// No description provided for @adminListAnnouncementScreenDetailActionsEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Announcement'**
+  String get adminListAnnouncementScreenDetailActionsEdit;
+
+  /// No description provided for @adminListAnnouncementScreenDetailActionsDeactivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Deactivate'**
+  String get adminListAnnouncementScreenDetailActionsDeactivate;
+
+  /// No description provided for @adminListAnnouncementScreenDetailActionsActivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Activate'**
+  String get adminListAnnouncementScreenDetailActionsActivate;
+
+  /// No description provided for @adminListAnnouncementScreenDetailDeleteModalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Deletion'**
+  String get adminListAnnouncementScreenDetailDeleteModalTitle;
+
+  /// No description provided for @adminListAnnouncementScreenDetailDeleteModalTextLine1.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this announcement?'**
+  String get adminListAnnouncementScreenDetailDeleteModalTextLine1;
+
+  /// No description provided for @adminListAnnouncementScreenDetailDeleteModalTextLine2.
+  ///
+  /// In en, this message translates to:
+  /// **'This action cannot be undone.'**
+  String get adminListAnnouncementScreenDetailDeleteModalTextLine2;
+
+  /// No description provided for @adminListAnnouncementScreenDetailDeleteModalCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminListAnnouncementScreenDetailDeleteModalCancelButton;
+
+  /// No description provided for @adminListAnnouncementScreenDetailDeleteModalDeleteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminListAnnouncementScreenDetailDeleteModalDeleteButton;
+
+  /// No description provided for @adminListAnnouncementScreenDetailAlertsToggleStatusError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while changing the status'**
+  String get adminListAnnouncementScreenDetailAlertsToggleStatusError;
+
+  /// No description provided for @adminListAnnouncementScreenDetailAlertsDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while deleting the announcement'**
+  String get adminListAnnouncementScreenDetailAlertsDeleteError;
+
   /// No description provided for @registerBrandName.
   ///
   /// In en, this message translates to:

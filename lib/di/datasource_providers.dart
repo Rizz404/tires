@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/di/common_providers.dart';
+import 'package:tires/features/announcement/data/datasources/announcement_remote_datasource.dart';
 import 'package:tires/features/authentication/data/datasources/auth_remote_datasource.dart';
 import 'package:tires/features/availability/data/datasources/availability_remote_datasource.dart';
 import 'package:tires/features/availability/data/datasources/availability_remote_datasource_impl.dart';
@@ -51,4 +52,10 @@ final reservationRemoteDatasourceProvider =
     Provider<ReservationRemoteDatasource>((ref) {
       final _dioClient = ref.watch(dioClientProvider);
       return ReservationRemoteDatasourceImpl(_dioClient);
+    });
+
+final announcementRemoteDatasourceProvider =
+    Provider<AnnouncementRemoteDatasource>((ref) {
+      final _dioClient = ref.watch(dioClientProvider);
+      return AnnouncementRemoteDatasourceImpl(_dioClient);
     });

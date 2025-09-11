@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/di/datasource_providers.dart';
 import 'package:tires/di/service_providers.dart';
+import 'package:tires/features/announcement/data/repositories/announcement_repository_impl.dart';
+import 'package:tires/features/announcement/domain/repositories/announcement_repository.dart';
 import 'package:tires/features/authentication/data/repositories/auth_repository_impl.dart';
 import 'package:tires/features/authentication/domain/repositories/auth_repository.dart';
 import 'package:tires/features/availability/data/repositories/availability_repository_impl.dart';
@@ -67,4 +69,11 @@ final reservationRepoProvider = Provider<ReservationRepository>((ref) {
     reservationRemoteDatasourceProvider,
   );
   return ReservationRepositoryImpl(_reservationRemoteDatasource);
+});
+
+final announcementRepoProvider = Provider<AnnouncementRepository>((ref) {
+  final _announcementRemoteDatasource = ref.watch(
+    announcementRemoteDatasourceProvider,
+  );
+  return AnnouncementRepositoryImpl(_announcementRemoteDatasource);
 });

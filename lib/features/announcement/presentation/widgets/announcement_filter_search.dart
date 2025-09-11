@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
+import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
@@ -37,8 +38,8 @@ class AnnouncementFilterSearch extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const AppText(
-                  'Filter & Search',
+                AppText(
+                  context.l10n.adminListAnnouncementScreenFiltersTitle,
                   style: AppTextStyle.titleLarge,
                 ),
                 TextButton.icon(
@@ -49,7 +50,9 @@ class AnnouncementFilterSearch extends StatelessWidget {
                         : Icons.visibility_outlined,
                   ),
                   label: AppText(
-                    isFilterVisible ? 'Hide Filters' : 'Show Filters',
+                    isFilterVisible
+                        ? context.l10n.adminListAnnouncementScreenJsHideFilters
+                        : context.l10n.adminListAnnouncementScreenJsShowFilters,
                   ),
                 ),
               ],
@@ -67,21 +70,35 @@ class AnnouncementFilterSearch extends StatelessWidget {
                           child: FormBuilderDropdown<String>(
                             name: 'status',
                             initialValue: 'all',
-                            decoration: const InputDecoration(
-                              labelText: 'Status',
+                            decoration: InputDecoration(
+                              labelText: context
+                                  .l10n
+                                  .adminListAnnouncementScreenFiltersStatusLabel,
                             ),
-                            items: const [
+                            items: [
                               DropdownMenuItem(
                                 value: 'all',
-                                child: Text('All Statuses'),
+                                child: Text(
+                                  context
+                                      .l10n
+                                      .adminListAnnouncementScreenFiltersAllStatuses,
+                                ),
                               ),
                               DropdownMenuItem(
                                 value: 'active',
-                                child: Text('Active'),
+                                child: Text(
+                                  context
+                                      .l10n
+                                      .adminUpsertAnnouncementScreenStatusActive,
+                                ),
                               ),
                               DropdownMenuItem(
                                 value: 'inactive',
-                                child: Text('Inactive'),
+                                child: Text(
+                                  context
+                                      .l10n
+                                      .adminUpsertAnnouncementScreenStatusInactive,
+                                ),
                               ),
                             ],
                           ),
@@ -91,8 +108,10 @@ class AnnouncementFilterSearch extends StatelessWidget {
                           child: FormBuilderDateTimePicker(
                             name: 'start_date',
                             inputType: InputType.date,
-                            decoration: const InputDecoration(
-                              labelText: 'Start Date',
+                            decoration: InputDecoration(
+                              labelText: context
+                                  .l10n
+                                  .adminListAnnouncementScreenFiltersStartDateLabel,
                             ),
                             format: DateFormat('dd/MM/yyyy'),
                           ),
@@ -102,8 +121,10 @@ class AnnouncementFilterSearch extends StatelessWidget {
                           child: FormBuilderDateTimePicker(
                             name: 'end_date',
                             inputType: InputType.date,
-                            decoration: const InputDecoration(
-                              labelText: 'End Date',
+                            decoration: InputDecoration(
+                              labelText: context
+                                  .l10n
+                                  .adminListAnnouncementScreenFiltersEndDateLabel,
                             ),
                             format: DateFormat('dd/MM/yyyy'),
                           ),
@@ -113,10 +134,14 @@ class AnnouncementFilterSearch extends StatelessWidget {
                     const SizedBox(height: 16),
                     FormBuilderTextField(
                       name: 'search',
-                      decoration: const InputDecoration(
-                        labelText: 'Search',
-                        hintText: 'Search title or content...',
-                        prefixIcon: Icon(Icons.search),
+                      decoration: InputDecoration(
+                        labelText: context
+                            .l10n
+                            .adminListAnnouncementScreenFiltersSearchLabel,
+                        hintText: context
+                            .l10n
+                            .adminListAnnouncementScreenFiltersSearchPlaceholder,
+                        prefixIcon: const Icon(Icons.search),
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -125,12 +150,20 @@ class AnnouncementFilterSearch extends StatelessWidget {
                       children: [
                         TextButton(
                           onPressed: onReset,
-                          child: const Text('Reset'),
+                          child: Text(
+                            context
+                                .l10n
+                                .adminListAnnouncementScreenFiltersResetButton,
+                          ),
                         ),
                         const SizedBox(width: 8),
                         ElevatedButton(
                           onPressed: onFilter,
-                          child: const Text('Filter'),
+                          child: Text(
+                            context
+                                .l10n
+                                .adminListAnnouncementScreenFiltersFilterButton,
+                          ),
                         ),
                       ],
                     ),

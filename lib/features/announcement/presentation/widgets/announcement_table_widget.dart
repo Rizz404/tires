@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
+// Pastikan path import ini benar sesuai lokasi file entity baru Anda
 import 'package:tires/features/user/domain/entities/announcement.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
@@ -41,7 +43,7 @@ class AnnouncementTableWidget extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               AppText(
-                'No announcements found',
+                context.l10n.adminListAnnouncementScreenEmptyTitle,
                 style: AppTextStyle.bodyLarge,
                 color: context.colorScheme.onSurface.withOpacity(0.6),
               ),
@@ -87,24 +89,40 @@ class AnnouncementTableWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       color: context.colorScheme.surface.withOpacity(0.5),
       child: Row(
-        children: const [
-          SizedBox(width: 50, child: Text('')), // Checkbox
+        children: [
+          const SizedBox(width: 50, child: Text('')), // Checkbox
           SizedBox(
             width: 300,
-            child: AppText('TITLE', fontWeight: FontWeight.bold),
+            child: AppText(
+              context.l10n.adminListAnnouncementScreenTableHeadersTitle
+                  .toUpperCase(),
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(
             width: 150,
-            child: AppText('PUBLISH DATE', fontWeight: FontWeight.bold),
+            child: AppText(
+              context.l10n.adminListAnnouncementScreenTableHeadersPublishDate
+                  .toUpperCase(),
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(
             width: 120,
-            child: AppText('STATUS', fontWeight: FontWeight.bold),
+            child: AppText(
+              context.l10n.adminListAnnouncementScreenTableHeadersStatus
+                  .toUpperCase(),
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(
             width: 80,
             child: Center(
-              child: AppText('ACTION', fontWeight: FontWeight.bold),
+              child: AppText(
+                context.l10n.adminListAnnouncementScreenTableHeadersActions
+                    .toUpperCase(),
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
@@ -113,7 +131,6 @@ class AnnouncementTableWidget extends StatelessWidget {
   }
 
   Widget _buildTableRow(BuildContext context, Announcement announcement) {
-    final translation = announcement.translations.first;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
@@ -130,7 +147,7 @@ class AnnouncementTableWidget extends StatelessWidget {
           SizedBox(
             width: 300,
             child: AppText(
-              translation.title,
+              announcement.title,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -138,8 +155,8 @@ class AnnouncementTableWidget extends StatelessWidget {
           SizedBox(
             width: 150,
             child: AppText(
-              announcement.publishedAt != null
-                  ? DateFormat('dd MMM yyyy').format(announcement.publishedAt!)
+              announcement.startDate != null
+                  ? DateFormat('dd MMM yyyy').format(announcement.startDate!)
                   : '-',
               color: context.colorScheme.onSurface.withOpacity(0.7),
             ),
@@ -151,7 +168,9 @@ class AnnouncementTableWidget extends StatelessWidget {
               child: IconButton(
                 icon: const Icon(Icons.visibility_outlined, size: 20),
                 onPressed: () {},
-                tooltip: 'View Details',
+                tooltip: context
+                    .l10n
+                    .adminListAnnouncementScreenTableActionsTooltipView,
               ),
             ),
           ),
@@ -162,7 +181,11 @@ class AnnouncementTableWidget extends StatelessWidget {
 
   Widget _buildStatusChip(BuildContext context, Announcement announcement) {
     return Chip(
-      label: Text(announcement.isActive ? 'Active' : 'Inactive'),
+      label: Text(
+        announcement.isActive
+            ? context.l10n.adminUpsertAnnouncementScreenStatusActive
+            : context.l10n.adminUpsertAnnouncementScreenStatusInactive,
+      ),
       backgroundColor: announcement.isActive
           ? Colors.green.shade100
           : Colors.grey.shade300,
