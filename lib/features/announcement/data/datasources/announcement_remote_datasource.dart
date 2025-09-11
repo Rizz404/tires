@@ -1,15 +1,22 @@
 import 'package:tires/core/network/api_cursor_pagination_response.dart';
 import 'package:tires/core/network/api_endpoints.dart';
+import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/features/announcement/data/models/announcement_model.dart';
+import 'package:tires/features/announcement/domain/usecases/create_announcement_usecase.dart';
+import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
+import 'package:tires/features/announcement/domain/usecases/update_announcement_usecase.dart';
 
 abstract class AnnouncementRemoteDatasource {
-  Future<ApiCursorPaginationResponse<AnnouncementModel>>
-  getAnnouncementsCursor({
-    required bool paginate,
-    required int perPage,
-    String? cursor,
-  });
+  Future<ApiResponse<AnnouncementModel>> createAnnouncement(
+    CreateAnnouncementParams params,
+  );
+  Future<ApiCursorPaginationResponse<AnnouncementModel>> getAnnouncementsCursor(
+    GetUserAnnouncementsCursorParams params,
+  );
+  Future<ApiResponse<AnnouncementModel>> updateAnnouncement(
+    UpdateAnnouncementParams params,
+  );
 }
 
 class AnnouncementRemoteDatasourceImpl implements AnnouncementRemoteDatasource {
@@ -18,27 +25,54 @@ class AnnouncementRemoteDatasourceImpl implements AnnouncementRemoteDatasource {
   AnnouncementRemoteDatasourceImpl(this._dioClient);
 
   @override
-  Future<ApiCursorPaginationResponse<AnnouncementModel>>
-  getAnnouncementsCursor({
-    required bool paginate,
-    required int perPage,
-    String? cursor,
-  }) async {
+  Future<ApiResponse<AnnouncementModel>> createAnnouncement(
+    CreateAnnouncementParams params,
+  ) async {
     try {
-      final queryParameters = {
-        'paginate': paginate.toString(),
-        'per_page': perPage.toString(),
-        if (cursor != null) 'cursor': cursor,
-      };
+      final response = await _dioClient.post(
+        ApiEndpoints.adminAnnouncements,
+        data: params.toMap(),
+      );
+      return ApiResponse<AnnouncementModel>.fromJson(
+        response.data,
+        (data) => AnnouncementModel.fromMap(data),
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
 
+  @override
+  Future<ApiCursorPaginationResponse<AnnouncementModel>> getAnnouncementsCursor(
+    GetUserAnnouncementsCursorParams params,
+  ) async {
+    try {
       final response = await _dioClient.getWithCursor<AnnouncementModel>(
         ApiEndpoints.adminAnnouncements,
         fromJson: (item) =>
             AnnouncementModel.fromMap(item as Map<String, dynamic>),
-        queryParameters: queryParameters,
+        queryParameters: params.toMap(),
       );
 
       return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<AnnouncementModel>> updateAnnouncement(
+    UpdateAnnouncementParams params,
+  ) async {
+    try {
+      final response = await _dioClient.patch(
+        '${ApiEndpoints.adminAnnouncements}/${params.id}',
+        data: params.toMap(),
+      );
+      return ApiResponse<AnnouncementModel>.fromJson(
+        response.data,
+        (data) => AnnouncementModel.fromMap(data),
+      );
     } catch (e) {
       rethrow;
     }
