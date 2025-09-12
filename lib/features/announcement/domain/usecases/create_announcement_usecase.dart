@@ -28,23 +28,23 @@ class CreateAnnouncementUsecase
 class CreateAnnouncementParams extends Equatable {
   final bool isActive;
   final DateTime publishedAt;
-  final AnnouncementTranslation? translation;
+  final AnnouncementTranslation? translations;
 
   const CreateAnnouncementParams({
     required this.isActive,
     required this.publishedAt,
-    this.translation,
+    this.translations,
   });
 
   CreateAnnouncementParams copyWith({
     bool? isActive,
     DateTime? publishedAt,
-    AnnouncementTranslation? translation,
+    AnnouncementTranslation? translations,
   }) {
     return CreateAnnouncementParams(
       isActive: isActive ?? this.isActive,
       publishedAt: publishedAt ?? this.publishedAt,
-      translation: translation ?? this.translation,
+      translations: translations ?? this.translations,
     );
   }
 
@@ -52,14 +52,14 @@ class CreateAnnouncementParams extends Equatable {
     return <String, dynamic>{
       'isActive': isActive,
       'publishedAt': publishedAt.toIso8601String(),
-      'translation': {
+      'translations': {
         'en': {
-          'title': translation?.en.title,
-          'content': translation?.en.content,
+          'title': translations?.en.title,
+          'content': translations?.en.content,
         },
         'ja': {
-          'title': translation?.ja.title,
-          'content': translation?.ja.content,
+          'title': translations?.ja.title,
+          'content': translations?.ja.content,
         },
       },
     };
@@ -71,5 +71,5 @@ class CreateAnnouncementParams extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object?> get props => [isActive, publishedAt, translation];
+  List<Object?> get props => [isActive, publishedAt, translations];
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:logger/logger.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/features/announcement/domain/entities/announcement.dart';
@@ -14,6 +15,8 @@ import 'package:tires/features/announcement/presentation/providers/announcement_
 import 'package:tires/features/announcement/presentation/validations/announcement_validators.dart';
 import 'package:tires/l10n_generated/app_localizations.dart';
 import 'package:tires/shared/presentation/utils/app_toast.dart';
+import 'package:tires/shared/presentation/widgets/admin_app_bar.dart';
+import 'package:tires/shared/presentation/widgets/admin_end_drawer.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
 import 'package:tires/shared/presentation/widgets/app_date_time_picker.dart';
 import 'package:tires/shared/presentation/widgets/app_radio_group.dart';
@@ -113,7 +116,7 @@ class _AdminUpsertAnnouncementScreenState
       } else {
         notifier.createAnnouncement(
           CreateAnnouncementParams(
-            translation: AnnouncementTranslation(
+            translations: AnnouncementTranslation(
               en: AnnouncementContent(title: titleEn, content: contentEn),
               ja: AnnouncementContent(
                 title: titleJa ?? '',
@@ -164,6 +167,8 @@ class _AdminUpsertAnnouncementScreenState
             _validationErrors = (next.failure as ValidationFailure).errors;
           });
         } else {
+          debugPrint(next.failure.toString());
+          debugPrint(next.failure?.message);
           AppToast.showError(context, message: next.failure!.message);
         }
       }
@@ -174,13 +179,13 @@ class _AdminUpsertAnnouncementScreenState
         mutationState.status == AnnouncementMutationStatus.loading;
 
     return Scaffold(
+      appBar: const AdminAppBar(),
+      endDrawer: const AdminEndDrawer(),
       body: LoadingOverlay(
         isLoading: isLoading,
         child: ScreenWrapper(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildHeader(l10n),
                 const SizedBox(height: 24),
@@ -194,31 +199,22 @@ class _AdminUpsertAnnouncementScreenState
   }
 
   Widget _buildHeader(L10n l10n) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppText(
-              _isEditMode
-                  ? l10n.adminUpsertAnnouncementScreenEditTitle
-                  : l10n.adminUpsertAnnouncementScreenPageTitle,
-              style: AppTextStyle.headlineSmall,
-            ),
-            AppText(
-              _isEditMode
-                  ? l10n.adminUpsertAnnouncementScreenEditSubtitle
-                  : l10n.adminUpsertAnnouncementScreenFormSectionDescription,
-              style: AppTextStyle.bodyMedium,
-            ),
-          ],
+        AppText(
+          _isEditMode
+              ? l10n.adminUpsertAnnouncementScreenEditTitle
+              : l10n.adminUpsertAnnouncementScreenPageTitle,
+          style: AppTextStyle.headlineSmall,
         ),
-        AppButton(
-          text: l10n.adminUpsertAnnouncementScreenBackButton,
-          onPressed: () => context.router.pop(),
-          variant: AppButtonVariant.outlined,
-          color: AppButtonColor.neutral,
+        const SizedBox(height: 4),
+        AppText(
+          _isEditMode
+              ? l10n.adminUpsertAnnouncementScreenEditSubtitle
+              : l10n.adminUpsertAnnouncementScreenFormSectionDescription,
+          style: AppTextStyle.bodyMedium,
+          softWrap: true,
         ),
       ],
     );
@@ -477,6 +473,7 @@ class _AdminUpsertAnnouncementScreenState
           onPressed: () => context.router.pop(),
           variant: AppButtonVariant.outlined,
           color: AppButtonColor.neutral,
+          isFullWidth: false,
         ),
         const SizedBox(width: 16),
         AppButton(
@@ -485,6 +482,7 @@ class _AdminUpsertAnnouncementScreenState
               : l10n.adminUpsertAnnouncementScreenSaveButton,
           onPressed: () => _handleSubmit(ref),
           isLoading: _isSubmitting,
+          isFullWidth: false,
         ),
       ],
     );

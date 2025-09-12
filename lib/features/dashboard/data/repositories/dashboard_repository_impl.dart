@@ -22,7 +22,7 @@ class DashboardRepositoryImpl implements DashboardRepository {
         ),
       );
     } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }

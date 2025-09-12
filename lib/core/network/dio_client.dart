@@ -300,15 +300,13 @@ class DioClient {
   ApiErrorResponse _handleError(DioException error) {
     if (error.response != null && error.response!.data != null) {
       try {
-        // Check if response is HTML instead of JSON
         if (error.response!.data is String &&
             (error.response!.data as String).trim().startsWith(
               '<!DOCTYPE html>',
             )) {
-          return ApiErrorResponse(
+          return const ApiErrorResponse(
             message:
                 'Server returned HTML instead of JSON. Check API endpoint configuration.',
-            code: error.response!.statusCode,
           );
         }
 
@@ -318,13 +316,11 @@ class DioClient {
       } catch (e) {
         return ApiErrorResponse(
           message: error.response!.statusMessage ?? 'Unknown error occurred',
-          code: error.response!.statusCode,
         );
       }
     } else {
       return ApiErrorResponse(
         message: error.message ?? 'Network error occurred',
-        code: error.response?.statusCode,
       );
     }
   }

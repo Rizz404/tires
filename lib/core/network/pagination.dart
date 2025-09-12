@@ -32,12 +32,12 @@ class Pagination extends Equatable {
 
   factory Pagination.fromMap(Map<String, dynamic> map) {
     return Pagination(
-      total: map['total'] as int,
-      perPage: map['per_page'] as int,
-      currentPage: map['current_page'] as int,
-      totalPages: map['total_pages'] as int,
-      hasPrevPage: map['has_prev_page'] as bool,
-      hasNextPage: map['has_next_page'] as bool,
+      total: map['total'] is int ? map['total'] : 0,
+      perPage: map['per_page'] is int ? map['per_page'] : 10,
+      currentPage: map['current_page'] is int ? map['current_page'] : 1,
+      totalPages: map['total_pages'] is int ? map['total_pages'] : 1,
+      hasPrevPage: map['has_prev_page'] is bool ? map['has_prev_page'] : false,
+      hasNextPage: map['has_next_page'] is bool ? map['has_next_page'] : false,
     );
   }
 

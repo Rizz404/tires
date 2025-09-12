@@ -33,7 +33,7 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
         ),
       );
     } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -57,7 +57,7 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
         ),
       );
     } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -79,7 +79,7 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
         ),
       );
     } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -96,7 +96,7 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
 
       return Right(ActionSuccess(message: result.message));
     } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }

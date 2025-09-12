@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:tires/core/routes/auth_guard.dart';
 import 'package:tires/core/routes/duplicate_guard.dart';
+import 'package:tires/features/announcement/domain/entities/announcement.dart';
 import 'package:tires/features/announcement/presentation/screens/admin_list_announcement_screen.dart';
 import 'package:tires/features/announcement/presentation/screens/admin_upsert_announcement_screen.dart';
 import 'package:tires/features/authentication/presentation/screens/forgot_password_screen.dart';

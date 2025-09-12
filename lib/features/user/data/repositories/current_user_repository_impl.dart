@@ -44,7 +44,7 @@ class CurrentUserRepositoryImpl implements CurrentUserRepository {
       await _sessionStorageService.saveUser(user);
       return Right(ItemSuccessResponse(data: user, message: result.message));
     } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -84,7 +84,7 @@ class CurrentUserRepositoryImpl implements CurrentUserRepository {
         ItemSuccessResponse(data: updatedUser, message: result.message),
       );
     } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -105,7 +105,7 @@ class CurrentUserRepositoryImpl implements CurrentUserRepository {
 
       return Right(ActionSuccess(message: result.message));
     } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -122,7 +122,7 @@ class CurrentUserRepositoryImpl implements CurrentUserRepository {
         ItemSuccessResponse(data: dashboard, message: result.message),
       );
     } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -151,7 +151,7 @@ class CurrentUserRepositoryImpl implements CurrentUserRepository {
         ),
       );
     } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -167,7 +167,7 @@ class CurrentUserRepositoryImpl implements CurrentUserRepository {
       await _sessionStorageService.deleteAccessToken();
       return Right(ActionSuccess(message: result.message));
     } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }

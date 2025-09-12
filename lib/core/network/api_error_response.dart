@@ -2,41 +2,34 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-// Todo: Nanti jadiin plural, masa error doang bukan errors padahal array
 class ApiErrorResponse extends Equatable {
   final String message;
-  final int? code;
-  final List<ValidationError>? error;
+  final List<ValidationError>? errors;
 
-  const ApiErrorResponse({required this.message, this.code, this.error});
+  const ApiErrorResponse({required this.message, this.errors});
 
-  ApiErrorResponse copyWith({
-    String? message,
-    int? code,
-    List<ValidationError>? error,
-  }) {
+  ApiErrorResponse copyWith({String? message, List<ValidationError>? errors}) {
     return ApiErrorResponse(
       message: message ?? this.message,
-      code: code ?? this.code,
-      error: error ?? this.error,
+      errors: errors ?? this.errors,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'message': message,
-      'code': code,
-      'error': error?.map((x) => x.toMap()).toList(),
+      'errors': errors?.map((x) => x.toMap()).toList(),
     };
   }
 
   factory ApiErrorResponse.fromMap(Map<String, dynamic> map) {
     return ApiErrorResponse(
-      message: map['message'] as String,
-      code: map['code'] != null ? map['code'] as int : null,
-      error: map['error'] != null
+      message: map['message'] is String
+          ? map['message']
+          : (map['message']?.toString() ?? 'Unknown errors'),
+      errors: map['errors'] != null
           ? List<ValidationError>.from(
-              (map['error'] as List<int>).map<ValidationError?>(
+              (map['errors'] as List).map<ValidationError?>(
                 (x) => ValidationError.fromMap(x as Map<String, dynamic>),
               ),
             )
@@ -50,11 +43,10 @@ class ApiErrorResponse extends Equatable {
       ApiErrorResponse.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() =>
-      'ApiErrorResponse(message: $message, code: $code, error: $error)';
+  String toString() => 'ApiErrorResponse(message: $message, errors: $errors)';
 
   @override
-  List<Object> get props => [message, ?code, ?error];
+  List<Object> get props => [message, ?errors];
 }
 
 class ValidationError extends Equatable {
@@ -95,10 +87,16 @@ class ValidationError extends Equatable {
 
   factory ValidationError.fromMap(Map<String, dynamic> map) {
     return ValidationError(
-      field: map['field'] as String,
-      tag: map['tag'] as String,
-      value: map['value'] as String,
-      message: map['message'] as String,
+      field: map['field'] is String
+          ? map['field']
+          : (map['field']?.toString() ?? ''),
+      tag: map['tag'] is String ? map['tag'] : (map['tag']?.toString() ?? ''),
+      value: map['value'] is String
+          ? map['value']
+          : (map['value']?.toString() ?? ''),
+      message: map['message'] is String
+          ? map['message']
+          : (map['message']?.toString() ?? ''),
     );
   }
 

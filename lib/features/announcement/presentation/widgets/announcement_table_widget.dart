@@ -1,8 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
-// Pastikan path import ini benar sesuai lokasi file entity baru Anda
+import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/announcement/domain/entities/announcement.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
@@ -167,7 +168,11 @@ class AnnouncementTableWidget extends StatelessWidget {
             child: Center(
               child: IconButton(
                 icon: const Icon(Icons.visibility_outlined, size: 20),
-                onPressed: () {},
+                onPressed: () {
+                  context.router.push(
+                    AdminUpsertAnnouncementRoute(announcement: announcement),
+                  );
+                },
                 tooltip: context
                     .l10n
                     .adminListAnnouncementScreenTableActionsTooltipView,

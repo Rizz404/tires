@@ -34,7 +34,7 @@ class MenuRepositoryImpl implements MenuRepository {
         ),
       );
     } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }

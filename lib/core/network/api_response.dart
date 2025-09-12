@@ -26,7 +26,9 @@ class ApiResponse<T> extends Equatable {
   ) {
     return ApiResponse<T>(
       status: map['status'] as String,
-      message: map['message'] as String,
+      message: map['message'] is String
+          ? map['message']
+          : (map['message']?.toString() ?? 'Unknown message'),
       data: fromJsonT != null ? fromJsonT(map['data']) : map['data'] as T,
     );
   }

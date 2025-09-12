@@ -172,18 +172,58 @@ class AdminTabRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [AdminUpsertAnnouncementScreen]
-class AdminUpsertAnnouncementRoute extends PageRouteInfo<void> {
-  const AdminUpsertAnnouncementRoute({List<PageRouteInfo>? children})
-    : super(AdminUpsertAnnouncementRoute.name, initialChildren: children);
+class AdminUpsertAnnouncementRoute
+    extends PageRouteInfo<AdminUpsertAnnouncementRouteArgs> {
+  AdminUpsertAnnouncementRoute({
+    Key? key,
+    Announcement? announcement,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AdminUpsertAnnouncementRoute.name,
+         args: AdminUpsertAnnouncementRouteArgs(
+           key: key,
+           announcement: announcement,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'AdminUpsertAnnouncementRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const AdminUpsertAnnouncementScreen();
+      final args = data.argsAs<AdminUpsertAnnouncementRouteArgs>(
+        orElse: () => const AdminUpsertAnnouncementRouteArgs(),
+      );
+      return AdminUpsertAnnouncementScreen(
+        key: args.key,
+        announcement: args.announcement,
+      );
     },
   );
+}
+
+class AdminUpsertAnnouncementRouteArgs {
+  const AdminUpsertAnnouncementRouteArgs({this.key, this.announcement});
+
+  final Key? key;
+
+  final Announcement? announcement;
+
+  @override
+  String toString() {
+    return 'AdminUpsertAnnouncementRouteArgs{key: $key, announcement: $announcement}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AdminUpsertAnnouncementRouteArgs) return false;
+    return key == other.key && announcement == other.announcement;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ announcement.hashCode;
 }
 
 /// generated route for

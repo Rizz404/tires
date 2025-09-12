@@ -33,17 +33,17 @@ class InquiryRepositoryImpl implements InquiryRepository {
       final contact = result.data.toEntity();
       return Right(ItemSuccessResponse(data: contact, message: result.message));
     } on ApiErrorResponse catch (e) {
-      if (e.error != null && e.error!.isNotEmpty) {
+      if (e.errors != null && e.errors!.isNotEmpty) {
         return Left(
           ValidationFailure(
             message: e.message,
-            errors: e.error!
+            errors: e.errors!
                 .map((validationError) => validationError.toEntity())
                 .toList(),
           ),
         );
       }
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }

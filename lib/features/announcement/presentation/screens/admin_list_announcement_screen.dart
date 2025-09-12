@@ -4,6 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
+import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/announcement/presentation/widgets/announcement_filter_search.dart';
 import 'package:tires/features/announcement/presentation/widgets/announcement_table_widget.dart';
 import 'package:tires/features/announcement/presentation/providers/announcements_state.dart';
@@ -147,7 +148,9 @@ class _AdminListAnnouncementScreenState
             isFullWidth: false,
             text: context.l10n.adminListAnnouncementScreenAddButton,
             leadingIcon: const Icon(Icons.add),
-            onPressed: () {},
+            onPressed: () {
+              context.router.push(AdminUpsertAnnouncementRoute());
+            },
           ),
         ],
       ),

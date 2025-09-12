@@ -39,16 +39,15 @@ class AuthRepositoryImpl extends AuthRepository {
       );
       return Right(ItemSuccessResponse(data: apiResponse.data.toEntity()));
     } on ApiErrorResponse catch (e) {
-      if (e.code == 422 || e.error != null) {
+      if (e.errors != null) {
         return Left(
           ValidationFailure(
             message: e.message,
-            code: e.code,
-            errors: e.error?.map((err) => err.toEntity()).toList(),
+            errors: e.errors?.map((err) => err.toEntity()).toList(),
           ),
         );
       }
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -68,16 +67,15 @@ class AuthRepositoryImpl extends AuthRepository {
 
       return Right(ItemSuccessResponse(data: apiResponse.data.toEntity()));
     } on ApiErrorResponse catch (e) {
-      if (e.code == 422 || e.error != null) {
+      if (e.errors != null) {
         return Left(
           ValidationFailure(
             message: e.message,
-            code: e.code,
-            errors: e.error?.map((err) => err.toEntity()).toList(),
+            errors: e.errors?.map((err) => err.toEntity()).toList(),
           ),
         );
       }
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -93,16 +91,15 @@ class AuthRepositoryImpl extends AuthRepository {
       );
       return Right(ActionSuccess(message: apiResponse.message));
     } on ApiErrorResponse catch (e) {
-      if (e.code == 422 || e.error != null) {
+      if (e.errors != null) {
         return Left(
           ValidationFailure(
             message: e.message,
-            code: e.code,
-            errors: e.error?.map((err) => err.toEntity()).toList(),
+            errors: e.errors?.map((err) => err.toEntity()).toList(),
           ),
         );
       }
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -121,16 +118,15 @@ class AuthRepositoryImpl extends AuthRepository {
       );
       return Right(ActionSuccess(message: apiResponse.message));
     } on ApiErrorResponse catch (e) {
-      if (e.code == 422 || e.error != null) {
+      if (e.errors != null) {
         return Left(
           ValidationFailure(
             message: e.message,
-            code: e.code,
-            errors: e.error?.map((err) => err.toEntity()).toList(),
+            errors: e.errors?.map((err) => err.toEntity()).toList(),
           ),
         );
       }
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -168,7 +164,7 @@ class AuthRepositoryImpl extends AuthRepository {
       }
       return Right(ItemSuccessResponse(data: null));
     } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message, code: e.code));
+      return Left(ServerFailure(message: e.message));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }

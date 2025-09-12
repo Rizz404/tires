@@ -39,10 +39,12 @@ class Cursor extends Equatable {
 
   factory Cursor.fromMap(Map<String, dynamic> map) {
     return Cursor(
-      nextCursor: map['next_cursor'] as String?,
-      previousCursor: map['previous_cursor'] as String?,
-      hasNextPage: map['has_next_page'] as bool,
-      perPage: map['per_page'] as int,
+      nextCursor: map['next_cursor'] is String ? map['next_cursor'] : null,
+      previousCursor: map['previous_cursor'] is String
+          ? map['previous_cursor']
+          : null,
+      hasNextPage: map['has_next_page'] is bool ? map['has_next_page'] : false,
+      perPage: map['per_page'] is int ? map['per_page'] : 10,
     );
   }
 

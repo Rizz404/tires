@@ -17,7 +17,9 @@ class ApiOffsetPaginationResponse<T> extends ApiResponse<List<T>> {
   ) {
     return ApiOffsetPaginationResponse<T>(
       status: map['status'] as String,
-      message: map['message'] as String,
+      message: map['message'] is String
+          ? map['message']
+          : (map['message']?.toString() ?? 'Unknown message'),
       data: (map['data'] as List<dynamic>)
           .map((item) => fromJsonT(item))
           .toList(),
