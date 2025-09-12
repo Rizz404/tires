@@ -45,6 +45,7 @@ class _AdminUpsertAnnouncementScreenState
   bool _isSubmitting = false;
   late TabController _tabController;
   bool _showPreview = false;
+  late ValueNotifier<Map<String, dynamic>> _formValues;
 
   bool get _isEditMode => widget.announcement != null;
 
@@ -52,6 +53,7 @@ class _AdminUpsertAnnouncementScreenState
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _formValues = ValueNotifier({});
     if (_isEditMode) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _populateForm();
@@ -62,6 +64,7 @@ class _AdminUpsertAnnouncementScreenState
   @override
   void dispose() {
     _tabController.dispose();
+    _formValues.dispose();
     super.dispose();
   }
 
@@ -76,6 +79,10 @@ class _AdminUpsertAnnouncementScreenState
         'published_at': announcement.publishedAt,
         'is_active': announcement.isActive,
       });
+      // Force rebuild to ensure form fields are updated
+      setState(() {});
+      // Update form values for preview
+      _formValues.value = _formKey.currentState?.value ?? {};
     }
   }
 
@@ -223,6 +230,9 @@ class _AdminUpsertAnnouncementScreenState
   Widget _buildForm(L10n l10n) {
     return FormBuilder(
       key: _formKey,
+      onChanged: () {
+        _formValues.value = _formKey.currentState?.value ?? {};
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -404,10 +414,9 @@ class _AdminUpsertAnnouncementScreenState
   }
 
   Widget _buildPreviewContent(L10n l10n) {
-    return FormBuilderField(
-      name: 'preview',
-      builder: (field) {
-        final values = _formKey.currentState?.value ?? {};
+    return ValueListenableBuilder<Map<String, dynamic>>(
+      valueListenable: _formValues,
+      builder: (context, values, child) {
         final titleEn =
             values['title_en'] as String? ??
             l10n.adminUpsertAnnouncementScreenPreviewTitlePlaceholder;

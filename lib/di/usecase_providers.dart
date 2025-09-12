@@ -4,6 +4,8 @@ import 'package:tires/features/announcement/domain/usecases/create_announcement_
 import 'package:tires/features/announcement/domain/usecases/delete_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/update_announcement_usecase.dart';
+import 'package:tires/features/bussiness_information/domain/usecases/get_business_information_usecase.dart';
+import 'package:tires/features/bussiness_information/domain/usecases/update_business_information_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/forgot_password_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/get_current_auth_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/login_usecase.dart';
@@ -181,3 +183,20 @@ final getDashboardUsecaseProvider = Provider<GetDashboardUsecase>((ref) {
   final _dashboardRepository = ref.watch(dashboardRepoProvider);
   return GetDashboardUsecase(_dashboardRepository);
 });
+
+// Business Information Usecase Providers
+final getBusinessInformationUsecaseProvider =
+    Provider<GetBusinessInformationUsecase>((ref) {
+      final _businessInformationRepository = ref.watch(
+        businessInformationRepoProvider,
+      );
+      return GetBusinessInformationUsecase(_businessInformationRepository);
+    });
+
+final updateBusinessInformationUsecaseProvider =
+    Provider<UpdateBusinessInformationUsecase>((ref) {
+      final _businessInformationRepository = ref.watch(
+        businessInformationRepoProvider,
+      );
+      return UpdateBusinessInformationUsecase(_businessInformationRepository);
+    });

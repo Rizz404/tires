@@ -3,6 +3,8 @@ import 'package:tires/di/datasource_providers.dart';
 import 'package:tires/di/service_providers.dart';
 import 'package:tires/features/announcement/data/repositories/announcement_repository_impl.dart';
 import 'package:tires/features/announcement/domain/repositories/announcement_repository.dart';
+import 'package:tires/features/bussiness_information/data/repositories/business_information_repository_impl.dart';
+import 'package:tires/features/bussiness_information/domain/repositories/business_information_repository.dart';
 import 'package:tires/features/authentication/data/repositories/auth_repository_impl.dart';
 import 'package:tires/features/authentication/domain/repositories/auth_repository.dart';
 import 'package:tires/features/availability/data/repositories/availability_repository_impl.dart';
@@ -86,3 +88,14 @@ final dashboardRepoProvider = Provider<DashboardRepository>((ref) {
   );
   return DashboardRepositoryImpl(_dashboardRemoteDatasource);
 });
+
+final businessInformationRepoProvider = Provider<BusinessInformationRepository>(
+  (ref) {
+    final _businessInformationRemoteDatasource = ref.watch(
+      businessInformationRemoteDatasourceProvider,
+    );
+    return BusinessInformationRepositoryImpl(
+      _businessInformationRemoteDatasource,
+    );
+  },
+);

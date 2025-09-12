@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/di/common_providers.dart';
 import 'package:tires/features/announcement/data/datasources/announcement_remote_datasource.dart';
+import 'package:tires/features/bussiness_information/data/datasources/business_information_remote_datasource.dart';
 import 'package:tires/features/authentication/data/datasources/auth_remote_datasource.dart';
 import 'package:tires/features/availability/data/datasources/availability_remote_datasource.dart';
 import 'package:tires/features/availability/data/datasources/availability_remote_datasource_impl.dart';
@@ -67,3 +68,9 @@ final dashboardRemoteDatasourceProvider = Provider<DashboardRemoteDataSource>((
   final _dioClient = ref.watch(dioClientProvider);
   return DashboardRemoteDataSourceImpl(_dioClient);
 });
+
+final businessInformationRemoteDatasourceProvider =
+    Provider<BusinessInformationRemoteDatasource>((ref) {
+      final _dioClient = ref.watch(dioClientProvider);
+      return BusinessInformationRemoteDatasourceImpl(_dioClient);
+    });
