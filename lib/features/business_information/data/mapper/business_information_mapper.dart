@@ -1,5 +1,5 @@
-import 'package:tires/features/bussiness_information/data/models/business_information_model.dart';
-import 'package:tires/features/bussiness_information/domain/entities/business_information.dart';
+import 'package:tires/features/business_information/data/models/business_information_model.dart';
+import 'package:tires/features/business_information/domain/entities/business_information.dart';
 
 extension BusinessInformationModelMapper on BusinessInformationModel {
   BusinessInformation toEntity() {

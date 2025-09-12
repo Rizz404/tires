@@ -75,17 +75,17 @@ class AdminListBlockedRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [AdminListBussinessInformationScreen]
-class AdminListBussinessInformationRoute extends PageRouteInfo<void> {
-  const AdminListBussinessInformationRoute({List<PageRouteInfo>? children})
-    : super(AdminListBussinessInformationRoute.name, initialChildren: children);
+/// [AdminListBusinessInformationScreen]
+class AdminListBusinessInformationRoute extends PageRouteInfo<void> {
+  const AdminListBusinessInformationRoute({List<PageRouteInfo>? children})
+    : super(AdminListBusinessInformationRoute.name, initialChildren: children);
 
-  static const String name = 'AdminListBussinessInformationRoute';
+  static const String name = 'AdminListBusinessInformationRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const AdminListBussinessInformationScreen();
+      return const AdminListBusinessInformationScreen();
     },
   );
 }
@@ -243,22 +243,62 @@ class AdminUpsertBlockedRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [AdminUpsertBussinessInformationScreen]
-class AdminUpsertBussinessInformationRoute extends PageRouteInfo<void> {
-  const AdminUpsertBussinessInformationRoute({List<PageRouteInfo>? children})
-    : super(
-        AdminUpsertBussinessInformationRoute.name,
-        initialChildren: children,
-      );
+/// [AdminUpsertBusinessInformationScreen]
+class AdminUpsertBusinessInformationRoute
+    extends PageRouteInfo<AdminUpsertBusinessInformationRouteArgs> {
+  AdminUpsertBusinessInformationRoute({
+    Key? key,
+    BusinessInformation? businessInformation,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AdminUpsertBusinessInformationRoute.name,
+         args: AdminUpsertBusinessInformationRouteArgs(
+           key: key,
+           businessInformation: businessInformation,
+         ),
+         initialChildren: children,
+       );
 
-  static const String name = 'AdminUpsertBussinessInformationRoute';
+  static const String name = 'AdminUpsertBusinessInformationRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const AdminUpsertBussinessInformationScreen();
+      final args = data.argsAs<AdminUpsertBusinessInformationRouteArgs>(
+        orElse: () => const AdminUpsertBusinessInformationRouteArgs(),
+      );
+      return AdminUpsertBusinessInformationScreen(
+        key: args.key,
+        businessInformation: args.businessInformation,
+      );
     },
   );
+}
+
+class AdminUpsertBusinessInformationRouteArgs {
+  const AdminUpsertBusinessInformationRouteArgs({
+    this.key,
+    this.businessInformation,
+  });
+
+  final Key? key;
+
+  final BusinessInformation? businessInformation;
+
+  @override
+  String toString() {
+    return 'AdminUpsertBusinessInformationRouteArgs{key: $key, businessInformation: $businessInformation}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AdminUpsertBusinessInformationRouteArgs) return false;
+    return key == other.key && businessInformation == other.businessInformation;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ businessInformation.hashCode;
 }
 
 /// generated route for

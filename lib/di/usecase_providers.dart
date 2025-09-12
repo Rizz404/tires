@@ -4,8 +4,8 @@ import 'package:tires/features/announcement/domain/usecases/create_announcement_
 import 'package:tires/features/announcement/domain/usecases/delete_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/update_announcement_usecase.dart';
-import 'package:tires/features/bussiness_information/domain/usecases/get_business_information_usecase.dart';
-import 'package:tires/features/bussiness_information/domain/usecases/update_business_information_usecase.dart';
+import 'package:tires/features/business_information/domain/usecases/get_business_information_usecase.dart';
+import 'package:tires/features/business_information/domain/usecases/update_business_information_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/forgot_password_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/get_current_auth_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/login_usecase.dart';

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
@@ -6,8 +7,8 @@ import 'package:fpdart/fpdart.dart';
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/usecases/usecase.dart';
-import 'package:tires/features/bussiness_information/domain/repositories/business_information_repository.dart';
-import 'package:tires/features/bussiness_information/domain/entities/business_information.dart';
+import 'package:tires/features/business_information/domain/repositories/business_information_repository.dart';
+import 'package:tires/features/business_information/domain/entities/business_information.dart';
 
 class UpdateBusinessInformationUsecase
     implements
@@ -23,7 +24,7 @@ class UpdateBusinessInformationUsecase
   Future<Either<Failure, ItemSuccessResponse<BusinessInformation>>> call(
     UpdateBusinessInformationParams params,
   ) {
-    return repository.updateBusinessInformation(params.toMap());
+    return repository.updateBusinessInformation(params);
   }
 }
 
@@ -38,7 +39,7 @@ class UpdateBusinessInformationParams extends Equatable {
   final String? phoneNumber;
   final Map<String, dynamic>? businessHours;
   final String? websiteUrl;
-  final String? topImagePath;
+  final File? topImage;
   final bool? sitePublic;
   final String? replyEmail;
   final String? googleAnalyticsId;
@@ -54,7 +55,7 @@ class UpdateBusinessInformationParams extends Equatable {
     this.phoneNumber,
     this.businessHours,
     this.websiteUrl,
-    this.topImagePath,
+    this.topImage,
     this.sitePublic,
     this.replyEmail,
     this.googleAnalyticsId,
@@ -71,7 +72,7 @@ class UpdateBusinessInformationParams extends Equatable {
     String? phoneNumber,
     Map<String, dynamic>? businessHours,
     String? websiteUrl,
-    String? topImagePath,
+    File? topImage,
     bool? sitePublic,
     String? replyEmail,
     String? googleAnalyticsId,
@@ -87,7 +88,7 @@ class UpdateBusinessInformationParams extends Equatable {
       phoneNumber: phoneNumber ?? this.phoneNumber,
       businessHours: businessHours ?? this.businessHours,
       websiteUrl: websiteUrl ?? this.websiteUrl,
-      topImagePath: topImagePath ?? this.topImagePath,
+      topImage: topImage ?? this.topImage,
       sitePublic: sitePublic ?? this.sitePublic,
       replyEmail: replyEmail ?? this.replyEmail,
       googleAnalyticsId: googleAnalyticsId ?? this.googleAnalyticsId,
@@ -106,7 +107,6 @@ class UpdateBusinessInformationParams extends Equatable {
       if (phoneNumber != null) 'phone_number': phoneNumber,
       if (businessHours != null) 'business_hours': businessHours,
       if (websiteUrl != null) 'website_url': websiteUrl,
-      if (topImagePath != null) 'top_image_path': topImagePath,
       if (sitePublic != null) 'site_public': sitePublic,
       if (replyEmail != null) 'reply_email': replyEmail,
       if (googleAnalyticsId != null) 'google_analytics_id': googleAnalyticsId,
@@ -130,7 +130,7 @@ class UpdateBusinessInformationParams extends Equatable {
     phoneNumber,
     businessHours,
     websiteUrl,
-    topImagePath,
+    topImage,
     sitePublic,
     replyEmail,
     googleAnalyticsId,

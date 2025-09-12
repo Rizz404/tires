@@ -30,17 +30,6 @@ class _AdminListAnnouncementScreenState
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   bool _isFilterVisible = true;
 
-  @override
-  void initState() {
-    super.initState();
-    // Fetch initial announcements
-    Future.microtask(() {
-      ref
-          .read(announcementGetNotifierProvider.notifier)
-          .getInitialAnnouncements();
-    });
-  }
-
   Future<void> _refreshAnnouncements() async {
     await ref.read(announcementGetNotifierProvider.notifier).refreshs();
   }

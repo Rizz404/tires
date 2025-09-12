@@ -181,7 +181,7 @@ class _AdminEndDrawerState extends ConsumerState<AdminEndDrawer> {
                       tabsRouter,
                       'route',
                       null,
-                      const AdminListBussinessInformationRoute(),
+                      const AdminListBusinessInformationRoute(),
                     ),
                   ),
                   _buildDrawerItem(

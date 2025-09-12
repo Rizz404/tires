@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tires/features/bussiness_information/domain/usecases/get_business_information_usecase.dart';
-import 'package:tires/features/bussiness_information/presentation/providers/business_information_state.dart';
+import 'package:tires/features/business_information/domain/usecases/get_business_information_usecase.dart';
+import 'package:tires/features/business_information/presentation/providers/business_information_state.dart';
 import 'package:tires/core/usecases/usecase.dart';
 
 class BusinessInformationNotifier

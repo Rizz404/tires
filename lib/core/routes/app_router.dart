@@ -12,8 +12,9 @@ import 'package:tires/features/authentication/presentation/screens/set_new_passw
 import 'package:tires/features/availability/presentation/screens/admin_list_availability_screen.dart';
 import 'package:tires/features/blocked/presentation/screens/admin_list_blocked_screen.dart';
 import 'package:tires/features/blocked/presentation/screens/admin_upsert_blocked_screen.dart';
-import 'package:tires/features/bussiness_information/presentation/screens/admin_list_bussiness_information_screen.dart';
-import 'package:tires/features/bussiness_information/presentation/screens/admin_upsert_bussiness_information_screen.dart';
+import 'package:tires/features/business_information/domain/entities/business_information.dart';
+import 'package:tires/features/business_information/presentation/screens/admin_list_business_information_screen.dart';
+import 'package:tires/features/business_information/presentation/screens/admin_upsert_business_information_screen.dart';
 import 'package:tires/features/calendar/presentation/screens/admin_upsert_calendar_screen.dart';
 import 'package:tires/features/calendar/presentation/screens/admin_list_calendar_screen.dart';
 import 'package:tires/features/contact/presentation/screens/admin_list_contact_screen.dart';
@@ -103,12 +104,12 @@ class AppRouter extends RootStackRouter {
       guards: [_authGuard],
     ),
     AutoRoute(
-      page: AdminListBussinessInformationRoute.page,
+      page: AdminListBusinessInformationRoute.page,
       path: '/admin/business-info',
       guards: [_authGuard],
     ),
     AutoRoute(
-      page: AdminUpsertBussinessInformationRoute.page,
+      page: AdminUpsertBusinessInformationRoute.page,
       path: '/admin/business-info/upsert',
       guards: [_authGuard],
     ),

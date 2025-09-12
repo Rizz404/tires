@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:tires/features/bussiness_information/domain/entities/business_information.dart';
+import 'package:tires/features/business_information/domain/entities/business_information.dart';
 
 class BusinessInformationModel extends BusinessInformation {
   const BusinessInformationModel({
