@@ -1,23 +1,23 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/announcement/domain/usecases/create_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/delete_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/update_announcement_usecase.dart';
 import 'package:tires/features/announcement/presentation/providers/announcement_mutation_state.dart';
 import 'package:tires/features/announcement/presentation/providers/announcement_providers.dart';
 
-class AnnouncementMutationNotifier
-    extends StateNotifier<AnnouncementMutationState> {
-  final Ref _ref;
-  final CreateAnnouncementUsecase _createAnnouncementUsecase;
-  final UpdateAnnouncementUsecase _updateAnnouncementUsecase;
-  final DeleteAnnouncementUsecase _deleteAnnouncementUsecase;
+class AnnouncementMutationNotifier extends Notifier<AnnouncementMutationState> {
+  late final CreateAnnouncementUsecase _createAnnouncementUsecase;
+  late final UpdateAnnouncementUsecase _updateAnnouncementUsecase;
+  late final DeleteAnnouncementUsecase _deleteAnnouncementUsecase;
 
-  AnnouncementMutationNotifier(
-    this._ref,
-    this._createAnnouncementUsecase,
-    this._updateAnnouncementUsecase,
-    this._deleteAnnouncementUsecase,
-  ) : super(const AnnouncementMutationState());
+  @override
+  AnnouncementMutationState build() {
+    _createAnnouncementUsecase = ref.watch(createAnnouncementUsecaseProvider);
+    _updateAnnouncementUsecase = ref.watch(updateAnnouncementUsecaseProvider);
+    _deleteAnnouncementUsecase = ref.watch(deleteAnnouncementUsecaseProvider);
+    return const AnnouncementMutationState();
+  }
 
   Future<void> createAnnouncement(CreateAnnouncementParams params) async {
     state = state.copyWith(status: AnnouncementMutationStatus.loading);
@@ -40,7 +40,7 @@ class AnnouncementMutationNotifier
                   success.message ?? 'Announcement created successfully',
             )
             .copyWithClearError();
-        _ref.invalidate(announcementGetNotifierProvider);
+        ref.invalidate(announcementGetNotifierProvider);
       },
     );
   }
@@ -66,7 +66,7 @@ class AnnouncementMutationNotifier
                   success.message ?? 'Announcement updated successfully',
             )
             .copyWithClearError();
-        _ref.invalidate(announcementGetNotifierProvider);
+        ref.invalidate(announcementGetNotifierProvider);
       },
     );
   }
@@ -90,7 +90,7 @@ class AnnouncementMutationNotifier
               successMessage: success.message ?? 'Account deleted successfully',
             )
             .copyWithClearError();
-        _ref.invalidate(announcementGetNotifierProvider);
+        ref.invalidate(announcementGetNotifierProvider);
       },
     );
   }
