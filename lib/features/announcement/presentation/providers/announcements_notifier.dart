@@ -1,14 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
 import 'package:tires/features/announcement/presentation/providers/announcements_state.dart';
 import 'package:tires/features/announcement/domain/entities/announcement.dart';
 
-class AnnouncementsNotifier extends StateNotifier<AnnouncementsState> {
-  final GetAnnouncementsCursorUsecase _getUsersCursorUsecase;
+class AnnouncementsNotifier extends Notifier<AnnouncementsState> {
+  late final GetAnnouncementsCursorUsecase _getUsersCursorUsecase;
 
-  AnnouncementsNotifier(this._getUsersCursorUsecase)
-    : super(const AnnouncementsState()) {
+  @override
+  AnnouncementsState build() {
+    _getUsersCursorUsecase = ref.watch(getAnnouncementsCursorUsecaseProvider);
     getInitialAnnouncements();
+    return const AnnouncementsState();
   }
 
   Future<void> getInitialAnnouncements({

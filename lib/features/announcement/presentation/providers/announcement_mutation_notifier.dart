@@ -3,14 +3,17 @@ import 'package:tires/features/announcement/domain/usecases/create_announcement_
 import 'package:tires/features/announcement/domain/usecases/delete_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/update_announcement_usecase.dart';
 import 'package:tires/features/announcement/presentation/providers/announcement_mutation_state.dart';
+import 'package:tires/features/announcement/presentation/providers/announcement_providers.dart';
 
 class AnnouncementMutationNotifier
     extends StateNotifier<AnnouncementMutationState> {
+  final Ref _ref;
   final CreateAnnouncementUsecase _createAnnouncementUsecase;
   final UpdateAnnouncementUsecase _updateAnnouncementUsecase;
   final DeleteAnnouncementUsecase _deleteAnnouncementUsecase;
 
   AnnouncementMutationNotifier(
+    this._ref,
     this._createAnnouncementUsecase,
     this._updateAnnouncementUsecase,
     this._deleteAnnouncementUsecase,
@@ -37,6 +40,7 @@ class AnnouncementMutationNotifier
                   success.message ?? 'Announcement created successfully',
             )
             .copyWithClearError();
+        _ref.invalidate(announcementGetNotifierProvider);
       },
     );
   }
@@ -62,6 +66,7 @@ class AnnouncementMutationNotifier
                   success.message ?? 'Announcement updated successfully',
             )
             .copyWithClearError();
+        _ref.invalidate(announcementGetNotifierProvider);
       },
     );
   }
@@ -85,6 +90,7 @@ class AnnouncementMutationNotifier
               successMessage: success.message ?? 'Account deleted successfully',
             )
             .copyWithClearError();
+        _ref.invalidate(announcementGetNotifierProvider);
       },
     );
   }
