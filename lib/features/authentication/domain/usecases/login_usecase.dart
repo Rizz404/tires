@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
 
@@ -28,4 +30,10 @@ class LoginParams extends Equatable {
 
   @override
   List<Object> get props => [email, password];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'email': email, 'password': password};
+  }
+
+  String toJson() => json.encode(toMap());
 }

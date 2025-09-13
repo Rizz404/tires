@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
 
@@ -31,4 +33,13 @@ class SetNewPasswordParams extends Equatable {
 
   @override
   List<Object> get props => [newPassword, confirmNewPassword];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'newPassword': newPassword,
+      'confirmNewPassword': confirmNewPassword,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
 }

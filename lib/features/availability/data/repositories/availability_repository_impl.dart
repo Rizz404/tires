@@ -4,6 +4,7 @@ import 'package:tires/core/error/failure.dart';
 import 'package:tires/features/availability/data/datasources/availability_remote_datasource.dart';
 import 'package:tires/features/availability/domain/entities/availability_calendar.dart';
 import 'package:tires/features/availability/domain/repositories/availability_repository.dart';
+import 'package:tires/features/availability/domain/usecases/get_availability_calendar_usecase.dart';
 
 class AvailabilityRepositoryImpl implements AvailabilityRepository {
   final AvailabilityRemoteDatasource _availabilityRemoteDatasource;
@@ -12,15 +13,7 @@ class AvailabilityRepositoryImpl implements AvailabilityRepository {
 
   @override
   Future<Either<Failure, ItemSuccessResponse<AvailabilityCalendar>>>
-  getAvailabilityCalendar({
-    required String menuId,
-    required String currentMonth,
-    bool paginate = true,
-  }) async {
-    return await _availabilityRemoteDatasource.getAvailabilityCalendar(
-      menuId: menuId,
-      currentMonth: currentMonth,
-      paginate: paginate,
-    );
+  getAvailabilityCalendar(GetAvailabilityCalendarParams params) async {
+    return await _availabilityRemoteDatasource.getAvailabilityCalendar(params);
   }
 }

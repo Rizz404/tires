@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
 
@@ -19,13 +21,7 @@ class GetCustomerCursorUsecase
   Future<Either<Failure, CursorPaginatedSuccess<Customer>>> call(
     GetCustomerCursorParams params,
   ) async {
-    return await _customerRepository.getCustomerCursor(
-      GetCustomerCursorParams(
-        paginate: params.paginate,
-        perPage: params.perPage,
-        cursor: params.cursor,
-      ),
-    );
+    return await _customerRepository.getCustomerCursor(params);
   }
 }
 
@@ -42,4 +38,14 @@ class GetCustomerCursorParams extends Equatable {
 
   @override
   List<Object?> get props => [paginate, perPage, cursor];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'paginate': paginate.toString(),
+      'per_page': perPage.toString(),
+      if (cursor != null) 'cursor': cursor,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
 }

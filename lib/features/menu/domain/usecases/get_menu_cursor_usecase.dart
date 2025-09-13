@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
 
@@ -18,13 +20,7 @@ class GetMenuCursorUsecase
   Future<Either<Failure, CursorPaginatedSuccess<Menu>>> call(
     GetMenuCursorParams params,
   ) async {
-    return await _menuRepository.getMenuCursor(
-      GetMenuCursorParams(
-        paginate: params.paginate,
-        perPage: params.perPage,
-        cursor: params.cursor,
-      ),
-    );
+    return await _menuRepository.getMenuCursor(params);
   }
 }
 
@@ -41,4 +37,14 @@ class GetMenuCursorParams extends Equatable {
 
   @override
   List<Object?> get props => [paginate, perPage, cursor];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'paginate': paginate.toString(),
+      'per_page': perPage.toString(),
+      if (cursor != null) 'cursor': cursor,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
 }

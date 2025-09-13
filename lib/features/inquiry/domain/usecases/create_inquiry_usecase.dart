@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:tires/core/domain/domain_response.dart';
@@ -17,13 +19,7 @@ class CreateInquiryUsecase
   Future<Either<Failure, ItemSuccessResponse<InquiryResponse>>> call(
     CreateInquiryParams params,
   ) async {
-    return await _inquiryRepository.createInquiry(
-      name: params.name,
-      email: params.email,
-      phone: params.phone,
-      subject: params.subject,
-      message: params.message,
-    );
+    return await _inquiryRepository.createInquiry(params);
   }
 }
 
@@ -44,4 +40,16 @@ class CreateInquiryParams extends Equatable {
 
   @override
   List<Object?> get props => [name, email, phone, subject, message];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'name': name,
+      'email': email,
+      if (phone != null) 'phone': phone,
+      'subject': subject,
+      'message': message,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
 }

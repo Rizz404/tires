@@ -30,13 +30,7 @@ class AuthRepositoryImpl extends AuthRepository {
     RegisterParams params,
   ) async {
     try {
-      final apiResponse = await _authRemoteDatasource.register(
-        RegisterPayload(
-          username: params.fullName,
-          email: params.email,
-          password: params.password,
-        ),
-      );
+      final apiResponse = await _authRemoteDatasource.register(params);
       return Right(ItemSuccessResponse(data: apiResponse.data.toEntity()));
     } on ApiErrorResponse catch (e) {
       if (e.errors != null) {
@@ -58,9 +52,7 @@ class AuthRepositoryImpl extends AuthRepository {
     LoginParams params,
   ) async {
     try {
-      final apiResponse = await _authRemoteDatasource.login(
-        LoginPayload(email: params.email, password: params.password),
-      );
+      final apiResponse = await _authRemoteDatasource.login(params);
 
       await _sessionStorageService.saveAccessToken(apiResponse.data.token);
       await _sessionStorageService.saveUser(apiResponse.data.user);
@@ -86,9 +78,7 @@ class AuthRepositoryImpl extends AuthRepository {
     ForgotPasswordParams params,
   ) async {
     try {
-      final apiResponse = await _authRemoteDatasource.forgotPassword(
-        ForgotPasswordPayload(email: params.email),
-      );
+      final apiResponse = await _authRemoteDatasource.forgotPassword(params);
       return Right(ActionSuccess(message: apiResponse.message));
     } on ApiErrorResponse catch (e) {
       if (e.errors != null) {
@@ -110,12 +100,7 @@ class AuthRepositoryImpl extends AuthRepository {
     SetNewPasswordParams params,
   ) async {
     try {
-      final apiResponse = await _authRemoteDatasource.setNewPassword(
-        SetNewPasswordPayload(
-          newPassword: params.newPassword,
-          confirmNewPassword: params.confirmNewPassword,
-        ),
-      );
+      final apiResponse = await _authRemoteDatasource.setNewPassword(params);
       return Right(ActionSuccess(message: apiResponse.message));
     } on ApiErrorResponse catch (e) {
       if (e.errors != null) {

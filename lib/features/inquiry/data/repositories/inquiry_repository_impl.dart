@@ -7,6 +7,7 @@ import 'package:tires/features/inquiry/data/datasources/inquiry_remote_datasourc
 import 'package:tires/features/inquiry/data/mapper/inquiry_response_mapper.dart';
 import 'package:tires/features/inquiry/domain/entities/inquiry_response.dart';
 import 'package:tires/features/inquiry/domain/repositories/inquiry_repository.dart';
+import 'package:tires/features/inquiry/domain/usecases/create_inquiry_usecase.dart';
 
 class InquiryRepositoryImpl implements InquiryRepository {
   final InquiryRemoteDatasource _inquiryRemoteDatasource;
@@ -14,21 +15,11 @@ class InquiryRepositoryImpl implements InquiryRepository {
   InquiryRepositoryImpl(this._inquiryRemoteDatasource);
 
   @override
-  Future<Either<Failure, ItemSuccessResponse<InquiryResponse>>> createInquiry({
-    required String name,
-    required String email,
-    String? phone,
-    required String subject,
-    required String message,
-  }) async {
+  Future<Either<Failure, ItemSuccessResponse<InquiryResponse>>> createInquiry(
+    CreateInquiryParams params,
+  ) async {
     try {
-      final result = await _inquiryRemoteDatasource.createInquiry(
-        name: name,
-        email: email,
-        phone: phone,
-        subject: subject,
-        message: message,
-      );
+      final result = await _inquiryRemoteDatasource.createInquiry(params);
 
       final contact = result.data.toEntity();
       return Right(ItemSuccessResponse(data: contact, message: result.message));

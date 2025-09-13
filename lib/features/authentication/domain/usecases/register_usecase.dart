@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
 
@@ -66,4 +68,14 @@ class RegisterParams extends Equatable {
       gender,
     ];
   }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'username': fullName,
+      'email': email,
+      'password': password,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
 }
