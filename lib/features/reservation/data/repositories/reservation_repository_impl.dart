@@ -10,6 +10,13 @@ import 'package:tires/features/reservation/domain/entities/available_hour.dart';
 import 'package:tires/features/reservation/domain/entities/calendar.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/reservation/domain/repositories/reservation_repository.dart';
+import 'package:tires/features/reservation/domain/usecases/create_reservation_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/delete_reservation_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_current_user_reservations_cursor_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_reservation_available_hours_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_reservation_calendar_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_reservation_cursor_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/update_reservation_usecase.dart';
 import 'package:tires/shared/data/mapper/cursor_mapper.dart';
 
 class ReservationRepositoryImpl implements ReservationRepository {
@@ -18,18 +25,12 @@ class ReservationRepositoryImpl implements ReservationRepository {
   ReservationRepositoryImpl(this._reservationRemoteDatasource);
 
   @override
-  Future<Either<Failure, ItemSuccessResponse<Reservation>>> createReservation({
-    required int menuId,
-    required DateTime reservationDatetime,
-    int numberOfPeople = 1,
-    required int amount,
-  }) async {
+  Future<Either<Failure, ItemSuccessResponse<Reservation>>> createReservation(
+    CreateReservationParams params,
+  ) async {
     try {
       final result = await _reservationRemoteDatasource.createReservation(
-        menuId: menuId,
-        reservationDatetime: reservationDatetime,
-        numberOfPeople: numberOfPeople,
-        amount: amount,
+        params,
       );
 
       return Right(
@@ -47,16 +48,10 @@ class ReservationRepositoryImpl implements ReservationRepository {
 
   @override
   Future<Either<Failure, CursorPaginatedSuccess<Reservation>>>
-  getReservationsCursor({
-    required bool paginate,
-    required int perPage,
-    String? cursor,
-  }) async {
+  getReservationsCursor(GetReservationCursorParams params) async {
     try {
       final result = await _reservationRemoteDatasource.getReservationsCursor(
-        paginate: paginate,
-        perPage: perPage,
-        cursor: cursor,
+        params,
       );
 
       return Right(
@@ -75,12 +70,36 @@ class ReservationRepositoryImpl implements ReservationRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccessResponse<Calendar>>>
-  getReservationCalendar({String? month, required String menuId}) async {
+  Future<Either<Failure, CursorPaginatedSuccess<Reservation>>>
+  getCurrentUserReservations(
+    GetCurrentUserReservationsCursorParams params,
+  ) async {
+    try {
+      final result = await _reservationRemoteDatasource
+          .getCurrentUserReservations(params);
+
+      return Right(
+        CursorPaginatedSuccess<Reservation>(
+          data: result.data
+              .map((reservation) => reservation.toEntity())
+              .toList(),
+          cursor: result.cursor?.toEntity(),
+        ),
+      );
+    } on ApiErrorResponse catch (e) {
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccessResponse<Calendar>>> getReservationCalendar(
+    GetReservationCalendarParams params,
+  ) async {
     try {
       final result = await _reservationRemoteDatasource.getReservationCalendar(
-        month: month,
-        menuId: menuId,
+        params,
       );
 
       final calendar = result.data.toEntity();
@@ -96,13 +115,12 @@ class ReservationRepositoryImpl implements ReservationRepository {
 
   @override
   Future<Either<Failure, ItemSuccessResponse<AvailableHour>>>
-  getReservationAvailableHours({
-    required String date,
-    required String menuId,
-  }) async {
+  getReservationAvailableHours(
+    GetReservationAvailableHoursParams params,
+  ) async {
     try {
       final result = await _reservationRemoteDatasource
-          .getReservationAvailableHours(date: date, menuId: menuId);
+          .getReservationAvailableHours(params);
 
       final calendar = result.data.toEntity();
       return Right(
@@ -116,9 +134,9 @@ class ReservationRepositoryImpl implements ReservationRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccessResponse<Reservation>>> updateReservation({
-    required int id,
-  }) async {
+  Future<Either<Failure, ItemSuccessResponse<Reservation>>> updateReservation(
+    UpdateReservationParams params,
+  ) async {
     // TODO: implement updateReservation - method not available in datasource
     throw UnimplementedError(
       'updateReservation method not implemented in datasource',
@@ -126,9 +144,9 @@ class ReservationRepositoryImpl implements ReservationRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccessResponse<Reservation>>> deleteReservation({
-    required int id,
-  }) async {
+  Future<Either<Failure, ItemSuccessResponse<Reservation>>> deleteReservation(
+    DeleteReservationParams params,
+  ) async {
     // TODO: implement deleteReservation - method not available in datasource
     throw UnimplementedError(
       'deleteReservation method not implemented in datasource',

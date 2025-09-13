@@ -4,36 +4,32 @@ import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/usecases/usecase.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
-import 'package:tires/features/user/domain/repositories/current_user_repository.dart';
+import 'package:tires/features/reservation/domain/repositories/reservation_repository.dart';
 
 class GetCurrentUserReservationsCursorUsecase
     implements
         Usecase<
           CursorPaginatedSuccess<Reservation>,
-          GetUserReservationsCursorParams
+          GetCurrentUserReservationsCursorParams
         > {
-  final CurrentUserRepository _userRepository;
+  final ReservationRepository _reservationRepository;
 
-  GetCurrentUserReservationsCursorUsecase(this._userRepository);
+  GetCurrentUserReservationsCursorUsecase(this._reservationRepository);
 
   @override
   Future<Either<Failure, CursorPaginatedSuccess<Reservation>>> call(
-    GetUserReservationsCursorParams params,
+    GetCurrentUserReservationsCursorParams params,
   ) async {
-    return await _userRepository.getCurrentUserReservations(
-      paginate: params.paginate,
-      perPage: params.perPage,
-      cursor: params.cursor,
-    );
+    return await _reservationRepository.getCurrentUserReservations(params);
   }
 }
 
-class GetUserReservationsCursorParams extends Equatable {
+class GetCurrentUserReservationsCursorParams extends Equatable {
   final bool paginate;
   final int perPage;
   final String? cursor;
 
-  const GetUserReservationsCursorParams({
+  const GetCurrentUserReservationsCursorParams({
     required this.paginate,
     required this.perPage,
     this.cursor,
@@ -41,4 +37,12 @@ class GetUserReservationsCursorParams extends Equatable {
 
   @override
   List<Object?> get props => [paginate, perPage, cursor];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'paginate': paginate,
+      'per_page': perPage,
+      if (cursor != null) 'cursor': cursor,
+    };
+  }
 }

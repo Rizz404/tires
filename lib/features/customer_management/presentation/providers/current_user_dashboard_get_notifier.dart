@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/usecases/usecase.dart';
-import 'package:tires/features/user/domain/usecases/get_current_user_dashboard_usecase.dart';
-import 'package:tires/features/user/presentation/providers/current_user_dashboard_get_state.dart';
+import 'package:tires/features/customer_management/domain/usecases/get_current_user_dashboard_usecase.dart';
+import 'package:tires/features/customer_management/presentation/providers/current_user_dashboard_get_state.dart';
 
 class CurrentUserDashboardGetNotifier
     extends StateNotifier<CurrentUserDashboardGetState> {

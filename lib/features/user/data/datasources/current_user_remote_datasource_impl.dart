@@ -1,9 +1,6 @@
-import 'package:tires/core/network/api_cursor_pagination_response.dart';
 import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
-import 'package:tires/features/customer_management/data/models/customer_dashboard_model.dart';
-import 'package:tires/features/reservation/data/models/reservation_model.dart';
 import 'package:tires/features/user/data/datasources/current_user_remote_datasource.dart';
 import 'package:tires/features/user/data/models/user_model.dart';
 import 'package:tires/shared/presentation/utils/debug_helper.dart';
@@ -93,68 +90,6 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
 
       return response;
     } catch (e) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<ApiResponse<CustomerDashboardModel>> getCurrentUserDashboard() async {
-    try {
-      final response = await _dioClient.get<CustomerDashboardModel>(
-        ApiEndpoints.customerDashboard,
-        fromJson: (json) {
-          DebugHelper.logMapDetails(
-            json as Map<String, dynamic>,
-            title: 'Customer Dashboard API Response Data',
-          );
-          return CustomerDashboardModel.fromMap(json);
-        },
-      );
-
-      return response;
-    } catch (e) {
-      DebugHelper.safeCast(
-        e,
-        'getCurrentUserDashboard_error',
-        defaultValue: 'rethrowing error',
-      );
-      rethrow;
-    }
-  }
-
-  @override
-  Future<ApiCursorPaginationResponse<ReservationModel>>
-  getCurrentUserReservations({
-    required bool paginate,
-    required int perPage,
-    String? cursor,
-  }) async {
-    try {
-      final queryParameters = {
-        'paginate': paginate.toString(),
-        'per_page': perPage.toString(),
-        if (cursor != null) 'cursor': cursor,
-      };
-
-      final response = await _dioClient.getWithCursor<ReservationModel>(
-        ApiEndpoints.customerReservations,
-        fromJson: (item) {
-          DebugHelper.logMapDetails(
-            item as Map<String, dynamic>,
-            title: 'Raw Reservation Item from API',
-          );
-          return ReservationModel.fromMap(item);
-        },
-        queryParameters: queryParameters,
-      );
-
-      return response;
-    } catch (e) {
-      DebugHelper.safeCast(
-        e,
-        'getCurrentUserReservations_error',
-        defaultValue: 'rethrowing error',
-      );
       rethrow;
     }
   }

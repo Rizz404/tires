@@ -12,19 +12,19 @@ import 'package:tires/features/authentication/domain/usecases/login_usecase.dart
 import 'package:tires/features/authentication/domain/usecases/logout_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/register_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/set_new_password_usecase.dart';
+import 'package:tires/features/customer_management/domain/usecases/get_current_user_dashboard_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
 import 'package:tires/features/inquiry/domain/usecases/create_inquiry_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/get_menu_cursor_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/create_reservation_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_current_user_reservations_cursor_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/delete_reservation_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/get_reservation_available_hours_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/get_reservation_calendar_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/get_reservation_cursor_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/update_reservation_usecase.dart';
 import 'package:tires/features/user/domain/usecases/delete_current_user_account_usecase.dart';
-import 'package:tires/features/user/domain/usecases/get_current_user_dashboard_usecase.dart';
 import 'package:tires/features/user/domain/usecases/get_current_user_usecase.dart';
-import 'package:tires/features/user/domain/usecases/get_current_user_reservations_cursor_usecase.dart';
 import 'package:tires/features/user/domain/usecases/update_current_user_password_usecase.dart';
 import 'package:tires/features/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:tires/features/dashboard/domain/usecases/get_dashboard_usecase.dart';
@@ -88,10 +88,10 @@ final updateUserPasswordUsecaseProvider =
       return UpdateCurrentUserPasswordUsecase(_userRepository);
     });
 
-final getUserReservationsCursorUsecaseProvider =
+final getCurrentUserReservationsCursorUsecaseProvider =
     Provider<GetCurrentUserReservationsCursorUsecase>((ref) {
-      final _userRepository = ref.watch(userRepoProvider);
-      return GetCurrentUserReservationsCursorUsecase(_userRepository);
+      final _reservationRepository = ref.watch(reservationRepoProvider);
+      return GetCurrentUserReservationsCursorUsecase(_reservationRepository);
     });
 
 final deleteUserAccountUsecaseProvider =
@@ -102,8 +102,8 @@ final deleteUserAccountUsecaseProvider =
 
 final getCurrentUserDashboardUsecaseProvider =
     Provider<GetCurrentUserDashboardUsecase>((ref) {
-      final _userRepository = ref.watch(userRepoProvider);
-      return GetCurrentUserDashboardUsecase(_userRepository);
+      final _customerRepository = ref.watch(customerRepoProvider);
+      return GetCurrentUserDashboardUsecase(_customerRepository);
     });
 
 // Inquiry Usecase Providers

@@ -1,13 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:tires/core/network/api_cursor_pagination_response.dart';
+import 'package:tires/core/network/api_endpoints.dart';
+import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
+import 'package:tires/features/customer_management/data/models/customer_dashboard_model.dart';
 import 'package:tires/features/customer_management/data/models/customer_model.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
+import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 abstract class CustomerRemoteDatasource {
   Future<ApiCursorPaginationResponse<CustomerModel>> getCustomerCursor(
     GetCustomerCursorParams params,
   );
+  Future<ApiResponse<CustomerDashboardModel>> getCurrentUserDashboard();
 }
 
 class CustomerRemoteDatasourceImpl implements CustomerRemoteDatasource {
@@ -28,6 +33,31 @@ class CustomerRemoteDatasourceImpl implements CustomerRemoteDatasource {
 
       return response;
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<CustomerDashboardModel>> getCurrentUserDashboard() async {
+    try {
+      final response = await _dioClient.get<CustomerDashboardModel>(
+        ApiEndpoints.customerDashboard,
+        fromJson: (json) {
+          DebugHelper.logMapDetails(
+            json as Map<String, dynamic>,
+            title: 'Customer Dashboard API Response Data',
+          );
+          return CustomerDashboardModel.fromMap(json);
+        },
+      );
+
+      return response;
+    } catch (e) {
+      DebugHelper.safeCast(
+        e,
+        'getCurrentUserDashboard_error',
+        defaultValue: 'rethrowing error',
+      );
       rethrow;
     }
   }

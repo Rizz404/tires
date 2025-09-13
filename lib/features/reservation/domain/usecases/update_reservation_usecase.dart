@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:tires/core/domain/domain_response.dart';
@@ -17,7 +19,7 @@ class UpdateReservationUsecase
   Future<Either<Failure, ItemSuccessResponse<Reservation>>> call(
     UpdateReservationParams params,
   ) async {
-    return await _reservationRepository.updateReservation(id: params.id);
+    return await _reservationRepository.updateReservation(params);
   }
 }
 
@@ -28,4 +30,10 @@ class UpdateReservationParams extends Equatable {
 
   @override
   List<Object?> get props => [id];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'id': id};
+  }
+
+  String toJson() => json.encode(toMap());
 }

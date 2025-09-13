@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 
-enum CurrentUserReservationsStatus {
+enum CurrentUserReservationsGetStatus {
   initial,
   loading,
   success,
@@ -10,29 +10,29 @@ enum CurrentUserReservationsStatus {
   loadingMore,
 }
 
-class CurrentUserReservationsState extends Equatable {
-  final CurrentUserReservationsStatus status;
+class CurrentUserReservationsGetState extends Equatable {
+  final CurrentUserReservationsGetStatus status;
   final List<Reservation> reservations;
   final Cursor? cursor;
   final String? errorMessage;
   final bool hasNextPage;
 
-  const CurrentUserReservationsState({
-    this.status = CurrentUserReservationsStatus.initial,
+  const CurrentUserReservationsGetState({
+    this.status = CurrentUserReservationsGetStatus.initial,
     this.reservations = const [],
     this.cursor,
     this.errorMessage,
     this.hasNextPage = false,
   });
 
-  CurrentUserReservationsState copyWith({
-    CurrentUserReservationsStatus? status,
+  CurrentUserReservationsGetState copyWith({
+    CurrentUserReservationsGetStatus? status,
     List<Reservation>? reservations,
     Cursor? cursor,
     String? errorMessage,
     bool? hasNextPage,
   }) {
-    return CurrentUserReservationsState(
+    return CurrentUserReservationsGetState(
       status: status ?? this.status,
       reservations: reservations ?? this.reservations,
       cursor: cursor ?? this.cursor,
@@ -41,8 +41,8 @@ class CurrentUserReservationsState extends Equatable {
     );
   }
 
-  CurrentUserReservationsState copyWithClearError() {
-    return CurrentUserReservationsState(
+  CurrentUserReservationsGetState copyWithClearError() {
+    return CurrentUserReservationsGetState(
       status: status,
       reservations: reservations,
       cursor: cursor,

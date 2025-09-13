@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:tires/core/domain/domain_response.dart';
@@ -10,7 +12,7 @@ class GetReservationAvailableHoursUsecase
     implements
         Usecase<
           ItemSuccessResponse<AvailableHour>,
-          GetReservationCalendarParams
+          GetReservationAvailableHoursParams
         > {
   final ReservationRepository _reservationRepository;
 
@@ -18,24 +20,27 @@ class GetReservationAvailableHoursUsecase
 
   @override
   Future<Either<Failure, ItemSuccessResponse<AvailableHour>>> call(
-    GetReservationCalendarParams params,
+    GetReservationAvailableHoursParams params,
   ) async {
-    return await _reservationRepository.getReservationAvailableHours(
-      date: params.date,
-      menuId: params.menuId,
-    );
+    return await _reservationRepository.getReservationAvailableHours(params);
   }
 }
 
-class GetReservationCalendarParams extends Equatable {
+class GetReservationAvailableHoursParams extends Equatable {
   final String date;
   final String menuId;
 
-  const GetReservationCalendarParams({
+  const GetReservationAvailableHoursParams({
     required this.date,
     required this.menuId,
   });
 
   @override
   List<Object?> get props => [date, menuId];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'date': date, 'menu_id': menuId};
+  }
+
+  String toJson() => json.encode(toMap());
 }

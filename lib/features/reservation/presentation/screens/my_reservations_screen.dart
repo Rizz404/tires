@@ -5,12 +5,13 @@ import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
+import 'package:tires/features/customer_management/presentation/providers/current_user_dashboard_get_state.dart';
+import 'package:tires/features/customer_management/presentation/providers/customer_provider.dart';
+import 'package:tires/features/reservation/presentation/providers/current_user_reservations_get_state.dart';
+import 'package:tires/features/reservation/presentation/providers/reservation_providers.dart';
 import 'package:tires/features/reservation/presentation/widgets/reservation_item.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/reservation/domain/entities/reservation_status.dart';
-import 'package:tires/features/user/presentation/providers/current_user_providers.dart';
-import 'package:tires/features/user/presentation/providers/current_user_reservations_state.dart';
-import 'package:tires/features/user/presentation/providers/current_user_dashboard_get_state.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:tires/shared/presentation/widgets/user_end_drawer.dart';
@@ -45,7 +46,7 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 200) {
       ref
-          .read(currentUserReservationsNotifierProvider.notifier)
+          .read(currentUserReservationsGetNotifierProvider.notifier)
           .loadMoreReservations();
     }
   }
@@ -65,14 +66,14 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
   }
 
   Widget _buildBody() {
-    final state = ref.watch(currentUserReservationsNotifierProvider);
+    final state = ref.watch(currentUserReservationsGetNotifierProvider);
     final dashboardState = ref.watch(currentUserDashboardGetNotifierProvider);
 
     return RefreshIndicator(
       onRefresh: () async {
         await Future.wait([
           ref
-              .read(currentUserReservationsNotifierProvider.notifier)
+              .read(currentUserReservationsGetNotifierProvider.notifier)
               .refreshReservations(),
           ref
               .read(currentUserDashboardGetNotifierProvider.notifier)
@@ -94,7 +95,8 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
           SliverToBoxAdapter(
             child: Column(
               children: [
-                if (state.status == CurrentUserReservationsStatus.loadingMore)
+                if (state.status ==
+                    CurrentUserReservationsGetStatus.loadingMore)
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 20),
                     child: Center(child: CircularProgressIndicator()),
@@ -116,7 +118,7 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
           label: 'Refresh with Debug',
           onPressed: () {
             ref
-                .read(currentUserReservationsNotifierProvider.notifier)
+                .read(currentUserReservationsGetNotifierProvider.notifier)
                 .getInitialReservations();
           },
           debugEndpoint: 'Manual Refresh Triggered - Reservations',
@@ -126,7 +128,7 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
           onPressed: () {
             // Add cache clearing logic here if needed
             ref
-                .read(currentUserReservationsNotifierProvider.notifier)
+                .read(currentUserReservationsGetNotifierProvider.notifier)
                 .refreshReservations();
           },
         ),
@@ -134,7 +136,7 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
           label: 'Test Load More',
           onPressed: () {
             ref
-                .read(currentUserReservationsNotifierProvider.notifier)
+                .read(currentUserReservationsGetNotifierProvider.notifier)
                 .loadMoreReservations();
           },
         ),
@@ -146,7 +148,7 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
         DebugAction.inspect(
           label: 'Inspect State',
           onPressed: () {
-            final state = ref.read(currentUserReservationsNotifierProvider);
+            final state = ref.read(currentUserReservationsGetNotifierProvider);
             DebugHelper.logApiResponse({
               'status': state.status.toString(),
               'reservations_count': state.reservations.length,
@@ -163,10 +165,10 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
   // Method untuk membuat daftar reservasi dengan header tanggal
   Widget _buildReservationList(
     BuildContext context,
-    CurrentUserReservationsState state,
+    CurrentUserReservationsGetState state,
   ) {
     // Initial loading state - show loading indicator
-    if (state.status == CurrentUserReservationsStatus.loading &&
+    if (state.status == CurrentUserReservationsGetStatus.loading &&
         state.reservations.isEmpty) {
       return const SliverToBoxAdapter(
         child: Padding(
@@ -177,7 +179,7 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
     }
 
     // Error state - show error message with retry button
-    if (state.status == CurrentUserReservationsStatus.error &&
+    if (state.status == CurrentUserReservationsGetStatus.error &&
         state.reservations.isEmpty) {
       debugPrint('Error: ${state.errorMessage}');
       return SliverToBoxAdapter(
@@ -196,7 +198,9 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
                 ElevatedButton(
                   onPressed: () {
                     ref
-                        .read(currentUserReservationsNotifierProvider.notifier)
+                        .read(
+                          currentUserReservationsGetNotifierProvider.notifier,
+                        )
                         .getInitialReservations();
                   },
                   child: const AppText('Retry'),
@@ -341,7 +345,7 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
         dashboardState.dashboard == null) {
       // Fallback to local reservation data calculation
       final reservationsState = ref.watch(
-        currentUserReservationsNotifierProvider,
+        currentUserReservationsGetNotifierProvider,
       );
       final reservations = reservationsState.reservations;
       final pendingCount = reservations

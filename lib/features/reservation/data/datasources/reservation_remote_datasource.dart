@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:tires/core/network/api_cursor_pagination_response.dart';
 import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/api_response.dart';
@@ -6,29 +5,37 @@ import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/features/reservation/data/models/available_hour_model.dart';
 import 'package:tires/features/reservation/data/models/calendar_model.dart';
 import 'package:tires/features/reservation/data/models/reservation_model.dart';
+import 'package:tires/features/reservation/domain/usecases/create_reservation_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/delete_reservation_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_current_user_reservations_cursor_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_reservation_available_hours_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_reservation_calendar_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_reservation_cursor_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/update_reservation_usecase.dart';
 import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 abstract class ReservationRemoteDatasource {
-  Future<ApiResponse<ReservationModel>> createReservation({
-    required int menuId,
-    required DateTime reservationDatetime,
-    int numberOfPeople = 1,
-    required int amount,
-  });
-  Future<ApiCursorPaginationResponse<ReservationModel>> getReservationsCursor({
-    required bool paginate,
-    required int perPage,
-    String? cursor,
-  });
+  Future<ApiResponse<ReservationModel>> createReservation(
+    CreateReservationParams params,
+  );
+  Future<ApiCursorPaginationResponse<ReservationModel>> getReservationsCursor(
+    GetReservationCursorParams params,
+  );
+  Future<ApiCursorPaginationResponse<ReservationModel>>
+  getCurrentUserReservations(GetCurrentUserReservationsCursorParams params);
   // * Contoh month 2025-08, 2025-09, 2025-10, 2025-11, 2025-12
-  Future<ApiResponse<CalendarModel>> getReservationCalendar({
-    required String menuId,
-    String? month,
-  });
-  Future<ApiResponse<AvailableHourModel>> getReservationAvailableHours({
-    required String date,
-    required String menuId,
-  });
+  Future<ApiResponse<CalendarModel>> getReservationCalendar(
+    GetReservationCalendarParams params,
+  );
+  Future<ApiResponse<AvailableHourModel>> getReservationAvailableHours(
+    GetReservationAvailableHoursParams params,
+  );
+  Future<ApiResponse<ReservationModel>> updateReservation(
+    UpdateReservationParams params,
+  );
+  Future<ApiResponse<ReservationModel>> deleteReservation(
+    DeleteReservationParams params,
+  );
 }
 
 class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
@@ -37,23 +44,11 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
   ReservationRemoteDatasourceImpl(this._dioClient);
 
   @override
-  Future<ApiResponse<ReservationModel>> createReservation({
-    required int menuId,
-    required DateTime reservationDatetime,
-    int numberOfPeople = 1,
-    required int amount,
-  }) async {
+  Future<ApiResponse<ReservationModel>> createReservation(
+    CreateReservationParams params,
+  ) async {
     try {
-      final formattedDatetime = DateFormat(
-        'yyyy-MM-dd HH:mm:ss',
-      ).format(reservationDatetime);
-
-      final data = {
-        'menu_id': menuId,
-        'reservation_datetime': formattedDatetime,
-        'number_of_people': numberOfPeople,
-        'amount': amount,
-      };
+      final data = params.toMap();
 
       final response = await _dioClient.post<ReservationModel>(
         ApiEndpoints.customerCreateReservation,
@@ -79,17 +74,11 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
   }
 
   @override
-  Future<ApiCursorPaginationResponse<ReservationModel>> getReservationsCursor({
-    required bool paginate,
-    required int perPage,
-    String? cursor,
-  }) async {
+  Future<ApiCursorPaginationResponse<ReservationModel>> getReservationsCursor(
+    GetReservationCursorParams params,
+  ) async {
     try {
-      final queryParameters = {
-        'paginate': paginate.toString(),
-        'per_page': perPage.toString(),
-        if (cursor != null) 'cursor': cursor,
-      };
+      final queryParameters = params.toMap();
 
       final response = await _dioClient.getWithCursor<ReservationModel>(
         ApiEndpoints.adminReservations,
@@ -100,7 +89,7 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
           );
           return ReservationModel.fromMap(item);
         },
-        queryParameters: queryParameters,
+        queryParameters: queryParameters.isNotEmpty ? queryParameters : null,
       );
 
       return response;
@@ -115,15 +104,42 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<CalendarModel>> getReservationCalendar({
-    required String menuId,
-    String? month,
-  }) async {
+  Future<ApiCursorPaginationResponse<ReservationModel>>
+  getCurrentUserReservations(
+    GetCurrentUserReservationsCursorParams params,
+  ) async {
     try {
-      final queryParameters = <String, String>{'menu_id': menuId};
-      if (month != null) {
-        queryParameters['month'] = month;
-      }
+      final queryParameters = params.toMap();
+
+      final response = await _dioClient.getWithCursor<ReservationModel>(
+        ApiEndpoints.customerReservations,
+        fromJson: (item) {
+          DebugHelper.logMapDetails(
+            item as Map<String, dynamic>,
+            title: 'Raw Reservation Item from API',
+          );
+          return ReservationModel.fromMap(item);
+        },
+        queryParameters: queryParameters.isNotEmpty ? queryParameters : null,
+      );
+
+      return response;
+    } catch (e) {
+      DebugHelper.safeCast(
+        e,
+        'getCurrentUserReservations_error',
+        defaultValue: 'rethrowing error',
+      );
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<CalendarModel>> getReservationCalendar(
+    GetReservationCalendarParams params,
+  ) async {
+    try {
+      final queryParameters = params.toMap();
 
       final response = await _dioClient.get<CalendarModel>(
         ApiEndpoints.customerReservationCalendar,
@@ -149,12 +165,11 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<AvailableHourModel>> getReservationAvailableHours({
-    required String date,
-    required String menuId,
-  }) async {
+  Future<ApiResponse<AvailableHourModel>> getReservationAvailableHours(
+    GetReservationAvailableHoursParams params,
+  ) async {
     try {
-      final queryParameters = <String, String>{'menu_id': menuId, 'date': date};
+      final queryParameters = params.toMap();
 
       final response = await _dioClient.get<AvailableHourModel>(
         ApiEndpoints.customerReservationAvailableHours,
@@ -177,5 +192,21 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
       );
       rethrow;
     }
+  }
+
+  @override
+  Future<ApiResponse<ReservationModel>> updateReservation(
+    UpdateReservationParams params,
+  ) async {
+    // TODO: implement updateReservation - method not available in API
+    throw UnimplementedError('updateReservation method not implemented in API');
+  }
+
+  @override
+  Future<ApiResponse<ReservationModel>> deleteReservation(
+    DeleteReservationParams params,
+  ) async {
+    // TODO: implement deleteReservation - method not available in API
+    throw UnimplementedError('deleteReservation method not implemented in API');
   }
 }

@@ -15,7 +15,6 @@ void setupProviderInvalidation(WidgetRef ref) {
     // Invalidate current user providers
     ref.invalidate(currentUserGetNotifierProvider);
     ref.invalidate(currentUserMutationNotifierProvider);
-    ref.invalidate(currentUserReservationsNotifierProvider);
 
     // Invalidate customer management providers
     ref.invalidate(customerNotifierProvider);

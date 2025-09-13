@@ -2,6 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
+import 'package:tires/features/reservation/presentation/providers/current_user_reservations_get_notifier.dart';
+import 'package:tires/features/reservation/presentation/providers/current_user_reservations_get_state.dart';
 import 'package:tires/features/reservation/presentation/providers/reservation_available_hours_get_notifier.dart';
 import 'package:tires/features/reservation/presentation/providers/reservation_available_hours_get_state.dart';
 import 'package:tires/features/reservation/presentation/providers/reservation_calendar_get_notifier.dart';
@@ -62,6 +64,19 @@ final reservationAvailableHoursGetNotifierProvider =
       );
       return ReservationAvailableHoursGetNotifier(
         getReservationAvailableHoursUsecase,
+      );
+    });
+
+final currentUserReservationsGetNotifierProvider =
+    StateNotifierProvider<
+      CurrentUserReservationsGetNotifier,
+      CurrentUserReservationsGetState
+    >((ref) {
+      final getCurrentUserReservationsCursorUsecase = ref.watch(
+        getCurrentUserReservationsCursorUsecaseProvider,
+      );
+      return CurrentUserReservationsGetNotifier(
+        getCurrentUserReservationsCursorUsecase,
       );
     });
 

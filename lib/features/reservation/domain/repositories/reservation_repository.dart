@@ -4,28 +4,31 @@ import 'package:tires/core/error/failure.dart';
 import 'package:tires/features/reservation/domain/entities/available_hour.dart';
 import 'package:tires/features/reservation/domain/entities/calendar.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
+import 'package:tires/features/reservation/domain/usecases/create_reservation_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/delete_reservation_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_current_user_reservations_cursor_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_reservation_available_hours_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_reservation_calendar_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/get_reservation_cursor_usecase.dart';
+import 'package:tires/features/reservation/domain/usecases/update_reservation_usecase.dart';
 
 abstract class ReservationRepository {
-  Future<Either<Failure, ItemSuccessResponse<Reservation>>> createReservation({
-    required int menuId,
-    required DateTime reservationDatetime,
-    int numberOfPeople = 1,
-    required int amount,
-  });
+  Future<Either<Failure, ItemSuccessResponse<Reservation>>> createReservation(
+    CreateReservationParams params,
+  );
   Future<Either<Failure, CursorPaginatedSuccess<Reservation>>>
-  getReservationsCursor({
-    required bool paginate,
-    required int perPage,
-    String? cursor,
-  });
-  Future<Either<Failure, ItemSuccessResponse<Calendar>>>
-  getReservationCalendar({required String menuId, String? month});
+  getReservationsCursor(GetReservationCursorParams params);
+  Future<Either<Failure, CursorPaginatedSuccess<Reservation>>>
+  getCurrentUserReservations(GetCurrentUserReservationsCursorParams params);
+  Future<Either<Failure, ItemSuccessResponse<Calendar>>> getReservationCalendar(
+    GetReservationCalendarParams params,
+  );
   Future<Either<Failure, ItemSuccessResponse<AvailableHour>>>
-  getReservationAvailableHours({required String date, required String menuId});
-  Future<Either<Failure, ItemSuccessResponse<Reservation>>> updateReservation({
-    required int id,
-  });
-  Future<Either<Failure, ItemSuccessResponse<Reservation>>> deleteReservation({
-    required int id,
-  });
+  getReservationAvailableHours(GetReservationAvailableHoursParams params);
+  Future<Either<Failure, ItemSuccessResponse<Reservation>>> updateReservation(
+    UpdateReservationParams params,
+  );
+  Future<Either<Failure, ItemSuccessResponse<Reservation>>> deleteReservation(
+    DeleteReservationParams params,
+  );
 }

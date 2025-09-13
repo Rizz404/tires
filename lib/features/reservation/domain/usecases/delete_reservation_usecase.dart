@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:tires/core/domain/domain_response.dart';
@@ -17,7 +19,7 @@ class DeleteReservationUsecase
   Future<Either<Failure, ItemSuccessResponse<Reservation>>> call(
     DeleteReservationParams params,
   ) async {
-    return await _reservationRepository.deleteReservation(id: params.id);
+    return await _reservationRepository.deleteReservation(params);
   }
 }
 
@@ -28,4 +30,10 @@ class DeleteReservationParams extends Equatable {
 
   @override
   List<Object?> get props => [id];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'id': id};
+  }
+
+  String toJson() => json.encode(toMap());
 }

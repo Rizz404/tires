@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:tires/core/domain/domain_response.dart';
@@ -17,10 +19,7 @@ class GetReservationCalendarUsecase
   Future<Either<Failure, ItemSuccessResponse<Calendar>>> call(
     GetReservationCalendarParams params,
   ) async {
-    return await _reservationRepository.getReservationCalendar(
-      month: params.month,
-      menuId: params.menuId,
-    );
+    return await _reservationRepository.getReservationCalendar(params);
   }
 }
 
@@ -32,4 +31,13 @@ class GetReservationCalendarParams extends Equatable {
 
   @override
   List<Object?> get props => [month, menuId];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'menu_id': menuId,
+      if (month != null) 'month': month,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
 }

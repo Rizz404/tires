@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
 
@@ -22,11 +24,7 @@ class GetReservationCursorUsecase
   Future<Either<Failure, CursorPaginatedSuccess<Reservation>>> call(
     GetReservationCursorParams params,
   ) async {
-    return await _reservationRepository.getReservationsCursor(
-      cursor: params.cursor,
-      paginate: params.paginate,
-      perPage: params.perPage,
-    );
+    return await _reservationRepository.getReservationsCursor(params);
   }
 }
 
@@ -42,5 +40,15 @@ class GetReservationCursorParams extends Equatable {
   });
 
   @override
-  List<Object?> get props => [cursor];
+  List<Object?> get props => [paginate, perPage, cursor];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'paginate': paginate.toString(),
+      'per_page': perPage.toString(),
+      if (cursor != null) 'cursor': cursor,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
 }

@@ -1,17 +1,12 @@
-import 'package:fpdart/fpdart.dart';
+import 'package:fpdart/src/either.dart';
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/network/api_error_response.dart';
 import 'package:tires/core/storage/session_storage_service.dart';
-import 'package:tires/features/customer_management/data/mapper/customer_dashboard_mapper.dart';
-import 'package:tires/features/customer_management/domain/entities/customer_dashboard.dart';
-import 'package:tires/features/reservation/data/mapper/reservation_mapper.dart';
-import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/user/data/datasources/current_user_remote_datasource.dart';
 import 'package:tires/features/user/data/mapper/user_mapper.dart';
 import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:tires/features/user/domain/repositories/current_user_repository.dart';
-import 'package:tires/shared/data/mapper/cursor_mapper.dart';
 
 class CurrentUserRepositoryImpl implements CurrentUserRepository {
   final CurrentUserRemoteDatasource _userRemoteDatasource;
@@ -104,52 +99,6 @@ class CurrentUserRepositoryImpl implements CurrentUserRepository {
       );
 
       return Right(ActionSuccess(message: result.message));
-    } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message));
-    } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, ItemSuccessResponse<CustomerDashboard>>>
-  getCurrentUserDashboard() async {
-    try {
-      final result = await _userRemoteDatasource.getCurrentUserDashboard();
-
-      final dashboard = result.data.toEntity();
-      return Right(
-        ItemSuccessResponse(data: dashboard, message: result.message),
-      );
-    } on ApiErrorResponse catch (e) {
-      return Left(ServerFailure(message: e.message));
-    } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, CursorPaginatedSuccess<Reservation>>>
-  getCurrentUserReservations({
-    required bool paginate,
-    required int perPage,
-    String? cursor,
-  }) async {
-    try {
-      final result = await _userRemoteDatasource.getCurrentUserReservations(
-        paginate: paginate,
-        perPage: perPage,
-        cursor: cursor,
-      );
-
-      return Right(
-        CursorPaginatedSuccess<Reservation>(
-          data: result.data
-              .map((reservation) => reservation.toEntity())
-              .toList(),
-          cursor: result.cursor?.toEntity(),
-        ),
-      );
     } on ApiErrorResponse catch (e) {
       return Left(ServerFailure(message: e.message));
     } catch (e) {

@@ -1,6 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:intl/intl.dart';
 
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
@@ -19,12 +22,7 @@ class CreateReservationUsecase
   Future<Either<Failure, ItemSuccessResponse<Reservation>>> call(
     CreateReservationParams params,
   ) async {
-    return await _reservationRepository.createReservation(
-      menuId: params.menuId,
-      reservationDatetime: params.reservationDatetime,
-      numberOfPeople: params.numberOfPeople,
-      amount: params.amount,
-    );
+    return await _reservationRepository.createReservation(params);
   }
 }
 
@@ -48,4 +46,17 @@ class CreateReservationParams extends Equatable {
     numberOfPeople,
     amount,
   ];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'menu_id': menuId,
+      'reservation_datetime': DateFormat(
+        'yyyy-MM-dd HH:mm:ss',
+      ).format(reservationDatetime),
+      'number_of_people': numberOfPeople,
+      'amount': amount,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
 }

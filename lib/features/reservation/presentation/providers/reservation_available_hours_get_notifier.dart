@@ -30,7 +30,10 @@ class ReservationAvailableHoursGetNotifier
 
     state = state.copyWith(status: ReservationAvailableHoursGetStatus.loading);
 
-    final params = GetReservationCalendarParams(date: date, menuId: menuId);
+    final params = GetReservationAvailableHoursParams(
+      date: date,
+      menuId: menuId,
+    );
 
     final response = await _getReservationAvailableHoursUsecase(params);
 
