@@ -59,7 +59,7 @@ class AdminListAvailabilityRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [AdminListBlockedScreen]
+/// [AdminListBlockedPeriodScreen]
 class AdminListBlockedRoute extends PageRouteInfo<void> {
   const AdminListBlockedRoute({List<PageRouteInfo>? children})
     : super(AdminListBlockedRoute.name, initialChildren: children);
@@ -69,7 +69,7 @@ class AdminListBlockedRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const AdminListBlockedScreen();
+      return const AdminListBlockedPeriodScreen();
     },
   );
 }
@@ -227,7 +227,7 @@ class AdminUpsertAnnouncementRouteArgs {
 }
 
 /// generated route for
-/// [AdminUpsertBlockedScreen]
+/// [AdminUpsertBlockedPeriodScreen]
 class AdminUpsertBlockedRoute extends PageRouteInfo<void> {
   const AdminUpsertBlockedRoute({List<PageRouteInfo>? children})
     : super(AdminUpsertBlockedRoute.name, initialChildren: children);
@@ -237,7 +237,7 @@ class AdminUpsertBlockedRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const AdminUpsertBlockedScreen();
+      return const AdminUpsertBlockedPeriodScreen();
     },
   );
 }

@@ -1,0 +1,188 @@
+{
+  "@@locale": "ja",
+  "blockedPeriodNotificationCreateSuccess": "ブロック期間が正常に作成されました。",
+  "blockedPeriodNotificationCreateError": "エラーが発生しました: {message}",
+  "@blockedPeriodNotificationCreateError": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "blockedPeriodNotificationConflictError": "既存のブロック期間と時間の競合が発生しました。",
+  "blockedPeriodNotificationNotFound": "ブロック期間が見つかりません。",
+  "blockedPeriodNotificationUpdateSuccess": "ブロック期間が正常に更新されました。",
+  "blockedPeriodNotificationUpdateError": "エラーが発生しました： {message}",
+  "@blockedPeriodNotificationUpdateError": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "blockedPeriodNotificationDeleteSuccess": "ブロック期間が正常に削除されました。",
+  "blockedPeriodNotificationDeleteError": "ブロック期間の削除中にエラーが発生しました: {message}",
+  "@blockedPeriodNotificationDeleteError": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "blockedPeriodNotificationBulkDeleteSuccess": "{count} 件のブロック期間を正常に削除しました。",
+  "@blockedPeriodNotificationBulkDeleteSuccess": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "blockedPeriodNotificationBulkDeleteError": "一括削除中にエラーが発生しました: {message}",
+  "@blockedPeriodNotificationBulkDeleteError": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "blockedPeriodValidationMenuRequiredIfNotAll": "全てのメニューをブロックしない場合は、メニューを選択する必要があります。",
+  "blockedPeriodValidationStartBeforeEnd": "開始日時は終了日時より前の時刻である必要があります。",
+  "blockedPeriodValidationMinDuration": "最短期間は15分です。",
+  "blockedPeriodValidationMaxDuration": "最長期間は30日です。",
+  "blockedPeriodValidationAllMenusBoolean": "「全てのメニュー」フィールドは true または false である必要があります。",
+  "blockedPeriodValidationConflictMessage": "以下のブロック期間と時間が競合しています：\n{details}",
+  "@blockedPeriodValidationConflictMessage": {
+    "placeholders": {
+      "details": {
+        "type": "String"
+      }
+    }
+  },
+  "blockedPeriodValidationMenuIdExists": "選択されたメニューは無効です。",
+  "blockedPeriodValidationStartDatetimeRequired": "開始日時は必須です。",
+  "blockedPeriodValidationStartDatetimeDate": "開始日時の形式が無効です。",
+  "blockedPeriodValidationStartDatetimeAfterOrEqual": "開始日時は現在時刻以降である必要があります。",
+  "blockedPeriodValidationEndDatetimeRequired": "終了日時は必須です。",
+  "blockedPeriodValidationEndDatetimeDate": "終了日時の形式が無効です。",
+  "blockedPeriodValidationEndDatetimeAfter": "終了日時は開始日時より後の時刻である必要があります。",
+  "blockedPeriodValidationReasonRequired": "理由は必須です。",
+  "blockedPeriodValidationReasonString": "理由は文字列である必要があります。",
+  "blockedPeriodValidationReasonMax": "理由は500文字以内で入力してください。",
+  "blockedPeriodValidationReasonMin": "理由は3文字以上で入力してください。",
+  "blockedPeriodAttributesMenuId": "メニュー",
+  "blockedPeriodAttributesStartDatetime": "開始日時",
+  "blockedPeriodAttributesEndDatetime": "終了日時",
+  "blockedPeriodAttributesReason": "理由",
+  "blockedPeriodAttributesAllMenus": "全てのメニュー",
+  "adminUpsertBlockedPeriodScreenCreateTitle": "新規ブロック期間の作成",
+  "adminUpsertBlockedPeriodScreenCreateDescription": "特定または全てのメニューの予約を不可にする期間を設定します。",
+  "adminUpsertBlockedPeriodScreenBackToListButton": "一覧に戻る",
+  "adminUpsertBlockedPeriodScreenCreateSaveButton": "ブロック期間を保存",
+  "adminUpsertBlockedPeriodScreenCreateSavingButton": "保存中...",
+  "adminUpsertBlockedPeriodScreenCalendarTitle": "カレンダー表示 - 日付をクリックして選択",
+  "adminUpsertBlockedPeriodScreenDurationPresetsFullDay": "終日 (00:00 - 23:59)",
+  "adminUpsertBlockedPeriodScreenDurationPresetsFull2Days": "2日間",
+  "adminUpsertBlockedPeriodScreenDurationPresetsFullWeek": "1週間 (7日間)",
+  "adminUpsertBlockedPeriodScreenDurationPresetsCustom": "カスタム期間",
+  "adminUpsertBlockedPeriodScreenCreateFormAllMenusLabel": "全てのメニューをブロックしますか？",
+  "adminUpsertBlockedPeriodScreenCreateFormSelectMenuLabel": "特定のメニューを選択",
+  "adminUpsertBlockedPeriodScreenCreateFormSelectMenuPlaceholder": "-- メニューを選択してください --",
+  "adminUpsertBlockedPeriodScreenCreateFormDurationPresetLabel": "期間プリセット",
+  "adminUpsertBlockedPeriodScreenCreateFormStartDateLabel": "開始日",
+  "adminUpsertBlockedPeriodScreenCreateFormEndDateLabel": "終了日",
+  "adminUpsertBlockedPeriodScreenCreateFormStartTimeLabel": "開始時刻",
+  "adminUpsertBlockedPeriodScreenCreateFormEndTimeLabel": "終了時刻",
+  "adminUpsertBlockedPeriodScreenCreateFormReasonLabel": "理由",
+  "adminUpsertBlockedPeriodScreenCreateFormReasonPlaceholder": "例：定期メンテナンス、祝日、貸切イベントなど",
+  "adminUpsertBlockedPeriodScreenConflictAlertTitle": "スケジュールの競合が検出されました！",
+  "adminUpsertBlockedPeriodScreenCreateConflictAlertMessage": "入力された期間は、以下のスケジュールと重複しています：",
+  "adminUpsertBlockedPeriodScreenEditPageTitle": "ブロック期間の編集",
+  "adminUpsertBlockedPeriodScreenEditPageDescription": "メニューが予約不可となる期間を更新します。",
+  "adminUpsertBlockedPeriodScreenEditFormAllMenusLabel": "すべてのメニューをブロックしますか？",
+  "adminUpsertBlockedPeriodScreenEditFormSpecificMenuLabel": "特定のメニューを選択",
+  "adminUpsertBlockedPeriodScreenEditFormReasonPlaceholder": "例：定期メンテナンス、祝日、プライベートイベントなど",
+  "adminUpsertBlockedPeriodScreenEditConflictDescription": "入力した期間は、以下のスケジュールと重複しています：",
+  "adminUpsertBlockedPeriodScreenEditButtonSaveText": "変更を保存",
+  "adminUpsertBlockedPeriodScreenEditButtonCheckingText": "確認中...",
+  "adminListBlockedPeriodScreenPageTitle": "予約不可期間の管理",
+  "adminListBlockedPeriodScreenPageSubtitle": "予約の受付を停止する期間を管理します",
+  "adminListBlockedPeriodScreenAddButton": "期間を追加",
+  "adminListBlockedPeriodScreenStatsTotal": "合計期間数",
+  "adminListBlockedPeriodScreenStatsActive": "現在有効",
+  "adminListBlockedPeriodScreenStatsUpcoming": "今後予定",
+  "adminListBlockedPeriodScreenStatsExpired": "期限切れ",
+  "adminListBlockedPeriodScreenFiltersTitle": "フィルターと検索",
+  "adminListBlockedPeriodScreenFiltersShow": "フィルターを表示",
+  "adminListBlockedPeriodScreenFiltersHide": "フィルターを非表示",
+  "adminListBlockedPeriodScreenFiltersMenuLabel": "メニュー",
+  "adminListBlockedPeriodScreenFiltersMenuAll": "全てのメニュー",
+  "adminListBlockedPeriodScreenFiltersStatusLabel": "ステータス",
+  "adminListBlockedPeriodScreenFiltersStatusAll": "全てのステータス",
+  "adminListBlockedPeriodScreenFiltersStatusActive": "有効",
+  "adminListBlockedPeriodScreenFiltersStatusUpcoming": "予定",
+  "adminListBlockedPeriodScreenFiltersStatusExpired": "期限切れ",
+  "adminListBlockedPeriodScreenFiltersStartDateLabel": "開始日",
+  "adminListBlockedPeriodScreenFiltersEndDateLabel": "終了日",
+  "adminListBlockedPeriodScreenFiltersAllMenusLabel": "全メニューをブロック対象のみ表示",
+  "adminListBlockedPeriodScreenFiltersSearchLabel": "検索",
+  "adminListBlockedPeriodScreenFiltersSearchPlaceholder": "理由やメニュー名で検索...",
+  "adminListBlockedPeriodScreenFiltersFilterButton": "絞り込む",
+  "adminListBlockedPeriodScreenFiltersResetButton": "リセット",
+  "adminListBlockedPeriodScreenBulkActionsItemsSelected": "件選択中",
+  "adminListBlockedPeriodScreenBulkActionsDeleteButton": "削除",
+  "adminListBlockedPeriodScreenListTitle": "予約不可期間リスト",
+  "adminListBlockedPeriodScreenTableHeaderMenu": "メニュー",
+  "adminListBlockedPeriodScreenTableHeaderTime": "時間",
+  "adminListBlockedPeriodScreenTableHeaderDuration": "期間",
+  "adminListBlockedPeriodScreenTableHeaderReason": "理由",
+  "adminListBlockedPeriodScreenTableHeaderStatus": "ステータス",
+  "adminListBlockedPeriodScreenTableHeaderActions": "操作",
+  "adminListBlockedPeriodScreenTableBodyAllMenusBadge": "全てのメニュー",
+  "adminListBlockedPeriodScreenTableBodyMenuNotFound": "メニューが見つかりません",
+  "adminListBlockedPeriodScreenTableBodyActionTooltipsDetail": "詳細",
+  "adminListBlockedPeriodScreenTableBodyActionTooltipsEdit": "編集",
+  "adminListBlockedPeriodScreenTableBodyActionTooltipsDelete": "削除",
+  "adminListBlockedPeriodScreenEmptyTitle": "予約不可期間がありません",
+  "adminListBlockedPeriodScreenEmptyMessage": "作成された予約不可期間がないか、適用されたフィルターに一致するものがありません。",
+  "adminListBlockedPeriodScreenEmptyAddButton": "最初の期間を追加",
+  "adminListBlockedPeriodScreenDeleteModalTitle": "削除の確認",
+  "adminListBlockedPeriodScreenDeleteModalConfirmButton": "削除",
+  "adminListBlockedPeriodScreenDeleteModalCancelButton": "キャンセル",
+  "adminListBlockedPeriodScreenDeleteModalMessageSingle": "この予約不可期間を削除してもよろしいですか？",
+  "adminListBlockedPeriodScreenDeleteModalMessageMultiple": "{count} 件の予約不可期間を削除してもよろしいですか？",
+  "@adminListBlockedPeriodScreenDeleteModalMessageMultiple": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListBlockedPeriodScreenAlertsDeleteError": "削除中にエラーが発生しました。",
+  "adminListBlockedPeriodScreenCalendarAllMenusLabel": "すべてのメニュー",
+  "adminListBlockedPeriodScreenConfirmationDeleteTitle": "ブロック期間を削除",
+  "adminListBlockedPeriodScreenConfirmationDeleteMessage": "このブロック期間を本当に削除しますか？",
+  "adminListBlockedPeriodScreenConfirmationBulkDeleteTitle": "選択した期間を削除",
+  "adminListBlockedPeriodScreenConfirmationBulkDeleteMessage": "選択したブロック期間を本当に削除しますか？",
+  "adminListBlockedPeriodScreenDetailTitle": "ブロック期間の詳細",
+  "adminListBlockedPeriodScreenDetailSubtitle": "選択されたブロック期間の詳細を表示しています。",
+  "adminListBlockedPeriodScreenDetailBackButton": "戻る",
+  "adminListBlockedPeriodScreenDetailDetailsBlockedMenu": "ブロック対象メニュー",
+  "adminListBlockedPeriodScreenDetailDetailsAllMenus": "全メニュー",
+  "adminListBlockedPeriodScreenDetailDetailsMenuNotAvailable": "メニューがありません",
+  "adminListBlockedPeriodScreenDetailDetailsStartTime": "開始日時",
+  "adminListBlockedPeriodScreenDetailDetailsEndTime": "終了日時",
+  "adminListBlockedPeriodScreenDetailDetailsDuration": "期間",
+  "adminListBlockedPeriodScreenDetailDetailsReason": "理由",
+  "adminListBlockedPeriodScreenDetailDetailsStatus": "ステータス",
+  "adminListBlockedPeriodScreenDetailDetailsCreatedAt": "作成日時",
+  "adminListBlockedPeriodScreenDetailDetailsUpdatedAt": "更新日時",
+  "adminListBlockedPeriodScreenDetailStatusActive": "有効",
+  "adminListBlockedPeriodScreenDetailStatusUpcoming": "予定",
+  "adminListBlockedPeriodScreenDetailStatusCompleted": "完了",
+  "adminListBlockedPeriodScreenDetailActionsEdit": "編集",
+  "adminListBlockedPeriodScreenDetailActionsDelete": "削除",
+  "adminListBlockedPeriodScreenDetailDeleteModalTitle": "削除の確認",
+  "adminListBlockedPeriodScreenDetailDeleteModalText": "このブロック期間を本当に削除しますか？この操作は元に戻せません。",
+  "adminListBlockedPeriodScreenDetailDeleteModalCancelButton": "キャンセル",
+  "adminListBlockedPeriodScreenDetailDeleteModalConfirmButton": "はい、削除します"
+}

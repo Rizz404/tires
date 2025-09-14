@@ -1329,6 +1329,822 @@ abstract class L10n {
   /// **'Back to Login'**
   String get forgotPasswordBackToLogin;
 
+  /// No description provided for @blockedPeriodNotificationCreateSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked period created successfully.'**
+  String get blockedPeriodNotificationCreateSuccess;
+
+  /// No description provided for @blockedPeriodNotificationCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred: {message}'**
+  String blockedPeriodNotificationCreateError(String message);
+
+  /// No description provided for @blockedPeriodNotificationConflictError.
+  ///
+  /// In en, this message translates to:
+  /// **'A time conflict occurred with an existing blocked period.'**
+  String get blockedPeriodNotificationConflictError;
+
+  /// No description provided for @blockedPeriodNotificationNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked period not found.'**
+  String get blockedPeriodNotificationNotFound;
+
+  /// No description provided for @blockedPeriodNotificationUpdateSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked period updated successfully.'**
+  String get blockedPeriodNotificationUpdateSuccess;
+
+  /// No description provided for @blockedPeriodNotificationUpdateError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred: {message}'**
+  String blockedPeriodNotificationUpdateError(String message);
+
+  /// No description provided for @blockedPeriodNotificationDeleteSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked period has been deleted successfully.'**
+  String get blockedPeriodNotificationDeleteSuccess;
+
+  /// No description provided for @blockedPeriodNotificationDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while deleting the blocked period: {message}'**
+  String blockedPeriodNotificationDeleteError(String message);
+
+  /// No description provided for @blockedPeriodNotificationBulkDeleteSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Successfully deleted {count} blocked period(s).'**
+  String blockedPeriodNotificationBulkDeleteSuccess(String count);
+
+  /// No description provided for @blockedPeriodNotificationBulkDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred during bulk deletion: {message}'**
+  String blockedPeriodNotificationBulkDeleteError(String message);
+
+  /// No description provided for @blockedPeriodValidationMenuRequiredIfNotAll.
+  ///
+  /// In en, this message translates to:
+  /// **'The menu field is required when not blocking all menus.'**
+  String get blockedPeriodValidationMenuRequiredIfNotAll;
+
+  /// No description provided for @blockedPeriodValidationStartBeforeEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'The start time must be a date before the end time.'**
+  String get blockedPeriodValidationStartBeforeEnd;
+
+  /// No description provided for @blockedPeriodValidationMinDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'The minimum duration is 15 minutes.'**
+  String get blockedPeriodValidationMinDuration;
+
+  /// No description provided for @blockedPeriodValidationMaxDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'The maximum duration is 30 days.'**
+  String get blockedPeriodValidationMaxDuration;
+
+  /// No description provided for @blockedPeriodValidationAllMenusBoolean.
+  ///
+  /// In en, this message translates to:
+  /// **'The all menus field must be true or false.'**
+  String get blockedPeriodValidationAllMenusBoolean;
+
+  /// No description provided for @blockedPeriodValidationConflictMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Time conflict with the following blocked period(s):\n{details}'**
+  String blockedPeriodValidationConflictMessage(String details);
+
+  /// No description provided for @blockedPeriodValidationMenuIdExists.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected menu is invalid.'**
+  String get blockedPeriodValidationMenuIdExists;
+
+  /// No description provided for @blockedPeriodValidationStartDatetimeRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'The start time is required.'**
+  String get blockedPeriodValidationStartDatetimeRequired;
+
+  /// No description provided for @blockedPeriodValidationStartDatetimeDate.
+  ///
+  /// In en, this message translates to:
+  /// **'The start time format is invalid.'**
+  String get blockedPeriodValidationStartDatetimeDate;
+
+  /// No description provided for @blockedPeriodValidationStartDatetimeAfterOrEqual.
+  ///
+  /// In en, this message translates to:
+  /// **'The start time must be a date after or equal to now.'**
+  String get blockedPeriodValidationStartDatetimeAfterOrEqual;
+
+  /// No description provided for @blockedPeriodValidationEndDatetimeRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'The end time is required.'**
+  String get blockedPeriodValidationEndDatetimeRequired;
+
+  /// No description provided for @blockedPeriodValidationEndDatetimeDate.
+  ///
+  /// In en, this message translates to:
+  /// **'The end time format is invalid.'**
+  String get blockedPeriodValidationEndDatetimeDate;
+
+  /// No description provided for @blockedPeriodValidationEndDatetimeAfter.
+  ///
+  /// In en, this message translates to:
+  /// **'The end time must be a date after the start time.'**
+  String get blockedPeriodValidationEndDatetimeAfter;
+
+  /// No description provided for @blockedPeriodValidationReasonRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'The reason is required.'**
+  String get blockedPeriodValidationReasonRequired;
+
+  /// No description provided for @blockedPeriodValidationReasonString.
+  ///
+  /// In en, this message translates to:
+  /// **'The reason must be a string.'**
+  String get blockedPeriodValidationReasonString;
+
+  /// No description provided for @blockedPeriodValidationReasonMax.
+  ///
+  /// In en, this message translates to:
+  /// **'The reason may not be greater than 500 characters.'**
+  String get blockedPeriodValidationReasonMax;
+
+  /// No description provided for @blockedPeriodValidationReasonMin.
+  ///
+  /// In en, this message translates to:
+  /// **'The reason must be at least 3 characters.'**
+  String get blockedPeriodValidationReasonMin;
+
+  /// No description provided for @blockedPeriodAttributesMenuId.
+  ///
+  /// In en, this message translates to:
+  /// **'menu'**
+  String get blockedPeriodAttributesMenuId;
+
+  /// No description provided for @blockedPeriodAttributesStartDatetime.
+  ///
+  /// In en, this message translates to:
+  /// **'start time'**
+  String get blockedPeriodAttributesStartDatetime;
+
+  /// No description provided for @blockedPeriodAttributesEndDatetime.
+  ///
+  /// In en, this message translates to:
+  /// **'end time'**
+  String get blockedPeriodAttributesEndDatetime;
+
+  /// No description provided for @blockedPeriodAttributesReason.
+  ///
+  /// In en, this message translates to:
+  /// **'reason'**
+  String get blockedPeriodAttributesReason;
+
+  /// No description provided for @blockedPeriodAttributesAllMenus.
+  ///
+  /// In en, this message translates to:
+  /// **'all menus'**
+  String get blockedPeriodAttributesAllMenus;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create New Blocked Period'**
+  String get adminUpsertBlockedPeriodScreenCreateTitle;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCreateDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a time period during which a specific menu or all menus are unavailable for reservation.'**
+  String get adminUpsertBlockedPeriodScreenCreateDescription;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenBackToListButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to List'**
+  String get adminUpsertBlockedPeriodScreenBackToListButton;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCreateSaveButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Blocked Period'**
+  String get adminUpsertBlockedPeriodScreenCreateSaveButton;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCreateSavingButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving...'**
+  String get adminUpsertBlockedPeriodScreenCreateSavingButton;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCalendarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar View - Click on dates to select'**
+  String get adminUpsertBlockedPeriodScreenCalendarTitle;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenDurationPresetsFullDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Day (00:00 - 23:59)'**
+  String get adminUpsertBlockedPeriodScreenDurationPresetsFullDay;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenDurationPresetsFull2Days.
+  ///
+  /// In en, this message translates to:
+  /// **'Full 2 Days'**
+  String get adminUpsertBlockedPeriodScreenDurationPresetsFull2Days;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenDurationPresetsFullWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Week (7 days)'**
+  String get adminUpsertBlockedPeriodScreenDurationPresetsFullWeek;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenDurationPresetsCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Duration'**
+  String get adminUpsertBlockedPeriodScreenDurationPresetsCustom;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCreateFormAllMenusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Block All Menus?'**
+  String get adminUpsertBlockedPeriodScreenCreateFormAllMenusLabel;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCreateFormSelectMenuLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Specific Menu'**
+  String get adminUpsertBlockedPeriodScreenCreateFormSelectMenuLabel;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCreateFormSelectMenuPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'-- Select a menu --'**
+  String get adminUpsertBlockedPeriodScreenCreateFormSelectMenuPlaceholder;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCreateFormDurationPresetLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration Preset'**
+  String get adminUpsertBlockedPeriodScreenCreateFormDurationPresetLabel;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCreateFormStartDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get adminUpsertBlockedPeriodScreenCreateFormStartDateLabel;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCreateFormEndDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get adminUpsertBlockedPeriodScreenCreateFormEndDateLabel;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCreateFormStartTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Time'**
+  String get adminUpsertBlockedPeriodScreenCreateFormStartTimeLabel;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCreateFormEndTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'End Time'**
+  String get adminUpsertBlockedPeriodScreenCreateFormEndTimeLabel;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCreateFormReasonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get adminUpsertBlockedPeriodScreenCreateFormReasonLabel;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCreateFormReasonPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Regular maintenance, holiday, private event, etc.'**
+  String get adminUpsertBlockedPeriodScreenCreateFormReasonPlaceholder;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenConflictAlertTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule Conflict Detected!'**
+  String get adminUpsertBlockedPeriodScreenConflictAlertTitle;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenCreateConflictAlertMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The entered period overlaps with the following schedule(s):'**
+  String get adminUpsertBlockedPeriodScreenCreateConflictAlertMessage;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenEditPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Blocked Period'**
+  String get adminUpsertBlockedPeriodScreenEditPageTitle;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenEditPageDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Update the time period when a menu is unavailable for reservation.'**
+  String get adminUpsertBlockedPeriodScreenEditPageDescription;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenEditFormAllMenusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Block for All Menus?'**
+  String get adminUpsertBlockedPeriodScreenEditFormAllMenusLabel;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenEditFormSpecificMenuLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Specific Menu'**
+  String get adminUpsertBlockedPeriodScreenEditFormSpecificMenuLabel;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenEditFormReasonPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: Routine maintenance, public holiday, private event, etc.'**
+  String get adminUpsertBlockedPeriodScreenEditFormReasonPlaceholder;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenEditConflictDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The period you entered overlaps with the following schedule:'**
+  String get adminUpsertBlockedPeriodScreenEditConflictDescription;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenEditButtonSaveText.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get adminUpsertBlockedPeriodScreenEditButtonSaveText;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenEditButtonCheckingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking...'**
+  String get adminUpsertBlockedPeriodScreenEditButtonCheckingText;
+
+  /// No description provided for @adminListBlockedPeriodScreenPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked Period Management'**
+  String get adminListBlockedPeriodScreenPageTitle;
+
+  /// No description provided for @adminListBlockedPeriodScreenPageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage blocked time periods for reservations'**
+  String get adminListBlockedPeriodScreenPageSubtitle;
+
+  /// No description provided for @adminListBlockedPeriodScreenAddButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Period'**
+  String get adminListBlockedPeriodScreenAddButton;
+
+  /// No description provided for @adminListBlockedPeriodScreenStatsTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Periods'**
+  String get adminListBlockedPeriodScreenStatsTotal;
+
+  /// No description provided for @adminListBlockedPeriodScreenStatsActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Currently Active'**
+  String get adminListBlockedPeriodScreenStatsActive;
+
+  /// No description provided for @adminListBlockedPeriodScreenStatsUpcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get adminListBlockedPeriodScreenStatsUpcoming;
+
+  /// No description provided for @adminListBlockedPeriodScreenStatsExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get adminListBlockedPeriodScreenStatsExpired;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters & Search'**
+  String get adminListBlockedPeriodScreenFiltersTitle;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersShow.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Filters'**
+  String get adminListBlockedPeriodScreenFiltersShow;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersHide.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide Filters'**
+  String get adminListBlockedPeriodScreenFiltersHide;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersMenuLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get adminListBlockedPeriodScreenFiltersMenuLabel;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersMenuAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All Menus'**
+  String get adminListBlockedPeriodScreenFiltersMenuAll;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminListBlockedPeriodScreenFiltersStatusLabel;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersStatusAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All Status'**
+  String get adminListBlockedPeriodScreenFiltersStatusAll;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersStatusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get adminListBlockedPeriodScreenFiltersStatusActive;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersStatusUpcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get adminListBlockedPeriodScreenFiltersStatusUpcoming;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersStatusExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get adminListBlockedPeriodScreenFiltersStatusExpired;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersStartDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get adminListBlockedPeriodScreenFiltersStartDateLabel;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersEndDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get adminListBlockedPeriodScreenFiltersEndDateLabel;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersAllMenusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Block All Menus Only'**
+  String get adminListBlockedPeriodScreenFiltersAllMenusLabel;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersSearchLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get adminListBlockedPeriodScreenFiltersSearchLabel;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersSearchPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by reason or menu name...'**
+  String get adminListBlockedPeriodScreenFiltersSearchPlaceholder;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersFilterButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get adminListBlockedPeriodScreenFiltersFilterButton;
+
+  /// No description provided for @adminListBlockedPeriodScreenFiltersResetButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get adminListBlockedPeriodScreenFiltersResetButton;
+
+  /// No description provided for @adminListBlockedPeriodScreenBulkActionsItemsSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'items selected'**
+  String get adminListBlockedPeriodScreenBulkActionsItemsSelected;
+
+  /// No description provided for @adminListBlockedPeriodScreenBulkActionsDeleteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminListBlockedPeriodScreenBulkActionsDeleteButton;
+
+  /// No description provided for @adminListBlockedPeriodScreenListTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked Periods List'**
+  String get adminListBlockedPeriodScreenListTitle;
+
+  /// No description provided for @adminListBlockedPeriodScreenTableHeaderMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get adminListBlockedPeriodScreenTableHeaderMenu;
+
+  /// No description provided for @adminListBlockedPeriodScreenTableHeaderTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get adminListBlockedPeriodScreenTableHeaderTime;
+
+  /// No description provided for @adminListBlockedPeriodScreenTableHeaderDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get adminListBlockedPeriodScreenTableHeaderDuration;
+
+  /// No description provided for @adminListBlockedPeriodScreenTableHeaderReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get adminListBlockedPeriodScreenTableHeaderReason;
+
+  /// No description provided for @adminListBlockedPeriodScreenTableHeaderStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminListBlockedPeriodScreenTableHeaderStatus;
+
+  /// No description provided for @adminListBlockedPeriodScreenTableHeaderActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get adminListBlockedPeriodScreenTableHeaderActions;
+
+  /// No description provided for @adminListBlockedPeriodScreenTableBodyAllMenusBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'All Menus'**
+  String get adminListBlockedPeriodScreenTableBodyAllMenusBadge;
+
+  /// No description provided for @adminListBlockedPeriodScreenTableBodyMenuNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu not found'**
+  String get adminListBlockedPeriodScreenTableBodyMenuNotFound;
+
+  /// No description provided for @adminListBlockedPeriodScreenTableBodyActionTooltipsDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Detail'**
+  String get adminListBlockedPeriodScreenTableBodyActionTooltipsDetail;
+
+  /// No description provided for @adminListBlockedPeriodScreenTableBodyActionTooltipsEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get adminListBlockedPeriodScreenTableBodyActionTooltipsEdit;
+
+  /// No description provided for @adminListBlockedPeriodScreenTableBodyActionTooltipsDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminListBlockedPeriodScreenTableBodyActionTooltipsDelete;
+
+  /// No description provided for @adminListBlockedPeriodScreenEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No blocked periods'**
+  String get adminListBlockedPeriodScreenEmptyTitle;
+
+  /// No description provided for @adminListBlockedPeriodScreenEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No blocked periods have been created or match the applied filters.'**
+  String get adminListBlockedPeriodScreenEmptyMessage;
+
+  /// No description provided for @adminListBlockedPeriodScreenEmptyAddButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add First Period'**
+  String get adminListBlockedPeriodScreenEmptyAddButton;
+
+  /// No description provided for @adminListBlockedPeriodScreenDeleteModalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Confirmation'**
+  String get adminListBlockedPeriodScreenDeleteModalTitle;
+
+  /// No description provided for @adminListBlockedPeriodScreenDeleteModalConfirmButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminListBlockedPeriodScreenDeleteModalConfirmButton;
+
+  /// No description provided for @adminListBlockedPeriodScreenDeleteModalCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminListBlockedPeriodScreenDeleteModalCancelButton;
+
+  /// No description provided for @adminListBlockedPeriodScreenDeleteModalMessageSingle.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this blocked period?'**
+  String get adminListBlockedPeriodScreenDeleteModalMessageSingle;
+
+  /// No description provided for @adminListBlockedPeriodScreenDeleteModalMessageMultiple.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {count} blocked periods?'**
+  String adminListBlockedPeriodScreenDeleteModalMessageMultiple(String count);
+
+  /// No description provided for @adminListBlockedPeriodScreenAlertsDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while deleting.'**
+  String get adminListBlockedPeriodScreenAlertsDeleteError;
+
+  /// No description provided for @adminListBlockedPeriodScreenCalendarAllMenusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'All Menus'**
+  String get adminListBlockedPeriodScreenCalendarAllMenusLabel;
+
+  /// No description provided for @adminListBlockedPeriodScreenConfirmationDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Blocked Period'**
+  String get adminListBlockedPeriodScreenConfirmationDeleteTitle;
+
+  /// No description provided for @adminListBlockedPeriodScreenConfirmationDeleteMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this blocked period?'**
+  String get adminListBlockedPeriodScreenConfirmationDeleteMessage;
+
+  /// No description provided for @adminListBlockedPeriodScreenConfirmationBulkDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Selected Periods'**
+  String get adminListBlockedPeriodScreenConfirmationBulkDeleteTitle;
+
+  /// No description provided for @adminListBlockedPeriodScreenConfirmationBulkDeleteMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete the selected blocked periods?'**
+  String get adminListBlockedPeriodScreenConfirmationBulkDeleteMessage;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked Period Details'**
+  String get adminListBlockedPeriodScreenDetailTitle;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Displaying the details of the selected blocked period.'**
+  String get adminListBlockedPeriodScreenDetailSubtitle;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailBackButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get adminListBlockedPeriodScreenDetailBackButton;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailDetailsBlockedMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked Menu'**
+  String get adminListBlockedPeriodScreenDetailDetailsBlockedMenu;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailDetailsAllMenus.
+  ///
+  /// In en, this message translates to:
+  /// **'All Menus'**
+  String get adminListBlockedPeriodScreenDetailDetailsAllMenus;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailDetailsMenuNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu not available'**
+  String get adminListBlockedPeriodScreenDetailDetailsMenuNotAvailable;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailDetailsStartTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Time'**
+  String get adminListBlockedPeriodScreenDetailDetailsStartTime;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailDetailsEndTime.
+  ///
+  /// In en, this message translates to:
+  /// **'End Time'**
+  String get adminListBlockedPeriodScreenDetailDetailsEndTime;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailDetailsDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get adminListBlockedPeriodScreenDetailDetailsDuration;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailDetailsReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get adminListBlockedPeriodScreenDetailDetailsReason;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailDetailsStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminListBlockedPeriodScreenDetailDetailsStatus;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailDetailsCreatedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Created'**
+  String get adminListBlockedPeriodScreenDetailDetailsCreatedAt;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailDetailsUpdatedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated'**
+  String get adminListBlockedPeriodScreenDetailDetailsUpdatedAt;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailStatusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get adminListBlockedPeriodScreenDetailStatusActive;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailStatusUpcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get adminListBlockedPeriodScreenDetailStatusUpcoming;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailStatusCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get adminListBlockedPeriodScreenDetailStatusCompleted;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailActionsEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get adminListBlockedPeriodScreenDetailActionsEdit;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailActionsDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminListBlockedPeriodScreenDetailActionsDelete;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailDeleteModalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Deletion'**
+  String get adminListBlockedPeriodScreenDetailDeleteModalTitle;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailDeleteModalText.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this blocked period? This action cannot be undone.'**
+  String get adminListBlockedPeriodScreenDetailDeleteModalText;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailDeleteModalCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminListBlockedPeriodScreenDetailDeleteModalCancelButton;
+
+  /// No description provided for @adminListBlockedPeriodScreenDetailDeleteModalConfirmButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, Delete'**
+  String get adminListBlockedPeriodScreenDetailDeleteModalConfirmButton;
+
   /// No description provided for @adminUpsertBusinessInformationScreenPageTitle.
   ///
   /// In en, this message translates to:
@@ -1836,6 +2652,498 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Create Business Settings'**
   String get adminListBusinessInformationScreenNotFoundCreateButton;
+
+  /// No description provided for @contactNotificationNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact not found.'**
+  String get contactNotificationNotFound;
+
+  /// No description provided for @contactNotificationUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact updated successfully.'**
+  String get contactNotificationUpdated;
+
+  /// No description provided for @contactNotificationErrorOccurred.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred: {message}'**
+  String contactNotificationErrorOccurred(String message);
+
+  /// No description provided for @contactNotificationDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact deleted successfully.'**
+  String get contactNotificationDeleted;
+
+  /// No description provided for @contactNotificationDeletedError.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact could not be deleted.'**
+  String get contactNotificationDeletedError;
+
+  /// No description provided for @contactNotificationReplySent.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply sent and status updated successfully.'**
+  String get contactNotificationReplySent;
+
+  /// No description provided for @contactNotificationReplyError.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact not found or failed to update.'**
+  String get contactNotificationReplyError;
+
+  /// No description provided for @contactNotificationBulkDeleteSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Contacts deleted successfully.'**
+  String get contactNotificationBulkDeleteSuccess;
+
+  /// No description provided for @contactNotificationBulkDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'No contacts were successfully deleted.'**
+  String get contactNotificationBulkDeleteError;
+
+  /// No description provided for @contactNotificationBulkRepliedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} contacts successfully marked as replied.'**
+  String contactNotificationBulkRepliedSuccess(String count);
+
+  /// No description provided for @contactNotificationBulkRepliedError.
+  ///
+  /// In en, this message translates to:
+  /// **'No contacts were successfully updated.'**
+  String get contactNotificationBulkRepliedError;
+
+  /// No description provided for @adminListContactScreenPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Management'**
+  String get adminListContactScreenPageTitle;
+
+  /// No description provided for @adminListContactScreenPageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage contact messages from customers'**
+  String get adminListContactScreenPageSubtitle;
+
+  /// No description provided for @adminListContactScreenAddButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Contact'**
+  String get adminListContactScreenAddButton;
+
+  /// No description provided for @adminListContactScreenStatsTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Contacts'**
+  String get adminListContactScreenStatsTotal;
+
+  /// No description provided for @adminListContactScreenStatsPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get adminListContactScreenStatsPending;
+
+  /// No description provided for @adminListContactScreenStatsReplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Replied'**
+  String get adminListContactScreenStatsReplied;
+
+  /// No description provided for @adminListContactScreenStatsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get adminListContactScreenStatsToday;
+
+  /// No description provided for @adminListContactScreenFilterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter & Search'**
+  String get adminListContactScreenFilterTitle;
+
+  /// No description provided for @adminListContactScreenFilterShowButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Filters'**
+  String get adminListContactScreenFilterShowButton;
+
+  /// No description provided for @adminListContactScreenFilterHideButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide Filters'**
+  String get adminListContactScreenFilterHideButton;
+
+  /// No description provided for @adminListContactScreenFilterStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminListContactScreenFilterStatusLabel;
+
+  /// No description provided for @adminListContactScreenFilterStatusAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All Status'**
+  String get adminListContactScreenFilterStatusAll;
+
+  /// No description provided for @adminListContactScreenFilterStartDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get adminListContactScreenFilterStartDateLabel;
+
+  /// No description provided for @adminListContactScreenFilterEndDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get adminListContactScreenFilterEndDateLabel;
+
+  /// No description provided for @adminListContactScreenFilterSearchLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get adminListContactScreenFilterSearchLabel;
+
+  /// No description provided for @adminListContactScreenFilterSearchPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Search name, email, subject...'**
+  String get adminListContactScreenFilterSearchPlaceholder;
+
+  /// No description provided for @adminListContactScreenFilterFilterButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get adminListContactScreenFilterFilterButton;
+
+  /// No description provided for @adminListContactScreenFilterResetButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get adminListContactScreenFilterResetButton;
+
+  /// No description provided for @adminListContactScreenBulkActionsItemsSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} items selected'**
+  String adminListContactScreenBulkActionsItemsSelected(String count);
+
+  /// No description provided for @adminListContactScreenBulkActionsDeleteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminListContactScreenBulkActionsDeleteButton;
+
+  /// No description provided for @adminListContactScreenTableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact List'**
+  String get adminListContactScreenTableTitle;
+
+  /// No description provided for @adminListContactScreenTableHeaderSender.
+  ///
+  /// In en, this message translates to:
+  /// **'Sender'**
+  String get adminListContactScreenTableHeaderSender;
+
+  /// No description provided for @adminListContactScreenTableHeaderSubject.
+  ///
+  /// In en, this message translates to:
+  /// **'Subject'**
+  String get adminListContactScreenTableHeaderSubject;
+
+  /// No description provided for @adminListContactScreenTableHeaderMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get adminListContactScreenTableHeaderMessage;
+
+  /// No description provided for @adminListContactScreenTableHeaderDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get adminListContactScreenTableHeaderDate;
+
+  /// No description provided for @adminListContactScreenTableHeaderStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminListContactScreenTableHeaderStatus;
+
+  /// No description provided for @adminListContactScreenTableHeaderActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get adminListContactScreenTableHeaderActions;
+
+  /// No description provided for @adminListContactScreenTableActionViewTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get adminListContactScreenTableActionViewTooltip;
+
+  /// No description provided for @adminListContactScreenTableActionReplyTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Reply'**
+  String get adminListContactScreenTableActionReplyTooltip;
+
+  /// No description provided for @adminListContactScreenTableActionDeleteTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminListContactScreenTableActionDeleteTooltip;
+
+  /// No description provided for @adminListContactScreenStatusPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get adminListContactScreenStatusPending;
+
+  /// No description provided for @adminListContactScreenStatusReplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Replied'**
+  String get adminListContactScreenStatusReplied;
+
+  /// No description provided for @adminListContactScreenEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No contacts'**
+  String get adminListContactScreenEmptyTitle;
+
+  /// No description provided for @adminListContactScreenEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No contact messages have been received or match the applied filters.'**
+  String get adminListContactScreenEmptyMessage;
+
+  /// No description provided for @adminListContactScreenModalCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminListContactScreenModalCancelButton;
+
+  /// No description provided for @adminListContactScreenModalReplyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Reply'**
+  String get adminListContactScreenModalReplyTitle;
+
+  /// No description provided for @adminListContactScreenModalReplyPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your reply...'**
+  String get adminListContactScreenModalReplyPlaceholder;
+
+  /// No description provided for @adminListContactScreenModalReplySendButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Reply'**
+  String get adminListContactScreenModalReplySendButton;
+
+  /// No description provided for @adminListContactScreenModalDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Delete'**
+  String get adminListContactScreenModalDeleteTitle;
+
+  /// No description provided for @adminListContactScreenModalDeleteConfirmButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminListContactScreenModalDeleteConfirmButton;
+
+  /// No description provided for @adminListContactScreenModalDeleteConfirmMessageSingle.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this contact?'**
+  String get adminListContactScreenModalDeleteConfirmMessageSingle;
+
+  /// No description provided for @adminListContactScreenModalDeleteConfirmMessageMultiple.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {count} contacts?'**
+  String adminListContactScreenModalDeleteConfirmMessageMultiple(String count);
+
+  /// No description provided for @adminListContactScreenAlertReplyEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply message cannot be empty.'**
+  String get adminListContactScreenAlertReplyEmpty;
+
+  /// No description provided for @adminListContactScreenAlertReplyError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while sending the reply.'**
+  String get adminListContactScreenAlertReplyError;
+
+  /// No description provided for @adminListContactScreenAlertDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while deleting.'**
+  String get adminListContactScreenAlertDeleteError;
+
+  /// No description provided for @adminListContactScreenAlertDeleteSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact(s) deleted successfully.'**
+  String get adminListContactScreenAlertDeleteSuccess;
+
+  /// No description provided for @adminListContactScreenAlertReplySuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply sent successfully.'**
+  String get adminListContactScreenAlertReplySuccess;
+
+  /// No description provided for @adminUpsertContactScreenPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Details'**
+  String get adminUpsertContactScreenPageTitle;
+
+  /// No description provided for @adminUpsertContactScreenPageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'View and update contact message'**
+  String get adminUpsertContactScreenPageSubtitle;
+
+  /// No description provided for @adminUpsertContactScreenButtonsBackToList.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to List'**
+  String get adminUpsertContactScreenButtonsBackToList;
+
+  /// No description provided for @adminUpsertContactScreenButtonsUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Contact'**
+  String get adminUpsertContactScreenButtonsUpdate;
+
+  /// No description provided for @adminUpsertContactScreenButtonsDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminUpsertContactScreenButtonsDelete;
+
+  /// No description provided for @adminUpsertContactScreenButtonsCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminUpsertContactScreenButtonsCancel;
+
+  /// No description provided for @adminUpsertContactScreenCardContactInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Information'**
+  String get adminUpsertContactScreenCardContactInfo;
+
+  /// No description provided for @adminUpsertContactScreenCardUpdateContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Contact'**
+  String get adminUpsertContactScreenCardUpdateContact;
+
+  /// No description provided for @adminUpsertContactScreenCardQuickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get adminUpsertContactScreenCardQuickActions;
+
+  /// No description provided for @adminUpsertContactScreenLabelsSubject.
+  ///
+  /// In en, this message translates to:
+  /// **'Subject'**
+  String get adminUpsertContactScreenLabelsSubject;
+
+  /// No description provided for @adminUpsertContactScreenLabelsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get adminUpsertContactScreenLabelsMessage;
+
+  /// No description provided for @adminUpsertContactScreenLabelsAdminReply.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin Reply'**
+  String get adminUpsertContactScreenLabelsAdminReply;
+
+  /// No description provided for @adminUpsertContactScreenLabelsStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminUpsertContactScreenLabelsStatus;
+
+  /// No description provided for @adminUpsertContactScreenStatusPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get adminUpsertContactScreenStatusPending;
+
+  /// No description provided for @adminUpsertContactScreenStatusReplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Replied'**
+  String get adminUpsertContactScreenStatusReplied;
+
+  /// No description provided for @adminUpsertContactScreenFormReplyPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your reply to the customer...'**
+  String get adminUpsertContactScreenFormReplyPlaceholder;
+
+  /// No description provided for @adminUpsertContactScreenFormReplyHelpText.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum 2000 characters'**
+  String get adminUpsertContactScreenFormReplyHelpText;
+
+  /// No description provided for @adminUpsertContactScreenQuickActionsMarkAsReplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as Replied'**
+  String get adminUpsertContactScreenQuickActionsMarkAsReplied;
+
+  /// No description provided for @adminUpsertContactScreenQuickActionsMarkAsPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as Pending'**
+  String get adminUpsertContactScreenQuickActionsMarkAsPending;
+
+  /// No description provided for @adminUpsertContactScreenQuickActionsDefaultReply.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for contacting us. We have received your message and will get back to you soon.'**
+  String get adminUpsertContactScreenQuickActionsDefaultReply;
+
+  /// No description provided for @adminUpsertContactScreenDeleteModalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Delete'**
+  String get adminUpsertContactScreenDeleteModalTitle;
+
+  /// No description provided for @adminUpsertContactScreenDeleteModalText.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this contact? This action cannot be undone.'**
+  String get adminUpsertContactScreenDeleteModalText;
+
+  /// No description provided for @adminUpsertContactScreenAlertsErrorOccurred.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred:'**
+  String get adminUpsertContactScreenAlertsErrorOccurred;
+
+  /// No description provided for @adminUpsertContactScreenAlertsDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while deleting'**
+  String get adminUpsertContactScreenAlertsDeleteError;
 
   /// No description provided for @adminListCustomerManagementTitle.
   ///

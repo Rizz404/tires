@@ -129,7 +129,7 @@ class _AdminListAnnouncementScreenState
           AppText(
             context.l10n.adminListAnnouncementScreenSubtitle,
             style: AppTextStyle.bodyLarge,
-            color: context.colorScheme.onSurface.withOpacity(0.7),
+            color: context.colorScheme.onSurface.withValues(alpha: 0.7),
           ),
           const SizedBox(height: 16),
           AppButton(

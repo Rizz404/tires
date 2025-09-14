@@ -10,7 +10,7 @@ class AnnouncementsNotifier extends Notifier<AnnouncementsState> {
   @override
   AnnouncementsState build() {
     _getUsersCursorUsecase = ref.watch(getAnnouncementsCursorUsecaseProvider);
-    getInitialAnnouncements();
+    Future.microtask(() => getInitialAnnouncements());
     return const AnnouncementsState();
   }
 

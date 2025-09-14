@@ -226,6 +226,191 @@
   "forgotPasswordFormError": "Please correct the errors in the form.",
   "forgotPasswordRemembered": "Remembered your password?",
   "forgotPasswordBackToLogin": "Back to Login",
+  "blockedPeriodNotificationCreateSuccess": "Blocked period created successfully.",
+  "blockedPeriodNotificationCreateError": "An error occurred: {message}",
+  "@blockedPeriodNotificationCreateError": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "blockedPeriodNotificationConflictError": "A time conflict occurred with an existing blocked period.",
+  "blockedPeriodNotificationNotFound": "Blocked period not found.",
+  "blockedPeriodNotificationUpdateSuccess": "Blocked period updated successfully.",
+  "blockedPeriodNotificationUpdateError": "An error occurred: {message}",
+  "@blockedPeriodNotificationUpdateError": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "blockedPeriodNotificationDeleteSuccess": "Blocked period has been deleted successfully.",
+  "blockedPeriodNotificationDeleteError": "An error occurred while deleting the blocked period: {message}",
+  "@blockedPeriodNotificationDeleteError": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "blockedPeriodNotificationBulkDeleteSuccess": "Successfully deleted {count} blocked period(s).",
+  "@blockedPeriodNotificationBulkDeleteSuccess": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "blockedPeriodNotificationBulkDeleteError": "An error occurred during bulk deletion: {message}",
+  "@blockedPeriodNotificationBulkDeleteError": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "blockedPeriodValidationMenuRequiredIfNotAll": "The menu field is required when not blocking all menus.",
+  "blockedPeriodValidationStartBeforeEnd": "The start time must be a date before the end time.",
+  "blockedPeriodValidationMinDuration": "The minimum duration is 15 minutes.",
+  "blockedPeriodValidationMaxDuration": "The maximum duration is 30 days.",
+  "blockedPeriodValidationAllMenusBoolean": "The all menus field must be true or false.",
+  "blockedPeriodValidationConflictMessage": "Time conflict with the following blocked period(s):\n{details}",
+  "@blockedPeriodValidationConflictMessage": {
+    "placeholders": {
+      "details": {
+        "type": "String"
+      }
+    }
+  },
+  "blockedPeriodValidationMenuIdExists": "The selected menu is invalid.",
+  "blockedPeriodValidationStartDatetimeRequired": "The start time is required.",
+  "blockedPeriodValidationStartDatetimeDate": "The start time format is invalid.",
+  "blockedPeriodValidationStartDatetimeAfterOrEqual": "The start time must be a date after or equal to now.",
+  "blockedPeriodValidationEndDatetimeRequired": "The end time is required.",
+  "blockedPeriodValidationEndDatetimeDate": "The end time format is invalid.",
+  "blockedPeriodValidationEndDatetimeAfter": "The end time must be a date after the start time.",
+  "blockedPeriodValidationReasonRequired": "The reason is required.",
+  "blockedPeriodValidationReasonString": "The reason must be a string.",
+  "blockedPeriodValidationReasonMax": "The reason may not be greater than 500 characters.",
+  "blockedPeriodValidationReasonMin": "The reason must be at least 3 characters.",
+  "blockedPeriodAttributesMenuId": "menu",
+  "blockedPeriodAttributesStartDatetime": "start time",
+  "blockedPeriodAttributesEndDatetime": "end time",
+  "blockedPeriodAttributesReason": "reason",
+  "blockedPeriodAttributesAllMenus": "all menus",
+  "adminUpsertBlockedPeriodScreenCreateTitle": "Create New Blocked Period",
+  "adminUpsertBlockedPeriodScreenCreateDescription": "Set a time period during which a specific menu or all menus are unavailable for reservation.",
+  "adminUpsertBlockedPeriodScreenBackToListButton": "Back to List",
+  "adminUpsertBlockedPeriodScreenCreateSaveButton": "Save Blocked Period",
+  "adminUpsertBlockedPeriodScreenCreateSavingButton": "Saving...",
+  "adminUpsertBlockedPeriodScreenCalendarTitle": "Calendar View - Click on dates to select",
+  "adminUpsertBlockedPeriodScreenDurationPresetsFullDay": "Full Day (00:00 - 23:59)",
+  "adminUpsertBlockedPeriodScreenDurationPresetsFull2Days": "Full 2 Days",
+  "adminUpsertBlockedPeriodScreenDurationPresetsFullWeek": "Full Week (7 days)",
+  "adminUpsertBlockedPeriodScreenDurationPresetsCustom": "Custom Duration",
+  "adminUpsertBlockedPeriodScreenCreateFormAllMenusLabel": "Block All Menus?",
+  "adminUpsertBlockedPeriodScreenCreateFormSelectMenuLabel": "Select Specific Menu",
+  "adminUpsertBlockedPeriodScreenCreateFormSelectMenuPlaceholder": "-- Select a menu --",
+  "adminUpsertBlockedPeriodScreenCreateFormDurationPresetLabel": "Duration Preset",
+  "adminUpsertBlockedPeriodScreenCreateFormStartDateLabel": "Start Date",
+  "adminUpsertBlockedPeriodScreenCreateFormEndDateLabel": "End Date",
+  "adminUpsertBlockedPeriodScreenCreateFormStartTimeLabel": "Start Time",
+  "adminUpsertBlockedPeriodScreenCreateFormEndTimeLabel": "End Time",
+  "adminUpsertBlockedPeriodScreenCreateFormReasonLabel": "Reason",
+  "adminUpsertBlockedPeriodScreenCreateFormReasonPlaceholder": "e.g., Regular maintenance, holiday, private event, etc.",
+  "adminUpsertBlockedPeriodScreenConflictAlertTitle": "Schedule Conflict Detected!",
+  "adminUpsertBlockedPeriodScreenCreateConflictAlertMessage": "The entered period overlaps with the following schedule(s):",
+  "adminUpsertBlockedPeriodScreenEditPageTitle": "Edit Blocked Period",
+  "adminUpsertBlockedPeriodScreenEditPageDescription": "Update the time period when a menu is unavailable for reservation.",
+  "adminUpsertBlockedPeriodScreenEditFormAllMenusLabel": "Block for All Menus?",
+  "adminUpsertBlockedPeriodScreenEditFormSpecificMenuLabel": "Select Specific Menu",
+  "adminUpsertBlockedPeriodScreenEditFormReasonPlaceholder": "Example: Routine maintenance, public holiday, private event, etc.",
+  "adminUpsertBlockedPeriodScreenEditConflictDescription": "The period you entered overlaps with the following schedule:",
+  "adminUpsertBlockedPeriodScreenEditButtonSaveText": "Save Changes",
+  "adminUpsertBlockedPeriodScreenEditButtonCheckingText": "Checking...",
+  "adminListBlockedPeriodScreenPageTitle": "Blocked Period Management",
+  "adminListBlockedPeriodScreenPageSubtitle": "Manage blocked time periods for reservations",
+  "adminListBlockedPeriodScreenAddButton": "Add Period",
+  "adminListBlockedPeriodScreenStatsTotal": "Total Periods",
+  "adminListBlockedPeriodScreenStatsActive": "Currently Active",
+  "adminListBlockedPeriodScreenStatsUpcoming": "Upcoming",
+  "adminListBlockedPeriodScreenStatsExpired": "Expired",
+  "adminListBlockedPeriodScreenFiltersTitle": "Filters & Search",
+  "adminListBlockedPeriodScreenFiltersShow": "Show Filters",
+  "adminListBlockedPeriodScreenFiltersHide": "Hide Filters",
+  "adminListBlockedPeriodScreenFiltersMenuLabel": "Menu",
+  "adminListBlockedPeriodScreenFiltersMenuAll": "All Menus",
+  "adminListBlockedPeriodScreenFiltersStatusLabel": "Status",
+  "adminListBlockedPeriodScreenFiltersStatusAll": "All Status",
+  "adminListBlockedPeriodScreenFiltersStatusActive": "Active",
+  "adminListBlockedPeriodScreenFiltersStatusUpcoming": "Upcoming",
+  "adminListBlockedPeriodScreenFiltersStatusExpired": "Expired",
+  "adminListBlockedPeriodScreenFiltersStartDateLabel": "Start Date",
+  "adminListBlockedPeriodScreenFiltersEndDateLabel": "End Date",
+  "adminListBlockedPeriodScreenFiltersAllMenusLabel": "Block All Menus Only",
+  "adminListBlockedPeriodScreenFiltersSearchLabel": "Search",
+  "adminListBlockedPeriodScreenFiltersSearchPlaceholder": "Search by reason or menu name...",
+  "adminListBlockedPeriodScreenFiltersFilterButton": "Filter",
+  "adminListBlockedPeriodScreenFiltersResetButton": "Reset",
+  "adminListBlockedPeriodScreenBulkActionsItemsSelected": "items selected",
+  "adminListBlockedPeriodScreenBulkActionsDeleteButton": "Delete",
+  "adminListBlockedPeriodScreenListTitle": "Blocked Periods List",
+  "adminListBlockedPeriodScreenTableHeaderMenu": "Menu",
+  "adminListBlockedPeriodScreenTableHeaderTime": "Time",
+  "adminListBlockedPeriodScreenTableHeaderDuration": "Duration",
+  "adminListBlockedPeriodScreenTableHeaderReason": "Reason",
+  "adminListBlockedPeriodScreenTableHeaderStatus": "Status",
+  "adminListBlockedPeriodScreenTableHeaderActions": "Actions",
+  "adminListBlockedPeriodScreenTableBodyAllMenusBadge": "All Menus",
+  "adminListBlockedPeriodScreenTableBodyMenuNotFound": "Menu not found",
+  "adminListBlockedPeriodScreenTableBodyActionTooltipsDetail": "Detail",
+  "adminListBlockedPeriodScreenTableBodyActionTooltipsEdit": "Edit",
+  "adminListBlockedPeriodScreenTableBodyActionTooltipsDelete": "Delete",
+  "adminListBlockedPeriodScreenEmptyTitle": "No blocked periods",
+  "adminListBlockedPeriodScreenEmptyMessage": "No blocked periods have been created or match the applied filters.",
+  "adminListBlockedPeriodScreenEmptyAddButton": "Add First Period",
+  "adminListBlockedPeriodScreenDeleteModalTitle": "Delete Confirmation",
+  "adminListBlockedPeriodScreenDeleteModalConfirmButton": "Delete",
+  "adminListBlockedPeriodScreenDeleteModalCancelButton": "Cancel",
+  "adminListBlockedPeriodScreenDeleteModalMessageSingle": "Are you sure you want to delete this blocked period?",
+  "adminListBlockedPeriodScreenDeleteModalMessageMultiple": "Are you sure you want to delete {count} blocked periods?",
+  "@adminListBlockedPeriodScreenDeleteModalMessageMultiple": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListBlockedPeriodScreenAlertsDeleteError": "An error occurred while deleting.",
+  "adminListBlockedPeriodScreenCalendarAllMenusLabel": "All Menus",
+  "adminListBlockedPeriodScreenConfirmationDeleteTitle": "Delete Blocked Period",
+  "adminListBlockedPeriodScreenConfirmationDeleteMessage": "Are you sure you want to delete this blocked period?",
+  "adminListBlockedPeriodScreenConfirmationBulkDeleteTitle": "Delete Selected Periods",
+  "adminListBlockedPeriodScreenConfirmationBulkDeleteMessage": "Are you sure you want to delete the selected blocked periods?",
+  "adminListBlockedPeriodScreenDetailTitle": "Blocked Period Details",
+  "adminListBlockedPeriodScreenDetailSubtitle": "Displaying the details of the selected blocked period.",
+  "adminListBlockedPeriodScreenDetailBackButton": "Back",
+  "adminListBlockedPeriodScreenDetailDetailsBlockedMenu": "Blocked Menu",
+  "adminListBlockedPeriodScreenDetailDetailsAllMenus": "All Menus",
+  "adminListBlockedPeriodScreenDetailDetailsMenuNotAvailable": "Menu not available",
+  "adminListBlockedPeriodScreenDetailDetailsStartTime": "Start Time",
+  "adminListBlockedPeriodScreenDetailDetailsEndTime": "End Time",
+  "adminListBlockedPeriodScreenDetailDetailsDuration": "Duration",
+  "adminListBlockedPeriodScreenDetailDetailsReason": "Reason",
+  "adminListBlockedPeriodScreenDetailDetailsStatus": "Status",
+  "adminListBlockedPeriodScreenDetailDetailsCreatedAt": "Created",
+  "adminListBlockedPeriodScreenDetailDetailsUpdatedAt": "Updated",
+  "adminListBlockedPeriodScreenDetailStatusActive": "Active",
+  "adminListBlockedPeriodScreenDetailStatusUpcoming": "Upcoming",
+  "adminListBlockedPeriodScreenDetailStatusCompleted": "Completed",
+  "adminListBlockedPeriodScreenDetailActionsEdit": "Edit",
+  "adminListBlockedPeriodScreenDetailActionsDelete": "Delete",
+  "adminListBlockedPeriodScreenDetailDeleteModalTitle": "Confirm Deletion",
+  "adminListBlockedPeriodScreenDetailDeleteModalText": "Are you sure you want to delete this blocked period? This action cannot be undone.",
+  "adminListBlockedPeriodScreenDetailDeleteModalCancelButton": "Cancel",
+  "adminListBlockedPeriodScreenDetailDeleteModalConfirmButton": "Yes, Delete",
   "adminUpsertBusinessInformationScreenPageTitle": "Edit Business Settings",
   "adminUpsertBusinessInformationScreenPageSubtitle": "Update your business information and operating hours",
   "adminUpsertBusinessInformationScreenPageBackToSettings": "Back to Settings",
@@ -310,6 +495,116 @@
   "adminListBusinessInformationScreenNotFoundTitle": "No Business Settings Found",
   "adminListBusinessInformationScreenNotFoundDescription": "Get started by creating your business settings.",
   "adminListBusinessInformationScreenNotFoundCreateButton": "Create Business Settings",
+  "contactNotificationNotFound": "Contact not found.",
+  "contactNotificationUpdated": "Contact updated successfully.",
+  "contactNotificationErrorOccurred": "An error occurred: {message}",
+  "@contactNotificationErrorOccurred": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "contactNotificationDeleted": "Contact deleted successfully.",
+  "contactNotificationDeletedError": "Contact could not be deleted.",
+  "contactNotificationReplySent": "Reply sent and status updated successfully.",
+  "contactNotificationReplyError": "Contact not found or failed to update.",
+  "contactNotificationBulkDeleteSuccess": "Contacts deleted successfully.",
+  "contactNotificationBulkDeleteError": "No contacts were successfully deleted.",
+  "contactNotificationBulkRepliedSuccess": "{count} contacts successfully marked as replied.",
+  "@contactNotificationBulkRepliedSuccess": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "contactNotificationBulkRepliedError": "No contacts were successfully updated.",
+  "adminListContactScreenPageTitle": "Contact Management",
+  "adminListContactScreenPageSubtitle": "Manage contact messages from customers",
+  "adminListContactScreenAddButton": "Add Contact",
+  "adminListContactScreenStatsTotal": "Total Contacts",
+  "adminListContactScreenStatsPending": "Pending",
+  "adminListContactScreenStatsReplied": "Replied",
+  "adminListContactScreenStatsToday": "Today",
+  "adminListContactScreenFilterTitle": "Filter & Search",
+  "adminListContactScreenFilterShowButton": "Show Filters",
+  "adminListContactScreenFilterHideButton": "Hide Filters",
+  "adminListContactScreenFilterStatusLabel": "Status",
+  "adminListContactScreenFilterStatusAll": "All Status",
+  "adminListContactScreenFilterStartDateLabel": "Start Date",
+  "adminListContactScreenFilterEndDateLabel": "End Date",
+  "adminListContactScreenFilterSearchLabel": "Search",
+  "adminListContactScreenFilterSearchPlaceholder": "Search name, email, subject...",
+  "adminListContactScreenFilterFilterButton": "Filter",
+  "adminListContactScreenFilterResetButton": "Reset",
+  "adminListContactScreenBulkActionsItemsSelected": "{count} items selected",
+  "@adminListContactScreenBulkActionsItemsSelected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListContactScreenBulkActionsDeleteButton": "Delete",
+  "adminListContactScreenTableTitle": "Contact List",
+  "adminListContactScreenTableHeaderSender": "Sender",
+  "adminListContactScreenTableHeaderSubject": "Subject",
+  "adminListContactScreenTableHeaderMessage": "Message",
+  "adminListContactScreenTableHeaderDate": "Date",
+  "adminListContactScreenTableHeaderStatus": "Status",
+  "adminListContactScreenTableHeaderActions": "Actions",
+  "adminListContactScreenTableActionViewTooltip": "View Details",
+  "adminListContactScreenTableActionReplyTooltip": "Quick Reply",
+  "adminListContactScreenTableActionDeleteTooltip": "Delete",
+  "adminListContactScreenStatusPending": "Pending",
+  "adminListContactScreenStatusReplied": "Replied",
+  "adminListContactScreenEmptyTitle": "No contacts",
+  "adminListContactScreenEmptyMessage": "No contact messages have been received or match the applied filters.",
+  "adminListContactScreenModalCancelButton": "Cancel",
+  "adminListContactScreenModalReplyTitle": "Quick Reply",
+  "adminListContactScreenModalReplyPlaceholder": "Write your reply...",
+  "adminListContactScreenModalReplySendButton": "Send Reply",
+  "adminListContactScreenModalDeleteTitle": "Confirm Delete",
+  "adminListContactScreenModalDeleteConfirmButton": "Delete",
+  "adminListContactScreenModalDeleteConfirmMessageSingle": "Are you sure you want to delete this contact?",
+  "adminListContactScreenModalDeleteConfirmMessageMultiple": "Are you sure you want to delete {count} contacts?",
+  "@adminListContactScreenModalDeleteConfirmMessageMultiple": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListContactScreenAlertReplyEmpty": "Reply message cannot be empty.",
+  "adminListContactScreenAlertReplyError": "An error occurred while sending the reply.",
+  "adminListContactScreenAlertDeleteError": "An error occurred while deleting.",
+  "adminListContactScreenAlertDeleteSuccess": "Contact(s) deleted successfully.",
+  "adminListContactScreenAlertReplySuccess": "Reply sent successfully.",
+  "adminUpsertContactScreenPageTitle": "Contact Details",
+  "adminUpsertContactScreenPageSubtitle": "View and update contact message",
+  "adminUpsertContactScreenButtonsBackToList": "Back to List",
+  "adminUpsertContactScreenButtonsUpdate": "Update Contact",
+  "adminUpsertContactScreenButtonsDelete": "Delete",
+  "adminUpsertContactScreenButtonsCancel": "Cancel",
+  "adminUpsertContactScreenCardContactInfo": "Contact Information",
+  "adminUpsertContactScreenCardUpdateContact": "Update Contact",
+  "adminUpsertContactScreenCardQuickActions": "Quick Actions",
+  "adminUpsertContactScreenLabelsSubject": "Subject",
+  "adminUpsertContactScreenLabelsMessage": "Message",
+  "adminUpsertContactScreenLabelsAdminReply": "Admin Reply",
+  "adminUpsertContactScreenLabelsStatus": "Status",
+  "adminUpsertContactScreenStatusPending": "Pending",
+  "adminUpsertContactScreenStatusReplied": "Replied",
+  "adminUpsertContactScreenFormReplyPlaceholder": "Write your reply to the customer...",
+  "adminUpsertContactScreenFormReplyHelpText": "Maximum 2000 characters",
+  "adminUpsertContactScreenQuickActionsMarkAsReplied": "Mark as Replied",
+  "adminUpsertContactScreenQuickActionsMarkAsPending": "Mark as Pending",
+  "adminUpsertContactScreenQuickActionsDefaultReply": "Thank you for contacting us. We have received your message and will get back to you soon.",
+  "adminUpsertContactScreenDeleteModalTitle": "Confirm Delete",
+  "adminUpsertContactScreenDeleteModalText": "Are you sure you want to delete this contact? This action cannot be undone.",
+  "adminUpsertContactScreenAlertsErrorOccurred": "An error occurred:",
+  "adminUpsertContactScreenAlertsDeleteError": "An error occurred while deleting",
   "adminListCustomerManagementTitle": "Customer Management",
   "adminListCustomerManagementDescription": "Manage customer data and their reservation history.",
   "adminListCustomerManagementStatsFirstTime": "First Time",

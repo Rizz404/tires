@@ -1,0 +1,113 @@
+{
+  "@@locale": "ja",
+  "contactNotificationNotFound": "お問い合わせが見つかりません。",
+  "contactNotificationUpdated": "お問い合わせが正常に更新されました。",
+  "contactNotificationErrorOccurred": "エラーが発生しました: {message}",
+  "@contactNotificationErrorOccurred": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "contactNotificationDeleted": "お問い合わせが正常に削除されました。",
+  "contactNotificationDeletedError": "お問い合わせを削除できませんでした。",
+  "contactNotificationReplySent": "返信が送信され、ステータスが正常に更新されました。",
+  "contactNotificationReplyError": "お問い合わせが見つからないか、更新に失敗しました。",
+  "contactNotificationBulkDeleteSuccess": "選択されたお問い合わせが正常に削除されました。",
+  "contactNotificationBulkDeleteError": "正常に削除されたお問い合わせはありません。",
+  "contactNotificationBulkRepliedSuccess": "{count}件のお問い合わせが返信済みとしてマークされました。",
+  "@contactNotificationBulkRepliedSuccess": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "contactNotificationBulkRepliedError": "正常に更新されたお問い合わせはありません。",
+  "adminListContactScreenPageTitle": "お問い合わせ管理",
+  "adminListContactScreenPageSubtitle": "顧客からのお問い合わせメッセージを管理します",
+  "adminListContactScreenAddButton": "お問い合わせを追加",
+  "adminListContactScreenStatsTotal": "総お問い合わせ数",
+  "adminListContactScreenStatsPending": "未対応",
+  "adminListContactScreenStatsReplied": "返信済み",
+  "adminListContactScreenStatsToday": "本日",
+  "adminListContactScreenFilterTitle": "フィルターと検索",
+  "adminListContactScreenFilterShowButton": "フィルターを表示",
+  "adminListContactScreenFilterHideButton": "フィルターを非表示",
+  "adminListContactScreenFilterStatusLabel": "ステータス",
+  "adminListContactScreenFilterStatusAll": "すべてのステータス",
+  "adminListContactScreenFilterStartDateLabel": "開始日",
+  "adminListContactScreenFilterEndDateLabel": "終了日",
+  "adminListContactScreenFilterSearchLabel": "検索",
+  "adminListContactScreenFilterSearchPlaceholder": "名前、メール、件名で検索...",
+  "adminListContactScreenFilterFilterButton": "フィルター",
+  "adminListContactScreenFilterResetButton": "リセット",
+  "adminListContactScreenBulkActionsItemsSelected": "{count} 件選択中",
+  "@adminListContactScreenBulkActionsItemsSelected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListContactScreenBulkActionsDeleteButton": "削除",
+  "adminListContactScreenTableTitle": "お問い合わせ一覧",
+  "adminListContactScreenTableHeaderSender": "送信者",
+  "adminListContactScreenTableHeaderSubject": "件名",
+  "adminListContactScreenTableHeaderMessage": "メッセージ",
+  "adminListContactScreenTableHeaderDate": "日付",
+  "adminListContactScreenTableHeaderStatus": "ステータス",
+  "adminListContactScreenTableHeaderActions": "操作",
+  "adminListContactScreenTableActionViewTooltip": "詳細を表示",
+  "adminListContactScreenTableActionReplyTooltip": "クイック返信",
+  "adminListContactScreenTableActionDeleteTooltip": "削除",
+  "adminListContactScreenStatusPending": "未対応",
+  "adminListContactScreenStatusReplied": "返信済み",
+  "adminListContactScreenEmptyTitle": "お問い合わせがありません",
+  "adminListContactScreenEmptyMessage": "受信したお問い合わせメッセージがないか、適用されたフィルターに一致するものがありません。",
+  "adminListContactScreenModalCancelButton": "キャンセル",
+  "adminListContactScreenModalReplyTitle": "クイック返信",
+  "adminListContactScreenModalReplyPlaceholder": "返信内容を入力してください...",
+  "adminListContactScreenModalReplySendButton": "返信を送信",
+  "adminListContactScreenModalDeleteTitle": "削除の確認",
+  "adminListContactScreenModalDeleteConfirmButton": "削除する",
+  "adminListContactScreenModalDeleteConfirmMessageSingle": "このお問い合わせを削除してもよろしいですか？",
+  "adminListContactScreenModalDeleteConfirmMessageMultiple": "{count}件のお問い合わせを削除してもよろしいですか？",
+  "@adminListContactScreenModalDeleteConfirmMessageMultiple": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListContactScreenAlertReplyEmpty": "返信メッセージは空にできません。",
+  "adminListContactScreenAlertReplyError": "返信の送信中にエラーが発生しました。",
+  "adminListContactScreenAlertDeleteError": "削除中にエラーが発生しました。",
+  "adminListContactScreenAlertDeleteSuccess": "お問い合わせを正常に削除しました。",
+  "adminListContactScreenAlertReplySuccess": "返信を正常に送信しました。",
+  "adminUpsertContactScreenPageTitle": "お問い合わせ詳細",
+  "adminUpsertContactScreenPageSubtitle": "お問い合わせメッセージの表示と更新",
+  "adminUpsertContactScreenButtonsBackToList": "一覧に戻る",
+  "adminUpsertContactScreenButtonsUpdate": "お問い合わせを更新",
+  "adminUpsertContactScreenButtonsDelete": "削除",
+  "adminUpsertContactScreenButtonsCancel": "キャンセル",
+  "adminUpsertContactScreenCardContactInfo": "連絡先情報",
+  "adminUpsertContactScreenCardUpdateContact": "お問い合わせの更新",
+  "adminUpsertContactScreenCardQuickActions": "クイックアクション",
+  "adminUpsertContactScreenLabelsSubject": "件名",
+  "adminUpsertContactScreenLabelsMessage": "メッセージ",
+  "adminUpsertContactScreenLabelsAdminReply": "管理者からの返信",
+  "adminUpsertContactScreenLabelsStatus": "ステータス",
+  "adminUpsertContactScreenStatusPending": "未対応",
+  "adminUpsertContactScreenStatusReplied": "返信済み",
+  "adminUpsertContactScreenFormReplyPlaceholder": "顧客への返信を記入してください...",
+  "adminUpsertContactScreenFormReplyHelpText": "最大2000文字",
+  "adminUpsertContactScreenQuickActionsMarkAsReplied": "返信済みにする",
+  "adminUpsertContactScreenQuickActionsMarkAsPending": "未対応にする",
+  "adminUpsertContactScreenQuickActionsDefaultReply": "お問い合わせいただきありがとうございます。メッセージは受信いたしました。近日中にご返信いたします。",
+  "adminUpsertContactScreenDeleteModalTitle": "削除の確認",
+  "adminUpsertContactScreenDeleteModalText": "このお問い合わせを削除してもよろしいですか？この操作は元に戻せません。",
+  "adminUpsertContactScreenAlertsErrorOccurred": "エラーが発生しました:",
+  "adminUpsertContactScreenAlertsDeleteError": "削除中にエラーが発生しました"
+}

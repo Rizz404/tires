@@ -718,6 +718,495 @@ class L10nId extends L10n {
   String get forgotPasswordBackToLogin => 'Back to Login';
 
   @override
+  String get blockedPeriodNotificationCreateSuccess =>
+      'Blocked period created successfully.';
+
+  @override
+  String blockedPeriodNotificationCreateError(String message) {
+    return 'An error occurred: $message';
+  }
+
+  @override
+  String get blockedPeriodNotificationConflictError =>
+      'A time conflict occurred with an existing blocked period.';
+
+  @override
+  String get blockedPeriodNotificationNotFound => 'Blocked period not found.';
+
+  @override
+  String get blockedPeriodNotificationUpdateSuccess =>
+      'Blocked period updated successfully.';
+
+  @override
+  String blockedPeriodNotificationUpdateError(String message) {
+    return 'An error occurred: $message';
+  }
+
+  @override
+  String get blockedPeriodNotificationDeleteSuccess =>
+      'Blocked period has been deleted successfully.';
+
+  @override
+  String blockedPeriodNotificationDeleteError(String message) {
+    return 'An error occurred while deleting the blocked period: $message';
+  }
+
+  @override
+  String blockedPeriodNotificationBulkDeleteSuccess(String count) {
+    return 'Successfully deleted $count blocked period(s).';
+  }
+
+  @override
+  String blockedPeriodNotificationBulkDeleteError(String message) {
+    return 'An error occurred during bulk deletion: $message';
+  }
+
+  @override
+  String get blockedPeriodValidationMenuRequiredIfNotAll =>
+      'The menu field is required when not blocking all menus.';
+
+  @override
+  String get blockedPeriodValidationStartBeforeEnd =>
+      'The start time must be a date before the end time.';
+
+  @override
+  String get blockedPeriodValidationMinDuration =>
+      'The minimum duration is 15 minutes.';
+
+  @override
+  String get blockedPeriodValidationMaxDuration =>
+      'The maximum duration is 30 days.';
+
+  @override
+  String get blockedPeriodValidationAllMenusBoolean =>
+      'The all menus field must be true or false.';
+
+  @override
+  String blockedPeriodValidationConflictMessage(String details) {
+    return 'Time conflict with the following blocked period(s):\n$details';
+  }
+
+  @override
+  String get blockedPeriodValidationMenuIdExists =>
+      'The selected menu is invalid.';
+
+  @override
+  String get blockedPeriodValidationStartDatetimeRequired =>
+      'The start time is required.';
+
+  @override
+  String get blockedPeriodValidationStartDatetimeDate =>
+      'The start time format is invalid.';
+
+  @override
+  String get blockedPeriodValidationStartDatetimeAfterOrEqual =>
+      'The start time must be a date after or equal to now.';
+
+  @override
+  String get blockedPeriodValidationEndDatetimeRequired =>
+      'The end time is required.';
+
+  @override
+  String get blockedPeriodValidationEndDatetimeDate =>
+      'The end time format is invalid.';
+
+  @override
+  String get blockedPeriodValidationEndDatetimeAfter =>
+      'The end time must be a date after the start time.';
+
+  @override
+  String get blockedPeriodValidationReasonRequired => 'The reason is required.';
+
+  @override
+  String get blockedPeriodValidationReasonString =>
+      'The reason must be a string.';
+
+  @override
+  String get blockedPeriodValidationReasonMax =>
+      'The reason may not be greater than 500 characters.';
+
+  @override
+  String get blockedPeriodValidationReasonMin =>
+      'The reason must be at least 3 characters.';
+
+  @override
+  String get blockedPeriodAttributesMenuId => 'menu';
+
+  @override
+  String get blockedPeriodAttributesStartDatetime => 'start time';
+
+  @override
+  String get blockedPeriodAttributesEndDatetime => 'end time';
+
+  @override
+  String get blockedPeriodAttributesReason => 'reason';
+
+  @override
+  String get blockedPeriodAttributesAllMenus => 'all menus';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateTitle =>
+      'Create New Blocked Period';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateDescription =>
+      'Set a time period during which a specific menu or all menus are unavailable for reservation.';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenBackToListButton => 'Back to List';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateSaveButton =>
+      'Save Blocked Period';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateSavingButton => 'Saving...';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCalendarTitle =>
+      'Calendar View - Click on dates to select';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenDurationPresetsFullDay =>
+      'Full Day (00:00 - 23:59)';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenDurationPresetsFull2Days =>
+      'Full 2 Days';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenDurationPresetsFullWeek =>
+      'Full Week (7 days)';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenDurationPresetsCustom =>
+      'Custom Duration';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormAllMenusLabel =>
+      'Block All Menus?';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormSelectMenuLabel =>
+      'Select Specific Menu';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormSelectMenuPlaceholder =>
+      '-- Select a menu --';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormDurationPresetLabel =>
+      'Duration Preset';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormStartDateLabel =>
+      'Start Date';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormEndDateLabel => 'End Date';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormStartTimeLabel =>
+      'Start Time';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormEndTimeLabel => 'End Time';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormReasonLabel => 'Reason';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormReasonPlaceholder =>
+      'e.g., Regular maintenance, holiday, private event, etc.';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenConflictAlertTitle =>
+      'Schedule Conflict Detected!';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateConflictAlertMessage =>
+      'The entered period overlaps with the following schedule(s):';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditPageTitle =>
+      'Edit Blocked Period';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditPageDescription =>
+      'Update the time period when a menu is unavailable for reservation.';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditFormAllMenusLabel =>
+      'Block for All Menus?';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditFormSpecificMenuLabel =>
+      'Select Specific Menu';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditFormReasonPlaceholder =>
+      'Example: Routine maintenance, public holiday, private event, etc.';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditConflictDescription =>
+      'The period you entered overlaps with the following schedule:';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditButtonSaveText => 'Save Changes';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditButtonCheckingText =>
+      'Checking...';
+
+  @override
+  String get adminListBlockedPeriodScreenPageTitle =>
+      'Blocked Period Management';
+
+  @override
+  String get adminListBlockedPeriodScreenPageSubtitle =>
+      'Manage blocked time periods for reservations';
+
+  @override
+  String get adminListBlockedPeriodScreenAddButton => 'Add Period';
+
+  @override
+  String get adminListBlockedPeriodScreenStatsTotal => 'Total Periods';
+
+  @override
+  String get adminListBlockedPeriodScreenStatsActive => 'Currently Active';
+
+  @override
+  String get adminListBlockedPeriodScreenStatsUpcoming => 'Upcoming';
+
+  @override
+  String get adminListBlockedPeriodScreenStatsExpired => 'Expired';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersTitle => 'Filters & Search';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersShow => 'Show Filters';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersHide => 'Hide Filters';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersMenuLabel => 'Menu';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersMenuAll => 'All Menus';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersStatusLabel => 'Status';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersStatusAll => 'All Status';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersStatusActive => 'Active';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersStatusUpcoming => 'Upcoming';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersStatusExpired => 'Expired';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersStartDateLabel => 'Start Date';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersEndDateLabel => 'End Date';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersAllMenusLabel =>
+      'Block All Menus Only';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersSearchLabel => 'Search';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersSearchPlaceholder =>
+      'Search by reason or menu name...';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersFilterButton => 'Filter';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersResetButton => 'Reset';
+
+  @override
+  String get adminListBlockedPeriodScreenBulkActionsItemsSelected =>
+      'items selected';
+
+  @override
+  String get adminListBlockedPeriodScreenBulkActionsDeleteButton => 'Delete';
+
+  @override
+  String get adminListBlockedPeriodScreenListTitle => 'Blocked Periods List';
+
+  @override
+  String get adminListBlockedPeriodScreenTableHeaderMenu => 'Menu';
+
+  @override
+  String get adminListBlockedPeriodScreenTableHeaderTime => 'Time';
+
+  @override
+  String get adminListBlockedPeriodScreenTableHeaderDuration => 'Duration';
+
+  @override
+  String get adminListBlockedPeriodScreenTableHeaderReason => 'Reason';
+
+  @override
+  String get adminListBlockedPeriodScreenTableHeaderStatus => 'Status';
+
+  @override
+  String get adminListBlockedPeriodScreenTableHeaderActions => 'Actions';
+
+  @override
+  String get adminListBlockedPeriodScreenTableBodyAllMenusBadge => 'All Menus';
+
+  @override
+  String get adminListBlockedPeriodScreenTableBodyMenuNotFound =>
+      'Menu not found';
+
+  @override
+  String get adminListBlockedPeriodScreenTableBodyActionTooltipsDetail =>
+      'Detail';
+
+  @override
+  String get adminListBlockedPeriodScreenTableBodyActionTooltipsEdit => 'Edit';
+
+  @override
+  String get adminListBlockedPeriodScreenTableBodyActionTooltipsDelete =>
+      'Delete';
+
+  @override
+  String get adminListBlockedPeriodScreenEmptyTitle => 'No blocked periods';
+
+  @override
+  String get adminListBlockedPeriodScreenEmptyMessage =>
+      'No blocked periods have been created or match the applied filters.';
+
+  @override
+  String get adminListBlockedPeriodScreenEmptyAddButton => 'Add First Period';
+
+  @override
+  String get adminListBlockedPeriodScreenDeleteModalTitle =>
+      'Delete Confirmation';
+
+  @override
+  String get adminListBlockedPeriodScreenDeleteModalConfirmButton => 'Delete';
+
+  @override
+  String get adminListBlockedPeriodScreenDeleteModalCancelButton => 'Cancel';
+
+  @override
+  String get adminListBlockedPeriodScreenDeleteModalMessageSingle =>
+      'Are you sure you want to delete this blocked period?';
+
+  @override
+  String adminListBlockedPeriodScreenDeleteModalMessageMultiple(String count) {
+    return 'Are you sure you want to delete $count blocked periods?';
+  }
+
+  @override
+  String get adminListBlockedPeriodScreenAlertsDeleteError =>
+      'An error occurred while deleting.';
+
+  @override
+  String get adminListBlockedPeriodScreenCalendarAllMenusLabel => 'All Menus';
+
+  @override
+  String get adminListBlockedPeriodScreenConfirmationDeleteTitle =>
+      'Delete Blocked Period';
+
+  @override
+  String get adminListBlockedPeriodScreenConfirmationDeleteMessage =>
+      'Are you sure you want to delete this blocked period?';
+
+  @override
+  String get adminListBlockedPeriodScreenConfirmationBulkDeleteTitle =>
+      'Delete Selected Periods';
+
+  @override
+  String get adminListBlockedPeriodScreenConfirmationBulkDeleteMessage =>
+      'Are you sure you want to delete the selected blocked periods?';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailTitle =>
+      'Blocked Period Details';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailSubtitle =>
+      'Displaying the details of the selected blocked period.';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailBackButton => 'Back';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsBlockedMenu =>
+      'Blocked Menu';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsAllMenus => 'All Menus';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsMenuNotAvailable =>
+      'Menu not available';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsStartTime => 'Start Time';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsEndTime => 'End Time';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsDuration => 'Duration';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsReason => 'Reason';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsStatus => 'Status';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsCreatedAt => 'Created';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsUpdatedAt => 'Updated';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailStatusActive => 'Active';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailStatusUpcoming => 'Upcoming';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailStatusCompleted => 'Completed';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailActionsEdit => 'Edit';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailActionsDelete => 'Delete';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDeleteModalTitle =>
+      'Confirm Deletion';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDeleteModalText =>
+      'Are you sure you want to delete this blocked period? This action cannot be undone.';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDeleteModalCancelButton =>
+      'Cancel';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDeleteModalConfirmButton =>
+      'Yes, Delete';
+
+  @override
   String get adminUpsertBusinessInformationScreenPageTitle =>
       'Edit Business Settings';
 
@@ -1037,6 +1526,284 @@ class L10nId extends L10n {
   @override
   String get adminListBusinessInformationScreenNotFoundCreateButton =>
       'Create Business Settings';
+
+  @override
+  String get contactNotificationNotFound => 'Contact not found.';
+
+  @override
+  String get contactNotificationUpdated => 'Contact updated successfully.';
+
+  @override
+  String contactNotificationErrorOccurred(String message) {
+    return 'An error occurred: $message';
+  }
+
+  @override
+  String get contactNotificationDeleted => 'Contact deleted successfully.';
+
+  @override
+  String get contactNotificationDeletedError => 'Contact could not be deleted.';
+
+  @override
+  String get contactNotificationReplySent =>
+      'Reply sent and status updated successfully.';
+
+  @override
+  String get contactNotificationReplyError =>
+      'Contact not found or failed to update.';
+
+  @override
+  String get contactNotificationBulkDeleteSuccess =>
+      'Contacts deleted successfully.';
+
+  @override
+  String get contactNotificationBulkDeleteError =>
+      'No contacts were successfully deleted.';
+
+  @override
+  String contactNotificationBulkRepliedSuccess(String count) {
+    return '$count contacts successfully marked as replied.';
+  }
+
+  @override
+  String get contactNotificationBulkRepliedError =>
+      'No contacts were successfully updated.';
+
+  @override
+  String get adminListContactScreenPageTitle => 'Contact Management';
+
+  @override
+  String get adminListContactScreenPageSubtitle =>
+      'Manage contact messages from customers';
+
+  @override
+  String get adminListContactScreenAddButton => 'Add Contact';
+
+  @override
+  String get adminListContactScreenStatsTotal => 'Total Contacts';
+
+  @override
+  String get adminListContactScreenStatsPending => 'Pending';
+
+  @override
+  String get adminListContactScreenStatsReplied => 'Replied';
+
+  @override
+  String get adminListContactScreenStatsToday => 'Today';
+
+  @override
+  String get adminListContactScreenFilterTitle => 'Filter & Search';
+
+  @override
+  String get adminListContactScreenFilterShowButton => 'Show Filters';
+
+  @override
+  String get adminListContactScreenFilterHideButton => 'Hide Filters';
+
+  @override
+  String get adminListContactScreenFilterStatusLabel => 'Status';
+
+  @override
+  String get adminListContactScreenFilterStatusAll => 'All Status';
+
+  @override
+  String get adminListContactScreenFilterStartDateLabel => 'Start Date';
+
+  @override
+  String get adminListContactScreenFilterEndDateLabel => 'End Date';
+
+  @override
+  String get adminListContactScreenFilterSearchLabel => 'Search';
+
+  @override
+  String get adminListContactScreenFilterSearchPlaceholder =>
+      'Search name, email, subject...';
+
+  @override
+  String get adminListContactScreenFilterFilterButton => 'Filter';
+
+  @override
+  String get adminListContactScreenFilterResetButton => 'Reset';
+
+  @override
+  String adminListContactScreenBulkActionsItemsSelected(String count) {
+    return '$count items selected';
+  }
+
+  @override
+  String get adminListContactScreenBulkActionsDeleteButton => 'Delete';
+
+  @override
+  String get adminListContactScreenTableTitle => 'Contact List';
+
+  @override
+  String get adminListContactScreenTableHeaderSender => 'Sender';
+
+  @override
+  String get adminListContactScreenTableHeaderSubject => 'Subject';
+
+  @override
+  String get adminListContactScreenTableHeaderMessage => 'Message';
+
+  @override
+  String get adminListContactScreenTableHeaderDate => 'Date';
+
+  @override
+  String get adminListContactScreenTableHeaderStatus => 'Status';
+
+  @override
+  String get adminListContactScreenTableHeaderActions => 'Actions';
+
+  @override
+  String get adminListContactScreenTableActionViewTooltip => 'View Details';
+
+  @override
+  String get adminListContactScreenTableActionReplyTooltip => 'Quick Reply';
+
+  @override
+  String get adminListContactScreenTableActionDeleteTooltip => 'Delete';
+
+  @override
+  String get adminListContactScreenStatusPending => 'Pending';
+
+  @override
+  String get adminListContactScreenStatusReplied => 'Replied';
+
+  @override
+  String get adminListContactScreenEmptyTitle => 'No contacts';
+
+  @override
+  String get adminListContactScreenEmptyMessage =>
+      'No contact messages have been received or match the applied filters.';
+
+  @override
+  String get adminListContactScreenModalCancelButton => 'Cancel';
+
+  @override
+  String get adminListContactScreenModalReplyTitle => 'Quick Reply';
+
+  @override
+  String get adminListContactScreenModalReplyPlaceholder =>
+      'Write your reply...';
+
+  @override
+  String get adminListContactScreenModalReplySendButton => 'Send Reply';
+
+  @override
+  String get adminListContactScreenModalDeleteTitle => 'Confirm Delete';
+
+  @override
+  String get adminListContactScreenModalDeleteConfirmButton => 'Delete';
+
+  @override
+  String get adminListContactScreenModalDeleteConfirmMessageSingle =>
+      'Are you sure you want to delete this contact?';
+
+  @override
+  String adminListContactScreenModalDeleteConfirmMessageMultiple(String count) {
+    return 'Are you sure you want to delete $count contacts?';
+  }
+
+  @override
+  String get adminListContactScreenAlertReplyEmpty =>
+      'Reply message cannot be empty.';
+
+  @override
+  String get adminListContactScreenAlertReplyError =>
+      'An error occurred while sending the reply.';
+
+  @override
+  String get adminListContactScreenAlertDeleteError =>
+      'An error occurred while deleting.';
+
+  @override
+  String get adminListContactScreenAlertDeleteSuccess =>
+      'Contact(s) deleted successfully.';
+
+  @override
+  String get adminListContactScreenAlertReplySuccess =>
+      'Reply sent successfully.';
+
+  @override
+  String get adminUpsertContactScreenPageTitle => 'Contact Details';
+
+  @override
+  String get adminUpsertContactScreenPageSubtitle =>
+      'View and update contact message';
+
+  @override
+  String get adminUpsertContactScreenButtonsBackToList => 'Back to List';
+
+  @override
+  String get adminUpsertContactScreenButtonsUpdate => 'Update Contact';
+
+  @override
+  String get adminUpsertContactScreenButtonsDelete => 'Delete';
+
+  @override
+  String get adminUpsertContactScreenButtonsCancel => 'Cancel';
+
+  @override
+  String get adminUpsertContactScreenCardContactInfo => 'Contact Information';
+
+  @override
+  String get adminUpsertContactScreenCardUpdateContact => 'Update Contact';
+
+  @override
+  String get adminUpsertContactScreenCardQuickActions => 'Quick Actions';
+
+  @override
+  String get adminUpsertContactScreenLabelsSubject => 'Subject';
+
+  @override
+  String get adminUpsertContactScreenLabelsMessage => 'Message';
+
+  @override
+  String get adminUpsertContactScreenLabelsAdminReply => 'Admin Reply';
+
+  @override
+  String get adminUpsertContactScreenLabelsStatus => 'Status';
+
+  @override
+  String get adminUpsertContactScreenStatusPending => 'Pending';
+
+  @override
+  String get adminUpsertContactScreenStatusReplied => 'Replied';
+
+  @override
+  String get adminUpsertContactScreenFormReplyPlaceholder =>
+      'Write your reply to the customer...';
+
+  @override
+  String get adminUpsertContactScreenFormReplyHelpText =>
+      'Maximum 2000 characters';
+
+  @override
+  String get adminUpsertContactScreenQuickActionsMarkAsReplied =>
+      'Mark as Replied';
+
+  @override
+  String get adminUpsertContactScreenQuickActionsMarkAsPending =>
+      'Mark as Pending';
+
+  @override
+  String get adminUpsertContactScreenQuickActionsDefaultReply =>
+      'Thank you for contacting us. We have received your message and will get back to you soon.';
+
+  @override
+  String get adminUpsertContactScreenDeleteModalTitle => 'Confirm Delete';
+
+  @override
+  String get adminUpsertContactScreenDeleteModalText =>
+      'Are you sure you want to delete this contact? This action cannot be undone.';
+
+  @override
+  String get adminUpsertContactScreenAlertsErrorOccurred =>
+      'An error occurred:';
+
+  @override
+  String get adminUpsertContactScreenAlertsDeleteError =>
+      'An error occurred while deleting';
 
   @override
   String get adminListCustomerManagementTitle => 'Customer Management';

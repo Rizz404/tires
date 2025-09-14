@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
-import 'package:tires/features/blocked/presentation/widgets/blocked_period_filter_search.dart';
-import 'package:tires/features/blocked/presentation/widgets/blocked_period_table_widget.dart';
+import 'package:tires/features/blocked_period/presentation/widgets/blocked_period_filter_search.dart';
+import 'package:tires/features/blocked_period/presentation/widgets/blocked_period_table_widget.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/user/domain/entities/blocked_period.dart';
 import 'package:tires/shared/presentation/widgets/admin_app_bar.dart';
@@ -17,14 +17,16 @@ import 'package:tires/shared/presentation/widgets/stat_tile.dart';
 
 // Todo: Nanti buat i18n juga dan benerin biar pake shared widget
 @RoutePage()
-class AdminListBlockedScreen extends StatefulWidget {
-  const AdminListBlockedScreen({super.key});
+class AdminListBlockedPeriodScreen extends StatefulWidget {
+  const AdminListBlockedPeriodScreen({super.key});
 
   @override
-  State<AdminListBlockedScreen> createState() => _AdminListBlockedScreenState();
+  State<AdminListBlockedPeriodScreen> createState() =>
+      _AdminListBlockedPeriodScreenState();
 }
 
-class _AdminListBlockedScreenState extends State<AdminListBlockedScreen> {
+class _AdminListBlockedPeriodScreenState
+    extends State<AdminListBlockedPeriodScreen> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   bool _isLoading = false;
   bool _isFilterVisible = true;

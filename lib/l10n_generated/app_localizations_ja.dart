@@ -682,6 +682,464 @@ class L10nJa extends L10n {
   String get forgotPasswordBackToLogin => 'ログインに戻る';
 
   @override
+  String get blockedPeriodNotificationCreateSuccess => 'ブロック期間が正常に作成されました。';
+
+  @override
+  String blockedPeriodNotificationCreateError(String message) {
+    return 'エラーが発生しました: $message';
+  }
+
+  @override
+  String get blockedPeriodNotificationConflictError =>
+      '既存のブロック期間と時間の競合が発生しました。';
+
+  @override
+  String get blockedPeriodNotificationNotFound => 'ブロック期間が見つかりません。';
+
+  @override
+  String get blockedPeriodNotificationUpdateSuccess => 'ブロック期間が正常に更新されました。';
+
+  @override
+  String blockedPeriodNotificationUpdateError(String message) {
+    return 'エラーが発生しました： $message';
+  }
+
+  @override
+  String get blockedPeriodNotificationDeleteSuccess => 'ブロック期間が正常に削除されました。';
+
+  @override
+  String blockedPeriodNotificationDeleteError(String message) {
+    return 'ブロック期間の削除中にエラーが発生しました: $message';
+  }
+
+  @override
+  String blockedPeriodNotificationBulkDeleteSuccess(String count) {
+    return '$count 件のブロック期間を正常に削除しました。';
+  }
+
+  @override
+  String blockedPeriodNotificationBulkDeleteError(String message) {
+    return '一括削除中にエラーが発生しました: $message';
+  }
+
+  @override
+  String get blockedPeriodValidationMenuRequiredIfNotAll =>
+      '全てのメニューをブロックしない場合は、メニューを選択する必要があります。';
+
+  @override
+  String get blockedPeriodValidationStartBeforeEnd =>
+      '開始日時は終了日時より前の時刻である必要があります。';
+
+  @override
+  String get blockedPeriodValidationMinDuration => '最短期間は15分です。';
+
+  @override
+  String get blockedPeriodValidationMaxDuration => '最長期間は30日です。';
+
+  @override
+  String get blockedPeriodValidationAllMenusBoolean =>
+      '「全てのメニュー」フィールドは true または false である必要があります。';
+
+  @override
+  String blockedPeriodValidationConflictMessage(String details) {
+    return '以下のブロック期間と時間が競合しています：\n$details';
+  }
+
+  @override
+  String get blockedPeriodValidationMenuIdExists => '選択されたメニューは無効です。';
+
+  @override
+  String get blockedPeriodValidationStartDatetimeRequired => '開始日時は必須です。';
+
+  @override
+  String get blockedPeriodValidationStartDatetimeDate => '開始日時の形式が無効です。';
+
+  @override
+  String get blockedPeriodValidationStartDatetimeAfterOrEqual =>
+      '開始日時は現在時刻以降である必要があります。';
+
+  @override
+  String get blockedPeriodValidationEndDatetimeRequired => '終了日時は必須です。';
+
+  @override
+  String get blockedPeriodValidationEndDatetimeDate => '終了日時の形式が無効です。';
+
+  @override
+  String get blockedPeriodValidationEndDatetimeAfter =>
+      '終了日時は開始日時より後の時刻である必要があります。';
+
+  @override
+  String get blockedPeriodValidationReasonRequired => '理由は必須です。';
+
+  @override
+  String get blockedPeriodValidationReasonString => '理由は文字列である必要があります。';
+
+  @override
+  String get blockedPeriodValidationReasonMax => '理由は500文字以内で入力してください。';
+
+  @override
+  String get blockedPeriodValidationReasonMin => '理由は3文字以上で入力してください。';
+
+  @override
+  String get blockedPeriodAttributesMenuId => 'メニュー';
+
+  @override
+  String get blockedPeriodAttributesStartDatetime => '開始日時';
+
+  @override
+  String get blockedPeriodAttributesEndDatetime => '終了日時';
+
+  @override
+  String get blockedPeriodAttributesReason => '理由';
+
+  @override
+  String get blockedPeriodAttributesAllMenus => '全てのメニュー';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateTitle => '新規ブロック期間の作成';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateDescription =>
+      '特定または全てのメニューの予約を不可にする期間を設定します。';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenBackToListButton => '一覧に戻る';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateSaveButton => 'ブロック期間を保存';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateSavingButton => '保存中...';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCalendarTitle =>
+      'カレンダー表示 - 日付をクリックして選択';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenDurationPresetsFullDay =>
+      '終日 (00:00 - 23:59)';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenDurationPresetsFull2Days => '2日間';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenDurationPresetsFullWeek =>
+      '1週間 (7日間)';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenDurationPresetsCustom => 'カスタム期間';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormAllMenusLabel =>
+      '全てのメニューをブロックしますか？';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormSelectMenuLabel =>
+      '特定のメニューを選択';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormSelectMenuPlaceholder =>
+      '-- メニューを選択してください --';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormDurationPresetLabel =>
+      '期間プリセット';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormStartDateLabel => '開始日';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormEndDateLabel => '終了日';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormStartTimeLabel => '開始時刻';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormEndTimeLabel => '終了時刻';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormReasonLabel => '理由';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateFormReasonPlaceholder =>
+      '例：定期メンテナンス、祝日、貸切イベントなど';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenConflictAlertTitle =>
+      'スケジュールの競合が検出されました！';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenCreateConflictAlertMessage =>
+      '入力された期間は、以下のスケジュールと重複しています：';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditPageTitle => 'ブロック期間の編集';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditPageDescription =>
+      'メニューが予約不可となる期間を更新します。';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditFormAllMenusLabel =>
+      'すべてのメニューをブロックしますか？';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditFormSpecificMenuLabel =>
+      '特定のメニューを選択';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditFormReasonPlaceholder =>
+      '例：定期メンテナンス、祝日、プライベートイベントなど';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditConflictDescription =>
+      '入力した期間は、以下のスケジュールと重複しています：';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditButtonSaveText => '変更を保存';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenEditButtonCheckingText => '確認中...';
+
+  @override
+  String get adminListBlockedPeriodScreenPageTitle => '予約不可期間の管理';
+
+  @override
+  String get adminListBlockedPeriodScreenPageSubtitle => '予約の受付を停止する期間を管理します';
+
+  @override
+  String get adminListBlockedPeriodScreenAddButton => '期間を追加';
+
+  @override
+  String get adminListBlockedPeriodScreenStatsTotal => '合計期間数';
+
+  @override
+  String get adminListBlockedPeriodScreenStatsActive => '現在有効';
+
+  @override
+  String get adminListBlockedPeriodScreenStatsUpcoming => '今後予定';
+
+  @override
+  String get adminListBlockedPeriodScreenStatsExpired => '期限切れ';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersTitle => 'フィルターと検索';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersShow => 'フィルターを表示';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersHide => 'フィルターを非表示';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersMenuLabel => 'メニュー';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersMenuAll => '全てのメニュー';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersStatusLabel => 'ステータス';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersStatusAll => '全てのステータス';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersStatusActive => '有効';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersStatusUpcoming => '予定';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersStatusExpired => '期限切れ';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersStartDateLabel => '開始日';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersEndDateLabel => '終了日';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersAllMenusLabel =>
+      '全メニューをブロック対象のみ表示';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersSearchLabel => '検索';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersSearchPlaceholder =>
+      '理由やメニュー名で検索...';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersFilterButton => '絞り込む';
+
+  @override
+  String get adminListBlockedPeriodScreenFiltersResetButton => 'リセット';
+
+  @override
+  String get adminListBlockedPeriodScreenBulkActionsItemsSelected => '件選択中';
+
+  @override
+  String get adminListBlockedPeriodScreenBulkActionsDeleteButton => '削除';
+
+  @override
+  String get adminListBlockedPeriodScreenListTitle => '予約不可期間リスト';
+
+  @override
+  String get adminListBlockedPeriodScreenTableHeaderMenu => 'メニュー';
+
+  @override
+  String get adminListBlockedPeriodScreenTableHeaderTime => '時間';
+
+  @override
+  String get adminListBlockedPeriodScreenTableHeaderDuration => '期間';
+
+  @override
+  String get adminListBlockedPeriodScreenTableHeaderReason => '理由';
+
+  @override
+  String get adminListBlockedPeriodScreenTableHeaderStatus => 'ステータス';
+
+  @override
+  String get adminListBlockedPeriodScreenTableHeaderActions => '操作';
+
+  @override
+  String get adminListBlockedPeriodScreenTableBodyAllMenusBadge => '全てのメニュー';
+
+  @override
+  String get adminListBlockedPeriodScreenTableBodyMenuNotFound =>
+      'メニューが見つかりません';
+
+  @override
+  String get adminListBlockedPeriodScreenTableBodyActionTooltipsDetail => '詳細';
+
+  @override
+  String get adminListBlockedPeriodScreenTableBodyActionTooltipsEdit => '編集';
+
+  @override
+  String get adminListBlockedPeriodScreenTableBodyActionTooltipsDelete => '削除';
+
+  @override
+  String get adminListBlockedPeriodScreenEmptyTitle => '予約不可期間がありません';
+
+  @override
+  String get adminListBlockedPeriodScreenEmptyMessage =>
+      '作成された予約不可期間がないか、適用されたフィルターに一致するものがありません。';
+
+  @override
+  String get adminListBlockedPeriodScreenEmptyAddButton => '最初の期間を追加';
+
+  @override
+  String get adminListBlockedPeriodScreenDeleteModalTitle => '削除の確認';
+
+  @override
+  String get adminListBlockedPeriodScreenDeleteModalConfirmButton => '削除';
+
+  @override
+  String get adminListBlockedPeriodScreenDeleteModalCancelButton => 'キャンセル';
+
+  @override
+  String get adminListBlockedPeriodScreenDeleteModalMessageSingle =>
+      'この予約不可期間を削除してもよろしいですか？';
+
+  @override
+  String adminListBlockedPeriodScreenDeleteModalMessageMultiple(String count) {
+    return '$count 件の予約不可期間を削除してもよろしいですか？';
+  }
+
+  @override
+  String get adminListBlockedPeriodScreenAlertsDeleteError => '削除中にエラーが発生しました。';
+
+  @override
+  String get adminListBlockedPeriodScreenCalendarAllMenusLabel => 'すべてのメニュー';
+
+  @override
+  String get adminListBlockedPeriodScreenConfirmationDeleteTitle => 'ブロック期間を削除';
+
+  @override
+  String get adminListBlockedPeriodScreenConfirmationDeleteMessage =>
+      'このブロック期間を本当に削除しますか？';
+
+  @override
+  String get adminListBlockedPeriodScreenConfirmationBulkDeleteTitle =>
+      '選択した期間を削除';
+
+  @override
+  String get adminListBlockedPeriodScreenConfirmationBulkDeleteMessage =>
+      '選択したブロック期間を本当に削除しますか？';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailTitle => 'ブロック期間の詳細';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailSubtitle =>
+      '選択されたブロック期間の詳細を表示しています。';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailBackButton => '戻る';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsBlockedMenu =>
+      'ブロック対象メニュー';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsAllMenus => '全メニュー';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsMenuNotAvailable =>
+      'メニューがありません';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsStartTime => '開始日時';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsEndTime => '終了日時';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsDuration => '期間';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsReason => '理由';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsStatus => 'ステータス';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsCreatedAt => '作成日時';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDetailsUpdatedAt => '更新日時';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailStatusActive => '有効';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailStatusUpcoming => '予定';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailStatusCompleted => '完了';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailActionsEdit => '編集';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailActionsDelete => '削除';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDeleteModalTitle => '削除の確認';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDeleteModalText =>
+      'このブロック期間を本当に削除しますか？この操作は元に戻せません。';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDeleteModalCancelButton =>
+      'キャンセル';
+
+  @override
+  String get adminListBlockedPeriodScreenDetailDeleteModalConfirmButton =>
+      'はい、削除します';
+
+  @override
   String get adminUpsertBusinessInformationScreenPageTitle => '事業者設定の編集';
 
   @override
@@ -981,6 +1439,265 @@ class L10nJa extends L10n {
   @override
   String get adminListBusinessInformationScreenNotFoundCreateButton =>
       '事業設定を作成する';
+
+  @override
+  String get contactNotificationNotFound => 'お問い合わせが見つかりません。';
+
+  @override
+  String get contactNotificationUpdated => 'お問い合わせが正常に更新されました。';
+
+  @override
+  String contactNotificationErrorOccurred(String message) {
+    return 'エラーが発生しました: $message';
+  }
+
+  @override
+  String get contactNotificationDeleted => 'お問い合わせが正常に削除されました。';
+
+  @override
+  String get contactNotificationDeletedError => 'お問い合わせを削除できませんでした。';
+
+  @override
+  String get contactNotificationReplySent => '返信が送信され、ステータスが正常に更新されました。';
+
+  @override
+  String get contactNotificationReplyError => 'お問い合わせが見つからないか、更新に失敗しました。';
+
+  @override
+  String get contactNotificationBulkDeleteSuccess => '選択されたお問い合わせが正常に削除されました。';
+
+  @override
+  String get contactNotificationBulkDeleteError => '正常に削除されたお問い合わせはありません。';
+
+  @override
+  String contactNotificationBulkRepliedSuccess(String count) {
+    return '$count件のお問い合わせが返信済みとしてマークされました。';
+  }
+
+  @override
+  String get contactNotificationBulkRepliedError => '正常に更新されたお問い合わせはありません。';
+
+  @override
+  String get adminListContactScreenPageTitle => 'お問い合わせ管理';
+
+  @override
+  String get adminListContactScreenPageSubtitle => '顧客からのお問い合わせメッセージを管理します';
+
+  @override
+  String get adminListContactScreenAddButton => 'お問い合わせを追加';
+
+  @override
+  String get adminListContactScreenStatsTotal => '総お問い合わせ数';
+
+  @override
+  String get adminListContactScreenStatsPending => '未対応';
+
+  @override
+  String get adminListContactScreenStatsReplied => '返信済み';
+
+  @override
+  String get adminListContactScreenStatsToday => '本日';
+
+  @override
+  String get adminListContactScreenFilterTitle => 'フィルターと検索';
+
+  @override
+  String get adminListContactScreenFilterShowButton => 'フィルターを表示';
+
+  @override
+  String get adminListContactScreenFilterHideButton => 'フィルターを非表示';
+
+  @override
+  String get adminListContactScreenFilterStatusLabel => 'ステータス';
+
+  @override
+  String get adminListContactScreenFilterStatusAll => 'すべてのステータス';
+
+  @override
+  String get adminListContactScreenFilterStartDateLabel => '開始日';
+
+  @override
+  String get adminListContactScreenFilterEndDateLabel => '終了日';
+
+  @override
+  String get adminListContactScreenFilterSearchLabel => '検索';
+
+  @override
+  String get adminListContactScreenFilterSearchPlaceholder => '名前、メール、件名で検索...';
+
+  @override
+  String get adminListContactScreenFilterFilterButton => 'フィルター';
+
+  @override
+  String get adminListContactScreenFilterResetButton => 'リセット';
+
+  @override
+  String adminListContactScreenBulkActionsItemsSelected(String count) {
+    return '$count 件選択中';
+  }
+
+  @override
+  String get adminListContactScreenBulkActionsDeleteButton => '削除';
+
+  @override
+  String get adminListContactScreenTableTitle => 'お問い合わせ一覧';
+
+  @override
+  String get adminListContactScreenTableHeaderSender => '送信者';
+
+  @override
+  String get adminListContactScreenTableHeaderSubject => '件名';
+
+  @override
+  String get adminListContactScreenTableHeaderMessage => 'メッセージ';
+
+  @override
+  String get adminListContactScreenTableHeaderDate => '日付';
+
+  @override
+  String get adminListContactScreenTableHeaderStatus => 'ステータス';
+
+  @override
+  String get adminListContactScreenTableHeaderActions => '操作';
+
+  @override
+  String get adminListContactScreenTableActionViewTooltip => '詳細を表示';
+
+  @override
+  String get adminListContactScreenTableActionReplyTooltip => 'クイック返信';
+
+  @override
+  String get adminListContactScreenTableActionDeleteTooltip => '削除';
+
+  @override
+  String get adminListContactScreenStatusPending => '未対応';
+
+  @override
+  String get adminListContactScreenStatusReplied => '返信済み';
+
+  @override
+  String get adminListContactScreenEmptyTitle => 'お問い合わせがありません';
+
+  @override
+  String get adminListContactScreenEmptyMessage =>
+      '受信したお問い合わせメッセージがないか、適用されたフィルターに一致するものがありません。';
+
+  @override
+  String get adminListContactScreenModalCancelButton => 'キャンセル';
+
+  @override
+  String get adminListContactScreenModalReplyTitle => 'クイック返信';
+
+  @override
+  String get adminListContactScreenModalReplyPlaceholder => '返信内容を入力してください...';
+
+  @override
+  String get adminListContactScreenModalReplySendButton => '返信を送信';
+
+  @override
+  String get adminListContactScreenModalDeleteTitle => '削除の確認';
+
+  @override
+  String get adminListContactScreenModalDeleteConfirmButton => '削除する';
+
+  @override
+  String get adminListContactScreenModalDeleteConfirmMessageSingle =>
+      'このお問い合わせを削除してもよろしいですか？';
+
+  @override
+  String adminListContactScreenModalDeleteConfirmMessageMultiple(String count) {
+    return '$count件のお問い合わせを削除してもよろしいですか？';
+  }
+
+  @override
+  String get adminListContactScreenAlertReplyEmpty => '返信メッセージは空にできません。';
+
+  @override
+  String get adminListContactScreenAlertReplyError => '返信の送信中にエラーが発生しました。';
+
+  @override
+  String get adminListContactScreenAlertDeleteError => '削除中にエラーが発生しました。';
+
+  @override
+  String get adminListContactScreenAlertDeleteSuccess => 'お問い合わせを正常に削除しました。';
+
+  @override
+  String get adminListContactScreenAlertReplySuccess => '返信を正常に送信しました。';
+
+  @override
+  String get adminUpsertContactScreenPageTitle => 'お問い合わせ詳細';
+
+  @override
+  String get adminUpsertContactScreenPageSubtitle => 'お問い合わせメッセージの表示と更新';
+
+  @override
+  String get adminUpsertContactScreenButtonsBackToList => '一覧に戻る';
+
+  @override
+  String get adminUpsertContactScreenButtonsUpdate => 'お問い合わせを更新';
+
+  @override
+  String get adminUpsertContactScreenButtonsDelete => '削除';
+
+  @override
+  String get adminUpsertContactScreenButtonsCancel => 'キャンセル';
+
+  @override
+  String get adminUpsertContactScreenCardContactInfo => '連絡先情報';
+
+  @override
+  String get adminUpsertContactScreenCardUpdateContact => 'お問い合わせの更新';
+
+  @override
+  String get adminUpsertContactScreenCardQuickActions => 'クイックアクション';
+
+  @override
+  String get adminUpsertContactScreenLabelsSubject => '件名';
+
+  @override
+  String get adminUpsertContactScreenLabelsMessage => 'メッセージ';
+
+  @override
+  String get adminUpsertContactScreenLabelsAdminReply => '管理者からの返信';
+
+  @override
+  String get adminUpsertContactScreenLabelsStatus => 'ステータス';
+
+  @override
+  String get adminUpsertContactScreenStatusPending => '未対応';
+
+  @override
+  String get adminUpsertContactScreenStatusReplied => '返信済み';
+
+  @override
+  String get adminUpsertContactScreenFormReplyPlaceholder =>
+      '顧客への返信を記入してください...';
+
+  @override
+  String get adminUpsertContactScreenFormReplyHelpText => '最大2000文字';
+
+  @override
+  String get adminUpsertContactScreenQuickActionsMarkAsReplied => '返信済みにする';
+
+  @override
+  String get adminUpsertContactScreenQuickActionsMarkAsPending => '未対応にする';
+
+  @override
+  String get adminUpsertContactScreenQuickActionsDefaultReply =>
+      'お問い合わせいただきありがとうございます。メッセージは受信いたしました。近日中にご返信いたします。';
+
+  @override
+  String get adminUpsertContactScreenDeleteModalTitle => '削除の確認';
+
+  @override
+  String get adminUpsertContactScreenDeleteModalText =>
+      'このお問い合わせを削除してもよろしいですか？この操作は元に戻せません。';
+
+  @override
+  String get adminUpsertContactScreenAlertsErrorOccurred => 'エラーが発生しました:';
+
+  @override
+  String get adminUpsertContactScreenAlertsDeleteError => '削除中にエラーが発生しました';
 
   @override
   String get adminListCustomerManagementTitle => '顧客管理';

@@ -10,8 +10,8 @@ import 'package:tires/features/authentication/presentation/screens/login_screen.
 import 'package:tires/features/authentication/presentation/screens/register_screen.dart';
 import 'package:tires/features/authentication/presentation/screens/set_new_password_screen.dart';
 import 'package:tires/features/availability/presentation/screens/admin_list_availability_screen.dart';
-import 'package:tires/features/blocked/presentation/screens/admin_list_blocked_screen.dart';
-import 'package:tires/features/blocked/presentation/screens/admin_upsert_blocked_screen.dart';
+import 'package:tires/features/blocked_period/presentation/screens/admin_list_blocked_period_screen.dart';
+import 'package:tires/features/blocked_period/presentation/screens/admin_upsert_blocked_period_screen.dart';
 import 'package:tires/features/business_information/domain/entities/business_information.dart';
 import 'package:tires/features/business_information/presentation/screens/admin_list_business_information_screen.dart';
 import 'package:tires/features/business_information/presentation/screens/admin_upsert_business_information_screen.dart';
