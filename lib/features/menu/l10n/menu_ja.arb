@@ -1,0 +1,165 @@
+{
+  "@@locale": "ja",
+  "adminListMenuScreenTitle": "メニュー管理",
+  "adminListMenuScreenSubtitle": "顧客向けのサービスメニューを管理します",
+  "adminListMenuScreenAddMenu": "メニューを追加",
+  "adminListMenuScreenFilter": "絞り込み",
+  "adminListMenuScreenReset": "リセット",
+  "adminListMenuScreenActivate": "有効化",
+  "adminListMenuScreenDeactivate": "無効化",
+  "adminListMenuScreenDelete": "削除",
+  "adminListMenuScreenReorder": "並び替え",
+  "adminListMenuScreenCancel": "キャンセル",
+  "adminListMenuScreenEdit": "編集",
+  "adminListMenuScreenSaveOrder": "順序を保存",
+  "adminListMenuScreenSelectAll": "すべて選択",
+  "adminListMenuScreenTotalMenus": "総メニュー数",
+  "adminListMenuScreenActive": "有効",
+  "adminListMenuScreenInactive": "無効",
+  "adminListMenuScreenAveragePrice": "平均価格",
+  "adminListMenuScreenFiltersSearch": "フィルターと検索",
+  "adminListMenuScreenShowFilters": "フィルターを表示",
+  "adminListMenuScreenHideFilters": "フィルターを非表示",
+  "adminListMenuScreenStatus": "ステータス",
+  "adminListMenuScreenAllStatuses": "すべてのステータス",
+  "adminListMenuScreenMinPriceRange": "最低価格範囲",
+  "adminListMenuScreenMaxPriceRange": "最高価格範囲",
+  "adminListMenuScreenSearch": "検索",
+  "adminListMenuScreenSearchPlaceholder": "メニュー名で検索...",
+  "adminListMenuScreenItemsSelected": "{count}件選択中",
+  "@adminListMenuScreenItemsSelected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListMenuScreenMenuList": "メニュー一覧",
+  "adminListMenuScreenThMenu": "メニュー",
+  "adminListMenuScreenThPrice": "価格",
+  "adminListMenuScreenThTimeRequired": "所要時間",
+  "adminListMenuScreenThOrder": "順序",
+  "adminListMenuScreenThStatus": "ステータス",
+  "adminListMenuScreenThActions": "操作",
+  "adminListMenuScreenTimeUnitMinutes": "分",
+  "adminListMenuScreenViewDetails": "詳細を表示",
+  "adminListMenuScreenNoMenusTitle": "メニューがありません",
+  "adminListMenuScreenNoMenusDescription": "メニューが作成されていないか、適用されたフィルターに一致するものがありません。",
+  "adminListMenuScreenConfirmDeletionTitle": "削除の確認",
+  "adminListMenuScreenDeleteSingleConfirm": "このメニューを削除してもよろしいですか？",
+  "adminListMenuScreenDeleteMultipleConfirm": "{count}件のメニューを削除してもよろしいですか？",
+  "@adminListMenuScreenDeleteMultipleConfirm": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListMenuScreenReorderTitle": "メニュー順序の設定",
+  "adminListMenuScreenReorderDescription": "項目をドラッグ＆ドロップして順序を変更します。グリップアイコンをクリックしたまま動かしてください。",
+  "adminListMenuScreenCurrentOrder": "現在の順序: #{order}",
+  "@adminListMenuScreenCurrentOrder": {
+    "placeholders": {
+      "order": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListMenuScreenShowTitle": "メニュー詳細",
+  "adminListMenuScreenShowSubtitle": "メニュー項目の詳細情報: {name}",
+  "@adminListMenuScreenShowSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListMenuScreenShowEditMenuButton": "メニューを編集",
+  "adminListMenuScreenShowBackToListButton": "一覧に戻る",
+  "adminListMenuScreenShowStatusActive": "有効なメニュー",
+  "adminListMenuScreenShowStatusInactive": "無効なメニュー",
+  "adminListMenuScreenShowActivateMenu": "メニューを有効化",
+  "adminListMenuScreenShowDeactivateMenu": "メニューを無効化",
+  "adminListMenuScreenShowDeleteMenuButton": "メニューを削除",
+  "adminListMenuScreenShowInfoTitle": "メニュー情報",
+  "adminListMenuScreenShowInfoName": "メニュー名",
+  "adminListMenuScreenShowInfoPrice": "価格",
+  "adminListMenuScreenShowInfoTime": "所要時間",
+  "adminListMenuScreenShowInfoOrder": "表示順",
+  "adminListMenuScreenShowInfoColor": "メニューカラー",
+  "adminListMenuScreenShowInfoCreatedAt": "作成日",
+  "adminListMenuScreenShowInfoUpdatedAt": "最終更新日",
+  "adminListMenuScreenShowDescriptionTitle": "メニュー説明",
+  "adminListMenuScreenShowDeleteModalTitle": "メニュー削除の確認",
+  "adminListMenuScreenShowDeleteModalText": "メニュー「{name}」を本当に削除しますか？この操作は元に戻せません。",
+  "@adminListMenuScreenShowDeleteModalText": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListMenuScreenShowDeletingText": "削除中...",
+  "adminListMenuScreenJsMessagesSelectAtLeastOne": "少なくとも1つのメニューを選択してください。",
+  "adminListMenuScreenJsMessagesErrorOccurredStatus": "ステータスの変更中にエラーが発生しました。",
+  "adminListMenuScreenJsMessagesErrorOccurredDelete": "削除中にエラーが発生しました。",
+  "adminListMenuScreenJsMessagesErrorOccurredReorder": "順序の保存中にエラーが発生しました。",
+  "adminListMenuScreenJsMessagesDeleteSuccess": "メニューが正常に削除されました！",
+  "adminListMenuScreenJsMessagesDeleteFailed": "メニューの削除に失敗しました。",
+  "adminListMenuScreenJsMessagesDeletingText": "削除中...",
+  "adminListMenuScreenJsMessagesConfirmDeleteTitle": "メニュー削除の確認",
+  "adminListMenuScreenJsMessagesConfirmDeleteText": "メニュー「{name}」を本当に削除しますか？この操作は元に戻せません。",
+  "@adminListMenuScreenJsMessagesConfirmDeleteText": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListMenuScreenJsMessagesSuccessTitle": "成功！",
+  "adminListMenuScreenJsMessagesErrorTitle": "エラーが発生しました",
+  "adminListMenuScreenJsMessagesClose": "閉じる",
+  "adminListMenuScreenJsMessagesOk": "OK",
+  "adminUpsertMenuScreenAddSubtitle": "顧客向けの新しいサービスメニューを作成します",
+  "adminUpsertMenuScreenEditTitle": "メニューを編集",
+  "adminUpsertMenuScreenEditSubtitle": "メニュー情報を更新します",
+  "adminUpsertMenuScreenViewMenu": "メニューを表示",
+  "adminUpsertMenuScreenBack": "戻る",
+  "adminUpsertMenuScreenSaveMenu": "メニューを保存",
+  "adminUpsertMenuScreenUpdateMenu": "メニューを更新",
+  "adminUpsertMenuScreenEnglishInfo": "英語情報",
+  "adminUpsertMenuScreenJapaneseInfo": "日本語情報",
+  "adminUpsertMenuScreenMenuNameEn": "メニュー名（英語）",
+  "adminUpsertMenuScreenDescriptionEn": "説明（英語）",
+  "adminUpsertMenuScreenMenuNameJa": "メニュー名（日本語）",
+  "adminUpsertMenuScreenDescriptionJa": "説明（日本語）",
+  "adminUpsertMenuScreenPlaceholderNameEn": "メニュー名を英語で入力",
+  "adminUpsertMenuScreenPlaceholderDescEn": "メニューの説明を英語で入力...",
+  "adminUpsertMenuScreenPlaceholderNameJa": "メニュー名を日本語で入力",
+  "adminUpsertMenuScreenPlaceholderDescJa": "メニューの説明を日本語で入力...",
+  "adminUpsertMenuScreenBasicSettings": "基本設定",
+  "adminUpsertMenuScreenFormRequiredTime": "所要時間（分）",
+  "adminUpsertMenuScreenHelpRequiredTime": "推定処理時間を分単位で入力",
+  "adminUpsertMenuScreenFormPrice": "価格（円）",
+  "adminUpsertMenuScreenVisualSettings": "表示設定",
+  "adminUpsertMenuScreenHelpColor": "この色はメニュー表示に使用されます",
+  "adminUpsertMenuScreenStatusSettings": "ステータス設定",
+  "adminUpsertMenuScreenFormActiveStatus": "有効ステータス",
+  "adminUpsertMenuScreenHelpActiveStatus": "メニューが顧客に表示されます",
+  "adminUpsertMenuScreenMenuPreview": "メニュープレビュー",
+  "adminUpsertMenuScreenEnglishPreview": "英語プレビュー",
+  "adminUpsertMenuScreenJapanesePreview": "日本語プレビュー",
+  "adminUpsertMenuScreenTimeUnitMinutesFull": "分",
+  "adminUpsertMenuScreenNoDescription": "説明はありません",
+  "adminUpsertMenuScreenCurrentInfo": "現在のメニュー情報",
+  "adminUpsertMenuScreenColorsBlue": "青",
+  "adminUpsertMenuScreenColorsGreen": "緑",
+  "adminUpsertMenuScreenColorsYellow": "黄",
+  "adminUpsertMenuScreenColorsRed": "赤",
+  "adminUpsertMenuScreenColorsPurple": "紫",
+  "adminUpsertMenuScreenColorsPink": "ピンク",
+  "adminUpsertMenuScreenColorsCyan": "シアン",
+  "adminUpsertMenuScreenColorsLime": "ライム",
+  "adminUpsertMenuScreenColorsOrange": "オレンジ",
+  "adminUpsertMenuScreenColorsGray": "グレー"
+}

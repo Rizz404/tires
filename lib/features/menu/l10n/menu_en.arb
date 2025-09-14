@@ -1,0 +1,165 @@
+{
+  "@@locale": "en",
+  "adminListMenuScreenTitle": "Menu Management",
+  "adminListMenuScreenSubtitle": "Manage service menus for customers",
+  "adminListMenuScreenAddMenu": "Add Menu",
+  "adminListMenuScreenFilter": "Filter",
+  "adminListMenuScreenReset": "Reset",
+  "adminListMenuScreenActivate": "Activate",
+  "adminListMenuScreenDeactivate": "Deactivate",
+  "adminListMenuScreenDelete": "Delete",
+  "adminListMenuScreenReorder": "Reorder",
+  "adminListMenuScreenCancel": "Cancel",
+  "adminListMenuScreenEdit": "Edit",
+  "adminListMenuScreenSaveOrder": "Save Order",
+  "adminListMenuScreenSelectAll": "Select All",
+  "adminListMenuScreenTotalMenus": "Total Menus",
+  "adminListMenuScreenActive": "Active",
+  "adminListMenuScreenInactive": "Inactive",
+  "adminListMenuScreenAveragePrice": "Average Price",
+  "adminListMenuScreenFiltersSearch": "Filters & Search",
+  "adminListMenuScreenShowFilters": "Show Filters",
+  "adminListMenuScreenHideFilters": "Hide Filters",
+  "adminListMenuScreenStatus": "Status",
+  "adminListMenuScreenAllStatuses": "All Statuses",
+  "adminListMenuScreenMinPriceRange": "Min Price Range",
+  "adminListMenuScreenMaxPriceRange": "Max Price Range",
+  "adminListMenuScreenSearch": "Search",
+  "adminListMenuScreenSearchPlaceholder": "Search for menu name...",
+  "adminListMenuScreenItemsSelected": "{count} item(s) selected",
+  "@adminListMenuScreenItemsSelected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListMenuScreenMenuList": "Menu List",
+  "adminListMenuScreenThMenu": "Menu",
+  "adminListMenuScreenThPrice": "Price",
+  "adminListMenuScreenThTimeRequired": "Time Required",
+  "adminListMenuScreenThOrder": "Order",
+  "adminListMenuScreenThStatus": "Status",
+  "adminListMenuScreenThActions": "Actions",
+  "adminListMenuScreenTimeUnitMinutes": "mins",
+  "adminListMenuScreenViewDetails": "View Details",
+  "adminListMenuScreenNoMenusTitle": "No menus yet",
+  "adminListMenuScreenNoMenusDescription": "No menus have been created, or none match the applied filters.",
+  "adminListMenuScreenConfirmDeletionTitle": "Confirm Deletion",
+  "adminListMenuScreenDeleteSingleConfirm": "Are you sure you want to delete this menu?",
+  "adminListMenuScreenDeleteMultipleConfirm": "Are you sure you want to delete {count} menu(s)?",
+  "@adminListMenuScreenDeleteMultipleConfirm": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListMenuScreenReorderTitle": "Set Menu Order",
+  "adminListMenuScreenReorderDescription": "Drag and drop items to change the order. Click and hold the grip icon to move an item.",
+  "adminListMenuScreenCurrentOrder": "Current order: #{order}",
+  "@adminListMenuScreenCurrentOrder": {
+    "placeholders": {
+      "order": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListMenuScreenShowTitle": "Menu Details",
+  "adminListMenuScreenShowSubtitle": "Detailed information for the menu item: {name}",
+  "@adminListMenuScreenShowSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListMenuScreenShowEditMenuButton": "Edit Menu",
+  "adminListMenuScreenShowBackToListButton": "Back to List",
+  "adminListMenuScreenShowStatusActive": "Active Menu",
+  "adminListMenuScreenShowStatusInactive": "Inactive Menu",
+  "adminListMenuScreenShowActivateMenu": "Activate Menu",
+  "adminListMenuScreenShowDeactivateMenu": "Deactivate Menu",
+  "adminListMenuScreenShowDeleteMenuButton": "Delete Menu",
+  "adminListMenuScreenShowInfoTitle": "Menu Information",
+  "adminListMenuScreenShowInfoName": "Menu Name",
+  "adminListMenuScreenShowInfoPrice": "Price",
+  "adminListMenuScreenShowInfoTime": "Required Time",
+  "adminListMenuScreenShowInfoOrder": "Display Order",
+  "adminListMenuScreenShowInfoColor": "Menu Color",
+  "adminListMenuScreenShowInfoCreatedAt": "Date Created",
+  "adminListMenuScreenShowInfoUpdatedAt": "Last Updated",
+  "adminListMenuScreenShowDescriptionTitle": "Menu Description",
+  "adminListMenuScreenShowDeleteModalTitle": "Confirm Menu Deletion",
+  "adminListMenuScreenShowDeleteModalText": "Are you sure you want to delete the menu \"{name}\"? This action cannot be undone.",
+  "@adminListMenuScreenShowDeleteModalText": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListMenuScreenShowDeletingText": "Deleting...",
+  "adminListMenuScreenJsMessagesSelectAtLeastOne": "Please select at least one menu.",
+  "adminListMenuScreenJsMessagesErrorOccurredStatus": "An error occurred while changing the status.",
+  "adminListMenuScreenJsMessagesErrorOccurredDelete": "An error occurred while deleting.",
+  "adminListMenuScreenJsMessagesErrorOccurredReorder": "An error occurred while saving the order.",
+  "adminListMenuScreenJsMessagesDeleteSuccess": "Menu successfully deleted!",
+  "adminListMenuScreenJsMessagesDeleteFailed": "Failed to delete the menu.",
+  "adminListMenuScreenJsMessagesDeletingText": "Deleting...",
+  "adminListMenuScreenJsMessagesConfirmDeleteTitle": "Confirm Menu Deletion",
+  "adminListMenuScreenJsMessagesConfirmDeleteText": "Are you sure you want to delete the menu \"{name}\"? This action cannot be undone.",
+  "@adminListMenuScreenJsMessagesConfirmDeleteText": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListMenuScreenJsMessagesSuccessTitle": "Success!",
+  "adminListMenuScreenJsMessagesErrorTitle": "An Error Occurred",
+  "adminListMenuScreenJsMessagesClose": "Close",
+  "adminListMenuScreenJsMessagesOk": "OK",
+  "adminUpsertMenuScreenAddSubtitle": "Create a new service menu for customers",
+  "adminUpsertMenuScreenEditTitle": "Edit Menu",
+  "adminUpsertMenuScreenEditSubtitle": "Update menu information",
+  "adminUpsertMenuScreenViewMenu": "View Menu",
+  "adminUpsertMenuScreenBack": "Back",
+  "adminUpsertMenuScreenSaveMenu": "Save Menu",
+  "adminUpsertMenuScreenUpdateMenu": "Update Menu",
+  "adminUpsertMenuScreenEnglishInfo": "English Information",
+  "adminUpsertMenuScreenJapaneseInfo": "Japanese Information",
+  "adminUpsertMenuScreenMenuNameEn": "Menu Name (English)",
+  "adminUpsertMenuScreenDescriptionEn": "Description (English)",
+  "adminUpsertMenuScreenMenuNameJa": "Menu Name (Japanese)",
+  "adminUpsertMenuScreenDescriptionJa": "Description (Japanese)",
+  "adminUpsertMenuScreenPlaceholderNameEn": "Enter menu name in English",
+  "adminUpsertMenuScreenPlaceholderDescEn": "Enter menu description in English...",
+  "adminUpsertMenuScreenPlaceholderNameJa": "Enter menu name in Japanese",
+  "adminUpsertMenuScreenPlaceholderDescJa": "Enter menu description in Japanese...",
+  "adminUpsertMenuScreenBasicSettings": "Basic Settings",
+  "adminUpsertMenuScreenFormRequiredTime": "Required Time (minutes)",
+  "adminUpsertMenuScreenHelpRequiredTime": "Estimated processing time in minutes",
+  "adminUpsertMenuScreenFormPrice": "Price ($)",
+  "adminUpsertMenuScreenVisualSettings": "Visual Settings",
+  "adminUpsertMenuScreenHelpColor": "This color will be used for the menu display",
+  "adminUpsertMenuScreenStatusSettings": "Status Settings",
+  "adminUpsertMenuScreenFormActiveStatus": "Active Status",
+  "adminUpsertMenuScreenHelpActiveStatus": "Menu will be available for customers",
+  "adminUpsertMenuScreenMenuPreview": "Menu Preview",
+  "adminUpsertMenuScreenEnglishPreview": "English Preview",
+  "adminUpsertMenuScreenJapanesePreview": "Japanese Preview",
+  "adminUpsertMenuScreenTimeUnitMinutesFull": "minutes",
+  "adminUpsertMenuScreenNoDescription": "No description available",
+  "adminUpsertMenuScreenCurrentInfo": "Current Menu Information",
+  "adminUpsertMenuScreenColorsBlue": "Blue",
+  "adminUpsertMenuScreenColorsGreen": "Green",
+  "adminUpsertMenuScreenColorsYellow": "Yellow",
+  "adminUpsertMenuScreenColorsRed": "Red",
+  "adminUpsertMenuScreenColorsPurple": "Purple",
+  "adminUpsertMenuScreenColorsPink": "Pink",
+  "adminUpsertMenuScreenColorsCyan": "Cyan",
+  "adminUpsertMenuScreenColorsLime": "Lime",
+  "adminUpsertMenuScreenColorsOrange": "Orange",
+  "adminUpsertMenuScreenColorsGray": "Gray"
+}
