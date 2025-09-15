@@ -682,6 +682,171 @@ class L10nJa extends L10n {
   String get forgotPasswordBackToLogin => 'ログインに戻る';
 
   @override
+  String get adminListAvailabilityScreenPageTitle => '空き状況チェック';
+
+  @override
+  String get adminListAvailabilityScreenPageSubtitle => '予約の空き時間を確認します';
+
+  @override
+  String get adminListAvailabilityScreenFormDateLabel => '予約日';
+
+  @override
+  String get adminListAvailabilityScreenFormMenuLabel => 'メニューを選択';
+
+  @override
+  String get adminListAvailabilityScreenFormMenuPlaceholder => '-- メニューを選択 --';
+
+  @override
+  String get adminListAvailabilityScreenFormMenuMinutes => '分';
+
+  @override
+  String get adminListAvailabilityScreenButtonsPrevious => '前へ';
+
+  @override
+  String get adminListAvailabilityScreenButtonsNext => '次へ';
+
+  @override
+  String get adminListAvailabilityScreenSummaryDate => '日付';
+
+  @override
+  String get adminListAvailabilityScreenSummaryYear => '年';
+
+  @override
+  String get adminListAvailabilityScreenSummaryMonth => '月';
+
+  @override
+  String get adminListAvailabilityScreenSummaryCurrentTime => '現在時刻';
+
+  @override
+  String get adminListAvailabilityScreenLoadingText => '空き状況データを読み込んでいます...';
+
+  @override
+  String get adminListAvailabilityScreenAvailabilityTitle => '時間の空き状況';
+
+  @override
+  String get adminListAvailabilityScreenAvailabilityAvailableSlots =>
+      '予約可能なスロット';
+
+  @override
+  String get adminListAvailabilityScreenAvailabilityReservedSlots =>
+      '予約済みのスロット';
+
+  @override
+  String get adminListAvailabilityScreenAvailabilityBlockedSlots =>
+      'ブロックされたスロット';
+
+  @override
+  String get adminListAvailabilityScreenStatusAvailable => '予約可能';
+
+  @override
+  String get adminListAvailabilityScreenStatusReserved => '予約済み';
+
+  @override
+  String get adminListAvailabilityScreenStatusBlocked => 'ブロック中';
+
+  @override
+  String get adminListAvailabilityScreenLegendAvailableTitle => '予約可能';
+
+  @override
+  String get adminListAvailabilityScreenLegendAvailableDescription => '予約ができます';
+
+  @override
+  String get adminListAvailabilityScreenLegendReservedTitle => '予約済み';
+
+  @override
+  String get adminListAvailabilityScreenLegendReservedDescription =>
+      '既に予約が入っています';
+
+  @override
+  String get adminListAvailabilityScreenLegendBlockedTitle => 'ブロック中';
+
+  @override
+  String get adminListAvailabilityScreenLegendBlockedDescription => '予約不可期間';
+
+  @override
+  String get adminListAvailabilityScreenEmptyTitle => '空き状況データがありません';
+
+  @override
+  String get adminListAvailabilityScreenEmptyDescription =>
+      '選択されたメニューと日付にデータがありません';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsJanuary => '1月';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsFebruary => '2月';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsMarch => '3月';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsApril => '4月';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsMay => '5月';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsJune => '6月';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsJuly => '7月';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsAugust => '8月';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsSeptember => '9月';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsOctober => '10月';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsNovember => '11月';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsDecember => '12月';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsDaysSunday => '日曜日';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsDaysMonday => '月曜日';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsDaysTuesday => '火曜日';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsDaysWednesday => '水曜日';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsDaysThursday => '木曜日';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsDaysFriday => '金曜日';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsDaysSaturday => '土曜日';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsAlertsLoadFail =>
+      '空き状況データの読み込みに失敗しました';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsAlertsLoadError =>
+      'データの読み込み中にエラーが発生しました';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsAlertsSlotUnavailable =>
+      'この時間帯は予約できません';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsAlertsSelectSlotFirst =>
+      '最初に時間帯を選択してください';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsSelectedTimeAt => 'の';
+
+  @override
   String get blockedPeriodNotificationCreateSuccess => 'ブロック期間が正常に作成されました。';
 
   @override
@@ -1439,6 +1604,953 @@ class L10nJa extends L10n {
   @override
   String get adminListBusinessInformationScreenNotFoundCreateButton =>
       '事業設定を作成する';
+
+  @override
+  String get reservationNotificationReservationNotFound => '予約が見つかりません。';
+
+  @override
+  String get reservationNotificationUpdateSuccess => '予約が正常に更新されました。';
+
+  @override
+  String reservationNotificationUpdateFailed(String error) {
+    return '予約の更新に失敗しました: $error';
+  }
+
+  @override
+  String get reservationNotificationDeleteSuccess => '予約が正常に削除されました。';
+
+  @override
+  String reservationNotificationDeleteFailed(String error) {
+    return '予約の削除に失敗しました: $error';
+  }
+
+  @override
+  String get reservationNotificationConfirmSuccess => '予約が正常に確定されました。';
+
+  @override
+  String get reservationNotificationCancelSuccess => '予約が正常にキャンセルされました。';
+
+  @override
+  String get reservationNotificationCompleteSuccess => '予約が正常に完了しました。';
+
+  @override
+  String get reservationNotificationBulkUpdateSuccess => '予約ステータスが正常に更新されました。';
+
+  @override
+  String get reservationNotificationBulkUpdateFailed => '予約ステータスの更新に失敗しました。';
+
+  @override
+  String get reservationNotificationAvailabilityCheckError =>
+      '空き状況の確認中にエラーが発生しました。';
+
+  @override
+  String get reservationAvailabilityAvailable => 'この時間は予約可能です。';
+
+  @override
+  String get reservationAvailabilityUnavailable => 'この時間は予約できません。';
+
+  @override
+  String get reservationValidationUserIdRequired => 'ユーザーIDフィールドは必須です。';
+
+  @override
+  String get reservationValidationUserIdExists => '選択されたユーザーは存在しません。';
+
+  @override
+  String get reservationValidationMenuIdRequired => 'メニューフィールドは必須です。';
+
+  @override
+  String get reservationValidationMenuIdExists => '選択されたメニューは存在しません。';
+
+  @override
+  String get reservationValidationReservationDatetimeRequired =>
+      '予約日時フィールドは必須です。';
+
+  @override
+  String get reservationValidationReservationDatetimeDate =>
+      '予約日時は有効な日付である必要があります。';
+
+  @override
+  String get reservationValidationReservationDatetimeAfter =>
+      '予約日時は現在時刻より後である必要があります。';
+
+  @override
+  String get reservationValidationNumberOfPeopleRequired => '人数フィールドは必須です。';
+
+  @override
+  String get reservationValidationNumberOfPeopleInteger => '人数は整数である必要があります。';
+
+  @override
+  String get reservationValidationNumberOfPeopleMin => '人数は1以上である必要があります。';
+
+  @override
+  String get reservationValidationAmountRequired => '金額フィールドは必須です。';
+
+  @override
+  String get reservationValidationAmountNumeric => '金額は数値である必要があります。';
+
+  @override
+  String get reservationValidationAmountMin => '金額は0以上である必要があります。';
+
+  @override
+  String get reservationValidationStatusIn => '選択されたステータスは無効です。';
+
+  @override
+  String get reservationValidationNotesString => '備考は文字列である必要があります。';
+
+  @override
+  String get reservationValidationFullNameRequired => 'ゲスト顧客の場合、氏名フィールドは必須です。';
+
+  @override
+  String get reservationValidationFullNameString => '氏名は文字列である必要があります。';
+
+  @override
+  String get reservationValidationFullNameMax => '氏名は255文字以内で入力してください。';
+
+  @override
+  String get reservationValidationFullNameKanaRequired =>
+      'ゲスト顧客の場合、氏名（カナ）フィールドは必須です。';
+
+  @override
+  String get reservationValidationFullNameKanaString => '氏名（カナ）は文字列である必要があります。';
+
+  @override
+  String get reservationValidationFullNameKanaMax => '氏名（カナ）は255文字以内で入力してください。';
+
+  @override
+  String get reservationValidationEmailRequired =>
+      'ゲスト顧客の場合、メールアドレスフィールドは必須です。';
+
+  @override
+  String get reservationValidationEmailEmail => '有効なメールアドレスを入力してください。';
+
+  @override
+  String get reservationValidationEmailMax => 'メールアドレスは255文字以内で入力してください。';
+
+  @override
+  String get reservationValidationPhoneNumberRequired =>
+      'ゲスト顧客の場合、電話番号フィールドは必須です。';
+
+  @override
+  String get reservationValidationPhoneNumberString => '電話番号は文字列である必要があります。';
+
+  @override
+  String get reservationValidationPhoneNumberMax => '電話番号は20文字以内で入力してください。';
+
+  @override
+  String get reservationValidationReservationDatetimeUnavailable =>
+      '選択された予約日時は利用できません。別の時間を選択してください。';
+
+  @override
+  String get adminListCalendarScreenTitle => '予約管理';
+
+  @override
+  String get adminListCalendarScreenStatusActive => '有効';
+
+  @override
+  String get adminListCalendarScreenTabsCalendarView => 'カレンダー表示';
+
+  @override
+  String get adminListCalendarScreenTabsListView => 'リスト表示';
+
+  @override
+  String get adminListCalendarScreenModeDescriptionCalendar =>
+      'カレンダーモード - 予約の視覚的な概要';
+
+  @override
+  String get adminListCalendarScreenModeDescriptionList => 'リストモード - 詳細な予約データ';
+
+  @override
+  String get adminListCalendarScreenButtonsNewReservation => '新規予約';
+
+  @override
+  String get adminListCalendarScreenButtonsRefresh => '更新';
+
+  @override
+  String get adminListCalendarScreenButtonsSettings => '設定';
+
+  @override
+  String get adminListCalendarScreenViewsMonth => '月';
+
+  @override
+  String get adminListCalendarScreenViewsWeek => '週';
+
+  @override
+  String get adminListCalendarScreenViewsDay => '日';
+
+  @override
+  String get adminListCalendarScreenViewsSelectDate => '日付を選択';
+
+  @override
+  String get adminListCalendarScreenNavigationPreviousMonth => '前の月';
+
+  @override
+  String get adminListCalendarScreenNavigationNextMonth => '次の月';
+
+  @override
+  String get adminListCalendarScreenNavigationPreviousWeek => '前の週';
+
+  @override
+  String get adminListCalendarScreenNavigationNextWeek => '次の週';
+
+  @override
+  String get adminListCalendarScreenNavigationPreviousDay => '前の日';
+
+  @override
+  String get adminListCalendarScreenNavigationNextDay => '次の日';
+
+  @override
+  String get adminListCalendarScreenFilterTitle => '予約を絞り込む';
+
+  @override
+  String get adminListCalendarScreenFilterTotalReservations => '件の予約';
+
+  @override
+  String get adminListCalendarScreenFilterQuickSearch => 'クイック検索';
+
+  @override
+  String get adminListCalendarScreenFilterSearchPlaceholder =>
+      '顧客名、電話番号、メールアドレス...';
+
+  @override
+  String get adminListCalendarScreenFilterMenu => 'メニュー';
+
+  @override
+  String get adminListCalendarScreenFilterAllMenus => 'すべてのメニュー';
+
+  @override
+  String get adminListCalendarScreenFilterStatus => 'ステータス';
+
+  @override
+  String get adminListCalendarScreenFilterAllStatuses => 'すべてのステータス';
+
+  @override
+  String get adminListCalendarScreenFilterDateRange => '日付範囲';
+
+  @override
+  String get adminListCalendarScreenFilterSelectRange => '範囲を選択';
+
+  @override
+  String get adminListCalendarScreenFilterStartDate => '開始日';
+
+  @override
+  String get adminListCalendarScreenFilterEndDate => '終了日';
+
+  @override
+  String get adminListCalendarScreenFilterApplyFilters => 'フィルターを適用';
+
+  @override
+  String get adminListCalendarScreenFilterClearAll => 'すべてクリア';
+
+  @override
+  String get adminListCalendarScreenFilterShowing => '表示中';
+
+  @override
+  String get adminListCalendarScreenFilterOf => '/';
+
+  @override
+  String get adminListCalendarScreenFilterResults => '件';
+
+  @override
+  String get adminListCalendarScreenFilterExport => 'エクスポート';
+
+  @override
+  String get adminListCalendarScreenTableCustomer => '顧客';
+
+  @override
+  String get adminListCalendarScreenTableDateTime => '日時';
+
+  @override
+  String get adminListCalendarScreenTableMenu => 'メニュー';
+
+  @override
+  String get adminListCalendarScreenTablePeople => '人数';
+
+  @override
+  String get adminListCalendarScreenTableStatus => 'ステータス';
+
+  @override
+  String get adminListCalendarScreenTableActions => '操作';
+
+  @override
+  String get adminListCalendarScreenTableMinutes => '分';
+
+  @override
+  String get adminListCalendarScreenActionsViewDetails => '詳細を表示';
+
+  @override
+  String get adminListCalendarScreenActionsEdit => '編集';
+
+  @override
+  String get adminListCalendarScreenActionsConfirm => '確定';
+
+  @override
+  String get adminListCalendarScreenActionsCancel => 'キャンセル';
+
+  @override
+  String get adminListCalendarScreenActionsMoreActions => 'その他の操作';
+
+  @override
+  String get adminListCalendarScreenActionsPrintDetails => '詳細を印刷';
+
+  @override
+  String get adminListCalendarScreenActionsSendEmail => 'メールを送信';
+
+  @override
+  String get adminListCalendarScreenEmptyStateNoReservations => '予約が見つかりません';
+
+  @override
+  String get adminListCalendarScreenEmptyStateAdjustFilters =>
+      'フィルターまたは検索条件を調整してください';
+
+  @override
+  String get adminListCalendarScreenPaginationShow => '表示';
+
+  @override
+  String get adminListCalendarScreenPaginationEntriesPerPage => '件/ページ';
+
+  @override
+  String get adminListCalendarScreenCalendarTitle => 'カレンダー';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysMonday => '月';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysTuesday => '火';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysWednesday => '水';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysThursday => '木';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFriday => '金';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysSaturday => '土';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysSunday => '日';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFullMonday => '月曜日';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFullTuesday => '火曜日';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFullWednesday => '水曜日';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFullThursday => '木曜日';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFullFriday => '金曜日';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFullSaturday => '土曜日';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFullSunday => '日曜日';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysShortMon => '月';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysShortTue => '火';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysShortWed => '水';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysShortThu => '木';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysShortFri => '金';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysShortSat => '土';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysShortSun => '日';
+
+  @override
+  String get adminListCalendarScreenCalendarMoreReservations => '件以上の予約';
+
+  @override
+  String get adminListCalendarScreenCalendarMenuLegend => 'メニュー凡例:';
+
+  @override
+  String get adminListCalendarScreenBlockedPeriodTitle => '予約不可期間';
+
+  @override
+  String get adminListCalendarScreenBlockedPeriodReason => '理由:';
+
+  @override
+  String get adminListCalendarScreenBlockedPeriodAffectedMenu => '対象メニュー:';
+
+  @override
+  String get adminListCalendarScreenBlockedPeriodAllMenusBlocked =>
+      'すべてのメニューがブロックされています';
+
+  @override
+  String get adminListCalendarScreenBlockedPeriodSpecificMenu => '特定のメニュー';
+
+  @override
+  String get adminListCalendarScreenReservationTooltipCustomerInfo => '顧客情報';
+
+  @override
+  String get adminListCalendarScreenReservationTooltipMenuInfo => 'メニュー情報';
+
+  @override
+  String get adminListCalendarScreenReservationTooltipMinute => '分';
+
+  @override
+  String get adminListCalendarScreenReservationTooltipPeople => '人';
+
+  @override
+  String get adminListCalendarScreenReservationTooltipMenuPrice => 'メニュー価格:';
+
+  @override
+  String get adminListCalendarScreenReservationTooltipNotes => '備考:';
+
+  @override
+  String get adminListCalendarScreenReservationTooltipClickToView =>
+      'クリックして詳細を表示';
+
+  @override
+  String get adminListCalendarScreenLoadingData => 'データを読み込んでいます...';
+
+  @override
+  String get adminListCalendarScreenPrintCalendarTitle => '予約カレンダー';
+
+  @override
+  String get adminListCalendarScreenStatusLabelsPending => '保留中';
+
+  @override
+  String get adminListCalendarScreenStatusLabelsConfirmed => '確定済み';
+
+  @override
+  String get adminListCalendarScreenStatusLabelsCompleted => '完了';
+
+  @override
+  String get adminListCalendarScreenStatusLabelsCancelled => 'キャンセル済み';
+
+  @override
+  String get adminListCalendarScreenConfirmationChangeStatus =>
+      'この予約のステータスを変更してもよろしいですか？';
+
+  @override
+  String get adminListCalendarScreenAlertsError => 'エラー:';
+
+  @override
+  String get adminListCalendarScreenAlertsUpdateError => 'ステータスの更新中にエラーが発生しました';
+
+  @override
+  String get adminListCalendarScreenMonthsJanuary => '1月';
+
+  @override
+  String get adminListCalendarScreenMonthsFebruary => '2月';
+
+  @override
+  String get adminListCalendarScreenMonthsMarch => '3月';
+
+  @override
+  String get adminListCalendarScreenMonthsApril => '4月';
+
+  @override
+  String get adminListCalendarScreenMonthsMay => '5月';
+
+  @override
+  String get adminListCalendarScreenMonthsJune => '6月';
+
+  @override
+  String get adminListCalendarScreenMonthsJuly => '7月';
+
+  @override
+  String get adminListCalendarScreenMonthsAugust => '8月';
+
+  @override
+  String get adminListCalendarScreenMonthsSeptember => '9月';
+
+  @override
+  String get adminListCalendarScreenMonthsOctober => '10月';
+
+  @override
+  String get adminListCalendarScreenMonthsNovember => '11月';
+
+  @override
+  String get adminListCalendarScreenMonthsDecember => '12月';
+
+  @override
+  String get adminListCalendarScreenMonthsShortJan => '1月';
+
+  @override
+  String get adminListCalendarScreenMonthsShortFeb => '2月';
+
+  @override
+  String get adminListCalendarScreenMonthsShortMar => '3月';
+
+  @override
+  String get adminListCalendarScreenMonthsShortApr => '4月';
+
+  @override
+  String get adminListCalendarScreenMonthsShortMay => '5月';
+
+  @override
+  String get adminListCalendarScreenMonthsShortJun => '6月';
+
+  @override
+  String get adminListCalendarScreenMonthsShortJul => '7月';
+
+  @override
+  String get adminListCalendarScreenMonthsShortAug => '8月';
+
+  @override
+  String get adminListCalendarScreenMonthsShortSep => '9月';
+
+  @override
+  String get adminListCalendarScreenMonthsShortOct => '10月';
+
+  @override
+  String get adminListCalendarScreenMonthsShortNov => '11月';
+
+  @override
+  String get adminListCalendarScreenMonthsShortDec => '12月';
+
+  @override
+  String adminListCalendarScreenShowTitle(String id) {
+    return '予約詳細 #$id';
+  }
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoTitle => '顧客情報';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoTypeLabel => '顧客タイプ';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoTypeRegistered => '登録顧客';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoTypeGuest => 'ゲスト顧客';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoRegisteredLabel => '登録顧客';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoFullNameLabel => '氏名';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoFullNameKanaLabel =>
+      '氏名 (カナ)';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoEmailLabel => 'メールアドレス';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoPhoneNumberLabel => '電話番号';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsTitle => '予約詳細';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsMenuLabel => 'メニュー';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsYen => '円';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsMinutes => '分';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsDatetimeLabel =>
+      '予約日時';
+
+  @override
+  String
+  get adminListCalendarScreenShowReservationDetailsEstimatedCompletionLabel =>
+      '推定完了時刻:';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsNumberOfPeopleLabel =>
+      '人数';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsPeople => '名';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsTotalCostLabel =>
+      '合計金額';
+
+  @override
+  String get adminListCalendarScreenShowAdditionalInfoTitle => '追加情報';
+
+  @override
+  String get adminListCalendarScreenShowAdditionalInfoStatusLabel => '予約ステータス';
+
+  @override
+  String get adminListCalendarScreenShowAdditionalInfoCreatedAtLabel => '作成日時';
+
+  @override
+  String get adminListCalendarScreenShowAdditionalInfoLastUpdatedLabel =>
+      '最終更新日時';
+
+  @override
+  String get adminListCalendarScreenShowAdditionalInfoNotesLabel => '備考';
+
+  @override
+  String get adminListCalendarScreenShowBackButton => 'カレンダーに戻る';
+
+  @override
+  String get adminListCalendarScreenShowEditButton => '予約を編集';
+
+  @override
+  String get adminUpsertCalendarScreenCreatePageTitle => '新規予約作成';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormCustomerType => '顧客タイプ';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormRegisteredCustomer => '登録顧客';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormGuestCustomer => 'ゲスト顧客';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormSelectCustomer => '顧客を選択';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormSelectCustomerPlaceholder =>
+      '顧客を選択...';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormFullName => '氏名 *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormFullNameKana => '氏名 (カナ) *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormEmail => 'メールアドレス *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormPhoneNumber => '電話番号 *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormMenu => 'メニュー *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormSelectMenuPlaceholder =>
+      'メニューを選択...';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormYen => '円';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormMinutes => '分';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormReservationDatetime => '予約日時 *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormNumberOfPeople => '人数 *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormTotalAmount => '合計金額 *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormStatus => 'ステータス';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormNotes => '備考';
+
+  @override
+  String get adminUpsertCalendarScreenCreateStatusOptionsPending => '保留中';
+
+  @override
+  String get adminUpsertCalendarScreenCreateStatusOptionsConfirmed => '確定済み';
+
+  @override
+  String get adminUpsertCalendarScreenCreateStatusOptionsCompleted => '完了';
+
+  @override
+  String get adminUpsertCalendarScreenCreateStatusOptionsCancelled => 'キャンセル済み';
+
+  @override
+  String get adminUpsertCalendarScreenCreateButtonsSelectFromCalendar =>
+      'カレンダーから選択';
+
+  @override
+  String get adminUpsertCalendarScreenCreateButtonsCancel => 'キャンセル';
+
+  @override
+  String get adminUpsertCalendarScreenCreateButtonsCheckAvailability =>
+      '空き状況を確認';
+
+  @override
+  String get adminUpsertCalendarScreenCreateButtonsSaveReservation => '予約を保存';
+
+  @override
+  String get adminUpsertCalendarScreenCreateButtonsConfirm => '確定';
+
+  @override
+  String get adminUpsertCalendarScreenCreateAvailabilitySelectMenuAndDate =>
+      '最初にメニューと日時を選択してください。';
+
+  @override
+  String get adminUpsertCalendarScreenCreateAvailabilityAvailable =>
+      'この時間帯は予約可能です。';
+
+  @override
+  String get adminUpsertCalendarScreenCreateAvailabilityUnavailable =>
+      '予約不可期間または他の予約と競合するため、この時間帯は利用できません。';
+
+  @override
+  String get adminUpsertCalendarScreenCreateAvailabilityError =>
+      '空き状況の確認中にエラーが発生しました。';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalTitle =>
+      '予約したい日付を選択してください';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalSelectDate => '日付を選択';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalSelectTime => '時間を選択';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalPreviousMonth => '前の月';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalNextMonth => '次の月';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalFullyBlockedMessage =>
+      'この日付は完全にブロックされており、予約はできません。';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendTitle => '凡例:';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsFullyBlocked =>
+      '完全にブロック';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsBlockedPeriod =>
+      '予約不可期間';
+
+  @override
+  String
+  get adminUpsertCalendarScreenCreateCalendarModalLegendsHasReservation =>
+      '予約あり';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsMixed =>
+      '混合 (ブロック + 予約)';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsAvailable =>
+      '予約可能';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsPastDate =>
+      '過去の日付';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalDaysShort =>
+      '日,月,火,水,木,金,土';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalMonths =>
+      '1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalAlertSelectMenu =>
+      '最初にメニューを選択してください。';
+
+  @override
+  String
+  get adminUpsertCalendarScreenCreateCalendarModalAlertDateFullyBlocked =>
+      '選択された日付は完全にブロックされており、予約できません。';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalAlertSelectDateTime =>
+      '日付と時間の両方を選択してください。';
+
+  @override
+  String adminUpsertCalendarScreenEditTitle(String id) {
+    return '予約を更新 #$id';
+  }
+
+  @override
+  String get adminUpsertCalendarScreenEditErrorOccurred => 'エラーが発生しました:';
+
+  @override
+  String get adminUpsertCalendarScreenEditCustomerTypeLabel => '顧客タイプ';
+
+  @override
+  String get adminUpsertCalendarScreenEditRegisteredCustomer => '登録顧客';
+
+  @override
+  String get adminUpsertCalendarScreenEditGuestCustomer => 'ゲスト顧客';
+
+  @override
+  String get adminUpsertCalendarScreenEditSelectCustomerLabel => '顧客を選択';
+
+  @override
+  String get adminUpsertCalendarScreenEditSelectCustomerOption => '顧客を選択...';
+
+  @override
+  String get adminUpsertCalendarScreenEditFullNameLabel => '氏名 *';
+
+  @override
+  String get adminUpsertCalendarScreenEditFullNameKanaLabel => '氏名 (カナ) *';
+
+  @override
+  String get adminUpsertCalendarScreenEditEmailLabel => 'メールアドレス *';
+
+  @override
+  String get adminUpsertCalendarScreenEditPhoneNumberLabel => '電話番号 *';
+
+  @override
+  String get adminUpsertCalendarScreenEditMenuLabel => 'メニュー *';
+
+  @override
+  String get adminUpsertCalendarScreenEditSelectMenuOption => 'メニューを選択...';
+
+  @override
+  String get adminUpsertCalendarScreenEditYen => '円';
+
+  @override
+  String get adminUpsertCalendarScreenEditMinutes => '分';
+
+  @override
+  String get adminUpsertCalendarScreenEditReservationDatetimeLabel => '予約日時 *';
+
+  @override
+  String get adminUpsertCalendarScreenEditSelectFromCalendarButton =>
+      'カレンダーから選択';
+
+  @override
+  String get adminUpsertCalendarScreenEditNumberOfPeopleLabel => '人数 *';
+
+  @override
+  String get adminUpsertCalendarScreenEditTotalAmountLabel => '合計金額 *';
+
+  @override
+  String get adminUpsertCalendarScreenEditStatusLabel => 'ステータス';
+
+  @override
+  String get adminUpsertCalendarScreenEditNotesLabel => '備考';
+
+  @override
+  String get adminUpsertCalendarScreenEditStatusPending => '保留中';
+
+  @override
+  String get adminUpsertCalendarScreenEditStatusConfirmed => '確定済み';
+
+  @override
+  String get adminUpsertCalendarScreenEditStatusCompleted => '完了';
+
+  @override
+  String get adminUpsertCalendarScreenEditStatusCancelled => 'キャンセル済み';
+
+  @override
+  String get adminUpsertCalendarScreenEditCancelButton => 'キャンセル';
+
+  @override
+  String get adminUpsertCalendarScreenEditCheckAvailabilityButton => '空き状況を確認';
+
+  @override
+  String get adminUpsertCalendarScreenEditUpdateReservationButton => '予約を更新';
+
+  @override
+  String get adminUpsertCalendarScreenEditModalTitle => '予約したい日付を選択してください';
+
+  @override
+  String get adminUpsertCalendarScreenEditSelectDateLabel => '日付を選択';
+
+  @override
+  String get adminUpsertCalendarScreenEditSelectTimeLabel => '時間を選択';
+
+  @override
+  String get adminUpsertCalendarScreenEditPreviousButton => '前へ';
+
+  @override
+  String get adminUpsertCalendarScreenEditNextButton => '次へ';
+
+  @override
+  String get adminUpsertCalendarScreenEditDateFullyBlockedMessage =>
+      'この日付は完全にブロックされており、予約はできません。';
+
+  @override
+  String get adminUpsertCalendarScreenEditModalCancelButton => 'キャンセル';
+
+  @override
+  String get adminUpsertCalendarScreenEditModalConfirmButton => '確定';
+
+  @override
+  String get adminUpsertCalendarScreenEditMonths =>
+      '1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月';
+
+  @override
+  String get adminUpsertCalendarScreenEditDaysOfWeek => '日,月,火,水,木,金,土';
+
+  @override
+  String get adminUpsertCalendarScreenEditLegendTitle => '凡例:';
+
+  @override
+  String get adminUpsertCalendarScreenEditLegendFullyBlocked => '完全にブロック';
+
+  @override
+  String get adminUpsertCalendarScreenEditLegendBlockedPeriod => '予約不可期間';
+
+  @override
+  String get adminUpsertCalendarScreenEditLegendHasReservation => '予約あり';
+
+  @override
+  String get adminUpsertCalendarScreenEditLegendMixed => '混合 (ブロック + 予約)';
+
+  @override
+  String get adminUpsertCalendarScreenEditLegendAvailable => '予約可能';
+
+  @override
+  String get adminUpsertCalendarScreenEditLegendPastDate => '過去の日付';
+
+  @override
+  String get adminUpsertCalendarScreenEditSuccessMessage => '予約が正常に更新されました。';
+
+  @override
+  String get adminUpsertCalendarScreenEditReservationNotFound => '予約が見つかりません。';
+
+  @override
+  String get adminUpsertCalendarScreenEditUpdateFailedMessage =>
+      '予約の更新に失敗しました: ';
+
+  @override
+  String get adminUpsertCalendarScreenEditJsSelectMenuDatetimeFirst =>
+      '最初にメニューと日時を選択してください。';
+
+  @override
+  String get adminUpsertCalendarScreenEditJsTimeslotAvailable =>
+      'この時間帯は予約可能です。';
+
+  @override
+  String get adminUpsertCalendarScreenEditJsTimeslotUnavailable =>
+      '予約不可期間または他の予約と競合するため、この時間帯は利用できません。';
+
+  @override
+  String get adminUpsertCalendarScreenEditJsAvailabilityError =>
+      '空き状況の確認中にエラーが発生しました。';
+
+  @override
+  String get adminUpsertCalendarScreenEditJsSelectMenuFirstAlert =>
+      '最初にメニューを選択してください。';
+
+  @override
+  String get adminUpsertCalendarScreenEditJsSelectDateTimeAlert =>
+      '日付と時間の両方を選択してください。';
 
   @override
   String get contactNotificationNotFound => 'お問い合わせが見つかりません。';
@@ -2224,6 +3336,384 @@ class L10nJa extends L10n {
 
   @override
   String get inquiryErrorMessage => 'お問い合わせの送信中にエラーが発生しました。後でもう一度お試しください。';
+
+  @override
+  String get adminListMenuScreenTitle => 'メニュー管理';
+
+  @override
+  String get adminListMenuScreenSubtitle => '顧客向けのサービスメニューを管理します';
+
+  @override
+  String get adminListMenuScreenAddMenu => 'メニューを追加';
+
+  @override
+  String get adminListMenuScreenFilter => '絞り込み';
+
+  @override
+  String get adminListMenuScreenReset => 'リセット';
+
+  @override
+  String get adminListMenuScreenActivate => '有効化';
+
+  @override
+  String get adminListMenuScreenDeactivate => '無効化';
+
+  @override
+  String get adminListMenuScreenDelete => '削除';
+
+  @override
+  String get adminListMenuScreenReorder => '並び替え';
+
+  @override
+  String get adminListMenuScreenCancel => 'キャンセル';
+
+  @override
+  String get adminListMenuScreenEdit => '編集';
+
+  @override
+  String get adminListMenuScreenSaveOrder => '順序を保存';
+
+  @override
+  String get adminListMenuScreenSelectAll => 'すべて選択';
+
+  @override
+  String get adminListMenuScreenTotalMenus => '総メニュー数';
+
+  @override
+  String get adminListMenuScreenActive => '有効';
+
+  @override
+  String get adminListMenuScreenInactive => '無効';
+
+  @override
+  String get adminListMenuScreenAveragePrice => '平均価格';
+
+  @override
+  String get adminListMenuScreenFiltersSearch => 'フィルターと検索';
+
+  @override
+  String get adminListMenuScreenShowFilters => 'フィルターを表示';
+
+  @override
+  String get adminListMenuScreenHideFilters => 'フィルターを非表示';
+
+  @override
+  String get adminListMenuScreenStatus => 'ステータス';
+
+  @override
+  String get adminListMenuScreenAllStatuses => 'すべてのステータス';
+
+  @override
+  String get adminListMenuScreenMinPriceRange => '最低価格範囲';
+
+  @override
+  String get adminListMenuScreenMaxPriceRange => '最高価格範囲';
+
+  @override
+  String get adminListMenuScreenSearch => '検索';
+
+  @override
+  String get adminListMenuScreenSearchPlaceholder => 'メニュー名で検索...';
+
+  @override
+  String adminListMenuScreenItemsSelected(String count) {
+    return '$count件選択中';
+  }
+
+  @override
+  String get adminListMenuScreenMenuList => 'メニュー一覧';
+
+  @override
+  String get adminListMenuScreenThMenu => 'メニュー';
+
+  @override
+  String get adminListMenuScreenThPrice => '価格';
+
+  @override
+  String get adminListMenuScreenThTimeRequired => '所要時間';
+
+  @override
+  String get adminListMenuScreenThOrder => '順序';
+
+  @override
+  String get adminListMenuScreenThStatus => 'ステータス';
+
+  @override
+  String get adminListMenuScreenThActions => '操作';
+
+  @override
+  String get adminListMenuScreenTimeUnitMinutes => '分';
+
+  @override
+  String get adminListMenuScreenViewDetails => '詳細を表示';
+
+  @override
+  String get adminListMenuScreenNoMenusTitle => 'メニューがありません';
+
+  @override
+  String get adminListMenuScreenNoMenusDescription =>
+      'メニューが作成されていないか、適用されたフィルターに一致するものがありません。';
+
+  @override
+  String get adminListMenuScreenConfirmDeletionTitle => '削除の確認';
+
+  @override
+  String get adminListMenuScreenDeleteSingleConfirm => 'このメニューを削除してもよろしいですか？';
+
+  @override
+  String adminListMenuScreenDeleteMultipleConfirm(String count) {
+    return '$count件のメニューを削除してもよろしいですか？';
+  }
+
+  @override
+  String get adminListMenuScreenReorderTitle => 'メニュー順序の設定';
+
+  @override
+  String get adminListMenuScreenReorderDescription =>
+      '項目をドラッグ＆ドロップして順序を変更します。グリップアイコンをクリックしたまま動かしてください。';
+
+  @override
+  String adminListMenuScreenCurrentOrder(String order) {
+    return '現在の順序: #$order';
+  }
+
+  @override
+  String get adminListMenuScreenShowTitle => 'メニュー詳細';
+
+  @override
+  String adminListMenuScreenShowSubtitle(String name) {
+    return 'メニュー項目の詳細情報: $name';
+  }
+
+  @override
+  String get adminListMenuScreenShowEditMenuButton => 'メニューを編集';
+
+  @override
+  String get adminListMenuScreenShowBackToListButton => '一覧に戻る';
+
+  @override
+  String get adminListMenuScreenShowStatusActive => '有効なメニュー';
+
+  @override
+  String get adminListMenuScreenShowStatusInactive => '無効なメニュー';
+
+  @override
+  String get adminListMenuScreenShowActivateMenu => 'メニューを有効化';
+
+  @override
+  String get adminListMenuScreenShowDeactivateMenu => 'メニューを無効化';
+
+  @override
+  String get adminListMenuScreenShowDeleteMenuButton => 'メニューを削除';
+
+  @override
+  String get adminListMenuScreenShowInfoTitle => 'メニュー情報';
+
+  @override
+  String get adminListMenuScreenShowInfoName => 'メニュー名';
+
+  @override
+  String get adminListMenuScreenShowInfoPrice => '価格';
+
+  @override
+  String get adminListMenuScreenShowInfoTime => '所要時間';
+
+  @override
+  String get adminListMenuScreenShowInfoOrder => '表示順';
+
+  @override
+  String get adminListMenuScreenShowInfoColor => 'メニューカラー';
+
+  @override
+  String get adminListMenuScreenShowInfoCreatedAt => '作成日';
+
+  @override
+  String get adminListMenuScreenShowInfoUpdatedAt => '最終更新日';
+
+  @override
+  String get adminListMenuScreenShowDescriptionTitle => 'メニュー説明';
+
+  @override
+  String get adminListMenuScreenShowDeleteModalTitle => 'メニュー削除の確認';
+
+  @override
+  String adminListMenuScreenShowDeleteModalText(String name) {
+    return 'メニュー「$name」を本当に削除しますか？この操作は元に戻せません。';
+  }
+
+  @override
+  String get adminListMenuScreenShowDeletingText => '削除中...';
+
+  @override
+  String get adminListMenuScreenJsMessagesSelectAtLeastOne =>
+      '少なくとも1つのメニューを選択してください。';
+
+  @override
+  String get adminListMenuScreenJsMessagesErrorOccurredStatus =>
+      'ステータスの変更中にエラーが発生しました。';
+
+  @override
+  String get adminListMenuScreenJsMessagesErrorOccurredDelete =>
+      '削除中にエラーが発生しました。';
+
+  @override
+  String get adminListMenuScreenJsMessagesErrorOccurredReorder =>
+      '順序の保存中にエラーが発生しました。';
+
+  @override
+  String get adminListMenuScreenJsMessagesDeleteSuccess => 'メニューが正常に削除されました！';
+
+  @override
+  String get adminListMenuScreenJsMessagesDeleteFailed => 'メニューの削除に失敗しました。';
+
+  @override
+  String get adminListMenuScreenJsMessagesDeletingText => '削除中...';
+
+  @override
+  String get adminListMenuScreenJsMessagesConfirmDeleteTitle => 'メニュー削除の確認';
+
+  @override
+  String adminListMenuScreenJsMessagesConfirmDeleteText(String name) {
+    return 'メニュー「$name」を本当に削除しますか？この操作は元に戻せません。';
+  }
+
+  @override
+  String get adminListMenuScreenJsMessagesSuccessTitle => '成功！';
+
+  @override
+  String get adminListMenuScreenJsMessagesErrorTitle => 'エラーが発生しました';
+
+  @override
+  String get adminListMenuScreenJsMessagesClose => '閉じる';
+
+  @override
+  String get adminListMenuScreenJsMessagesOk => 'OK';
+
+  @override
+  String get adminUpsertMenuScreenAddSubtitle => '顧客向けの新しいサービスメニューを作成します';
+
+  @override
+  String get adminUpsertMenuScreenEditTitle => 'メニューを編集';
+
+  @override
+  String get adminUpsertMenuScreenEditSubtitle => 'メニュー情報を更新します';
+
+  @override
+  String get adminUpsertMenuScreenViewMenu => 'メニューを表示';
+
+  @override
+  String get adminUpsertMenuScreenBack => '戻る';
+
+  @override
+  String get adminUpsertMenuScreenSaveMenu => 'メニューを保存';
+
+  @override
+  String get adminUpsertMenuScreenUpdateMenu => 'メニューを更新';
+
+  @override
+  String get adminUpsertMenuScreenEnglishInfo => '英語情報';
+
+  @override
+  String get adminUpsertMenuScreenJapaneseInfo => '日本語情報';
+
+  @override
+  String get adminUpsertMenuScreenMenuNameEn => 'メニュー名（英語）';
+
+  @override
+  String get adminUpsertMenuScreenDescriptionEn => '説明（英語）';
+
+  @override
+  String get adminUpsertMenuScreenMenuNameJa => 'メニュー名（日本語）';
+
+  @override
+  String get adminUpsertMenuScreenDescriptionJa => '説明（日本語）';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderNameEn => 'メニュー名を英語で入力';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderDescEn => 'メニューの説明を英語で入力...';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderNameJa => 'メニュー名を日本語で入力';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderDescJa => 'メニューの説明を日本語で入力...';
+
+  @override
+  String get adminUpsertMenuScreenBasicSettings => '基本設定';
+
+  @override
+  String get adminUpsertMenuScreenFormRequiredTime => '所要時間（分）';
+
+  @override
+  String get adminUpsertMenuScreenHelpRequiredTime => '推定処理時間を分単位で入力';
+
+  @override
+  String get adminUpsertMenuScreenFormPrice => '価格（円）';
+
+  @override
+  String get adminUpsertMenuScreenVisualSettings => '表示設定';
+
+  @override
+  String get adminUpsertMenuScreenHelpColor => 'この色はメニュー表示に使用されます';
+
+  @override
+  String get adminUpsertMenuScreenStatusSettings => 'ステータス設定';
+
+  @override
+  String get adminUpsertMenuScreenFormActiveStatus => '有効ステータス';
+
+  @override
+  String get adminUpsertMenuScreenHelpActiveStatus => 'メニューが顧客に表示されます';
+
+  @override
+  String get adminUpsertMenuScreenMenuPreview => 'メニュープレビュー';
+
+  @override
+  String get adminUpsertMenuScreenEnglishPreview => '英語プレビュー';
+
+  @override
+  String get adminUpsertMenuScreenJapanesePreview => '日本語プレビュー';
+
+  @override
+  String get adminUpsertMenuScreenTimeUnitMinutesFull => '分';
+
+  @override
+  String get adminUpsertMenuScreenNoDescription => '説明はありません';
+
+  @override
+  String get adminUpsertMenuScreenCurrentInfo => '現在のメニュー情報';
+
+  @override
+  String get adminUpsertMenuScreenColorsBlue => '青';
+
+  @override
+  String get adminUpsertMenuScreenColorsGreen => '緑';
+
+  @override
+  String get adminUpsertMenuScreenColorsYellow => '黄';
+
+  @override
+  String get adminUpsertMenuScreenColorsRed => '赤';
+
+  @override
+  String get adminUpsertMenuScreenColorsPurple => '紫';
+
+  @override
+  String get adminUpsertMenuScreenColorsPink => 'ピンク';
+
+  @override
+  String get adminUpsertMenuScreenColorsCyan => 'シアン';
+
+  @override
+  String get adminUpsertMenuScreenColorsLime => 'ライム';
+
+  @override
+  String get adminUpsertMenuScreenColorsOrange => 'オレンジ';
+
+  @override
+  String get adminUpsertMenuScreenColorsGray => 'グレー';
 
   @override
   String get profileShowTitle => 'マイプロフィール';

@@ -31,7 +31,7 @@ class _AdminListAnnouncementScreenState
   bool _isFilterVisible = true;
 
   Future<void> _refreshAnnouncements() async {
-    await ref.read(announcementGetNotifierProvider.notifier).refreshs();
+    await ref.read(announcementGetNotifierProvider.notifier).refresh();
   }
 
   void _applyFilters() {

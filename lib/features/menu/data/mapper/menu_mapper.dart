@@ -13,6 +13,7 @@ extension MenuModelMapper on MenuModel {
       displayOrder: displayOrder,
       isActive: isActive,
       color: (color as ColorInfoModel).toEntity(),
+      translations: (translations as MenuTranslationModel?)?.toEntity(),
     );
   }
 }
@@ -29,6 +30,27 @@ extension ColorInfoModelMapper on ColorInfoModel {
   }
 }
 
+extension MetaModelMapper on MetaModel {
+  Meta toEntity() {
+    return Meta(locale: locale, fallbackUsed: fallbackUsed);
+  }
+}
+
+extension MenuTranslationModelMapper on MenuTranslationModel {
+  MenuTranslation toEntity() {
+    return MenuTranslation(
+      en: (en as MenuContentModel).toEntity(),
+      ja: (ja as MenuContentModel).toEntity(),
+    );
+  }
+}
+
+extension MenuContentModelMapper on MenuContentModel {
+  MenuContent toEntity() {
+    return MenuContent(name: name, description: description);
+  }
+}
+
 extension MenuEntityMapper on Menu {
   MenuModel toModel() {
     return MenuModel(
@@ -41,6 +63,7 @@ extension MenuEntityMapper on Menu {
       displayOrder: displayOrder,
       isActive: isActive,
       color: color.toModel(),
+      translations: translations?.toModel(),
     );
   }
 }
@@ -54,5 +77,23 @@ extension PriceEntityMapper on Price {
 extension ColorInfoEntityMapper on ColorInfo {
   ColorInfoModel toModel() {
     return ColorInfoModel(hex: hex, rgbaLight: rgbaLight, textColor: textColor);
+  }
+}
+
+extension MenuTranslationEntityMapper on MenuTranslation {
+  MenuTranslationModel toModel() {
+    return MenuTranslationModel(en: en.toModel(), ja: ja.toModel());
+  }
+}
+
+extension MenuContentEntityMapper on MenuContent {
+  MenuContentModel toModel() {
+    return MenuContentModel(name: name, description: description);
+  }
+}
+
+extension MetaEntityMapper on Meta {
+  MetaModel toModel() {
+    return MetaModel(locale: locale, fallbackUsed: fallbackUsed);
   }
 }

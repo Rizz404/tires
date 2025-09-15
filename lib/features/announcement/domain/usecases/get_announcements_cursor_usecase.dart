@@ -13,7 +13,7 @@ class GetAnnouncementsCursorUsecase
     implements
         Usecase<
           CursorPaginatedSuccess<Announcement>,
-          GetUserAnnouncementsCursorParams
+          GetAnnouncementsCursorParams
         > {
   final AnnouncementRepository _userRepository;
 
@@ -21,28 +21,28 @@ class GetAnnouncementsCursorUsecase
 
   @override
   Future<Either<Failure, CursorPaginatedSuccess<Announcement>>> call(
-    GetUserAnnouncementsCursorParams params,
+    GetAnnouncementsCursorParams params,
   ) async {
     return await _userRepository.getAnnouncementsCursor(params);
   }
 }
 
-class GetUserAnnouncementsCursorParams extends Equatable {
+class GetAnnouncementsCursorParams extends Equatable {
   final bool paginate;
   final int perPage;
   final String? cursor;
-  const GetUserAnnouncementsCursorParams({
+  const GetAnnouncementsCursorParams({
     required this.paginate,
     required this.perPage,
     this.cursor,
   });
 
-  GetUserAnnouncementsCursorParams copyWith({
+  GetAnnouncementsCursorParams copyWith({
     bool? paginate,
     int? perPage,
     String? cursor,
   }) {
-    return GetUserAnnouncementsCursorParams(
+    return GetAnnouncementsCursorParams(
       paginate: paginate ?? this.paginate,
       perPage: perPage ?? this.perPage,
       cursor: cursor ?? this.cursor,
@@ -57,8 +57,8 @@ class GetUserAnnouncementsCursorParams extends Equatable {
     };
   }
 
-  factory GetUserAnnouncementsCursorParams.fromMap(Map<String, dynamic> map) {
-    return GetUserAnnouncementsCursorParams(
+  factory GetAnnouncementsCursorParams.fromMap(Map<String, dynamic> map) {
+    return GetAnnouncementsCursorParams(
       paginate: map['paginate'] as bool,
       perPage: map['perPage'] as int,
       cursor: map['cursor'] != null ? map['cursor'] as String : null,
@@ -67,8 +67,8 @@ class GetUserAnnouncementsCursorParams extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory GetUserAnnouncementsCursorParams.fromJson(String source) =>
-      GetUserAnnouncementsCursorParams.fromMap(
+  factory GetAnnouncementsCursorParams.fromJson(String source) =>
+      GetAnnouncementsCursorParams.fromMap(
         json.decode(source) as Map<String, dynamic>,
       );
 

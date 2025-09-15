@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/features/home/presentation/providers/menu_state.dart';
-import 'package:tires/features/menu/domain/usecases/get_menu_cursor_usecase.dart';
+import 'package:tires/features/menu/domain/usecases/get_menus_cursor_usecase.dart';
 
 class MenuNotifier extends StateNotifier<MenuState> {
-  final GetMenuCursorUsecase _getMenusUsecase;
+  final GetMenusCursorUsecase _getMenusUsecase;
 
   MenuNotifier(this._getMenusUsecase) : super(const MenuState()) {
     getInitialMenus();
@@ -15,7 +15,7 @@ class MenuNotifier extends StateNotifier<MenuState> {
     state = state.copyWith(status: MenuStatus.loading);
 
     final result = await _getMenusUsecase(
-      const GetMenuCursorParams(paginate: true, perPage: 15),
+      const GetMenusCursorParams(paginate: true, perPage: 15),
     );
 
     result.fold(
@@ -43,7 +43,7 @@ class MenuNotifier extends StateNotifier<MenuState> {
     state = state.copyWith(status: MenuStatus.loadingMore);
 
     final result = await _getMenusUsecase(
-      GetMenuCursorParams(
+      GetMenusCursorParams(
         paginate: true,
         perPage: 15,
         cursor: state.nextCursor,

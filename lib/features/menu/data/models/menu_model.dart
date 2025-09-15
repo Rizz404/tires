@@ -13,6 +13,7 @@ class MenuModel extends Menu {
     required super.displayOrder,
     required super.isActive,
     required ColorInfoModel super.color,
+    super.translations,
   });
 
   factory MenuModel.fromMap(Map<String, dynamic> map) {
@@ -68,6 +69,20 @@ class MenuModel extends Menu {
       final color = _createColorFromDynamic(map['color']);
       print('✅ Color created successfully: ${color.hex}');
 
+      // Debug translations creation
+      print(
+        '🔍 Creating translations from: ${map['translations']} (${map['translations']?.runtimeType})',
+      );
+      final translations = _createTranslationsFromDynamic(map['translations']);
+      print('✅ Translations created successfully');
+
+      // Debug meta creation
+      print(
+        '🔍 Creating meta from: ${map['meta']} (${map['meta']?.runtimeType})',
+      );
+      final meta = _createMetaFromDynamic(map['meta']);
+      print('✅ Meta created successfully');
+
       return MenuModel(
         id: id,
         name: name,
@@ -78,6 +93,7 @@ class MenuModel extends Menu {
         displayOrder: displayOrder,
         isActive: isActive,
         color: color,
+        translations: translations,
       );
     } catch (e, stackTrace) {
       print('❌ Error in MenuModel.fromMap: $e');
@@ -200,6 +216,62 @@ class MenuModel extends Menu {
     }
   }
 
+  static MenuTranslationModel? _createTranslationsFromDynamic(
+    dynamic translationsData,
+  ) {
+    try {
+      print(
+        '🌐 Translations data received: $translationsData (${translationsData.runtimeType})',
+      );
+
+      if (translationsData == null) {
+        print('⚠️ Translations is null, returning null');
+        return null;
+      }
+
+      if (translationsData is Map<String, dynamic>) {
+        print('🗺️ Translations is a Map, using MenuTranslationModel.fromMap');
+        return MenuTranslationModel.fromMap(translationsData);
+      }
+
+      // Fallback
+      print('⚠️ Unknown translations data type, returning null');
+      return null;
+    } catch (e, stackTrace) {
+      print('❌ Error creating MenuTranslationModel: $e');
+      print('📊 Translations data: $translationsData');
+      print('📊 Stack trace: $stackTrace');
+      // Return null for safety
+      return null;
+    }
+  }
+
+  static MetaModel _createMetaFromDynamic(dynamic metaData) {
+    try {
+      print('📊 Meta data received: $metaData (${metaData.runtimeType})');
+
+      if (metaData == null) {
+        print('⚠️ Meta is null, using default');
+        return MetaModel(locale: 'en', fallbackUsed: true);
+      }
+
+      if (metaData is Map<String, dynamic>) {
+        print('🗺️ Meta is a Map, using MetaModel.fromMap');
+        return MetaModel.fromMap(metaData);
+      }
+
+      // Fallback
+      print('⚠️ Unknown meta data type, using default');
+      return MetaModel(locale: 'en', fallbackUsed: true);
+    } catch (e, stackTrace) {
+      print('❌ Error creating MetaModel: $e');
+      print('📊 Meta data: $metaData');
+      print('📊 Stack trace: $stackTrace');
+      // Return safe fallback
+      return MetaModel(locale: 'en', fallbackUsed: true);
+    }
+  }
+
   factory MenuModel.fromJson(String source) =>
       MenuModel.fromMap(json.decode(source));
 
@@ -214,6 +286,7 @@ class MenuModel extends Menu {
       'display_order': displayOrder,
       'is_active': isActive,
       'color': (color as ColorInfoModel).toMap(),
+      'translations': (translations as MenuTranslationModel?)?.toMap(),
     };
   }
 
@@ -319,5 +392,81 @@ class ColorInfoModel extends ColorInfo {
 
   Map<String, dynamic> toMap() {
     return {'hex': hex, 'rgba_light': rgbaLight, 'text_color': textColor};
+  }
+}
+
+class MenuTranslationModel extends MenuTranslation {
+  const MenuTranslationModel({
+    required MenuContentModel en,
+    required MenuContentModel ja,
+  }) : super(en: en, ja: ja);
+
+  factory MenuTranslationModel.fromMap(Map<String, dynamic> map) {
+    DebugHelper.traceModelCreation('MenuTranslationModel', map);
+    return MenuTranslationModel(
+      en: map['en'] != null && map['en'] is Map<String, dynamic>
+          ? MenuContentModel.fromMap(map['en'])
+          : const MenuContentModel(name: '', description: null),
+      ja: map['ja'] != null && map['ja'] is Map<String, dynamic>
+          ? MenuContentModel.fromMap(map['ja'])
+          : const MenuContentModel(name: '', description: null),
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'en': (en as MenuContentModel).toMap(),
+      'ja': (ja as MenuContentModel).toMap(),
+    };
+  }
+}
+
+class MenuContentModel extends MenuContent {
+  const MenuContentModel({required String name, String? description})
+    : super(name: name, description: description);
+
+  factory MenuContentModel.fromMap(Map<String, dynamic> map) {
+    DebugHelper.traceModelCreation('MenuContentModel', map);
+    return MenuContentModel(
+      name:
+          DebugHelper.safeCast<String>(map['name'], 'name', defaultValue: '') ??
+          '',
+      description: DebugHelper.safeCast<String>(
+        map['description'],
+        'description',
+      ),
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {'name': name, 'description': description};
+  }
+}
+
+class MetaModel extends Meta {
+  MetaModel({required super.locale, required super.fallbackUsed});
+
+  factory MetaModel.fromMap(Map<String, dynamic> map) {
+    DebugHelper.traceModelCreation('MetaModel', map);
+    return MetaModel(
+      locale:
+          DebugHelper.safeCast<String>(
+            map['locale'],
+            'locale',
+            defaultValue: 'en',
+          ) ??
+          'en',
+      fallbackUsed:
+          DebugHelper.safeCast<bool>(
+            map['fallback_used'],
+            'fallback_used',
+            defaultValue: false,
+          ) ??
+          false,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {'locale': locale, 'fallback_used': fallbackUsed};
   }
 }

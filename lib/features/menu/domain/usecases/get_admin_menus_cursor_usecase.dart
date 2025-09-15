@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
@@ -10,26 +9,27 @@ import 'package:tires/core/usecases/usecase.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/menu/domain/repositories/menu_repository.dart';
 
-class GetMenuCursorUsecase
-    implements Usecase<CursorPaginatedSuccess<Menu>, GetMenuCursorParams> {
+class GetAdminMenusCursorUsecase
+    implements
+        Usecase<CursorPaginatedSuccess<Menu>, GetAdminMenusCursorParams> {
   final MenuRepository _menuRepository;
 
-  GetMenuCursorUsecase(this._menuRepository);
+  GetAdminMenusCursorUsecase(this._menuRepository);
 
   @override
   Future<Either<Failure, CursorPaginatedSuccess<Menu>>> call(
-    GetMenuCursorParams params,
+    GetAdminMenusCursorParams params,
   ) async {
-    return await _menuRepository.getMenuCursor(params);
+    return await _menuRepository.getAdminMenusCursor(params);
   }
 }
 
-class GetMenuCursorParams extends Equatable {
+class GetAdminMenusCursorParams extends Equatable {
   final bool paginate;
   final int perPage;
   final String? cursor;
 
-  const GetMenuCursorParams({
+  const GetAdminMenusCursorParams({
     required this.paginate,
     required this.perPage,
     this.cursor,

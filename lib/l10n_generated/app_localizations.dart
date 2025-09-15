@@ -1329,6 +1329,318 @@ abstract class L10n {
   /// **'Back to Login'**
   String get forgotPasswordBackToLogin;
 
+  /// No description provided for @adminListAvailabilityScreenPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Availability Check'**
+  String get adminListAvailabilityScreenPageTitle;
+
+  /// No description provided for @adminListAvailabilityScreenPageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check time availability for reservations'**
+  String get adminListAvailabilityScreenPageSubtitle;
+
+  /// No description provided for @adminListAvailabilityScreenFormDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Date'**
+  String get adminListAvailabilityScreenFormDateLabel;
+
+  /// No description provided for @adminListAvailabilityScreenFormMenuLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Menu'**
+  String get adminListAvailabilityScreenFormMenuLabel;
+
+  /// No description provided for @adminListAvailabilityScreenFormMenuPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'-- Select Menu --'**
+  String get adminListAvailabilityScreenFormMenuPlaceholder;
+
+  /// No description provided for @adminListAvailabilityScreenFormMenuMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'minutes'**
+  String get adminListAvailabilityScreenFormMenuMinutes;
+
+  /// No description provided for @adminListAvailabilityScreenButtonsPrevious.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get adminListAvailabilityScreenButtonsPrevious;
+
+  /// No description provided for @adminListAvailabilityScreenButtonsNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get adminListAvailabilityScreenButtonsNext;
+
+  /// No description provided for @adminListAvailabilityScreenSummaryDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get adminListAvailabilityScreenSummaryDate;
+
+  /// No description provided for @adminListAvailabilityScreenSummaryYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get adminListAvailabilityScreenSummaryYear;
+
+  /// No description provided for @adminListAvailabilityScreenSummaryMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get adminListAvailabilityScreenSummaryMonth;
+
+  /// No description provided for @adminListAvailabilityScreenSummaryCurrentTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Time'**
+  String get adminListAvailabilityScreenSummaryCurrentTime;
+
+  /// No description provided for @adminListAvailabilityScreenLoadingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading availability data...'**
+  String get adminListAvailabilityScreenLoadingText;
+
+  /// No description provided for @adminListAvailabilityScreenAvailabilityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Availability'**
+  String get adminListAvailabilityScreenAvailabilityTitle;
+
+  /// No description provided for @adminListAvailabilityScreenAvailabilityAvailableSlots.
+  ///
+  /// In en, this message translates to:
+  /// **'available slots'**
+  String get adminListAvailabilityScreenAvailabilityAvailableSlots;
+
+  /// No description provided for @adminListAvailabilityScreenAvailabilityReservedSlots.
+  ///
+  /// In en, this message translates to:
+  /// **'reserved slots'**
+  String get adminListAvailabilityScreenAvailabilityReservedSlots;
+
+  /// No description provided for @adminListAvailabilityScreenAvailabilityBlockedSlots.
+  ///
+  /// In en, this message translates to:
+  /// **'blocked slots'**
+  String get adminListAvailabilityScreenAvailabilityBlockedSlots;
+
+  /// No description provided for @adminListAvailabilityScreenStatusAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get adminListAvailabilityScreenStatusAvailable;
+
+  /// No description provided for @adminListAvailabilityScreenStatusReserved.
+  ///
+  /// In en, this message translates to:
+  /// **'Reserved'**
+  String get adminListAvailabilityScreenStatusReserved;
+
+  /// No description provided for @adminListAvailabilityScreenStatusBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked'**
+  String get adminListAvailabilityScreenStatusBlocked;
+
+  /// No description provided for @adminListAvailabilityScreenLegendAvailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get adminListAvailabilityScreenLegendAvailableTitle;
+
+  /// No description provided for @adminListAvailabilityScreenLegendAvailableDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Can make reservation'**
+  String get adminListAvailabilityScreenLegendAvailableDescription;
+
+  /// No description provided for @adminListAvailabilityScreenLegendReservedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reserved'**
+  String get adminListAvailabilityScreenLegendReservedTitle;
+
+  /// No description provided for @adminListAvailabilityScreenLegendReservedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Already has reservation'**
+  String get adminListAvailabilityScreenLegendReservedDescription;
+
+  /// No description provided for @adminListAvailabilityScreenLegendBlockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked'**
+  String get adminListAvailabilityScreenLegendBlockedTitle;
+
+  /// No description provided for @adminListAvailabilityScreenLegendBlockedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked Period'**
+  String get adminListAvailabilityScreenLegendBlockedDescription;
+
+  /// No description provided for @adminListAvailabilityScreenEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No availability data'**
+  String get adminListAvailabilityScreenEmptyTitle;
+
+  /// No description provided for @adminListAvailabilityScreenEmptyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'for the selected menu on this date'**
+  String get adminListAvailabilityScreenEmptyDescription;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsMonthsJanuary.
+  ///
+  /// In en, this message translates to:
+  /// **'January'**
+  String get adminListAvailabilityScreenScriptTextsMonthsJanuary;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsMonthsFebruary.
+  ///
+  /// In en, this message translates to:
+  /// **'February'**
+  String get adminListAvailabilityScreenScriptTextsMonthsFebruary;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsMonthsMarch.
+  ///
+  /// In en, this message translates to:
+  /// **'March'**
+  String get adminListAvailabilityScreenScriptTextsMonthsMarch;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsMonthsApril.
+  ///
+  /// In en, this message translates to:
+  /// **'April'**
+  String get adminListAvailabilityScreenScriptTextsMonthsApril;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsMonthsMay.
+  ///
+  /// In en, this message translates to:
+  /// **'May'**
+  String get adminListAvailabilityScreenScriptTextsMonthsMay;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsMonthsJune.
+  ///
+  /// In en, this message translates to:
+  /// **'June'**
+  String get adminListAvailabilityScreenScriptTextsMonthsJune;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsMonthsJuly.
+  ///
+  /// In en, this message translates to:
+  /// **'July'**
+  String get adminListAvailabilityScreenScriptTextsMonthsJuly;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsMonthsAugust.
+  ///
+  /// In en, this message translates to:
+  /// **'August'**
+  String get adminListAvailabilityScreenScriptTextsMonthsAugust;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsMonthsSeptember.
+  ///
+  /// In en, this message translates to:
+  /// **'September'**
+  String get adminListAvailabilityScreenScriptTextsMonthsSeptember;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsMonthsOctober.
+  ///
+  /// In en, this message translates to:
+  /// **'October'**
+  String get adminListAvailabilityScreenScriptTextsMonthsOctober;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsMonthsNovember.
+  ///
+  /// In en, this message translates to:
+  /// **'November'**
+  String get adminListAvailabilityScreenScriptTextsMonthsNovember;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsMonthsDecember.
+  ///
+  /// In en, this message translates to:
+  /// **'December'**
+  String get adminListAvailabilityScreenScriptTextsMonthsDecember;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsDaysSunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get adminListAvailabilityScreenScriptTextsDaysSunday;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsDaysMonday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get adminListAvailabilityScreenScriptTextsDaysMonday;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsDaysTuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get adminListAvailabilityScreenScriptTextsDaysTuesday;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsDaysWednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get adminListAvailabilityScreenScriptTextsDaysWednesday;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsDaysThursday.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get adminListAvailabilityScreenScriptTextsDaysThursday;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsDaysFriday.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get adminListAvailabilityScreenScriptTextsDaysFriday;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsDaysSaturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get adminListAvailabilityScreenScriptTextsDaysSaturday;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsAlertsLoadFail.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load availability data'**
+  String get adminListAvailabilityScreenScriptTextsAlertsLoadFail;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsAlertsLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while loading data'**
+  String get adminListAvailabilityScreenScriptTextsAlertsLoadError;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsAlertsSlotUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This time slot is not available for reservation'**
+  String get adminListAvailabilityScreenScriptTextsAlertsSlotUnavailable;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsAlertsSelectSlotFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a time slot first'**
+  String get adminListAvailabilityScreenScriptTextsAlertsSelectSlotFirst;
+
+  /// No description provided for @adminListAvailabilityScreenScriptTextsSelectedTimeAt.
+  ///
+  /// In en, this message translates to:
+  /// **'at'**
+  String get adminListAvailabilityScreenScriptTextsSelectedTimeAt;
+
   /// No description provided for @blockedPeriodNotificationCreateSuccess.
   ///
   /// In en, this message translates to:
@@ -2652,6 +2964,1777 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Create Business Settings'**
   String get adminListBusinessInformationScreenNotFoundCreateButton;
+
+  /// No description provided for @reservationNotificationReservationNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation not found.'**
+  String get reservationNotificationReservationNotFound;
+
+  /// No description provided for @reservationNotificationUpdateSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation updated successfully.'**
+  String get reservationNotificationUpdateSuccess;
+
+  /// No description provided for @reservationNotificationUpdateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update reservation: {error}'**
+  String reservationNotificationUpdateFailed(String error);
+
+  /// No description provided for @reservationNotificationDeleteSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation deleted successfully.'**
+  String get reservationNotificationDeleteSuccess;
+
+  /// No description provided for @reservationNotificationDeleteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete reservation: {error}'**
+  String reservationNotificationDeleteFailed(String error);
+
+  /// No description provided for @reservationNotificationConfirmSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation confirmed successfully.'**
+  String get reservationNotificationConfirmSuccess;
+
+  /// No description provided for @reservationNotificationCancelSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation cancelled successfully.'**
+  String get reservationNotificationCancelSuccess;
+
+  /// No description provided for @reservationNotificationCompleteSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation completed successfully.'**
+  String get reservationNotificationCompleteSuccess;
+
+  /// No description provided for @reservationNotificationBulkUpdateSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation statuses updated successfully.'**
+  String get reservationNotificationBulkUpdateSuccess;
+
+  /// No description provided for @reservationNotificationBulkUpdateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update reservation statuses.'**
+  String get reservationNotificationBulkUpdateFailed;
+
+  /// No description provided for @reservationNotificationAvailabilityCheckError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while checking availability.'**
+  String get reservationNotificationAvailabilityCheckError;
+
+  /// No description provided for @reservationAvailabilityAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Time is available.'**
+  String get reservationAvailabilityAvailable;
+
+  /// No description provided for @reservationAvailabilityUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Time is not available.'**
+  String get reservationAvailabilityUnavailable;
+
+  /// No description provided for @reservationValidationUserIdRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'The user ID field is required.'**
+  String get reservationValidationUserIdRequired;
+
+  /// No description provided for @reservationValidationUserIdExists.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected user does not exist.'**
+  String get reservationValidationUserIdExists;
+
+  /// No description provided for @reservationValidationMenuIdRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'The menu field is required.'**
+  String get reservationValidationMenuIdRequired;
+
+  /// No description provided for @reservationValidationMenuIdExists.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected menu does not exist.'**
+  String get reservationValidationMenuIdExists;
+
+  /// No description provided for @reservationValidationReservationDatetimeRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'The reservation datetime field is required.'**
+  String get reservationValidationReservationDatetimeRequired;
+
+  /// No description provided for @reservationValidationReservationDatetimeDate.
+  ///
+  /// In en, this message translates to:
+  /// **'The reservation datetime must be a valid date.'**
+  String get reservationValidationReservationDatetimeDate;
+
+  /// No description provided for @reservationValidationReservationDatetimeAfter.
+  ///
+  /// In en, this message translates to:
+  /// **'The reservation datetime must be after now.'**
+  String get reservationValidationReservationDatetimeAfter;
+
+  /// No description provided for @reservationValidationNumberOfPeopleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'The number of people field is required.'**
+  String get reservationValidationNumberOfPeopleRequired;
+
+  /// No description provided for @reservationValidationNumberOfPeopleInteger.
+  ///
+  /// In en, this message translates to:
+  /// **'The number of people must be an integer.'**
+  String get reservationValidationNumberOfPeopleInteger;
+
+  /// No description provided for @reservationValidationNumberOfPeopleMin.
+  ///
+  /// In en, this message translates to:
+  /// **'The number of people must be at least 1.'**
+  String get reservationValidationNumberOfPeopleMin;
+
+  /// No description provided for @reservationValidationAmountRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'The amount field is required.'**
+  String get reservationValidationAmountRequired;
+
+  /// No description provided for @reservationValidationAmountNumeric.
+  ///
+  /// In en, this message translates to:
+  /// **'The amount must be a number.'**
+  String get reservationValidationAmountNumeric;
+
+  /// No description provided for @reservationValidationAmountMin.
+  ///
+  /// In en, this message translates to:
+  /// **'The amount must be at least 0.'**
+  String get reservationValidationAmountMin;
+
+  /// No description provided for @reservationValidationStatusIn.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected status is invalid.'**
+  String get reservationValidationStatusIn;
+
+  /// No description provided for @reservationValidationNotesString.
+  ///
+  /// In en, this message translates to:
+  /// **'The notes must be a string.'**
+  String get reservationValidationNotesString;
+
+  /// No description provided for @reservationValidationFullNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'The full name field is required for a guest customer.'**
+  String get reservationValidationFullNameRequired;
+
+  /// No description provided for @reservationValidationFullNameString.
+  ///
+  /// In en, this message translates to:
+  /// **'The full name must be a string.'**
+  String get reservationValidationFullNameString;
+
+  /// No description provided for @reservationValidationFullNameMax.
+  ///
+  /// In en, this message translates to:
+  /// **'The full name may not be greater than 255 characters.'**
+  String get reservationValidationFullNameMax;
+
+  /// No description provided for @reservationValidationFullNameKanaRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'The full name (kana) field is required for a guest customer.'**
+  String get reservationValidationFullNameKanaRequired;
+
+  /// No description provided for @reservationValidationFullNameKanaString.
+  ///
+  /// In en, this message translates to:
+  /// **'The full name (kana) must be a string.'**
+  String get reservationValidationFullNameKanaString;
+
+  /// No description provided for @reservationValidationFullNameKanaMax.
+  ///
+  /// In en, this message translates to:
+  /// **'The full name (kana) may not be greater than 255 characters.'**
+  String get reservationValidationFullNameKanaMax;
+
+  /// No description provided for @reservationValidationEmailRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'The email field is required for a guest customer.'**
+  String get reservationValidationEmailRequired;
+
+  /// No description provided for @reservationValidationEmailEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'The email must be a valid email address.'**
+  String get reservationValidationEmailEmail;
+
+  /// No description provided for @reservationValidationEmailMax.
+  ///
+  /// In en, this message translates to:
+  /// **'The email may not be greater than 255 characters.'**
+  String get reservationValidationEmailMax;
+
+  /// No description provided for @reservationValidationPhoneNumberRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'The phone number field is required for a guest customer.'**
+  String get reservationValidationPhoneNumberRequired;
+
+  /// No description provided for @reservationValidationPhoneNumberString.
+  ///
+  /// In en, this message translates to:
+  /// **'The phone number must be a string.'**
+  String get reservationValidationPhoneNumberString;
+
+  /// No description provided for @reservationValidationPhoneNumberMax.
+  ///
+  /// In en, this message translates to:
+  /// **'The phone number may not be greater than 20 characters.'**
+  String get reservationValidationPhoneNumberMax;
+
+  /// No description provided for @reservationValidationReservationDatetimeUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected reservation datetime is unavailable. Please choose another time.'**
+  String get reservationValidationReservationDatetimeUnavailable;
+
+  /// No description provided for @adminListCalendarScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Management'**
+  String get adminListCalendarScreenTitle;
+
+  /// No description provided for @adminListCalendarScreenStatusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get adminListCalendarScreenStatusActive;
+
+  /// No description provided for @adminListCalendarScreenTabsCalendarView.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar View'**
+  String get adminListCalendarScreenTabsCalendarView;
+
+  /// No description provided for @adminListCalendarScreenTabsListView.
+  ///
+  /// In en, this message translates to:
+  /// **'List View'**
+  String get adminListCalendarScreenTabsListView;
+
+  /// No description provided for @adminListCalendarScreenModeDescriptionCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar Mode - Visual overview of reservations'**
+  String get adminListCalendarScreenModeDescriptionCalendar;
+
+  /// No description provided for @adminListCalendarScreenModeDescriptionList.
+  ///
+  /// In en, this message translates to:
+  /// **'List Mode - Detailed reservation data'**
+  String get adminListCalendarScreenModeDescriptionList;
+
+  /// No description provided for @adminListCalendarScreenButtonsNewReservation.
+  ///
+  /// In en, this message translates to:
+  /// **'New Reservation'**
+  String get adminListCalendarScreenButtonsNewReservation;
+
+  /// No description provided for @adminListCalendarScreenButtonsRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get adminListCalendarScreenButtonsRefresh;
+
+  /// No description provided for @adminListCalendarScreenButtonsSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get adminListCalendarScreenButtonsSettings;
+
+  /// No description provided for @adminListCalendarScreenViewsMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get adminListCalendarScreenViewsMonth;
+
+  /// No description provided for @adminListCalendarScreenViewsWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Week'**
+  String get adminListCalendarScreenViewsWeek;
+
+  /// No description provided for @adminListCalendarScreenViewsDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get adminListCalendarScreenViewsDay;
+
+  /// No description provided for @adminListCalendarScreenViewsSelectDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Date'**
+  String get adminListCalendarScreenViewsSelectDate;
+
+  /// No description provided for @adminListCalendarScreenNavigationPreviousMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous Month'**
+  String get adminListCalendarScreenNavigationPreviousMonth;
+
+  /// No description provided for @adminListCalendarScreenNavigationNextMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Month'**
+  String get adminListCalendarScreenNavigationNextMonth;
+
+  /// No description provided for @adminListCalendarScreenNavigationPreviousWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous Week'**
+  String get adminListCalendarScreenNavigationPreviousWeek;
+
+  /// No description provided for @adminListCalendarScreenNavigationNextWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Week'**
+  String get adminListCalendarScreenNavigationNextWeek;
+
+  /// No description provided for @adminListCalendarScreenNavigationPreviousDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous Day'**
+  String get adminListCalendarScreenNavigationPreviousDay;
+
+  /// No description provided for @adminListCalendarScreenNavigationNextDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Day'**
+  String get adminListCalendarScreenNavigationNextDay;
+
+  /// No description provided for @adminListCalendarScreenFilterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Reservations'**
+  String get adminListCalendarScreenFilterTitle;
+
+  /// No description provided for @adminListCalendarScreenFilterTotalReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'total reservations'**
+  String get adminListCalendarScreenFilterTotalReservations;
+
+  /// No description provided for @adminListCalendarScreenFilterQuickSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Search'**
+  String get adminListCalendarScreenFilterQuickSearch;
+
+  /// No description provided for @adminListCalendarScreenFilterSearchPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer name, phone, email...'**
+  String get adminListCalendarScreenFilterSearchPlaceholder;
+
+  /// No description provided for @adminListCalendarScreenFilterMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get adminListCalendarScreenFilterMenu;
+
+  /// No description provided for @adminListCalendarScreenFilterAllMenus.
+  ///
+  /// In en, this message translates to:
+  /// **'All Menus'**
+  String get adminListCalendarScreenFilterAllMenus;
+
+  /// No description provided for @adminListCalendarScreenFilterStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminListCalendarScreenFilterStatus;
+
+  /// No description provided for @adminListCalendarScreenFilterAllStatuses.
+  ///
+  /// In en, this message translates to:
+  /// **'All Statuses'**
+  String get adminListCalendarScreenFilterAllStatuses;
+
+  /// No description provided for @adminListCalendarScreenFilterDateRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Range'**
+  String get adminListCalendarScreenFilterDateRange;
+
+  /// No description provided for @adminListCalendarScreenFilterSelectRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Range'**
+  String get adminListCalendarScreenFilterSelectRange;
+
+  /// No description provided for @adminListCalendarScreenFilterStartDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get adminListCalendarScreenFilterStartDate;
+
+  /// No description provided for @adminListCalendarScreenFilterEndDate.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get adminListCalendarScreenFilterEndDate;
+
+  /// No description provided for @adminListCalendarScreenFilterApplyFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply Filters'**
+  String get adminListCalendarScreenFilterApplyFilters;
+
+  /// No description provided for @adminListCalendarScreenFilterClearAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear All'**
+  String get adminListCalendarScreenFilterClearAll;
+
+  /// No description provided for @adminListCalendarScreenFilterShowing.
+  ///
+  /// In en, this message translates to:
+  /// **'Showing'**
+  String get adminListCalendarScreenFilterShowing;
+
+  /// No description provided for @adminListCalendarScreenFilterOf.
+  ///
+  /// In en, this message translates to:
+  /// **'of'**
+  String get adminListCalendarScreenFilterOf;
+
+  /// No description provided for @adminListCalendarScreenFilterResults.
+  ///
+  /// In en, this message translates to:
+  /// **'results'**
+  String get adminListCalendarScreenFilterResults;
+
+  /// No description provided for @adminListCalendarScreenFilterExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get adminListCalendarScreenFilterExport;
+
+  /// No description provided for @adminListCalendarScreenTableCustomer.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer'**
+  String get adminListCalendarScreenTableCustomer;
+
+  /// No description provided for @adminListCalendarScreenTableDateTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Date & Time'**
+  String get adminListCalendarScreenTableDateTime;
+
+  /// No description provided for @adminListCalendarScreenTableMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get adminListCalendarScreenTableMenu;
+
+  /// No description provided for @adminListCalendarScreenTablePeople.
+  ///
+  /// In en, this message translates to:
+  /// **'People'**
+  String get adminListCalendarScreenTablePeople;
+
+  /// No description provided for @adminListCalendarScreenTableStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminListCalendarScreenTableStatus;
+
+  /// No description provided for @adminListCalendarScreenTableActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get adminListCalendarScreenTableActions;
+
+  /// No description provided for @adminListCalendarScreenTableMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'minutes'**
+  String get adminListCalendarScreenTableMinutes;
+
+  /// No description provided for @adminListCalendarScreenActionsViewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get adminListCalendarScreenActionsViewDetails;
+
+  /// No description provided for @adminListCalendarScreenActionsEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get adminListCalendarScreenActionsEdit;
+
+  /// No description provided for @adminListCalendarScreenActionsConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get adminListCalendarScreenActionsConfirm;
+
+  /// No description provided for @adminListCalendarScreenActionsCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminListCalendarScreenActionsCancel;
+
+  /// No description provided for @adminListCalendarScreenActionsMoreActions.
+  ///
+  /// In en, this message translates to:
+  /// **'More Actions'**
+  String get adminListCalendarScreenActionsMoreActions;
+
+  /// No description provided for @adminListCalendarScreenActionsPrintDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Print Details'**
+  String get adminListCalendarScreenActionsPrintDetails;
+
+  /// No description provided for @adminListCalendarScreenActionsSendEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Email'**
+  String get adminListCalendarScreenActionsSendEmail;
+
+  /// No description provided for @adminListCalendarScreenEmptyStateNoReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'No reservations found'**
+  String get adminListCalendarScreenEmptyStateNoReservations;
+
+  /// No description provided for @adminListCalendarScreenEmptyStateAdjustFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Try adjusting your filters or search criteria'**
+  String get adminListCalendarScreenEmptyStateAdjustFilters;
+
+  /// No description provided for @adminListCalendarScreenPaginationShow.
+  ///
+  /// In en, this message translates to:
+  /// **'Show'**
+  String get adminListCalendarScreenPaginationShow;
+
+  /// No description provided for @adminListCalendarScreenPaginationEntriesPerPage.
+  ///
+  /// In en, this message translates to:
+  /// **'entries per page'**
+  String get adminListCalendarScreenPaginationEntriesPerPage;
+
+  /// No description provided for @adminListCalendarScreenCalendarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get adminListCalendarScreenCalendarTitle;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysMonday.
+  ///
+  /// In en, this message translates to:
+  /// **'Mon'**
+  String get adminListCalendarScreenCalendarDaysMonday;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysTuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tue'**
+  String get adminListCalendarScreenCalendarDaysTuesday;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysWednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wed'**
+  String get adminListCalendarScreenCalendarDaysWednesday;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysThursday.
+  ///
+  /// In en, this message translates to:
+  /// **'Thu'**
+  String get adminListCalendarScreenCalendarDaysThursday;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysFriday.
+  ///
+  /// In en, this message translates to:
+  /// **'Fri'**
+  String get adminListCalendarScreenCalendarDaysFriday;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysSaturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sat'**
+  String get adminListCalendarScreenCalendarDaysSaturday;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysSunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun'**
+  String get adminListCalendarScreenCalendarDaysSunday;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysFullMonday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get adminListCalendarScreenCalendarDaysFullMonday;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysFullTuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get adminListCalendarScreenCalendarDaysFullTuesday;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysFullWednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get adminListCalendarScreenCalendarDaysFullWednesday;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysFullThursday.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get adminListCalendarScreenCalendarDaysFullThursday;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysFullFriday.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get adminListCalendarScreenCalendarDaysFullFriday;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysFullSaturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get adminListCalendarScreenCalendarDaysFullSaturday;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysFullSunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get adminListCalendarScreenCalendarDaysFullSunday;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysShortMon.
+  ///
+  /// In en, this message translates to:
+  /// **'Mon'**
+  String get adminListCalendarScreenCalendarDaysShortMon;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysShortTue.
+  ///
+  /// In en, this message translates to:
+  /// **'Tue'**
+  String get adminListCalendarScreenCalendarDaysShortTue;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysShortWed.
+  ///
+  /// In en, this message translates to:
+  /// **'Wed'**
+  String get adminListCalendarScreenCalendarDaysShortWed;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysShortThu.
+  ///
+  /// In en, this message translates to:
+  /// **'Thu'**
+  String get adminListCalendarScreenCalendarDaysShortThu;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysShortFri.
+  ///
+  /// In en, this message translates to:
+  /// **'Fri'**
+  String get adminListCalendarScreenCalendarDaysShortFri;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysShortSat.
+  ///
+  /// In en, this message translates to:
+  /// **'Sat'**
+  String get adminListCalendarScreenCalendarDaysShortSat;
+
+  /// No description provided for @adminListCalendarScreenCalendarDaysShortSun.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun'**
+  String get adminListCalendarScreenCalendarDaysShortSun;
+
+  /// No description provided for @adminListCalendarScreenCalendarMoreReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'more reservations'**
+  String get adminListCalendarScreenCalendarMoreReservations;
+
+  /// No description provided for @adminListCalendarScreenCalendarMenuLegend.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu Legend:'**
+  String get adminListCalendarScreenCalendarMenuLegend;
+
+  /// No description provided for @adminListCalendarScreenBlockedPeriodTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked Period'**
+  String get adminListCalendarScreenBlockedPeriodTitle;
+
+  /// No description provided for @adminListCalendarScreenBlockedPeriodReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason:'**
+  String get adminListCalendarScreenBlockedPeriodReason;
+
+  /// No description provided for @adminListCalendarScreenBlockedPeriodAffectedMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Affected Menu:'**
+  String get adminListCalendarScreenBlockedPeriodAffectedMenu;
+
+  /// No description provided for @adminListCalendarScreenBlockedPeriodAllMenusBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'All Menus Blocked'**
+  String get adminListCalendarScreenBlockedPeriodAllMenusBlocked;
+
+  /// No description provided for @adminListCalendarScreenBlockedPeriodSpecificMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Specific Menu'**
+  String get adminListCalendarScreenBlockedPeriodSpecificMenu;
+
+  /// No description provided for @adminListCalendarScreenReservationTooltipCustomerInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Info'**
+  String get adminListCalendarScreenReservationTooltipCustomerInfo;
+
+  /// No description provided for @adminListCalendarScreenReservationTooltipMenuInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu Info'**
+  String get adminListCalendarScreenReservationTooltipMenuInfo;
+
+  /// No description provided for @adminListCalendarScreenReservationTooltipMinute.
+  ///
+  /// In en, this message translates to:
+  /// **'minute'**
+  String get adminListCalendarScreenReservationTooltipMinute;
+
+  /// No description provided for @adminListCalendarScreenReservationTooltipPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'people'**
+  String get adminListCalendarScreenReservationTooltipPeople;
+
+  /// No description provided for @adminListCalendarScreenReservationTooltipMenuPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu Price:'**
+  String get adminListCalendarScreenReservationTooltipMenuPrice;
+
+  /// No description provided for @adminListCalendarScreenReservationTooltipNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes:'**
+  String get adminListCalendarScreenReservationTooltipNotes;
+
+  /// No description provided for @adminListCalendarScreenReservationTooltipClickToView.
+  ///
+  /// In en, this message translates to:
+  /// **'Click to view full details'**
+  String get adminListCalendarScreenReservationTooltipClickToView;
+
+  /// No description provided for @adminListCalendarScreenLoadingData.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading data...'**
+  String get adminListCalendarScreenLoadingData;
+
+  /// No description provided for @adminListCalendarScreenPrintCalendarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Calendar'**
+  String get adminListCalendarScreenPrintCalendarTitle;
+
+  /// No description provided for @adminListCalendarScreenStatusLabelsPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get adminListCalendarScreenStatusLabelsPending;
+
+  /// No description provided for @adminListCalendarScreenStatusLabelsConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed'**
+  String get adminListCalendarScreenStatusLabelsConfirmed;
+
+  /// No description provided for @adminListCalendarScreenStatusLabelsCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get adminListCalendarScreenStatusLabelsCompleted;
+
+  /// No description provided for @adminListCalendarScreenStatusLabelsCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get adminListCalendarScreenStatusLabelsCancelled;
+
+  /// No description provided for @adminListCalendarScreenConfirmationChangeStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to change the status of this reservation?'**
+  String get adminListCalendarScreenConfirmationChangeStatus;
+
+  /// No description provided for @adminListCalendarScreenAlertsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Error:'**
+  String get adminListCalendarScreenAlertsError;
+
+  /// No description provided for @adminListCalendarScreenAlertsUpdateError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while updating the status'**
+  String get adminListCalendarScreenAlertsUpdateError;
+
+  /// No description provided for @adminListCalendarScreenMonthsJanuary.
+  ///
+  /// In en, this message translates to:
+  /// **'January'**
+  String get adminListCalendarScreenMonthsJanuary;
+
+  /// No description provided for @adminListCalendarScreenMonthsFebruary.
+  ///
+  /// In en, this message translates to:
+  /// **'February'**
+  String get adminListCalendarScreenMonthsFebruary;
+
+  /// No description provided for @adminListCalendarScreenMonthsMarch.
+  ///
+  /// In en, this message translates to:
+  /// **'March'**
+  String get adminListCalendarScreenMonthsMarch;
+
+  /// No description provided for @adminListCalendarScreenMonthsApril.
+  ///
+  /// In en, this message translates to:
+  /// **'April'**
+  String get adminListCalendarScreenMonthsApril;
+
+  /// No description provided for @adminListCalendarScreenMonthsMay.
+  ///
+  /// In en, this message translates to:
+  /// **'May'**
+  String get adminListCalendarScreenMonthsMay;
+
+  /// No description provided for @adminListCalendarScreenMonthsJune.
+  ///
+  /// In en, this message translates to:
+  /// **'June'**
+  String get adminListCalendarScreenMonthsJune;
+
+  /// No description provided for @adminListCalendarScreenMonthsJuly.
+  ///
+  /// In en, this message translates to:
+  /// **'July'**
+  String get adminListCalendarScreenMonthsJuly;
+
+  /// No description provided for @adminListCalendarScreenMonthsAugust.
+  ///
+  /// In en, this message translates to:
+  /// **'August'**
+  String get adminListCalendarScreenMonthsAugust;
+
+  /// No description provided for @adminListCalendarScreenMonthsSeptember.
+  ///
+  /// In en, this message translates to:
+  /// **'September'**
+  String get adminListCalendarScreenMonthsSeptember;
+
+  /// No description provided for @adminListCalendarScreenMonthsOctober.
+  ///
+  /// In en, this message translates to:
+  /// **'October'**
+  String get adminListCalendarScreenMonthsOctober;
+
+  /// No description provided for @adminListCalendarScreenMonthsNovember.
+  ///
+  /// In en, this message translates to:
+  /// **'November'**
+  String get adminListCalendarScreenMonthsNovember;
+
+  /// No description provided for @adminListCalendarScreenMonthsDecember.
+  ///
+  /// In en, this message translates to:
+  /// **'December'**
+  String get adminListCalendarScreenMonthsDecember;
+
+  /// No description provided for @adminListCalendarScreenMonthsShortJan.
+  ///
+  /// In en, this message translates to:
+  /// **'Jan'**
+  String get adminListCalendarScreenMonthsShortJan;
+
+  /// No description provided for @adminListCalendarScreenMonthsShortFeb.
+  ///
+  /// In en, this message translates to:
+  /// **'Feb'**
+  String get adminListCalendarScreenMonthsShortFeb;
+
+  /// No description provided for @adminListCalendarScreenMonthsShortMar.
+  ///
+  /// In en, this message translates to:
+  /// **'Mar'**
+  String get adminListCalendarScreenMonthsShortMar;
+
+  /// No description provided for @adminListCalendarScreenMonthsShortApr.
+  ///
+  /// In en, this message translates to:
+  /// **'Apr'**
+  String get adminListCalendarScreenMonthsShortApr;
+
+  /// No description provided for @adminListCalendarScreenMonthsShortMay.
+  ///
+  /// In en, this message translates to:
+  /// **'May'**
+  String get adminListCalendarScreenMonthsShortMay;
+
+  /// No description provided for @adminListCalendarScreenMonthsShortJun.
+  ///
+  /// In en, this message translates to:
+  /// **'Jun'**
+  String get adminListCalendarScreenMonthsShortJun;
+
+  /// No description provided for @adminListCalendarScreenMonthsShortJul.
+  ///
+  /// In en, this message translates to:
+  /// **'Jul'**
+  String get adminListCalendarScreenMonthsShortJul;
+
+  /// No description provided for @adminListCalendarScreenMonthsShortAug.
+  ///
+  /// In en, this message translates to:
+  /// **'Aug'**
+  String get adminListCalendarScreenMonthsShortAug;
+
+  /// No description provided for @adminListCalendarScreenMonthsShortSep.
+  ///
+  /// In en, this message translates to:
+  /// **'Sep'**
+  String get adminListCalendarScreenMonthsShortSep;
+
+  /// No description provided for @adminListCalendarScreenMonthsShortOct.
+  ///
+  /// In en, this message translates to:
+  /// **'Oct'**
+  String get adminListCalendarScreenMonthsShortOct;
+
+  /// No description provided for @adminListCalendarScreenMonthsShortNov.
+  ///
+  /// In en, this message translates to:
+  /// **'Nov'**
+  String get adminListCalendarScreenMonthsShortNov;
+
+  /// No description provided for @adminListCalendarScreenMonthsShortDec.
+  ///
+  /// In en, this message translates to:
+  /// **'Dec'**
+  String get adminListCalendarScreenMonthsShortDec;
+
+  /// No description provided for @adminListCalendarScreenShowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Details #{id}'**
+  String adminListCalendarScreenShowTitle(String id);
+
+  /// No description provided for @adminListCalendarScreenShowCustomerInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Information'**
+  String get adminListCalendarScreenShowCustomerInfoTitle;
+
+  /// No description provided for @adminListCalendarScreenShowCustomerInfoTypeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Type'**
+  String get adminListCalendarScreenShowCustomerInfoTypeLabel;
+
+  /// No description provided for @adminListCalendarScreenShowCustomerInfoTypeRegistered.
+  ///
+  /// In en, this message translates to:
+  /// **'Registered Customer'**
+  String get adminListCalendarScreenShowCustomerInfoTypeRegistered;
+
+  /// No description provided for @adminListCalendarScreenShowCustomerInfoTypeGuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest Customer'**
+  String get adminListCalendarScreenShowCustomerInfoTypeGuest;
+
+  /// No description provided for @adminListCalendarScreenShowCustomerInfoRegisteredLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Registered Customer'**
+  String get adminListCalendarScreenShowCustomerInfoRegisteredLabel;
+
+  /// No description provided for @adminListCalendarScreenShowCustomerInfoFullNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get adminListCalendarScreenShowCustomerInfoFullNameLabel;
+
+  /// No description provided for @adminListCalendarScreenShowCustomerInfoFullNameKanaLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name (Kana)'**
+  String get adminListCalendarScreenShowCustomerInfoFullNameKanaLabel;
+
+  /// No description provided for @adminListCalendarScreenShowCustomerInfoEmailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get adminListCalendarScreenShowCustomerInfoEmailLabel;
+
+  /// No description provided for @adminListCalendarScreenShowCustomerInfoPhoneNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get adminListCalendarScreenShowCustomerInfoPhoneNumberLabel;
+
+  /// No description provided for @adminListCalendarScreenShowReservationDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Details'**
+  String get adminListCalendarScreenShowReservationDetailsTitle;
+
+  /// No description provided for @adminListCalendarScreenShowReservationDetailsMenuLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get adminListCalendarScreenShowReservationDetailsMenuLabel;
+
+  /// No description provided for @adminListCalendarScreenShowReservationDetailsYen.
+  ///
+  /// In en, this message translates to:
+  /// **'yen'**
+  String get adminListCalendarScreenShowReservationDetailsYen;
+
+  /// No description provided for @adminListCalendarScreenShowReservationDetailsMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'minutes'**
+  String get adminListCalendarScreenShowReservationDetailsMinutes;
+
+  /// No description provided for @adminListCalendarScreenShowReservationDetailsDatetimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Date & Time'**
+  String get adminListCalendarScreenShowReservationDetailsDatetimeLabel;
+
+  /// No description provided for @adminListCalendarScreenShowReservationDetailsEstimatedCompletionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated completion:'**
+  String
+  get adminListCalendarScreenShowReservationDetailsEstimatedCompletionLabel;
+
+  /// No description provided for @adminListCalendarScreenShowReservationDetailsNumberOfPeopleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of People'**
+  String get adminListCalendarScreenShowReservationDetailsNumberOfPeopleLabel;
+
+  /// No description provided for @adminListCalendarScreenShowReservationDetailsPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'people'**
+  String get adminListCalendarScreenShowReservationDetailsPeople;
+
+  /// No description provided for @adminListCalendarScreenShowReservationDetailsTotalCostLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Cost'**
+  String get adminListCalendarScreenShowReservationDetailsTotalCostLabel;
+
+  /// No description provided for @adminListCalendarScreenShowAdditionalInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional Information'**
+  String get adminListCalendarScreenShowAdditionalInfoTitle;
+
+  /// No description provided for @adminListCalendarScreenShowAdditionalInfoStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Status'**
+  String get adminListCalendarScreenShowAdditionalInfoStatusLabel;
+
+  /// No description provided for @adminListCalendarScreenShowAdditionalInfoCreatedAtLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Created At'**
+  String get adminListCalendarScreenShowAdditionalInfoCreatedAtLabel;
+
+  /// No description provided for @adminListCalendarScreenShowAdditionalInfoLastUpdatedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Updated'**
+  String get adminListCalendarScreenShowAdditionalInfoLastUpdatedLabel;
+
+  /// No description provided for @adminListCalendarScreenShowAdditionalInfoNotesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get adminListCalendarScreenShowAdditionalInfoNotesLabel;
+
+  /// No description provided for @adminListCalendarScreenShowBackButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Calendar'**
+  String get adminListCalendarScreenShowBackButton;
+
+  /// No description provided for @adminListCalendarScreenShowEditButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Reservation'**
+  String get adminListCalendarScreenShowEditButton;
+
+  /// No description provided for @adminUpsertCalendarScreenCreatePageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create New Reservation'**
+  String get adminUpsertCalendarScreenCreatePageTitle;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormCustomerType.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Type'**
+  String get adminUpsertCalendarScreenCreateFormCustomerType;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormRegisteredCustomer.
+  ///
+  /// In en, this message translates to:
+  /// **'Registered Customer'**
+  String get adminUpsertCalendarScreenCreateFormRegisteredCustomer;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormGuestCustomer.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest Customer'**
+  String get adminUpsertCalendarScreenCreateFormGuestCustomer;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormSelectCustomer.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Customer'**
+  String get adminUpsertCalendarScreenCreateFormSelectCustomer;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormSelectCustomerPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Customer...'**
+  String get adminUpsertCalendarScreenCreateFormSelectCustomerPlaceholder;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name *'**
+  String get adminUpsertCalendarScreenCreateFormFullName;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormFullNameKana.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name (Kana) *'**
+  String get adminUpsertCalendarScreenCreateFormFullNameKana;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email *'**
+  String get adminUpsertCalendarScreenCreateFormEmail;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number *'**
+  String get adminUpsertCalendarScreenCreateFormPhoneNumber;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu *'**
+  String get adminUpsertCalendarScreenCreateFormMenu;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormSelectMenuPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Menu...'**
+  String get adminUpsertCalendarScreenCreateFormSelectMenuPlaceholder;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormYen.
+  ///
+  /// In en, this message translates to:
+  /// **'yen'**
+  String get adminUpsertCalendarScreenCreateFormYen;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'minutes'**
+  String get adminUpsertCalendarScreenCreateFormMinutes;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormReservationDatetime.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Date & Time *'**
+  String get adminUpsertCalendarScreenCreateFormReservationDatetime;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormNumberOfPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of People *'**
+  String get adminUpsertCalendarScreenCreateFormNumberOfPeople;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormTotalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount *'**
+  String get adminUpsertCalendarScreenCreateFormTotalAmount;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminUpsertCalendarScreenCreateFormStatus;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateFormNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get adminUpsertCalendarScreenCreateFormNotes;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateStatusOptionsPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get adminUpsertCalendarScreenCreateStatusOptionsPending;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateStatusOptionsConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed'**
+  String get adminUpsertCalendarScreenCreateStatusOptionsConfirmed;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateStatusOptionsCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get adminUpsertCalendarScreenCreateStatusOptionsCompleted;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateStatusOptionsCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get adminUpsertCalendarScreenCreateStatusOptionsCancelled;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateButtonsSelectFromCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Select from Calendar'**
+  String get adminUpsertCalendarScreenCreateButtonsSelectFromCalendar;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateButtonsCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminUpsertCalendarScreenCreateButtonsCancel;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateButtonsCheckAvailability.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Availability'**
+  String get adminUpsertCalendarScreenCreateButtonsCheckAvailability;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateButtonsSaveReservation.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Reservation'**
+  String get adminUpsertCalendarScreenCreateButtonsSaveReservation;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateButtonsConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get adminUpsertCalendarScreenCreateButtonsConfirm;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateAvailabilitySelectMenuAndDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select menu and date/time first.'**
+  String get adminUpsertCalendarScreenCreateAvailabilitySelectMenuAndDate;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateAvailabilityAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Time slot is available for reservation.'**
+  String get adminUpsertCalendarScreenCreateAvailabilityAvailable;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateAvailabilityUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Time slot is not available - conflicts with blocked periods or other reservations.'**
+  String get adminUpsertCalendarScreenCreateAvailabilityUnavailable;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateAvailabilityError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while checking availability.'**
+  String get adminUpsertCalendarScreenCreateAvailabilityError;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the date you want to book'**
+  String get adminUpsertCalendarScreenCreateCalendarModalTitle;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalSelectDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Date'**
+  String get adminUpsertCalendarScreenCreateCalendarModalSelectDate;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalSelectTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Time'**
+  String get adminUpsertCalendarScreenCreateCalendarModalSelectTime;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalPreviousMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get adminUpsertCalendarScreenCreateCalendarModalPreviousMonth;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalNextMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get adminUpsertCalendarScreenCreateCalendarModalNextMonth;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalFullyBlockedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This date is fully blocked and not available for reservations.'**
+  String get adminUpsertCalendarScreenCreateCalendarModalFullyBlockedMessage;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalLegendTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Legend:'**
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendTitle;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalLegendsFullyBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Fully Blocked'**
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsFullyBlocked;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalLegendsBlockedPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked Period'**
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsBlockedPeriod;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalLegendsHasReservation.
+  ///
+  /// In en, this message translates to:
+  /// **'Has Reservation'**
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsHasReservation;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalLegendsMixed.
+  ///
+  /// In en, this message translates to:
+  /// **'Mixed (Blocked + Reservation)'**
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsMixed;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalLegendsAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsAvailable;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalLegendsPastDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Past Date'**
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsPastDate;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalDaysShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun,Mon,Tue,Wed,Thu,Fri,Sat'**
+  String get adminUpsertCalendarScreenCreateCalendarModalDaysShort;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'January,February,March,April,May,June,July,August,September,October,November,December'**
+  String get adminUpsertCalendarScreenCreateCalendarModalMonths;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalAlertSelectMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a menu first.'**
+  String get adminUpsertCalendarScreenCreateCalendarModalAlertSelectMenu;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalAlertDateFullyBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected date is fully blocked and not available for reservations.'**
+  String get adminUpsertCalendarScreenCreateCalendarModalAlertDateFullyBlocked;
+
+  /// No description provided for @adminUpsertCalendarScreenCreateCalendarModalAlertSelectDateTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select both date and time.'**
+  String get adminUpsertCalendarScreenCreateCalendarModalAlertSelectDateTime;
+
+  /// No description provided for @adminUpsertCalendarScreenEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Reservation #{id}'**
+  String adminUpsertCalendarScreenEditTitle(String id);
+
+  /// No description provided for @adminUpsertCalendarScreenEditErrorOccurred.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred:'**
+  String get adminUpsertCalendarScreenEditErrorOccurred;
+
+  /// No description provided for @adminUpsertCalendarScreenEditCustomerTypeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Type'**
+  String get adminUpsertCalendarScreenEditCustomerTypeLabel;
+
+  /// No description provided for @adminUpsertCalendarScreenEditRegisteredCustomer.
+  ///
+  /// In en, this message translates to:
+  /// **'Registered Customer'**
+  String get adminUpsertCalendarScreenEditRegisteredCustomer;
+
+  /// No description provided for @adminUpsertCalendarScreenEditGuestCustomer.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest Customer'**
+  String get adminUpsertCalendarScreenEditGuestCustomer;
+
+  /// No description provided for @adminUpsertCalendarScreenEditSelectCustomerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Customer'**
+  String get adminUpsertCalendarScreenEditSelectCustomerLabel;
+
+  /// No description provided for @adminUpsertCalendarScreenEditSelectCustomerOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Customer...'**
+  String get adminUpsertCalendarScreenEditSelectCustomerOption;
+
+  /// No description provided for @adminUpsertCalendarScreenEditFullNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name *'**
+  String get adminUpsertCalendarScreenEditFullNameLabel;
+
+  /// No description provided for @adminUpsertCalendarScreenEditFullNameKanaLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name (Kana) *'**
+  String get adminUpsertCalendarScreenEditFullNameKanaLabel;
+
+  /// No description provided for @adminUpsertCalendarScreenEditEmailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email *'**
+  String get adminUpsertCalendarScreenEditEmailLabel;
+
+  /// No description provided for @adminUpsertCalendarScreenEditPhoneNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number *'**
+  String get adminUpsertCalendarScreenEditPhoneNumberLabel;
+
+  /// No description provided for @adminUpsertCalendarScreenEditMenuLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu *'**
+  String get adminUpsertCalendarScreenEditMenuLabel;
+
+  /// No description provided for @adminUpsertCalendarScreenEditSelectMenuOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Menu...'**
+  String get adminUpsertCalendarScreenEditSelectMenuOption;
+
+  /// No description provided for @adminUpsertCalendarScreenEditYen.
+  ///
+  /// In en, this message translates to:
+  /// **'yen'**
+  String get adminUpsertCalendarScreenEditYen;
+
+  /// No description provided for @adminUpsertCalendarScreenEditMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'minutes'**
+  String get adminUpsertCalendarScreenEditMinutes;
+
+  /// No description provided for @adminUpsertCalendarScreenEditReservationDatetimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Date & Time *'**
+  String get adminUpsertCalendarScreenEditReservationDatetimeLabel;
+
+  /// No description provided for @adminUpsertCalendarScreenEditSelectFromCalendarButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Select from Calendar'**
+  String get adminUpsertCalendarScreenEditSelectFromCalendarButton;
+
+  /// No description provided for @adminUpsertCalendarScreenEditNumberOfPeopleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of People *'**
+  String get adminUpsertCalendarScreenEditNumberOfPeopleLabel;
+
+  /// No description provided for @adminUpsertCalendarScreenEditTotalAmountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount *'**
+  String get adminUpsertCalendarScreenEditTotalAmountLabel;
+
+  /// No description provided for @adminUpsertCalendarScreenEditStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminUpsertCalendarScreenEditStatusLabel;
+
+  /// No description provided for @adminUpsertCalendarScreenEditNotesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get adminUpsertCalendarScreenEditNotesLabel;
+
+  /// No description provided for @adminUpsertCalendarScreenEditStatusPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get adminUpsertCalendarScreenEditStatusPending;
+
+  /// No description provided for @adminUpsertCalendarScreenEditStatusConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed'**
+  String get adminUpsertCalendarScreenEditStatusConfirmed;
+
+  /// No description provided for @adminUpsertCalendarScreenEditStatusCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get adminUpsertCalendarScreenEditStatusCompleted;
+
+  /// No description provided for @adminUpsertCalendarScreenEditStatusCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get adminUpsertCalendarScreenEditStatusCancelled;
+
+  /// No description provided for @adminUpsertCalendarScreenEditCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminUpsertCalendarScreenEditCancelButton;
+
+  /// No description provided for @adminUpsertCalendarScreenEditCheckAvailabilityButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Availability'**
+  String get adminUpsertCalendarScreenEditCheckAvailabilityButton;
+
+  /// No description provided for @adminUpsertCalendarScreenEditUpdateReservationButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Reservation'**
+  String get adminUpsertCalendarScreenEditUpdateReservationButton;
+
+  /// No description provided for @adminUpsertCalendarScreenEditModalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the date you want to book'**
+  String get adminUpsertCalendarScreenEditModalTitle;
+
+  /// No description provided for @adminUpsertCalendarScreenEditSelectDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Date'**
+  String get adminUpsertCalendarScreenEditSelectDateLabel;
+
+  /// No description provided for @adminUpsertCalendarScreenEditSelectTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Time'**
+  String get adminUpsertCalendarScreenEditSelectTimeLabel;
+
+  /// No description provided for @adminUpsertCalendarScreenEditPreviousButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get adminUpsertCalendarScreenEditPreviousButton;
+
+  /// No description provided for @adminUpsertCalendarScreenEditNextButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get adminUpsertCalendarScreenEditNextButton;
+
+  /// No description provided for @adminUpsertCalendarScreenEditDateFullyBlockedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This date is fully blocked and not available for reservations.'**
+  String get adminUpsertCalendarScreenEditDateFullyBlockedMessage;
+
+  /// No description provided for @adminUpsertCalendarScreenEditModalCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminUpsertCalendarScreenEditModalCancelButton;
+
+  /// No description provided for @adminUpsertCalendarScreenEditModalConfirmButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get adminUpsertCalendarScreenEditModalConfirmButton;
+
+  /// No description provided for @adminUpsertCalendarScreenEditMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'January,February,March,April,May,June,July,August,September,October,November,December'**
+  String get adminUpsertCalendarScreenEditMonths;
+
+  /// No description provided for @adminUpsertCalendarScreenEditDaysOfWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun,Mon,Tue,Wed,Thu,Fri,Sat'**
+  String get adminUpsertCalendarScreenEditDaysOfWeek;
+
+  /// No description provided for @adminUpsertCalendarScreenEditLegendTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Legend:'**
+  String get adminUpsertCalendarScreenEditLegendTitle;
+
+  /// No description provided for @adminUpsertCalendarScreenEditLegendFullyBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Fully Blocked'**
+  String get adminUpsertCalendarScreenEditLegendFullyBlocked;
+
+  /// No description provided for @adminUpsertCalendarScreenEditLegendBlockedPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked Period'**
+  String get adminUpsertCalendarScreenEditLegendBlockedPeriod;
+
+  /// No description provided for @adminUpsertCalendarScreenEditLegendHasReservation.
+  ///
+  /// In en, this message translates to:
+  /// **'Has Reservation'**
+  String get adminUpsertCalendarScreenEditLegendHasReservation;
+
+  /// No description provided for @adminUpsertCalendarScreenEditLegendMixed.
+  ///
+  /// In en, this message translates to:
+  /// **'Mixed (Blocked + Reservation)'**
+  String get adminUpsertCalendarScreenEditLegendMixed;
+
+  /// No description provided for @adminUpsertCalendarScreenEditLegendAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get adminUpsertCalendarScreenEditLegendAvailable;
+
+  /// No description provided for @adminUpsertCalendarScreenEditLegendPastDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Past Date'**
+  String get adminUpsertCalendarScreenEditLegendPastDate;
+
+  /// No description provided for @adminUpsertCalendarScreenEditSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation updated successfully.'**
+  String get adminUpsertCalendarScreenEditSuccessMessage;
+
+  /// No description provided for @adminUpsertCalendarScreenEditReservationNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation not found.'**
+  String get adminUpsertCalendarScreenEditReservationNotFound;
+
+  /// No description provided for @adminUpsertCalendarScreenEditUpdateFailedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update reservation: '**
+  String get adminUpsertCalendarScreenEditUpdateFailedMessage;
+
+  /// No description provided for @adminUpsertCalendarScreenEditJsSelectMenuDatetimeFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select menu and date/time first.'**
+  String get adminUpsertCalendarScreenEditJsSelectMenuDatetimeFirst;
+
+  /// No description provided for @adminUpsertCalendarScreenEditJsTimeslotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Time slot is available for reservation.'**
+  String get adminUpsertCalendarScreenEditJsTimeslotAvailable;
+
+  /// No description provided for @adminUpsertCalendarScreenEditJsTimeslotUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Time slot is not available - conflicts with blocked periods or other reservations.'**
+  String get adminUpsertCalendarScreenEditJsTimeslotUnavailable;
+
+  /// No description provided for @adminUpsertCalendarScreenEditJsAvailabilityError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while checking availability.'**
+  String get adminUpsertCalendarScreenEditJsAvailabilityError;
+
+  /// No description provided for @adminUpsertCalendarScreenEditJsSelectMenuFirstAlert.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a menu first.'**
+  String get adminUpsertCalendarScreenEditJsSelectMenuFirstAlert;
+
+  /// No description provided for @adminUpsertCalendarScreenEditJsSelectDateTimeAlert.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select both date and time.'**
+  String get adminUpsertCalendarScreenEditJsSelectDateTimeAlert;
 
   /// No description provided for @contactNotificationNotFound.
   ///
@@ -4081,6 +6164,726 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'There was an error sending your inquiry. Please try again later.'**
   String get inquiryErrorMessage;
+
+  /// No description provided for @adminListMenuScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu Management'**
+  String get adminListMenuScreenTitle;
+
+  /// No description provided for @adminListMenuScreenSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage service menus for customers'**
+  String get adminListMenuScreenSubtitle;
+
+  /// No description provided for @adminListMenuScreenAddMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Menu'**
+  String get adminListMenuScreenAddMenu;
+
+  /// No description provided for @adminListMenuScreenFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get adminListMenuScreenFilter;
+
+  /// No description provided for @adminListMenuScreenReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get adminListMenuScreenReset;
+
+  /// No description provided for @adminListMenuScreenActivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Activate'**
+  String get adminListMenuScreenActivate;
+
+  /// No description provided for @adminListMenuScreenDeactivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Deactivate'**
+  String get adminListMenuScreenDeactivate;
+
+  /// No description provided for @adminListMenuScreenDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminListMenuScreenDelete;
+
+  /// No description provided for @adminListMenuScreenReorder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reorder'**
+  String get adminListMenuScreenReorder;
+
+  /// No description provided for @adminListMenuScreenCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminListMenuScreenCancel;
+
+  /// No description provided for @adminListMenuScreenEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get adminListMenuScreenEdit;
+
+  /// No description provided for @adminListMenuScreenSaveOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Order'**
+  String get adminListMenuScreenSaveOrder;
+
+  /// No description provided for @adminListMenuScreenSelectAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Select All'**
+  String get adminListMenuScreenSelectAll;
+
+  /// No description provided for @adminListMenuScreenTotalMenus.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Menus'**
+  String get adminListMenuScreenTotalMenus;
+
+  /// No description provided for @adminListMenuScreenActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get adminListMenuScreenActive;
+
+  /// No description provided for @adminListMenuScreenInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get adminListMenuScreenInactive;
+
+  /// No description provided for @adminListMenuScreenAveragePrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Average Price'**
+  String get adminListMenuScreenAveragePrice;
+
+  /// No description provided for @adminListMenuScreenFiltersSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters & Search'**
+  String get adminListMenuScreenFiltersSearch;
+
+  /// No description provided for @adminListMenuScreenShowFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Filters'**
+  String get adminListMenuScreenShowFilters;
+
+  /// No description provided for @adminListMenuScreenHideFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide Filters'**
+  String get adminListMenuScreenHideFilters;
+
+  /// No description provided for @adminListMenuScreenStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminListMenuScreenStatus;
+
+  /// No description provided for @adminListMenuScreenAllStatuses.
+  ///
+  /// In en, this message translates to:
+  /// **'All Statuses'**
+  String get adminListMenuScreenAllStatuses;
+
+  /// No description provided for @adminListMenuScreenMinPriceRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Min Price Range'**
+  String get adminListMenuScreenMinPriceRange;
+
+  /// No description provided for @adminListMenuScreenMaxPriceRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Price Range'**
+  String get adminListMenuScreenMaxPriceRange;
+
+  /// No description provided for @adminListMenuScreenSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get adminListMenuScreenSearch;
+
+  /// No description provided for @adminListMenuScreenSearchPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for menu name...'**
+  String get adminListMenuScreenSearchPlaceholder;
+
+  /// No description provided for @adminListMenuScreenItemsSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} item(s) selected'**
+  String adminListMenuScreenItemsSelected(String count);
+
+  /// No description provided for @adminListMenuScreenMenuList.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu List'**
+  String get adminListMenuScreenMenuList;
+
+  /// No description provided for @adminListMenuScreenThMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get adminListMenuScreenThMenu;
+
+  /// No description provided for @adminListMenuScreenThPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get adminListMenuScreenThPrice;
+
+  /// No description provided for @adminListMenuScreenThTimeRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Required'**
+  String get adminListMenuScreenThTimeRequired;
+
+  /// No description provided for @adminListMenuScreenThOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Order'**
+  String get adminListMenuScreenThOrder;
+
+  /// No description provided for @adminListMenuScreenThStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminListMenuScreenThStatus;
+
+  /// No description provided for @adminListMenuScreenThActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get adminListMenuScreenThActions;
+
+  /// No description provided for @adminListMenuScreenTimeUnitMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'mins'**
+  String get adminListMenuScreenTimeUnitMinutes;
+
+  /// No description provided for @adminListMenuScreenViewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get adminListMenuScreenViewDetails;
+
+  /// No description provided for @adminListMenuScreenNoMenusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No menus yet'**
+  String get adminListMenuScreenNoMenusTitle;
+
+  /// No description provided for @adminListMenuScreenNoMenusDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'No menus have been created, or none match the applied filters.'**
+  String get adminListMenuScreenNoMenusDescription;
+
+  /// No description provided for @adminListMenuScreenConfirmDeletionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Deletion'**
+  String get adminListMenuScreenConfirmDeletionTitle;
+
+  /// No description provided for @adminListMenuScreenDeleteSingleConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this menu?'**
+  String get adminListMenuScreenDeleteSingleConfirm;
+
+  /// No description provided for @adminListMenuScreenDeleteMultipleConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {count} menu(s)?'**
+  String adminListMenuScreenDeleteMultipleConfirm(String count);
+
+  /// No description provided for @adminListMenuScreenReorderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Menu Order'**
+  String get adminListMenuScreenReorderTitle;
+
+  /// No description provided for @adminListMenuScreenReorderDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag and drop items to change the order. Click and hold the grip icon to move an item.'**
+  String get adminListMenuScreenReorderDescription;
+
+  /// No description provided for @adminListMenuScreenCurrentOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Current order: #{order}'**
+  String adminListMenuScreenCurrentOrder(String order);
+
+  /// No description provided for @adminListMenuScreenShowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu Details'**
+  String get adminListMenuScreenShowTitle;
+
+  /// No description provided for @adminListMenuScreenShowSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed information for the menu item: {name}'**
+  String adminListMenuScreenShowSubtitle(String name);
+
+  /// No description provided for @adminListMenuScreenShowEditMenuButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Menu'**
+  String get adminListMenuScreenShowEditMenuButton;
+
+  /// No description provided for @adminListMenuScreenShowBackToListButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to List'**
+  String get adminListMenuScreenShowBackToListButton;
+
+  /// No description provided for @adminListMenuScreenShowStatusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active Menu'**
+  String get adminListMenuScreenShowStatusActive;
+
+  /// No description provided for @adminListMenuScreenShowStatusInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive Menu'**
+  String get adminListMenuScreenShowStatusInactive;
+
+  /// No description provided for @adminListMenuScreenShowActivateMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Activate Menu'**
+  String get adminListMenuScreenShowActivateMenu;
+
+  /// No description provided for @adminListMenuScreenShowDeactivateMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Deactivate Menu'**
+  String get adminListMenuScreenShowDeactivateMenu;
+
+  /// No description provided for @adminListMenuScreenShowDeleteMenuButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Menu'**
+  String get adminListMenuScreenShowDeleteMenuButton;
+
+  /// No description provided for @adminListMenuScreenShowInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu Information'**
+  String get adminListMenuScreenShowInfoTitle;
+
+  /// No description provided for @adminListMenuScreenShowInfoName.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu Name'**
+  String get adminListMenuScreenShowInfoName;
+
+  /// No description provided for @adminListMenuScreenShowInfoPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get adminListMenuScreenShowInfoPrice;
+
+  /// No description provided for @adminListMenuScreenShowInfoTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Required Time'**
+  String get adminListMenuScreenShowInfoTime;
+
+  /// No description provided for @adminListMenuScreenShowInfoOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Display Order'**
+  String get adminListMenuScreenShowInfoOrder;
+
+  /// No description provided for @adminListMenuScreenShowInfoColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu Color'**
+  String get adminListMenuScreenShowInfoColor;
+
+  /// No description provided for @adminListMenuScreenShowInfoCreatedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Created'**
+  String get adminListMenuScreenShowInfoCreatedAt;
+
+  /// No description provided for @adminListMenuScreenShowInfoUpdatedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Updated'**
+  String get adminListMenuScreenShowInfoUpdatedAt;
+
+  /// No description provided for @adminListMenuScreenShowDescriptionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu Description'**
+  String get adminListMenuScreenShowDescriptionTitle;
+
+  /// No description provided for @adminListMenuScreenShowDeleteModalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Menu Deletion'**
+  String get adminListMenuScreenShowDeleteModalTitle;
+
+  /// No description provided for @adminListMenuScreenShowDeleteModalText.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete the menu \"{name}\"? This action cannot be undone.'**
+  String adminListMenuScreenShowDeleteModalText(String name);
+
+  /// No description provided for @adminListMenuScreenShowDeletingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting...'**
+  String get adminListMenuScreenShowDeletingText;
+
+  /// No description provided for @adminListMenuScreenJsMessagesSelectAtLeastOne.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one menu.'**
+  String get adminListMenuScreenJsMessagesSelectAtLeastOne;
+
+  /// No description provided for @adminListMenuScreenJsMessagesErrorOccurredStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while changing the status.'**
+  String get adminListMenuScreenJsMessagesErrorOccurredStatus;
+
+  /// No description provided for @adminListMenuScreenJsMessagesErrorOccurredDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while deleting.'**
+  String get adminListMenuScreenJsMessagesErrorOccurredDelete;
+
+  /// No description provided for @adminListMenuScreenJsMessagesErrorOccurredReorder.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while saving the order.'**
+  String get adminListMenuScreenJsMessagesErrorOccurredReorder;
+
+  /// No description provided for @adminListMenuScreenJsMessagesDeleteSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu successfully deleted!'**
+  String get adminListMenuScreenJsMessagesDeleteSuccess;
+
+  /// No description provided for @adminListMenuScreenJsMessagesDeleteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete the menu.'**
+  String get adminListMenuScreenJsMessagesDeleteFailed;
+
+  /// No description provided for @adminListMenuScreenJsMessagesDeletingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting...'**
+  String get adminListMenuScreenJsMessagesDeletingText;
+
+  /// No description provided for @adminListMenuScreenJsMessagesConfirmDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Menu Deletion'**
+  String get adminListMenuScreenJsMessagesConfirmDeleteTitle;
+
+  /// No description provided for @adminListMenuScreenJsMessagesConfirmDeleteText.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete the menu \"{name}\"? This action cannot be undone.'**
+  String adminListMenuScreenJsMessagesConfirmDeleteText(String name);
+
+  /// No description provided for @adminListMenuScreenJsMessagesSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Success!'**
+  String get adminListMenuScreenJsMessagesSuccessTitle;
+
+  /// No description provided for @adminListMenuScreenJsMessagesErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'An Error Occurred'**
+  String get adminListMenuScreenJsMessagesErrorTitle;
+
+  /// No description provided for @adminListMenuScreenJsMessagesClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get adminListMenuScreenJsMessagesClose;
+
+  /// No description provided for @adminListMenuScreenJsMessagesOk.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get adminListMenuScreenJsMessagesOk;
+
+  /// No description provided for @adminUpsertMenuScreenAddSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new service menu for customers'**
+  String get adminUpsertMenuScreenAddSubtitle;
+
+  /// No description provided for @adminUpsertMenuScreenEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Menu'**
+  String get adminUpsertMenuScreenEditTitle;
+
+  /// No description provided for @adminUpsertMenuScreenEditSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Update menu information'**
+  String get adminUpsertMenuScreenEditSubtitle;
+
+  /// No description provided for @adminUpsertMenuScreenViewMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'View Menu'**
+  String get adminUpsertMenuScreenViewMenu;
+
+  /// No description provided for @adminUpsertMenuScreenBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get adminUpsertMenuScreenBack;
+
+  /// No description provided for @adminUpsertMenuScreenSaveMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Menu'**
+  String get adminUpsertMenuScreenSaveMenu;
+
+  /// No description provided for @adminUpsertMenuScreenUpdateMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Menu'**
+  String get adminUpsertMenuScreenUpdateMenu;
+
+  /// No description provided for @adminUpsertMenuScreenEnglishInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'English Information'**
+  String get adminUpsertMenuScreenEnglishInfo;
+
+  /// No description provided for @adminUpsertMenuScreenJapaneseInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese Information'**
+  String get adminUpsertMenuScreenJapaneseInfo;
+
+  /// No description provided for @adminUpsertMenuScreenMenuNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu Name (English)'**
+  String get adminUpsertMenuScreenMenuNameEn;
+
+  /// No description provided for @adminUpsertMenuScreenDescriptionEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (English)'**
+  String get adminUpsertMenuScreenDescriptionEn;
+
+  /// No description provided for @adminUpsertMenuScreenMenuNameJa.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu Name (Japanese)'**
+  String get adminUpsertMenuScreenMenuNameJa;
+
+  /// No description provided for @adminUpsertMenuScreenDescriptionJa.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Japanese)'**
+  String get adminUpsertMenuScreenDescriptionJa;
+
+  /// No description provided for @adminUpsertMenuScreenPlaceholderNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter menu name in English'**
+  String get adminUpsertMenuScreenPlaceholderNameEn;
+
+  /// No description provided for @adminUpsertMenuScreenPlaceholderDescEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter menu description in English...'**
+  String get adminUpsertMenuScreenPlaceholderDescEn;
+
+  /// No description provided for @adminUpsertMenuScreenPlaceholderNameJa.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter menu name in Japanese'**
+  String get adminUpsertMenuScreenPlaceholderNameJa;
+
+  /// No description provided for @adminUpsertMenuScreenPlaceholderDescJa.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter menu description in Japanese...'**
+  String get adminUpsertMenuScreenPlaceholderDescJa;
+
+  /// No description provided for @adminUpsertMenuScreenBasicSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Settings'**
+  String get adminUpsertMenuScreenBasicSettings;
+
+  /// No description provided for @adminUpsertMenuScreenFormRequiredTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Required Time (minutes)'**
+  String get adminUpsertMenuScreenFormRequiredTime;
+
+  /// No description provided for @adminUpsertMenuScreenHelpRequiredTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated processing time in minutes'**
+  String get adminUpsertMenuScreenHelpRequiredTime;
+
+  /// No description provided for @adminUpsertMenuScreenFormPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price (\$)'**
+  String get adminUpsertMenuScreenFormPrice;
+
+  /// No description provided for @adminUpsertMenuScreenVisualSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Visual Settings'**
+  String get adminUpsertMenuScreenVisualSettings;
+
+  /// No description provided for @adminUpsertMenuScreenHelpColor.
+  ///
+  /// In en, this message translates to:
+  /// **'This color will be used for the menu display'**
+  String get adminUpsertMenuScreenHelpColor;
+
+  /// No description provided for @adminUpsertMenuScreenStatusSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Status Settings'**
+  String get adminUpsertMenuScreenStatusSettings;
+
+  /// No description provided for @adminUpsertMenuScreenFormActiveStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Active Status'**
+  String get adminUpsertMenuScreenFormActiveStatus;
+
+  /// No description provided for @adminUpsertMenuScreenHelpActiveStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu will be available for customers'**
+  String get adminUpsertMenuScreenHelpActiveStatus;
+
+  /// No description provided for @adminUpsertMenuScreenMenuPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu Preview'**
+  String get adminUpsertMenuScreenMenuPreview;
+
+  /// No description provided for @adminUpsertMenuScreenEnglishPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'English Preview'**
+  String get adminUpsertMenuScreenEnglishPreview;
+
+  /// No description provided for @adminUpsertMenuScreenJapanesePreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese Preview'**
+  String get adminUpsertMenuScreenJapanesePreview;
+
+  /// No description provided for @adminUpsertMenuScreenTimeUnitMinutesFull.
+  ///
+  /// In en, this message translates to:
+  /// **'minutes'**
+  String get adminUpsertMenuScreenTimeUnitMinutesFull;
+
+  /// No description provided for @adminUpsertMenuScreenNoDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'No description available'**
+  String get adminUpsertMenuScreenNoDescription;
+
+  /// No description provided for @adminUpsertMenuScreenCurrentInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Menu Information'**
+  String get adminUpsertMenuScreenCurrentInfo;
+
+  /// No description provided for @adminUpsertMenuScreenColorsBlue.
+  ///
+  /// In en, this message translates to:
+  /// **'Blue'**
+  String get adminUpsertMenuScreenColorsBlue;
+
+  /// No description provided for @adminUpsertMenuScreenColorsGreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Green'**
+  String get adminUpsertMenuScreenColorsGreen;
+
+  /// No description provided for @adminUpsertMenuScreenColorsYellow.
+  ///
+  /// In en, this message translates to:
+  /// **'Yellow'**
+  String get adminUpsertMenuScreenColorsYellow;
+
+  /// No description provided for @adminUpsertMenuScreenColorsRed.
+  ///
+  /// In en, this message translates to:
+  /// **'Red'**
+  String get adminUpsertMenuScreenColorsRed;
+
+  /// No description provided for @adminUpsertMenuScreenColorsPurple.
+  ///
+  /// In en, this message translates to:
+  /// **'Purple'**
+  String get adminUpsertMenuScreenColorsPurple;
+
+  /// No description provided for @adminUpsertMenuScreenColorsPink.
+  ///
+  /// In en, this message translates to:
+  /// **'Pink'**
+  String get adminUpsertMenuScreenColorsPink;
+
+  /// No description provided for @adminUpsertMenuScreenColorsCyan.
+  ///
+  /// In en, this message translates to:
+  /// **'Cyan'**
+  String get adminUpsertMenuScreenColorsCyan;
+
+  /// No description provided for @adminUpsertMenuScreenColorsLime.
+  ///
+  /// In en, this message translates to:
+  /// **'Lime'**
+  String get adminUpsertMenuScreenColorsLime;
+
+  /// No description provided for @adminUpsertMenuScreenColorsOrange.
+  ///
+  /// In en, this message translates to:
+  /// **'Orange'**
+  String get adminUpsertMenuScreenColorsOrange;
+
+  /// No description provided for @adminUpsertMenuScreenColorsGray.
+  ///
+  /// In en, this message translates to:
+  /// **'Gray'**
+  String get adminUpsertMenuScreenColorsGray;
 
   /// No description provided for @profileShowTitle.
   ///

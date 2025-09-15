@@ -15,7 +15,11 @@ import 'package:tires/features/authentication/domain/usecases/set_new_password_u
 import 'package:tires/features/customer_management/domain/usecases/get_current_user_dashboard_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
 import 'package:tires/features/inquiry/domain/usecases/create_inquiry_usecase.dart';
-import 'package:tires/features/menu/domain/usecases/get_menu_cursor_usecase.dart';
+import 'package:tires/features/menu/domain/usecases/create_menu_usecase.dart';
+import 'package:tires/features/menu/domain/usecases/delete_menu_usecase.dart';
+import 'package:tires/features/menu/domain/usecases/get_admin_menus_cursor_usecase.dart';
+import 'package:tires/features/menu/domain/usecases/get_menus_cursor_usecase.dart';
+import 'package:tires/features/menu/domain/usecases/update_menu_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/create_reservation_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/get_current_user_reservations_cursor_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/delete_reservation_usecase.dart';
@@ -59,9 +63,31 @@ final getCurrentAuthUsecaseProvider = Provider<GetCurrentAuthUsecase>((ref) {
   return GetCurrentAuthUsecase(_authRepository);
 });
 
-final getMenuCursorUsecaseProvider = Provider<GetMenuCursorUsecase>((ref) {
+final getMenusCursorUsecaseProvider = Provider<GetMenusCursorUsecase>((ref) {
   final _menuRepository = ref.watch(menuRepoProvider);
-  return GetMenuCursorUsecase(_menuRepository);
+  return GetMenusCursorUsecase(_menuRepository);
+});
+
+final getAdminMenusCursorUsecaseProvider = Provider<GetAdminMenusCursorUsecase>(
+  (ref) {
+    final _menuRepository = ref.watch(menuRepoProvider);
+    return GetAdminMenusCursorUsecase(_menuRepository);
+  },
+);
+
+final createMenuUsecaseProvider = Provider<CreateMenuUsecase>((ref) {
+  final _menuRepository = ref.watch(menuRepoProvider);
+  return CreateMenuUsecase(_menuRepository);
+});
+
+final updateMenuUsecaseProvider = Provider<UpdateMenuUsecase>((ref) {
+  final _menuRepository = ref.watch(menuRepoProvider);
+  return UpdateMenuUsecase(_menuRepository);
+});
+
+final deleteMenuUsecaseProvider = Provider<DeleteMenuUsecase>((ref) {
+  final _menuRepository = ref.watch(menuRepoProvider);
+  return DeleteMenuUsecase(_menuRepository);
 });
 
 final getCustomerCursorUsecaseProvider = Provider<GetCustomerCursorUsecase>((

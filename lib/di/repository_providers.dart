@@ -13,7 +13,7 @@ import 'package:tires/features/customer_management/data/repositories/customer_re
 import 'package:tires/features/customer_management/domain/repositories/customer_repository.dart';
 import 'package:tires/features/inquiry/data/repositories/inquiry_repository_impl.dart';
 import 'package:tires/features/inquiry/domain/repositories/inquiry_repository.dart';
-import 'package:tires/features/menu/data/datasources/menu_repository_impl.dart';
+import 'package:tires/features/menu/data/repositories/menu_repository_impl.dart';
 import 'package:tires/features/menu/domain/repositories/menu_repository.dart';
 import 'package:tires/features/reservation/data/repositories/reservation_repository_impl.dart';
 import 'package:tires/features/reservation/domain/repositories/reservation_repository.dart';

@@ -1,7 +1,10 @@
 import 'dart:math';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
+import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
@@ -50,7 +53,7 @@ class MenuTableWidget extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               AppText(
-                'No menus found',
+                context.l10n.adminListMenuScreenNoMenusTitle,
                 style: AppTextStyle.bodyLarge,
                 color: context.colorScheme.onSurface.withOpacity(0.6),
               ),
@@ -70,9 +73,12 @@ class MenuTableWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 4, bottom: 8),
-          child: AppText('Menu List', style: AppTextStyle.titleLarge),
+        Padding(
+          padding: const EdgeInsets.only(left: 4, bottom: 8),
+          child: AppText(
+            context.l10n.adminListMenuScreenMenuList,
+            style: AppTextStyle.titleLarge,
+          ),
         ),
         Card(
           elevation: 0,
@@ -105,32 +111,50 @@ class MenuTableWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       color: context.colorScheme.surface.withOpacity(0.5),
       child: Row(
-        children: const [
-          SizedBox(width: 40, child: Text('')),
+        children: [
+          const SizedBox(width: 40, child: Text('')),
           SizedBox(
             width: 300,
-            child: AppText('MENU', fontWeight: FontWeight.bold),
+            child: AppText(
+              context.l10n.adminListMenuScreenThMenu,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(
             width: 120,
-            child: AppText('PRICE', fontWeight: FontWeight.bold),
+            child: AppText(
+              context.l10n.adminListMenuScreenThPrice,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(
             width: 150,
-            child: AppText('TIME REQUIRED', fontWeight: FontWeight.bold),
+            child: AppText(
+              context.l10n.adminListMenuScreenThTimeRequired,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(
             width: 80,
-            child: AppText('ORDER', fontWeight: FontWeight.bold),
+            child: AppText(
+              context.l10n.adminListMenuScreenThOrder,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(
             width: 120,
-            child: AppText('STATUS', fontWeight: FontWeight.bold),
+            child: AppText(
+              context.l10n.adminListMenuScreenThStatus,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(
             width: 80,
             child: Center(
-              child: AppText('ACTION', fontWeight: FontWeight.bold),
+              child: AppText(
+                context.l10n.adminListMenuScreenThActions,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
@@ -219,8 +243,10 @@ class MenuTableWidget extends StatelessWidget {
             child: Center(
               child: IconButton(
                 icon: const Icon(Icons.more_horiz, size: 20),
-                onPressed: () {},
-                tooltip: 'More Actions',
+                onPressed: () {
+                  context.router.push(AdminUpsertMenuRoute(menu: menu));
+                },
+                tooltip: context.l10n.adminListMenuScreenViewDetails,
               ),
             ),
           ),
@@ -231,7 +257,11 @@ class MenuTableWidget extends StatelessWidget {
 
   Widget _buildStatusChip(BuildContext context, Menu menu) {
     return Chip(
-      label: Text(menu.isActive ? 'Active' : 'Inactive'),
+      label: Text(
+        menu.isActive
+            ? context.l10n.adminListMenuScreenActive
+            : context.l10n.adminListMenuScreenInactive,
+      ),
       backgroundColor: menu.isActive
           ? Colors.green.shade100
           : Colors.grey.shade300,

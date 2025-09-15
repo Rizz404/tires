@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
 class Menu extends Equatable {
@@ -11,6 +10,7 @@ class Menu extends Equatable {
   final int displayOrder;
   final bool isActive;
   final ColorInfo color;
+  final MenuTranslation? translations;
 
   const Menu({
     required this.id,
@@ -22,6 +22,7 @@ class Menu extends Equatable {
     required this.displayOrder,
     required this.isActive,
     required this.color,
+    this.translations,
   });
 
   @override
@@ -35,6 +36,7 @@ class Menu extends Equatable {
     displayOrder,
     isActive,
     color,
+    translations,
   ];
 }
 
@@ -66,4 +68,34 @@ class ColorInfo extends Equatable {
 
   @override
   List<Object?> get props => [hex, rgbaLight, textColor];
+}
+
+class MenuTranslation extends Equatable {
+  final MenuContent en;
+  final MenuContent ja;
+
+  const MenuTranslation({required this.en, required this.ja});
+
+  @override
+  List<Object> get props => [en, ja];
+}
+
+class MenuContent extends Equatable {
+  final String name;
+  final String? description;
+
+  const MenuContent({required this.name, this.description});
+
+  @override
+  List<Object?> get props => [name, description];
+}
+
+class Meta extends Equatable {
+  final String locale;
+  final bool fallbackUsed;
+
+  Meta({required this.locale, required this.fallbackUsed});
+
+  @override
+  List<Object> get props => [locale, fallbackUsed];
 }

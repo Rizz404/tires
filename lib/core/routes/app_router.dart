@@ -36,6 +36,7 @@ import 'package:tires/features/reservation/presentation/screens/my_reservations_
 import 'package:tires/features/reservation/presentation/screens/reservation_summary_screen.dart';
 import 'package:tires/features/static/presentation/screens/privacy_policy_screen.dart';
 import 'package:tires/features/static/presentation/screens/terms_of_service_screen.dart';
+import 'package:tires/features/user/domain/entities/blocked_period.dart';
 import 'package:tires/shared/presentation/widgets/admin_tab_screen.dart';
 import 'package:tires/shared/presentation/widgets/user_tab_screen.dart';
 
@@ -94,12 +95,12 @@ class AppRouter extends RootStackRouter {
       guards: [_authGuard],
     ),
     AutoRoute(
-      page: AdminListBlockedRoute.page,
+      page: AdminListBlockedPeriodRoute.page,
       path: '/admin/blocked',
       guards: [_authGuard],
     ),
     AutoRoute(
-      page: AdminUpsertBlockedRoute.page,
+      page: AdminUpsertBlockedPeriodRoute.page,
       path: '/admin/blocked/upsert',
       guards: [_authGuard],
     ),

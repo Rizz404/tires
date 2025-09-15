@@ -718,6 +718,178 @@ class L10nId extends L10n {
   String get forgotPasswordBackToLogin => 'Back to Login';
 
   @override
+  String get adminListAvailabilityScreenPageTitle => 'Availability Check';
+
+  @override
+  String get adminListAvailabilityScreenPageSubtitle =>
+      'Check time availability for reservations';
+
+  @override
+  String get adminListAvailabilityScreenFormDateLabel => 'Reservation Date';
+
+  @override
+  String get adminListAvailabilityScreenFormMenuLabel => 'Select Menu';
+
+  @override
+  String get adminListAvailabilityScreenFormMenuPlaceholder =>
+      '-- Select Menu --';
+
+  @override
+  String get adminListAvailabilityScreenFormMenuMinutes => 'minutes';
+
+  @override
+  String get adminListAvailabilityScreenButtonsPrevious => 'Previous';
+
+  @override
+  String get adminListAvailabilityScreenButtonsNext => 'Next';
+
+  @override
+  String get adminListAvailabilityScreenSummaryDate => 'Date';
+
+  @override
+  String get adminListAvailabilityScreenSummaryYear => 'Year';
+
+  @override
+  String get adminListAvailabilityScreenSummaryMonth => 'Month';
+
+  @override
+  String get adminListAvailabilityScreenSummaryCurrentTime => 'Current Time';
+
+  @override
+  String get adminListAvailabilityScreenLoadingText =>
+      'Loading availability data...';
+
+  @override
+  String get adminListAvailabilityScreenAvailabilityTitle =>
+      'Time Availability';
+
+  @override
+  String get adminListAvailabilityScreenAvailabilityAvailableSlots =>
+      'available slots';
+
+  @override
+  String get adminListAvailabilityScreenAvailabilityReservedSlots =>
+      'reserved slots';
+
+  @override
+  String get adminListAvailabilityScreenAvailabilityBlockedSlots =>
+      'blocked slots';
+
+  @override
+  String get adminListAvailabilityScreenStatusAvailable => 'Available';
+
+  @override
+  String get adminListAvailabilityScreenStatusReserved => 'Reserved';
+
+  @override
+  String get adminListAvailabilityScreenStatusBlocked => 'Blocked';
+
+  @override
+  String get adminListAvailabilityScreenLegendAvailableTitle => 'Available';
+
+  @override
+  String get adminListAvailabilityScreenLegendAvailableDescription =>
+      'Can make reservation';
+
+  @override
+  String get adminListAvailabilityScreenLegendReservedTitle => 'Reserved';
+
+  @override
+  String get adminListAvailabilityScreenLegendReservedDescription =>
+      'Already has reservation';
+
+  @override
+  String get adminListAvailabilityScreenLegendBlockedTitle => 'Blocked';
+
+  @override
+  String get adminListAvailabilityScreenLegendBlockedDescription =>
+      'Blocked Period';
+
+  @override
+  String get adminListAvailabilityScreenEmptyTitle => 'No availability data';
+
+  @override
+  String get adminListAvailabilityScreenEmptyDescription =>
+      'for the selected menu on this date';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsJanuary => 'January';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsFebruary => 'February';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsMarch => 'March';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsApril => 'April';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsMay => 'May';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsJune => 'June';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsJuly => 'July';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsAugust => 'August';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsSeptember =>
+      'September';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsOctober => 'October';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsNovember => 'November';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsMonthsDecember => 'December';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsDaysSunday => 'Sunday';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsDaysMonday => 'Monday';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsDaysTuesday => 'Tuesday';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsDaysWednesday => 'Wednesday';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsDaysThursday => 'Thursday';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsDaysFriday => 'Friday';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsDaysSaturday => 'Saturday';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsAlertsLoadFail =>
+      'Failed to load availability data';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsAlertsLoadError =>
+      'An error occurred while loading data';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsAlertsSlotUnavailable =>
+      'This time slot is not available for reservation';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsAlertsSelectSlotFirst =>
+      'Please select a time slot first';
+
+  @override
+  String get adminListAvailabilityScreenScriptTextsSelectedTimeAt => 'at';
+
+  @override
   String get blockedPeriodNotificationCreateSuccess =>
       'Blocked period created successfully.';
 
@@ -1526,6 +1698,1031 @@ class L10nId extends L10n {
   @override
   String get adminListBusinessInformationScreenNotFoundCreateButton =>
       'Create Business Settings';
+
+  @override
+  String get reservationNotificationReservationNotFound =>
+      'Reservation not found.';
+
+  @override
+  String get reservationNotificationUpdateSuccess =>
+      'Reservation updated successfully.';
+
+  @override
+  String reservationNotificationUpdateFailed(String error) {
+    return 'Failed to update reservation: $error';
+  }
+
+  @override
+  String get reservationNotificationDeleteSuccess =>
+      'Reservation deleted successfully.';
+
+  @override
+  String reservationNotificationDeleteFailed(String error) {
+    return 'Failed to delete reservation: $error';
+  }
+
+  @override
+  String get reservationNotificationConfirmSuccess =>
+      'Reservation confirmed successfully.';
+
+  @override
+  String get reservationNotificationCancelSuccess =>
+      'Reservation cancelled successfully.';
+
+  @override
+  String get reservationNotificationCompleteSuccess =>
+      'Reservation completed successfully.';
+
+  @override
+  String get reservationNotificationBulkUpdateSuccess =>
+      'Reservation statuses updated successfully.';
+
+  @override
+  String get reservationNotificationBulkUpdateFailed =>
+      'Failed to update reservation statuses.';
+
+  @override
+  String get reservationNotificationAvailabilityCheckError =>
+      'An error occurred while checking availability.';
+
+  @override
+  String get reservationAvailabilityAvailable => 'Time is available.';
+
+  @override
+  String get reservationAvailabilityUnavailable => 'Time is not available.';
+
+  @override
+  String get reservationValidationUserIdRequired =>
+      'The user ID field is required.';
+
+  @override
+  String get reservationValidationUserIdExists =>
+      'The selected user does not exist.';
+
+  @override
+  String get reservationValidationMenuIdRequired =>
+      'The menu field is required.';
+
+  @override
+  String get reservationValidationMenuIdExists =>
+      'The selected menu does not exist.';
+
+  @override
+  String get reservationValidationReservationDatetimeRequired =>
+      'The reservation datetime field is required.';
+
+  @override
+  String get reservationValidationReservationDatetimeDate =>
+      'The reservation datetime must be a valid date.';
+
+  @override
+  String get reservationValidationReservationDatetimeAfter =>
+      'The reservation datetime must be after now.';
+
+  @override
+  String get reservationValidationNumberOfPeopleRequired =>
+      'The number of people field is required.';
+
+  @override
+  String get reservationValidationNumberOfPeopleInteger =>
+      'The number of people must be an integer.';
+
+  @override
+  String get reservationValidationNumberOfPeopleMin =>
+      'The number of people must be at least 1.';
+
+  @override
+  String get reservationValidationAmountRequired =>
+      'The amount field is required.';
+
+  @override
+  String get reservationValidationAmountNumeric =>
+      'The amount must be a number.';
+
+  @override
+  String get reservationValidationAmountMin => 'The amount must be at least 0.';
+
+  @override
+  String get reservationValidationStatusIn => 'The selected status is invalid.';
+
+  @override
+  String get reservationValidationNotesString => 'The notes must be a string.';
+
+  @override
+  String get reservationValidationFullNameRequired =>
+      'The full name field is required for a guest customer.';
+
+  @override
+  String get reservationValidationFullNameString =>
+      'The full name must be a string.';
+
+  @override
+  String get reservationValidationFullNameMax =>
+      'The full name may not be greater than 255 characters.';
+
+  @override
+  String get reservationValidationFullNameKanaRequired =>
+      'The full name (kana) field is required for a guest customer.';
+
+  @override
+  String get reservationValidationFullNameKanaString =>
+      'The full name (kana) must be a string.';
+
+  @override
+  String get reservationValidationFullNameKanaMax =>
+      'The full name (kana) may not be greater than 255 characters.';
+
+  @override
+  String get reservationValidationEmailRequired =>
+      'The email field is required for a guest customer.';
+
+  @override
+  String get reservationValidationEmailEmail =>
+      'The email must be a valid email address.';
+
+  @override
+  String get reservationValidationEmailMax =>
+      'The email may not be greater than 255 characters.';
+
+  @override
+  String get reservationValidationPhoneNumberRequired =>
+      'The phone number field is required for a guest customer.';
+
+  @override
+  String get reservationValidationPhoneNumberString =>
+      'The phone number must be a string.';
+
+  @override
+  String get reservationValidationPhoneNumberMax =>
+      'The phone number may not be greater than 20 characters.';
+
+  @override
+  String get reservationValidationReservationDatetimeUnavailable =>
+      'The selected reservation datetime is unavailable. Please choose another time.';
+
+  @override
+  String get adminListCalendarScreenTitle => 'Reservation Management';
+
+  @override
+  String get adminListCalendarScreenStatusActive => 'Active';
+
+  @override
+  String get adminListCalendarScreenTabsCalendarView => 'Calendar View';
+
+  @override
+  String get adminListCalendarScreenTabsListView => 'List View';
+
+  @override
+  String get adminListCalendarScreenModeDescriptionCalendar =>
+      'Calendar Mode - Visual overview of reservations';
+
+  @override
+  String get adminListCalendarScreenModeDescriptionList =>
+      'List Mode - Detailed reservation data';
+
+  @override
+  String get adminListCalendarScreenButtonsNewReservation => 'New Reservation';
+
+  @override
+  String get adminListCalendarScreenButtonsRefresh => 'Refresh';
+
+  @override
+  String get adminListCalendarScreenButtonsSettings => 'Settings';
+
+  @override
+  String get adminListCalendarScreenViewsMonth => 'Month';
+
+  @override
+  String get adminListCalendarScreenViewsWeek => 'Week';
+
+  @override
+  String get adminListCalendarScreenViewsDay => 'Day';
+
+  @override
+  String get adminListCalendarScreenViewsSelectDate => 'Select Date';
+
+  @override
+  String get adminListCalendarScreenNavigationPreviousMonth => 'Previous Month';
+
+  @override
+  String get adminListCalendarScreenNavigationNextMonth => 'Next Month';
+
+  @override
+  String get adminListCalendarScreenNavigationPreviousWeek => 'Previous Week';
+
+  @override
+  String get adminListCalendarScreenNavigationNextWeek => 'Next Week';
+
+  @override
+  String get adminListCalendarScreenNavigationPreviousDay => 'Previous Day';
+
+  @override
+  String get adminListCalendarScreenNavigationNextDay => 'Next Day';
+
+  @override
+  String get adminListCalendarScreenFilterTitle => 'Filter Reservations';
+
+  @override
+  String get adminListCalendarScreenFilterTotalReservations =>
+      'total reservations';
+
+  @override
+  String get adminListCalendarScreenFilterQuickSearch => 'Quick Search';
+
+  @override
+  String get adminListCalendarScreenFilterSearchPlaceholder =>
+      'Customer name, phone, email...';
+
+  @override
+  String get adminListCalendarScreenFilterMenu => 'Menu';
+
+  @override
+  String get adminListCalendarScreenFilterAllMenus => 'All Menus';
+
+  @override
+  String get adminListCalendarScreenFilterStatus => 'Status';
+
+  @override
+  String get adminListCalendarScreenFilterAllStatuses => 'All Statuses';
+
+  @override
+  String get adminListCalendarScreenFilterDateRange => 'Date Range';
+
+  @override
+  String get adminListCalendarScreenFilterSelectRange => 'Select Range';
+
+  @override
+  String get adminListCalendarScreenFilterStartDate => 'Start Date';
+
+  @override
+  String get adminListCalendarScreenFilterEndDate => 'End Date';
+
+  @override
+  String get adminListCalendarScreenFilterApplyFilters => 'Apply Filters';
+
+  @override
+  String get adminListCalendarScreenFilterClearAll => 'Clear All';
+
+  @override
+  String get adminListCalendarScreenFilterShowing => 'Showing';
+
+  @override
+  String get adminListCalendarScreenFilterOf => 'of';
+
+  @override
+  String get adminListCalendarScreenFilterResults => 'results';
+
+  @override
+  String get adminListCalendarScreenFilterExport => 'Export';
+
+  @override
+  String get adminListCalendarScreenTableCustomer => 'Customer';
+
+  @override
+  String get adminListCalendarScreenTableDateTime => 'Date & Time';
+
+  @override
+  String get adminListCalendarScreenTableMenu => 'Menu';
+
+  @override
+  String get adminListCalendarScreenTablePeople => 'People';
+
+  @override
+  String get adminListCalendarScreenTableStatus => 'Status';
+
+  @override
+  String get adminListCalendarScreenTableActions => 'Actions';
+
+  @override
+  String get adminListCalendarScreenTableMinutes => 'minutes';
+
+  @override
+  String get adminListCalendarScreenActionsViewDetails => 'View Details';
+
+  @override
+  String get adminListCalendarScreenActionsEdit => 'Edit';
+
+  @override
+  String get adminListCalendarScreenActionsConfirm => 'Confirm';
+
+  @override
+  String get adminListCalendarScreenActionsCancel => 'Cancel';
+
+  @override
+  String get adminListCalendarScreenActionsMoreActions => 'More Actions';
+
+  @override
+  String get adminListCalendarScreenActionsPrintDetails => 'Print Details';
+
+  @override
+  String get adminListCalendarScreenActionsSendEmail => 'Send Email';
+
+  @override
+  String get adminListCalendarScreenEmptyStateNoReservations =>
+      'No reservations found';
+
+  @override
+  String get adminListCalendarScreenEmptyStateAdjustFilters =>
+      'Try adjusting your filters or search criteria';
+
+  @override
+  String get adminListCalendarScreenPaginationShow => 'Show';
+
+  @override
+  String get adminListCalendarScreenPaginationEntriesPerPage =>
+      'entries per page';
+
+  @override
+  String get adminListCalendarScreenCalendarTitle => 'Calendar';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysMonday => 'Mon';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysTuesday => 'Tue';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysWednesday => 'Wed';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysThursday => 'Thu';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFriday => 'Fri';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysSaturday => 'Sat';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysSunday => 'Sun';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFullMonday => 'Monday';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFullTuesday => 'Tuesday';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFullWednesday => 'Wednesday';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFullThursday => 'Thursday';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFullFriday => 'Friday';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFullSaturday => 'Saturday';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysFullSunday => 'Sunday';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysShortMon => 'Mon';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysShortTue => 'Tue';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysShortWed => 'Wed';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysShortThu => 'Thu';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysShortFri => 'Fri';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysShortSat => 'Sat';
+
+  @override
+  String get adminListCalendarScreenCalendarDaysShortSun => 'Sun';
+
+  @override
+  String get adminListCalendarScreenCalendarMoreReservations =>
+      'more reservations';
+
+  @override
+  String get adminListCalendarScreenCalendarMenuLegend => 'Menu Legend:';
+
+  @override
+  String get adminListCalendarScreenBlockedPeriodTitle => 'Blocked Period';
+
+  @override
+  String get adminListCalendarScreenBlockedPeriodReason => 'Reason:';
+
+  @override
+  String get adminListCalendarScreenBlockedPeriodAffectedMenu =>
+      'Affected Menu:';
+
+  @override
+  String get adminListCalendarScreenBlockedPeriodAllMenusBlocked =>
+      'All Menus Blocked';
+
+  @override
+  String get adminListCalendarScreenBlockedPeriodSpecificMenu =>
+      'Specific Menu';
+
+  @override
+  String get adminListCalendarScreenReservationTooltipCustomerInfo =>
+      'Customer Info';
+
+  @override
+  String get adminListCalendarScreenReservationTooltipMenuInfo => 'Menu Info';
+
+  @override
+  String get adminListCalendarScreenReservationTooltipMinute => 'minute';
+
+  @override
+  String get adminListCalendarScreenReservationTooltipPeople => 'people';
+
+  @override
+  String get adminListCalendarScreenReservationTooltipMenuPrice =>
+      'Menu Price:';
+
+  @override
+  String get adminListCalendarScreenReservationTooltipNotes => 'Notes:';
+
+  @override
+  String get adminListCalendarScreenReservationTooltipClickToView =>
+      'Click to view full details';
+
+  @override
+  String get adminListCalendarScreenLoadingData => 'Loading data...';
+
+  @override
+  String get adminListCalendarScreenPrintCalendarTitle =>
+      'Reservation Calendar';
+
+  @override
+  String get adminListCalendarScreenStatusLabelsPending => 'Pending';
+
+  @override
+  String get adminListCalendarScreenStatusLabelsConfirmed => 'Confirmed';
+
+  @override
+  String get adminListCalendarScreenStatusLabelsCompleted => 'Completed';
+
+  @override
+  String get adminListCalendarScreenStatusLabelsCancelled => 'Cancelled';
+
+  @override
+  String get adminListCalendarScreenConfirmationChangeStatus =>
+      'Are you sure you want to change the status of this reservation?';
+
+  @override
+  String get adminListCalendarScreenAlertsError => 'Error:';
+
+  @override
+  String get adminListCalendarScreenAlertsUpdateError =>
+      'An error occurred while updating the status';
+
+  @override
+  String get adminListCalendarScreenMonthsJanuary => 'January';
+
+  @override
+  String get adminListCalendarScreenMonthsFebruary => 'February';
+
+  @override
+  String get adminListCalendarScreenMonthsMarch => 'March';
+
+  @override
+  String get adminListCalendarScreenMonthsApril => 'April';
+
+  @override
+  String get adminListCalendarScreenMonthsMay => 'May';
+
+  @override
+  String get adminListCalendarScreenMonthsJune => 'June';
+
+  @override
+  String get adminListCalendarScreenMonthsJuly => 'July';
+
+  @override
+  String get adminListCalendarScreenMonthsAugust => 'August';
+
+  @override
+  String get adminListCalendarScreenMonthsSeptember => 'September';
+
+  @override
+  String get adminListCalendarScreenMonthsOctober => 'October';
+
+  @override
+  String get adminListCalendarScreenMonthsNovember => 'November';
+
+  @override
+  String get adminListCalendarScreenMonthsDecember => 'December';
+
+  @override
+  String get adminListCalendarScreenMonthsShortJan => 'Jan';
+
+  @override
+  String get adminListCalendarScreenMonthsShortFeb => 'Feb';
+
+  @override
+  String get adminListCalendarScreenMonthsShortMar => 'Mar';
+
+  @override
+  String get adminListCalendarScreenMonthsShortApr => 'Apr';
+
+  @override
+  String get adminListCalendarScreenMonthsShortMay => 'May';
+
+  @override
+  String get adminListCalendarScreenMonthsShortJun => 'Jun';
+
+  @override
+  String get adminListCalendarScreenMonthsShortJul => 'Jul';
+
+  @override
+  String get adminListCalendarScreenMonthsShortAug => 'Aug';
+
+  @override
+  String get adminListCalendarScreenMonthsShortSep => 'Sep';
+
+  @override
+  String get adminListCalendarScreenMonthsShortOct => 'Oct';
+
+  @override
+  String get adminListCalendarScreenMonthsShortNov => 'Nov';
+
+  @override
+  String get adminListCalendarScreenMonthsShortDec => 'Dec';
+
+  @override
+  String adminListCalendarScreenShowTitle(String id) {
+    return 'Reservation Details #$id';
+  }
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoTitle =>
+      'Customer Information';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoTypeLabel =>
+      'Customer Type';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoTypeRegistered =>
+      'Registered Customer';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoTypeGuest =>
+      'Guest Customer';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoRegisteredLabel =>
+      'Registered Customer';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoFullNameLabel =>
+      'Full Name';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoFullNameKanaLabel =>
+      'Full Name (Kana)';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoEmailLabel => 'Email';
+
+  @override
+  String get adminListCalendarScreenShowCustomerInfoPhoneNumberLabel =>
+      'Phone Number';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsTitle =>
+      'Reservation Details';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsMenuLabel => 'Menu';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsYen => 'yen';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsMinutes => 'minutes';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsDatetimeLabel =>
+      'Reservation Date & Time';
+
+  @override
+  String
+  get adminListCalendarScreenShowReservationDetailsEstimatedCompletionLabel =>
+      'Estimated completion:';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsNumberOfPeopleLabel =>
+      'Number of People';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsPeople => 'people';
+
+  @override
+  String get adminListCalendarScreenShowReservationDetailsTotalCostLabel =>
+      'Total Cost';
+
+  @override
+  String get adminListCalendarScreenShowAdditionalInfoTitle =>
+      'Additional Information';
+
+  @override
+  String get adminListCalendarScreenShowAdditionalInfoStatusLabel =>
+      'Reservation Status';
+
+  @override
+  String get adminListCalendarScreenShowAdditionalInfoCreatedAtLabel =>
+      'Created At';
+
+  @override
+  String get adminListCalendarScreenShowAdditionalInfoLastUpdatedLabel =>
+      'Last Updated';
+
+  @override
+  String get adminListCalendarScreenShowAdditionalInfoNotesLabel => 'Notes';
+
+  @override
+  String get adminListCalendarScreenShowBackButton => 'Back to Calendar';
+
+  @override
+  String get adminListCalendarScreenShowEditButton => 'Edit Reservation';
+
+  @override
+  String get adminUpsertCalendarScreenCreatePageTitle =>
+      'Create New Reservation';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormCustomerType => 'Customer Type';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormRegisteredCustomer =>
+      'Registered Customer';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormGuestCustomer =>
+      'Guest Customer';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormSelectCustomer =>
+      'Select Customer';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormSelectCustomerPlaceholder =>
+      'Select Customer...';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormFullName => 'Full Name *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormFullNameKana =>
+      'Full Name (Kana) *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormEmail => 'Email *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormPhoneNumber => 'Phone Number *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormMenu => 'Menu *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormSelectMenuPlaceholder =>
+      'Select Menu...';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormYen => 'yen';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormMinutes => 'minutes';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormReservationDatetime =>
+      'Reservation Date & Time *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormNumberOfPeople =>
+      'Number of People *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormTotalAmount => 'Total Amount *';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormStatus => 'Status';
+
+  @override
+  String get adminUpsertCalendarScreenCreateFormNotes => 'Notes';
+
+  @override
+  String get adminUpsertCalendarScreenCreateStatusOptionsPending => 'Pending';
+
+  @override
+  String get adminUpsertCalendarScreenCreateStatusOptionsConfirmed =>
+      'Confirmed';
+
+  @override
+  String get adminUpsertCalendarScreenCreateStatusOptionsCompleted =>
+      'Completed';
+
+  @override
+  String get adminUpsertCalendarScreenCreateStatusOptionsCancelled =>
+      'Cancelled';
+
+  @override
+  String get adminUpsertCalendarScreenCreateButtonsSelectFromCalendar =>
+      'Select from Calendar';
+
+  @override
+  String get adminUpsertCalendarScreenCreateButtonsCancel => 'Cancel';
+
+  @override
+  String get adminUpsertCalendarScreenCreateButtonsCheckAvailability =>
+      'Check Availability';
+
+  @override
+  String get adminUpsertCalendarScreenCreateButtonsSaveReservation =>
+      'Save Reservation';
+
+  @override
+  String get adminUpsertCalendarScreenCreateButtonsConfirm => 'Confirm';
+
+  @override
+  String get adminUpsertCalendarScreenCreateAvailabilitySelectMenuAndDate =>
+      'Please select menu and date/time first.';
+
+  @override
+  String get adminUpsertCalendarScreenCreateAvailabilityAvailable =>
+      'Time slot is available for reservation.';
+
+  @override
+  String get adminUpsertCalendarScreenCreateAvailabilityUnavailable =>
+      'Time slot is not available - conflicts with blocked periods or other reservations.';
+
+  @override
+  String get adminUpsertCalendarScreenCreateAvailabilityError =>
+      'An error occurred while checking availability.';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalTitle =>
+      'Select the date you want to book';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalSelectDate =>
+      'Select Date';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalSelectTime =>
+      'Select Time';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalPreviousMonth =>
+      'Previous';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalNextMonth => 'Next';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalFullyBlockedMessage =>
+      'This date is fully blocked and not available for reservations.';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendTitle =>
+      'Legend:';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsFullyBlocked =>
+      'Fully Blocked';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsBlockedPeriod =>
+      'Blocked Period';
+
+  @override
+  String
+  get adminUpsertCalendarScreenCreateCalendarModalLegendsHasReservation =>
+      'Has Reservation';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsMixed =>
+      'Mixed (Blocked + Reservation)';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsAvailable =>
+      'Available';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalLegendsPastDate =>
+      'Past Date';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalDaysShort =>
+      'Sun,Mon,Tue,Wed,Thu,Fri,Sat';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalMonths =>
+      'January,February,March,April,May,June,July,August,September,October,November,December';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalAlertSelectMenu =>
+      'Please select a menu first.';
+
+  @override
+  String
+  get adminUpsertCalendarScreenCreateCalendarModalAlertDateFullyBlocked =>
+      'Selected date is fully blocked and not available for reservations.';
+
+  @override
+  String get adminUpsertCalendarScreenCreateCalendarModalAlertSelectDateTime =>
+      'Please select both date and time.';
+
+  @override
+  String adminUpsertCalendarScreenEditTitle(String id) {
+    return 'Update Reservation #$id';
+  }
+
+  @override
+  String get adminUpsertCalendarScreenEditErrorOccurred => 'An error occurred:';
+
+  @override
+  String get adminUpsertCalendarScreenEditCustomerTypeLabel => 'Customer Type';
+
+  @override
+  String get adminUpsertCalendarScreenEditRegisteredCustomer =>
+      'Registered Customer';
+
+  @override
+  String get adminUpsertCalendarScreenEditGuestCustomer => 'Guest Customer';
+
+  @override
+  String get adminUpsertCalendarScreenEditSelectCustomerLabel =>
+      'Select Customer';
+
+  @override
+  String get adminUpsertCalendarScreenEditSelectCustomerOption =>
+      'Select Customer...';
+
+  @override
+  String get adminUpsertCalendarScreenEditFullNameLabel => 'Full Name *';
+
+  @override
+  String get adminUpsertCalendarScreenEditFullNameKanaLabel =>
+      'Full Name (Kana) *';
+
+  @override
+  String get adminUpsertCalendarScreenEditEmailLabel => 'Email *';
+
+  @override
+  String get adminUpsertCalendarScreenEditPhoneNumberLabel => 'Phone Number *';
+
+  @override
+  String get adminUpsertCalendarScreenEditMenuLabel => 'Menu *';
+
+  @override
+  String get adminUpsertCalendarScreenEditSelectMenuOption => 'Select Menu...';
+
+  @override
+  String get adminUpsertCalendarScreenEditYen => 'yen';
+
+  @override
+  String get adminUpsertCalendarScreenEditMinutes => 'minutes';
+
+  @override
+  String get adminUpsertCalendarScreenEditReservationDatetimeLabel =>
+      'Reservation Date & Time *';
+
+  @override
+  String get adminUpsertCalendarScreenEditSelectFromCalendarButton =>
+      'Select from Calendar';
+
+  @override
+  String get adminUpsertCalendarScreenEditNumberOfPeopleLabel =>
+      'Number of People *';
+
+  @override
+  String get adminUpsertCalendarScreenEditTotalAmountLabel => 'Total Amount *';
+
+  @override
+  String get adminUpsertCalendarScreenEditStatusLabel => 'Status';
+
+  @override
+  String get adminUpsertCalendarScreenEditNotesLabel => 'Notes';
+
+  @override
+  String get adminUpsertCalendarScreenEditStatusPending => 'Pending';
+
+  @override
+  String get adminUpsertCalendarScreenEditStatusConfirmed => 'Confirmed';
+
+  @override
+  String get adminUpsertCalendarScreenEditStatusCompleted => 'Completed';
+
+  @override
+  String get adminUpsertCalendarScreenEditStatusCancelled => 'Cancelled';
+
+  @override
+  String get adminUpsertCalendarScreenEditCancelButton => 'Cancel';
+
+  @override
+  String get adminUpsertCalendarScreenEditCheckAvailabilityButton =>
+      'Check Availability';
+
+  @override
+  String get adminUpsertCalendarScreenEditUpdateReservationButton =>
+      'Update Reservation';
+
+  @override
+  String get adminUpsertCalendarScreenEditModalTitle =>
+      'Select the date you want to book';
+
+  @override
+  String get adminUpsertCalendarScreenEditSelectDateLabel => 'Select Date';
+
+  @override
+  String get adminUpsertCalendarScreenEditSelectTimeLabel => 'Select Time';
+
+  @override
+  String get adminUpsertCalendarScreenEditPreviousButton => 'Previous';
+
+  @override
+  String get adminUpsertCalendarScreenEditNextButton => 'Next';
+
+  @override
+  String get adminUpsertCalendarScreenEditDateFullyBlockedMessage =>
+      'This date is fully blocked and not available for reservations.';
+
+  @override
+  String get adminUpsertCalendarScreenEditModalCancelButton => 'Cancel';
+
+  @override
+  String get adminUpsertCalendarScreenEditModalConfirmButton => 'Confirm';
+
+  @override
+  String get adminUpsertCalendarScreenEditMonths =>
+      'January,February,March,April,May,June,July,August,September,October,November,December';
+
+  @override
+  String get adminUpsertCalendarScreenEditDaysOfWeek =>
+      'Sun,Mon,Tue,Wed,Thu,Fri,Sat';
+
+  @override
+  String get adminUpsertCalendarScreenEditLegendTitle => 'Legend:';
+
+  @override
+  String get adminUpsertCalendarScreenEditLegendFullyBlocked => 'Fully Blocked';
+
+  @override
+  String get adminUpsertCalendarScreenEditLegendBlockedPeriod =>
+      'Blocked Period';
+
+  @override
+  String get adminUpsertCalendarScreenEditLegendHasReservation =>
+      'Has Reservation';
+
+  @override
+  String get adminUpsertCalendarScreenEditLegendMixed =>
+      'Mixed (Blocked + Reservation)';
+
+  @override
+  String get adminUpsertCalendarScreenEditLegendAvailable => 'Available';
+
+  @override
+  String get adminUpsertCalendarScreenEditLegendPastDate => 'Past Date';
+
+  @override
+  String get adminUpsertCalendarScreenEditSuccessMessage =>
+      'Reservation updated successfully.';
+
+  @override
+  String get adminUpsertCalendarScreenEditReservationNotFound =>
+      'Reservation not found.';
+
+  @override
+  String get adminUpsertCalendarScreenEditUpdateFailedMessage =>
+      'Failed to update reservation: ';
+
+  @override
+  String get adminUpsertCalendarScreenEditJsSelectMenuDatetimeFirst =>
+      'Please select menu and date/time first.';
+
+  @override
+  String get adminUpsertCalendarScreenEditJsTimeslotAvailable =>
+      'Time slot is available for reservation.';
+
+  @override
+  String get adminUpsertCalendarScreenEditJsTimeslotUnavailable =>
+      'Time slot is not available - conflicts with blocked periods or other reservations.';
+
+  @override
+  String get adminUpsertCalendarScreenEditJsAvailabilityError =>
+      'An error occurred while checking availability.';
+
+  @override
+  String get adminUpsertCalendarScreenEditJsSelectMenuFirstAlert =>
+      'Please select a menu first.';
+
+  @override
+  String get adminUpsertCalendarScreenEditJsSelectDateTimeAlert =>
+      'Please select both date and time.';
 
   @override
   String get contactNotificationNotFound => 'Contact not found.';
@@ -2352,6 +3549,397 @@ class L10nId extends L10n {
   @override
   String get inquiryErrorMessage =>
       'There was an error sending your inquiry. Please try again later.';
+
+  @override
+  String get adminListMenuScreenTitle => 'Menu Management';
+
+  @override
+  String get adminListMenuScreenSubtitle =>
+      'Manage service menus for customers';
+
+  @override
+  String get adminListMenuScreenAddMenu => 'Add Menu';
+
+  @override
+  String get adminListMenuScreenFilter => 'Filter';
+
+  @override
+  String get adminListMenuScreenReset => 'Reset';
+
+  @override
+  String get adminListMenuScreenActivate => 'Activate';
+
+  @override
+  String get adminListMenuScreenDeactivate => 'Deactivate';
+
+  @override
+  String get adminListMenuScreenDelete => 'Delete';
+
+  @override
+  String get adminListMenuScreenReorder => 'Reorder';
+
+  @override
+  String get adminListMenuScreenCancel => 'Cancel';
+
+  @override
+  String get adminListMenuScreenEdit => 'Edit';
+
+  @override
+  String get adminListMenuScreenSaveOrder => 'Save Order';
+
+  @override
+  String get adminListMenuScreenSelectAll => 'Select All';
+
+  @override
+  String get adminListMenuScreenTotalMenus => 'Total Menus';
+
+  @override
+  String get adminListMenuScreenActive => 'Active';
+
+  @override
+  String get adminListMenuScreenInactive => 'Inactive';
+
+  @override
+  String get adminListMenuScreenAveragePrice => 'Average Price';
+
+  @override
+  String get adminListMenuScreenFiltersSearch => 'Filters & Search';
+
+  @override
+  String get adminListMenuScreenShowFilters => 'Show Filters';
+
+  @override
+  String get adminListMenuScreenHideFilters => 'Hide Filters';
+
+  @override
+  String get adminListMenuScreenStatus => 'Status';
+
+  @override
+  String get adminListMenuScreenAllStatuses => 'All Statuses';
+
+  @override
+  String get adminListMenuScreenMinPriceRange => 'Min Price Range';
+
+  @override
+  String get adminListMenuScreenMaxPriceRange => 'Max Price Range';
+
+  @override
+  String get adminListMenuScreenSearch => 'Search';
+
+  @override
+  String get adminListMenuScreenSearchPlaceholder => 'Search for menu name...';
+
+  @override
+  String adminListMenuScreenItemsSelected(String count) {
+    return '$count item(s) selected';
+  }
+
+  @override
+  String get adminListMenuScreenMenuList => 'Menu List';
+
+  @override
+  String get adminListMenuScreenThMenu => 'Menu';
+
+  @override
+  String get adminListMenuScreenThPrice => 'Price';
+
+  @override
+  String get adminListMenuScreenThTimeRequired => 'Time Required';
+
+  @override
+  String get adminListMenuScreenThOrder => 'Order';
+
+  @override
+  String get adminListMenuScreenThStatus => 'Status';
+
+  @override
+  String get adminListMenuScreenThActions => 'Actions';
+
+  @override
+  String get adminListMenuScreenTimeUnitMinutes => 'mins';
+
+  @override
+  String get adminListMenuScreenViewDetails => 'View Details';
+
+  @override
+  String get adminListMenuScreenNoMenusTitle => 'No menus yet';
+
+  @override
+  String get adminListMenuScreenNoMenusDescription =>
+      'No menus have been created, or none match the applied filters.';
+
+  @override
+  String get adminListMenuScreenConfirmDeletionTitle => 'Confirm Deletion';
+
+  @override
+  String get adminListMenuScreenDeleteSingleConfirm =>
+      'Are you sure you want to delete this menu?';
+
+  @override
+  String adminListMenuScreenDeleteMultipleConfirm(String count) {
+    return 'Are you sure you want to delete $count menu(s)?';
+  }
+
+  @override
+  String get adminListMenuScreenReorderTitle => 'Set Menu Order';
+
+  @override
+  String get adminListMenuScreenReorderDescription =>
+      'Drag and drop items to change the order. Click and hold the grip icon to move an item.';
+
+  @override
+  String adminListMenuScreenCurrentOrder(String order) {
+    return 'Current order: #$order';
+  }
+
+  @override
+  String get adminListMenuScreenShowTitle => 'Menu Details';
+
+  @override
+  String adminListMenuScreenShowSubtitle(String name) {
+    return 'Detailed information for the menu item: $name';
+  }
+
+  @override
+  String get adminListMenuScreenShowEditMenuButton => 'Edit Menu';
+
+  @override
+  String get adminListMenuScreenShowBackToListButton => 'Back to List';
+
+  @override
+  String get adminListMenuScreenShowStatusActive => 'Active Menu';
+
+  @override
+  String get adminListMenuScreenShowStatusInactive => 'Inactive Menu';
+
+  @override
+  String get adminListMenuScreenShowActivateMenu => 'Activate Menu';
+
+  @override
+  String get adminListMenuScreenShowDeactivateMenu => 'Deactivate Menu';
+
+  @override
+  String get adminListMenuScreenShowDeleteMenuButton => 'Delete Menu';
+
+  @override
+  String get adminListMenuScreenShowInfoTitle => 'Menu Information';
+
+  @override
+  String get adminListMenuScreenShowInfoName => 'Menu Name';
+
+  @override
+  String get adminListMenuScreenShowInfoPrice => 'Price';
+
+  @override
+  String get adminListMenuScreenShowInfoTime => 'Required Time';
+
+  @override
+  String get adminListMenuScreenShowInfoOrder => 'Display Order';
+
+  @override
+  String get adminListMenuScreenShowInfoColor => 'Menu Color';
+
+  @override
+  String get adminListMenuScreenShowInfoCreatedAt => 'Date Created';
+
+  @override
+  String get adminListMenuScreenShowInfoUpdatedAt => 'Last Updated';
+
+  @override
+  String get adminListMenuScreenShowDescriptionTitle => 'Menu Description';
+
+  @override
+  String get adminListMenuScreenShowDeleteModalTitle => 'Confirm Menu Deletion';
+
+  @override
+  String adminListMenuScreenShowDeleteModalText(String name) {
+    return 'Are you sure you want to delete the menu \"$name\"? This action cannot be undone.';
+  }
+
+  @override
+  String get adminListMenuScreenShowDeletingText => 'Deleting...';
+
+  @override
+  String get adminListMenuScreenJsMessagesSelectAtLeastOne =>
+      'Please select at least one menu.';
+
+  @override
+  String get adminListMenuScreenJsMessagesErrorOccurredStatus =>
+      'An error occurred while changing the status.';
+
+  @override
+  String get adminListMenuScreenJsMessagesErrorOccurredDelete =>
+      'An error occurred while deleting.';
+
+  @override
+  String get adminListMenuScreenJsMessagesErrorOccurredReorder =>
+      'An error occurred while saving the order.';
+
+  @override
+  String get adminListMenuScreenJsMessagesDeleteSuccess =>
+      'Menu successfully deleted!';
+
+  @override
+  String get adminListMenuScreenJsMessagesDeleteFailed =>
+      'Failed to delete the menu.';
+
+  @override
+  String get adminListMenuScreenJsMessagesDeletingText => 'Deleting...';
+
+  @override
+  String get adminListMenuScreenJsMessagesConfirmDeleteTitle =>
+      'Confirm Menu Deletion';
+
+  @override
+  String adminListMenuScreenJsMessagesConfirmDeleteText(String name) {
+    return 'Are you sure you want to delete the menu \"$name\"? This action cannot be undone.';
+  }
+
+  @override
+  String get adminListMenuScreenJsMessagesSuccessTitle => 'Success!';
+
+  @override
+  String get adminListMenuScreenJsMessagesErrorTitle => 'An Error Occurred';
+
+  @override
+  String get adminListMenuScreenJsMessagesClose => 'Close';
+
+  @override
+  String get adminListMenuScreenJsMessagesOk => 'OK';
+
+  @override
+  String get adminUpsertMenuScreenAddSubtitle =>
+      'Create a new service menu for customers';
+
+  @override
+  String get adminUpsertMenuScreenEditTitle => 'Edit Menu';
+
+  @override
+  String get adminUpsertMenuScreenEditSubtitle => 'Update menu information';
+
+  @override
+  String get adminUpsertMenuScreenViewMenu => 'View Menu';
+
+  @override
+  String get adminUpsertMenuScreenBack => 'Back';
+
+  @override
+  String get adminUpsertMenuScreenSaveMenu => 'Save Menu';
+
+  @override
+  String get adminUpsertMenuScreenUpdateMenu => 'Update Menu';
+
+  @override
+  String get adminUpsertMenuScreenEnglishInfo => 'English Information';
+
+  @override
+  String get adminUpsertMenuScreenJapaneseInfo => 'Japanese Information';
+
+  @override
+  String get adminUpsertMenuScreenMenuNameEn => 'Menu Name (English)';
+
+  @override
+  String get adminUpsertMenuScreenDescriptionEn => 'Description (English)';
+
+  @override
+  String get adminUpsertMenuScreenMenuNameJa => 'Menu Name (Japanese)';
+
+  @override
+  String get adminUpsertMenuScreenDescriptionJa => 'Description (Japanese)';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderNameEn =>
+      'Enter menu name in English';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderDescEn =>
+      'Enter menu description in English...';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderNameJa =>
+      'Enter menu name in Japanese';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderDescJa =>
+      'Enter menu description in Japanese...';
+
+  @override
+  String get adminUpsertMenuScreenBasicSettings => 'Basic Settings';
+
+  @override
+  String get adminUpsertMenuScreenFormRequiredTime => 'Required Time (minutes)';
+
+  @override
+  String get adminUpsertMenuScreenHelpRequiredTime =>
+      'Estimated processing time in minutes';
+
+  @override
+  String get adminUpsertMenuScreenFormPrice => 'Price (\$)';
+
+  @override
+  String get adminUpsertMenuScreenVisualSettings => 'Visual Settings';
+
+  @override
+  String get adminUpsertMenuScreenHelpColor =>
+      'This color will be used for the menu display';
+
+  @override
+  String get adminUpsertMenuScreenStatusSettings => 'Status Settings';
+
+  @override
+  String get adminUpsertMenuScreenFormActiveStatus => 'Active Status';
+
+  @override
+  String get adminUpsertMenuScreenHelpActiveStatus =>
+      'Menu will be available for customers';
+
+  @override
+  String get adminUpsertMenuScreenMenuPreview => 'Menu Preview';
+
+  @override
+  String get adminUpsertMenuScreenEnglishPreview => 'English Preview';
+
+  @override
+  String get adminUpsertMenuScreenJapanesePreview => 'Japanese Preview';
+
+  @override
+  String get adminUpsertMenuScreenTimeUnitMinutesFull => 'minutes';
+
+  @override
+  String get adminUpsertMenuScreenNoDescription => 'No description available';
+
+  @override
+  String get adminUpsertMenuScreenCurrentInfo => 'Current Menu Information';
+
+  @override
+  String get adminUpsertMenuScreenColorsBlue => 'Blue';
+
+  @override
+  String get adminUpsertMenuScreenColorsGreen => 'Green';
+
+  @override
+  String get adminUpsertMenuScreenColorsYellow => 'Yellow';
+
+  @override
+  String get adminUpsertMenuScreenColorsRed => 'Red';
+
+  @override
+  String get adminUpsertMenuScreenColorsPurple => 'Purple';
+
+  @override
+  String get adminUpsertMenuScreenColorsPink => 'Pink';
+
+  @override
+  String get adminUpsertMenuScreenColorsCyan => 'Cyan';
+
+  @override
+  String get adminUpsertMenuScreenColorsLime => 'Lime';
+
+  @override
+  String get adminUpsertMenuScreenColorsOrange => 'Orange';
+
+  @override
+  String get adminUpsertMenuScreenColorsGray => 'Gray';
 
   @override
   String get profileShowTitle => 'My Profile';

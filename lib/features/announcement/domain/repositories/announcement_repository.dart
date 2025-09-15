@@ -12,7 +12,7 @@ abstract class AnnouncementRepository {
     CreateAnnouncementParams params,
   );
   Future<Either<Failure, CursorPaginatedSuccess<Announcement>>>
-  getAnnouncementsCursor(GetUserAnnouncementsCursorParams params);
+  getAnnouncementsCursor(GetAnnouncementsCursorParams params);
   Future<Either<Failure, ItemSuccessResponse<Announcement>>> updateAnnouncement(
     UpdateAnnouncementParams params,
   );

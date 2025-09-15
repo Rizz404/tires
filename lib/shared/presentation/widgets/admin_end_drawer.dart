@@ -105,7 +105,7 @@ class _AdminEndDrawerState extends ConsumerState<AdminEndDrawer> {
                           tabsRouter,
                           'route',
                           null,
-                          const AdminListBlockedRoute(),
+                          const AdminListBlockedPeriodRoute(),
                         ),
                         isChild: true,
                       ),

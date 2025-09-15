@@ -13,7 +13,7 @@ abstract class AnnouncementRemoteDatasource {
     CreateAnnouncementParams params,
   );
   Future<ApiCursorPaginationResponse<AnnouncementModel>> getAnnouncementsCursor(
-    GetUserAnnouncementsCursorParams params,
+    GetAnnouncementsCursorParams params,
   );
   Future<ApiResponse<AnnouncementModel>> updateAnnouncement(
     UpdateAnnouncementParams params,
@@ -48,7 +48,7 @@ class AnnouncementRemoteDatasourceImpl implements AnnouncementRemoteDatasource {
 
   @override
   Future<ApiCursorPaginationResponse<AnnouncementModel>> getAnnouncementsCursor(
-    GetUserAnnouncementsCursorParams params,
+    GetAnnouncementsCursorParams params,
   ) async {
     try {
       final response = await _dioClient.getWithCursor<AnnouncementModel>(

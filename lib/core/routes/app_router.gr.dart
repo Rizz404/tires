@@ -60,11 +60,11 @@ class AdminListAvailabilityRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [AdminListBlockedPeriodScreen]
-class AdminListBlockedRoute extends PageRouteInfo<void> {
-  const AdminListBlockedRoute({List<PageRouteInfo>? children})
-    : super(AdminListBlockedRoute.name, initialChildren: children);
+class AdminListBlockedPeriodRoute extends PageRouteInfo<void> {
+  const AdminListBlockedPeriodRoute({List<PageRouteInfo>? children})
+    : super(AdminListBlockedPeriodRoute.name, initialChildren: children);
 
-  static const String name = 'AdminListBlockedRoute';
+  static const String name = 'AdminListBlockedPeriodRoute';
 
   static PageInfo page = PageInfo(
     name,
@@ -228,18 +228,58 @@ class AdminUpsertAnnouncementRouteArgs {
 
 /// generated route for
 /// [AdminUpsertBlockedPeriodScreen]
-class AdminUpsertBlockedRoute extends PageRouteInfo<void> {
-  const AdminUpsertBlockedRoute({List<PageRouteInfo>? children})
-    : super(AdminUpsertBlockedRoute.name, initialChildren: children);
+class AdminUpsertBlockedPeriodRoute
+    extends PageRouteInfo<AdminUpsertBlockedPeriodRouteArgs> {
+  AdminUpsertBlockedPeriodRoute({
+    Key? key,
+    BlockedPeriod? blockedPeriod,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AdminUpsertBlockedPeriodRoute.name,
+         args: AdminUpsertBlockedPeriodRouteArgs(
+           key: key,
+           blockedPeriod: blockedPeriod,
+         ),
+         initialChildren: children,
+       );
 
-  static const String name = 'AdminUpsertBlockedRoute';
+  static const String name = 'AdminUpsertBlockedPeriodRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const AdminUpsertBlockedPeriodScreen();
+      final args = data.argsAs<AdminUpsertBlockedPeriodRouteArgs>(
+        orElse: () => const AdminUpsertBlockedPeriodRouteArgs(),
+      );
+      return AdminUpsertBlockedPeriodScreen(
+        key: args.key,
+        blockedPeriod: args.blockedPeriod,
+      );
     },
   );
+}
+
+class AdminUpsertBlockedPeriodRouteArgs {
+  const AdminUpsertBlockedPeriodRouteArgs({this.key, this.blockedPeriod});
+
+  final Key? key;
+
+  final BlockedPeriod? blockedPeriod;
+
+  @override
+  String toString() {
+    return 'AdminUpsertBlockedPeriodRouteArgs{key: $key, blockedPeriod: $blockedPeriod}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AdminUpsertBlockedPeriodRouteArgs) return false;
+    return key == other.key && blockedPeriod == other.blockedPeriod;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ blockedPeriod.hashCode;
 }
 
 /// generated route for
@@ -351,18 +391,48 @@ class AdminUpsertCustomerManagementRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [AdminUpsertMenuScreen]
-class AdminUpsertMenuRoute extends PageRouteInfo<void> {
-  const AdminUpsertMenuRoute({List<PageRouteInfo>? children})
-    : super(AdminUpsertMenuRoute.name, initialChildren: children);
+class AdminUpsertMenuRoute extends PageRouteInfo<AdminUpsertMenuRouteArgs> {
+  AdminUpsertMenuRoute({Key? key, Menu? menu, List<PageRouteInfo>? children})
+    : super(
+        AdminUpsertMenuRoute.name,
+        args: AdminUpsertMenuRouteArgs(key: key, menu: menu),
+        initialChildren: children,
+      );
 
   static const String name = 'AdminUpsertMenuRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const AdminUpsertMenuScreen();
+      final args = data.argsAs<AdminUpsertMenuRouteArgs>(
+        orElse: () => const AdminUpsertMenuRouteArgs(),
+      );
+      return AdminUpsertMenuScreen(key: args.key, menu: args.menu);
     },
   );
+}
+
+class AdminUpsertMenuRouteArgs {
+  const AdminUpsertMenuRouteArgs({this.key, this.menu});
+
+  final Key? key;
+
+  final Menu? menu;
+
+  @override
+  String toString() {
+    return 'AdminUpsertMenuRouteArgs{key: $key, menu: $menu}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AdminUpsertMenuRouteArgs) return false;
+    return key == other.key && menu == other.menu;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ menu.hashCode;
 }
 
 /// generated route for

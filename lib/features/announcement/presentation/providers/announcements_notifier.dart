@@ -22,7 +22,7 @@ class AnnouncementsNotifier extends Notifier<AnnouncementsState> {
 
     state = state.copyWith(status: AnnouncementsStatus.loading);
 
-    final params = GetUserAnnouncementsCursorParams(
+    final params = GetAnnouncementsCursorParams(
       paginate: paginate,
       perPage: perPage,
     );
@@ -49,18 +49,21 @@ class AnnouncementsNotifier extends Notifier<AnnouncementsState> {
     );
   }
 
-  Future<void> getUsers({bool paginate = true, int perPage = 10}) async {
+  Future<void> getAnnouncements({
+    bool paginate = true,
+    int perPage = 10,
+  }) async {
     await getInitialAnnouncements(paginate: paginate, perPage: perPage);
   }
 
-  Future<void> loadMores({bool paginate = true, int perPage = 10}) async {
+  Future<void> loadMore({bool paginate = true, int perPage = 10}) async {
     if (!state.hasNextPage || state.status == AnnouncementsStatus.loadingMore) {
       return;
     }
 
     state = state.copyWith(status: AnnouncementsStatus.loadingMore);
 
-    final params = GetUserAnnouncementsCursorParams(
+    final params = GetAnnouncementsCursorParams(
       paginate: paginate,
       perPage: perPage,
       cursor: state.cursor?.nextCursor,
@@ -92,7 +95,7 @@ class AnnouncementsNotifier extends Notifier<AnnouncementsState> {
     );
   }
 
-  Future<void> refreshs({bool paginate = true, int perPage = 10}) async {
+  Future<void> refresh({bool paginate = true, int perPage = 10}) async {
     await getInitialAnnouncements(paginate: paginate, perPage: perPage);
   }
 

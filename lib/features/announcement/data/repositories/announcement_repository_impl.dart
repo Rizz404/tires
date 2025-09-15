@@ -41,7 +41,7 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
 
   @override
   Future<Either<Failure, CursorPaginatedSuccess<Announcement>>>
-  getAnnouncementsCursor(GetUserAnnouncementsCursorParams params) async {
+  getAnnouncementsCursor(GetAnnouncementsCursorParams params) async {
     try {
       final result = await _announcementRemoteDatasource.getAnnouncementsCursor(
         params,

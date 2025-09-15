@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
@@ -36,8 +37,8 @@ class MenuFilterSearch extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const AppText(
-                  'Filters & Search',
+                AppText(
+                  context.l10n.adminListMenuScreenFiltersSearch,
                   style: AppTextStyle.titleLarge,
                 ),
                 TextButton.icon(
@@ -48,7 +49,9 @@ class MenuFilterSearch extends StatelessWidget {
                         : Icons.visibility_outlined,
                   ),
                   label: AppText(
-                    isFilterVisible ? 'Hide Filters' : 'Show Filters',
+                    isFilterVisible
+                        ? context.l10n.adminListMenuScreenHideFilters
+                        : context.l10n.adminListMenuScreenShowFilters,
                   ),
                 ),
               ],
@@ -62,19 +65,23 @@ class MenuFilterSearch extends StatelessWidget {
                     FormBuilderDropdown<String>(
                       name: 'status',
                       initialValue: 'all',
-                      decoration: const InputDecoration(labelText: 'Status'),
-                      items: const [
+                      decoration: InputDecoration(
+                        labelText: context.l10n.adminListMenuScreenStatus,
+                      ),
+                      items: [
                         DropdownMenuItem(
                           value: 'all',
-                          child: Text('All Statuses'),
+                          child: Text(
+                            context.l10n.adminListMenuScreenAllStatuses,
+                          ),
                         ),
                         DropdownMenuItem(
                           value: 'active',
-                          child: Text('Active'),
+                          child: Text(context.l10n.adminListMenuScreenActive),
                         ),
                         DropdownMenuItem(
                           value: 'inactive',
-                          child: Text('Inactive'),
+                          child: Text(context.l10n.adminListMenuScreenInactive),
                         ),
                       ],
                     ),
@@ -84,8 +91,9 @@ class MenuFilterSearch extends StatelessWidget {
                         Expanded(
                           child: FormBuilderTextField(
                             name: 'min_price',
-                            decoration: const InputDecoration(
-                              labelText: 'Min Price Range',
+                            decoration: InputDecoration(
+                              labelText:
+                                  context.l10n.adminListMenuScreenMinPriceRange,
                             ),
                             keyboardType: TextInputType.number,
                           ),
@@ -94,8 +102,9 @@ class MenuFilterSearch extends StatelessWidget {
                         Expanded(
                           child: FormBuilderTextField(
                             name: 'max_price',
-                            decoration: const InputDecoration(
-                              labelText: 'Max Price Range',
+                            decoration: InputDecoration(
+                              labelText:
+                                  context.l10n.adminListMenuScreenMaxPriceRange,
                             ),
                             keyboardType: TextInputType.number,
                           ),
@@ -105,10 +114,11 @@ class MenuFilterSearch extends StatelessWidget {
                     const SizedBox(height: 16),
                     FormBuilderTextField(
                       name: 'search',
-                      decoration: const InputDecoration(
-                        labelText: 'Search',
-                        hintText: 'Search menu name or description...',
-                        prefixIcon: Icon(Icons.search),
+                      decoration: InputDecoration(
+                        labelText: context.l10n.adminListMenuScreenSearch,
+                        hintText:
+                            context.l10n.adminListMenuScreenSearchPlaceholder,
+                        prefixIcon: const Icon(Icons.search),
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -117,12 +127,12 @@ class MenuFilterSearch extends StatelessWidget {
                       children: [
                         TextButton(
                           onPressed: onReset,
-                          child: const Text('Reset'),
+                          child: Text(context.l10n.adminListMenuScreenReset),
                         ),
                         const SizedBox(width: 8),
                         ElevatedButton(
                           onPressed: onFilter,
-                          child: const Text('Filter'),
+                          child: Text(context.l10n.adminListMenuScreenFilter),
                         ),
                       ],
                     ),
