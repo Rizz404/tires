@@ -1,13 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:tires/features/availability/domain/usecases/get_availability_calendar_usecase.dart';
+import 'package:tires/features/availability/presentation/providers/availability_provider.dart';
 import 'package:tires/features/availability/presentation/providers/availability_state.dart';
 
-class AvailabilityNotifier extends StateNotifier<AvailabilityState> {
-  final GetAvailabilityCalendarUsecase _getAvailabilityCalendarUsecase;
+class AvailabilityNotifier extends Notifier<AvailabilityState> {
+  late GetAvailabilityCalendarUsecase _getAvailabilityCalendarUsecase;
 
-  AvailabilityNotifier(this._getAvailabilityCalendarUsecase)
-    : super(const AvailabilityState());
+  @override
+  AvailabilityState build() {
+    _getAvailabilityCalendarUsecase = ref.watch(
+      getAvailabilityCalendarUsecaseProvider,
+    );
+    return const AvailabilityState();
+  }
 
   Future<void> getAvailabilityCalendar({
     required String menuId,

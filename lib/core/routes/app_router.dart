@@ -60,6 +60,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ForgotPasswordRoute.page, path: '/forgot-password'),
     AutoRoute(page: SetNewPasswordRoute.page, path: '/set-new-password'),
 
+    // * Public
+    AutoRoute(page: PrivacyPolicyRoute.page, path: "/privacy-policy"),
+    AutoRoute(page: TermsOfServiceRoute.page, path: "/terms-of-service"),
+
     // * Standalone protected routes
     AutoRoute(page: InquiryRoute.page, path: '/inquiry', guards: [_authGuard]),
     AutoRoute(

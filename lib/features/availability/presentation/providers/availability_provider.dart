@@ -12,9 +12,6 @@ final getAvailabilityCalendarUsecaseProvider =
     });
 
 final availabilityNotifierProvider =
-    StateNotifierProvider<AvailabilityNotifier, AvailabilityState>((ref) {
-      final getAvailabilityCalendarUsecase = ref.watch(
-        getAvailabilityCalendarUsecaseProvider,
-      );
-      return AvailabilityNotifier(getAvailabilityCalendarUsecase);
-    });
+    NotifierProvider<AvailabilityNotifier, AvailabilityState>(
+      AvailabilityNotifier.new,
+    );

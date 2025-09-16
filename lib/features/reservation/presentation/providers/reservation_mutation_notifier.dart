@@ -1,20 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/reservation/domain/usecases/create_reservation_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/delete_reservation_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/update_reservation_usecase.dart';
 import 'package:tires/features/reservation/presentation/providers/reservation_mutation_state.dart';
 
-class ReservationMutationNotifier
-    extends StateNotifier<ReservationMutationState> {
-  final CreateReservationUsecase _createReservationUsecase;
-  final UpdateReservationUsecase _updateReservationUsecase;
-  final DeleteReservationUsecase _deleteReservationUsecase;
+class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
+  late final CreateReservationUsecase _createReservationUsecase;
+  late final UpdateReservationUsecase _updateReservationUsecase;
+  late final DeleteReservationUsecase _deleteReservationUsecase;
 
-  ReservationMutationNotifier(
-    this._createReservationUsecase,
-    this._updateReservationUsecase,
-    this._deleteReservationUsecase,
-  ) : super(const ReservationMutationState());
+  @override
+  ReservationMutationState build() {
+    _createReservationUsecase = ref.watch(createReservationUsecaseProvider);
+    _updateReservationUsecase = ref.watch(updateReservationUsecaseProvider);
+    _deleteReservationUsecase = ref.watch(deleteReservationUsecaseProvider);
+    return const ReservationMutationState();
+  }
 
   Future<void> createReservation({
     required int menuId,

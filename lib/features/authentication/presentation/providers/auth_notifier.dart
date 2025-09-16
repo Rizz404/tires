@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/usecases/usecase.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/authentication/domain/usecases/forgot_password_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/get_current_auth_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/login_usecase.dart';
@@ -8,23 +9,24 @@ import 'package:tires/features/authentication/domain/usecases/register_usecase.d
 import 'package:tires/features/authentication/domain/usecases/set_new_password_usecase.dart';
 import 'package:tires/features/authentication/presentation/providers/auth_state.dart';
 
-class AuthNotifier extends StateNotifier<AuthState> {
-  final RegisterUsecase _registerUsecase;
-  final LoginUsecase _loginUsecase;
-  final ForgotPasswordUsecase _forgotPasswordUsecase;
-  final SetNewPasswordUsecase _setNewPasswordUsecase;
-  final LogoutUsecase _logoutUsecase;
-  final GetCurrentAuthUsecase _getCurrentAuthUsecase;
+class AuthNotifier extends Notifier<AuthState> {
+  late RegisterUsecase _registerUsecase;
+  late LoginUsecase _loginUsecase;
+  late ForgotPasswordUsecase _forgotPasswordUsecase;
+  late SetNewPasswordUsecase _setNewPasswordUsecase;
+  late LogoutUsecase _logoutUsecase;
+  late GetCurrentAuthUsecase _getCurrentAuthUsecase;
 
-  AuthNotifier(
-    this._loginUsecase,
-    this._registerUsecase,
-    this._forgotPasswordUsecase,
-    this._setNewPasswordUsecase,
-    this._logoutUsecase,
-    this._getCurrentAuthUsecase,
-  ) : super(AuthState(status: AuthStatus.initial)) {
-    checkAuthenticationStatus();
+  @override
+  AuthState build() {
+    _loginUsecase = ref.watch(loginUsecaseProvider);
+    _registerUsecase = ref.watch(registerUsecaseProvider);
+    _forgotPasswordUsecase = ref.watch(forgotPasswordUsecaseProvider);
+    _setNewPasswordUsecase = ref.watch(setNewPasswordUsecaseProvider);
+    _logoutUsecase = ref.watch(logoutUsecaseProvider);
+    _getCurrentAuthUsecase = ref.watch(getCurrentAuthUsecaseProvider);
+    Future.microtask(() => checkAuthenticationStatus());
+    return AuthState(status: AuthStatus.initial);
   }
 
   Future<void> checkAuthenticationStatus() async {

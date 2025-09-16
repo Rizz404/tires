@@ -1,13 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/reservation/domain/usecases/get_reservation_calendar_usecase.dart';
 import 'package:tires/features/reservation/presentation/providers/reservation_calendar_get_state.dart';
 
 class ReservationCalendarGetNotifier
-    extends StateNotifier<ReservationCalendarGetState> {
-  final GetReservationCalendarUsecase _getReservationCalendarUsecase;
+    extends Notifier<ReservationCalendarGetState> {
+  late final GetReservationCalendarUsecase _getReservationCalendarUsecase;
 
-  ReservationCalendarGetNotifier(this._getReservationCalendarUsecase)
-    : super(const ReservationCalendarGetState()) {}
+  @override
+  ReservationCalendarGetState build() {
+    _getReservationCalendarUsecase = ref.watch(
+      getReservationCalendarUsecaseProvider,
+    );
+    return const ReservationCalendarGetState();
+  }
 
   Future<void> getInitialCalendar({
     String? month,

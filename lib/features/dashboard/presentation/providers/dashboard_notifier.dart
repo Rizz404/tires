@@ -1,13 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/usecases/usecase.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/dashboard/domain/usecases/get_dashboard_usecase.dart';
 import 'package:tires/features/dashboard/presentation/providers/dashboard_state.dart';
 
-class DashboardNotifier extends StateNotifier<DashboardState> {
-  final GetDashboardUsecase _getDashboardUsecase;
+class DashboardNotifier extends Notifier<DashboardState> {
+  late GetDashboardUsecase _getDashboardUsecase;
 
-  DashboardNotifier(this._getDashboardUsecase) : super(const DashboardState()) {
-    getDashboard();
+  @override
+  DashboardState build() {
+    _getDashboardUsecase = ref.watch(getDashboardUsecaseProvider);
+    Future.microtask(() => getDashboard());
+    return const DashboardState();
   }
 
   Future<void> getDashboard() async {

@@ -7,9 +7,9 @@ import 'package:tires/features/announcement/presentation/providers/announcement_
 import 'package:tires/features/announcement/presentation/providers/announcement_providers.dart';
 
 class AnnouncementMutationNotifier extends Notifier<AnnouncementMutationState> {
-  late final CreateAnnouncementUsecase _createAnnouncementUsecase;
-  late final UpdateAnnouncementUsecase _updateAnnouncementUsecase;
-  late final DeleteAnnouncementUsecase _deleteAnnouncementUsecase;
+  late CreateAnnouncementUsecase _createAnnouncementUsecase;
+  late UpdateAnnouncementUsecase _updateAnnouncementUsecase;
+  late DeleteAnnouncementUsecase _deleteAnnouncementUsecase;
 
   @override
   AnnouncementMutationState build() {

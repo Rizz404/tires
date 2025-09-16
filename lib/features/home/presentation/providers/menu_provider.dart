@@ -1,16 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tires/di/common_providers.dart';
-import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/home/presentation/providers/menu_notifier.dart';
 import 'package:tires/features/home/presentation/providers/menu_state.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 
-final menuNotifierProvider = StateNotifierProvider<MenuNotifier, MenuState>((
-  ref,
-) {
-  final getMenusCursorUsecase = ref.watch(getMenusCursorUsecaseProvider);
-  return MenuNotifier(getMenusCursorUsecase);
-});
+final menuNotifierProvider = NotifierProvider<MenuNotifier, MenuState>(
+  MenuNotifier.new,
+);
 
 // Convenient computed providers
 final menusProvider = Provider<List<Menu>>((ref) {

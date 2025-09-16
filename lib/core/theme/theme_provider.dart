@@ -5,8 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum PlatformOverride { android, ios, system }
 
-class PlatformOverrideNotifier extends StateNotifier<PlatformOverride> {
-  PlatformOverrideNotifier() : super(PlatformOverride.system);
+class PlatformOverrideNotifier extends Notifier<PlatformOverride> {
+  @override
+  PlatformOverride build() {
+    return PlatformOverride.system;
+  }
 
   void setPlatform(PlatformOverride platform) {
     state = platform;
@@ -14,9 +17,9 @@ class PlatformOverrideNotifier extends StateNotifier<PlatformOverride> {
 }
 
 final platformOverrideProvider =
-    StateNotifierProvider<PlatformOverrideNotifier, PlatformOverride>((ref) {
-      return PlatformOverrideNotifier();
-    });
+    NotifierProvider<PlatformOverrideNotifier, PlatformOverride>(
+      PlatformOverrideNotifier.new,
+    );
 
 final isIOSThemeProvider = Provider<bool>((ref) {
   final platformOverride = ref.watch(platformOverrideProvider);

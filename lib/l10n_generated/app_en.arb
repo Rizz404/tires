@@ -1447,5 +1447,7 @@
   "adminDrawerItemContact": "Contact Management",
   "adminDrawerItemCustomerManagement": "Customer Management",
   "adminDrawerItemMenu": "Menu Management",
-  "pressAgainToExit": "Press Again To Exit"
+  "pressAgainToExit": "Press Again To Exit",
+  "drawerItemPrivacyPolicy": "Privacy Policy",
+  "drawerItemTermsOfService": "Terms of Service"
 }

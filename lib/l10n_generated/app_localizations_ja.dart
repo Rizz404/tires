@@ -4148,4 +4148,10 @@ class L10nJa extends L10n {
 
   @override
   String get pressAgainToExit => 'もう一度押すと終了します';
+
+  @override
+  String get drawerItemPrivacyPolicy => 'プライバシーポリシー';
+
+  @override
+  String get drawerItemTermsOfService => '利用規約';
 }

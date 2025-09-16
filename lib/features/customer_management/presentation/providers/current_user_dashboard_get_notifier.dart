@@ -1,15 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/usecases/usecase.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_current_user_dashboard_usecase.dart';
 import 'package:tires/features/customer_management/presentation/providers/current_user_dashboard_get_state.dart';
 
 class CurrentUserDashboardGetNotifier
-    extends StateNotifier<CurrentUserDashboardGetState> {
-  final GetCurrentUserDashboardUsecase _getCurrentUserDashboardUsecase;
+    extends Notifier<CurrentUserDashboardGetState> {
+  late GetCurrentUserDashboardUsecase _getCurrentUserDashboardUsecase;
 
-  CurrentUserDashboardGetNotifier(this._getCurrentUserDashboardUsecase)
-    : super(const CurrentUserDashboardGetState()) {
-    getInitialDashboard();
+  @override
+  CurrentUserDashboardGetState build() {
+    _getCurrentUserDashboardUsecase = ref.watch(
+      getCurrentUserDashboardUsecaseProvider,
+    );
+    Future.microtask(() => getInitialDashboard());
+    return const CurrentUserDashboardGetState();
   }
 
   Future<void> getInitialDashboard() async {

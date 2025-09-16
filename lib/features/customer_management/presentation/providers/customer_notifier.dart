@@ -1,12 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tires/features/customer_management/presentation/providers/customer_state.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
+import 'package:tires/features/customer_management/presentation/providers/customer_state.dart';
 
-class CustomerNotifier extends StateNotifier<CustomerState> {
-  final GetCustomerCursorUsecase _getCustomersUsecase;
+class CustomerNotifier extends Notifier<CustomerState> {
+  late final GetCustomerCursorUsecase _getCustomersUsecase;
 
-  CustomerNotifier(this._getCustomersUsecase) : super(const CustomerState()) {
-    getInitialCustomers();
+  @override
+  CustomerState build() {
+    _getCustomersUsecase = ref.watch(getCustomerCursorUsecaseProvider);
+    Future.microtask(() => getInitialCustomers());
+    return const CustomerState();
   }
 
   Future<void> getInitialCustomers() async {

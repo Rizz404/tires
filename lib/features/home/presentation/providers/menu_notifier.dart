@@ -1,12 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/home/presentation/providers/menu_state.dart';
 import 'package:tires/features/menu/domain/usecases/get_menus_cursor_usecase.dart';
 
-class MenuNotifier extends StateNotifier<MenuState> {
-  final GetMenusCursorUsecase _getMenusUsecase;
+class MenuNotifier extends Notifier<MenuState> {
+  late final GetMenusCursorUsecase _getMenusUsecase;
 
-  MenuNotifier(this._getMenusUsecase) : super(const MenuState()) {
-    getInitialMenus();
+  @override
+  MenuState build() {
+    _getMenusUsecase = ref.watch(getMenusCursorUsecaseProvider);
+    Future.microtask(() => getInitialMenus());
+    return const MenuState();
   }
 
   Future<void> getInitialMenus() async {

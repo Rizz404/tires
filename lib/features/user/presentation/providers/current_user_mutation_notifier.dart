@@ -1,20 +1,27 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/user/domain/usecases/delete_current_user_account_usecase.dart';
 import 'package:tires/features/user/domain/usecases/update_current_user_password_usecase.dart';
 import 'package:tires/features/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:tires/features/user/presentation/providers/current_user_mutation_state.dart';
+import 'package:tires/features/user/presentation/providers/current_user_providers.dart';
 
-class CurrentUserMutationNotifier
-    extends StateNotifier<CurrentUserMutationState> {
-  final UpdateCurrentUserUsecase _updateCurrentUserUsecase;
-  final UpdateCurrentUserPasswordUsecase _updateCurrentUserPasswordUsecase;
-  final DeleteCurrentUserAccountUsecase _deleteCurrentUserAccountUsecase;
+class CurrentUserMutationNotifier extends Notifier<CurrentUserMutationState> {
+  late UpdateCurrentUserUsecase _updateCurrentUserUsecase;
+  late UpdateCurrentUserPasswordUsecase _updateCurrentUserPasswordUsecase;
+  late DeleteCurrentUserAccountUsecase _deleteCurrentUserAccountUsecase;
 
-  CurrentUserMutationNotifier(
-    this._updateCurrentUserUsecase,
-    this._updateCurrentUserPasswordUsecase,
-    this._deleteCurrentUserAccountUsecase,
-  ) : super(const CurrentUserMutationState());
+  @override
+  CurrentUserMutationState build() {
+    _updateCurrentUserUsecase = ref.watch(updateCurrentUserUsecaseProvider);
+    _updateCurrentUserPasswordUsecase = ref.watch(
+      updateCurrentUserPasswordUsecaseProvider,
+    );
+    _deleteCurrentUserAccountUsecase = ref.watch(
+      deleteCurrentUserAccountUsecaseProvider,
+    );
+    return const CurrentUserMutationState();
+  }
 
   Future<void> updateCurrentUser({
     required String fullName,
@@ -60,6 +67,7 @@ class CurrentUserMutationNotifier
               successMessage: success.message ?? 'User updated successfully',
             )
             .copyWithClearError();
+        ref.invalidate(currentUserGetNotifierProvider);
       },
     );
   }
@@ -94,6 +102,7 @@ class CurrentUserMutationNotifier
                   success.message ?? 'Password updated successfully',
             )
             .copyWithClearError();
+        ref.invalidate(currentUserGetNotifierProvider);
       },
     );
   }
@@ -118,6 +127,7 @@ class CurrentUserMutationNotifier
               successMessage: success.message ?? 'Account deleted successfully',
             )
             .copyWithClearError();
+        ref.invalidate(currentUserGetNotifierProvider);
       },
     );
   }

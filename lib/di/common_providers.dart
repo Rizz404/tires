@@ -64,17 +64,18 @@ final appRouterProvider = Provider<AppRouter>((ref) {
   return AppRouter(_authGuard, _duplicateGuard);
 });
 
-final localeProvider = StateNotifierProvider<LocaleNotifier, Locale>((ref) {
-  final languageStorageService = ref.watch(languageStorageServiceProvider);
-  return LocaleNotifier(languageStorageService);
-});
+final localeProvider = NotifierProvider<LocaleNotifier, Locale>(
+  LocaleNotifier.new,
+);
 
-class LocaleNotifier extends StateNotifier<Locale> {
-  final LanguageStorageService _languageStorageService;
+class LocaleNotifier extends Notifier<Locale> {
+  late LanguageStorageService _languageStorageService;
 
-  LocaleNotifier(this._languageStorageService)
-    : super(L10n.supportedLocales.first) {
-    _loadLocale();
+  @override
+  Locale build() {
+    _languageStorageService = ref.watch(languageStorageServiceProvider);
+    Future.microtask(() => _loadLocale());
+    return L10n.supportedLocales.first;
   }
 
   Future<void> _loadLocale() async {

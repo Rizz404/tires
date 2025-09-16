@@ -74,6 +74,22 @@ class UserEndDrawer extends ConsumerWidget {
         'type': 'route',
         'route': const InquiryRoute(),
       },
+      {
+        'icon': Icons.privacy_tip_outlined,
+        'selectedIcon': Icons.privacy_tip,
+        'title': l10n.drawerItemPrivacyPolicy,
+        'isActive': false,
+        'type': 'route',
+        'route': const PrivacyPolicyRoute(),
+      },
+      {
+        'icon': Icons.description_outlined,
+        'selectedIcon': Icons.description,
+        'title': l10n.drawerItemTermsOfService,
+        'isActive': false,
+        'type': 'route',
+        'route': const TermsOfServiceRoute(),
+      },
     ];
 
     return Drawer(

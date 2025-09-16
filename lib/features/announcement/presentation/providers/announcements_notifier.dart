@@ -5,7 +5,7 @@ import 'package:tires/features/announcement/presentation/providers/announcements
 import 'package:tires/features/announcement/domain/entities/announcement.dart';
 
 class AnnouncementsNotifier extends Notifier<AnnouncementsState> {
-  late final GetAnnouncementsCursorUsecase _getUsersCursorUsecase;
+  late GetAnnouncementsCursorUsecase _getUsersCursorUsecase;
 
   @override
   AnnouncementsState build() {

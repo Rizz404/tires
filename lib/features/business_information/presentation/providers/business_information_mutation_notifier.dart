@@ -1,13 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/business_information/domain/usecases/update_business_information_usecase.dart';
 import 'package:tires/features/business_information/presentation/providers/business_information_mutation_state.dart';
 
 class BusinessInformationMutationNotifier
-    extends StateNotifier<BusinessInformationMutationState> {
-  final UpdateBusinessInformationUsecase _updateBusinessInformationUsecase;
+    extends Notifier<BusinessInformationMutationState> {
+  late UpdateBusinessInformationUsecase _updateBusinessInformationUsecase;
 
-  BusinessInformationMutationNotifier(this._updateBusinessInformationUsecase)
-    : super(const BusinessInformationMutationState());
+  @override
+  BusinessInformationMutationState build() {
+    _updateBusinessInformationUsecase = ref.watch(
+      updateBusinessInformationUsecaseProvider,
+    );
+    return const BusinessInformationMutationState();
+  }
 
   Future<void> updateBusinessInformation(
     UpdateBusinessInformationParams params,

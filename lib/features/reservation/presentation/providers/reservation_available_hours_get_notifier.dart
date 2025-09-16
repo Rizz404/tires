@@ -1,17 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/reservation/domain/usecases/get_reservation_available_hours_usecase.dart';
 import 'package:tires/features/reservation/presentation/providers/reservation_available_hours_get_state.dart';
 
 class ReservationAvailableHoursGetNotifier
-    extends StateNotifier<ReservationAvailableHoursGetState> {
-  final GetReservationAvailableHoursUsecase
+    extends Notifier<ReservationAvailableHoursGetState> {
+  late final GetReservationAvailableHoursUsecase
   _getReservationAvailableHoursUsecase;
 
-  ReservationAvailableHoursGetNotifier(
-    this._getReservationAvailableHoursUsecase,
-  ) : super(const ReservationAvailableHoursGetState()) {
-    // Note: Available hours requires date and menuId parameters, so no automatic initialization
-    // Will be called when date is selected
+  @override
+  ReservationAvailableHoursGetState build() {
+    _getReservationAvailableHoursUsecase = ref.watch(
+      getReservationAvailableHoursUsecaseProvider,
+    );
+    return const ReservationAvailableHoursGetState();
   }
 
   Future<void> getInitialAvailableHours({

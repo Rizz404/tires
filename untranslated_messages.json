@@ -1271,6 +1271,8 @@
     "adminDrawerItemContact",
     "adminDrawerItemCustomerManagement",
     "adminDrawerItemMenu",
-    "pressAgainToExit"
+    "pressAgainToExit",
+    "drawerItemPrivacyPolicy",
+    "drawerItemTermsOfService"
   ]
 }

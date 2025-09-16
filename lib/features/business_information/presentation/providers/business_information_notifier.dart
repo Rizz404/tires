@@ -1,15 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/core/usecases/usecase.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/business_information/domain/usecases/get_business_information_usecase.dart';
 import 'package:tires/features/business_information/presentation/providers/business_information_state.dart';
-import 'package:tires/core/usecases/usecase.dart';
 
-class BusinessInformationNotifier
-    extends StateNotifier<BusinessInformationState> {
-  final GetBusinessInformationUsecase _getBusinessInformationUsecase;
+class BusinessInformationNotifier extends Notifier<BusinessInformationState> {
+  late GetBusinessInformationUsecase _getBusinessInformationUsecase;
 
-  BusinessInformationNotifier(this._getBusinessInformationUsecase)
-    : super(const BusinessInformationState()) {
-    getBusinessInformation();
+  @override
+  BusinessInformationState build() {
+    _getBusinessInformationUsecase = ref.watch(
+      getBusinessInformationUsecaseProvider,
+    );
+    Future.microtask(() => getBusinessInformation());
+    return const BusinessInformationState();
   }
 
   Future<void> getBusinessInformation() async {

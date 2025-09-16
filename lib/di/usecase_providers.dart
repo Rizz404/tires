@@ -103,12 +103,14 @@ final getCurrentUserUsecaseProvider = Provider<GetCurrentUserUsecase>((ref) {
   return GetCurrentUserUsecase(_userRepository);
 });
 
-final updateUserUsecaseProvider = Provider<UpdateCurrentUserUsecase>((ref) {
+final updateCurrentUserUsecaseProvider = Provider<UpdateCurrentUserUsecase>((
+  ref,
+) {
   final _userRepository = ref.watch(userRepoProvider);
   return UpdateCurrentUserUsecase(_userRepository);
 });
 
-final updateUserPasswordUsecaseProvider =
+final updateCurrentUserPasswordUsecaseProvider =
     Provider<UpdateCurrentUserPasswordUsecase>((ref) {
       final _userRepository = ref.watch(userRepoProvider);
       return UpdateCurrentUserPasswordUsecase(_userRepository);
@@ -120,7 +122,7 @@ final getCurrentUserReservationsCursorUsecaseProvider =
       return GetCurrentUserReservationsCursorUsecase(_reservationRepository);
     });
 
-final deleteUserAccountUsecaseProvider =
+final deleteCurrentUserAccountUsecaseProvider =
     Provider<DeleteCurrentUserAccountUsecase>((ref) {
       final _userRepository = ref.watch(userRepoProvider);
       return DeleteCurrentUserAccountUsecase(_userRepository);

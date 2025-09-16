@@ -1,13 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/user/domain/usecases/get_current_user_usecase.dart';
 import 'package:tires/features/user/presentation/providers/current_user_get_state.dart';
 
-class CurrentUserGetNotifier extends StateNotifier<CurrentUserGetState> {
-  final GetCurrentUserUsecase _getCurrentUserUsecase;
+class CurrentUserGetNotifier extends Notifier<CurrentUserGetState> {
+  late GetCurrentUserUsecase _getCurrentUserUsecase;
 
-  CurrentUserGetNotifier(this._getCurrentUserUsecase)
-    : super(const CurrentUserGetState()) {
-    getInitialUser();
+  @override
+  CurrentUserGetState build() {
+    _getCurrentUserUsecase = ref.watch(getCurrentUserUsecaseProvider);
+    Future.microtask(() => getInitialUser());
+    return const CurrentUserGetState();
   }
 
   Future<void> getInitialUser() async {

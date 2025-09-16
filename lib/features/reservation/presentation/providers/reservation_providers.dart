@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/reservation/presentation/providers/current_user_reservations_get_notifier.dart';
@@ -14,71 +13,32 @@ import 'package:tires/features/reservation/presentation/providers/reservation_mu
 import 'package:tires/features/reservation/presentation/providers/reservation_mutation_state.dart';
 
 final reservationGetNotifierProvider =
-    StateNotifierProvider<ReservationGetNotifier, ReservationGetState>((ref) {
-      final getReservationCursorUsecase = ref.watch(
-        getReservationCursorUsecaseProvider,
-      );
-      return ReservationGetNotifier(getReservationCursorUsecase);
-    });
+    NotifierProvider<ReservationGetNotifier, ReservationGetState>(
+      ReservationGetNotifier.new,
+    );
 
 final reservationMutationNotifierProvider =
-    StateNotifierProvider<
-      ReservationMutationNotifier,
-      ReservationMutationState
-    >((ref) {
-      final createReservationUsecase = ref.watch(
-        createReservationUsecaseProvider,
-      );
-      final updateReservationUsecase = ref.watch(
-        updateReservationUsecaseProvider,
-      );
-      final deleteReservationUsecase = ref.watch(
-        deleteReservationUsecaseProvider,
-      );
-
-      return ReservationMutationNotifier(
-        createReservationUsecase,
-        updateReservationUsecase,
-        deleteReservationUsecase,
-      );
-    });
+    NotifierProvider<ReservationMutationNotifier, ReservationMutationState>(
+      ReservationMutationNotifier.new,
+    );
 
 final reservationCalendarGetNotifierProvider =
-    StateNotifierProvider<
+    NotifierProvider<
       ReservationCalendarGetNotifier,
       ReservationCalendarGetState
-    >((ref) {
-      final getReservationCalendarUsecase = ref.watch(
-        getReservationCalendarUsecaseProvider,
-      );
-      return ReservationCalendarGetNotifier(getReservationCalendarUsecase);
-    });
+    >(ReservationCalendarGetNotifier.new);
 
 final reservationAvailableHoursGetNotifierProvider =
-    StateNotifierProvider<
+    NotifierProvider<
       ReservationAvailableHoursGetNotifier,
       ReservationAvailableHoursGetState
-    >((ref) {
-      final getReservationAvailableHoursUsecase = ref.watch(
-        getReservationAvailableHoursUsecaseProvider,
-      );
-      return ReservationAvailableHoursGetNotifier(
-        getReservationAvailableHoursUsecase,
-      );
-    });
+    >(ReservationAvailableHoursGetNotifier.new);
 
 final currentUserReservationsGetNotifierProvider =
-    StateNotifierProvider<
+    NotifierProvider<
       CurrentUserReservationsGetNotifier,
       CurrentUserReservationsGetState
-    >((ref) {
-      final getCurrentUserReservationsCursorUsecase = ref.watch(
-        getCurrentUserReservationsCursorUsecaseProvider,
-      );
-      return CurrentUserReservationsGetNotifier(
-        getCurrentUserReservationsCursorUsecase,
-      );
-    });
+    >(CurrentUserReservationsGetNotifier.new);
 
 final selectedDateProvider = StateProvider.autoDispose<DateTime?>(
   (ref) => null,

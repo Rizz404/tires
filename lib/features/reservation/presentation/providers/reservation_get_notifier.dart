@@ -1,14 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/reservation/domain/usecases/get_reservation_cursor_usecase.dart';
 import 'package:tires/features/reservation/presentation/providers/reservation_get_state.dart';
 
-class ReservationGetNotifier extends StateNotifier<ReservationGetState> {
-  final GetReservationCursorUsecase _getReservationCursorUsecase;
+class ReservationGetNotifier extends Notifier<ReservationGetState> {
+  late final GetReservationCursorUsecase _getReservationCursorUsecase;
 
-  ReservationGetNotifier(this._getReservationCursorUsecase)
-    : super(const ReservationGetState()) {
-    getInitialReservations();
+  @override
+  ReservationGetState build() {
+    _getReservationCursorUsecase = ref.watch(
+      getReservationCursorUsecaseProvider,
+    );
+    Future.microtask(() => getInitialReservations());
+    return const ReservationGetState();
   }
 
   Future<void> getInitialReservations({

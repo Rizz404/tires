@@ -1,12 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/inquiry/domain/usecases/create_inquiry_usecase.dart';
 import 'package:tires/features/inquiry/presentation/providers/inquiry_mutation_state.dart';
 
-class InquiryMutationNotifier extends StateNotifier<InquiryMutationState> {
-  final CreateInquiryUsecase _createInquiryUsecase;
+class InquiryMutationNotifier extends Notifier<InquiryMutationState> {
+  late final CreateInquiryUsecase _createInquiryUsecase;
 
-  InquiryMutationNotifier(this._createInquiryUsecase)
-    : super(const InquiryMutationState());
+  @override
+  InquiryMutationState build() {
+    _createInquiryUsecase = ref.watch(createInquiryUsecaseProvider);
+    return const InquiryMutationState();
+  }
 
   Future<void> createInquiry({
     required String name,

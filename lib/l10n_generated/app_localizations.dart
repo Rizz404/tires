@@ -7742,6 +7742,18 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Press Again To Exit'**
   String get pressAgainToExit;
+
+  /// No description provided for @drawerItemPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get drawerItemPrivacyPolicy;
+
+  /// No description provided for @drawerItemTermsOfService.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service'**
+  String get drawerItemTermsOfService;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

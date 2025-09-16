@@ -4396,4 +4396,10 @@ class L10nEn extends L10n {
 
   @override
   String get pressAgainToExit => 'Press Again To Exit';
+
+  @override
+  String get drawerItemPrivacyPolicy => 'Privacy Policy';
+
+  @override
+  String get drawerItemTermsOfService => 'Terms of Service';
 }
