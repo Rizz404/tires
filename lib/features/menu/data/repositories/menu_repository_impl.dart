@@ -11,6 +11,7 @@ import 'package:tires/features/menu/domain/usecases/get_admin_menus_cursor_useca
 import 'package:tires/features/menu/domain/usecases/get_menus_cursor_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/update_menu_usecase.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
+import 'package:tires/features/menu/domain/entities/menu_statistic.dart';
 import 'package:tires/shared/data/mapper/cursor_mapper.dart';
 
 class MenuRepositoryImpl implements MenuRepository {
@@ -105,6 +106,25 @@ class MenuRepositoryImpl implements MenuRepository {
       final result = await _menuRemoteDatasource.deleteMenu(params);
 
       return Right(ActionSuccess(message: result.message));
+    } on ApiErrorResponse catch (e) {
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccessResponse<MenuStatistic>>>
+  getMenuStatistics() async {
+    try {
+      final result = await _menuRemoteDatasource.getMenuStatistics();
+
+      return Right(
+        ItemSuccessResponse<MenuStatistic>(
+          data: result.data.toEntity(),
+          message: result.message,
+        ),
+      );
     } on ApiErrorResponse catch (e) {
       return Left(ServerFailure(message: e.message));
     } catch (e) {

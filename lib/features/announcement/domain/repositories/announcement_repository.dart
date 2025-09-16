@@ -6,6 +6,7 @@ import 'package:tires/features/announcement/domain/usecases/delete_announcement_
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/update_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/entities/announcement.dart';
+import 'package:tires/features/announcement/domain/entities/announcement_statistic.dart';
 
 abstract class AnnouncementRepository {
   Future<Either<Failure, ItemSuccessResponse<Announcement>>> createAnnouncement(
@@ -19,4 +20,6 @@ abstract class AnnouncementRepository {
   Future<Either<Failure, ActionSuccess>> deleteAnnouncement(
     DeleteAnnouncementParams params,
   );
+  Future<Either<Failure, ItemSuccessResponse<AnnouncementStatistic>>>
+  getAnnouncementStatistics();
 }

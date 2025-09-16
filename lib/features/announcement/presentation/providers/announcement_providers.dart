@@ -3,6 +3,8 @@ import 'package:tires/features/announcement/presentation/providers/announcement_
 import 'package:tires/features/announcement/presentation/providers/announcement_mutation_state.dart';
 import 'package:tires/features/announcement/presentation/providers/announcements_notifier.dart';
 import 'package:tires/features/announcement/presentation/providers/announcements_state.dart';
+import 'package:tires/features/announcement/presentation/providers/announcement_statistics_notifier.dart';
+import 'package:tires/features/announcement/presentation/providers/announcement_statistics_state.dart';
 
 final announcementGetNotifierProvider =
     NotifierProvider<AnnouncementsNotifier, AnnouncementsState>(
@@ -13,3 +15,9 @@ final announcementMutationNotifierProvider =
     NotifierProvider<AnnouncementMutationNotifier, AnnouncementMutationState>(
       AnnouncementMutationNotifier.new,
     );
+
+final announcementStatisticsNotifierProvider =
+    NotifierProvider<
+      AnnouncementStatisticsNotifier,
+      AnnouncementStatisticsState
+    >(AnnouncementStatisticsNotifier.new);

@@ -1,5 +1,7 @@
 import 'package:tires/features/menu/data/models/menu_model.dart';
+import 'package:tires/features/menu/data/models/menu_statistic_model.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
+import 'package:tires/features/menu/domain/entities/menu_statistic.dart';
 
 extension MenuModelMapper on MenuModel {
   Menu toEntity() {
@@ -95,5 +97,22 @@ extension MenuContentEntityMapper on MenuContent {
 extension MetaEntityMapper on Meta {
   MetaModel toModel() {
     return MetaModel(locale: locale, fallbackUsed: fallbackUsed);
+  }
+}
+
+extension MenuStatisticModelMapper on MenuStatisticModel {
+  MenuStatistic toEntity() {
+    return MenuStatistic(statistics: statistics.toEntity());
+  }
+}
+
+extension StatisticsModelMapper on StatisticsModel {
+  Statistics toEntity() {
+    return Statistics(
+      totalMenus: totalMenus,
+      activeMenus: activeMenus,
+      inactiveMenus: inactiveMenus,
+      averagePrice: averagePrice,
+    );
   }
 }

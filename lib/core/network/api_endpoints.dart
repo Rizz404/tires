@@ -37,6 +37,10 @@ class ApiEndpoints {
   static const String adminReservationCalendar =
       '$_adminPrefix$_reservationPrefix/calendar';
   static const String adminAnnouncements = '$_adminPrefix$_announcementPrefix';
+  static const String adminAnnouncementStatistics =
+      '$_adminPrefix$_announcementPrefix/statistics';
+  static const String adminMenuStatistics =
+      '$_adminPrefix$_menuPrefix/statistics';
   static const String adminBlockedPeriods =
       '$_adminPrefix$_blockedPeriodPrefix';
   static const String adminBusinessSettings =

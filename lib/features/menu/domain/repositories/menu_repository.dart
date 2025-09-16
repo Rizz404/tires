@@ -7,6 +7,7 @@ import 'package:tires/features/menu/domain/usecases/get_admin_menus_cursor_useca
 import 'package:tires/features/menu/domain/usecases/get_menus_cursor_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/update_menu_usecase.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
+import 'package:tires/features/menu/domain/entities/menu_statistic.dart';
 
 abstract class MenuRepository {
   Future<Either<Failure, ItemSuccessResponse<Menu>>> createMenu(
@@ -22,4 +23,6 @@ abstract class MenuRepository {
     UpdateMenuParams params,
   );
   Future<Either<Failure, ActionSuccess>> deleteMenu(DeleteMenuParams params);
+  Future<Either<Failure, ItemSuccessResponse<MenuStatistic>>>
+  getMenuStatistics();
 }

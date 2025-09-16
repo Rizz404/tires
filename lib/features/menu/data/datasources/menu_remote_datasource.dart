@@ -4,6 +4,7 @@ import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/features/menu/data/models/menu_model.dart';
+import 'package:tires/features/menu/data/models/menu_statistic_model.dart';
 import 'package:tires/features/menu/domain/usecases/create_menu_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/delete_menu_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/get_admin_menus_cursor_usecase.dart';
@@ -20,6 +21,7 @@ abstract class MenuRemoteDatasource {
   );
   Future<ApiResponse<MenuModel>> updateMenu(UpdateMenuParams params);
   Future<ApiResponse<dynamic>> deleteMenu(DeleteMenuParams params);
+  Future<ApiResponse<MenuStatisticModel>> getMenuStatistics();
 }
 
 class MenuRemoteDatasourceImpl implements MenuRemoteDatasource {
@@ -101,6 +103,19 @@ class MenuRemoteDatasourceImpl implements MenuRemoteDatasource {
         data: params.toMap(),
       );
       return ApiResponse<dynamic>.fromJson(response.data, (data) => data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<MenuStatisticModel>> getMenuStatistics() async {
+    try {
+      final response = await _dioClient.get(ApiEndpoints.adminMenuStatistics);
+      return ApiResponse<MenuStatisticModel>.fromJson(
+        response.data,
+        (data) => MenuStatisticModel.fromJson(data),
+      );
     } catch (e) {
       rethrow;
     }

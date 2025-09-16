@@ -1,5 +1,7 @@
 import 'package:tires/features/announcement/data/models/announcement_model.dart';
+import 'package:tires/features/announcement/data/models/announcement_statistic_model.dart';
 import 'package:tires/features/announcement/domain/entities/announcement.dart';
+import 'package:tires/features/announcement/domain/entities/announcement_statistic.dart';
 import 'package:tires/features/announcement/domain/entities/announcement_translation.dart';
 
 extension AnnouncementModelMapper on AnnouncementModel {
@@ -66,5 +68,27 @@ extension AnnouncementTranslationEntityMapper on AnnouncementTranslation {
 extension AnnouncementContentEntityMapper on AnnouncementContent {
   AnnouncementContentModel toModel() {
     return AnnouncementContentModel(title: title, content: content);
+  }
+}
+
+extension AnnouncementStatisticModelMapper on AnnouncementStatisticModel {
+  AnnouncementStatistic toEntity() {
+    return AnnouncementStatistic(
+      totalAnnouncements: totalAnnouncements,
+      active: active,
+      inactive: inactive,
+      today: today,
+    );
+  }
+}
+
+extension AnnouncementStatisticEntityMapper on AnnouncementStatistic {
+  AnnouncementStatisticModel toModel() {
+    return AnnouncementStatisticModel(
+      totalAnnouncements: totalAnnouncements,
+      active: active,
+      inactive: inactive,
+      today: today,
+    );
   }
 }

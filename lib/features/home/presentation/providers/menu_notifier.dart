@@ -4,7 +4,7 @@ import 'package:tires/features/home/presentation/providers/menu_state.dart';
 import 'package:tires/features/menu/domain/usecases/get_menus_cursor_usecase.dart';
 
 class MenuNotifier extends Notifier<MenuState> {
-  late final GetMenusCursorUsecase _getMenusUsecase;
+  late GetMenusCursorUsecase _getMenusUsecase;
 
   @override
   MenuState build() {

@@ -3,6 +3,8 @@ import 'package:tires/features/menu/presentation/providers/admin_menus_notifier.
 import 'package:tires/features/menu/presentation/providers/admin_menus_state.dart';
 import 'package:tires/features/menu/presentation/providers/menu_mutation_notifier.dart';
 import 'package:tires/features/menu/presentation/providers/menu_mutation_state.dart';
+import 'package:tires/features/menu/presentation/providers/menu_statistics_notifier.dart';
+import 'package:tires/features/menu/presentation/providers/menu_statistics_state.dart';
 
 final adminMenuGetNotifierProvider =
     NotifierProvider<AdminMenusNotifier, AdminMenusState>(
@@ -12,4 +14,9 @@ final adminMenuGetNotifierProvider =
 final menuMutationNotifierProvider =
     NotifierProvider<MenuMutationNotifier, MenuMutationState>(
       MenuMutationNotifier.new,
+    );
+
+final menuStatisticsNotifierProvider =
+    NotifierProvider<MenuStatisticsNotifier, MenuStatisticsState>(
+      MenuStatisticsNotifier.new,
     );

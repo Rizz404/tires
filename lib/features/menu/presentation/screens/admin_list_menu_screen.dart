@@ -11,6 +11,7 @@ import 'package:tires/features/menu/presentation/widgets/menu_filter_search.dart
 import 'package:tires/features/menu/presentation/widgets/menu_table_widget.dart';
 import 'package:tires/features/menu/presentation/providers/menu_providers.dart';
 import 'package:tires/features/menu/presentation/providers/admin_menus_state.dart';
+import 'package:tires/features/menu/presentation/providers/menu_statistics_state.dart';
 import 'package:tires/shared/presentation/widgets/admin_app_bar.dart';
 import 'package:tires/shared/presentation/widgets/admin_end_drawer.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
@@ -33,6 +34,7 @@ class _AdminListMenuScreenState extends ConsumerState<AdminListMenuScreen> {
 
   Future<void> _refreshMenus() async {
     await ref.read(adminMenuGetNotifierProvider.notifier).refresh();
+    await ref.read(menuStatisticsNotifierProvider.notifier).refresh();
   }
 
   void _applyFilters() {
@@ -47,6 +49,7 @@ class _AdminListMenuScreenState extends ConsumerState<AdminListMenuScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(adminMenuGetNotifierProvider);
+    final statisticsState = ref.watch(menuStatisticsNotifierProvider);
     final formValues = _formKey.currentState?.value;
     List<Menu> filteredMenus = state.menus;
     if (formValues != null) {
@@ -100,7 +103,9 @@ class _AdminListMenuScreenState extends ConsumerState<AdminListMenuScreen> {
             slivers: [
               SliverToBoxAdapter(child: _buildHeader(context)),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
-              SliverToBoxAdapter(child: _buildStatsCards(context, state)),
+              SliverToBoxAdapter(
+                child: _buildStatsCards(context, state, statisticsState),
+              ),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
               SliverToBoxAdapter(
                 child: MenuFilterSearch(
@@ -160,17 +165,57 @@ class _AdminListMenuScreenState extends ConsumerState<AdminListMenuScreen> {
     );
   }
 
-  Widget _buildStatsCards(BuildContext context, AdminMenusState state) {
-    final total = state.menus.length;
-    final active = state.menus.where((a) => a.isActive).length;
-    final inactive = total - active;
+  Widget _buildStatsCards(
+    BuildContext context,
+    AdminMenusState state,
+    MenuStatisticsState statisticsState,
+  ) {
+    if (statisticsState.status == MenuStatisticsStatus.loading) {
+      return const SizedBox(
+        height: 80,
+        child: Center(child: CircularProgressIndicator()),
+      );
+    }
 
-    final double averagePrice = total > 0
-        ? state.menus
-                  .map((m) => double.tryParse(m.price.amount) ?? 0.0)
-                  .reduce((a, b) => a + b) /
-              total
-        : 0.0;
+    if (statisticsState.status == MenuStatisticsStatus.error) {
+      return SizedBox(
+        height: 120,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.error_outline, color: Colors.red, size: 32),
+              const SizedBox(height: 8),
+              Text(
+                statisticsState.errorMessage ?? 'Failed to load statistics',
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.red, fontSize: 12),
+              ),
+              const SizedBox(height: 8),
+              ElevatedButton(
+                onPressed: () {
+                  ref.read(menuStatisticsNotifierProvider.notifier).refresh();
+                },
+                child: const Text('Retry', style: TextStyle(fontSize: 12)),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    final statistics = statisticsState.statistics;
+    if (statistics == null) {
+      return const SizedBox(
+        height: 80,
+        child: Center(
+          child: Text(
+            'No statistics available',
+            style: TextStyle(fontSize: 12),
+          ),
+        ),
+      );
+    }
 
     final formatCurrency = NumberFormat.currency(
       locale: 'ja_JP',
@@ -179,31 +224,32 @@ class _AdminListMenuScreenState extends ConsumerState<AdminListMenuScreen> {
     );
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         StatTile(
           title: context.l10n.adminListMenuScreenTotalMenus,
-          value: '$total',
+          value: '${statistics.statistics.totalMenus}',
           icon: Icons.restaurant_menu,
           color: Colors.blue.shade100,
         ),
         const SizedBox(height: 12),
         StatTile(
           title: context.l10n.adminListMenuScreenActive,
-          value: '$active',
+          value: '${statistics.statistics.activeMenus}',
           icon: Icons.check_circle,
           color: Colors.green.shade100,
         ),
         const SizedBox(height: 12),
         StatTile(
           title: context.l10n.adminListMenuScreenInactive,
-          value: '$inactive',
+          value: '${statistics.statistics.inactiveMenus}',
           icon: Icons.cancel,
           color: Colors.red.shade100,
         ),
         const SizedBox(height: 12),
         StatTile(
           title: context.l10n.adminListMenuScreenAveragePrice,
-          value: formatCurrency.format(averagePrice),
+          value: formatCurrency.format(statistics.statistics.averagePrice),
           icon: Icons.price_check,
           color: Colors.purple.shade100,
         ),

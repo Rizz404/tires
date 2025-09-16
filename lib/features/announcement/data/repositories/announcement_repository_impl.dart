@@ -10,6 +10,7 @@ import 'package:tires/features/announcement/domain/usecases/delete_announcement_
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/update_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/entities/announcement.dart';
+import 'package:tires/features/announcement/domain/entities/announcement_statistic.dart';
 import 'package:tires/shared/data/mapper/cursor_mapper.dart';
 
 class AnnouncementRepositoryImpl implements AnnouncementRepository {
@@ -95,6 +96,26 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
       );
 
       return Right(ActionSuccess(message: result.message));
+    } on ApiErrorResponse catch (e) {
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccessResponse<AnnouncementStatistic>>>
+  getAnnouncementStatistics() async {
+    try {
+      final result = await _announcementRemoteDatasource
+          .getAnnouncementStatistics();
+
+      return Right(
+        ItemSuccessResponse<AnnouncementStatistic>(
+          data: result.data.toEntity(),
+          message: result.message,
+        ),
+      );
     } on ApiErrorResponse catch (e) {
       return Left(ServerFailure(message: e.message));
     } catch (e) {

@@ -9,6 +9,7 @@ import 'package:tires/features/announcement/presentation/widgets/announcement_fi
 import 'package:tires/features/announcement/presentation/widgets/announcement_table_widget.dart';
 import 'package:tires/features/announcement/presentation/providers/announcements_state.dart';
 import 'package:tires/features/announcement/presentation/providers/announcement_providers.dart';
+import 'package:tires/features/announcement/presentation/providers/announcement_statistics_state.dart';
 import 'package:tires/features/announcement/domain/entities/announcement.dart';
 import 'package:tires/shared/presentation/widgets/admin_end_drawer.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
@@ -32,6 +33,7 @@ class _AdminListAnnouncementScreenState
 
   Future<void> _refreshAnnouncements() async {
     await ref.read(announcementGetNotifierProvider.notifier).refresh();
+    await ref.read(announcementStatisticsNotifierProvider.notifier).refresh();
   }
 
   void _applyFilters() {
@@ -46,6 +48,7 @@ class _AdminListAnnouncementScreenState
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(announcementGetNotifierProvider);
+    final statisticsState = ref.watch(announcementStatisticsNotifierProvider);
     final formValues = _formKey.currentState?.value;
     List<Announcement> filteredAnnouncements = state.announcements;
     if (formValues != null) {
@@ -86,7 +89,9 @@ class _AdminListAnnouncementScreenState
             slivers: [
               SliverToBoxAdapter(child: _buildHeader(context)),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
-              SliverToBoxAdapter(child: _buildStatsCards(context, state)),
+              SliverToBoxAdapter(
+                child: _buildStatsCards(context, state, statisticsState),
+              ),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
               SliverToBoxAdapter(
                 child: AnnouncementFilterSearch(
@@ -146,44 +151,88 @@ class _AdminListAnnouncementScreenState
     );
   }
 
-  Widget _buildStatsCards(BuildContext context, AnnouncementsState state) {
-    final total = state.announcements.length;
-    final active = state.announcements.where((a) => a.isActive).length;
-    final inactive = total - active;
-    final today = state.announcements.where((a) {
-      if (a.publishedAt == null) return false;
-      final now = DateTime.now();
-      return a.publishedAt!.year == now.year &&
-          a.publishedAt!.month == now.month &&
-          a.publishedAt!.day == now.day;
-    }).length;
+  Widget _buildStatsCards(
+    BuildContext context,
+    AnnouncementsState state,
+    AnnouncementStatisticsState statisticsState,
+  ) {
+    if (statisticsState.status == AnnouncementStatisticsStatus.loading) {
+      return const SizedBox(
+        height: 80,
+        child: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (statisticsState.status == AnnouncementStatisticsStatus.error) {
+      debugPrint(statisticsState.errorMessage);
+      return SizedBox(
+        height: 120,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.error_outline, color: Colors.red, size: 32),
+              const SizedBox(height: 8),
+              Text(
+                statisticsState.errorMessage ?? 'Failed to load statistics',
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.red, fontSize: 12),
+              ),
+              const SizedBox(height: 8),
+              ElevatedButton(
+                onPressed: () {
+                  ref
+                      .read(announcementStatisticsNotifierProvider.notifier)
+                      .refresh();
+                },
+                child: const Text('Retry', style: TextStyle(fontSize: 12)),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    final statistics = statisticsState.statistics;
+    if (statistics == null) {
+      return const SizedBox(
+        height: 80,
+        child: Center(
+          child: Text(
+            'No statistics available',
+            style: TextStyle(fontSize: 12),
+          ),
+        ),
+      );
+    }
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         StatTile(
           title: context.l10n.adminListAnnouncementScreenStatsTotal,
-          value: '$total',
+          value: '${statistics.totalAnnouncements}',
           icon: Icons.volume_up,
           color: Colors.blue.shade100,
         ),
         const SizedBox(height: 12),
         StatTile(
           title: context.l10n.adminListAnnouncementScreenStatsActive,
-          value: '$active',
+          value: '${statistics.active}',
           icon: Icons.check_circle,
           color: Colors.green.shade100,
         ),
         const SizedBox(height: 12),
         StatTile(
           title: context.l10n.adminListAnnouncementScreenStatsInactive,
-          value: '$inactive',
+          value: '${statistics.inactive}',
           icon: Icons.cancel,
           color: Colors.red.shade100,
         ),
         const SizedBox(height: 12),
         StatTile(
           title: context.l10n.adminListAnnouncementScreenStatsToday,
-          value: '$today',
+          value: '${statistics.today}',
           icon: Icons.calendar_today,
           color: Colors.purple.shade100,
         ),

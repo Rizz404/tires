@@ -3,6 +3,7 @@ import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/features/announcement/data/models/announcement_model.dart';
+import 'package:tires/features/announcement/data/models/announcement_statistic_model.dart';
 import 'package:tires/features/announcement/domain/usecases/create_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/delete_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
@@ -21,6 +22,7 @@ abstract class AnnouncementRemoteDatasource {
   Future<ApiResponse<dynamic>> deleteAnnouncement(
     DeleteAnnouncementParams params,
   );
+  Future<ApiResponse<AnnouncementStatisticModel>> getAnnouncementStatistics();
 }
 
 class AnnouncementRemoteDatasourceImpl implements AnnouncementRemoteDatasource {
@@ -94,6 +96,22 @@ class AnnouncementRemoteDatasourceImpl implements AnnouncementRemoteDatasource {
       return ApiResponse<AnnouncementModel>.fromJson(
         response.data,
         (data) => AnnouncementModel.fromMap(data),
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<AnnouncementStatisticModel>>
+  getAnnouncementStatistics() async {
+    try {
+      final response = await _dioClient.get(
+        ApiEndpoints.adminAnnouncementStatistics,
+      );
+      return ApiResponse<AnnouncementStatisticModel>.fromMap(
+        response.data,
+        (data) => AnnouncementStatisticModel.fromMap(data),
       );
     } catch (e) {
       rethrow;

@@ -3,6 +3,7 @@ import 'package:tires/di/repository_providers.dart';
 import 'package:tires/features/announcement/domain/usecases/create_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/delete_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
+import 'package:tires/features/announcement/domain/usecases/get_announcement_statistics_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/update_announcement_usecase.dart';
 import 'package:tires/features/business_information/domain/usecases/get_business_information_usecase.dart';
 import 'package:tires/features/business_information/domain/usecases/update_business_information_usecase.dart';
@@ -19,6 +20,7 @@ import 'package:tires/features/menu/domain/usecases/create_menu_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/delete_menu_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/get_admin_menus_cursor_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/get_menus_cursor_usecase.dart';
+import 'package:tires/features/menu/domain/usecases/get_menu_statistics_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/update_menu_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/create_reservation_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/get_current_user_reservations_cursor_usecase.dart';
@@ -88,6 +90,13 @@ final updateMenuUsecaseProvider = Provider<UpdateMenuUsecase>((ref) {
 final deleteMenuUsecaseProvider = Provider<DeleteMenuUsecase>((ref) {
   final _menuRepository = ref.watch(menuRepoProvider);
   return DeleteMenuUsecase(_menuRepository);
+});
+
+final getMenuStatisticsUsecaseProvider = Provider<GetMenuStatisticsUsecase>((
+  ref,
+) {
+  final _menuRepository = ref.watch(menuRepoProvider);
+  return GetMenuStatisticsUsecase(_menuRepository);
 });
 
 final getCustomerCursorUsecaseProvider = Provider<GetCustomerCursorUsecase>((
@@ -206,6 +215,12 @@ final deleteAnnouncementUsecaseProvider = Provider<DeleteAnnouncementUsecase>((
   final _announcementRepository = ref.watch(announcementRepoProvider);
   return DeleteAnnouncementUsecase(_announcementRepository);
 });
+
+final getAnnouncementStatisticsUsecaseProvider =
+    Provider<GetAnnouncementStatisticsUsecase>((ref) {
+      final _announcementRepository = ref.watch(announcementRepoProvider);
+      return GetAnnouncementStatisticsUsecase(_announcementRepository);
+    });
 
 final getDashboardUsecaseProvider = Provider<GetDashboardUsecase>((ref) {
   final _dashboardRepository = ref.watch(dashboardRepoProvider);
