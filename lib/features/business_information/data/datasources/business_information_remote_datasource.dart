@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/business_information/data/models/business_information_model.dart';
 import 'package:tires/features/business_information/domain/usecases/update_business_information_usecase.dart';
 
@@ -22,6 +23,7 @@ class BusinessInformationRemoteDatasourceImpl
   @override
   Future<ApiResponse<BusinessInformationModel>> getBusinessInformation() async {
     try {
+      AppLogger.networkInfo('Fetching business information');
       final response = await _dioClient.get(ApiEndpoints.adminBusinessSettings);
       print('=== DATASOURCE DEBUG ===');
       print('Response data: ${response.data}');
@@ -56,6 +58,7 @@ class BusinessInformationRemoteDatasourceImpl
         });
       }
     } catch (e) {
+      AppLogger.networkError('Error fetching business information', e);
       print('=== DATASOURCE ERROR ===');
       print('Error: $e');
       print('Error type: ${e.runtimeType}');
@@ -68,6 +71,7 @@ class BusinessInformationRemoteDatasourceImpl
   Future<ApiResponse<BusinessInformationModel>>
   getPublicBusinessInformation() async {
     try {
+      AppLogger.networkInfo('Fetching public business information');
       final response = await _dioClient.get(
         ApiEndpoints.publicBusinessSettings,
       );
@@ -104,6 +108,7 @@ class BusinessInformationRemoteDatasourceImpl
         });
       }
     } catch (e) {
+      AppLogger.networkError('Error fetching public business information', e);
       print('=== PUBLIC DATASOURCE ERROR ===');
       print('Error: $e');
       print('Error type: ${e.runtimeType}');
@@ -117,6 +122,7 @@ class BusinessInformationRemoteDatasourceImpl
     UpdateBusinessInformationParams params,
   ) async {
     try {
+      AppLogger.networkInfo('Updating business information');
       final formData = FormData();
 
       // Add non-file fields
@@ -150,6 +156,7 @@ class BusinessInformationRemoteDatasourceImpl
         (data) => BusinessInformationModel.fromMap(data),
       );
     } catch (e) {
+      AppLogger.networkError('Error updating business information', e);
       rethrow;
     }
   }

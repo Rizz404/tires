@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/reservation/domain/usecases/create_reservation_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/delete_reservation_usecase.dart';
@@ -24,6 +25,7 @@ class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
     int? numberOfPeople,
     required int amount,
   }) async {
+    AppLogger.uiInfo('Creating reservation in notifier');
     state = state.copyWith(status: ReservationMutationStatus.loading);
 
     final params = CreateReservationParams(
@@ -36,12 +38,14 @@ class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to create reservation', failure);
         state = state.copyWith(
           status: ReservationMutationStatus.error,
           failure: failure,
         );
       },
       (success) {
+        AppLogger.uiInfo('Successfully created reservation');
         state = state
             .copyWith(
               status: ReservationMutationStatus.success,
@@ -55,6 +59,7 @@ class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
   }
 
   Future<void> updateReservation({required int id}) async {
+    AppLogger.uiInfo('Updating reservation in notifier');
     state = state.copyWith(status: ReservationMutationStatus.loading);
 
     final params = UpdateReservationParams(id: id);
@@ -62,12 +67,14 @@ class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to update reservation', failure);
         state = state.copyWith(
           status: ReservationMutationStatus.error,
           failure: failure,
         );
       },
       (success) {
+        AppLogger.uiInfo('Successfully updated reservation');
         state = state
             .copyWith(
               status: ReservationMutationStatus.success,
@@ -81,6 +88,7 @@ class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
   }
 
   Future<void> deleteReservation({required int id}) async {
+    AppLogger.uiInfo('Deleting reservation in notifier');
     state = state.copyWith(status: ReservationMutationStatus.loading);
 
     final params = DeleteReservationParams(id: id);
@@ -88,12 +96,14 @@ class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to delete reservation', failure);
         state = state.copyWith(
           status: ReservationMutationStatus.error,
           failure: failure,
         );
       },
       (success) {
+        AppLogger.uiInfo('Successfully deleted reservation');
         state = state
             .copyWith(
               status: ReservationMutationStatus.success,
@@ -107,17 +117,20 @@ class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
   }
 
   void clearState() {
+    AppLogger.uiInfo('Clearing reservation mutation state');
     state = const ReservationMutationState();
   }
 
   void clearError() {
     if (state.failure != null) {
+      AppLogger.uiInfo('Clearing reservation mutation error');
       state = state.copyWithClearError();
     }
   }
 
   void clearSuccess() {
     if (state.successMessage != null) {
+      AppLogger.uiInfo('Clearing reservation mutation success message');
       state = state.copyWithClearSuccess();
     }
   }

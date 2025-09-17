@@ -7509,6 +7509,30 @@ abstract class L10n {
   /// **'Got it'**
   String get myReservationModalGotItButton;
 
+  /// No description provided for @termsOfServiceScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service'**
+  String get termsOfServiceScreenTitle;
+
+  /// No description provided for @privacyPolicyScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicyScreenTitle;
+
+  /// No description provided for @contentDisplayNotAvailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Content Not Available'**
+  String get contentDisplayNotAvailableTitle;
+
+  /// No description provided for @contentDisplayNotAvailableBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The requested content could not be loaded at this time. Please try again later.'**
+  String get contentDisplayNotAvailableBody;
+
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:

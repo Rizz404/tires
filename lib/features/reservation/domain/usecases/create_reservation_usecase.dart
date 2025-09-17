@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/core/usecases/usecase.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/reservation/domain/repositories/reservation_repository.dart';
@@ -22,6 +23,7 @@ class CreateReservationUsecase
   Future<Either<Failure, ItemSuccessResponse<Reservation>>> call(
     CreateReservationParams params,
   ) async {
+    AppLogger.businessInfo('Executing create reservation usecase');
     return await _reservationRepository.createReservation(params);
   }
 }

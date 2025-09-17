@@ -1,0 +1,7 @@
+{
+  "@@locale": "ja",
+  "termsOfServiceScreenTitle": "利用規約",
+  "privacyPolicyScreenTitle": "プライバシーポリシー",
+  "contentDisplayNotAvailableTitle": "コンテンツを利用できません",
+  "contentDisplayNotAvailableBody": "現在、要求されたコンテンツを読み込むことができません。後でもう一度お試しください。"
+}

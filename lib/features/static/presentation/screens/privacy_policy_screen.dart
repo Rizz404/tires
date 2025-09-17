@@ -2,10 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/features/business_information/presentation/providers/business_information_providers.dart';
 import 'package:tires/features/business_information/presentation/providers/public_business_information_state.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
-import 'package:tires/shared/presentation/widgets/loading_overlay.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:tires/shared/presentation/widgets/user_end_drawer.dart';
 
@@ -20,22 +20,17 @@ class PrivacyPolicyScreen extends ConsumerWidget {
     );
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Privacy Policy')),
+      appBar: AppBar(title: Text(context.l10n.privacyPolicyScreenTitle)),
       endDrawer: const UserEndDrawer(),
-      body: LoadingOverlay(
-        isLoading:
-            publicBusinessInfoState.status ==
-            PublicBusinessInformationStatus.loading,
-        child: ScreenWrapper(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildSectionTitle('Privacy Policy'),
-                const SizedBox(height: 16),
-                _buildContent(publicBusinessInfoState),
-              ],
-            ),
+      body: ScreenWrapper(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildSectionTitle(context.l10n.privacyPolicyScreenTitle),
+              const SizedBox(height: 16),
+              _buildContent(publicBusinessInfoState),
+            ],
           ),
         ),
       ),

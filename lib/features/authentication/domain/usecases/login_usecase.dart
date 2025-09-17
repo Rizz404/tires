@@ -5,6 +5,7 @@ import 'package:fpdart/src/either.dart';
 
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/core/usecases/usecase.dart';
 import 'package:tires/features/authentication/domain/entities/auth.dart';
 import 'package:tires/features/authentication/domain/repositories/auth_repository.dart';
@@ -18,6 +19,7 @@ class LoginUsecase implements Usecase<ItemSuccessResponse<Auth>, LoginParams> {
   Future<Either<Failure, ItemSuccessResponse<Auth>>> call(
     LoginParams params,
   ) async {
+    AppLogger.businessInfo('Executing login usecase');
     return await _authRepository.login(params);
   }
 }

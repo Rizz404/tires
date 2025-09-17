@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/reservation/domain/usecases/get_current_user_reservations_cursor_usecase.dart';
@@ -25,6 +26,7 @@ class CurrentUserReservationsGetNotifier
     // Prevent duplicate loading if already in progress
     if (state.status == CurrentUserReservationsGetStatus.loading) return;
 
+    AppLogger.uiInfo('Loading initial current user reservations');
     state = state.copyWith(status: CurrentUserReservationsGetStatus.loading);
 
     final params = GetCurrentUserReservationsCursorParams(
@@ -36,12 +38,19 @@ class CurrentUserReservationsGetNotifier
 
     response.fold(
       (failure) {
+        AppLogger.uiError(
+          'Failed to load initial current user reservations',
+          failure,
+        );
         state = state.copyWith(
           status: CurrentUserReservationsGetStatus.error,
           errorMessage: failure.message,
         );
       },
       (success) {
+        AppLogger.uiInfo(
+          'Successfully loaded initial current user reservations',
+        );
         state = state
             .copyWith(
               status: CurrentUserReservationsGetStatus.success,
@@ -55,6 +64,7 @@ class CurrentUserReservationsGetNotifier
   }
 
   Future<void> getReservations({bool paginate = true, int perPage = 10}) async {
+    AppLogger.uiInfo('Getting current user reservations');
     await getInitialReservations(paginate: paginate, perPage: perPage);
   }
 
@@ -63,6 +73,7 @@ class CurrentUserReservationsGetNotifier
         !state.hasNextPage)
       return;
 
+    AppLogger.uiInfo('Loading more current user reservations');
     state = state.copyWith(
       status: CurrentUserReservationsGetStatus.loadingMore,
     );
@@ -77,6 +88,10 @@ class CurrentUserReservationsGetNotifier
 
     response.fold(
       (failure) {
+        AppLogger.uiError(
+          'Failed to load more current user reservations',
+          failure,
+        );
         state = state.copyWith(
           status: CurrentUserReservationsGetStatus.error,
           errorMessage: failure.message,
@@ -99,15 +114,18 @@ class CurrentUserReservationsGetNotifier
   }
 
   Future<void> refreshReservations() async {
+    AppLogger.uiInfo('Refreshing current user reservations');
     await getInitialReservations();
   }
 
   void clearState() {
+    AppLogger.uiInfo('Clearing current user reservations state');
     state = const CurrentUserReservationsGetState();
   }
 
   void clearError() {
     if (state.errorMessage != null) {
+      AppLogger.uiInfo('Clearing current user reservations error');
       state = state.copyWithClearError();
     }
   }

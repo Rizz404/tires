@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/core/usecases/usecase.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/reservation/domain/repositories/reservation_repository.dart';
@@ -20,6 +21,9 @@ class GetCurrentUserReservationsCursorUsecase
   Future<Either<Failure, CursorPaginatedSuccess<Reservation>>> call(
     GetCurrentUserReservationsCursorParams params,
   ) async {
+    AppLogger.businessInfo(
+      'Executing get current user reservations cursor usecase',
+    );
     return await _reservationRepository.getCurrentUserReservations(params);
   }
 }

@@ -2,6 +2,7 @@ import 'package:tires/core/network/api_cursor_pagination_response.dart';
 import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/reservation/data/models/available_hour_model.dart';
 import 'package:tires/features/reservation/data/models/calendar_model.dart';
 import 'package:tires/features/reservation/data/models/reservation_model.dart';
@@ -47,6 +48,7 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
     CreateReservationParams params,
   ) async {
     try {
+      AppLogger.networkInfo('Creating reservation');
       final data = params.toMap();
 
       final response = await _dioClient.post<ReservationModel>(
@@ -59,6 +61,7 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
 
       return response;
     } catch (e) {
+      AppLogger.networkError('Error creating reservation', e);
       rethrow;
     }
   }
@@ -68,6 +71,7 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
     GetReservationCursorParams params,
   ) async {
     try {
+      AppLogger.networkInfo('Getting reservations cursor');
       final queryParameters = params.toMap();
 
       final response = await _dioClient.getWithCursor<ReservationModel>(
@@ -80,6 +84,7 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
 
       return response;
     } catch (e) {
+      AppLogger.networkError('Error getting reservations cursor', e);
       rethrow;
     }
   }
@@ -90,6 +95,7 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
     GetCurrentUserReservationsCursorParams params,
   ) async {
     try {
+      AppLogger.networkInfo('Getting current user reservations');
       final queryParameters = params.toMap();
 
       final response = await _dioClient.getWithCursor<ReservationModel>(
@@ -102,6 +108,7 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
 
       return response;
     } catch (e) {
+      AppLogger.networkError('Error getting current user reservations', e);
       rethrow;
     }
   }
@@ -111,6 +118,7 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
     GetReservationCalendarParams params,
   ) async {
     try {
+      AppLogger.networkInfo('Getting reservation calendar');
       final queryParameters = params.toMap();
 
       final response = await _dioClient.get<CalendarModel>(
@@ -123,6 +131,7 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
 
       return response;
     } catch (e) {
+      AppLogger.networkError('Error getting reservation calendar', e);
       rethrow;
     }
   }
@@ -132,6 +141,7 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
     GetReservationAvailableHoursParams params,
   ) async {
     try {
+      AppLogger.networkInfo('Getting reservation available hours');
       final queryParameters = params.toMap();
 
       final response = await _dioClient.get<AvailableHourModel>(
@@ -144,6 +154,7 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
 
       return response;
     } catch (e) {
+      AppLogger.networkError('Error getting reservation available hours', e);
       rethrow;
     }
   }

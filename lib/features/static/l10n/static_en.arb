@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "termsOfServiceScreenTitle": "Terms of Service",
+  "privacyPolicyScreenTitle": "Privacy Policy",
+  "contentDisplayNotAvailableTitle": "Content Not Available",
+  "contentDisplayNotAvailableBody": "The requested content could not be loaded at this time. Please try again later."
+}

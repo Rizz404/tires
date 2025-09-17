@@ -2,6 +2,7 @@ import 'package:fpdart/src/either.dart';
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/network/api_error_response.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/business_information/data/datasources/business_information_remote_datasource.dart';
 import 'package:tires/features/business_information/data/mapper/business_information_mapper.dart';
 import 'package:tires/features/business_information/domain/repositories/business_information_repository.dart';
@@ -19,6 +20,7 @@ class BusinessInformationRepositoryImpl
   Future<Either<Failure, ItemSuccessResponse<BusinessInformation>>>
   getBusinessInformation() async {
     try {
+      AppLogger.businessInfo('Getting business information in repository');
       final result = await _businessInformationRemoteDatasource
           .getBusinessInformation();
 
@@ -39,6 +41,9 @@ class BusinessInformationRepositoryImpl
   Future<Either<Failure, ItemSuccessResponse<BusinessInformation>>>
   getPublicBusinessInformation() async {
     try {
+      AppLogger.businessInfo(
+        'Getting public business information in repository',
+      );
       final result = await _businessInformationRemoteDatasource
           .getPublicBusinessInformation();
 
@@ -59,6 +64,7 @@ class BusinessInformationRepositoryImpl
   Future<Either<Failure, ItemSuccessResponse<BusinessInformation>>>
   updateBusinessInformation(UpdateBusinessInformationParams params) async {
     try {
+      AppLogger.businessInfo('Updating business information in repository');
       final result = await _businessInformationRemoteDatasource
           .updateBusinessInformation(params);
 

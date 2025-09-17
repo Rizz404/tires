@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/availability/domain/usecases/get_availability_calendar_usecase.dart';
 import 'package:tires/features/availability/presentation/providers/availability_provider.dart';
 import 'package:tires/features/availability/presentation/providers/availability_state.dart';
@@ -19,6 +20,7 @@ class AvailabilityNotifier extends Notifier<AvailabilityState> {
     required String menuId,
     DateTime? targetMonth,
   }) async {
+    AppLogger.uiInfo('Getting availability calendar');
     final currentMonth = targetMonth ?? DateTime.now();
     final monthString = DateFormat('yyyy-MM').format(currentMonth);
 
@@ -43,12 +45,14 @@ class AvailabilityNotifier extends Notifier<AvailabilityState> {
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to get availability calendar', failure);
         state = state.copyWith(
           status: AvailabilityStatus.error,
           errorMessage: failure.message,
         );
       },
       (success) {
+        AppLogger.uiInfo('Availability calendar loaded successfully');
         state = state
             .copyWith(
               status: AvailabilityStatus.success,
@@ -63,6 +67,7 @@ class AvailabilityNotifier extends Notifier<AvailabilityState> {
     required String menuId,
     DateTime? targetMonth,
   }) async {
+    AppLogger.uiInfo('Refreshing availability calendar');
     final currentMonth = targetMonth ?? DateTime.now();
     final monthString = DateFormat('yyyy-MM').format(currentMonth);
 
@@ -82,12 +87,14 @@ class AvailabilityNotifier extends Notifier<AvailabilityState> {
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to refresh availability calendar', failure);
         state = state.copyWith(
           status: AvailabilityStatus.error,
           errorMessage: failure.message,
         );
       },
       (success) {
+        AppLogger.uiInfo('Availability calendar refreshed successfully');
         state = state
             .copyWith(
               status: AvailabilityStatus.success,
@@ -99,11 +106,13 @@ class AvailabilityNotifier extends Notifier<AvailabilityState> {
   }
 
   void clearState() {
+    AppLogger.uiInfo('Clearing availability state');
     state = const AvailabilityState();
   }
 
   void clearError() {
     if (state.errorMessage != null) {
+      AppLogger.uiInfo('Clearing availability error');
       state = state.copyWithClearError();
     }
   }

@@ -5,6 +5,7 @@ import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/api_error_response.dart';
 import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/availability/data/mapper/availability_mapper.dart';
 import 'package:tires/features/availability/domain/entities/availability_calendar.dart';
 import 'package:tires/features/availability/domain/usecases/get_availability_calendar_usecase.dart';
@@ -23,6 +24,7 @@ class AvailabilityRemoteDatasourceImpl implements AvailabilityRemoteDatasource {
   Future<Either<Failure, ItemSuccessResponse<AvailabilityCalendar>>>
   getAvailabilityCalendar(GetAvailabilityCalendarParams params) async {
     try {
+      AppLogger.networkInfo('Fetching availability calendar');
       final queryParameters = params.toMap();
 
       final response = await _dioClient.get(
@@ -41,8 +43,10 @@ class AvailabilityRemoteDatasourceImpl implements AvailabilityRemoteDatasource {
 
       return Right(ItemSuccessResponse(data: availabilityCalendar));
     } on ApiErrorResponse catch (e) {
+      AppLogger.networkError('Error fetching availability calendar', e);
       return Left(ServerFailure(message: e.message));
     } catch (e) {
+      AppLogger.networkError('Error fetching availability calendar', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }

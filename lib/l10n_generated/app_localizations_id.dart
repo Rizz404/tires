@@ -4281,6 +4281,19 @@ class L10nId extends L10n {
   String get myReservationModalGotItButton => 'Got it';
 
   @override
+  String get termsOfServiceScreenTitle => 'Terms of Service';
+
+  @override
+  String get privacyPolicyScreenTitle => 'Privacy Policy';
+
+  @override
+  String get contentDisplayNotAvailableTitle => 'Content Not Available';
+
+  @override
+  String get contentDisplayNotAvailableBody =>
+      'The requested content could not be loaded at this time. Please try again later.';
+
+  @override
   String get appName => 'Tire Installation Reservation';
 
   @override

@@ -4033,6 +4033,19 @@ class L10nJa extends L10n {
   String get myReservationModalGotItButton => '了解しました';
 
   @override
+  String get termsOfServiceScreenTitle => '利用規約';
+
+  @override
+  String get privacyPolicyScreenTitle => 'プライバシーポリシー';
+
+  @override
+  String get contentDisplayNotAvailableTitle => 'コンテンツを利用できません';
+
+  @override
+  String get contentDisplayNotAvailableBody =>
+      '現在、要求されたコンテンツを読み込むことができません。後でもう一度お試しください。';
+
+  @override
   String get appName => 'タイヤ取付予約';
 
   @override

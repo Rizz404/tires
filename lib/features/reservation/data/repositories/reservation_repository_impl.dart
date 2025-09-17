@@ -2,6 +2,7 @@ import 'package:fpdart/src/either.dart';
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/network/api_error_response.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/reservation/data/datasources/reservation_remote_datasource.dart';
 import 'package:tires/features/reservation/data/mapper/available_hour_mapper.dart';
 import 'package:tires/features/reservation/data/mapper/calendar_mapper.dart';
@@ -29,6 +30,7 @@ class ReservationRepositoryImpl implements ReservationRepository {
     CreateReservationParams params,
   ) async {
     try {
+      AppLogger.businessInfo('Creating reservation in repository');
       final result = await _reservationRemoteDatasource.createReservation(
         params,
       );
@@ -40,8 +42,10 @@ class ReservationRepositoryImpl implements ReservationRepository {
         ),
       );
     } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in create reservation', e);
       return Left(ServerFailure(message: e.message));
     } catch (e) {
+      AppLogger.businessError('Error in create reservation', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }
@@ -50,6 +54,7 @@ class ReservationRepositoryImpl implements ReservationRepository {
   Future<Either<Failure, CursorPaginatedSuccess<Reservation>>>
   getReservationsCursor(GetReservationCursorParams params) async {
     try {
+      AppLogger.businessInfo('Getting reservations cursor in repository');
       final result = await _reservationRemoteDatasource.getReservationsCursor(
         params,
       );
@@ -63,8 +68,10 @@ class ReservationRepositoryImpl implements ReservationRepository {
         ),
       );
     } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in get reservations cursor', e);
       return Left(ServerFailure(message: e.message));
     } catch (e) {
+      AppLogger.businessError('Error in get reservations cursor', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }
@@ -75,6 +82,7 @@ class ReservationRepositoryImpl implements ReservationRepository {
     GetCurrentUserReservationsCursorParams params,
   ) async {
     try {
+      AppLogger.businessInfo('Getting current user reservations in repository');
       final result = await _reservationRemoteDatasource
           .getCurrentUserReservations(params);
 
@@ -87,8 +95,10 @@ class ReservationRepositoryImpl implements ReservationRepository {
         ),
       );
     } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in get current user reservations', e);
       return Left(ServerFailure(message: e.message));
     } catch (e) {
+      AppLogger.businessError('Error in get current user reservations', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }
@@ -98,6 +108,7 @@ class ReservationRepositoryImpl implements ReservationRepository {
     GetReservationCalendarParams params,
   ) async {
     try {
+      AppLogger.businessInfo('Getting reservation calendar in repository');
       final result = await _reservationRemoteDatasource.getReservationCalendar(
         params,
       );
@@ -107,8 +118,10 @@ class ReservationRepositoryImpl implements ReservationRepository {
         ItemSuccessResponse(data: calendar, message: result.message),
       );
     } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in get reservation calendar', e);
       return Left(ServerFailure(message: e.message));
     } catch (e) {
+      AppLogger.businessError('Error in get reservation calendar', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }
@@ -119,6 +132,9 @@ class ReservationRepositoryImpl implements ReservationRepository {
     GetReservationAvailableHoursParams params,
   ) async {
     try {
+      AppLogger.businessInfo(
+        'Getting reservation available hours in repository',
+      );
       final result = await _reservationRemoteDatasource
           .getReservationAvailableHours(params);
 
@@ -127,8 +143,13 @@ class ReservationRepositoryImpl implements ReservationRepository {
         ItemSuccessResponse(data: calendar, message: result.message),
       );
     } on ApiErrorResponse catch (e) {
+      AppLogger.businessError(
+        'API error in get reservation available hours',
+        e,
+      );
       return Left(ServerFailure(message: e.message));
     } catch (e) {
+      AppLogger.businessError('Error in get reservation available hours', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }

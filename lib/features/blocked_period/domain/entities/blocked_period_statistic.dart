@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:tires/core/services/app_logger.dart';
 
 class BlockedPeriodStatistic extends Equatable {
   final Statistics statistics;

@@ -3,6 +3,7 @@ import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/network/api_error_response.dart';
 import 'package:tires/core/network/validation_error_mapper.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/core/services/provider_invalidation_service.dart';
 import 'package:tires/core/storage/session_storage_service.dart';
 import 'package:tires/features/authentication/data/datasources/auth_remote_datasource.dart';
@@ -30,9 +31,11 @@ class AuthRepositoryImpl extends AuthRepository {
     RegisterParams params,
   ) async {
     try {
+      AppLogger.businessInfo('Registering user in repository');
       final apiResponse = await _authRemoteDatasource.register(params);
       return Right(ItemSuccessResponse(data: apiResponse.data.toEntity()));
     } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in register', e);
       if (e.errors != null) {
         return Left(
           ValidationFailure(
@@ -43,6 +46,7 @@ class AuthRepositoryImpl extends AuthRepository {
       }
       return Left(ServerFailure(message: e.message));
     } catch (e) {
+      AppLogger.businessError('Error in register', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }
@@ -52,6 +56,7 @@ class AuthRepositoryImpl extends AuthRepository {
     LoginParams params,
   ) async {
     try {
+      AppLogger.businessInfo('Logging in user in repository');
       final apiResponse = await _authRemoteDatasource.login(params);
 
       await _sessionStorageService.saveAccessToken(apiResponse.data.token);
@@ -59,6 +64,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
       return Right(ItemSuccessResponse(data: apiResponse.data.toEntity()));
     } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in login', e);
       if (e.errors != null) {
         return Left(
           ValidationFailure(
@@ -69,6 +75,7 @@ class AuthRepositoryImpl extends AuthRepository {
       }
       return Left(ServerFailure(message: e.message));
     } catch (e) {
+      AppLogger.businessError('Error in login', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }
@@ -78,9 +85,11 @@ class AuthRepositoryImpl extends AuthRepository {
     ForgotPasswordParams params,
   ) async {
     try {
+      AppLogger.businessInfo('Sending forgot password in repository');
       final apiResponse = await _authRemoteDatasource.forgotPassword(params);
       return Right(ActionSuccess(message: apiResponse.message));
     } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in forgot password', e);
       if (e.errors != null) {
         return Left(
           ValidationFailure(
@@ -91,6 +100,7 @@ class AuthRepositoryImpl extends AuthRepository {
       }
       return Left(ServerFailure(message: e.message));
     } catch (e) {
+      AppLogger.businessError('Error in forgot password', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }
@@ -100,9 +110,11 @@ class AuthRepositoryImpl extends AuthRepository {
     SetNewPasswordParams params,
   ) async {
     try {
+      AppLogger.businessInfo('Setting new password in repository');
       final apiResponse = await _authRemoteDatasource.setNewPassword(params);
       return Right(ActionSuccess(message: apiResponse.message));
     } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in set new password', e);
       if (e.errors != null) {
         return Left(
           ValidationFailure(
@@ -113,6 +125,7 @@ class AuthRepositoryImpl extends AuthRepository {
       }
       return Left(ServerFailure(message: e.message));
     } catch (e) {
+      AppLogger.businessError('Error in set new password', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }
@@ -120,6 +133,7 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Either<Failure, ActionSuccess>> logout() async {
     try {
+      AppLogger.businessInfo('Logging out user in repository');
       final apiResponse = await _authRemoteDatasource.logout();
 
       await _sessionStorageService.deleteAccessToken();
@@ -130,6 +144,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
       return Right(ActionSuccess(message: apiResponse.message));
     } catch (e) {
+      AppLogger.businessError('Error in logout', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }
@@ -137,6 +152,7 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Either<Failure, ItemSuccessResponse<Auth?>>> getCurrentAuth() async {
     try {
+      AppLogger.businessInfo('Getting current auth in repository');
       final token = await _sessionStorageService.getAccessToken();
       final user = await _sessionStorageService.getUser();
 
@@ -149,8 +165,10 @@ class AuthRepositoryImpl extends AuthRepository {
       }
       return Right(ItemSuccessResponse(data: null));
     } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in get current auth', e);
       return Left(ServerFailure(message: e.message));
     } catch (e) {
+      AppLogger.businessError('Error in get current auth', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }

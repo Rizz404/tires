@@ -2,6 +2,7 @@
 import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/authentication/data/models/auth_model.dart';
 import 'package:tires/features/authentication/domain/usecases/forgot_password_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/login_usecase.dart';
@@ -24,6 +25,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   @override
   Future<ApiResponse<AuthModel>> register(RegisterParams params) async {
     try {
+      AppLogger.networkInfo('Registering user');
       final response = await _dioClient.post(
         ApiEndpoints.register,
         data: params.toMap(),
@@ -32,6 +34,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
 
       return response;
     } catch (e) {
+      AppLogger.networkError('Error registering user', e);
       rethrow;
     }
   }
@@ -39,6 +42,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   @override
   Future<ApiResponse<AuthModel>> login(LoginParams params) async {
     try {
+      AppLogger.networkInfo('Logging in user');
       final response = await _dioClient.post(
         ApiEndpoints.login,
         data: params.toMap(),
@@ -46,6 +50,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       );
       return response;
     } catch (e) {
+      AppLogger.networkError('Error logging in user', e);
       rethrow;
     }
   }
@@ -53,9 +58,11 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   @override
   Future<ApiResponse<void>> logout() async {
     try {
+      AppLogger.networkInfo('Logging out user');
       final response = await _dioClient.post(ApiEndpoints.logout);
       return response;
     } catch (e) {
+      AppLogger.networkError('Error logging out user', e);
       rethrow;
     }
   }
@@ -63,12 +70,14 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   @override
   Future<ApiResponse<void>> forgotPassword(ForgotPasswordParams params) async {
     try {
+      AppLogger.networkInfo('Sending forgot password request');
       final response = await _dioClient.post(
         ApiEndpoints.forgotPassword,
         data: params.toMap(),
       );
       return response;
     } catch (e) {
+      AppLogger.networkError('Error sending forgot password request', e);
       rethrow;
     }
   }
@@ -76,12 +85,14 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   @override
   Future<ApiResponse<void>> setNewPassword(SetNewPasswordParams params) async {
     try {
+      AppLogger.networkInfo('Setting new password');
       final response = await _dioClient.post(
         ApiEndpoints.setNewPassword,
         data: params.toMap(),
       );
       return response;
     } catch (e) {
+      AppLogger.networkError('Error setting new password', e);
       rethrow;
     }
   }
