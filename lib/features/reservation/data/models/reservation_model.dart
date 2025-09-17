@@ -75,7 +75,6 @@ class ReservationModel extends Reservation {
   factory ReservationModel.fromMap(Map<String, dynamic> map) {
     final customerInfoData = map['customer_info'] as Map<String, dynamic>;
     final amountData = map['amount'] as Map<String, dynamic>;
-    final statusData = map['status'] as Map<String, dynamic>;
     final menuData = map['menu'] as Map<String, dynamic>;
     final userData = map['user'] != null
         ? map['user'] as Map<String, dynamic>
@@ -101,7 +100,7 @@ class ReservationModel extends Reservation {
       reservationDatetime: reservationDatetime,
       numberOfPeople: (map['number_of_people'] as int?) ?? 1,
       amount: ReservationAmountModel.fromMap(amountData),
-      status: ReservationStatusModel.fromMap(statusData),
+      status: _createStatusFromResponse(map['status']),
       notes: map['notes'] as String?,
       createdAt: createdAt,
       updatedAt: updatedAt,
@@ -129,6 +128,25 @@ class ReservationModel extends Reservation {
 
   factory ReservationModel.fromJson(String source) =>
       ReservationModel.fromMap(json.decode(source));
+
+  static ReservationStatusModel _createStatusFromResponse(dynamic statusData) {
+    if (statusData is String) {
+      // Handle string status (from API response)
+      return ReservationStatusModel.fromMap({
+        'value': statusData,
+        'label': statusData,
+      });
+    } else if (statusData is Map<String, dynamic>) {
+      // Handle map status (from cached/stored data)
+      return ReservationStatusModel.fromMap(statusData);
+    } else {
+      // Fallback to pending status
+      return ReservationStatusModel.fromMap({
+        'value': 'pending',
+        'label': 'pending',
+      });
+    }
+  }
 
   @override
   String toString() => 'ReservationModel(${toMap()})';
