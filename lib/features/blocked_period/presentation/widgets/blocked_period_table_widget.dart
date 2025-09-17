@@ -104,8 +104,8 @@ class BlockedPeriodTableWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       color: context.colorScheme.surface.withOpacity(0.5),
-      child: Row(
-        children: const [
+      child: const Row(
+        children: [
           SizedBox(
             width: 200,
             child: AppText('MENU', fontWeight: FontWeight.bold),

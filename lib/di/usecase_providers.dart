@@ -16,6 +16,7 @@ import 'package:tires/features/authentication/domain/usecases/register_usecase.d
 import 'package:tires/features/authentication/domain/usecases/set_new_password_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_current_user_dashboard_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
+import 'package:tires/features/customer_management/domain/usecases/get_customer_statistics_usecase.dart';
 import 'package:tires/features/inquiry/domain/usecases/create_inquiry_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/create_menu_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/delete_menu_usecase.dart';
@@ -32,6 +33,7 @@ import 'package:tires/features/reservation/domain/usecases/get_reservation_curso
 import 'package:tires/features/reservation/domain/usecases/update_reservation_usecase.dart';
 import 'package:tires/features/user/domain/usecases/delete_current_user_account_usecase.dart';
 import 'package:tires/features/user/domain/usecases/get_current_user_usecase.dart';
+import 'package:tires/features/user/domain/usecases/get_users_cursor_usecase.dart';
 import 'package:tires/features/user/domain/usecases/update_current_user_password_usecase.dart';
 import 'package:tires/features/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:tires/features/dashboard/domain/usecases/get_dashboard_usecase.dart';
@@ -107,6 +109,12 @@ final getCustomerCursorUsecaseProvider = Provider<GetCustomerCursorUsecase>((
   return GetCustomerCursorUsecase(_customerRepository);
 });
 
+final getCustomerStatisticsUsecaseProvider =
+    Provider<GetCustomerStatisticsUsecase>((ref) {
+      final _customerRepository = ref.watch(customerRepoProvider);
+      return GetCustomerStatisticsUsecase(_customerRepository);
+    });
+
 // User Usecase Providers
 final getCurrentUserUsecaseProvider = Provider<GetCurrentUserUsecase>((ref) {
   final _userRepository = ref.watch(userRepoProvider);
@@ -137,6 +145,11 @@ final deleteCurrentUserAccountUsecaseProvider =
       final _userRepository = ref.watch(userRepoProvider);
       return DeleteCurrentUserAccountUsecase(_userRepository);
     });
+
+final getUsersCursorUsecaseProvider = Provider<GetUsersCursorUsecase>((ref) {
+  final _usersRepository = ref.watch(usersRepoProvider);
+  return GetUsersCursorUsecase(_usersRepository);
+});
 
 final getCurrentUserDashboardUsecaseProvider =
     Provider<GetCurrentUserDashboardUsecase>((ref) {

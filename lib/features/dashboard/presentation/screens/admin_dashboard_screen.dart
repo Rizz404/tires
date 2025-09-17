@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
-import 'package:tires/features/dashboard/domain/entities/dashboard.dart';
 import 'package:tires/features/dashboard/presentation/providers/dashboard_providers.dart';
 import 'package:tires/features/dashboard/presentation/providers/dashboard_state.dart';
 import 'package:tires/features/dashboard/presentation/widgets/announcements_section.dart';

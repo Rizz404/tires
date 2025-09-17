@@ -2846,6 +2846,27 @@ class L10nJa extends L10n {
   String get adminListCustomerManagementFiltersReset => 'リセット';
 
   @override
+  String get adminListCustomerManagementFiltersTitle => '絞り込み';
+
+  @override
+  String get adminListCustomerManagementFiltersHideFilters => 'フィルターを非表示';
+
+  @override
+  String get adminListCustomerManagementFiltersShowFilters => 'フィルターを表示';
+
+  @override
+  String get adminListCustomerManagementFiltersTypeLabel => '顧客タイプ';
+
+  @override
+  String get adminListCustomerManagementFiltersSearchLabel => '検索';
+
+  @override
+  String get adminListCustomerManagementFiltersFilterButton => '絞り込む';
+
+  @override
+  String get adminListCustomerManagementFiltersResetButton => 'リセット';
+
+  @override
   String get adminListCustomerManagementTableHeaderCustomer => '顧客';
 
   @override

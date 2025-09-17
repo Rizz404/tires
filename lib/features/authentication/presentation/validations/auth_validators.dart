@@ -1,5 +1,4 @@
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:tires/core/services/app_logger.dart';
 
 class AuthValidators {
   static final email = FormBuilderValidators.compose([

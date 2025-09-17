@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
-import 'package:tires/shared/presentation/widgets/app_text.dart';
 
 class HomeCarousel extends StatefulWidget {
   const HomeCarousel({super.key});

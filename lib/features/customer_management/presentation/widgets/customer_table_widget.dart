@@ -60,20 +60,22 @@ class CustomerTableWidget extends StatelessWidget {
     }
 
     return Card(
-      elevation: 2,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(color: context.colorScheme.outlineVariant),
+      ),
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAlias,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: IntrinsicWidth(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _buildTableHeader(context),
-              const Divider(height: 1),
+              const Divider(height: 1, thickness: 1),
               ...customers.map((customer) => _buildTableRow(context, customer)),
-              if (isLoading)
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Center(child: CircularProgressIndicator()),
-                ),
             ],
           ),
         ),
@@ -84,72 +86,65 @@ class CustomerTableWidget extends StatelessWidget {
   Widget _buildTableHeader(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: context.colorScheme.surfaceContainerHighest,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(12),
-          topRight: Radius.circular(12),
-        ),
-      ),
+      color: context.colorScheme.surface.withOpacity(0.5),
       child: Row(
         children: [
           SizedBox(
             width: 200,
             child: AppText(
-              context.l10n.adminListCustomerManagementTableHeaderCustomer,
-              style: AppTextStyle.titleSmall,
+              context.l10n.adminListCustomerManagementTableHeaderCustomer
+                  .toUpperCase(),
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(
             width: 180,
             child: AppText(
-              context.l10n.adminListCustomerManagementTableHeaderContactInfo,
-              style: AppTextStyle.titleSmall,
+              context.l10n.adminListCustomerManagementTableHeaderContactInfo
+                  .toUpperCase(),
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(
             width: 120,
             child: AppText(
-              context.l10n.adminListCustomerManagementTableHeaderStatus,
-              style: AppTextStyle.titleSmall,
+              context.l10n.adminListCustomerManagementTableHeaderStatus
+                  .toUpperCase(),
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(
             width: 120,
             child: AppText(
-              context.l10n.adminListCustomerManagementTableHeaderReservations,
-              style: AppTextStyle.titleSmall,
+              context.l10n.adminListCustomerManagementTableHeaderReservations
+                  .toUpperCase(),
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(
             width: 140,
             child: AppText(
-              context.l10n.adminListCustomerManagementTableHeaderTotalAmount,
-              style: AppTextStyle.titleSmall,
+              context.l10n.adminListCustomerManagementTableHeaderTotalAmount
+                  .toUpperCase(),
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(
             width: 140,
             child: AppText(
-              context
-                  .l10n
-                  .adminListCustomerManagementTableHeaderLastReservation,
-              style: AppTextStyle.titleSmall,
+              context.l10n.adminListCustomerManagementTableHeaderLastReservation
+                  .toUpperCase(),
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(
             width: 80,
-            child: AppText(
-              context.l10n.adminListCustomerManagementTableHeaderActions,
-              style: AppTextStyle.titleSmall,
-              fontWeight: FontWeight.bold,
-              textAlign: TextAlign.center,
+            child: Center(
+              child: AppText(
+                context.l10n.adminListCustomerManagementTableHeaderActions
+                    .toUpperCase(),
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
@@ -159,11 +154,11 @@ class CustomerTableWidget extends StatelessWidget {
 
   Widget _buildTableRow(BuildContext context, User customer) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: context.colorScheme.outline.withValues(alpha: 0.2),
+            color: context.colorScheme.outlineVariant,
             width: 1,
           ),
         ),
@@ -260,7 +255,6 @@ class CustomerTableWidget extends StatelessWidget {
     // Use a different logic for guest vs registered - guests might have recent verification dates
     final isRegistered =
         customer.companyName != null || customer.department != null;
-    final bool isFirstTime = _getMockReservationCount(customer) == 0;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

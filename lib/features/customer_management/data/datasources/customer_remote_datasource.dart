@@ -6,6 +6,7 @@ import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/customer_management/data/models/customer_dashboard_model.dart';
 import 'package:tires/features/customer_management/data/models/customer_model.dart';
+import 'package:tires/features/customer_management/data/models/customer_statistic_model.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
 
 abstract class CustomerRemoteDatasource {
@@ -13,6 +14,7 @@ abstract class CustomerRemoteDatasource {
     GetCustomerCursorParams params,
   );
   Future<ApiResponse<CustomerDashboardModel>> getCurrentUserDashboard();
+  Future<ApiResponse<CustomerStatisticModel>> getCustomerStatistics();
 }
 
 class CustomerRemoteDatasourceImpl implements CustomerRemoteDatasource {
@@ -27,7 +29,7 @@ class CustomerRemoteDatasourceImpl implements CustomerRemoteDatasource {
     try {
       AppLogger.networkInfo('Fetching customer cursor');
       final response = await _dioClient.getWithCursor<CustomerModel>(
-        "/customers",
+        ApiEndpoints.adminCustomers,
         fromJson: (item) => CustomerModel.fromMap(item as Map<String, dynamic>),
         queryParameters: params.toMap(),
       );
@@ -53,7 +55,24 @@ class CustomerRemoteDatasourceImpl implements CustomerRemoteDatasource {
       return response;
     } catch (e) {
       AppLogger.networkError('Error fetching current user dashboard', e);
-      print('Error in getCurrentUserDashboard: $e');
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<CustomerStatisticModel>> getCustomerStatistics() async {
+    try {
+      AppLogger.networkInfo('Fetching customer statistics');
+      final response = await _dioClient.get(
+        ApiEndpoints.adminCustomerStatistics,
+      );
+      AppLogger.networkDebug('Customer statistics fetched successfully');
+      return ApiResponse<CustomerStatisticModel>.fromMap(
+        response.data,
+        (data) => CustomerStatisticModel.fromMap(data),
+      );
+    } catch (e) {
+      AppLogger.networkError('Error fetching customer statistics', e);
       rethrow;
     }
   }

@@ -70,8 +70,9 @@ class CurrentUserReservationsGetNotifier
 
   Future<void> loadMoreReservations() async {
     if (state.status == CurrentUserReservationsGetStatus.loadingMore ||
-        !state.hasNextPage)
+        !state.hasNextPage) {
       return;
+    }
 
     AppLogger.uiInfo('Loading more current user reservations');
     state = state.copyWith(

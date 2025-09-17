@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:tires/core/services/app_logger.dart';
 
 class MenuValidators {
   static FormFieldValidator<String> nameEn(BuildContext context) {

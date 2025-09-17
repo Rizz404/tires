@@ -10,6 +10,7 @@ class ApiEndpoints {
   static const String _authPrefix = '/auth';
   static const String _menuPrefix = '/menus';
   static const String _userPrefix = '/users';
+  static const String _customerApiPrefix = '/customers';
   static const String _reservationPrefix = '/reservations';
   static const String _bookingPrefix = '/booking';
   static const String _announcementPrefix = '/announcements';
@@ -33,6 +34,9 @@ class ApiEndpoints {
   static const String adminDashboard = '$_adminPrefix/dashboard';
   static const String adminMenus = '$_adminPrefix$_menuPrefix';
   static const String adminUsers = '$_adminPrefix$_userPrefix';
+  static const String adminCustomers = '$_adminPrefix$_customerApiPrefix';
+  static const String adminCustomerStatistics =
+      '$_adminPrefix$_customerApiPrefix/statistics';
   static const String adminReservations = '$_adminPrefix$_reservationPrefix';
   static const String adminReservationCalendar =
       '$_adminPrefix$_reservationPrefix/calendar';

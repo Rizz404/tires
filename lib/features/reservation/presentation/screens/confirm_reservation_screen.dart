@@ -232,7 +232,7 @@ class _ConfirmReservationScreenState
                     // Handle error case - reservation data is missing
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(
+                        content: const Text(
                           'Reservation data is missing. Please try again.',
                         ),
                         backgroundColor: Theme.of(context).colorScheme.error,

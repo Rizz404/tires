@@ -10,7 +10,7 @@ import 'package:tires/features/inquiry/data/datasources/inquiry_remote_datasourc
 import 'package:tires/features/menu/data/datasources/menu_remote_datasource.dart';
 import 'package:tires/features/reservation/data/datasources/reservation_remote_datasource.dart';
 import 'package:tires/features/user/data/datasources/current_user_remote_datasource.dart';
-import 'package:tires/features/user/data/datasources/current_user_remote_datasource_impl.dart';
+import 'package:tires/features/user/data/datasources/users_remote_datasource.dart';
 
 final authRemoteDatasourceProvider = Provider<AuthRemoteDatasource>((ref) {
   final _dioClient = ref.watch(dioClientProvider);
@@ -40,6 +40,11 @@ final userRemoteDatasourceProvider = Provider<CurrentUserRemoteDatasource>((
 ) {
   final _dioClient = ref.watch(dioClientProvider);
   return CurrentUserRemoteDatasourceImpl(_dioClient);
+});
+
+final usersRemoteDatasourceProvider = Provider<UsersRemoteDatasource>((ref) {
+  final _dioClient = ref.watch(dioClientProvider);
+  return UsersRemoteDatasourceImpl(_dioClient);
 });
 
 final inquiryRemoteDatasourceProvider = Provider<InquiryRemoteDatasource>((

@@ -19,6 +19,8 @@ import 'package:tires/features/reservation/data/repositories/reservation_reposit
 import 'package:tires/features/reservation/domain/repositories/reservation_repository.dart';
 import 'package:tires/features/user/data/repositories/current_user_repository_impl.dart';
 import 'package:tires/features/user/domain/repositories/current_user_repository.dart';
+import 'package:tires/features/user/data/repositories/users_repository_impl.dart';
+import 'package:tires/features/user/domain/repositories/users_repository.dart';
 import 'package:tires/features/dashboard/data/repositories/dashboard_repository_impl.dart';
 import 'package:tires/features/dashboard/domain/repositories/dashboard_repository.dart';
 
@@ -61,6 +63,11 @@ final userRepoProvider = Provider<CurrentUserRepository>((ref) {
     _userRemoteDatasource,
     _sessionStorageService,
   );
+});
+
+final usersRepoProvider = Provider<UsersRepository>((ref) {
+  final _usersRemoteDatasource = ref.watch(usersRemoteDatasourceProvider);
+  return UsersRepositoryImpl(_usersRemoteDatasource);
 });
 
 final inquiryRepoProvider = Provider<InquiryRepository>((ref) {

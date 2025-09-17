@@ -46,8 +46,9 @@ class CustomerNotifier extends Notifier<CustomerState> {
   }
 
   Future<void> loadMoreCustomers() async {
-    if (state.status == CustomerStatus.loadingMore || !state.hasNextPage)
+    if (state.status == CustomerStatus.loadingMore || !state.hasNextPage) {
       return;
+    }
 
     AppLogger.uiInfo('Loading more customers');
     state = state.copyWith(status: CustomerStatus.loadingMore);

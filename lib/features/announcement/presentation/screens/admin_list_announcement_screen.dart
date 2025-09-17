@@ -171,7 +171,7 @@ class _AdminListAnnouncementScreenState
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.error_outline, color: Colors.red, size: 32),
+              const Icon(Icons.error_outline, color: Colors.red, size: 32),
               const SizedBox(height: 8),
               Text(
                 statisticsState.errorMessage ?? 'Failed to load statistics',

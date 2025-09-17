@@ -277,7 +277,7 @@ class _AdminUpsertBusinessInformationScreenState
           validator: FormBuilderValidators.required(),
         ),
         const SizedBox(height: 16),
-        AppCheckbox(name: 'site_public', title: AppText("Make site public")),
+        const AppCheckbox(name: 'site_public', title: AppText("Make site public")),
         const SizedBox(height: 16),
         AppTextField(
           name: 'reply_email',
@@ -288,7 +288,7 @@ class _AdminUpsertBusinessInformationScreenState
           ]),
         ),
         const SizedBox(height: 16),
-        AppTextField(name: 'google_analytics_id', label: "Google Analytics ID"),
+        const AppTextField(name: 'google_analytics_id', label: "Google Analytics ID"),
       ],
     );
   }
@@ -298,20 +298,20 @@ class _AdminUpsertBusinessInformationScreenState
       title: "Description & Image",
       icon: Icons.image,
       children: [
-        AppTextField(
+        const AppTextField(
           name: 'shop_description',
           label: "Shop Description",
           maxLines: 5,
         ),
         const SizedBox(height: 16),
-        AppTextField(
+        const AppTextField(
           name: 'access_information',
           label: "Access Information",
           maxLines: 3,
         ),
         const SizedBox(height: 16),
         // TODO: Add image picker
-        AppText('Top Image (Image Picker to be implemented)'),
+        const AppText('Top Image (Image Picker to be implemented)'),
       ],
     );
   }
@@ -321,9 +321,9 @@ class _AdminUpsertBusinessInformationScreenState
       title: "Policies & Terms",
       icon: Icons.policy,
       children: [
-        AppRichTextEditor(name: 'terms_of_use', label: "Terms of Use"),
+        const AppRichTextEditor(name: 'terms_of_use', label: "Terms of Use"),
         const SizedBox(height: 16),
-        AppRichTextEditor(name: 'privacy_policy', label: "Privacy Policy"),
+        const AppRichTextEditor(name: 'privacy_policy', label: "Privacy Policy"),
       ],
     );
   }

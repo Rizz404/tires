@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
-class AnnouncementFilterSearch extends StatelessWidget {
+class CustomerFilterSearch extends StatelessWidget {
   final GlobalKey<FormBuilderState> formKey;
   final bool isFilterVisible;
   final VoidCallback onToggleVisibility;
   final VoidCallback onFilter;
   final VoidCallback onReset;
 
-  const AnnouncementFilterSearch({
+  const CustomerFilterSearch({
     super.key,
     required this.formKey,
     required this.isFilterVisible,
@@ -39,7 +38,7 @@ class AnnouncementFilterSearch extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AppText(
-                  context.l10n.adminListAnnouncementScreenFiltersTitle,
+                  context.l10n.adminListCustomerManagementFiltersTitle,
                   style: AppTextStyle.titleLarge,
                 ),
                 TextButton.icon(
@@ -51,8 +50,12 @@ class AnnouncementFilterSearch extends StatelessWidget {
                   ),
                   label: AppText(
                     isFilterVisible
-                        ? context.l10n.adminListAnnouncementScreenJsHideFilters
-                        : context.l10n.adminListAnnouncementScreenJsShowFilters,
+                        ? context
+                              .l10n
+                              .adminListCustomerManagementFiltersHideFilters
+                        : context
+                              .l10n
+                              .adminListCustomerManagementFiltersShowFilters,
                   ),
                 ),
               ],
@@ -63,57 +66,45 @@ class AnnouncementFilterSearch extends StatelessWidget {
                 key: formKey,
                 child: Column(
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: FormBuilderDropdown<String>(
-                            name: 'status',
-                            initialValue: 'all',
-                            decoration: InputDecoration(
-                              labelText: context
-                                  .l10n
-                                  .adminListAnnouncementScreenFiltersStatusLabel,
-                            ),
-                            items: [
-                              DropdownMenuItem(
-                                value: 'all',
-                                child: Text(
-                                  context
-                                      .l10n
-                                      .adminListAnnouncementScreenFiltersAllStatuses,
-                                ),
-                              ),
-                              DropdownMenuItem(
-                                value: 'active',
-                                child: Text(
-                                  context
-                                      .l10n
-                                      .adminUpsertAnnouncementScreenStatusActive,
-                                ),
-                              ),
-                              DropdownMenuItem(
-                                value: 'inactive',
-                                child: Text(
-                                  context
-                                      .l10n
-                                      .adminUpsertAnnouncementScreenStatusInactive,
-                                ),
-                              ),
-                            ],
+                    FormBuilderDropdown<String>(
+                      name: 'status',
+                      initialValue: 'all',
+                      decoration: InputDecoration(
+                        labelText: context
+                            .l10n
+                            .adminListCustomerManagementFiltersTypeLabel,
+                      ),
+                      items: [
+                        DropdownMenuItem(
+                          value: 'all',
+                          child: Text(
+                            context
+                                .l10n
+                                .adminListCustomerManagementFiltersAllTypes,
                           ),
                         ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: FormBuilderDateTimePicker(
-                            name: 'published_at',
-                            inputType: InputType.date,
-                            decoration: InputDecoration(
-                              labelText: context
-                                  .l10n
-                                  .adminListAnnouncementScreenFiltersStartDateLabel,
-                            ),
-                            format: DateFormat('dd/MM/yyyy'),
+                        DropdownMenuItem(
+                          value: 'first_time',
+                          child: Text(
+                            context
+                                .l10n
+                                .adminListCustomerManagementFiltersFirstTime,
+                          ),
+                        ),
+                        DropdownMenuItem(
+                          value: 'repeat',
+                          child: Text(
+                            context
+                                .l10n
+                                .adminListCustomerManagementFiltersRepeat,
+                          ),
+                        ),
+                        DropdownMenuItem(
+                          value: 'dormant',
+                          child: Text(
+                            context
+                                .l10n
+                                .adminListCustomerManagementFiltersDormant,
                           ),
                         ),
                       ],
@@ -124,10 +115,10 @@ class AnnouncementFilterSearch extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: context
                             .l10n
-                            .adminListAnnouncementScreenFiltersSearchLabel,
+                            .adminListCustomerManagementFiltersSearchLabel,
                         hintText: context
                             .l10n
-                            .adminListAnnouncementScreenFiltersSearchPlaceholder,
+                            .adminListCustomerManagementFiltersSearchPlaceholder,
                         prefixIcon: const Icon(Icons.search),
                       ),
                     ),
@@ -140,7 +131,7 @@ class AnnouncementFilterSearch extends StatelessWidget {
                           child: Text(
                             context
                                 .l10n
-                                .adminListAnnouncementScreenFiltersResetButton,
+                                .adminListCustomerManagementFiltersResetButton,
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -149,7 +140,7 @@ class AnnouncementFilterSearch extends StatelessWidget {
                           child: Text(
                             context
                                 .l10n
-                                .adminListAnnouncementScreenFiltersFilterButton,
+                                .adminListCustomerManagementFiltersFilterButton,
                           ),
                         ),
                       ],

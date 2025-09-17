@@ -108,9 +108,9 @@ class BlockedPeriodFilterSearch extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    Row(
+                    const Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Expanded(
                           child: AppDateTimePicker(
                             name: 'start_date',

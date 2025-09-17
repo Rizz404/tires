@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:tires/shared/presentation/widgets/app_text.dart';
 
 class AppSearchField extends StatefulWidget {
   final String name;
@@ -50,7 +49,7 @@ class _AppSearchFieldState extends State<AppSearchField> {
   }
 
   void _onTextChanged(String? value) {
-    final hasText = (value?.isNotEmpty) ?? false;
+    final hasText = value?.isNotEmpty ?? false;
     if (_hasText != hasText) {
       setState(() {
         _hasText = hasText;

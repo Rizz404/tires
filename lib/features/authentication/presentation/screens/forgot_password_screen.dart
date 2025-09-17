@@ -4,7 +4,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
-import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/authentication/domain/usecases/forgot_password_usecase.dart';
 import 'package:tires/features/authentication/presentation/providers/auth_providers.dart';
 import 'package:tires/features/authentication/presentation/providers/auth_state.dart';

@@ -3038,6 +3038,27 @@ class L10nEn extends L10n {
   String get adminListCustomerManagementFiltersReset => 'Reset';
 
   @override
+  String get adminListCustomerManagementFiltersTitle => 'Filters';
+
+  @override
+  String get adminListCustomerManagementFiltersHideFilters => 'Hide Filters';
+
+  @override
+  String get adminListCustomerManagementFiltersShowFilters => 'Show Filters';
+
+  @override
+  String get adminListCustomerManagementFiltersTypeLabel => 'Customer Type';
+
+  @override
+  String get adminListCustomerManagementFiltersSearchLabel => 'Search';
+
+  @override
+  String get adminListCustomerManagementFiltersFilterButton => 'Filter';
+
+  @override
+  String get adminListCustomerManagementFiltersResetButton => 'Reset';
+
+  @override
   String get adminListCustomerManagementTableHeaderCustomer => 'Customer';
 
   @override

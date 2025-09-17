@@ -296,7 +296,7 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen>
           style: AppTextStyle.titleMedium,
         ),
         const SizedBox(height: 8),
-        AppText(
+        const AppText(
           'Primary language information for the menu',
           style: AppTextStyle.bodySmall,
         ),
@@ -328,7 +328,7 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen>
           style: AppTextStyle.titleMedium,
         ),
         const SizedBox(height: 8),
-        AppText(
+        const AppText(
           'Optional Japanese translation for the menu',
           style: AppTextStyle.bodySmall,
         ),
@@ -419,7 +419,7 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen>
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText(
+                const AppText(
                   'Menu Color',
                   style: AppTextStyle.bodyMedium,
                   fontWeight: FontWeight.w600,
@@ -489,7 +489,7 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppText('Active'),
+                  const AppText('Active'),
                   AppText(
                     l10n.adminUpsertMenuScreenHelpActiveStatus,
                     style: AppTextStyle.bodySmall,
@@ -497,7 +497,7 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen>
                 ],
               ),
             ),
-            FormBuilderFieldOption(
+            const FormBuilderFieldOption(
               value: false,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -596,13 +596,13 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen>
                 const SizedBox(height: 12),
                 Row(
                   children: [
-                    Icon(Icons.access_time, size: 16),
+                    const Icon(Icons.access_time, size: 16),
                     const SizedBox(width: 4),
                     AppText(
                       '$requiredTime ${l10n.adminUpsertMenuScreenTimeUnitMinutesFull}',
                     ),
                     const SizedBox(width: 16),
-                    Icon(Icons.attach_money, size: 16),
+                    const Icon(Icons.attach_money, size: 16),
                     const SizedBox(width: 4),
                     AppText('¥$price'),
                   ],

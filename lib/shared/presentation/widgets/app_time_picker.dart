@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 
 class AppTimePicker extends StatelessWidget {
@@ -43,7 +42,7 @@ class AppTimePicker extends StatelessWidget {
               suffixIcon: const Icon(Icons.access_time),
               filled: !enabled,
               fillColor: !enabled
-                  ? context.colorScheme.surfaceVariant.withOpacity(0.5)
+                  ? context.colorScheme.surfaceContainerHighest.withOpacity(0.5)
                   : null,
             ),
             child: Text(

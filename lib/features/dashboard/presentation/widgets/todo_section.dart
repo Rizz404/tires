@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
-import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/theme/app_theme.dart';
 import 'package:tires/features/dashboard/domain/entities/dashboard.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';

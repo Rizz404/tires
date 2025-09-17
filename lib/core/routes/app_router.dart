@@ -28,7 +28,6 @@ import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/menu/presentation/screens/admin_list_menu_screen.dart';
 import 'package:tires/features/menu/presentation/screens/admin_upsert_menu_screen.dart';
 import 'package:tires/features/profile/presentation/screens/profile_screen.dart';
-import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/reservation/presentation/screens/confirm_reservation_screen.dart';
 import 'package:tires/features/reservation/presentation/screens/confirmed_reservation_screen.dart';
 import 'package:tires/features/reservation/presentation/screens/create_reservation_screen.dart';

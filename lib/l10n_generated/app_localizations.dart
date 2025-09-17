@@ -5294,6 +5294,48 @@ abstract class L10n {
   /// **'Reset'**
   String get adminListCustomerManagementFiltersReset;
 
+  /// No description provided for @adminListCustomerManagementFiltersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get adminListCustomerManagementFiltersTitle;
+
+  /// No description provided for @adminListCustomerManagementFiltersHideFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide Filters'**
+  String get adminListCustomerManagementFiltersHideFilters;
+
+  /// No description provided for @adminListCustomerManagementFiltersShowFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Filters'**
+  String get adminListCustomerManagementFiltersShowFilters;
+
+  /// No description provided for @adminListCustomerManagementFiltersTypeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Type'**
+  String get adminListCustomerManagementFiltersTypeLabel;
+
+  /// No description provided for @adminListCustomerManagementFiltersSearchLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get adminListCustomerManagementFiltersSearchLabel;
+
+  /// No description provided for @adminListCustomerManagementFiltersFilterButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get adminListCustomerManagementFiltersFilterButton;
+
+  /// No description provided for @adminListCustomerManagementFiltersResetButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get adminListCustomerManagementFiltersResetButton;
+
   /// No description provided for @adminListCustomerManagementTableHeaderCustomer.
   ///
   /// In en, this message translates to:

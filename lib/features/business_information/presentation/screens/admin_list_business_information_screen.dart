@@ -363,7 +363,7 @@ class _AdminListBusinessInformationScreenState
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
-                          color: context.colorScheme.surfaceVariant,
+                          color: context.colorScheme.surfaceContainerHighest,
                           child: Icon(
                             Icons.broken_image,
                             color: context.colorScheme.onSurfaceVariant,
