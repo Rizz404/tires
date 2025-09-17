@@ -8,5 +8,7 @@ abstract class BusinessInformationRepository {
   Future<Either<Failure, ItemSuccessResponse<BusinessInformation>>>
   getBusinessInformation();
   Future<Either<Failure, ItemSuccessResponse<BusinessInformation>>>
+  getPublicBusinessInformation();
+  Future<Either<Failure, ItemSuccessResponse<BusinessInformation>>>
   updateBusinessInformation(UpdateBusinessInformationParams params);
 }

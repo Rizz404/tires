@@ -149,13 +149,13 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
           label: 'Inspect State',
           onPressed: () {
             final state = ref.read(currentUserReservationsGetNotifierProvider);
-            DebugHelper.logApiResponse({
+            print({
               'status': state.status.toString(),
               'reservations_count': state.reservations.length,
               'has_next_page': state.hasNextPage,
               'cursor': state.cursor?.toString(),
               'error_message': state.errorMessage,
-            }, endpoint: 'Current Reservations State');
+            });
           },
         ),
       ],

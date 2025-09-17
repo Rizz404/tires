@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:tires/features/reservation/domain/entities/reservation_user.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class ReservationUserModel extends ReservationUser {
   const ReservationUserModel({
@@ -11,31 +10,11 @@ class ReservationUserModel extends ReservationUser {
   });
 
   factory ReservationUserModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('ReservationUserModel', map);
-
     return ReservationUserModel(
-      id: DebugHelper.safeCast<int>(map['id'], 'id', defaultValue: 0) ?? 0,
-      fullName:
-          DebugHelper.safeCast<String>(
-            map['full_name'],
-            'full_name',
-            defaultValue: '',
-          ) ??
-          '',
-      email:
-          DebugHelper.safeCast<String>(
-            map['email'],
-            'email',
-            defaultValue: '',
-          ) ??
-          '',
-      phoneNumber:
-          DebugHelper.safeCast<String>(
-            map['phone_number'],
-            'phone_number',
-            defaultValue: '',
-          ) ??
-          '',
+      id: (map['id'] as int?) ?? 0,
+      fullName: (map['full_name'] as String?) ?? '',
+      email: (map['email'] as String?) ?? '',
+      phoneNumber: (map['phone_number'] as String?) ?? '',
     );
   }
 

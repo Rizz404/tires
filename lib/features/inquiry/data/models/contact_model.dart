@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:tires/features/inquiry/domain/entities/contact.dart';
 import 'package:tires/features/user/data/models/user_model.dart';
 import 'package:tires/features/user/domain/entities/user.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class ContactModel extends Contact {
   const ContactModel({
@@ -22,9 +21,6 @@ class ContactModel extends Contact {
   });
 
   factory ContactModel.fromMap(Map<String, dynamic> map) {
-    // Trace model creation for debugging
-    DebugHelper.traceModelCreation('ContactModel', map);
-
     // Parse user if present
     User? user;
     if (map['user'] != null) {

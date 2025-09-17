@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/announcement/domain/usecases/create_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/delete_announcement_usecase.dart';
@@ -20,18 +21,21 @@ class AnnouncementMutationNotifier extends Notifier<AnnouncementMutationState> {
   }
 
   Future<void> createAnnouncement(CreateAnnouncementParams params) async {
+    AppLogger.uiInfo('Creating announcement in notifier');
     state = state.copyWith(status: AnnouncementMutationStatus.loading);
 
     final response = await _createAnnouncementUsecase(params);
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to create announcement', failure);
         state = state.copyWith(
           status: AnnouncementMutationStatus.error,
           failure: failure,
         );
       },
       (success) {
+        AppLogger.uiDebug('Announcement created successfully in notifier');
         state = state
             .copyWith(
               status: AnnouncementMutationStatus.success,
@@ -46,18 +50,21 @@ class AnnouncementMutationNotifier extends Notifier<AnnouncementMutationState> {
   }
 
   Future<void> updateAnnouncement(UpdateAnnouncementParams params) async {
+    AppLogger.uiInfo('Updating announcement in notifier');
     state = state.copyWith(status: AnnouncementMutationStatus.loading);
 
     final response = await _updateAnnouncementUsecase(params);
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to update announcement', failure);
         state = state.copyWith(
           status: AnnouncementMutationStatus.error,
           failure: failure,
         );
       },
       (success) {
+        AppLogger.uiDebug('Announcement updated successfully in notifier');
         state = state
             .copyWith(
               status: AnnouncementMutationStatus.success,
@@ -72,18 +79,21 @@ class AnnouncementMutationNotifier extends Notifier<AnnouncementMutationState> {
   }
 
   Future<void> deleteAnnouncement(DeleteAnnouncementParams params) async {
+    AppLogger.uiInfo('Deleting announcement in notifier');
     state = state.copyWith(status: AnnouncementMutationStatus.loading);
 
     final response = await _deleteAnnouncementUsecase(params);
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to delete announcement', failure);
         state = state.copyWith(
           status: AnnouncementMutationStatus.error,
           failure: failure,
         );
       },
       (success) {
+        AppLogger.uiDebug('Announcement deleted successfully in notifier');
         state = state
             .copyWith(
               status: AnnouncementMutationStatus.success,

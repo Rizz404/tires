@@ -6,7 +6,6 @@ import 'package:tires/features/inquiry/domain/entities/contact.dart';
 import 'package:tires/features/announcement/data/models/announcement_model.dart';
 import 'package:tires/features/reservation/data/models/reservation_model.dart';
 import 'package:tires/features/inquiry/data/models/contact_model.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class DashboardModel extends Dashboard {
   DashboardModel({
@@ -21,12 +20,8 @@ class DashboardModel extends Dashboard {
   });
 
   factory DashboardModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('DashboardModel', map);
     try {
-      final lastLoginString = DebugHelper.safeCast<String>(
-        map['last_login'],
-        'last_login',
-      );
+      final lastLoginString = map['last_login'] as String?;
 
       return DashboardModel(
         announcements: List<Announcement>.from(
@@ -39,13 +34,7 @@ class DashboardModel extends Dashboard {
             (x) => ReservationModel.fromMap(x),
           ),
         ),
-        pendingContactsCount:
-            DebugHelper.safeCast<int>(
-              map['pending_contacts_count'],
-              'pending_contacts_count',
-              defaultValue: 0,
-            ) ??
-            0,
+        pendingContactsCount: (map['pending_contacts_count'] as int?) ?? 0,
         pendingContacts: List<Contact>.from(
           (map['pending_contacts'] as List<dynamic>? ?? []).map(
             (x) => ContactModel.fromMap(x),
@@ -70,13 +59,7 @@ class DashboardModel extends Dashboard {
         lastLogin: lastLoginString != null
             ? DateTime.tryParse(lastLoginString) ?? DateTime.now()
             : DateTime.now(),
-        currentMonth:
-            DebugHelper.safeCast<String>(
-              map['current_month'],
-              'current_month',
-              defaultValue: '',
-            ) ??
-            '',
+        currentMonth: (map['current_month'] as String?) ?? '',
       );
     } catch (e, stackTrace) {
       print('❌ Error in DashboardModel.fromMap: $e');
@@ -123,43 +106,13 @@ class StatisticsModel extends Statistics {
   });
 
   factory StatisticsModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('StatisticsModel', map);
     return StatisticsModel(
-      newCustomersThisMonth:
-          DebugHelper.safeCast<int>(
-            map['new_customers_this_month'],
-            'new_customers_this_month',
-            defaultValue: 0,
-          ) ??
-          0,
+      newCustomersThisMonth: (map['new_customers_this_month'] as int?) ?? 0,
       onlineReservationsThisMonth:
-          DebugHelper.safeCast<int>(
-            map['online_reservations_this_month'],
-            'online_reservations_this_month',
-            defaultValue: 0,
-          ) ??
-          0,
-      totalCustomers:
-          DebugHelper.safeCast<int>(
-            map['total_customers'],
-            'total_customers',
-            defaultValue: 0,
-          ) ??
-          0,
-      customersUntilLimit:
-          DebugHelper.safeCast<int>(
-            map['customers_until_limit'],
-            'customers_until_limit',
-            defaultValue: 0,
-          ) ??
-          0,
-      customerLimit:
-          DebugHelper.safeCast<int>(
-            map['customer_limit'],
-            'customer_limit',
-            defaultValue: 0,
-          ) ??
-          0,
+          (map['online_reservations_this_month'] as int?) ?? 0,
+      totalCustomers: (map['total_customers'] as int?) ?? 0,
+      customersUntilLimit: (map['customers_until_limit'] as int?) ?? 0,
+      customerLimit: (map['customer_limit'] as int?) ?? 0,
     );
   }
 

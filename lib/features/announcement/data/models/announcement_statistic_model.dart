@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:tires/features/announcement/domain/entities/announcement_statistic.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class AnnouncementStatisticModel extends AnnouncementStatistic {
   AnnouncementStatisticModel({
@@ -11,33 +10,12 @@ class AnnouncementStatisticModel extends AnnouncementStatistic {
   });
 
   factory AnnouncementStatisticModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('AnnouncementStatisticModel', map);
     try {
       return AnnouncementStatisticModel(
-        totalAnnouncements:
-            DebugHelper.safeCast<int>(
-              map['total_announcements'],
-              'total_announcements',
-              defaultValue: 0,
-            ) ??
-            0,
-        active:
-            DebugHelper.safeCast<int>(
-              map['active'],
-              'active',
-              defaultValue: 0,
-            ) ??
-            0,
-        inactive:
-            DebugHelper.safeCast<int>(
-              map['inactive'],
-              'inactive',
-              defaultValue: 0,
-            ) ??
-            0,
-        today:
-            DebugHelper.safeCast<int>(map['today'], 'today', defaultValue: 0) ??
-            0,
+        totalAnnouncements: (map['total_announcements'] as int?) ?? 0,
+        active: (map['active'] as int?) ?? 0,
+        inactive: (map['inactive'] as int?) ?? 0,
+        today: (map['today'] as int?) ?? 0,
       );
     } catch (e) {
       rethrow;

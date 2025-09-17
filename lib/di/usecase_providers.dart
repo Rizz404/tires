@@ -6,6 +6,7 @@ import 'package:tires/features/announcement/domain/usecases/get_announcements_cu
 import 'package:tires/features/announcement/domain/usecases/get_announcement_statistics_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/update_announcement_usecase.dart';
 import 'package:tires/features/business_information/domain/usecases/get_business_information_usecase.dart';
+import 'package:tires/features/business_information/domain/usecases/get_public_business_information_usecase.dart';
 import 'package:tires/features/business_information/domain/usecases/update_business_information_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/forgot_password_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/get_current_auth_usecase.dart';
@@ -234,6 +235,16 @@ final getBusinessInformationUsecaseProvider =
         businessInformationRepoProvider,
       );
       return GetBusinessInformationUsecase(_businessInformationRepository);
+    });
+
+final getPublicBusinessInformationUsecaseProvider =
+    Provider<GetPublicBusinessInformationUsecase>((ref) {
+      final _businessInformationRepository = ref.watch(
+        businessInformationRepoProvider,
+      );
+      return GetPublicBusinessInformationUsecase(
+        _businessInformationRepository,
+      );
     });
 
 final updateBusinessInformationUsecaseProvider =

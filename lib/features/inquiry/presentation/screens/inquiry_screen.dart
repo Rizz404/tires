@@ -17,8 +17,6 @@ import 'package:tires/shared/presentation/widgets/error_summary_box.dart';
 import 'package:tires/shared/presentation/widgets/loading_overlay.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:tires/shared/presentation/widgets/user_end_drawer.dart';
-import 'package:tires/shared/presentation/widgets/debug_section.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 @RoutePage()
 class InquiryScreen extends ConsumerStatefulWidget {
@@ -129,12 +127,8 @@ class _InquiryScreenState extends ConsumerState<InquiryScreen> {
           setState(() {
             _validationErrors = (next.failure as ValidationFailure).errors;
           });
-        } else {
-          AppToast.showError(
-            context,
-            message: next.failure!.message ?? context.l10n.inquiryErrorMessage,
-          );
         }
+        AppToast.showError(context, message: next.failure!.message);
       }
     });
 

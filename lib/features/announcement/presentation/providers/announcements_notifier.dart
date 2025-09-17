@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
 import 'package:tires/features/announcement/presentation/providers/announcements_state.dart';
@@ -20,6 +21,7 @@ class AnnouncementsNotifier extends Notifier<AnnouncementsState> {
   }) async {
     if (state.status == AnnouncementsStatus.loading) return;
 
+    AppLogger.uiInfo('Fetching initial announcements in notifier');
     state = state.copyWith(status: AnnouncementsStatus.loading);
 
     final params = GetAnnouncementsCursorParams(
@@ -31,12 +33,16 @@ class AnnouncementsNotifier extends Notifier<AnnouncementsState> {
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to fetch initial announcements', failure);
         state = state.copyWith(
           status: AnnouncementsStatus.error,
           errorMessage: failure.message,
         );
       },
       (success) {
+        AppLogger.uiDebug(
+          'Initial announcements fetched successfully in notifier',
+        );
         state = state
             .copyWith(
               status: AnnouncementsStatus.success,
@@ -61,6 +67,7 @@ class AnnouncementsNotifier extends Notifier<AnnouncementsState> {
       return;
     }
 
+    AppLogger.uiInfo('Loading more announcements in notifier');
     state = state.copyWith(status: AnnouncementsStatus.loadingMore);
 
     final params = GetAnnouncementsCursorParams(
@@ -73,12 +80,14 @@ class AnnouncementsNotifier extends Notifier<AnnouncementsState> {
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to load more announcements', failure);
         state = state.copyWith(
           status: AnnouncementsStatus.success,
           errorMessage: failure.message,
         );
       },
       (success) {
+        AppLogger.uiDebug('More announcements loaded successfully in notifier');
         final List<Announcement> alls = [
           ...state.announcements,
           ...success.data ?? <Announcement>[],

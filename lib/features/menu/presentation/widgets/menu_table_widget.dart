@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 

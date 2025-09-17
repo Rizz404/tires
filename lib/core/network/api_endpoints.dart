@@ -87,6 +87,8 @@ class ApiEndpoints {
 
   // --- Public Endpoints ---
   static String publicMenus = '$_publicPrefix$_menuPrefix';
+  static const String publicBusinessSettings =
+      '$_publicPrefix$_businessSettingPrefix';
 
   // --- Shared Endpoints ---
   static String menuById(String menuId) => '$_menuPrefix/$menuId';

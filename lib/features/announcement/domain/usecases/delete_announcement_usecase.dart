@@ -5,6 +5,7 @@ import 'package:fpdart/fpdart.dart';
 
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/core/usecases/usecase.dart';
 import 'package:tires/features/announcement/domain/repositories/announcement_repository.dart';
 
@@ -16,6 +17,9 @@ class DeleteAnnouncementUsecase
 
   @override
   Future<Either<Failure, ActionSuccess>> call(DeleteAnnouncementParams params) {
+    AppLogger.businessInfo(
+      'Executing delete announcement usecase for id: ${params.id}',
+    );
     return _repository.deleteAnnouncement(params);
   }
 }

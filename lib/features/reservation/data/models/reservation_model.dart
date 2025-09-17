@@ -8,7 +8,6 @@ import 'package:tires/features/reservation/data/models/reservation_amount_model.
 import 'package:tires/features/reservation/data/models/reservation_customer_info_model.dart';
 import 'package:tires/features/reservation/data/models/reservation_status_model.dart';
 import 'package:tires/features/reservation/data/models/reservation_user_model.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class ReservationModel extends Reservation {
   const ReservationModel({
@@ -74,59 +73,36 @@ class ReservationModel extends Reservation {
   }
 
   factory ReservationModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('ReservationModel', map);
-
-    final customerInfoData = DebugHelper.safeExtractMap(map, 'customer_info');
-    final amountData = DebugHelper.safeExtractMap(map, 'amount');
-    final statusData = DebugHelper.safeExtractMap(map, 'status');
-    final menuData = DebugHelper.safeExtractMap(map, 'menu');
+    final customerInfoData = map['customer_info'] as Map<String, dynamic>;
+    final amountData = map['amount'] as Map<String, dynamic>;
+    final statusData = map['status'] as Map<String, dynamic>;
+    final menuData = map['menu'] as Map<String, dynamic>;
     final userData = map['user'] != null
-        ? DebugHelper.safeExtractMap(map, 'user')
+        ? map['user'] as Map<String, dynamic>
         : null;
 
     // Parse dates safely
     final reservationDatetime =
-        DebugHelper.safeParseDateTime(
-          map['reservation_datetime'],
-          'reservation_datetime',
-        ) ??
+        DateTime.tryParse(map['reservation_datetime'] as String? ?? '') ??
         DateTime.now();
 
     final createdAt =
-        DebugHelper.safeParseDateTime(map['created_at'], 'created_at') ??
-        DateTime.now();
+        DateTime.tryParse(map['created_at'] as String? ?? '') ?? DateTime.now();
 
     final updatedAt =
-        DebugHelper.safeParseDateTime(map['updated_at'], 'updated_at') ??
-        DateTime.now();
+        DateTime.tryParse(map['updated_at'] as String? ?? '') ?? DateTime.now();
 
     return ReservationModel(
-      id: DebugHelper.safeCast<int>(map['id'], 'id', defaultValue: 0) ?? 0,
-      reservationNumber:
-          DebugHelper.safeCast<String>(
-            map['reservation_number'],
-            'reservation_number',
-            defaultValue: '',
-          ) ??
-          '',
+      id: (map['id'] as int?) ?? 0,
+      reservationNumber: (map['reservation_number'] as String?) ?? '',
       user: userData != null ? ReservationUserModel.fromMap(userData) : null,
       customerInfo: ReservationCustomerInfoModel.fromMap(customerInfoData),
       menu: MenuModel.fromMap(menuData),
       reservationDatetime: reservationDatetime,
-      numberOfPeople:
-          DebugHelper.safeCast<int>(
-            map['number_of_people'],
-            'number_of_people',
-            defaultValue: 1,
-          ) ??
-          1,
+      numberOfPeople: (map['number_of_people'] as int?) ?? 1,
       amount: ReservationAmountModel.fromMap(amountData),
       status: ReservationStatusModel.fromMap(statusData),
-      notes: DebugHelper.safeCast<String>(
-        map['notes'],
-        'notes',
-        defaultValue: null,
-      ),
+      notes: map['notes'] as String?,
       createdAt: createdAt,
       updatedAt: updatedAt,
     );

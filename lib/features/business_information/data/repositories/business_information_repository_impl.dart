@@ -37,6 +37,26 @@ class BusinessInformationRepositoryImpl
 
   @override
   Future<Either<Failure, ItemSuccessResponse<BusinessInformation>>>
+  getPublicBusinessInformation() async {
+    try {
+      final result = await _businessInformationRemoteDatasource
+          .getPublicBusinessInformation();
+
+      return Right(
+        ItemSuccessResponse<BusinessInformation>(
+          data: result.data.toEntity(),
+          message: result.message,
+        ),
+      );
+    } on ApiErrorResponse catch (e) {
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccessResponse<BusinessInformation>>>
   updateBusinessInformation(UpdateBusinessInformationParams params) async {
     try {
       final result = await _businessInformationRemoteDatasource

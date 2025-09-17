@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:tires/features/announcement/domain/entities/announcement.dart';
 import 'package:tires/features/announcement/domain/entities/announcement_translation.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class AnnouncementModel extends Announcement {
   AnnouncementModel({
@@ -15,39 +14,17 @@ class AnnouncementModel extends Announcement {
   });
 
   factory AnnouncementModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('AnnouncementModel', map);
     try {
-      final publishedAtString = DebugHelper.safeCast<String>(
-        map['published_at'],
-        'published_at',
-      );
+      final publishedAtString = map['published_at'] as String?;
 
       return AnnouncementModel(
-        id: DebugHelper.safeCast<int>(map['id'], 'id', defaultValue: 0) ?? 0,
-        title:
-            DebugHelper.safeCast<String>(
-              map['title'],
-              'title',
-              defaultValue: '',
-            ) ??
-            '',
-        content:
-            DebugHelper.safeCast<String>(
-              map['content'],
-              'content',
-              defaultValue: '',
-            ) ??
-            '',
+        id: (map['id'] as int?) ?? 0,
+        title: (map['title'] as String?) ?? '',
+        content: (map['content'] as String?) ?? '',
         publishedAt: publishedAtString != null
             ? DateTime.tryParse(publishedAtString)
             : null,
-        isActive:
-            DebugHelper.safeCast<bool>(
-              map['is_active'],
-              'is_active',
-              defaultValue: false,
-            ) ??
-            false,
+        isActive: (map['is_active'] as bool?) ?? false,
         meta: map['meta'] != null && map['meta'] is Map<String, dynamic>
             ? MetaModel.fromMap(map['meta'])
             : MetaModel(locale: 'en', fallbackUsed: true),
@@ -87,22 +64,9 @@ class MetaModel extends Meta {
   MetaModel({required super.locale, required super.fallbackUsed});
 
   factory MetaModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('MetaModel', map);
     return MetaModel(
-      locale:
-          DebugHelper.safeCast<String>(
-            map['locale'],
-            'locale',
-            defaultValue: 'en',
-          ) ??
-          'en',
-      fallbackUsed:
-          DebugHelper.safeCast<bool>(
-            map['fallback_used'],
-            'fallback_used',
-            defaultValue: false,
-          ) ??
-          false,
+      locale: (map['locale'] as String?) ?? 'en',
+      fallbackUsed: (map['fallback_used'] as bool?) ?? false,
     );
   }
 
@@ -118,7 +82,6 @@ class AnnouncementTranslationModel extends AnnouncementTranslation {
   });
 
   factory AnnouncementTranslationModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('AnnouncementTranslationModel', map);
     return AnnouncementTranslationModel(
       en: map['en'] != null && map['en'] is Map<String, dynamic>
           ? AnnouncementContentModel.fromMap(map['en'])
@@ -144,22 +107,9 @@ class AnnouncementContentModel extends AnnouncementContent {
   });
 
   factory AnnouncementContentModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('AnnouncementContentModel', map);
     return AnnouncementContentModel(
-      title:
-          DebugHelper.safeCast<String>(
-            map['title'],
-            'title',
-            defaultValue: '',
-          ) ??
-          '',
-      content:
-          DebugHelper.safeCast<String>(
-            map['content'],
-            'content',
-            defaultValue: '',
-          ) ??
-          '',
+      title: (map['title'] as String?) ?? '',
+      content: (map['content'] as String?) ?? '',
     );
   }
 

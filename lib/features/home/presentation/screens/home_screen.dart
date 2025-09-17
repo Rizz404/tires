@@ -8,8 +8,6 @@ import 'package:tires/features/home/presentation/widgets/home_carousel.dart';
 import 'package:tires/features/home/presentation/widgets/menu_tile.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
-import 'package:tires/shared/presentation/widgets/debug_section.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 @RoutePage()
 class HomeScreen extends ConsumerStatefulWidget {

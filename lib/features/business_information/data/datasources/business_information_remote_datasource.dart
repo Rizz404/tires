@@ -7,6 +7,7 @@ import 'package:tires/features/business_information/domain/usecases/update_busin
 
 abstract class BusinessInformationRemoteDatasource {
   Future<ApiResponse<BusinessInformationModel>> getBusinessInformation();
+  Future<ApiResponse<BusinessInformationModel>> getPublicBusinessInformation();
   Future<ApiResponse<BusinessInformationModel>> updateBusinessInformation(
     UpdateBusinessInformationParams params,
   );
@@ -56,6 +57,54 @@ class BusinessInformationRemoteDatasourceImpl
       }
     } catch (e) {
       print('=== DATASOURCE ERROR ===');
+      print('Error: $e');
+      print('Error type: ${e.runtimeType}');
+      print('=== END ERROR ===');
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BusinessInformationModel>>
+  getPublicBusinessInformation() async {
+    try {
+      final response = await _dioClient.get(
+        ApiEndpoints.publicBusinessSettings,
+      );
+      print('=== PUBLIC DATASOURCE DEBUG ===');
+      print('Response data: ${response.data}');
+      print('Response data type: ${response.data.runtimeType}');
+      print('Response data["data"]: ${response.data["data"]}');
+      print('Response data["data"] type: ${response.data["data"].runtimeType}');
+      print('=== END PUBLIC DATASOURCE DEBUG ===');
+
+      // Check if response.data already contains the business information directly
+      if (response.data['data'] == null) {
+        // response.data is already the business information data
+        print('=== PARSING DIRECT PUBLIC DATA ===');
+        print('Data to parse: ${response.data}');
+        print('=== END PARSING ===');
+
+        final businessInfo = BusinessInformationModel.fromMap(response.data);
+        return ApiResponse<BusinessInformationModel>(
+          status: 'success',
+          message: 'Public business settings retrieved successfully',
+          data: businessInfo,
+        );
+      } else {
+        // response.data contains wrapped structure
+        return ApiResponse<BusinessInformationModel>.fromJson(response.data, (
+          data,
+        ) {
+          print('=== PARSING WRAPPED PUBLIC DATA ===');
+          print('Data to parse: $data');
+          print('Data type: ${data.runtimeType}');
+          print('=== END PARSING ===');
+          return BusinessInformationModel.fromMap(data);
+        });
+      }
+    } catch (e) {
+      print('=== PUBLIC DATASOURCE ERROR ===');
       print('Error: $e');
       print('Error type: ${e.runtimeType}');
       print('=== END ERROR ===');

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:tires/features/reservation/domain/entities/available_hour.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class AvailableHourModel extends AvailableHour {
   AvailableHourModel({required super.hours});
@@ -17,15 +16,7 @@ class AvailableHourModel extends AvailableHour {
   }
 
   factory AvailableHourModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('AvailableHourModel', map);
-
-    final hoursData =
-        DebugHelper.safeCast<List>(
-          map['hours'],
-          'hours',
-          defaultValue: <dynamic>[],
-        ) ??
-        <dynamic>[];
+    final hoursData = (map['hours'] as List<dynamic>?) ?? <dynamic>[];
 
     return AvailableHourModel(
       hours: hoursData
@@ -85,39 +76,16 @@ class HourModel extends Hour {
   }
 
   factory HourModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('HourModel', map);
-
-    final timeValue =
-        DebugHelper.safeCast<String>(map['time'], 'time', defaultValue: '') ??
-        '';
+    final timeValue = (map['time'] as String?) ?? '';
 
     final datetimeValue =
-        DebugHelper.safeParseDateTime(map['datetime'], 'datetime') ??
-        DateTime.now();
+        DateTime.tryParse(map['datetime'] as String? ?? '') ?? DateTime.now();
 
-    final statusString =
-        DebugHelper.safeCast<String>(
-          map['status'],
-          'status',
-          defaultValue: 'available',
-        ) ??
-        'available';
+    final statusString = (map['status'] as String?) ?? 'available';
 
-    final availableValue =
-        DebugHelper.safeCast<bool>(
-          map['available'],
-          'available',
-          defaultValue: false,
-        ) ??
-        false;
+    final availableValue = (map['available'] as bool?) ?? false;
 
-    final indicatorString =
-        DebugHelper.safeCast<String>(
-          map['indicator'],
-          'indicator',
-          defaultValue: 'Empty',
-        ) ??
-        'Empty';
+    final indicatorString = (map['indicator'] as String?) ?? 'Empty';
 
     return HourModel(
       time: timeValue,

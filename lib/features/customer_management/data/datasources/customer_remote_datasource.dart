@@ -6,7 +6,6 @@ import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/features/customer_management/data/models/customer_dashboard_model.dart';
 import 'package:tires/features/customer_management/data/models/customer_model.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 abstract class CustomerRemoteDatasource {
   Future<ApiCursorPaginationResponse<CustomerModel>> getCustomerCursor(
@@ -43,21 +42,13 @@ class CustomerRemoteDatasourceImpl implements CustomerRemoteDatasource {
       final response = await _dioClient.get<CustomerDashboardModel>(
         ApiEndpoints.customerDashboard,
         fromJson: (json) {
-          DebugHelper.logMapDetails(
-            json as Map<String, dynamic>,
-            title: 'Customer Dashboard API Response Data',
-          );
-          return CustomerDashboardModel.fromMap(json);
+          return CustomerDashboardModel.fromMap(json as Map<String, dynamic>);
         },
       );
 
       return response;
     } catch (e) {
-      DebugHelper.safeCast(
-        e,
-        'getCurrentUserDashboard_error',
-        defaultValue: 'rethrowing error',
-      );
+      print('Error in getCurrentUserDashboard: $e');
       rethrow;
     }
   }

@@ -1,27 +1,12 @@
 import 'dart:convert';
 import 'package:tires/features/reservation/domain/entities/reservation_status.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class ReservationStatusModel extends ReservationStatus {
   const ReservationStatusModel({required super.value, required super.label});
 
   factory ReservationStatusModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('ReservationStatusModel', map);
-
-    final statusValue = _parseStatus(
-      DebugHelper.safeCast<String>(
-        map['value'],
-        'value',
-        defaultValue: 'pending',
-      ),
-    );
-    final label =
-        DebugHelper.safeCast<String>(
-          map['label'],
-          'label',
-          defaultValue: _getStatusLabel(statusValue),
-        ) ??
-        _getStatusLabel(statusValue);
+    final statusValue = _parseStatus(map['value'] as String?);
+    final label = (map['label'] as String?) ?? _getStatusLabel(statusValue);
 
     return ReservationStatusModel(value: statusValue, label: label);
   }

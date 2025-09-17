@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:tires/features/reservation/data/mapper/calendar_mapper.dart';
 import 'package:tires/features/reservation/domain/entities/calendar.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class CalendarModel extends Calendar {
   CalendarModel({
@@ -36,38 +35,14 @@ class CalendarModel extends Calendar {
   }
 
   factory CalendarModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('CalendarModel', map);
-
-    final daysData =
-        DebugHelper.safeCast<List>(
-          map['days'],
-          'days',
-          defaultValue: <dynamic>[],
-        ) ??
-        <dynamic>[];
+    final daysData = (map['days'] as List<dynamic>?) ?? <dynamic>[];
 
     return CalendarModel(
       currentMonth:
-          DebugHelper.safeCast<String>(
-            map['current_month'] ?? map['currentMonth'],
-            'current_month',
-            defaultValue: '',
-          ) ??
-          '',
+          (map['current_month'] ?? map['currentMonth'] as String?) ?? '',
       previousMonth:
-          DebugHelper.safeCast<String>(
-            map['previous_month'] ?? map['previousMonth'],
-            'previous_month',
-            defaultValue: '',
-          ) ??
-          '',
-      nextMonth:
-          DebugHelper.safeCast<String>(
-            map['next_month'] ?? map['nextMonth'],
-            'next_month',
-            defaultValue: '',
-          ) ??
-          '',
+          (map['previous_month'] ?? map['previousMonth'] as String?) ?? '',
+      nextMonth: (map['next_month'] ?? map['nextMonth'] as String?) ?? '',
       days: daysData
           .map((day) => DayModel.fromMap(day as Map<String, dynamic>))
           .toList(),
@@ -144,68 +119,31 @@ class DayModel extends Day {
   }
 
   factory DayModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('DayModel', map);
-
     final blockedHoursData =
-        DebugHelper.safeCast<List>(
-          map['blocked_hours'],
-          'blocked_hours',
-          defaultValue: <dynamic>[],
-        ) ??
-        <dynamic>[];
+        (map['blocked_hours'] as List<dynamic>?) ?? <dynamic>[];
 
     final dateValue =
-        DebugHelper.safeParseDateTime(map['date'], 'date') ?? DateTime.now();
+        DateTime.tryParse(map['date'] as String? ?? '') ?? DateTime.now();
 
     // Fix: Handle both snake_case and camelCase for booking_status/bookingStatus
     final bookingStatusString =
-        DebugHelper.safeCast<String>(
-          map['booking_status'] ?? map['bookingStatus'],
-          'booking_status',
-          defaultValue: 'available',
-        ) ??
+        (map['booking_status'] ?? map['bookingStatus'] as String?) ??
         'available';
 
     return DayModel(
       date: dateValue,
-      day: DebugHelper.safeCast<int>(map['day'], 'day', defaultValue: 1) ?? 1,
+      day: (map['day'] as int?) ?? 1,
       isCurrentMonth:
-          DebugHelper.safeCast<bool>(
-            map['is_current_month'] ?? map['isCurrentMonth'],
-            'is_current_month',
-            defaultValue: true,
-          ) ??
-          true,
-      isToday:
-          DebugHelper.safeCast<bool>(
-            map['is_today'] ?? map['isToday'],
-            'is_today',
-            defaultValue: false,
-          ) ??
-          false,
-      isPastDate:
-          DebugHelper.safeCast<bool>(
-            map['is_past_date'] ?? map['isPastDate'],
-            'is_past_date',
-            defaultValue: false,
-          ) ??
-          false,
+          (map['is_current_month'] ?? map['isCurrentMonth'] as bool?) ?? true,
+      isToday: (map['is_today'] ?? map['isToday'] as bool?) ?? false,
+      isPastDate: (map['is_past_date'] ?? map['isPastDate'] as bool?) ?? false,
       hasAvailableHours:
-          DebugHelper.safeCast<bool>(
-            map['has_available_hours'] ?? map['hasAvailableHours'],
-            'has_available_hours',
-            defaultValue: false,
-          ) ??
+          (map['has_available_hours'] ?? map['hasAvailableHours'] as bool?) ??
           false,
       bookingStatus: _parseBookingStatus(bookingStatusString),
       blockedHours: blockedHoursData.cast<String>(),
       reservationCount:
-          DebugHelper.safeCast<int>(
-            map['reservation_count'] ?? map['reservationCount'],
-            'reservation_count',
-            defaultValue: 0,
-          ) ??
-          0,
+          (map['reservation_count'] ?? map['reservationCount'] as int?) ?? 0,
     );
   }
 

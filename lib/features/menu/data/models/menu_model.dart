@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:tires/features/menu/domain/entities/menu.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class MenuModel extends Menu {
   const MenuModel({
@@ -17,43 +16,14 @@ class MenuModel extends Menu {
   });
 
   factory MenuModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('MenuModel', map);
-
     try {
-      final id =
-          DebugHelper.safeCast<int>(map['id'], 'id', defaultValue: 0) ?? 0;
-      final name =
-          DebugHelper.safeCast<String>(map['name'], 'name', defaultValue: '') ??
-          '';
-      final description = DebugHelper.safeCast<String>(
-        map['description'],
-        'description',
-      );
-      final requiredTime =
-          DebugHelper.safeCast<int>(
-            map['required_time'],
-            'required_time',
-            defaultValue: 0,
-          ) ??
-          0;
-      final photoPath = DebugHelper.safeCast<String>(
-        map['photo_path'],
-        'photo_path',
-      );
-      final displayOrder =
-          DebugHelper.safeCast<int>(
-            map['display_order'],
-            'display_order',
-            defaultValue: 0,
-          ) ??
-          0;
-      final isActive =
-          DebugHelper.safeCast<bool>(
-            map['is_active'],
-            'is_active',
-            defaultValue: true,
-          ) ??
-          true;
+      final id = (map['id'] as int?) ?? 0;
+      final name = (map['name'] as String?) ?? '';
+      final description = map['description'] as String?;
+      final requiredTime = (map['required_time'] as int?) ?? 0;
+      final photoPath = map['photo_path'] as String?;
+      final displayOrder = (map['display_order'] as int?) ?? 0;
+      final isActive = (map['is_active'] as bool?) ?? true;
 
       // Debug price creation
       print(
@@ -75,13 +45,6 @@ class MenuModel extends Menu {
       );
       final translations = _createTranslationsFromDynamic(map['translations']);
       print('✅ Translations created successfully');
-
-      // Debug meta creation
-      print(
-        '🔍 Creating meta from: ${map['meta']} (${map['meta']?.runtimeType})',
-      );
-      final meta = _createMetaFromDynamic(map['meta']);
-      print('✅ Meta created successfully');
 
       return MenuModel(
         id: id,
@@ -105,11 +68,6 @@ class MenuModel extends Menu {
 
   static PriceModel _createPriceFromDynamic(dynamic priceData) {
     if (priceData == null) {
-      DebugHelper.safeCast(
-        null,
-        'price_null',
-        defaultValue: 'using default price',
-      );
       return const PriceModel(
         amount: '0.00',
         formatted: r'$0.00',
@@ -146,11 +104,7 @@ class MenuModel extends Menu {
     }
 
     // Fallback
-    DebugHelper.safeCast(
-      priceData,
-      'price_fallback',
-      defaultValue: 'using default price',
-    );
+    print('Using fallback price for: $priceData');
     return const PriceModel(
       amount: '0.00',
       formatted: r'$0.00',
@@ -163,11 +117,6 @@ class MenuModel extends Menu {
       print('🎨 Color data received: $colorData (${colorData.runtimeType})');
 
       if (colorData == null) {
-        DebugHelper.safeCast(
-          null,
-          'color_null',
-          defaultValue: 'using default color',
-        );
         print('⚠️ Using default color for null input');
         return const ColorInfoModel(
           hex: '#000000',
@@ -193,11 +142,6 @@ class MenuModel extends Menu {
 
       // Fallback
       print('⚠️ Unknown color data type, using fallback');
-      DebugHelper.safeCast(
-        colorData,
-        'color_fallback',
-        defaultValue: 'using default color',
-      );
       return const ColorInfoModel(
         hex: '#000000',
         rgbaLight: 'rgba(0, 0, 0, 0.1)',
@@ -301,30 +245,10 @@ class PriceModel extends Price {
   });
 
   factory PriceModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('PriceModel', map);
-
     return PriceModel(
-      amount:
-          DebugHelper.safeCast<String>(
-            map['amount'],
-            'amount',
-            defaultValue: '0.00',
-          ) ??
-          '0.00',
-      formatted:
-          DebugHelper.safeCast<String>(
-            map['formatted'],
-            'formatted',
-            defaultValue: r'$0.00',
-          ) ??
-          r'$0.00',
-      currency:
-          DebugHelper.safeCast<String>(
-            map['currency'],
-            'currency',
-            defaultValue: 'USD',
-          ) ??
-          'USD',
+      amount: (map['amount'] as String?) ?? '0.00',
+      formatted: (map['formatted'] as String?) ?? r'$0.00',
+      currency: (map['currency'] as String?) ?? 'USD',
     );
   }
 
@@ -342,31 +266,9 @@ class ColorInfoModel extends ColorInfo {
 
   factory ColorInfoModel.fromMap(Map<String, dynamic> map) {
     try {
-      DebugHelper.traceModelCreation('ColorInfoModel', map);
-
-      final hex =
-          DebugHelper.safeCast<String>(
-            map['hex'],
-            'hex',
-            defaultValue: '#000000',
-          ) ??
-          '#000000';
-
-      final rgbaLight =
-          DebugHelper.safeCast<String>(
-            map['rgba_light'],
-            'rgba_light',
-            defaultValue: 'rgba(0, 0, 0, 0.1)',
-          ) ??
-          'rgba(0, 0, 0, 0.1)';
-
-      final textColor =
-          DebugHelper.safeCast<String>(
-            map['text_color'],
-            'text_color',
-            defaultValue: '#ffffff',
-          ) ??
-          '#ffffff';
+      final hex = (map['hex'] as String?) ?? '#000000';
+      final rgbaLight = (map['rgba_light'] as String?) ?? 'rgba(0, 0, 0, 0.1)';
+      final textColor = (map['text_color'] as String?) ?? '#ffffff';
 
       print(
         '🎨 ColorInfoModel created: hex=$hex, rgbaLight=$rgbaLight, textColor=$textColor',
@@ -402,7 +304,6 @@ class MenuTranslationModel extends MenuTranslation {
   }) : super(en: en, ja: ja);
 
   factory MenuTranslationModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('MenuTranslationModel', map);
     return MenuTranslationModel(
       en: map['en'] != null && map['en'] is Map<String, dynamic>
           ? MenuContentModel.fromMap(map['en'])
@@ -426,15 +327,9 @@ class MenuContentModel extends MenuContent {
     : super(name: name, description: description);
 
   factory MenuContentModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('MenuContentModel', map);
     return MenuContentModel(
-      name:
-          DebugHelper.safeCast<String>(map['name'], 'name', defaultValue: '') ??
-          '',
-      description: DebugHelper.safeCast<String>(
-        map['description'],
-        'description',
-      ),
+      name: (map['name'] as String?) ?? '',
+      description: map['description'] as String?,
     );
   }
 
@@ -447,22 +342,9 @@ class MetaModel extends Meta {
   MetaModel({required super.locale, required super.fallbackUsed});
 
   factory MetaModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('MetaModel', map);
     return MetaModel(
-      locale:
-          DebugHelper.safeCast<String>(
-            map['locale'],
-            'locale',
-            defaultValue: 'en',
-          ) ??
-          'en',
-      fallbackUsed:
-          DebugHelper.safeCast<bool>(
-            map['fallback_used'],
-            'fallback_used',
-            defaultValue: false,
-          ) ??
-          false,
+      locale: (map['locale'] as String?) ?? 'en',
+      fallbackUsed: (map['fallback_used'] as bool?) ?? false,
     );
   }
 

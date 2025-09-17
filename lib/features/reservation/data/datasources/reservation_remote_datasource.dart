@@ -12,7 +12,6 @@ import 'package:tires/features/reservation/domain/usecases/get_reservation_avail
 import 'package:tires/features/reservation/domain/usecases/get_reservation_calendar_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/get_reservation_cursor_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/update_reservation_usecase.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 abstract class ReservationRemoteDatasource {
   Future<ApiResponse<ReservationModel>> createReservation(
@@ -54,21 +53,12 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
         ApiEndpoints.customerCreateReservation,
         data: data,
         fromJson: (item) {
-          DebugHelper.logMapDetails(
-            item as Map<String, dynamic>,
-            title: 'Create reservation from API',
-          );
           return ReservationModel.fromMap(item);
         },
       );
 
       return response;
     } catch (e) {
-      DebugHelper.safeCast(
-        e,
-        'createReservation_error',
-        defaultValue: 'rethrowing error',
-      );
       rethrow;
     }
   }
@@ -83,10 +73,6 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
       final response = await _dioClient.getWithCursor<ReservationModel>(
         ApiEndpoints.adminReservations,
         fromJson: (item) {
-          DebugHelper.logMapDetails(
-            item as Map<String, dynamic>,
-            title: 'Raw Reservation Item from API',
-          );
           return ReservationModel.fromMap(item);
         },
         queryParameters: queryParameters.isNotEmpty ? queryParameters : null,
@@ -94,11 +80,6 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
 
       return response;
     } catch (e) {
-      DebugHelper.safeCast(
-        e,
-        'getReservationsCursor_error',
-        defaultValue: 'rethrowing error',
-      );
       rethrow;
     }
   }
@@ -114,10 +95,6 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
       final response = await _dioClient.getWithCursor<ReservationModel>(
         ApiEndpoints.customerReservations,
         fromJson: (item) {
-          DebugHelper.logMapDetails(
-            item as Map<String, dynamic>,
-            title: 'Raw Reservation Item from API',
-          );
           return ReservationModel.fromMap(item);
         },
         queryParameters: queryParameters.isNotEmpty ? queryParameters : null,
@@ -125,11 +102,6 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
 
       return response;
     } catch (e) {
-      DebugHelper.safeCast(
-        e,
-        'getCurrentUserReservations_error',
-        defaultValue: 'rethrowing error',
-      );
       rethrow;
     }
   }
@@ -144,10 +116,6 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
       final response = await _dioClient.get<CalendarModel>(
         ApiEndpoints.customerReservationCalendar,
         fromJson: (json) {
-          DebugHelper.logMapDetails(
-            json as Map<String, dynamic>,
-            title: 'Calendar API Response Data',
-          );
           return CalendarModel.fromMap(json);
         },
         queryParameters: queryParameters.isNotEmpty ? queryParameters : null,
@@ -155,11 +123,6 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
 
       return response;
     } catch (e) {
-      DebugHelper.safeCast(
-        e,
-        'getReservationCalendar_error',
-        defaultValue: 'rethrowing error',
-      );
       rethrow;
     }
   }
@@ -174,10 +137,6 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
       final response = await _dioClient.get<AvailableHourModel>(
         ApiEndpoints.customerReservationAvailableHours,
         fromJson: (json) {
-          DebugHelper.logMapDetails(
-            json as Map<String, dynamic>,
-            title: 'AvailableHours API Response Data',
-          );
           return AvailableHourModel.fromMap(json);
         },
         queryParameters: queryParameters.isNotEmpty ? queryParameters : null,
@@ -185,11 +144,6 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
 
       return response;
     } catch (e) {
-      DebugHelper.safeCast(
-        e,
-        'getReservationAvailableHours_error',
-        defaultValue: 'rethrowing error',
-      );
       rethrow;
     }
   }

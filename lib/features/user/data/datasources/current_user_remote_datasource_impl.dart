@@ -3,7 +3,6 @@ import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/features/user/data/datasources/current_user_remote_datasource.dart';
 import 'package:tires/features/user/data/models/user_model.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
   final DioClient _dioClient;
@@ -55,11 +54,6 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
         ApiEndpoints.customerProfile,
         data: data,
         fromJson: (json) {
-          // Add debugging to catch type errors in update user
-          DebugHelper.logMapDetails(
-            json as Map<String, dynamic>,
-            title: 'Update User API Response Data',
-          );
           return UserModel.fromMap(json);
         },
       );

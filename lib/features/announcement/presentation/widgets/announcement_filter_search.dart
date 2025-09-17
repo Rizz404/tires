@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
 class AnnouncementFilterSearch extends StatelessWidget {

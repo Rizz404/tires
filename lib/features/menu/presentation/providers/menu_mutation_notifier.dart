@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/menu/domain/usecases/create_menu_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/delete_menu_usecase.dart';
@@ -20,18 +21,21 @@ class MenuMutationNotifier extends Notifier<MenuMutationState> {
   }
 
   Future<void> createMenu(CreateMenuParams params) async {
+    AppLogger.uiInfo('Creating menu in notifier');
     state = state.copyWith(status: MenuMutationStatus.loading);
 
     final response = await _createMenuUsecase(params);
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to create menu', failure);
         state = state.copyWith(
           status: MenuMutationStatus.error,
           failure: failure,
         );
       },
       (success) {
+        AppLogger.uiInfo('Successfully created menu');
         state = state
             .copyWith(
               status: MenuMutationStatus.success,
@@ -45,18 +49,21 @@ class MenuMutationNotifier extends Notifier<MenuMutationState> {
   }
 
   Future<void> updateMenu(UpdateMenuParams params) async {
+    AppLogger.uiInfo('Updating menu in notifier');
     state = state.copyWith(status: MenuMutationStatus.loading);
 
     final response = await _updateMenuUsecase(params);
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to update menu', failure);
         state = state.copyWith(
           status: MenuMutationStatus.error,
           failure: failure,
         );
       },
       (success) {
+        AppLogger.uiInfo('Successfully updated menu');
         state = state
             .copyWith(
               status: MenuMutationStatus.success,
@@ -70,18 +77,21 @@ class MenuMutationNotifier extends Notifier<MenuMutationState> {
   }
 
   Future<void> deleteMenu(DeleteMenuParams params) async {
+    AppLogger.uiInfo('Deleting menu in notifier');
     state = state.copyWith(status: MenuMutationStatus.loading);
 
     final response = await _deleteMenuUsecase(params);
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to delete menu', failure);
         state = state.copyWith(
           status: MenuMutationStatus.error,
           failure: failure,
         );
       },
       (success) {
+        AppLogger.uiInfo('Successfully deleted menu');
         state = state
             .copyWith(
               status: MenuMutationStatus.success,
@@ -94,17 +104,20 @@ class MenuMutationNotifier extends Notifier<MenuMutationState> {
   }
 
   void clearState() {
+    AppLogger.uiInfo('Clearing menu mutation state');
     state = const MenuMutationState();
   }
 
   void clearError() {
     if (state.failure != null) {
+      AppLogger.uiInfo('Clearing menu mutation error');
       state = state.copyWithClearError();
     }
   }
 
   void clearSuccess() {
     if (state.successMessage != null) {
+      AppLogger.uiInfo('Clearing menu mutation success message');
       state = state.copyWithClearSuccess();
     }
   }

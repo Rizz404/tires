@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:tires/features/reservation/domain/entities/reservation_customer_info.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class ReservationCustomerInfoModel extends ReservationCustomerInfo {
   const ReservationCustomerInfoModel({
@@ -12,44 +11,12 @@ class ReservationCustomerInfoModel extends ReservationCustomerInfo {
   });
 
   factory ReservationCustomerInfoModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('ReservationCustomerInfoModel', map);
-
     return ReservationCustomerInfoModel(
-      fullName:
-          DebugHelper.safeCast<String>(
-            map['full_name'],
-            'full_name',
-            defaultValue: '',
-          ) ??
-          '',
-      fullNameKana:
-          DebugHelper.safeCast<String>(
-            map['full_name_kana'],
-            'full_name_kana',
-            defaultValue: '',
-          ) ??
-          '',
-      email:
-          DebugHelper.safeCast<String>(
-            map['email'],
-            'email',
-            defaultValue: '',
-          ) ??
-          '',
-      phoneNumber:
-          DebugHelper.safeCast<String>(
-            map['phone_number'],
-            'phone_number',
-            defaultValue: '',
-          ) ??
-          '',
-      isGuest:
-          DebugHelper.safeCast<bool>(
-            map['is_guest'],
-            'is_guest',
-            defaultValue: false,
-          ) ??
-          false,
+      fullName: (map['full_name'] as String?) ?? '',
+      fullNameKana: (map['full_name_kana'] as String?) ?? '',
+      email: (map['email'] as String?) ?? '',
+      phoneNumber: (map['phone_number'] as String?) ?? '',
+      isGuest: (map['is_guest'] as bool?) ?? false,
     );
   }
 

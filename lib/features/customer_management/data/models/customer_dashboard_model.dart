@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:tires/features/customer_management/domain/entities/customer_dashboard.dart';
 import 'package:tires/features/reservation/data/models/reservation_model.dart';
 import 'package:tires/features/reservation/data/mapper/reservation_mapper.dart';
-import 'package:tires/shared/presentation/utils/debug_helper.dart';
 
 class CustomerDashboardModel extends CustomerDashboard {
   const CustomerDashboardModel({
@@ -11,16 +10,9 @@ class CustomerDashboardModel extends CustomerDashboard {
   });
 
   factory CustomerDashboardModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('CustomerDashboardModel', map);
-
-    final summaryData = DebugHelper.safeExtractMap(map, 'summary');
+    final summaryData = map['summary'] as Map<String, dynamic>? ?? {};
     final recentReservationsData =
-        DebugHelper.safeCast<List<dynamic>>(
-          map['recent_reservations'],
-          'recent_reservations',
-          defaultValue: <dynamic>[],
-        ) ??
-        <dynamic>[];
+        (map['recent_reservations'] as List<dynamic>?) ?? <dynamic>[];
 
     return CustomerDashboardModel(
       summary: SummaryModel.fromMap(summaryData),
@@ -75,30 +67,10 @@ class SummaryModel extends Summary {
   });
 
   factory SummaryModel.fromMap(Map<String, dynamic> map) {
-    DebugHelper.traceModelCreation('SummaryModel', map);
-
     return SummaryModel(
-      totalReservations:
-          DebugHelper.safeCast<int>(
-            map['total_reservations'],
-            'total_reservations',
-            defaultValue: 0,
-          ) ??
-          0,
-      pendingReservations:
-          DebugHelper.safeCast<int>(
-            map['total_reservations'],
-            'total_reservations',
-            defaultValue: 0,
-          ) ??
-          0,
-      completedReservations:
-          DebugHelper.safeCast<int>(
-            map['completed_reservations'],
-            'completed_reservations',
-            defaultValue: 0,
-          ) ??
-          0,
+      totalReservations: (map['total_reservations'] as int?) ?? 0,
+      pendingReservations: (map['pending_reservations'] as int?) ?? 0,
+      completedReservations: (map['completed_reservations'] as int?) ?? 0,
     );
   }
 

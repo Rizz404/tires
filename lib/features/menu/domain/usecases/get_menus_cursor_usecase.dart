@@ -5,6 +5,7 @@ import 'package:fpdart/src/either.dart';
 
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/core/usecases/usecase.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/menu/domain/repositories/menu_repository.dart';
@@ -19,6 +20,7 @@ class GetMenusCursorUsecase
   Future<Either<Failure, CursorPaginatedSuccess<Menu>>> call(
     GetMenusCursorParams params,
   ) async {
+    AppLogger.businessInfo('Executing get menus cursor usecase');
     return await _menuRepository.getMenusCursor(params);
   }
 }
