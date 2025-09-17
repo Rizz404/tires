@@ -1,6 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/core/usecases/usecase.dart';
 import 'package:tires/features/customer_management/domain/entities/customer_dashboard.dart';
 import 'package:tires/features/customer_management/domain/repositories/customer_repository.dart';
@@ -15,6 +16,7 @@ class GetCurrentUserDashboardUsecase
   Future<Either<Failure, ItemSuccessResponse<CustomerDashboard>>> call(
     NoParams params,
   ) async {
+    AppLogger.businessInfo('Executing get current user dashboard usecase');
     return await _customerRepository.getCurrentUserDashboard();
   }
 }

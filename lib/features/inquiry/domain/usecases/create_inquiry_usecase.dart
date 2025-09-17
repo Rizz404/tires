@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/core/usecases/usecase.dart';
 import 'package:tires/features/inquiry/domain/entities/inquiry_response.dart';
 import 'package:tires/features/inquiry/domain/repositories/inquiry_repository.dart';
@@ -19,6 +20,7 @@ class CreateInquiryUsecase
   Future<Either<Failure, ItemSuccessResponse<InquiryResponse>>> call(
     CreateInquiryParams params,
   ) async {
+    AppLogger.businessInfo('Executing create inquiry usecase');
     return await _inquiryRepository.createInquiry(params);
   }
 }

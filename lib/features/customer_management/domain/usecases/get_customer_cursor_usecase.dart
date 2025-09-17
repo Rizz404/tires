@@ -6,6 +6,7 @@ import 'package:fpdart/src/either.dart';
 
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/core/usecases/usecase.dart';
 import 'package:tires/features/customer_management/domain/entities/customer.dart';
 import 'package:tires/features/customer_management/domain/repositories/customer_repository.dart';
@@ -21,6 +22,7 @@ class GetCustomerCursorUsecase
   Future<Either<Failure, CursorPaginatedSuccess<Customer>>> call(
     GetCustomerCursorParams params,
   ) async {
+    AppLogger.businessInfo('Executing get customer cursor usecase');
     return await _customerRepository.getCustomerCursor(params);
   }
 }

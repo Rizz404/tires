@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/user/domain/usecases/delete_current_user_account_usecase.dart';
 import 'package:tires/features/user/domain/usecases/update_current_user_password_usecase.dart';
@@ -35,6 +36,7 @@ class CurrentUserMutationNotifier extends Notifier<CurrentUserMutationState> {
     DateTime? dateOfBirth,
     String? gender,
   }) async {
+    AppLogger.uiInfo('Updating current user');
     state = state.copyWith(status: CurrentUserMutationStatus.loading);
 
     final params = UpdateUserParams(
@@ -54,12 +56,14 @@ class CurrentUserMutationNotifier extends Notifier<CurrentUserMutationState> {
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to update current user', failure);
         state = state.copyWith(
           status: CurrentUserMutationStatus.error,
           failure: failure,
         );
       },
       (success) {
+        AppLogger.uiInfo('Current user updated successfully');
         state = state
             .copyWith(
               status: CurrentUserMutationStatus.success,
@@ -77,6 +81,7 @@ class CurrentUserMutationNotifier extends Notifier<CurrentUserMutationState> {
     required String newPassword,
     required String confirmPassword,
   }) async {
+    AppLogger.uiInfo('Updating current user password');
     state = state.copyWith(status: CurrentUserMutationStatus.loading);
 
     final params = UpdateUserPasswordParams(
@@ -89,12 +94,14 @@ class CurrentUserMutationNotifier extends Notifier<CurrentUserMutationState> {
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to update current user password', failure);
         state = state.copyWith(
           status: CurrentUserMutationStatus.error,
           failure: failure,
         );
       },
       (success) {
+        AppLogger.uiInfo('Current user password updated successfully');
         state = state
             .copyWith(
               status: CurrentUserMutationStatus.success,
@@ -108,6 +115,7 @@ class CurrentUserMutationNotifier extends Notifier<CurrentUserMutationState> {
   }
 
   Future<void> deleteAccount() async {
+    AppLogger.uiInfo('Deleting current user account');
     state = state.copyWith(status: CurrentUserMutationStatus.loading);
 
     const params = DeleteUserAccountParams();
@@ -115,12 +123,14 @@ class CurrentUserMutationNotifier extends Notifier<CurrentUserMutationState> {
 
     response.fold(
       (failure) {
+        AppLogger.uiError('Failed to delete current user account', failure);
         state = state.copyWith(
           status: CurrentUserMutationStatus.error,
           failure: failure,
         );
       },
       (success) {
+        AppLogger.uiInfo('Current user account deleted successfully');
         state = state
             .copyWith(
               status: CurrentUserMutationStatus.success,
@@ -133,17 +143,20 @@ class CurrentUserMutationNotifier extends Notifier<CurrentUserMutationState> {
   }
 
   void clearState() {
+    AppLogger.uiInfo('Clearing current user mutation state');
     state = const CurrentUserMutationState();
   }
 
   void clearError() {
     if (state.failure != null) {
+      AppLogger.uiInfo('Clearing current user mutation error');
       state = state.copyWithClearError();
     }
   }
 
   void clearSuccess() {
     if (state.successMessage != null) {
+      AppLogger.uiInfo('Clearing current user mutation success');
       state = state.copyWithClearSuccess();
     }
   }

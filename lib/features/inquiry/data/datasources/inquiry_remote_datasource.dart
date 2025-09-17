@@ -1,6 +1,7 @@
 import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
+import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/inquiry/data/models/inquiry_response_model.dart';
 import 'package:tires/features/inquiry/domain/usecases/create_inquiry_usecase.dart';
 
@@ -20,6 +21,7 @@ class InquiryRemoteDatasourceImpl implements InquiryRemoteDatasource {
     CreateInquiryParams params,
   ) async {
     try {
+      AppLogger.networkInfo('Creating inquiry');
       final response = await _dioClient.post<InquiryResponseModel>(
         ApiEndpoints.customerInquiry,
         data: params.toMap(),
@@ -30,6 +32,7 @@ class InquiryRemoteDatasourceImpl implements InquiryRemoteDatasource {
 
       return response;
     } catch (e) {
+      AppLogger.networkError('Error creating inquiry', e);
       rethrow;
     }
   }
