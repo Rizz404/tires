@@ -109,5 +109,14 @@
   "adminUpsertContactScreenDeleteModalTitle": "削除の確認",
   "adminUpsertContactScreenDeleteModalText": "このお問い合わせを削除してもよろしいですか？この操作は元に戻せません。",
   "adminUpsertContactScreenAlertsErrorOccurred": "エラーが発生しました:",
-  "adminUpsertContactScreenAlertsDeleteError": "削除中にエラーが発生しました"
+  "adminUpsertContactScreenAlertsDeleteError": "削除中にエラーが発生しました",
+  "adminUpsertContactScreenRequiredField": "*",
+  "adminUpsertContactScreenMaxCharacters": "最大255文字",
+  "adminUpsertContactScreenInvalidEmail": "有効なメールアドレスを入力してください",
+  "adminListContactScreenTableHeadersName": "名前",
+  "adminListContactScreenTableHeadersSubject": "件名",
+  "adminListContactScreenTableHeadersStatus": "ステータス",
+  "adminListContactScreenTableHeadersCreatedAt": "作成日",
+  "adminListContactScreenTableHeadersActions": "アクション",
+  "adminListContactScreenTableActionsTooltipView": "連絡先を表示"
 }

@@ -27,6 +27,63 @@ class AdminDashboardRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AdminEditBusinessInformationScreen]
+class AdminEditBusinessInformationRoute
+    extends PageRouteInfo<AdminEditBusinessInformationRouteArgs> {
+  AdminEditBusinessInformationRoute({
+    Key? key,
+    required BusinessInformation businessInformation,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AdminEditBusinessInformationRoute.name,
+         args: AdminEditBusinessInformationRouteArgs(
+           key: key,
+           businessInformation: businessInformation,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'AdminEditBusinessInformationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<AdminEditBusinessInformationRouteArgs>();
+      return AdminEditBusinessInformationScreen(
+        key: args.key,
+        businessInformation: args.businessInformation,
+      );
+    },
+  );
+}
+
+class AdminEditBusinessInformationRouteArgs {
+  const AdminEditBusinessInformationRouteArgs({
+    this.key,
+    required this.businessInformation,
+  });
+
+  final Key? key;
+
+  final BusinessInformation businessInformation;
+
+  @override
+  String toString() {
+    return 'AdminEditBusinessInformationRouteArgs{key: $key, businessInformation: $businessInformation}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AdminEditBusinessInformationRouteArgs) return false;
+    return key == other.key && businessInformation == other.businessInformation;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ businessInformation.hashCode;
+}
+
+/// generated route for
 /// [AdminListAnnouncementScreen]
 class AdminListAnnouncementRoute extends PageRouteInfo<void> {
   const AdminListAnnouncementRoute({List<PageRouteInfo>? children})
@@ -283,65 +340,6 @@ class AdminUpsertBlockedPeriodRouteArgs {
 }
 
 /// generated route for
-/// [AdminUpsertBusinessInformationScreen]
-class AdminUpsertBusinessInformationRoute
-    extends PageRouteInfo<AdminUpsertBusinessInformationRouteArgs> {
-  AdminUpsertBusinessInformationRoute({
-    Key? key,
-    BusinessInformation? businessInformation,
-    List<PageRouteInfo>? children,
-  }) : super(
-         AdminUpsertBusinessInformationRoute.name,
-         args: AdminUpsertBusinessInformationRouteArgs(
-           key: key,
-           businessInformation: businessInformation,
-         ),
-         initialChildren: children,
-       );
-
-  static const String name = 'AdminUpsertBusinessInformationRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      final args = data.argsAs<AdminUpsertBusinessInformationRouteArgs>(
-        orElse: () => const AdminUpsertBusinessInformationRouteArgs(),
-      );
-      return AdminUpsertBusinessInformationScreen(
-        key: args.key,
-        businessInformation: args.businessInformation,
-      );
-    },
-  );
-}
-
-class AdminUpsertBusinessInformationRouteArgs {
-  const AdminUpsertBusinessInformationRouteArgs({
-    this.key,
-    this.businessInformation,
-  });
-
-  final Key? key;
-
-  final BusinessInformation? businessInformation;
-
-  @override
-  String toString() {
-    return 'AdminUpsertBusinessInformationRouteArgs{key: $key, businessInformation: $businessInformation}';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    if (other is! AdminUpsertBusinessInformationRouteArgs) return false;
-    return key == other.key && businessInformation == other.businessInformation;
-  }
-
-  @override
-  int get hashCode => key.hashCode ^ businessInformation.hashCode;
-}
-
-/// generated route for
 /// [AdminUpsertCalendarScreen]
 class AdminUpsertCalendarRoute extends PageRouteInfo<void> {
   const AdminUpsertCalendarRoute({List<PageRouteInfo>? children})
@@ -359,18 +357,52 @@ class AdminUpsertCalendarRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [AdminUpsertContactScreen]
-class AdminUpsertContactRoute extends PageRouteInfo<void> {
-  const AdminUpsertContactRoute({List<PageRouteInfo>? children})
-    : super(AdminUpsertContactRoute.name, initialChildren: children);
+class AdminUpsertContactRoute
+    extends PageRouteInfo<AdminUpsertContactRouteArgs> {
+  AdminUpsertContactRoute({
+    Key? key,
+    Contact? contact,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AdminUpsertContactRoute.name,
+         args: AdminUpsertContactRouteArgs(key: key, contact: contact),
+         initialChildren: children,
+       );
 
   static const String name = 'AdminUpsertContactRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const AdminUpsertContactScreen();
+      final args = data.argsAs<AdminUpsertContactRouteArgs>(
+        orElse: () => const AdminUpsertContactRouteArgs(),
+      );
+      return AdminUpsertContactScreen(key: args.key, contact: args.contact);
     },
   );
+}
+
+class AdminUpsertContactRouteArgs {
+  const AdminUpsertContactRouteArgs({this.key, this.contact});
+
+  final Key? key;
+
+  final Contact? contact;
+
+  @override
+  String toString() {
+    return 'AdminUpsertContactRouteArgs{key: $key, contact: $contact}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AdminUpsertContactRouteArgs) return false;
+    return key == other.key && contact == other.contact;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ contact.hashCode;
 }
 
 /// generated route for

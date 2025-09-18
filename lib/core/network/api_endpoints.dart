@@ -45,6 +45,8 @@ class ApiEndpoints {
       '$_adminPrefix$_announcementPrefix/statistics';
   static const String adminMenuStatistics =
       '$_adminPrefix$_menuPrefix/statistics';
+  static const String adminContactStatistics =
+      '$_adminPrefix$_contactPrefix/statistics';
   static const String adminBlockedPeriods =
       '$_adminPrefix$_blockedPeriodPrefix';
   static const String adminBusinessSettings =

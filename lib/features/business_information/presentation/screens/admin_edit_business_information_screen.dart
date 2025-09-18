@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:tires/core/error/failure.dart';
+import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/features/business_information/domain/entities/business_information.dart';
+import 'package:tires/l10n_generated/app_localizations.dart';
+import 'package:tires/shared/presentation/utils/app_toast.dart';
 import 'package:tires/shared/presentation/widgets/admin_app_bar.dart';
 import 'package:tires/shared/presentation/widgets/admin_end_drawer.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
@@ -13,81 +17,145 @@ import 'package:tires/shared/presentation/widgets/app_rich_text_editor.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/app_text_field.dart';
 import 'package:tires/shared/presentation/widgets/app_time_picker.dart';
+import 'package:tires/shared/presentation/widgets/error_summary_box.dart';
+import 'package:tires/shared/presentation/widgets/loading_overlay.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
 
 @RoutePage()
-class AdminUpsertBusinessInformationScreen extends ConsumerStatefulWidget {
-  final BusinessInformation? businessInformation;
+class AdminEditBusinessInformationScreen extends ConsumerStatefulWidget {
+  final BusinessInformation businessInformation;
 
-  const AdminUpsertBusinessInformationScreen({
+  const AdminEditBusinessInformationScreen({
     super.key,
-    this.businessInformation,
+    required this.businessInformation,
   });
 
   @override
-  ConsumerState<AdminUpsertBusinessInformationScreen> createState() =>
-      _AdminUpsertBusinessInformationScreenState();
+  ConsumerState<AdminEditBusinessInformationScreen> createState() =>
+      _AdminEditBusinessInformationScreenState();
 }
 
-class _AdminUpsertBusinessInformationScreenState
-    extends ConsumerState<AdminUpsertBusinessInformationScreen> {
+class _AdminEditBusinessInformationScreenState
+    extends ConsumerState<AdminEditBusinessInformationScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
-
-  bool get _isEditMode => widget.businessInformation != null;
+  List<DomainValidationError>? _validationErrors;
+  bool _isSubmitting = false;
 
   @override
   void initState() {
     super.initState();
-    if (_isEditMode) {
-      // TODO: Populate form with businessInformation data
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _populateForm();
+    });
   }
 
-  void _handleSubmit() {
+  void _populateForm() {
+    final businessInfo = widget.businessInformation;
+    _formKey.currentState?.patchValue({
+      'shop_name': businessInfo.shopName,
+      'phone_number': businessInfo.phoneNumber,
+      'address': businessInfo.address,
+      'website_url': businessInfo.websiteUrl,
+      'site_name': businessInfo.siteName,
+      'site_public': businessInfo.sitePublic,
+      'reply_email': businessInfo.replyEmail,
+      'google_analytics_id': businessInfo.googleAnalyticsId,
+      'shop_description': businessInfo.shopDescription,
+      'access_information': businessInfo.accessInformation,
+      'terms_of_use': businessInfo.termsOfUse,
+      'privacy_policy': businessInfo.privacyPolicy,
+      // TODO: Add business hours mapping when available
+    });
+    // Force rebuild to ensure form fields are updated
+    setState(() {});
+  }
+
+  void _handleSubmit(WidgetRef ref) {
+    if (_isSubmitting) return;
+
+    setState(() {
+      _validationErrors = null;
+      _isSubmitting = true;
+    });
+
     if (_formKey.currentState?.saveAndValidate() ?? false) {
-      // TODO: Handle form submission
       final values = _formKey.currentState!.value;
-      print(values);
+      // TODO: Implement business information update logic with provider
+      // This will be implemented when providers are available
+      print('Form values: $values');
+      
+      // Simulate successful update for now
+      setState(() {
+        _isSubmitting = false;
+      });
+      
+      AppToast.showSuccess(
+        context,
+        message: 'Business information updated successfully',
+      );
+      context.router.pop();
+    } else {
+      setState(() {
+        _isSubmitting = false;
+      });
+      AppToast.showError(
+        context,
+        message: 'Please correct the errors in the form.',
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Scaffold(
       appBar: const AdminAppBar(),
       endDrawer: const AdminEndDrawer(),
-      body: ScreenWrapper(
-        child: FormBuilder(
-          key: _formKey,
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(child: _buildHeader()),
-              const SliverToBoxAdapter(child: SizedBox(height: 24)),
-              SliverToBoxAdapter(child: _buildBasicInformation()),
-              const SliverToBoxAdapter(child: SizedBox(height: 24)),
-              SliverToBoxAdapter(child: _buildBusinessHours()),
-              const SliverToBoxAdapter(child: SizedBox(height: 24)),
-              SliverToBoxAdapter(child: _buildSiteSettings()),
-              const SliverToBoxAdapter(child: SizedBox(height: 24)),
-              SliverToBoxAdapter(child: _buildDescriptionAndImage()),
-              const SliverToBoxAdapter(child: SizedBox(height: 24)),
-              SliverToBoxAdapter(child: _buildPoliciesAndTerms()),
-              const SliverToBoxAdapter(child: SizedBox(height: 32)),
-              SliverToBoxAdapter(child: _buildActionButtons()),
-              const SliverToBoxAdapter(child: SizedBox(height: 80)),
-            ],
+      body: LoadingOverlay(
+        isLoading: _isSubmitting,
+        child: ScreenWrapper(
+          child: FormBuilder(
+            key: _formKey,
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(child: _buildHeader(l10n)),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                if (_validationErrors != null)
+                  SliverToBoxAdapter(
+                    child: Column(
+                      children: [
+                        ErrorSummaryBox(errors: _validationErrors!),
+                        const SizedBox(height: 16),
+                      ],
+                    ),
+                  ),
+                SliverToBoxAdapter(child: _buildBasicInformation()),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                SliverToBoxAdapter(child: _buildBusinessHours()),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                SliverToBoxAdapter(child: _buildSiteSettings()),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                SliverToBoxAdapter(child: _buildDescriptionAndImage()),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                SliverToBoxAdapter(child: _buildPoliciesAndTerms()),
+                const SliverToBoxAdapter(child: SizedBox(height: 32)),
+                SliverToBoxAdapter(child: _buildActionButtons(l10n)),
+                const SliverToBoxAdapter(child: SizedBox(height: 80)),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(L10n l10n) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppText(
-          _isEditMode ? "Edit Business Settings" : "Create Business Settings",
+          "Edit Business Settings",
           style: AppTextStyle.headlineMedium,
           fontWeight: FontWeight.bold,
         ),
@@ -328,24 +396,23 @@ class _AdminUpsertBusinessInformationScreenState
     );
   }
 
-  Widget _buildActionButtons() {
+  Widget _buildActionButtons(L10n l10n) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        IntrinsicWidth(
-          child: AppButton(
-            text: "Cancel",
-            color: AppButtonColor.secondary,
-            onPressed: () => context.router.pop(),
-          ),
+        AppButton(
+          text: "Cancel",
+          onPressed: () => context.router.pop(),
+          variant: AppButtonVariant.outlined,
+          color: AppButtonColor.neutral,
+          isFullWidth: false,
         ),
         const SizedBox(width: 16),
-        IntrinsicWidth(
-          child: AppButton(
-            text: "Save Changes",
-            color: AppButtonColor.primary,
-            onPressed: _handleSubmit,
-          ),
+        AppButton(
+          text: "Save Changes",
+          onPressed: () => _handleSubmit(ref),
+          isLoading: _isSubmitting,
+          isFullWidth: false,
         ),
       ],
     );

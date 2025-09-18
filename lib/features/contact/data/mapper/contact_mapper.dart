@@ -1,5 +1,5 @@
-import 'package:tires/features/inquiry/data/models/contact_model.dart';
-import 'package:tires/features/inquiry/domain/entities/contact.dart';
+import 'package:tires/features/contact/data/models/contact_model.dart';
+import 'package:tires/features/contact/domain/entities/contact.dart';
 
 extension ContactModelMapper on ContactModel {
   Contact toEntity() {

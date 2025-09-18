@@ -2812,6 +2812,33 @@ class L10nJa extends L10n {
   String get adminUpsertContactScreenAlertsDeleteError => '削除中にエラーが発生しました';
 
   @override
+  String get adminUpsertContactScreenRequiredField => '*';
+
+  @override
+  String get adminUpsertContactScreenMaxCharacters => '最大255文字';
+
+  @override
+  String get adminUpsertContactScreenInvalidEmail => '有効なメールアドレスを入力してください';
+
+  @override
+  String get adminListContactScreenTableHeadersName => '名前';
+
+  @override
+  String get adminListContactScreenTableHeadersSubject => '件名';
+
+  @override
+  String get adminListContactScreenTableHeadersStatus => 'ステータス';
+
+  @override
+  String get adminListContactScreenTableHeadersCreatedAt => '作成日';
+
+  @override
+  String get adminListContactScreenTableHeadersActions => 'アクション';
+
+  @override
+  String get adminListContactScreenTableActionsTooltipView => '連絡先を表示';
+
+  @override
   String get adminListCustomerManagementTitle => '顧客管理';
 
   @override

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:tires/features/announcement/domain/entities/announcement.dart';
-import 'package:tires/features/inquiry/domain/entities/contact.dart';
+import 'package:tires/features/contact/domain/entities/contact.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 
 class Dashboard extends Equatable {

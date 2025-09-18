@@ -3003,6 +3003,34 @@ class L10nEn extends L10n {
       'An error occurred while deleting';
 
   @override
+  String get adminUpsertContactScreenRequiredField => '*';
+
+  @override
+  String get adminUpsertContactScreenMaxCharacters => 'Maximum 255 characters';
+
+  @override
+  String get adminUpsertContactScreenInvalidEmail =>
+      'Please enter a valid email address';
+
+  @override
+  String get adminListContactScreenTableHeadersName => 'Name';
+
+  @override
+  String get adminListContactScreenTableHeadersSubject => 'Subject';
+
+  @override
+  String get adminListContactScreenTableHeadersStatus => 'Status';
+
+  @override
+  String get adminListContactScreenTableHeadersCreatedAt => 'Created At';
+
+  @override
+  String get adminListContactScreenTableHeadersActions => 'Actions';
+
+  @override
+  String get adminListContactScreenTableActionsTooltipView => 'View Contact';
+
+  @override
   String get adminListCustomerManagementTitle => 'Customer Management';
 
   @override

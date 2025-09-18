@@ -1,11 +1,11 @@
 import 'dart:convert';
+import 'package:tires/features/contact/data/models/contact_model.dart';
+import 'package:tires/features/contact/domain/entities/contact.dart';
 import 'package:tires/features/dashboard/domain/entities/dashboard.dart';
 import 'package:tires/features/announcement/domain/entities/announcement.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
-import 'package:tires/features/inquiry/domain/entities/contact.dart';
 import 'package:tires/features/announcement/data/models/announcement_model.dart';
 import 'package:tires/features/reservation/data/models/reservation_model.dart';
-import 'package:tires/features/inquiry/data/models/contact_model.dart';
 
 class DashboardModel extends Dashboard {
   DashboardModel({

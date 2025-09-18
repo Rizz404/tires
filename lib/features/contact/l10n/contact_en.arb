@@ -109,5 +109,14 @@
   "adminUpsertContactScreenDeleteModalTitle": "Confirm Delete",
   "adminUpsertContactScreenDeleteModalText": "Are you sure you want to delete this contact? This action cannot be undone.",
   "adminUpsertContactScreenAlertsErrorOccurred": "An error occurred:",
-  "adminUpsertContactScreenAlertsDeleteError": "An error occurred while deleting"
+  "adminUpsertContactScreenAlertsDeleteError": "An error occurred while deleting",
+  "adminUpsertContactScreenRequiredField": "*",
+  "adminUpsertContactScreenMaxCharacters": "Maximum 255 characters",
+  "adminUpsertContactScreenInvalidEmail": "Please enter a valid email address",
+  "adminListContactScreenTableHeadersName": "Name",
+  "adminListContactScreenTableHeadersSubject": "Subject",
+  "adminListContactScreenTableHeadersStatus": "Status",
+  "adminListContactScreenTableHeadersCreatedAt": "Created At",
+  "adminListContactScreenTableHeadersActions": "Actions",
+  "adminListContactScreenTableActionsTooltipView": "View Contact"
 }

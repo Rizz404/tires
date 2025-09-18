@@ -5,6 +5,11 @@ import 'package:tires/features/announcement/domain/usecases/delete_announcement_
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/get_announcement_statistics_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/update_announcement_usecase.dart';
+import 'package:tires/features/contact/domain/usecases/create_contact_usecase.dart';
+import 'package:tires/features/contact/domain/usecases/delete_contact_usecase.dart';
+import 'package:tires/features/contact/domain/usecases/get_contacts_cursor_usecase.dart';
+import 'package:tires/features/contact/domain/usecases/get_contact_statistics_usecase.dart';
+import 'package:tires/features/contact/domain/usecases/update_contact_usecase.dart';
 import 'package:tires/features/business_information/domain/usecases/get_business_information_usecase.dart';
 import 'package:tires/features/business_information/domain/usecases/get_public_business_information_usecase.dart';
 import 'package:tires/features/business_information/domain/usecases/update_business_information_usecase.dart';
@@ -234,6 +239,35 @@ final getAnnouncementStatisticsUsecaseProvider =
     Provider<GetAnnouncementStatisticsUsecase>((ref) {
       final _announcementRepository = ref.watch(announcementRepoProvider);
       return GetAnnouncementStatisticsUsecase(_announcementRepository);
+    });
+
+// Contact Usecase Providers
+final getContactsCursorUsecaseProvider = Provider<GetContactsCursorUsecase>((
+  ref,
+) {
+  final _contactRepository = ref.watch(contactRepoProvider);
+  return GetContactsCursorUsecase(_contactRepository);
+});
+
+final createContactUsecaseProvider = Provider<CreateContactUsecase>((ref) {
+  final _contactRepository = ref.watch(contactRepoProvider);
+  return CreateContactUsecase(_contactRepository);
+});
+
+final updateContactUsecaseProvider = Provider<UpdateContactUsecase>((ref) {
+  final _contactRepository = ref.watch(contactRepoProvider);
+  return UpdateContactUsecase(_contactRepository);
+});
+
+final deleteContactUsecaseProvider = Provider<DeleteContactUsecase>((ref) {
+  final _contactRepository = ref.watch(contactRepoProvider);
+  return DeleteContactUsecase(_contactRepository);
+});
+
+final getContactStatisticsUsecaseProvider =
+    Provider<GetContactStatisticsUsecase>((ref) {
+      final _contactRepository = ref.watch(contactRepoProvider);
+      return GetContactStatisticsUsecase(_contactRepository);
     });
 
 final getDashboardUsecaseProvider = Provider<GetDashboardUsecase>((ref) {

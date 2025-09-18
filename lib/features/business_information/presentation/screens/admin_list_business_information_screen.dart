@@ -52,15 +52,16 @@ class _AdminListBusinessInformationScreenState
           child: CustomScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             slivers: [
-              SliverToBoxAdapter(
-                child: _buildHeader(context, state.businessInformation),
-              ),
               const SliverToBoxAdapter(child: SizedBox(height: 24)),
               if (state.status == BusinessInformationStatus.loading)
                 const SliverToBoxAdapter(
                   child: Center(child: CircularProgressIndicator()),
                 )
               else if (state.businessInformation != null) ...[
+                SliverToBoxAdapter(
+                  child: _buildHeader(context, state.businessInformation!),
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
                 SliverToBoxAdapter(
                   child: _buildBasicInformation(context, state),
                 ),
@@ -88,7 +89,7 @@ class _AdminListBusinessInformationScreenState
 
   Widget _buildHeader(
     BuildContext context,
-    BusinessInformation? businessInformation,
+    BusinessInformation businessInformation,
   ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -120,11 +121,14 @@ class _AdminListBusinessInformationScreenState
             text: context.l10n.adminListBusinessInformationScreenEditButton,
             leadingIcon: const Icon(Icons.edit),
             onPressed: () {
-              context.router.push(
-                AdminUpsertBusinessInformationRoute(
-                  businessInformation: businessInformation,
-                ),
-              );
+              final state = ref.read(businessInformationGetNotifierProvider);
+              if (state.businessInformation != null) {
+                context.router.push(
+                  AdminEditBusinessInformationRoute(
+                    businessInformation: state.businessInformation!,
+                  ),
+                );
+              }
             },
           ),
         ],
@@ -470,9 +474,7 @@ class _AdminListBusinessInformationScreenState
                   .l10n
                   .adminListBusinessInformationScreenNotFoundCreateButton,
               leadingIcon: const Icon(Icons.add),
-              onPressed: () {
-                context.router.push(AdminUpsertBusinessInformationRoute());
-              },
+              onPressed: () {},
             ),
           ],
         ),

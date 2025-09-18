@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:tires/features/inquiry/domain/entities/contact.dart';
+import 'package:tires/features/contact/domain/entities/contact.dart';
 import 'package:tires/features/user/data/models/user_model.dart';
 import 'package:tires/features/user/domain/entities/user.dart';
 

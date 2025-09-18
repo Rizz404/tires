@@ -5228,6 +5228,60 @@ abstract class L10n {
   /// **'An error occurred while deleting'**
   String get adminUpsertContactScreenAlertsDeleteError;
 
+  /// No description provided for @adminUpsertContactScreenRequiredField.
+  ///
+  /// In en, this message translates to:
+  /// **'*'**
+  String get adminUpsertContactScreenRequiredField;
+
+  /// No description provided for @adminUpsertContactScreenMaxCharacters.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum 255 characters'**
+  String get adminUpsertContactScreenMaxCharacters;
+
+  /// No description provided for @adminUpsertContactScreenInvalidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address'**
+  String get adminUpsertContactScreenInvalidEmail;
+
+  /// No description provided for @adminListContactScreenTableHeadersName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get adminListContactScreenTableHeadersName;
+
+  /// No description provided for @adminListContactScreenTableHeadersSubject.
+  ///
+  /// In en, this message translates to:
+  /// **'Subject'**
+  String get adminListContactScreenTableHeadersSubject;
+
+  /// No description provided for @adminListContactScreenTableHeadersStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get adminListContactScreenTableHeadersStatus;
+
+  /// No description provided for @adminListContactScreenTableHeadersCreatedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Created At'**
+  String get adminListContactScreenTableHeadersCreatedAt;
+
+  /// No description provided for @adminListContactScreenTableHeadersActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get adminListContactScreenTableHeadersActions;
+
+  /// No description provided for @adminListContactScreenTableActionsTooltipView.
+  ///
+  /// In en, this message translates to:
+  /// **'View Contact'**
+  String get adminListContactScreenTableActionsTooltipView;
+
   /// No description provided for @adminListCustomerManagementTitle.
   ///
   /// In en, this message translates to:
