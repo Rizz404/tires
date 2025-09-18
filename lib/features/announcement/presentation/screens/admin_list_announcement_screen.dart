@@ -10,7 +10,6 @@ import 'package:tires/features/announcement/presentation/widgets/announcement_ta
 import 'package:tires/features/announcement/presentation/providers/announcements_state.dart';
 import 'package:tires/features/announcement/presentation/providers/announcement_providers.dart';
 import 'package:tires/features/announcement/presentation/providers/announcement_statistics_state.dart';
-import 'package:tires/features/announcement/domain/entities/announcement.dart';
 import 'package:tires/shared/presentation/widgets/admin_end_drawer.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
@@ -32,53 +31,52 @@ class _AdminListAnnouncementScreenState
   bool _isFilterVisible = true;
 
   Future<void> _refreshAnnouncements() async {
-    await ref.read(announcementGetNotifierProvider.notifier).refresh();
+    // Save the form first to ensure all values are captured
+    _formKey.currentState?.save();
+
+    final formValues = _formKey.currentState?.value;
+    final searchQuery = formValues?['search'] as String?;
+    final selectedStatus = formValues?['status'] as String?;
+    final publishedAtFilter = formValues?['published_at'] as DateTime?;
+
+    await ref
+        .read(announcementGetNotifierProvider.notifier)
+        .refresh(
+          search: searchQuery,
+          status: selectedStatus,
+          publishedAt: publishedAtFilter,
+        );
     await ref.read(announcementStatisticsNotifierProvider.notifier).refresh();
   }
 
   void _applyFilters() {
-    setState(() {}); // Just trigger rebuild, filtering is done in build
+    // Save the form first to ensure all values are captured
+    _formKey.currentState?.save();
+
+    final formValues = _formKey.currentState?.value;
+    final searchQuery = formValues?['search'] as String?;
+    final selectedStatus = formValues?['status'] as String?;
+    final publishedAtFilter = formValues?['published_at'] as DateTime?;
+
+    ref
+        .read(announcementGetNotifierProvider.notifier)
+        .getAnnouncements(
+          search: searchQuery,
+          status: selectedStatus,
+          publishedAt: publishedAtFilter,
+        );
   }
 
   void _resetFilters() {
     _formKey.currentState?.reset();
-    setState(() {});
+    ref.read(announcementGetNotifierProvider.notifier).getAnnouncements();
   }
 
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(announcementGetNotifierProvider);
     final statisticsState = ref.watch(announcementStatisticsNotifierProvider);
-    final formValues = _formKey.currentState?.value;
-    List<Announcement> filteredAnnouncements = state.announcements;
-    if (formValues != null) {
-      final searchQuery = formValues['search'] as String? ?? '';
-      final selectedStatus = formValues['status'] as String? ?? 'all';
-      final publishedAtFilter = formValues['published_at'] as DateTime?;
 
-      if (searchQuery.isNotEmpty) {
-        final query = searchQuery.toLowerCase();
-        filteredAnnouncements = filteredAnnouncements.where((ann) {
-          return ann.title.toLowerCase().contains(query) ||
-              ann.content.toLowerCase().contains(query);
-        }).toList();
-      }
-      if (selectedStatus != 'all') {
-        final isActive = selectedStatus == 'active';
-        filteredAnnouncements = filteredAnnouncements
-            .where((ann) => ann.isActive == isActive)
-            .toList();
-      }
-      if (publishedAtFilter != null) {
-        filteredAnnouncements = filteredAnnouncements
-            .where(
-              (ann) =>
-                  ann.publishedAt != null &&
-                  !ann.publishedAt!.isBefore(publishedAtFilter),
-            )
-            .toList();
-      }
-    }
     return Scaffold(
       endDrawer: const AdminEndDrawer(),
       body: ScreenWrapper(
@@ -106,7 +104,7 @@ class _AdminListAnnouncementScreenState
               const SliverToBoxAdapter(child: SizedBox(height: 24)),
               SliverToBoxAdapter(
                 child: AnnouncementTableWidget(
-                  announcements: filteredAnnouncements,
+                  announcements: state.announcements,
                   isLoading: state.status == AnnouncementsStatus.loading,
                   onRefresh: _refreshAnnouncements,
                 ),

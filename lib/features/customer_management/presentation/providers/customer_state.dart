@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
-import 'package:tires/features/customer_management/domain/entities/customer.dart';
+import 'package:tires/features/user/domain/entities/user.dart';
 
 enum CustomerStatus { initial, loading, loaded, loadingMore, error }
 
 class CustomerState extends Equatable {
   final CustomerStatus status;
-  final List<Customer> customers;
+  final List<User> customers;
   final String? errorMessage;
   final bool hasNextPage;
   final String? nextCursor;
@@ -20,7 +20,7 @@ class CustomerState extends Equatable {
 
   CustomerState copyWith({
     CustomerStatus? status,
-    List<Customer>? customers,
+    List<User>? customers,
     String? errorMessage,
     bool? hasNextPage,
     String? nextCursor,

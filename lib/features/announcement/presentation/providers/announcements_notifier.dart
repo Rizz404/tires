@@ -18,15 +18,22 @@ class AnnouncementsNotifier extends Notifier<AnnouncementsState> {
   Future<void> getInitialAnnouncements({
     bool paginate = true,
     int perPage = 10,
+    String? search,
+    String? status,
+    DateTime? publishedAt,
   }) async {
     if (state.status == AnnouncementsStatus.loading) return;
 
     AppLogger.uiInfo('Fetching initial announcements in notifier');
+
     state = state.copyWith(status: AnnouncementsStatus.loading);
 
     final params = GetAnnouncementsCursorParams(
       paginate: paginate,
       perPage: perPage,
+      search: search,
+      status: status,
+      publishedAt: publishedAt,
     );
 
     final response = await _getUsersCursorUsecase(params);
@@ -58,11 +65,26 @@ class AnnouncementsNotifier extends Notifier<AnnouncementsState> {
   Future<void> getAnnouncements({
     bool paginate = true,
     int perPage = 10,
+    String? search,
+    String? status,
+    DateTime? publishedAt,
   }) async {
-    await getInitialAnnouncements(paginate: paginate, perPage: perPage);
+    await getInitialAnnouncements(
+      paginate: paginate,
+      perPage: perPage,
+      search: search,
+      status: status,
+      publishedAt: publishedAt,
+    );
   }
 
-  Future<void> loadMore({bool paginate = true, int perPage = 10}) async {
+  Future<void> loadMore({
+    bool paginate = true,
+    int perPage = 10,
+    String? search,
+    String? status,
+    DateTime? publishedAt,
+  }) async {
     if (!state.hasNextPage || state.status == AnnouncementsStatus.loadingMore) {
       return;
     }
@@ -74,6 +96,9 @@ class AnnouncementsNotifier extends Notifier<AnnouncementsState> {
       paginate: paginate,
       perPage: perPage,
       cursor: state.cursor?.nextCursor,
+      search: search,
+      status: status,
+      publishedAt: publishedAt,
     );
 
     final response = await _getUsersCursorUsecase(params);
@@ -104,8 +129,20 @@ class AnnouncementsNotifier extends Notifier<AnnouncementsState> {
     );
   }
 
-  Future<void> refresh({bool paginate = true, int perPage = 10}) async {
-    await getInitialAnnouncements(paginate: paginate, perPage: perPage);
+  Future<void> refresh({
+    bool paginate = true,
+    int perPage = 10,
+    String? search,
+    String? status,
+    DateTime? publishedAt,
+  }) async {
+    await getInitialAnnouncements(
+      paginate: paginate,
+      perPage: perPage,
+      search: search,
+      status: status,
+      publishedAt: publishedAt,
+    );
   }
 
   void clearState() {

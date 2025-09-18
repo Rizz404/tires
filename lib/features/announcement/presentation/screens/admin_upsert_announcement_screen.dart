@@ -37,34 +37,21 @@ class AdminUpsertAnnouncementScreen extends ConsumerStatefulWidget {
 }
 
 class _AdminUpsertAnnouncementScreenState
-    extends ConsumerState<AdminUpsertAnnouncementScreen>
-    with SingleTickerProviderStateMixin {
+    extends ConsumerState<AdminUpsertAnnouncementScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   List<DomainValidationError>? _validationErrors;
   bool _isSubmitting = false;
-  late TabController _tabController;
-  bool _showPreview = false;
-  late ValueNotifier<Map<String, dynamic>> _formValues;
 
   bool get _isEditMode => widget.announcement != null;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-    _formValues = ValueNotifier({});
     if (_isEditMode) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _populateForm();
       });
     }
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    _formValues.dispose();
-    super.dispose();
   }
 
   void _populateForm() {
@@ -80,8 +67,6 @@ class _AdminUpsertAnnouncementScreenState
       });
       // Force rebuild to ensure form fields are updated
       setState(() {});
-      // Update form values for preview
-      _formValues.value = _formKey.currentState?.value ?? {};
     }
   }
 
@@ -229,9 +214,6 @@ class _AdminUpsertAnnouncementScreenState
   Widget _buildForm(L10n l10n) {
     return FormBuilder(
       key: _formKey,
-      onChanged: () {
-        _formValues.value = _formKey.currentState?.value ?? {};
-      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -252,13 +234,11 @@ class _AdminUpsertAnnouncementScreenState
                     style: AppTextStyle.bodySmall,
                   ),
                   const SizedBox(height: 16),
-                  _buildLanguageTabs(l10n),
-                  const SizedBox(height: 16),
-                  _buildLanguageSections(l10n),
+                  _buildEnglishSection(l10n),
+                  const SizedBox(height: 24),
+                  _buildJapaneseSection(l10n),
                   const SizedBox(height: 24),
                   _buildCommonSettings(l10n),
-                  const SizedBox(height: 24),
-                  _buildPreviewSection(l10n),
                 ],
               ),
             ),
@@ -266,26 +246,6 @@ class _AdminUpsertAnnouncementScreenState
           const SizedBox(height: 24),
           _buildActionButtons(l10n),
         ],
-      ),
-    );
-  }
-
-  Widget _buildLanguageTabs(L10n l10n) {
-    return TabBar(
-      controller: _tabController,
-      tabs: [
-        Tab(text: l10n.adminUpsertAnnouncementScreenTabEnglish),
-        Tab(text: l10n.adminUpsertAnnouncementScreenTabJapanese),
-      ],
-    );
-  }
-
-  Widget _buildLanguageSections(L10n l10n) {
-    return SizedBox(
-      height: 450,
-      child: TabBarView(
-        controller: _tabController,
-        children: [_buildEnglishSection(l10n), _buildJapaneseSection(l10n)],
       ),
     );
   }
@@ -380,95 +340,6 @@ class _AdminUpsertAnnouncementScreenState
           ],
         ),
       ],
-    );
-  }
-
-  Widget _buildPreviewSection(L10n l10n) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            AppText(
-              l10n.adminUpsertAnnouncementScreenPreviewTitle,
-              style: AppTextStyle.titleMedium,
-            ),
-            Switch(
-              value: _showPreview,
-              onChanged: (value) {
-                setState(() {
-                  _showPreview = value;
-                });
-              },
-            ),
-          ],
-        ),
-        if (_showPreview) ...[
-          const SizedBox(height: 8),
-          _buildPreviewContent(l10n),
-        ],
-      ],
-    );
-  }
-
-  Widget _buildPreviewContent(L10n l10n) {
-    return ValueListenableBuilder<Map<String, dynamic>>(
-      valueListenable: _formValues,
-      builder: (context, values, child) {
-        final titleEn =
-            values['title_en'] as String? ??
-            l10n.adminUpsertAnnouncementScreenPreviewTitlePlaceholder;
-        final contentEn =
-            values['content_en'] as String? ??
-            l10n.adminUpsertAnnouncementScreenPreviewContentPlaceholder;
-        final publishedAt = values['published_at'] as DateTime?;
-        final isActive = values['is_active'] as bool?;
-
-        return Card(
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(color: Theme.of(context).dividerColor),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppText(titleEn, style: AppTextStyle.titleMedium),
-                const SizedBox(height: 8),
-                AppText(contentEn, style: AppTextStyle.bodyMedium),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    const Icon(Icons.calendar_today, size: 14),
-                    const SizedBox(width: 4),
-                    AppText(
-                      publishedAt != null
-                          ? '${publishedAt.toLocal()}'.split(' ')[0]
-                          : l10n.adminUpsertAnnouncementScreenPreviewDateNotSelected,
-                      style: AppTextStyle.bodySmall,
-                    ),
-                    const SizedBox(width: 16),
-                    Chip(
-                      label: AppText(
-                        isActive == true
-                            ? l10n.adminUpsertAnnouncementScreenStatusActive
-                            : l10n.adminUpsertAnnouncementScreenStatusInactive,
-                        style: AppTextStyle.labelSmall,
-                      ),
-                      backgroundColor: isActive == true
-                          ? Colors.green.shade100
-                          : Colors.red.shade100,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 

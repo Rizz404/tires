@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
+import 'package:tires/features/business_information/domain/entities/business_information.dart';
 import 'package:tires/features/business_information/presentation/providers/business_information_providers.dart';
 import 'package:tires/features/business_information/presentation/providers/business_information_state.dart';
 import 'package:tires/shared/presentation/widgets/admin_app_bar.dart';
@@ -51,7 +52,9 @@ class _AdminListBusinessInformationScreenState
           child: CustomScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             slivers: [
-              SliverToBoxAdapter(child: _buildHeader(context)),
+              SliverToBoxAdapter(
+                child: _buildHeader(context, state.businessInformation),
+              ),
               const SliverToBoxAdapter(child: SizedBox(height: 24)),
               if (state.status == BusinessInformationStatus.loading)
                 const SliverToBoxAdapter(
@@ -83,7 +86,10 @@ class _AdminListBusinessInformationScreenState
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
+  Widget _buildHeader(
+    BuildContext context,
+    BusinessInformation? businessInformation,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -114,7 +120,11 @@ class _AdminListBusinessInformationScreenState
             text: context.l10n.adminListBusinessInformationScreenEditButton,
             leadingIcon: const Icon(Icons.edit),
             onPressed: () {
-              context.router.push(AdminUpsertBusinessInformationRoute());
+              context.router.push(
+                AdminUpsertBusinessInformationRoute(
+                  businessInformation: businessInformation,
+                ),
+              );
             },
           ),
         ],

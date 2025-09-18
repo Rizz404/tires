@@ -34,22 +34,16 @@ class AdminUpsertMenuScreen extends ConsumerStatefulWidget {
       _AdminUpsertMenuScreenState();
 }
 
-class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen>
-    with SingleTickerProviderStateMixin {
+class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   List<DomainValidationError>? _validationErrors;
   bool _isSubmitting = false;
-  late TabController _tabController;
-  bool _showPreview = false;
-  late ValueNotifier<Map<String, dynamic>> _formValues;
 
   bool get _isEditMode => widget.menu != null;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-    _formValues = ValueNotifier({});
     if (_isEditMode) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _populateForm();
@@ -63,13 +57,6 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen>
       hexColor = "FF$hexColor";
     }
     return Color(int.parse(hexColor, radix: 16));
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    _formValues.dispose();
-    super.dispose();
   }
 
   void _populateForm() {
@@ -87,8 +74,6 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen>
       });
       // Force rebuild to ensure form fields are updated
       setState(() {});
-      // Update form values for preview
-      _formValues.value = _formKey.currentState?.value ?? {};
     }
   }
 
@@ -231,9 +216,6 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen>
   Widget _buildForm(L10n l10n) {
     return FormBuilder(
       key: _formKey,
-      onChanged: () {
-        _formValues.value = _formKey.currentState?.value ?? {};
-      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -245,17 +227,15 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildLanguageTabs(l10n),
-                  const SizedBox(height: 16),
-                  _buildLanguageSections(l10n),
+                  _buildEnglishSection(l10n),
+                  const SizedBox(height: 24),
+                  _buildJapaneseSection(l10n),
                   const SizedBox(height: 24),
                   _buildBasicSettings(l10n),
                   const SizedBox(height: 24),
                   _buildVisualSettings(l10n),
                   const SizedBox(height: 24),
                   _buildStatusSettings(l10n),
-                  const SizedBox(height: 24),
-                  _buildPreviewSection(l10n),
                 ],
               ),
             ),
@@ -263,26 +243,6 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen>
           const SizedBox(height: 24),
           _buildActionButtons(l10n),
         ],
-      ),
-    );
-  }
-
-  Widget _buildLanguageTabs(L10n l10n) {
-    return TabBar(
-      controller: _tabController,
-      tabs: [
-        Tab(text: l10n.adminUpsertMenuScreenEnglishInfo),
-        Tab(text: l10n.adminUpsertMenuScreenJapaneseInfo),
-      ],
-    );
-  }
-
-  Widget _buildLanguageSections(L10n l10n) {
-    return SizedBox(
-      height: 450,
-      child: TabBarView(
-        controller: _tabController,
-        children: [_buildEnglishSection(l10n), _buildJapaneseSection(l10n)],
       ),
     );
   }
@@ -513,105 +473,6 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen>
           ],
         ),
       ],
-    );
-  }
-
-  Widget _buildPreviewSection(L10n l10n) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            AppText(
-              l10n.adminUpsertMenuScreenMenuPreview,
-              style: AppTextStyle.titleMedium,
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _showPreview = !_showPreview;
-                });
-              },
-              child: Text(_showPreview ? 'Hide Preview' : 'Show Preview'),
-            ),
-          ],
-        ),
-        if (_showPreview) ...[
-          const SizedBox(height: 8),
-          _buildPreviewContent(l10n),
-        ],
-      ],
-    );
-  }
-
-  Widget _buildPreviewContent(L10n l10n) {
-    return ValueListenableBuilder<Map<String, dynamic>>(
-      valueListenable: _formValues,
-      builder: (context, values, child) {
-        final nameEn = values['name_en'] as String? ?? 'Sample Menu Name';
-        final descriptionEn =
-            values['description_en'] as String? ?? 'Sample menu description...';
-        final requiredTime = values['required_time'] as String? ?? '60';
-        final price = values['price'] as String? ?? '5000';
-        final color = values['color'] as String? ?? '#2196F3';
-        final isActive = values['is_active'] as bool? ?? true;
-
-        return Card(
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(color: context.colorScheme.outline),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 16,
-                      height: 16,
-                      decoration: BoxDecoration(
-                        color: Color(
-                          int.parse(color.replaceFirst('#', '0xFF')),
-                        ),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: AppText(nameEn, style: AppTextStyle.titleMedium),
-                    ),
-                    if (!isActive)
-                      const Chip(
-                        label: Text('Inactive'),
-                        backgroundColor: Colors.grey,
-                      ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                AppText(descriptionEn, style: AppTextStyle.bodyMedium),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    const Icon(Icons.access_time, size: 16),
-                    const SizedBox(width: 4),
-                    AppText(
-                      '$requiredTime ${l10n.adminUpsertMenuScreenTimeUnitMinutesFull}',
-                    ),
-                    const SizedBox(width: 16),
-                    const Icon(Icons.attach_money, size: 16),
-                    const SizedBox(width: 4),
-                    AppText('¥$price'),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 

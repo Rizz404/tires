@@ -3,7 +3,7 @@ import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
 import 'package:tires/features/customer_management/presentation/providers/customers_state.dart';
-import 'package:tires/features/customer_management/domain/entities/customer.dart';
+import 'package:tires/features/user/domain/entities/user.dart';
 
 class CustomersNotifier extends Notifier<CustomersState> {
   late GetCustomerCursorUsecase _getCustomerCursorUsecase;
@@ -18,6 +18,8 @@ class CustomersNotifier extends Notifier<CustomersState> {
   Future<void> getInitialCustomers({
     bool paginate = true,
     int perPage = 10,
+    String? search,
+    String? status,
   }) async {
     if (state.status == CustomersStatus.loading) return;
 
@@ -27,6 +29,8 @@ class CustomersNotifier extends Notifier<CustomersState> {
     final params = GetCustomerCursorParams(
       paginate: paginate,
       perPage: perPage,
+      search: search,
+      status: status,
     );
 
     final response = await _getCustomerCursorUsecase(params);
@@ -53,11 +57,26 @@ class CustomersNotifier extends Notifier<CustomersState> {
     );
   }
 
-  Future<void> getCustomers({bool paginate = true, int perPage = 10}) async {
-    await getInitialCustomers(paginate: paginate, perPage: perPage);
+  Future<void> getCustomers({
+    bool paginate = true,
+    int perPage = 10,
+    String? search,
+    String? status,
+  }) async {
+    await getInitialCustomers(
+      paginate: paginate,
+      perPage: perPage,
+      search: search,
+      status: status,
+    );
   }
 
-  Future<void> loadMore({bool paginate = true, int perPage = 10}) async {
+  Future<void> loadMore({
+    bool paginate = true,
+    int perPage = 10,
+    String? search,
+    String? status,
+  }) async {
     if (!state.hasNextPage || state.status == CustomersStatus.loadingMore) {
       return;
     }
@@ -69,6 +88,8 @@ class CustomersNotifier extends Notifier<CustomersState> {
       paginate: paginate,
       perPage: perPage,
       cursor: state.cursor?.nextCursor,
+      search: search,
+      status: status,
     );
 
     final response = await _getCustomerCursorUsecase(params);
@@ -83,9 +104,9 @@ class CustomersNotifier extends Notifier<CustomersState> {
       },
       (success) {
         AppLogger.uiDebug('More customers loaded successfully in notifier');
-        final List<Customer> allCustomers = [
+        final List<User> allCustomers = [
           ...state.customers,
-          ...success.data ?? <Customer>[],
+          ...success.data ?? <User>[],
         ];
         state = state
             .copyWith(
@@ -99,8 +120,18 @@ class CustomersNotifier extends Notifier<CustomersState> {
     );
   }
 
-  Future<void> refresh({bool paginate = true, int perPage = 10}) async {
-    await getInitialCustomers(paginate: paginate, perPage: perPage);
+  Future<void> refresh({
+    bool paginate = true,
+    int perPage = 10,
+    String? search,
+    String? status,
+  }) async {
+    await getInitialCustomers(
+      paginate: paginate,
+      perPage: perPage,
+      search: search,
+      status: status,
+    );
   }
 
   void clearState() {

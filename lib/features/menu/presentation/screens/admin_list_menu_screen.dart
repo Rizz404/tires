@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
-import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/menu/presentation/widgets/menu_filter_search.dart';
 import 'package:tires/features/menu/presentation/widgets/menu_table_widget.dart';
 import 'package:tires/features/menu/presentation/providers/menu_providers.dart';
@@ -33,64 +32,49 @@ class _AdminListMenuScreenState extends ConsumerState<AdminListMenuScreen> {
   bool _isFilterVisible = true;
 
   Future<void> _refreshMenus() async {
-    await ref.read(adminMenuGetNotifierProvider.notifier).refresh();
+    final formValues = _formKey.currentState?.value;
+    if (formValues != null) {
+      await _applyFilters();
+    } else {
+      await ref.read(adminMenuGetNotifierProvider.notifier).refresh();
+    }
     await ref.read(menuStatisticsNotifierProvider.notifier).refresh();
   }
 
-  void _applyFilters() {
-    setState(() {}); // Just trigger rebuild, filtering is done in build
+  Future<void> _applyFilters() async {
+    final formValues = _formKey.currentState?.value ?? {};
+
+    final searchQuery = formValues['search'] as String?;
+    final selectedStatus = formValues['status'] as String?;
+    final minPriceStr = formValues['min_price'] as String?;
+    final maxPriceStr = formValues['max_price'] as String?;
+
+    final minPrice = minPriceStr != null && minPriceStr.isNotEmpty
+        ? double.tryParse(minPriceStr)
+        : null;
+    final maxPrice = maxPriceStr != null && maxPriceStr.isNotEmpty
+        ? double.tryParse(maxPriceStr)
+        : null;
+
+    await ref
+        .read(adminMenuGetNotifierProvider.notifier)
+        .getInitialAdminMenus(
+          search: searchQuery?.isNotEmpty == true ? searchQuery : null,
+          status: selectedStatus != 'all' ? selectedStatus : null,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+        );
   }
 
   void _resetFilters() {
     _formKey.currentState?.reset();
-    setState(() {});
+    _applyFilters(); // Apply filters after reset to fetch all data
   }
 
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(adminMenuGetNotifierProvider);
     final statisticsState = ref.watch(menuStatisticsNotifierProvider);
-    final formValues = _formKey.currentState?.value;
-    List<Menu> filteredMenus = state.menus;
-    if (formValues != null) {
-      final searchQuery = formValues['search'] as String? ?? '';
-      final selectedStatus = formValues['status'] as String? ?? 'all';
-      final minPriceStr = formValues['min_price'] as String?;
-      final maxPriceStr = formValues['max_price'] as String?;
-
-      final minPrice = minPriceStr != null
-          ? double.tryParse(minPriceStr)
-          : null;
-      final maxPrice = maxPriceStr != null
-          ? double.tryParse(maxPriceStr)
-          : null;
-
-      if (searchQuery.isNotEmpty) {
-        final query = searchQuery.toLowerCase();
-        filteredMenus = filteredMenus.where((menu) {
-          final nameMatch = menu.name.toLowerCase().contains(query);
-          final descMatch =
-              menu.description?.toLowerCase().contains(query) ?? false;
-          return nameMatch || descMatch;
-        }).toList();
-      }
-      if (selectedStatus != 'all') {
-        final isActive = selectedStatus == 'active';
-        filteredMenus = filteredMenus
-            .where((menu) => menu.isActive == isActive)
-            .toList();
-      }
-      if (minPrice != null) {
-        filteredMenus = filteredMenus
-            .where((menu) => double.parse(menu.price.amount) >= minPrice)
-            .toList();
-      }
-      if (maxPrice != null) {
-        filteredMenus = filteredMenus
-            .where((menu) => double.parse(menu.price.amount) <= maxPrice)
-            .toList();
-      }
-    }
 
     return Scaffold(
       appBar: const AdminAppBar(),
@@ -120,7 +104,7 @@ class _AdminListMenuScreenState extends ConsumerState<AdminListMenuScreen> {
               const SliverToBoxAdapter(child: SizedBox(height: 24)),
               SliverToBoxAdapter(
                 child: MenuTableWidget(
-                  menus: filteredMenus,
+                  menus: state.menus,
                   isLoading: state.status == AdminMenusStatus.loading,
                   onRefresh: _refreshMenus,
                 ),

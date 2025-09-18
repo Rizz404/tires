@@ -4,13 +4,13 @@ import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/core/services/app_logger.dart';
+import 'package:tires/features/user/data/models/user_model.dart';
 import 'package:tires/features/customer_management/data/models/customer_dashboard_model.dart';
-import 'package:tires/features/customer_management/data/models/customer_model.dart';
 import 'package:tires/features/customer_management/data/models/customer_statistic_model.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
 
 abstract class CustomerRemoteDatasource {
-  Future<ApiCursorPaginationResponse<CustomerModel>> getCustomerCursor(
+  Future<ApiCursorPaginationResponse<UserModel>> getCustomerCursor(
     GetCustomerCursorParams params,
   );
   Future<ApiResponse<CustomerDashboardModel>> getCurrentUserDashboard();
@@ -23,14 +23,14 @@ class CustomerRemoteDatasourceImpl implements CustomerRemoteDatasource {
   CustomerRemoteDatasourceImpl(this._dioClient);
 
   @override
-  Future<ApiCursorPaginationResponse<CustomerModel>> getCustomerCursor(
+  Future<ApiCursorPaginationResponse<UserModel>> getCustomerCursor(
     GetCustomerCursorParams params,
   ) async {
     try {
       AppLogger.networkInfo('Fetching customer cursor');
-      final response = await _dioClient.getWithCursor<CustomerModel>(
+      final response = await _dioClient.getWithCursor<UserModel>(
         ApiEndpoints.adminCustomers,
-        fromJson: (item) => CustomerModel.fromMap(item as Map<String, dynamic>),
+        fromJson: (item) => UserModel.fromMap(item as Map<String, dynamic>),
         queryParameters: params.toMap(),
       );
 

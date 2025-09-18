@@ -18,6 +18,10 @@ class AdminMenusNotifier extends Notifier<AdminMenusState> {
   Future<void> getInitialAdminMenus({
     bool paginate = true,
     int perPage = 10,
+    String? search,
+    String? status,
+    double? minPrice,
+    double? maxPrice,
   }) async {
     if (state.status == AdminMenusStatus.loading) return;
 
@@ -27,6 +31,10 @@ class AdminMenusNotifier extends Notifier<AdminMenusState> {
     final params = GetAdminMenusCursorParams(
       paginate: paginate,
       perPage: perPage,
+      search: search,
+      status: status,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
     );
 
     final response = await _getUsersCursorUsecase(params);
@@ -53,12 +61,33 @@ class AdminMenusNotifier extends Notifier<AdminMenusState> {
     );
   }
 
-  Future<void> getAdminMenus({bool paginate = true, int perPage = 10}) async {
+  Future<void> getAdminMenus({
+    bool paginate = true,
+    int perPage = 10,
+    String? search,
+    String? status,
+    double? minPrice,
+    double? maxPrice,
+  }) async {
     AppLogger.uiInfo('Getting admin menus');
-    await getInitialAdminMenus(paginate: paginate, perPage: perPage);
+    await getInitialAdminMenus(
+      paginate: paginate,
+      perPage: perPage,
+      search: search,
+      status: status,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+    );
   }
 
-  Future<void> loadMore({bool paginate = true, int perPage = 10}) async {
+  Future<void> loadMore({
+    bool paginate = true,
+    int perPage = 10,
+    String? search,
+    String? status,
+    double? minPrice,
+    double? maxPrice,
+  }) async {
     if (!state.hasNextPage || state.status == AdminMenusStatus.loadingMore) {
       return;
     }
@@ -70,6 +99,10 @@ class AdminMenusNotifier extends Notifier<AdminMenusState> {
       paginate: paginate,
       perPage: perPage,
       cursor: state.cursor?.nextCursor,
+      search: search,
+      status: status,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
     );
 
     final response = await _getUsersCursorUsecase(params);
@@ -96,9 +129,23 @@ class AdminMenusNotifier extends Notifier<AdminMenusState> {
     );
   }
 
-  Future<void> refresh({bool paginate = true, int perPage = 10}) async {
+  Future<void> refresh({
+    bool paginate = true,
+    int perPage = 10,
+    String? search,
+    String? status,
+    double? minPrice,
+    double? maxPrice,
+  }) async {
     AppLogger.uiInfo('Refreshing admin menus');
-    await getInitialAdminMenus(paginate: paginate, perPage: perPage);
+    await getInitialAdminMenus(
+      paginate: paginate,
+      perPage: perPage,
+      search: search,
+      status: status,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+    );
   }
 
   void clearState() {

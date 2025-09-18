@@ -4,9 +4,7 @@ import 'package:tires/features/customer_management/domain/entities/customer_stat
 class CustomerStatisticModel extends CustomerStatistic {
   const CustomerStatisticModel({
     required super.totalCustomers,
-    required super.firstTime,
-    required super.repeat,
-    required super.dormant,
+    required super.statistics,
   });
 
   factory CustomerStatisticModel.fromMap(Map<String, dynamic> map) {
@@ -15,9 +13,11 @@ class CustomerStatisticModel extends CustomerStatistic {
 
     return CustomerStatisticModel(
       totalCustomers: data['total_customers'] as int,
-      firstTime: statistics['first_time'] as int,
-      repeat: statistics['repeat'] as int,
-      dormant: statistics['dormant'] as int,
+      statistics: Statistic(
+        firstTime: statistics['first_time'] as int,
+        repeat: statistics['repeat'] as int,
+        dormant: statistics['dormant'] as int,
+      ),
     );
   }
 
@@ -32,9 +32,9 @@ class CustomerStatisticModel extends CustomerStatistic {
       'message': 'Customer statistics retrieved successfully',
       'data': {
         'statistics': {
-          'first_time': firstTime,
-          'repeat': repeat,
-          'dormant': dormant,
+          'first_time': statistics.firstTime,
+          'repeat': statistics.repeat,
+          'dormant': statistics.dormant,
         },
         'total_customers': totalCustomers,
       },

@@ -4,17 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
-import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:tires/features/customer_management/presentation/widgets/customer_table_widget.dart';
-import 'package:tires/features/user/presentation/providers/users_providers.dart';
-import 'package:tires/features/user/presentation/providers/users_state.dart';
+import 'package:tires/features/customer_management/presentation/widgets/customer_filter_search.dart';
 import 'package:tires/features/customer_management/presentation/providers/customers_providers.dart';
+import 'package:tires/features/customer_management/presentation/providers/customers_state.dart';
 import 'package:tires/features/customer_management/presentation/providers/customer_statistics_state.dart';
 import 'package:tires/shared/presentation/widgets/admin_app_bar.dart';
 import 'package:tires/shared/presentation/widgets/admin_end_drawer.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
-import 'package:tires/shared/presentation/widgets/app_search_field.dart';
-import 'package:tires/shared/presentation/widgets/app_dropdown.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:tires/shared/presentation/widgets/stat_tile.dart';
 
@@ -30,91 +27,80 @@ class AdminListCustomerManagementScreen extends ConsumerStatefulWidget {
 class _AdminListCustomerManagementScreenState
     extends ConsumerState<AdminListCustomerManagementScreen> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  bool _isFilterVisible = true;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(usersNotifierProvider.notifier).refresh();
+      ref.read(customersNotifierProvider.notifier).refresh();
       ref.read(customerStatisticsNotifierProvider.notifier).refresh();
     });
   }
 
-  Future<void> _refreshUsers() async {
+  Future<void> _refreshCustomers() async {
     await Future.wait([
-      ref.read(usersNotifierProvider.notifier).refresh(),
+      ref.read(customersNotifierProvider.notifier).refresh(),
       ref.read(customerStatisticsNotifierProvider.notifier).refresh(),
     ]);
   }
 
-  void _applyFilters() {
-    setState(() {});
+  Future<void> _applyFilters() async {
+    final formValues = _formKey.currentState?.value ?? {};
+
+    final searchQuery = formValues['search'] as String?;
+    final selectedStatus = formValues['status'] as String?;
+
+    await ref
+        .read(customersNotifierProvider.notifier)
+        .getInitialCustomers(
+          search: searchQuery?.isNotEmpty == true ? searchQuery : null,
+          status: selectedStatus != 'all' ? selectedStatus : null,
+        );
   }
 
   void _resetFilters() {
     _formKey.currentState?.reset();
-    setState(() {});
+    _applyFilters();
+  }
+
+  void _toggleFilterVisibility() {
+    setState(() {
+      _isFilterVisible = !_isFilterVisible;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final usersState = ref.watch(usersNotifierProvider);
+    final customersState = ref.watch(customersNotifierProvider);
     final statisticsState = ref.watch(customerStatisticsNotifierProvider);
-
-    final formValues = _formKey.currentState?.value;
-    List<User> filteredUsers = usersState.users;
-
-    if (formValues != null) {
-      final searchQuery = formValues['search'] as String? ?? '';
-      final selectedStatus = formValues['status'] as String? ?? 'all';
-
-      if (searchQuery.isNotEmpty) {
-        final query = searchQuery.toLowerCase();
-        filteredUsers = filteredUsers.where((user) {
-          return user.fullName.toLowerCase().contains(query) ||
-              user.email.toLowerCase().contains(query) ||
-              user.phoneNumber.toLowerCase().contains(query);
-        }).toList();
-      }
-
-      if (selectedStatus != 'all') {
-        filteredUsers = filteredUsers.where((user) {
-          switch (selectedStatus) {
-            case 'first_time':
-              return user.id % 5 == 0; // Mock: every 5th user is first time
-            case 'repeat':
-              return user.id % 3 == 0; // Mock: every 3rd user is repeat
-            case 'dormant':
-              return user.id % 8 == 0; // Mock: every 8th user is dormant
-            default:
-              return true;
-          }
-        }).toList();
-      }
-    }
 
     return Scaffold(
       appBar: const AdminAppBar(),
       endDrawer: const AdminEndDrawer(),
       body: ScreenWrapper(
         child: RefreshIndicator(
-          onRefresh: _refreshUsers,
+          onRefresh: _refreshCustomers,
           child: CustomScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             slivers: [
               SliverToBoxAdapter(child: _buildHeader(context)),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
               SliverToBoxAdapter(
-                child: _buildStatsCards(context, usersState, statisticsState),
+                child: _buildStatsCards(
+                  context,
+                  customersState,
+                  statisticsState,
+                ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
               SliverToBoxAdapter(child: _buildFilters(context)),
               const SliverToBoxAdapter(child: SizedBox(height: 24)),
               SliverToBoxAdapter(
                 child: CustomerTableWidget(
-                  customers: filteredUsers,
-                  isLoading: usersState.status == UsersStatus.loading,
-                  onRefresh: _refreshUsers,
+                  customers: customersState.customers,
+                  isLoading: customersState.status == CustomersStatus.loading,
+                  onRefresh: _refreshCustomers,
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 80)),
@@ -149,7 +135,7 @@ class _AdminListCustomerManagementScreenState
 
   Widget _buildStatsCards(
     BuildContext context,
-    UsersState usersState,
+    CustomersState customersState,
     CustomerStatisticsState statisticsState,
   ) {
     if (statisticsState.status == CustomerStatisticsStatus.loading) {
@@ -214,21 +200,21 @@ class _AdminListCustomerManagementScreenState
           const SizedBox(width: 16),
           StatTile(
             title: context.l10n.adminListCustomerManagementStatsFirstTime,
-            value: statistics.firstTime.toString(),
+            value: statistics.statistics.firstTime.toString(),
             icon: Icons.person_add,
             color: Colors.green,
           ),
           const SizedBox(width: 16),
           StatTile(
             title: context.l10n.adminListCustomerManagementStatsRepeat,
-            value: statistics.repeat.toString(),
+            value: statistics.statistics.repeat.toString(),
             icon: Icons.repeat,
             color: Colors.orange,
           ),
           const SizedBox(width: 16),
           StatTile(
             title: context.l10n.adminListCustomerManagementStatsDormant,
-            value: statistics.dormant.toString(),
+            value: statistics.statistics.dormant.toString(),
             icon: Icons.person_off,
             color: Colors.red,
           ),
@@ -238,68 +224,12 @@ class _AdminListCustomerManagementScreenState
   }
 
   Widget _buildFilters(BuildContext context) {
-    return FormBuilder(
-      key: _formKey,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                flex: 3,
-                child: AppSearchField(
-                  name: 'search',
-                  hintText: context
-                      .l10n
-                      .adminListCustomerManagementFiltersSearchPlaceholder,
-                  onChanged: (value) => _applyFilters(),
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                flex: 2,
-                child: AppDropdown<String>(
-                  name: 'status',
-                  hintText: 'Customer Status',
-                  initialValue: 'all',
-                  items: [
-                    AppDropdownItem(
-                      value: 'all',
-                      label: context
-                          .l10n
-                          .adminListCustomerManagementFiltersAllTypes,
-                    ),
-                    AppDropdownItem(
-                      value: 'first_time',
-                      label: context
-                          .l10n
-                          .adminListCustomerManagementFiltersFirstTime,
-                    ),
-                    AppDropdownItem(
-                      value: 'repeat',
-                      label:
-                          context.l10n.adminListCustomerManagementFiltersRepeat,
-                    ),
-                    AppDropdownItem(
-                      value: 'dormant',
-                      label: context
-                          .l10n
-                          .adminListCustomerManagementFiltersDormant,
-                    ),
-                  ],
-                  onChanged: (value) => _applyFilters(),
-                ),
-              ),
-              const SizedBox(width: 16),
-              ElevatedButton(
-                onPressed: _resetFilters,
-                child: Text(
-                  context.l10n.adminListCustomerManagementFiltersReset,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+    return CustomerFilterSearch(
+      formKey: _formKey,
+      isFilterVisible: _isFilterVisible,
+      onToggleVisibility: _toggleFilterVisibility,
+      onFilter: _applyFilters,
+      onReset: _resetFilters,
     );
   }
 }

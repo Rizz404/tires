@@ -5,9 +5,9 @@ import 'package:tires/core/network/api_error_response.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/customer_management/data/datasources/customer_remote_datasource.dart';
 import 'package:tires/features/customer_management/data/mapper/customer_dashboard_mapper.dart';
-import 'package:tires/features/customer_management/data/mapper/customer_mapper.dart';
 import 'package:tires/features/customer_management/data/mapper/customer_statistic_mapper.dart';
-import 'package:tires/features/customer_management/domain/entities/customer.dart';
+import 'package:tires/features/user/data/mapper/user_mapper.dart';
+import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:tires/features/customer_management/domain/entities/customer_dashboard.dart';
 import 'package:tires/features/customer_management/domain/entities/customer_statistic.dart';
 import 'package:tires/features/customer_management/domain/repositories/customer_repository.dart';
@@ -20,7 +20,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
   CustomerRepositoryImpl(this._customerRemoteDatasource);
 
   @override
-  Future<Either<Failure, CursorPaginatedSuccess<Customer>>> getCustomerCursor(
+  Future<Either<Failure, CursorPaginatedSuccess<User>>> getCustomerCursor(
     GetCustomerCursorParams params,
   ) async {
     try {
@@ -28,8 +28,8 @@ class CustomerRepositoryImpl implements CustomerRepository {
       final result = await _customerRemoteDatasource.getCustomerCursor(params);
 
       return Right(
-        CursorPaginatedSuccess<Customer>(
-          data: result.data.map((customer) => customer.toEntity()).toList(),
+        CursorPaginatedSuccess<User>(
+          data: result.data.map((user) => user.toEntity()).toList(),
           cursor: result.cursor?.toEntity(),
         ),
       );

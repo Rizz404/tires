@@ -30,21 +30,61 @@ class GetAdminMenusCursorParams extends Equatable {
   final bool paginate;
   final int perPage;
   final String? cursor;
+  final String? search;
+  final String? status;
+  final double? minPrice;
+  final double? maxPrice;
 
   const GetAdminMenusCursorParams({
     required this.paginate,
     required this.perPage,
     this.cursor,
+    this.search,
+    this.status,
+    this.minPrice,
+    this.maxPrice,
   });
 
+  GetAdminMenusCursorParams copyWith({
+    bool? paginate,
+    int? perPage,
+    String? cursor,
+    String? search,
+    String? status,
+    double? minPrice,
+    double? maxPrice,
+  }) {
+    return GetAdminMenusCursorParams(
+      paginate: paginate ?? this.paginate,
+      perPage: perPage ?? this.perPage,
+      cursor: cursor ?? this.cursor,
+      search: search ?? this.search,
+      status: status ?? this.status,
+      minPrice: minPrice ?? this.minPrice,
+      maxPrice: maxPrice ?? this.maxPrice,
+    );
+  }
+
   @override
-  List<Object?> get props => [paginate, perPage, cursor];
+  List<Object?> get props => [
+    paginate,
+    perPage,
+    cursor,
+    search,
+    status,
+    minPrice,
+    maxPrice,
+  ];
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'paginate': paginate.toString(),
       'per_page': perPage.toString(),
       if (cursor != null) 'cursor': cursor,
+      if (search != null && search!.isNotEmpty) 'search': search,
+      if (status != null && status != 'all') 'status': status,
+      if (minPrice != null) 'min_price': minPrice.toString(),
+      if (maxPrice != null) 'max_price': maxPrice.toString(),
     };
   }
 

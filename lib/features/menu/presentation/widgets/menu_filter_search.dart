@@ -1,10 +1,11 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
-class MenuFilterSearch extends StatelessWidget {
+class MenuFilterSearch extends StatefulWidget {
   final GlobalKey<FormBuilderState> formKey;
   final bool isFilterVisible;
   final VoidCallback onToggleVisibility;
@@ -19,6 +20,30 @@ class MenuFilterSearch extends StatelessWidget {
     required this.onFilter,
     required this.onReset,
   });
+
+  @override
+  State<MenuFilterSearch> createState() => _MenuFilterSearchState();
+}
+
+class _MenuFilterSearchState extends State<MenuFilterSearch> {
+  Timer? _debounceTimer;
+
+  void _onSearchChanged(String? value) {
+    _debounceTimer?.cancel();
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+      widget.onFilter();
+    });
+  }
+
+  void _onFilterChanged() {
+    widget.onFilter();
+  }
+
+  @override
+  void dispose() {
+    _debounceTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,24 +67,24 @@ class MenuFilterSearch extends StatelessWidget {
                   style: AppTextStyle.titleLarge,
                 ),
                 TextButton.icon(
-                  onPressed: onToggleVisibility,
+                  onPressed: widget.onToggleVisibility,
                   icon: Icon(
-                    isFilterVisible
+                    widget.isFilterVisible
                         ? Icons.visibility_off_outlined
                         : Icons.visibility_outlined,
                   ),
                   label: AppText(
-                    isFilterVisible
+                    widget.isFilterVisible
                         ? context.l10n.adminListMenuScreenHideFilters
                         : context.l10n.adminListMenuScreenShowFilters,
                   ),
                 ),
               ],
             ),
-            if (isFilterVisible) ...[
+            if (widget.isFilterVisible) ...[
               const SizedBox(height: 16),
               FormBuilder(
-                key: formKey,
+                key: widget.formKey,
                 child: Column(
                   children: [
                     FormBuilderDropdown<String>(
@@ -68,6 +93,7 @@ class MenuFilterSearch extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: context.l10n.adminListMenuScreenStatus,
                       ),
+                      onChanged: (_) => _onFilterChanged(),
                       items: [
                         DropdownMenuItem(
                           value: 'all',
@@ -96,6 +122,7 @@ class MenuFilterSearch extends StatelessWidget {
                                   context.l10n.adminListMenuScreenMinPriceRange,
                             ),
                             keyboardType: TextInputType.number,
+                            onChanged: (_) => _onFilterChanged(),
                           ),
                         ),
                         const SizedBox(width: 16),
@@ -107,6 +134,7 @@ class MenuFilterSearch extends StatelessWidget {
                                   context.l10n.adminListMenuScreenMaxPriceRange,
                             ),
                             keyboardType: TextInputType.number,
+                            onChanged: (_) => _onFilterChanged(),
                           ),
                         ),
                       ],
@@ -120,18 +148,19 @@ class MenuFilterSearch extends StatelessWidget {
                             context.l10n.adminListMenuScreenSearchPlaceholder,
                         prefixIcon: const Icon(Icons.search),
                       ),
+                      onChanged: _onSearchChanged,
                     ),
                     const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         TextButton(
-                          onPressed: onReset,
+                          onPressed: widget.onReset,
                           child: Text(context.l10n.adminListMenuScreenReset),
                         ),
                         const SizedBox(width: 8),
                         ElevatedButton(
-                          onPressed: onFilter,
+                          onPressed: widget.onFilter,
                           child: Text(context.l10n.adminListMenuScreenFilter),
                         ),
                       ],
