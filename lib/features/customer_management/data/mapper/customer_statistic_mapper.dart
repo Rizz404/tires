@@ -5,9 +5,9 @@ extension CustomerStatisticModelMapper on CustomerStatisticModel {
   CustomerStatistic toEntity() {
     return CustomerStatistic(
       totalCustomers: totalCustomers,
-      firstTimeCustomers: firstTimeCustomers,
-      repeatCustomers: repeatCustomers,
-      dormantCustomers: dormantCustomers,
+      firstTime: firstTime,
+      repeat: repeat,
+      dormant: dormant,
     );
   }
 }
@@ -16,9 +16,9 @@ extension CustomerStatisticEntityMapper on CustomerStatistic {
   CustomerStatisticModel toModel() {
     return CustomerStatisticModel(
       totalCustomers: totalCustomers,
-      firstTimeCustomers: firstTimeCustomers,
-      repeatCustomers: repeatCustomers,
-      dormantCustomers: dormantCustomers,
+      firstTime: firstTime,
+      repeat: repeat,
+      dormant: dormant,
     );
   }
 }

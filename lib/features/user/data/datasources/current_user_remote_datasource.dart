@@ -4,7 +4,6 @@ import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/user/data/models/user_model.dart';
 
-
 abstract class CurrentUserRemoteDatasource {
   Future<ApiResponse<UserModel>> getCurrentUser();
   Future<ApiResponse<UserModel>> updateCurrentUser({
@@ -107,7 +106,7 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
         'password_confirmation': confirmPassword,
       };
 
-      final response = await _dioClient.patch(
+      final response = await _dioClient.patch<dynamic>(
         '${ApiEndpoints.customerProfile}/password',
         data: data,
       );
@@ -124,7 +123,9 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
   Future<ApiResponse<dynamic>> deleteCurrentUserAccount() async {
     try {
       AppLogger.networkInfo('Deleting current user account');
-      final response = await _dioClient.delete(ApiEndpoints.customerProfile);
+      final response = await _dioClient.delete<dynamic>(
+        ApiEndpoints.customerProfile,
+      );
       AppLogger.networkInfo('Successfully deleted current user account');
       return response;
     } catch (e) {

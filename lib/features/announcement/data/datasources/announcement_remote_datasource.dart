@@ -37,15 +37,13 @@ class AnnouncementRemoteDatasourceImpl implements AnnouncementRemoteDatasource {
   ) async {
     try {
       AppLogger.networkInfo('Creating announcement');
-      final response = await _dioClient.post(
+      final response = await _dioClient.post<AnnouncementModel>(
         ApiEndpoints.adminAnnouncements,
         data: params.toMap(),
+        fromJson: (data) => AnnouncementModel.fromMap(data),
       );
       AppLogger.networkDebug('Announcement created successfully');
-      return ApiResponse<AnnouncementModel>.fromJson(
-        response.data,
-        (data) => AnnouncementModel.fromMap(data),
-      );
+      return response;
     } catch (e) {
       AppLogger.networkError('Error creating announcement', e);
       rethrow;
@@ -78,15 +76,13 @@ class AnnouncementRemoteDatasourceImpl implements AnnouncementRemoteDatasource {
   ) async {
     try {
       AppLogger.networkInfo('Updating announcement with id: ${params.id}');
-      final response = await _dioClient.patch(
+      final response = await _dioClient.patch<AnnouncementModel>(
         '${ApiEndpoints.adminAnnouncements}/${params.id}',
         data: params.toMap(),
+        fromJson: (data) => AnnouncementModel.fromMap(data),
       );
       AppLogger.networkDebug('Announcement updated successfully');
-      return ApiResponse<AnnouncementModel>.fromJson(
-        response.data,
-        (data) => AnnouncementModel.fromMap(data),
-      );
+      return response;
     } catch (e) {
       AppLogger.networkError('Error updating announcement', e);
       rethrow;
@@ -94,20 +90,17 @@ class AnnouncementRemoteDatasourceImpl implements AnnouncementRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<AnnouncementModel>> deleteAnnouncement(
+  Future<ApiResponse<dynamic>> deleteAnnouncement(
     DeleteAnnouncementParams params,
   ) async {
     try {
       AppLogger.networkInfo('Deleting announcement with id: ${params.id}');
-      final response = await _dioClient.delete(
+      final response = await _dioClient.delete<dynamic>(
         '${ApiEndpoints.adminAnnouncements}/${params.id}',
         data: params.toMap(),
       );
       AppLogger.networkDebug('Announcement deleted successfully');
-      return ApiResponse<AnnouncementModel>.fromJson(
-        response.data,
-        (data) => AnnouncementModel.fromMap(data),
-      );
+      return response;
     } catch (e) {
       AppLogger.networkError('Error deleting announcement', e);
       rethrow;
@@ -119,14 +112,12 @@ class AnnouncementRemoteDatasourceImpl implements AnnouncementRemoteDatasource {
   getAnnouncementStatistics() async {
     try {
       AppLogger.networkInfo('Fetching announcement statistics');
-      final response = await _dioClient.get(
+      final response = await _dioClient.get<AnnouncementStatisticModel>(
         ApiEndpoints.adminAnnouncementStatistics,
+        fromJson: (data) => AnnouncementStatisticModel.fromMap(data),
       );
       AppLogger.networkDebug('Announcement statistics fetched successfully');
-      return ApiResponse<AnnouncementStatisticModel>.fromMap(
-        response.data,
-        (data) => AnnouncementStatisticModel.fromMap(data),
-      );
+      return response;
     } catch (e) {
       AppLogger.networkError('Error fetching announcement statistics', e);
       rethrow;

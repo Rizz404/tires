@@ -34,15 +34,13 @@ class MenuRemoteDatasourceImpl implements MenuRemoteDatasource {
   Future<ApiResponse<MenuModel>> createMenu(CreateMenuParams params) async {
     try {
       AppLogger.networkInfo('Creating menu');
-      final response = await _dioClient.post(
+      final response = await _dioClient.post<MenuModel>(
         ApiEndpoints.adminMenus,
         data: params.toMap(),
+        fromJson: (data) => MenuModel.fromMap(data),
       );
       AppLogger.networkDebug('Menu created successfully');
-      return ApiResponse<MenuModel>.fromJson(
-        response.data,
-        (data) => MenuModel.fromMap(data),
-      );
+      return response;
     } catch (e) {
       AppLogger.networkError('Error creating menu', e);
       rethrow;
@@ -74,7 +72,7 @@ class MenuRemoteDatasourceImpl implements MenuRemoteDatasource {
   ) async {
     try {
       AppLogger.networkInfo('Fetching admin menus cursor');
-      final response = await _dioClient.getWithCursor(
+      final response = await _dioClient.getWithCursor<MenuModel>(
         ApiEndpoints.adminMenus,
         fromJson: (item) => MenuModel.fromMap(item as Map<String, dynamic>),
         queryParameters: params.toMap(),
@@ -91,15 +89,13 @@ class MenuRemoteDatasourceImpl implements MenuRemoteDatasource {
   Future<ApiResponse<MenuModel>> updateMenu(UpdateMenuParams params) async {
     try {
       AppLogger.networkInfo('Updating menu with id: ${params.id}');
-      final response = await _dioClient.patch(
+      final response = await _dioClient.patch<MenuModel>(
         '${ApiEndpoints.adminMenus}/${params.id}',
         data: params.toMap(),
+        fromJson: (data) => MenuModel.fromMap(data),
       );
       AppLogger.networkDebug('Menu updated successfully');
-      return ApiResponse<MenuModel>.fromJson(
-        response.data,
-        (data) => MenuModel.fromMap(data),
-      );
+      return response;
     } catch (e) {
       AppLogger.networkError('Error updating menu', e);
       rethrow;
@@ -110,12 +106,12 @@ class MenuRemoteDatasourceImpl implements MenuRemoteDatasource {
   Future<ApiResponse<dynamic>> deleteMenu(DeleteMenuParams params) async {
     try {
       AppLogger.networkInfo('Deleting menu with id: ${params.id}');
-      final response = await _dioClient.delete(
+      final response = await _dioClient.delete<dynamic>(
         '${ApiEndpoints.adminMenus}/${params.id}',
         data: params.toMap(),
       );
       AppLogger.networkDebug('Menu deleted successfully');
-      return ApiResponse<dynamic>.fromJson(response.data, (data) => data);
+      return response;
     } catch (e) {
       AppLogger.networkError('Error deleting menu', e);
       rethrow;
@@ -126,12 +122,12 @@ class MenuRemoteDatasourceImpl implements MenuRemoteDatasource {
   Future<ApiResponse<MenuStatisticModel>> getMenuStatistics() async {
     try {
       AppLogger.networkInfo('Fetching menu statistics');
-      final response = await _dioClient.get(ApiEndpoints.adminMenuStatistics);
-      AppLogger.networkDebug('Menu statistics fetched successfully');
-      return ApiResponse<MenuStatisticModel>.fromJson(
-        response.data,
-        (data) => MenuStatisticModel.fromJson(data),
+      final response = await _dioClient.get<MenuStatisticModel>(
+        ApiEndpoints.adminMenuStatistics,
+        fromJson: (data) => MenuStatisticModel.fromJson(data),
       );
+      AppLogger.networkDebug('Menu statistics fetched successfully');
+      return response;
     } catch (e) {
       AppLogger.networkError('Error fetching menu statistics', e);
       rethrow;

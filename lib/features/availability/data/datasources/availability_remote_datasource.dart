@@ -3,7 +3,6 @@ import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/network/api_endpoints.dart';
 import 'package:tires/core/network/api_error_response.dart';
-import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/availability/data/mapper/availability_mapper.dart';
@@ -27,18 +26,14 @@ class AvailabilityRemoteDatasourceImpl implements AvailabilityRemoteDatasource {
       AppLogger.networkInfo('Fetching availability calendar');
       final queryParameters = params.toMap();
 
-      final response = await _dioClient.get(
+      final response = await _dioClient.get<Map<String, dynamic>>(
         ApiEndpoints.customerReservationCalendar,
         queryParameters: queryParameters,
-      );
-
-      final apiResponse = ApiResponse<Map<String, dynamic>>.fromMap(
-        response.data,
-        (json) => json as Map<String, dynamic>,
+        fromJson: (json) => json as Map<String, dynamic>,
       );
 
       final availabilityCalendar = AvailabilityMapper.mapApiResponseToEntity(
-        apiResponse,
+        response,
       );
 
       return Right(ItemSuccessResponse(data: availabilityCalendar));

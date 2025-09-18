@@ -10,7 +10,9 @@ class CustomerStatisticsNotifier extends Notifier<CustomerStatisticsState> {
 
   @override
   CustomerStatisticsState build() {
-    _getCustomerStatisticsUsecase = ref.watch(getCustomerStatisticsUsecaseProvider);
+    _getCustomerStatisticsUsecase = ref.watch(
+      getCustomerStatisticsUsecaseProvider,
+    );
     Future.microtask(() => getStatistics());
     return const CustomerStatisticsState();
   }
@@ -32,7 +34,9 @@ class CustomerStatisticsNotifier extends Notifier<CustomerStatisticsState> {
         );
       },
       (success) {
-        AppLogger.uiDebug('Customer statistics fetched successfully in notifier');
+        AppLogger.uiDebug(
+          'Customer statistics fetched successfully in notifier',
+        );
         state = state
             .copyWith(
               status: CustomerStatisticsStatus.success,

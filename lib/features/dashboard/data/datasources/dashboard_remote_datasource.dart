@@ -17,7 +17,7 @@ class DashboardRemoteDataSourceImpl implements DashboardRemoteDataSource {
   Future<ApiResponse<DashboardModel>> getDashboard() async {
     try {
       AppLogger.networkInfo('Fetching dashboard');
-      final response = await _dioClient.get(
+      final response = await _dioClient.get<DashboardModel>(
         ApiEndpoints.adminDashboard,
         fromJson: (data) {
           return DashboardModel.fromMap(data);

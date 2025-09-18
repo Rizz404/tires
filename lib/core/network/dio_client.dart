@@ -77,7 +77,8 @@ class DioClient {
 
       // Check if response is HTML instead of JSON
       if (response.data is String &&
-          (response.data as String).trim().startsWith('<!DOCTYPE html>')) {
+          (response.data as String?)?.trim().startsWith('<!DOCTYPE html>') ==
+              true) {
         throw DioException(
           requestOptions: response.requestOptions,
           response: response,
@@ -134,7 +135,8 @@ class DioClient {
 
       // Check if response is HTML instead of JSON
       if (response.data is String &&
-          (response.data as String).trim().startsWith('<!DOCTYPE html>')) {
+          (response.data as String?)?.trim().startsWith('<!DOCTYPE html>') ==
+              true) {
         throw DioException(
           requestOptions: response.requestOptions,
           response: response,
@@ -170,7 +172,8 @@ class DioClient {
 
       // Check if response is HTML instead of JSON
       if (response.data is String &&
-          (response.data as String).trim().startsWith('<!DOCTYPE html>')) {
+          (response.data as String?)?.trim().startsWith('<!DOCTYPE html>') ==
+              true) {
         throw DioException(
           requestOptions: response.requestOptions,
           response: response,
@@ -301,9 +304,10 @@ class DioClient {
     if (error.response != null && error.response!.data != null) {
       try {
         if (error.response!.data is String &&
-            (error.response!.data as String).trim().startsWith(
-              '<!DOCTYPE html>',
-            )) {
+            (error.response!.data as String?)?.trim().startsWith(
+                  '<!DOCTYPE html>',
+                ) ==
+                true) {
           return const ApiErrorResponse(
             message:
                 'Server returned HTML instead of JSON. Check API endpoint configuration.',

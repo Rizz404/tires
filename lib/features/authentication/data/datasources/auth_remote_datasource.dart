@@ -59,7 +59,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   Future<ApiResponse<void>> logout() async {
     try {
       AppLogger.networkInfo('Logging out user');
-      final response = await _dioClient.post(ApiEndpoints.logout);
+      final response = await _dioClient.post<void>(ApiEndpoints.logout);
       return response;
     } catch (e) {
       AppLogger.networkError('Error logging out user', e);
@@ -71,7 +71,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   Future<ApiResponse<void>> forgotPassword(ForgotPasswordParams params) async {
     try {
       AppLogger.networkInfo('Sending forgot password request');
-      final response = await _dioClient.post(
+      final response = await _dioClient.post<void>(
         ApiEndpoints.forgotPassword,
         data: params.toMap(),
       );
@@ -86,7 +86,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   Future<ApiResponse<void>> setNewPassword(SetNewPasswordParams params) async {
     try {
       AppLogger.networkInfo('Setting new password');
-      final response = await _dioClient.post(
+      final response = await _dioClient.post<void>(
         ApiEndpoints.setNewPassword,
         data: params.toMap(),
       );

@@ -206,22 +206,29 @@ class _AdminListCustomerManagementScreenState
       child: Row(
         children: [
           StatTile(
+            title: "Total Customers",
+            value: statistics.totalCustomers.toString(),
+            icon: Icons.people,
+            color: Colors.blue,
+          ),
+          const SizedBox(width: 16),
+          StatTile(
             title: context.l10n.adminListCustomerManagementStatsFirstTime,
-            value: statistics.firstTimeCustomers.toString(),
+            value: statistics.firstTime.toString(),
             icon: Icons.person_add,
             color: Colors.green,
           ),
           const SizedBox(width: 16),
           StatTile(
             title: context.l10n.adminListCustomerManagementStatsRepeat,
-            value: statistics.repeatCustomers.toString(),
+            value: statistics.repeat.toString(),
             icon: Icons.repeat,
             color: Colors.orange,
           ),
           const SizedBox(width: 16),
           StatTile(
             title: context.l10n.adminListCustomerManagementStatsDormant,
-            value: statistics.dormantCustomers.toString(),
+            value: statistics.dormant.toString(),
             icon: Icons.person_off,
             color: Colors.red,
           ),

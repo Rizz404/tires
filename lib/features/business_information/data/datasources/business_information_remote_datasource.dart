@@ -24,45 +24,13 @@ class BusinessInformationRemoteDatasourceImpl
   Future<ApiResponse<BusinessInformationModel>> getBusinessInformation() async {
     try {
       AppLogger.networkInfo('Fetching business information');
-      final response = await _dioClient.get(ApiEndpoints.adminBusinessSettings);
-      print('=== DATASOURCE DEBUG ===');
-      print('Response data: ${response.data}');
-      print('Response data type: ${response.data.runtimeType}');
-      print('Response data["data"]: ${response.data["data"]}');
-      print('Response data["data"] type: ${response.data["data"].runtimeType}');
-      print('=== END DATASOURCE DEBUG ===');
-
-      // Check if response.data already contains the business information directly
-      if (response.data['data'] == null) {
-        // response.data is already the business information data
-        print('=== PARSING DIRECT DATA ===');
-        print('Data to parse: ${response.data}');
-        print('=== END PARSING ===');
-
-        final businessInfo = BusinessInformationModel.fromMap(response.data);
-        return ApiResponse<BusinessInformationModel>(
-          status: 'success',
-          message: 'Business settings retrieved successfully',
-          data: businessInfo,
-        );
-      } else {
-        // response.data contains wrapped structure
-        return ApiResponse<BusinessInformationModel>.fromJson(response.data, (
-          data,
-        ) {
-          print('=== PARSING WRAPPED DATA ===');
-          print('Data to parse: $data');
-          print('Data type: ${data.runtimeType}');
-          print('=== END PARSING ===');
-          return BusinessInformationModel.fromMap(data);
-        });
-      }
+      final response = await _dioClient.get<BusinessInformationModel>(
+        ApiEndpoints.adminBusinessSettings,
+        fromJson: (data) => BusinessInformationModel.fromMap(data),
+      );
+      return response;
     } catch (e) {
       AppLogger.networkError('Error fetching business information', e);
-      print('=== DATASOURCE ERROR ===');
-      print('Error: $e');
-      print('Error type: ${e.runtimeType}');
-      print('=== END ERROR ===');
       rethrow;
     }
   }
@@ -72,47 +40,13 @@ class BusinessInformationRemoteDatasourceImpl
   getPublicBusinessInformation() async {
     try {
       AppLogger.networkInfo('Fetching public business information');
-      final response = await _dioClient.get(
+      final response = await _dioClient.get<BusinessInformationModel>(
         ApiEndpoints.publicBusinessSettings,
+        fromJson: (data) => BusinessInformationModel.fromMap(data),
       );
-      print('=== PUBLIC DATASOURCE DEBUG ===');
-      print('Response data: ${response.data}');
-      print('Response data type: ${response.data.runtimeType}');
-      print('Response data["data"]: ${response.data["data"]}');
-      print('Response data["data"] type: ${response.data["data"].runtimeType}');
-      print('=== END PUBLIC DATASOURCE DEBUG ===');
-
-      // Check if response.data already contains the business information directly
-      if (response.data['data'] == null) {
-        // response.data is already the business information data
-        print('=== PARSING DIRECT PUBLIC DATA ===');
-        print('Data to parse: ${response.data}');
-        print('=== END PARSING ===');
-
-        final businessInfo = BusinessInformationModel.fromMap(response.data);
-        return ApiResponse<BusinessInformationModel>(
-          status: 'success',
-          message: 'Public business settings retrieved successfully',
-          data: businessInfo,
-        );
-      } else {
-        // response.data contains wrapped structure
-        return ApiResponse<BusinessInformationModel>.fromJson(response.data, (
-          data,
-        ) {
-          print('=== PARSING WRAPPED PUBLIC DATA ===');
-          print('Data to parse: $data');
-          print('Data type: ${data.runtimeType}');
-          print('=== END PARSING ===');
-          return BusinessInformationModel.fromMap(data);
-        });
-      }
+      return response;
     } catch (e) {
       AppLogger.networkError('Error fetching public business information', e);
-      print('=== PUBLIC DATASOURCE ERROR ===');
-      print('Error: $e');
-      print('Error type: ${e.runtimeType}');
-      print('=== END ERROR ===');
       rethrow;
     }
   }
@@ -147,14 +81,12 @@ class BusinessInformationRemoteDatasourceImpl
         );
       }
 
-      final response = await _dioClient.patch(
+      final response = await _dioClient.patch<BusinessInformationModel>(
         ApiEndpoints.adminBusinessSettings,
         data: formData,
+        fromJson: (data) => BusinessInformationModel.fromMap(data),
       );
-      return ApiResponse<BusinessInformationModel>.fromJson(
-        response.data,
-        (data) => BusinessInformationModel.fromMap(data),
-      );
+      return response;
     } catch (e) {
       AppLogger.networkError('Error updating business information', e);
       rethrow;

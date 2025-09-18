@@ -4,17 +4,20 @@ import 'package:tires/features/customer_management/domain/entities/customer_stat
 class CustomerStatisticModel extends CustomerStatistic {
   const CustomerStatisticModel({
     required super.totalCustomers,
-    required super.firstTimeCustomers,
-    required super.repeatCustomers,
-    required super.dormantCustomers,
+    required super.firstTime,
+    required super.repeat,
+    required super.dormant,
   });
 
   factory CustomerStatisticModel.fromMap(Map<String, dynamic> map) {
+    final data = map['data'] as Map<String, dynamic>;
+    final statistics = data['statistics'] as Map<String, dynamic>;
+
     return CustomerStatisticModel(
-      totalCustomers: map['total_customers'] as int,
-      firstTimeCustomers: map['first_time_customers'] as int,
-      repeatCustomers: map['repeat_customers'] as int,
-      dormantCustomers: map['dormant_customers'] as int,
+      totalCustomers: data['total_customers'] as int,
+      firstTime: statistics['first_time'] as int,
+      repeat: statistics['repeat'] as int,
+      dormant: statistics['dormant'] as int,
     );
   }
 
@@ -25,10 +28,16 @@ class CustomerStatisticModel extends CustomerStatistic {
 
   Map<String, dynamic> toMap() {
     return {
-      'total_customers': totalCustomers,
-      'first_time_customers': firstTimeCustomers,
-      'repeat_customers': repeatCustomers,
-      'dormant_customers': dormantCustomers,
+      'status': 'success',
+      'message': 'Customer statistics retrieved successfully',
+      'data': {
+        'statistics': {
+          'first_time': firstTime,
+          'repeat': repeat,
+          'dormant': dormant,
+        },
+        'total_customers': totalCustomers,
+      },
     };
   }
 

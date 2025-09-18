@@ -25,7 +25,7 @@ class ApiResponse<T> extends Equatable {
     T Function(dynamic json)? fromJsonT,
   ) {
     return ApiResponse<T>(
-      status: map['status'] as String,
+      status: (map['status'] as String?) ?? 'unknown',
       message: map['message'] is String
           ? map['message']
           : (map['message']?.toString() ?? 'Unknown message'),

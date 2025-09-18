@@ -19,7 +19,7 @@ class ApiCursorPaginationResponse<T> extends ApiResponse<List<T>> {
     final cursorData = map['cursor'];
 
     return ApiCursorPaginationResponse<T>(
-      status: map['status'] as String,
+      status: (map['status'] as String?) ?? 'unknown',
       message: map['message'] is String
           ? map['message']
           : (map['message']?.toString() ?? 'Unknown message'),

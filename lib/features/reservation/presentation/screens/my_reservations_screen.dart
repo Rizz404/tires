@@ -6,7 +6,7 @@ import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/customer_management/presentation/providers/current_user_dashboard_get_state.dart';
-import 'package:tires/features/customer_management/presentation/providers/customer_provider.dart';
+import 'package:tires/features/customer_management/presentation/providers/customers_providers.dart';
 import 'package:tires/features/reservation/presentation/providers/current_user_reservations_get_state.dart';
 import 'package:tires/features/reservation/presentation/providers/reservation_providers.dart';
 import 'package:tires/features/reservation/presentation/widgets/reservation_item.dart';

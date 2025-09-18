@@ -63,14 +63,12 @@ class CustomerRemoteDatasourceImpl implements CustomerRemoteDatasource {
   Future<ApiResponse<CustomerStatisticModel>> getCustomerStatistics() async {
     try {
       AppLogger.networkInfo('Fetching customer statistics');
-      final response = await _dioClient.get(
+      final response = await _dioClient.get<CustomerStatisticModel>(
         ApiEndpoints.adminCustomerStatistics,
+        fromJson: (data) => CustomerStatisticModel.fromMap(data),
       );
       AppLogger.networkDebug('Customer statistics fetched successfully');
-      return ApiResponse<CustomerStatisticModel>.fromMap(
-        response.data,
-        (data) => CustomerStatisticModel.fromMap(data),
-      );
+      return response;
     } catch (e) {
       AppLogger.networkError('Error fetching customer statistics', e);
       rethrow;

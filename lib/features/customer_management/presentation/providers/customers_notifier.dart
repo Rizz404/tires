@@ -40,9 +40,7 @@ class CustomersNotifier extends Notifier<CustomersState> {
         );
       },
       (success) {
-        AppLogger.uiDebug(
-          'Initial customers fetched successfully in notifier',
-        );
+        AppLogger.uiDebug('Initial customers fetched successfully in notifier');
         state = state
             .copyWith(
               status: CustomersStatus.success,
@@ -55,10 +53,7 @@ class CustomersNotifier extends Notifier<CustomersState> {
     );
   }
 
-  Future<void> getCustomers({
-    bool paginate = true,
-    int perPage = 10,
-  }) async {
+  Future<void> getCustomers({bool paginate = true, int perPage = 10}) async {
     await getInitialCustomers(paginate: paginate, perPage: perPage);
   }
 

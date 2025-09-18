@@ -35,19 +35,19 @@ class StatisticsModel extends Equatable {
 
   factory StatisticsModel.fromJson(Map<String, dynamic> json) {
     return StatisticsModel(
-      totalMenus: json['totalMenus'] as int,
-      activeMenus: json['activeMenus'] as int,
-      inactiveMenus: json['inactiveMenus'] as int,
-      averagePrice: json['averagePrice'] as int,
+      totalMenus: json['total_menus'] as int,
+      activeMenus: json['active_menus'] as int,
+      inactiveMenus: json['inactive_menus'] as int,
+      averagePrice: json['average_price'] as int,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'totalMenus': totalMenus,
-      'activeMenus': activeMenus,
-      'inactiveMenus': inactiveMenus,
-      'averagePrice': averagePrice,
+      'total_menus': totalMenus,
+      'active_menus': activeMenus,
+      'inactive_menus': inactiveMenus,
+      'average_price': averagePrice,
     };
   }
 
