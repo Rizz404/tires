@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
@@ -7,8 +8,8 @@ import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/core/usecases/usecase.dart';
-import 'package:tires/features/menu/domain/repositories/menu_repository.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
+import 'package:tires/features/menu/domain/repositories/menu_repository.dart';
 
 class UpdateMenuUsecase
     implements Usecase<ItemSuccessResponse<Menu>, UpdateMenuParams> {
@@ -29,45 +30,57 @@ class UpdateMenuUsecase
 
 class UpdateMenuParams extends Equatable {
   final int id;
+  final int? requiredTime;
+  final int? price;
+  final String? photoPath;
+  final int? displayOrder;
   final bool? isActive;
-  final DateTime? publishedAt;
-  final MenuTranslation? translation;
+  final String? color;
+  final MenuTranslation? translations;
 
   const UpdateMenuParams({
     required this.id,
+    this.requiredTime,
+    this.price,
+    this.photoPath,
+    this.displayOrder,
     this.isActive,
-    this.publishedAt,
-    this.translation,
+    this.color,
+    this.translations,
   });
 
   UpdateMenuParams copyWith({
+    int? id,
+    int? requiredTime,
+    int? price,
+    String? photoPath,
+    int? displayOrder,
     bool? isActive,
-    DateTime? publishedAt,
-    MenuTranslation? translation,
+    String? color,
+    MenuTranslation? translations,
   }) {
     return UpdateMenuParams(
-      id: id,
+      id: id ?? this.id,
+      requiredTime: requiredTime ?? this.requiredTime,
+      price: price ?? this.price,
+      photoPath: photoPath ?? this.photoPath,
+      displayOrder: displayOrder ?? this.displayOrder,
       isActive: isActive ?? this.isActive,
-      publishedAt: publishedAt ?? this.publishedAt,
-      translation: translation ?? this.translation,
+      color: color ?? this.color,
+      translations: translations ?? this.translations,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
+      'requiredTime': requiredTime,
+      'price': price,
+      'photoPath': photoPath,
+      'displayOrder': displayOrder,
       'isActive': isActive,
-      'publishedAt': publishedAt?.toIso8601String(),
-      'translation': {
-        'en': {
-          'name': translation?.en.name,
-          'description': translation?.en.description,
-        },
-        'ja': {
-          'name': translation?.ja.name,
-          'description': translation?.ja.description,
-        },
-      },
+      'color': color,
+      'translations': translations?.toMap(),
     };
   }
 
@@ -77,5 +90,38 @@ class UpdateMenuParams extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object?> get props => [id, isActive, publishedAt, translation];
+  List<Object?> get props {
+    return [
+      id,
+      requiredTime,
+      price,
+      photoPath,
+      displayOrder,
+      isActive,
+      color,
+      translations,
+    ];
+  }
+
+  factory UpdateMenuParams.fromMap(Map<String, dynamic> map) {
+    return UpdateMenuParams(
+      id: map['id'] as int,
+      requiredTime: map['requiredTime'] != null
+          ? map['requiredTime'] as int
+          : null,
+      price: map['price'] != null ? map['price'] as int : null,
+      photoPath: map['photoPath'] != null ? map['photoPath'] as String : null,
+      displayOrder: map['displayOrder'] != null
+          ? map['displayOrder'] as int
+          : null,
+      isActive: map['isActive'] != null ? map['isActive'] as bool : null,
+      color: map['color'] != null ? map['color'] as String : null,
+      translations: map['translations'] != null
+          ? MenuTranslation.fromMap(map['translations'] as Map<String, dynamic>)
+          : null,
+    );
+  }
+
+  factory UpdateMenuParams.fromJson(String source) =>
+      UpdateMenuParams.fromMap(json.decode(source) as Map<String, dynamic>);
 }

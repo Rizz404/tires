@@ -20,8 +20,9 @@ import 'package:tires/features/authentication/domain/usecases/logout_usecase.dar
 import 'package:tires/features/authentication/domain/usecases/register_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/set_new_password_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_current_user_dashboard_usecase.dart';
-import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
+import 'package:tires/features/customer_management/domain/usecases/get_customers_cursor_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_statistics_usecase.dart';
+import 'package:tires/features/customer_management/domain/usecases/get_customer_detail_usecase.dart';
 import 'package:tires/features/inquiry/domain/usecases/create_inquiry_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/create_menu_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/delete_menu_usecase.dart';
@@ -107,11 +108,11 @@ final getMenuStatisticsUsecaseProvider = Provider<GetMenuStatisticsUsecase>((
   return GetMenuStatisticsUsecase(_menuRepository);
 });
 
-final getCustomerCursorUsecaseProvider = Provider<GetCustomerCursorUsecase>((
+final getCustomersCursorUsecaseProvider = Provider<GetCustomersCursorUsecase>((
   ref,
 ) {
   final _customerRepository = ref.watch(customerRepoProvider);
-  return GetCustomerCursorUsecase(_customerRepository);
+  return GetCustomersCursorUsecase(_customerRepository);
 });
 
 final getCustomerStatisticsUsecaseProvider =
@@ -119,6 +120,13 @@ final getCustomerStatisticsUsecaseProvider =
       final _customerRepository = ref.watch(customerRepoProvider);
       return GetCustomerStatisticsUsecase(_customerRepository);
     });
+
+final getCustomerDetailUsecaseProvider = Provider<GetCustomerDetailUsecase>((
+  ref,
+) {
+  final _customerRepository = ref.watch(customerRepoProvider);
+  return GetCustomerDetailUsecase(_customerRepository);
+});
 
 // User Usecase Providers
 final getCurrentUserUsecaseProvider = Provider<GetCurrentUserUsecase>((ref) {

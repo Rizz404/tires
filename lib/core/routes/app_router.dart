@@ -21,7 +21,7 @@ import 'package:tires/features/contact/domain/entities/contact.dart';
 import 'package:tires/features/contact/presentation/screens/admin_list_contact_screen.dart';
 import 'package:tires/features/contact/presentation/screens/admin_upsert_contact_screen.dart';
 import 'package:tires/features/customer_management/presentation/screens/admin_list_customer_management_screen.dart';
-import 'package:tires/features/customer_management/presentation/screens/admin_upsert_customer_management_screen.dart';
+import 'package:tires/features/customer_management/presentation/screens/admin_customer_detail_screen.dart';
 import 'package:tires/features/dashboard/presentation/screens/admin_dashboard_screen.dart';
 import 'package:tires/features/home/presentation/screens/home_screen.dart';
 import 'package:tires/features/inquiry/presentation/screens/inquiry_screen.dart';
@@ -139,7 +139,7 @@ class AppRouter extends RootStackRouter {
       guards: [_authGuard],
     ),
     AutoRoute(
-      page: AdminUpsertCustomerManagementRoute.page,
+      page: AdminCustomerDetailRoute.page,
       path: '/admin/customer/upsert',
       guards: [_authGuard],
     ),

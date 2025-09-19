@@ -63,10 +63,11 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
     final menu = widget.menu;
     if (menu != null) {
       _formKey.currentState?.patchValue({
-        'name_en': menu.translations?.en.name ?? menu.name,
-        'description_en': menu.translations?.en.description ?? menu.description,
-        'name_ja': menu.translations?.ja.name,
-        'description_ja': menu.translations?.ja.description,
+        'name_en': menu.translations?.en?.name ?? menu.name,
+        'description_en':
+            menu.translations?.en?.description ?? menu.description,
+        'name_ja': menu.translations?.ja?.name,
+        'description_ja': menu.translations?.ja?.description,
         'required_time': menu.requiredTime.toString(),
         'price': menu.price.amount,
         'color': menu.color.hex,
@@ -93,22 +94,24 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
       final descriptionEn = values['description_en'] as String;
       final nameJa = values['name_ja'] as String?;
       final descriptionJa = values['description_ja'] as String?;
-      // TODO: Add support for these fields in use cases
-      // final requiredTime = int.parse(values['required_time'] as String);
-      // final price = double.parse(values['price'] as String);
-      // final color = values['color'] as String;
+      final requiredTime = int.parse(values['required_time'] as String);
+      final price = int.parse(values['price'] as String);
+      final color = values['color'] as String;
       final isActive = values['is_active'] as bool;
 
       final menuTranslation = MenuTranslation(
         en: MenuContent(name: nameEn, description: descriptionEn),
-        ja: MenuContent(name: nameJa ?? '', description: descriptionJa),
+        ja: MenuContent(name: nameJa, description: descriptionJa),
       );
 
       if (_isEditMode) {
         notifier.updateMenu(
           UpdateMenuParams(
             id: widget.menu!.id,
-            translation: menuTranslation,
+            translations: menuTranslation,
+            requiredTime: requiredTime,
+            price: price,
+            color: color,
             isActive: isActive,
           ),
         );
@@ -116,8 +119,12 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
         notifier.createMenu(
           CreateMenuParams(
             translations: menuTranslation,
+            requiredTime: requiredTime,
+            price: price,
+            photoPath: '', // Default empty for now
+            displayOrder: 0, // Default order
+            color: color,
             isActive: isActive,
-            publishedAt: DateTime.now(),
           ),
         );
       }

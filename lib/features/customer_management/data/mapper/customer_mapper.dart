@@ -5,27 +5,45 @@ extension CustomerModelMapper on CustomerModel {
   Customer toEntity() {
     return Customer(
       id: id,
-      name: name,
-      description: description,
-      requiredTime: requiredTime,
-      price: (price as PriceModel).toEntity(),
-      photoPath: photoPath,
-      displayOrder: displayOrder,
-      isActive: isActive,
-      color: (color as ColorInfoModel).toEntity(),
+      userId: userId,
+      email: email,
+      fullName: fullName,
+      fullNameKana: fullNameKana,
+      phoneNumber: phoneNumber,
+      companyName: companyName,
+      department: department,
+      companyAddress: companyAddress,
+      homeAddress: homeAddress,
+      dateOfBirth: dateOfBirth,
+      gender: gender,
+      isRegistered: isRegistered,
+      reservationCount: reservationCount,
+      latestReservation: latestReservation,
+      totalAmount: totalAmount,
+      translations: (translations as TranslationsModel).toEntity(),
+      meta: (meta as MetaModel).toEntity(),
     );
   }
 }
 
-extension PriceModelMapper on PriceModel {
-  Price toEntity() {
-    return Price(amount: amount, formatted: formatted, currency: currency);
+extension TranslationsModelMapper on TranslationsModel {
+  Translations toEntity() {
+    return Translations(
+      en: (en as LanguageTranslationModel).toEntity(),
+      ja: (ja as LanguageTranslationModel).toEntity(),
+    );
   }
 }
 
-extension ColorInfoModelMapper on ColorInfoModel {
-  ColorInfo toEntity() {
-    return ColorInfo(hex: hex, rgbaLight: rgbaLight, textColor: textColor);
+extension LanguageTranslationModelMapper on LanguageTranslationModel {
+  LanguageTranslation toEntity() {
+    return LanguageTranslation(fullName: fullName, companyName: companyName);
+  }
+}
+
+extension MetaModelMapper on MetaModel {
+  Meta toEntity() {
+    return Meta(locale: locale, fallbackUsed: fallbackUsed);
   }
 }
 
@@ -33,26 +51,44 @@ extension CustomerEntityMapper on Customer {
   CustomerModel toModel() {
     return CustomerModel(
       id: id,
-      name: name,
-      description: description,
-      requiredTime: requiredTime,
-      price: price.toModel(),
-      photoPath: photoPath,
-      displayOrder: displayOrder,
-      isActive: isActive,
-      color: color.toModel(),
+      userId: userId,
+      email: email,
+      fullName: fullName,
+      fullNameKana: fullNameKana,
+      phoneNumber: phoneNumber,
+      companyName: companyName,
+      department: department,
+      companyAddress: companyAddress,
+      homeAddress: homeAddress,
+      dateOfBirth: dateOfBirth,
+      gender: gender,
+      isRegistered: isRegistered,
+      reservationCount: reservationCount,
+      latestReservation: latestReservation,
+      totalAmount: totalAmount,
+      translations: translations.toModel(),
+      meta: meta.toModel(),
     );
   }
 }
 
-extension PriceEntityMapper on Price {
-  PriceModel toModel() {
-    return PriceModel(amount: amount, formatted: formatted, currency: currency);
+extension TranslationsEntityMapper on Translations {
+  TranslationsModel toModel() {
+    return TranslationsModel(en: en.toModel(), ja: ja.toModel());
   }
 }
 
-extension ColorInfoEntityMapper on ColorInfo {
-  ColorInfoModel toModel() {
-    return ColorInfoModel(hex: hex, rgbaLight: rgbaLight, textColor: textColor);
+extension LanguageTranslationEntityMapper on LanguageTranslation {
+  LanguageTranslationModel toModel() {
+    return LanguageTranslationModel(
+      fullName: fullName,
+      companyName: companyName,
+    );
+  }
+}
+
+extension MetaEntityMapper on Meta {
+  MetaModel toModel() {
+    return MetaModel(locale: locale, fallbackUsed: fallbackUsed);
   }
 }

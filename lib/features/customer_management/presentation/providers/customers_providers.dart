@@ -3,8 +3,8 @@ import 'package:tires/features/customer_management/presentation/providers/custom
 import 'package:tires/features/customer_management/presentation/providers/customers_state.dart';
 import 'package:tires/features/customer_management/presentation/providers/customer_statistics_notifier.dart';
 import 'package:tires/features/customer_management/presentation/providers/customer_statistics_state.dart';
-import 'package:tires/features/customer_management/presentation/providers/customer_notifier.dart';
-import 'package:tires/features/customer_management/presentation/providers/customer_state.dart';
+import 'package:tires/features/customer_management/presentation/providers/customer_detail_notifier.dart';
+import 'package:tires/features/customer_management/presentation/providers/customer_detail_state.dart';
 import 'package:tires/features/customer_management/presentation/providers/current_user_dashboard_get_notifier.dart';
 import 'package:tires/features/customer_management/presentation/providers/current_user_dashboard_get_state.dart';
 
@@ -16,8 +16,10 @@ final customerStatisticsNotifierProvider =
       CustomerStatisticsNotifier.new,
     );
 
-final customerNotifierProvider =
-    NotifierProvider<CustomerNotifier, CustomerState>(CustomerNotifier.new);
+final customerDetailNotifierProvider =
+    NotifierProvider<CustomerDetailNotifier, CustomerDetailState>(
+      CustomerDetailNotifier.new,
+    );
 
 final currentUserDashboardGetNotifierProvider =
     NotifierProvider<

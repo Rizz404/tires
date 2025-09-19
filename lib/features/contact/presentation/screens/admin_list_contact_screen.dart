@@ -10,6 +10,7 @@ import 'package:tires/features/contact/presentation/widgets/contact_table_widget
 import 'package:tires/features/contact/presentation/providers/contacts_state.dart';
 import 'package:tires/features/contact/presentation/providers/contact_providers.dart';
 import 'package:tires/features/contact/presentation/providers/contact_statistics_state.dart';
+import 'package:tires/shared/presentation/widgets/admin_app_bar.dart';
 import 'package:tires/shared/presentation/widgets/admin_end_drawer.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
@@ -68,6 +69,7 @@ class _AdminListContactScreenState
     final statisticsState = ref.watch(contactStatisticsNotifierProvider);
 
     return Scaffold(
+      appBar: const AdminAppBar(),
       endDrawer: const AdminEndDrawer(),
       body: ScreenWrapper(
         child: RefreshIndicator(

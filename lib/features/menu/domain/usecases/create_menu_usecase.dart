@@ -7,8 +7,8 @@ import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/core/usecases/usecase.dart';
-import 'package:tires/features/menu/domain/repositories/menu_repository.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
+import 'package:tires/features/menu/domain/repositories/menu_repository.dart';
 
 class CreateMenuUsecase
     implements Usecase<ItemSuccessResponse<Menu>, CreateMenuParams> {
@@ -26,42 +26,53 @@ class CreateMenuUsecase
 }
 
 class CreateMenuParams extends Equatable {
+  final int requiredTime;
+  final int price;
+  final String photoPath;
+  final int displayOrder;
   final bool isActive;
-  final DateTime publishedAt;
-  final MenuTranslation? translations;
+  final String color;
+  final MenuTranslation translations;
 
   const CreateMenuParams({
+    required this.requiredTime,
+    required this.price,
+    required this.photoPath,
+    required this.displayOrder,
     required this.isActive,
-    required this.publishedAt,
-    this.translations,
+    required this.color,
+    required this.translations,
   });
 
   CreateMenuParams copyWith({
+    int? requiredTime,
+    int? price,
+    String? photoPath,
+    int? displayOrder,
     bool? isActive,
-    DateTime? publishedAt,
+    String? color,
     MenuTranslation? translations,
   }) {
     return CreateMenuParams(
+      requiredTime: requiredTime ?? this.requiredTime,
+      price: price ?? this.price,
+      photoPath: photoPath ?? this.photoPath,
+      displayOrder: displayOrder ?? this.displayOrder,
       isActive: isActive ?? this.isActive,
-      publishedAt: publishedAt ?? this.publishedAt,
+      color: color ?? this.color,
       translations: translations ?? this.translations,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'requiredTime': requiredTime,
+      'price': price,
+      'photoPath': photoPath,
+      'displayOrder': displayOrder,
       'isActive': isActive,
-      'publishedAt': publishedAt.toIso8601String(),
-      'translations': {
-        'en': {
-          'name': translations?.en.name,
-          'description': translations?.en.description,
-        },
-        'ja': {
-          'name': translations?.ja.name,
-          'description': translations?.ja.description,
-        },
-      },
+      'color': color,
+      'translations': translations.toMap(),
     };
   }
 
@@ -71,5 +82,32 @@ class CreateMenuParams extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object?> get props => [isActive, publishedAt, translations];
+  List<Object> get props {
+    return [
+      requiredTime,
+      price,
+      photoPath,
+      displayOrder,
+      isActive,
+      color,
+      translations,
+    ];
+  }
+
+  factory CreateMenuParams.fromMap(Map<String, dynamic> map) {
+    return CreateMenuParams(
+      requiredTime: map['requiredTime'] as int,
+      price: map['price'] as int,
+      photoPath: map['photoPath'] as String,
+      displayOrder: map['displayOrder'] as int,
+      isActive: map['isActive'] as bool,
+      color: map['color'] as String,
+      translations: MenuTranslation.fromMap(
+        map['translations'] as Map<String, dynamic>,
+      ),
+    );
+  }
+
+  factory CreateMenuParams.fromJson(String source) =>
+      CreateMenuParams.fromMap(json.decode(source) as Map<String, dynamic>);
 }

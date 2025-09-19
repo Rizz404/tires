@@ -1,68 +1,95 @@
 import 'package:equatable/equatable.dart';
 
 class Customer extends Equatable {
-  final int id;
-  final String name;
-  final String? description;
-  final int requiredTime;
-  final Price price;
-  final String? photoPath;
-  final int displayOrder;
-  final bool isActive;
-  final ColorInfo color;
+  final String id;
+  final int? userId;
+  final String email;
+  final String fullName;
+  final String fullNameKana;
+  final String? phoneNumber;
+  final String? companyName;
+  final String? department;
+  final String? companyAddress;
+  final String? homeAddress;
+  final String? dateOfBirth;
+  final String? gender;
+  final int isRegistered;
+  final int reservationCount;
+  final String? latestReservation;
+  final String totalAmount;
+  final Translations translations;
+  final Meta meta;
 
   const Customer({
     required this.id,
-    required this.name,
-    this.description,
-    required this.requiredTime,
-    required this.price,
-    this.photoPath,
-    required this.displayOrder,
-    required this.isActive,
-    required this.color,
+    this.userId,
+    required this.email,
+    required this.fullName,
+    required this.fullNameKana,
+    this.phoneNumber,
+    this.companyName,
+    this.department,
+    this.companyAddress,
+    this.homeAddress,
+    this.dateOfBirth,
+    this.gender,
+    required this.isRegistered,
+    required this.reservationCount,
+    this.latestReservation,
+    required this.totalAmount,
+    required this.translations,
+    required this.meta,
   });
 
   @override
   List<Object?> get props => [
     id,
-    name,
-    description,
-    requiredTime,
-    price,
-    photoPath,
-    displayOrder,
-    isActive,
-    color,
+    userId,
+    email,
+    fullName,
+    fullNameKana,
+    phoneNumber,
+    companyName,
+    department,
+    companyAddress,
+    homeAddress,
+    dateOfBirth,
+    gender,
+    isRegistered,
+    reservationCount,
+    latestReservation,
+    totalAmount,
+    translations,
+    meta,
   ];
 }
 
-class Price extends Equatable {
-  final String amount;
-  final String formatted;
-  final String currency;
+class Translations extends Equatable {
+  final LanguageTranslation en;
+  final LanguageTranslation ja;
 
-  const Price({
-    required this.amount,
-    required this.formatted,
-    required this.currency,
-  });
+  const Translations({required this.en, required this.ja});
 
   @override
-  List<Object?> get props => [amount, formatted, currency];
+  List<Object?> get props => [en, ja];
 }
 
-class ColorInfo extends Equatable {
-  final String hex;
-  final String rgbaLight;
-  final String textColor;
+class LanguageTranslation extends Equatable {
+  final String fullName;
+  final String? companyName;
 
-  const ColorInfo({
-    required this.hex,
-    required this.rgbaLight,
-    required this.textColor,
-  });
+  const LanguageTranslation({required this.fullName, this.companyName});
 
   @override
-  List<Object?> get props => [hex, rgbaLight, textColor];
+  List<Object?> get props => [fullName, companyName];
+}
+
+class Meta extends Equatable {
+  final String locale;
+  final bool fallbackUsed;
+
+  const Meta({required this.locale, required this.fallbackUsed});
+
+  @override
+  List<Object?> get props => [locale, fallbackUsed];
 }

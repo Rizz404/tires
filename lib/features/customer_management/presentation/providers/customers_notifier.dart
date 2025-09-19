@@ -1,16 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/di/usecase_providers.dart';
-import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
+import 'package:tires/features/customer_management/domain/entities/customer.dart';
+import 'package:tires/features/customer_management/domain/usecases/get_customers_cursor_usecase.dart';
 import 'package:tires/features/customer_management/presentation/providers/customers_state.dart';
-import 'package:tires/features/user/domain/entities/user.dart';
 
 class CustomersNotifier extends Notifier<CustomersState> {
-  late GetCustomerCursorUsecase _getCustomerCursorUsecase;
+  late GetCustomersCursorUsecase _getCustomersCursorUsecase;
 
   @override
   CustomersState build() {
-    _getCustomerCursorUsecase = ref.watch(getCustomerCursorUsecaseProvider);
+    _getCustomersCursorUsecase = ref.watch(getCustomersCursorUsecaseProvider);
     Future.microtask(() => getInitialCustomers());
     return const CustomersState();
   }
@@ -33,7 +33,7 @@ class CustomersNotifier extends Notifier<CustomersState> {
       status: status,
     );
 
-    final response = await _getCustomerCursorUsecase(params);
+    final response = await _getCustomersCursorUsecase(params);
 
     response.fold(
       (failure) {
@@ -92,7 +92,7 @@ class CustomersNotifier extends Notifier<CustomersState> {
       status: status,
     );
 
-    final response = await _getCustomerCursorUsecase(params);
+    final response = await _getCustomersCursorUsecase(params);
 
     response.fold(
       (failure) {
@@ -104,9 +104,9 @@ class CustomersNotifier extends Notifier<CustomersState> {
       },
       (success) {
         AppLogger.uiDebug('More customers loaded successfully in notifier');
-        final List<User> allCustomers = [
+        final List<Customer> allCustomers = [
           ...state.customers,
-          ...success.data ?? <User>[],
+          ...success.data ?? <Customer>[],
         ];
         state = state
             .copyWith(

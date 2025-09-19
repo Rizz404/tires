@@ -187,39 +187,37 @@ class _AdminListCustomerManagementScreenState
       );
     }
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          StatTile(
-            title: "Total Customers",
-            value: statistics.totalCustomers.toString(),
-            icon: Icons.people,
-            color: Colors.blue,
-          ),
-          const SizedBox(width: 16),
-          StatTile(
-            title: context.l10n.adminListCustomerManagementStatsFirstTime,
-            value: statistics.statistics.firstTime.toString(),
-            icon: Icons.person_add,
-            color: Colors.green,
-          ),
-          const SizedBox(width: 16),
-          StatTile(
-            title: context.l10n.adminListCustomerManagementStatsRepeat,
-            value: statistics.statistics.repeat.toString(),
-            icon: Icons.repeat,
-            color: Colors.orange,
-          ),
-          const SizedBox(width: 16),
-          StatTile(
-            title: context.l10n.adminListCustomerManagementStatsDormant,
-            value: statistics.statistics.dormant.toString(),
-            icon: Icons.person_off,
-            color: Colors.red,
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        StatTile(
+          title: "Total Customers",
+          value: statistics.totalCustomers.toString(),
+          icon: Icons.people,
+          color: Colors.blue.shade100,
+        ),
+        const SizedBox(height: 12),
+        StatTile(
+          title: context.l10n.adminListCustomerManagementStatsFirstTime,
+          value: statistics.statistics.firstTime.toString(),
+          icon: Icons.person_add,
+          color: Colors.green.shade100,
+        ),
+        const SizedBox(height: 12),
+        StatTile(
+          title: context.l10n.adminListCustomerManagementStatsRepeat,
+          value: statistics.statistics.repeat.toString(),
+          icon: Icons.repeat,
+          color: Colors.orange.shade100,
+        ),
+        const SizedBox(height: 12),
+        StatTile(
+          title: context.l10n.adminListCustomerManagementStatsDormant,
+          value: statistics.statistics.dormant.toString(),
+          icon: Icons.person_off,
+          color: Colors.red.shade100,
+        ),
+      ],
     );
   }
 

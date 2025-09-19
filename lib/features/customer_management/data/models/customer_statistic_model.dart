@@ -8,11 +8,10 @@ class CustomerStatisticModel extends CustomerStatistic {
   });
 
   factory CustomerStatisticModel.fromMap(Map<String, dynamic> map) {
-    final data = map['data'] as Map<String, dynamic>;
-    final statistics = data['statistics'] as Map<String, dynamic>;
+    final statistics = map['statistics'] as Map<String, dynamic>;
 
     return CustomerStatisticModel(
-      totalCustomers: data['total_customers'] as int,
+      totalCustomers: map['total_customers'] as int,
       statistics: Statistic(
         firstTime: statistics['first_time'] as int,
         repeat: statistics['repeat'] as int,

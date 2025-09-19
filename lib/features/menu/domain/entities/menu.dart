@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class Menu extends Equatable {
@@ -71,23 +72,61 @@ class ColorInfo extends Equatable {
 }
 
 class MenuTranslation extends Equatable {
-  final MenuContent en;
-  final MenuContent ja;
+  final MenuContent? en;
+  final MenuContent? ja;
 
-  const MenuTranslation({required this.en, required this.ja});
+  const MenuTranslation({this.en, this.ja});
 
   @override
-  List<Object> get props => [en, ja];
+  List<Object?> get props => [en, ja];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'en': en?.toMap(), 'ja': ja?.toMap()};
+  }
+
+  factory MenuTranslation.fromMap(Map<String, dynamic> map) {
+    return MenuTranslation(
+      en: map['en'] != null
+          ? MenuContent.fromMap(map['en'] as Map<String, dynamic>)
+          : null,
+      ja: map['ja'] != null
+          ? MenuContent.fromMap(map['ja'] as Map<String, dynamic>)
+          : null,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory MenuTranslation.fromJson(String source) =>
+      MenuTranslation.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
 class MenuContent extends Equatable {
-  final String name;
+  final String? name;
   final String? description;
 
-  const MenuContent({required this.name, this.description});
+  const MenuContent({this.name, this.description});
 
   @override
   List<Object?> get props => [name, description];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'name': name, 'description': description};
+  }
+
+  factory MenuContent.fromMap(Map<String, dynamic> map) {
+    return MenuContent(
+      name: map['name'] != null ? map['name'] as String : null,
+      description: map['description'] != null
+          ? map['description'] as String
+          : null,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory MenuContent.fromJson(String source) =>
+      MenuContent.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
 class Meta extends Equatable {

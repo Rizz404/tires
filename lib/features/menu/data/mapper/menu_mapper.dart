@@ -41,8 +41,8 @@ extension MetaModelMapper on MetaModel {
 extension MenuTranslationModelMapper on MenuTranslationModel {
   MenuTranslation toEntity() {
     return MenuTranslation(
-      en: (en as MenuContentModel).toEntity(),
-      ja: (ja as MenuContentModel).toEntity(),
+      en: (en as MenuContentModel?)?.toEntity(),
+      ja: (ja as MenuContentModel?)?.toEntity(),
     );
   }
 }
@@ -84,13 +84,16 @@ extension ColorInfoEntityMapper on ColorInfo {
 
 extension MenuTranslationEntityMapper on MenuTranslation {
   MenuTranslationModel toModel() {
-    return MenuTranslationModel(en: en.toModel(), ja: ja.toModel());
+    return MenuTranslationModel(
+      en: en?.toModel() ?? const MenuContentModel(name: '', description: null),
+      ja: ja?.toModel() ?? const MenuContentModel(name: '', description: null),
+    );
   }
 }
 
 extension MenuContentEntityMapper on MenuContent {
   MenuContentModel toModel() {
-    return MenuContentModel(name: name, description: description);
+    return MenuContentModel(name: name ?? '', description: description);
   }
 }
 

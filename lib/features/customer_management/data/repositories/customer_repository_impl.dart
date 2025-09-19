@@ -5,13 +5,19 @@ import 'package:tires/core/network/api_error_response.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/customer_management/data/datasources/customer_remote_datasource.dart';
 import 'package:tires/features/customer_management/data/mapper/customer_dashboard_mapper.dart';
+import 'package:tires/features/customer_management/data/mapper/customer_detail_mapper.dart';
+import 'package:tires/features/customer_management/data/mapper/customer_mapper.dart';
 import 'package:tires/features/customer_management/data/mapper/customer_statistic_mapper.dart';
+import 'package:tires/features/customer_management/domain/entities/customer.dart'
+    as customer_entity;
 import 'package:tires/features/user/data/mapper/user_mapper.dart';
 import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:tires/features/customer_management/domain/entities/customer_dashboard.dart';
+import 'package:tires/features/customer_management/domain/entities/customer_detail.dart';
 import 'package:tires/features/customer_management/domain/entities/customer_statistic.dart';
 import 'package:tires/features/customer_management/domain/repositories/customer_repository.dart';
-import 'package:tires/features/customer_management/domain/usecases/get_customer_cursor_usecase.dart';
+import 'package:tires/features/customer_management/domain/usecases/get_customers_cursor_usecase.dart';
+import 'package:tires/features/customer_management/domain/usecases/get_customer_detail_usecase.dart';
 import 'package:tires/shared/data/mapper/cursor_mapper.dart';
 
 class CustomerRepositoryImpl implements CustomerRepository {
@@ -20,16 +26,15 @@ class CustomerRepositoryImpl implements CustomerRepository {
   CustomerRepositoryImpl(this._customerRemoteDatasource);
 
   @override
-  Future<Either<Failure, CursorPaginatedSuccess<User>>> getCustomerCursor(
-    GetCustomerCursorParams params,
-  ) async {
+  Future<Either<Failure, CursorPaginatedSuccess<customer_entity.Customer>>>
+  getCustomersCursor(GetCustomerCursorParams params) async {
     try {
       AppLogger.businessInfo('Getting customer cursor in repository');
-      final result = await _customerRemoteDatasource.getCustomerCursor(params);
+      final result = await _customerRemoteDatasource.getCustomersCursor(params);
 
       return Right(
-        CursorPaginatedSuccess<User>(
-          data: result.data.map((user) => user.toEntity()).toList(),
+        CursorPaginatedSuccess<customer_entity.Customer>(
+          data: result.data.map((customer) => customer.toEntity()).toList(),
           cursor: result.cursor?.toEntity(),
         ),
       );
@@ -75,6 +80,28 @@ class CustomerRepositoryImpl implements CustomerRepository {
       return Left(ServerFailure(message: e.message));
     } catch (e) {
       AppLogger.businessError('Unexpected error in get customer statistics', e);
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccessResponse<CustomerDetail>>>
+  getCustomerDetail(GetCustomerDetailParams params) async {
+    try {
+      AppLogger.businessInfo('Getting customer detail in repository');
+      final result = await _customerRemoteDatasource.getCustomerDetail(
+        params.id,
+      );
+
+      final customerDetail = result.data.toEntity();
+      return Right(
+        ItemSuccessResponse(data: customerDetail, message: result.message),
+      );
+    } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in get customer detail', e);
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      AppLogger.businessError('Unexpected error in get customer detail', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
-import 'package:tires/features/user/domain/entities/user.dart';
+import 'package:tires/features/customer_management/domain/entities/customer.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:intl/intl.dart';
 
 class CustomerTableWidget extends StatelessWidget {
-  final List<User> customers;
+  final List<Customer> customers;
   final bool isLoading;
   final VoidCallback? onRefresh;
 
@@ -50,7 +50,9 @@ class CustomerTableWidget extends StatelessWidget {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: onRefresh,
-                  child: const AppText('Refresh'),
+                  child: AppText(
+                    context.l10n.adminListCustomerManagementFiltersResetButton,
+                  ),
                 ),
               ],
             ],
@@ -152,7 +154,7 @@ class CustomerTableWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildTableRow(BuildContext context, User customer) {
+  Widget _buildTableRow(BuildContext context, Customer customer) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
@@ -187,7 +189,7 @@ class CustomerTableWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildCustomerInfo(BuildContext context, User customer) {
+  Widget _buildCustomerInfo(BuildContext context, Customer customer) {
     return Row(
       children: [
         CircleAvatar(
@@ -228,7 +230,7 @@ class CustomerTableWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildContactInfo(BuildContext context, User customer) {
+  Widget _buildContactInfo(BuildContext context, Customer customer) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -241,7 +243,7 @@ class CustomerTableWidget extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         AppText(
-          customer.phoneNumber,
+          customer.phoneNumber ?? '',
           style: AppTextStyle.bodySmall,
           color: context.colorScheme.onSurface.withValues(alpha: 0.7),
           maxLines: 1,
@@ -251,10 +253,9 @@ class CustomerTableWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildStatusInfo(BuildContext context, User customer) {
-    // Use a different logic for guest vs registered - guests might have recent verification dates
-    final isRegistered =
-        customer.companyName != null || customer.department != null;
+  Widget _buildStatusInfo(BuildContext context, Customer customer) {
+    // Use isRegistered field from customer entity
+    final isRegistered = customer.isRegistered == 1;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -287,8 +288,8 @@ class CustomerTableWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildReservationsCount(BuildContext context, User customer) {
-    final count = _getMockReservationCount(customer);
+  Widget _buildReservationsCount(BuildContext context, Customer customer) {
+    final count = customer.reservationCount;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -308,8 +309,37 @@ class CustomerTableWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildLastReservation(BuildContext context, User customer) {
-    final lastReservation = _getMockLastReservationDate(customer);
+  Widget _buildTotalAmount(BuildContext context, Customer customer) {
+    // Parse the total amount string to double for formatting
+    final amount = double.tryParse(customer.totalAmount) ?? 0.0;
+    final formattedAmount = NumberFormat.currency(
+      locale: 'ja_JP',
+      symbol: '¥',
+      decimalDigits: 0,
+    ).format(amount);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        AppText(
+          formattedAmount,
+          style: AppTextStyle.titleMedium,
+          fontWeight: FontWeight.bold,
+        ),
+        AppText(
+          context.l10n.adminListCustomerManagementTableHeaderTotalAmount,
+          style: AppTextStyle.bodySmall,
+          color: context.colorScheme.onSurface.withValues(alpha: 0.6),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLastReservation(BuildContext context, Customer customer) {
+    final lastReservation = customer.latestReservation != null
+        ? DateTime.tryParse(customer.latestReservation!)
+        : null;
 
     if (lastReservation == null) {
       return Column(
@@ -362,7 +392,7 @@ class CustomerTableWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildActions(BuildContext context, User customer) {
+  Widget _buildActions(BuildContext context, Customer customer) {
     return IconButton(
       onPressed: () {
         // TODO: Navigate to customer details
@@ -384,29 +414,10 @@ class CustomerTableWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildTotalAmount(BuildContext context, User customer) {
-    final amount = _getMockTotalAmount(customer);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        AppText(
-          '¥${NumberFormat('#,###').format(amount)}',
-          style: AppTextStyle.bodyMedium,
-          fontWeight: FontWeight.w600,
-        ),
-        AppText(
-          'Total spent',
-          style: AppTextStyle.bodySmall,
-          color: context.colorScheme.onSurface.withValues(alpha: 0.6),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTypeBadge(BuildContext context, User customer) {
-    final reservationCount = _getMockReservationCount(customer);
-    final isDormant = _isDormantCustomer(customer);
+  Widget _buildTypeBadge(BuildContext context, Customer customer) {
+    final reservationCount = customer.reservationCount;
+    final isDormant =
+        reservationCount == 0; // Simple logic: dormant if no reservations
 
     String label;
     Color color;
@@ -447,34 +458,4 @@ class CustomerTableWidget extends StatelessWidget {
   }
 
   // Mock data helpers - replace with actual data later
-  int _getMockTotalAmount(User customer) {
-    final reservationCount = _getMockReservationCount(customer);
-    if (reservationCount == 0) return 0;
-    // Mock calculation: each reservation costs between 5000-20000 yen
-    final baseAmount = (customer.id % 4 + 1) * 5000;
-    return baseAmount * reservationCount;
-  }
-
-  bool _isDormantCustomer(User customer) {
-    // Mock logic for dormant customers (no reservations in last 6 months)
-    final id = customer.id;
-    return id % 8 == 0;
-  }
-
-  int _getMockReservationCount(User customer) {
-    // Mock logic based on user ID
-    final id = customer.id;
-    if (id % 5 == 0) return 0; // First time customers
-    if (id % 3 == 0) return (id % 10) + 1;
-    return (id % 7) + 1;
-  }
-
-  DateTime? _getMockLastReservationDate(User customer) {
-    final count = _getMockReservationCount(customer);
-    if (count == 0) return null;
-
-    final now = DateTime.now();
-    final daysAgo = (customer.id % 30) + 1;
-    return now.subtract(Duration(days: daysAgo));
-  }
 }

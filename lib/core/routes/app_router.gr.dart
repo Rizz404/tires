@@ -11,6 +11,22 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [AdminCustomerDetailScreen]
+class AdminCustomerDetailRoute extends PageRouteInfo<void> {
+  const AdminCustomerDetailRoute({List<PageRouteInfo>? children})
+    : super(AdminCustomerDetailRoute.name, initialChildren: children);
+
+  static const String name = 'AdminCustomerDetailRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AdminCustomerDetailScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [AdminDashboardScreen]
 class AdminDashboardRoute extends PageRouteInfo<void> {
   const AdminDashboardRoute({List<PageRouteInfo>? children})
@@ -403,22 +419,6 @@ class AdminUpsertContactRouteArgs {
 
   @override
   int get hashCode => key.hashCode ^ contact.hashCode;
-}
-
-/// generated route for
-/// [AdminUpsertCustomerManagementScreen]
-class AdminUpsertCustomerManagementRoute extends PageRouteInfo<void> {
-  const AdminUpsertCustomerManagementRoute({List<PageRouteInfo>? children})
-    : super(AdminUpsertCustomerManagementRoute.name, initialChildren: children);
-
-  static const String name = 'AdminUpsertCustomerManagementRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const AdminUpsertCustomerManagementScreen();
-    },
-  );
 }
 
 /// generated route for
