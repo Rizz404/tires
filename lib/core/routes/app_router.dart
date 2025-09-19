@@ -140,7 +140,7 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(
       page: AdminCustomerDetailRoute.page,
-      path: '/admin/customer/upsert',
+      path: '/admin/customer/:id',
       guards: [_authGuard],
     ),
     AutoRoute(

@@ -12,18 +12,53 @@ part of 'app_router.dart';
 
 /// generated route for
 /// [AdminCustomerDetailScreen]
-class AdminCustomerDetailRoute extends PageRouteInfo<void> {
-  const AdminCustomerDetailRoute({List<PageRouteInfo>? children})
-    : super(AdminCustomerDetailRoute.name, initialChildren: children);
+class AdminCustomerDetailRoute
+    extends PageRouteInfo<AdminCustomerDetailRouteArgs> {
+  AdminCustomerDetailRoute({
+    Key? key,
+    required int customerId,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AdminCustomerDetailRoute.name,
+         args: AdminCustomerDetailRouteArgs(key: key, customerId: customerId),
+         initialChildren: children,
+       );
 
   static const String name = 'AdminCustomerDetailRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const AdminCustomerDetailScreen();
+      final args = data.argsAs<AdminCustomerDetailRouteArgs>();
+      return AdminCustomerDetailScreen(
+        key: args.key,
+        customerId: args.customerId,
+      );
     },
   );
+}
+
+class AdminCustomerDetailRouteArgs {
+  const AdminCustomerDetailRouteArgs({this.key, required this.customerId});
+
+  final Key? key;
+
+  final int customerId;
+
+  @override
+  String toString() {
+    return 'AdminCustomerDetailRouteArgs{key: $key, customerId: $customerId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AdminCustomerDetailRouteArgs) return false;
+    return key == other.key && customerId == other.customerId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ customerId.hashCode;
 }
 
 /// generated route for
