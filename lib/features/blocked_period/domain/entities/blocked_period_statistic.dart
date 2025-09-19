@@ -1,16 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
 class BlockedPeriodStatistic extends Equatable {
-  final Statistics statistics;
-
-  BlockedPeriodStatistic({required this.statistics});
-
-  @override
-  List<Object> get props => [statistics];
-}
-
-class Statistics extends Equatable {
   final int total;
   final int active;
   final int upcoming;
@@ -19,7 +9,7 @@ class Statistics extends Equatable {
   final int specificMenus;
   final int totalDurationHours;
 
-  Statistics({
+  const BlockedPeriodStatistic({
     required this.total,
     required this.active,
     required this.upcoming,
@@ -30,15 +20,13 @@ class Statistics extends Equatable {
   });
 
   @override
-  List<Object> get props {
-    return [
-      total,
-      active,
-      upcoming,
-      expired,
-      allMenus,
-      specificMenus,
-      totalDurationHours,
-    ];
-  }
+  List<Object> get props => [
+    total,
+    active,
+    upcoming,
+    expired,
+    allMenus,
+    specificMenus,
+    totalDurationHours,
+  ];
 }

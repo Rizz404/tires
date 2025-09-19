@@ -49,6 +49,8 @@ class ApiEndpoints {
       '$_adminPrefix$_contactPrefix/statistics';
   static const String adminBlockedPeriods =
       '$_adminPrefix$_blockedPeriodPrefix';
+  static const String adminBlockedPeriodStatistics =
+      '$_adminPrefix$_blockedPeriodPrefix/statistics';
   static const String adminBusinessSettings =
       '$_adminPrefix$_businessSettingPrefix';
   static const String adminContacts = '$_adminPrefix$_contactPrefix';

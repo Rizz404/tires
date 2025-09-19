@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
+import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/customer_management/domain/entities/customer.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:intl/intl.dart';
@@ -395,12 +397,8 @@ class CustomerTableWidget extends StatelessWidget {
   Widget _buildActions(BuildContext context, Customer customer) {
     return IconButton(
       onPressed: () {
-        // TODO: Navigate to customer details
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: AppText('View details for ${customer.fullName}'),
-            duration: const Duration(seconds: 2),
-          ),
+        context.router.push(
+          AdminCustomerDetailRoute(customerId: int.parse(customer.id)),
         );
       },
       icon: Icon(

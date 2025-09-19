@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
-import 'package:tires/features/user/domain/entities/blocked_period.dart';
+import 'package:tires/features/blocked_period/domain/entities/blocked_period.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
 class BlockedPeriodTableWidget extends StatelessWidget {
@@ -107,24 +107,24 @@ class BlockedPeriodTableWidget extends StatelessWidget {
       child: const Row(
         children: [
           SizedBox(
-            width: 200,
+            width: 180,
             child: AppText('MENU', fontWeight: FontWeight.bold),
           ),
           SizedBox(
-            width: 150,
-            child: AppText('START DATE', fontWeight: FontWeight.bold),
+            width: 200,
+            child: AppText('TIME PERIOD', fontWeight: FontWeight.bold),
           ),
           SizedBox(
-            width: 150,
-            child: AppText('END DATE', fontWeight: FontWeight.bold),
+            width: 100,
+            child: AppText('DURATION', fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            width: 200,
+            child: AppText('REASON', fontWeight: FontWeight.bold),
           ),
           SizedBox(
             width: 120,
             child: AppText('STATUS', fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            width: 250,
-            child: AppText('REASON', fontWeight: FontWeight.bold),
           ),
           SizedBox(
             width: 80,
@@ -139,6 +139,20 @@ class BlockedPeriodTableWidget extends StatelessWidget {
 
   Widget _buildTableRow(BuildContext context, BlockedPeriod period) {
     final dateFormat = DateFormat('dd MMM yyyy, HH:mm');
+    final timeFormat = DateFormat('HH:mm');
+    final dateOnlyFormat = DateFormat('dd MMM yyyy');
+
+    // Format time period - if same day, show "dd MMM yyyy: HH:mm - HH:mm", otherwise full dates
+    String timePeriod;
+    if (dateOnlyFormat.format(period.startDatetime) ==
+        dateOnlyFormat.format(period.endDatetime)) {
+      timePeriod =
+          '${dateOnlyFormat.format(period.startDatetime)}\n${timeFormat.format(period.startDatetime)} - ${timeFormat.format(period.endDatetime)}';
+    } else {
+      timePeriod =
+          '${dateFormat.format(period.startDatetime)}\n${dateFormat.format(period.endDatetime)}';
+    }
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
@@ -151,32 +165,29 @@ class BlockedPeriodTableWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
+          SizedBox(width: 180, child: _buildMenuColumn(context, period)),
           SizedBox(
             width: 200,
             child: AppText(
-              period.allMenus ? 'All Menus' : (period.menu?.name ?? 'N/A'),
+              timePeriod,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              fontWeight: period.allMenus ? FontWeight.bold : FontWeight.normal,
-            ),
-          ),
-          SizedBox(
-            width: 150,
-            child: AppText(
-              dateFormat.format(period.startDatetime),
               color: context.colorScheme.onSurface.withOpacity(0.7),
+              style: AppTextStyle.bodySmall,
             ),
           ),
           SizedBox(
-            width: 150,
+            width: 100,
             child: AppText(
-              dateFormat.format(period.endDatetime),
+              period.duration.text,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               color: context.colorScheme.onSurface.withOpacity(0.7),
+              style: AppTextStyle.bodySmall,
             ),
           ),
-          SizedBox(width: 120, child: _buildStatusChip(context, period)),
           SizedBox(
-            width: 250,
+            width: 200,
             child: AppText(
               period.reason,
               maxLines: 2,
@@ -184,6 +195,7 @@ class BlockedPeriodTableWidget extends StatelessWidget {
               color: context.colorScheme.onSurface.withOpacity(0.7),
             ),
           ),
+          SizedBox(width: 120, child: _buildStatusChip(context, period)),
           SizedBox(
             width: 80,
             child: Center(
@@ -196,6 +208,66 @@ class BlockedPeriodTableWidget extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildMenuColumn(BuildContext context, BlockedPeriod period) {
+    if (period.allMenus) {
+      return Row(
+        children: [
+          Container(
+            width: 12,
+            height: 12,
+            decoration: BoxDecoration(
+              color: Colors.orange.shade400,
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          const SizedBox(width: 8),
+          const Expanded(
+            child: AppText(
+              'All Menus',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      );
+    }
+
+    if (period.menu == null) {
+      return const AppText('N/A', color: Colors.grey);
+    }
+
+    // Parse menu color from hex string
+    Color menuColor = Colors.blue.shade400; // default color
+    try {
+      final colorHex = period.menu!.color.replaceFirst('#', '');
+      menuColor = Color(int.parse('FF$colorHex', radix: 16));
+    } catch (e) {
+      // Use default color if parsing fails
+    }
+
+    return Row(
+      children: [
+        Container(
+          width: 12,
+          height: 12,
+          decoration: BoxDecoration(
+            color: menuColor,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: AppText(
+            period.menu!.name,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
     );
   }
 

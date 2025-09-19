@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/di/common_providers.dart';
 import 'package:tires/features/announcement/data/datasources/announcement_remote_datasource.dart';
+import 'package:tires/features/blocked_period/data/datasources/blocked_period_remote_datasource.dart';
 import 'package:tires/features/contact/data/datasources/contact_remote_datasource.dart';
 import 'package:tires/features/business_information/data/datasources/business_information_remote_datasource.dart';
 import 'package:tires/features/authentication/data/datasources/auth_remote_datasource.dart';
@@ -65,6 +66,12 @@ final announcementRemoteDatasourceProvider =
     Provider<AnnouncementRemoteDatasource>((ref) {
       final _dioClient = ref.watch(dioClientProvider);
       return AnnouncementRemoteDatasourceImpl(_dioClient);
+    });
+
+final blockedPeriodRemoteDatasourceProvider =
+    Provider<BlockedPeriodRemoteDatasource>((ref) {
+      final _dioClient = ref.watch(dioClientProvider);
+      return BlockedPeriodRemoteDatasourceImpl(_dioClient);
     });
 
 final contactRemoteDatasourceProvider = Provider<ContactRemoteDataSource>((

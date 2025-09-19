@@ -128,7 +128,7 @@ class BlockedPeriodFilterSearch extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     const AppCheckbox(
-                      name: 'all_menus_only',
+                      name: 'all_menus',
                       title: AppText('Show periods blocking all menus only'),
                     ),
                     const SizedBox(height: 16),

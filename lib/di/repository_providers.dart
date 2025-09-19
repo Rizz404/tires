@@ -3,6 +3,8 @@ import 'package:tires/di/datasource_providers.dart';
 import 'package:tires/di/service_providers.dart';
 import 'package:tires/features/announcement/data/repositories/announcement_repository_impl.dart';
 import 'package:tires/features/announcement/domain/repositories/announcement_repository.dart';
+import 'package:tires/features/blocked_period/data/repositories/blocked_period_repository_impl.dart';
+import 'package:tires/features/blocked_period/domain/repositories/blocked_period_repository.dart';
 import 'package:tires/features/contact/data/repositories/contact_repository_impl.dart';
 import 'package:tires/features/contact/domain/repositories/contact_repository.dart';
 import 'package:tires/features/business_information/data/repositories/business_information_repository_impl.dart';
@@ -89,6 +91,13 @@ final announcementRepoProvider = Provider<AnnouncementRepository>((ref) {
     announcementRemoteDatasourceProvider,
   );
   return AnnouncementRepositoryImpl(_announcementRemoteDatasource);
+});
+
+final blockedPeriodRepoProvider = Provider<BlockedPeriodRepository>((ref) {
+  final _blockedPeriodRemoteDatasource = ref.watch(
+    blockedPeriodRemoteDatasourceProvider,
+  );
+  return BlockedPeriodRepositoryImpl(_blockedPeriodRemoteDatasource);
 });
 
 final contactRepoProvider = Provider<ContactRepository>((ref) {

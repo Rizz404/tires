@@ -5,6 +5,11 @@ import 'package:tires/features/announcement/domain/usecases/delete_announcement_
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/get_announcement_statistics_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/update_announcement_usecase.dart';
+import 'package:tires/features/blocked_period/domain/usecases/create_blocked_period_usecase.dart';
+import 'package:tires/features/blocked_period/domain/usecases/delete_blocked_period_usecase.dart';
+import 'package:tires/features/blocked_period/domain/usecases/get_blocked_periods_cursor_usecase.dart';
+import 'package:tires/features/blocked_period/domain/usecases/get_blocked_period_statistics_usecase.dart';
+import 'package:tires/features/blocked_period/domain/usecases/update_blocked_period_usecase.dart';
 import 'package:tires/features/contact/domain/usecases/create_contact_usecase.dart';
 import 'package:tires/features/contact/domain/usecases/delete_contact_usecase.dart';
 import 'package:tires/features/contact/domain/usecases/get_contacts_cursor_usecase.dart';
@@ -247,6 +252,40 @@ final getAnnouncementStatisticsUsecaseProvider =
     Provider<GetAnnouncementStatisticsUsecase>((ref) {
       final _announcementRepository = ref.watch(announcementRepoProvider);
       return GetAnnouncementStatisticsUsecase(_announcementRepository);
+    });
+
+// Blocked Period Usecase Providers
+final getBlockedPeriodsCursorUsecaseProvider =
+    Provider<GetBlockedPeriodsCursorUsecase>((ref) {
+      final _blockedPeriodRepository = ref.watch(blockedPeriodRepoProvider);
+      return GetBlockedPeriodsCursorUsecase(_blockedPeriodRepository);
+    });
+
+final createBlockedPeriodUsecaseProvider = Provider<CreateBlockedPeriodUsecase>(
+  (ref) {
+    final _blockedPeriodRepository = ref.watch(blockedPeriodRepoProvider);
+    return CreateBlockedPeriodUsecase(_blockedPeriodRepository);
+  },
+);
+
+final updateBlockedPeriodUsecaseProvider = Provider<UpdateBlockedPeriodUsecase>(
+  (ref) {
+    final _blockedPeriodRepository = ref.watch(blockedPeriodRepoProvider);
+    return UpdateBlockedPeriodUsecase(_blockedPeriodRepository);
+  },
+);
+
+final deleteBlockedPeriodUsecaseProvider = Provider<DeleteBlockedPeriodUsecase>(
+  (ref) {
+    final _blockedPeriodRepository = ref.watch(blockedPeriodRepoProvider);
+    return DeleteBlockedPeriodUsecase(_blockedPeriodRepository);
+  },
+);
+
+final getBlockedPeriodStatisticsUsecaseProvider =
+    Provider<GetBlockedPeriodStatisticsUsecase>((ref) {
+      final _blockedPeriodRepository = ref.watch(blockedPeriodRepoProvider);
+      return GetBlockedPeriodStatisticsUsecase(_blockedPeriodRepository);
     });
 
 // Contact Usecase Providers
