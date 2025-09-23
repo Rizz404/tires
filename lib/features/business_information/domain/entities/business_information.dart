@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:tires/features/business_information/domain/entities/business_day_hours.dart';
 
 class BusinessInformation extends Equatable {
   final int id;
@@ -10,7 +11,7 @@ class BusinessInformation extends Equatable {
   final String privacyPolicy;
   final String address;
   final String phoneNumber;
-  final Map<String, dynamic> businessHours;
+  final Map<String, BusinessDayHours> businessHours;
   final String? websiteUrl;
   final String? topImagePath;
   final String? topImageUrl;

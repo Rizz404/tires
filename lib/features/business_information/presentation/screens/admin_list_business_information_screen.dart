@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
+import 'package:tires/features/business_information/domain/entities/business_day_hours.dart';
 import 'package:tires/features/business_information/domain/entities/business_information.dart';
 import 'package:tires/features/business_information/presentation/providers/business_information_providers.dart';
 import 'package:tires/features/business_information/presentation/providers/business_information_state.dart';
@@ -197,7 +198,7 @@ class _AdminListBusinessInformationScreenState
 
   List<Widget> _buildBusinessHoursList(
     BuildContext context,
-    Map<String, dynamic> businessHours,
+    Map<String, BusinessDayHours> businessHours,
   ) {
     final days = [
       'monday',
@@ -222,22 +223,20 @@ class _AdminListBusinessInformationScreenState
     return days.asMap().entries.map((entry) {
       final index = entry.key;
       final day = entry.value;
-      final dayData = businessHours[day] as Map<String, dynamic>?;
+      final dayData = businessHours[day];
 
       String timeText;
       Color? timeColor;
 
-      if (dayData != null && dayData['closed'] != true) {
-        final openTime = dayData['open'] as String?;
-        final closeTime = dayData['close'] as String?;
-        if (openTime != null && closeTime != null) {
-          timeText = '$openTime - $closeTime';
-        } else {
-          timeText = context
-              .l10n
-              .adminListBusinessInformationScreenBusinessHoursClosed;
-          timeColor = Colors.red;
-        }
+      if (dayData != null &&
+          !dayData.closed &&
+          dayData.openTime != null &&
+          dayData.closeTime != null) {
+        final openStr =
+            '${dayData.openTime!.hour.toString().padLeft(2, '0')}:${dayData.openTime!.minute.toString().padLeft(2, '0')}';
+        final closeStr =
+            '${dayData.closeTime!.hour.toString().padLeft(2, '0')}:${dayData.closeTime!.minute.toString().padLeft(2, '0')}';
+        timeText = '$openStr - $closeStr';
       } else {
         timeText =
             context.l10n.adminListBusinessInformationScreenBusinessHoursClosed;

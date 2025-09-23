@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:tires/features/business_information/domain/entities/business_day_hours.dart';
 import 'package:tires/features/business_information/domain/entities/business_information.dart';
 
 class BusinessInformationModel extends BusinessInformation {
@@ -34,7 +35,7 @@ class BusinessInformationModel extends BusinessInformation {
     String? privacyPolicy,
     String? address,
     String? phoneNumber,
-    Map<String, dynamic>? businessHours,
+    Map<String, BusinessDayHours>? businessHours,
     String? websiteUrl,
     String? topImagePath,
     String? topImageUrl,
@@ -77,7 +78,9 @@ class BusinessInformationModel extends BusinessInformation {
       'privacy_policy': privacyPolicy,
       'address': address,
       'phone_number': phoneNumber,
-      'business_hours': businessHours,
+      'business_hours': businessHours.map(
+        (key, value) => MapEntry(key, value.toMap()),
+      ),
       'website_url': websiteUrl,
       'top_image_path': topImagePath,
       'top_image_url': topImageUrl,
@@ -90,6 +93,15 @@ class BusinessInformationModel extends BusinessInformation {
   }
 
   factory BusinessInformationModel.fromMap(Map<String, dynamic> map) {
+    final businessHoursMap =
+        map['business_hours'] as Map<String, dynamic>? ?? {};
+    final businessHours = businessHoursMap.map(
+      (key, value) => MapEntry(
+        key,
+        BusinessDayHours.fromMap(value as Map<String, dynamic>),
+      ),
+    );
+
     return BusinessInformationModel(
       id: map['id']?.toInt() ?? 0,
       shopName: map['shop_name'] ?? '',
@@ -100,7 +112,7 @@ class BusinessInformationModel extends BusinessInformation {
       privacyPolicy: map['privacy_policy'] ?? '',
       address: map['address'] ?? '',
       phoneNumber: map['phone_number'] ?? '',
-      businessHours: Map<String, dynamic>.from(map['business_hours'] ?? {}),
+      businessHours: businessHours,
       websiteUrl: map['website_url'],
       topImagePath: map['top_image_path'],
       topImageUrl: map['top_image_url'],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 
 class AppRichTextEditor extends StatefulWidget {
@@ -21,57 +22,88 @@ class AppRichTextEditor extends StatefulWidget {
 }
 
 class _AppRichTextEditorState extends State<AppRichTextEditor> {
-  late TextEditingController _controller;
+  late QuillController _quillController;
   final _focusNode = FocusNode();
-  bool _isBold = false;
-  bool _isItalic = false;
+  bool _isToolbarVisible = false; // Add toolbar visibility state
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget.initialValue ?? '');
+    // Initialize QuillController with initial value
+    if (widget.initialValue != null && widget.initialValue!.isNotEmpty) {
+      try {
+        // Try to parse as HTML or just use as plain text
+        final document = Document()..insert(0, widget.initialValue!);
+        _quillController = QuillController(
+          document: document,
+          selection: const TextSelection.collapsed(offset: 0),
+        );
+      } catch (e) {
+        // If parsing fails, create basic controller
+        _quillController = QuillController.basic();
+      }
+    } else {
+      _quillController = QuillController.basic();
+    }
+
+    // Listen to document changes
+    _quillController.addListener(_onQuillContentChanged);
+
+    // Show toolbar when editor gets focus
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus && !_isToolbarVisible) {
+        setState(() {
+          _isToolbarVisible = true;
+        });
+      }
+    });
+  }
+
+  void _onQuillContentChanged() {
+    // This will be called when the content changes
+    // We'll trigger the form field update in the widget build
+  }
+
+  void _toggleToolbar() {
+    setState(() {
+      _isToolbarVisible = !_isToolbarVisible;
+    });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _quillController.removeListener(_onQuillContentChanged);
+    _quillController.dispose();
     _focusNode.dispose();
     super.dispose();
   }
 
-  void _toggleBold() {
-    setState(() {
-      _isBold = !_isBold;
-    });
+  String _getQuillContentAsString() {
+    // Get plain text content from QuillController
+    return _quillController.document.toPlainText();
   }
 
-  void _toggleItalic() {
-    setState(() {
-      _isItalic = !_isItalic;
-    });
-  }
-
-  void _insertHtmlTag(String openTag, String closeTag) {
-    final text = _controller.text;
-    final selection = _controller.selection;
-
-    if (selection.isValid) {
-      final selectedText = text.substring(selection.start, selection.end);
-      final newText = text.replaceRange(
-        selection.start,
-        selection.end,
-        '$openTag$selectedText$closeTag',
-      );
-
-      _controller.text = newText;
-      _controller.selection = TextSelection.collapsed(
-        offset:
-            selection.start +
-            openTag.length +
-            selectedText.length +
-            closeTag.length,
-      );
-    }
+  Widget _buildMiniFormatButton(IconData icon, String tooltip) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 4),
+      child: InkWell(
+        onTap: () {
+          // Auto-expand toolbar when mini button is tapped
+          if (!_isToolbarVisible) {
+            _toggleToolbar();
+          }
+        },
+        borderRadius: BorderRadius.circular(4),
+        child: Padding(
+          padding: const EdgeInsets.all(4),
+          child: Icon(
+            icon,
+            size: 14,
+            color: context.colorScheme.onSurface.withValues(alpha: 0.6),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -81,6 +113,16 @@ class _AppRichTextEditorState extends State<AppRichTextEditor> {
       validator: widget.validator,
       initialValue: widget.initialValue,
       builder: (FormFieldState<String> field) {
+        // Listen to changes and update field
+        void onDocumentChanged() {
+          final content = _getQuillContentAsString();
+          field.didChange(content);
+        }
+
+        // Remove previous listener and add new one
+        _quillController.removeListener(onDocumentChanged);
+        _quillController.addListener(onDocumentChanged);
+
         return InputDecorator(
           decoration: InputDecoration(
             labelText: widget.label,
@@ -96,83 +138,149 @@ class _AppRichTextEditorState extends State<AppRichTextEditor> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Simple toolbar with basic formatting buttons
+              // Compact header with toggle button
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: context.colorScheme.surface,
                   borderRadius: BorderRadius.circular(4),
                   border: Border.all(
-                    color: context.colorScheme.outline.withOpacity(0.3),
+                    color: context.colorScheme.outline.withValues(alpha: 0.3),
                   ),
                 ),
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.format_bold,
-                        color: _isBold
-                            ? context.colorScheme.primary
-                            : context.colorScheme.onSurface,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.format_paint,
+                        size: 16,
+                        color: context.colorScheme.onSurface.withValues(
+                          alpha: 0.7,
+                        ),
                       ),
-                      onPressed: () {
-                        _toggleBold();
-                        _insertHtmlTag('<b>', '</b>');
-                      },
-                      tooltip: 'Bold',
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.format_italic,
-                        color: _isItalic
-                            ? context.colorScheme.primary
-                            : context.colorScheme.onSurface,
+                      const SizedBox(width: 8),
+                      Text(
+                        'Formatting Tools',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: context.colorScheme.onSurface.withValues(
+                            alpha: 0.7,
+                          ),
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                      onPressed: () {
-                        _toggleItalic();
-                        _insertHtmlTag('<i>', '</i>');
-                      },
-                      tooltip: 'Italic',
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.format_list_bulleted,
-                        color: context.colorScheme.onSurface,
+                      const SizedBox(width: 8),
+                      // Show basic formatting indicators when toolbar is hidden
+                      if (!_isToolbarVisible) ...[
+                        _buildMiniFormatButton(Icons.format_bold, 'Bold'),
+                        _buildMiniFormatButton(Icons.format_italic, 'Italic'),
+                        _buildMiniFormatButton(
+                          Icons.format_list_bulleted,
+                          'List',
+                        ),
+                        _buildMiniFormatButton(Icons.link, 'Link'),
+                      ],
+                      IconButton(
+                        icon: Icon(
+                          _isToolbarVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                          size: 18,
+                          color: context.colorScheme.primary,
+                        ),
+                        onPressed: _toggleToolbar,
+                        tooltip: _isToolbarVisible
+                            ? 'Hide toolbar'
+                            : 'Show toolbar',
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(
+                          minWidth: 24,
+                          minHeight: 24,
+                        ),
                       ),
-                      onPressed: () => _insertHtmlTag('<ul><li>', '</li></ul>'),
-                      tooltip: 'Bullet List',
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.link,
-                        color: context.colorScheme.onSurface,
-                      ),
-                      onPressed: () => _insertHtmlTag('<a href="">', '</a>'),
-                      tooltip: 'Link',
-                    ),
-                  ],
+                    ],
+                  ),
+                ),
+              ),
+
+              // Animated toolbar section
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                height: _isToolbarVisible ? null : 0,
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 200),
+                  opacity: _isToolbarVisible ? 1.0 : 0.0,
+                  child: _isToolbarVisible
+                      ? Container(
+                          margin: const EdgeInsets.only(top: 4),
+                          decoration: BoxDecoration(
+                            color: context.colorScheme.surface,
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(
+                              color: context.colorScheme.outline.withValues(
+                                alpha: 0.3,
+                              ),
+                            ),
+                          ),
+                          child: QuillSimpleToolbar(
+                            controller: _quillController,
+                            config: const QuillSimpleToolbarConfig(
+                              showBoldButton: true,
+                              showItalicButton: true,
+                              showUnderLineButton: true,
+                              showStrikeThrough: false,
+                              showInlineCode: true,
+                              showColorButton: false,
+                              showBackgroundColorButton: false,
+                              showClearFormat: true,
+                              showAlignmentButtons: false,
+                              showLeftAlignment: false,
+                              showCenterAlignment: false,
+                              showRightAlignment: false,
+                              showJustifyAlignment: false,
+                              showHeaderStyle: true,
+                              showListNumbers: true,
+                              showListBullets: true,
+                              showListCheck: false,
+                              showCodeBlock: false,
+                              showQuote: true,
+                              showIndent: true,
+                              showLink: true,
+                              showClipboardCut: false,
+                              showClipboardCopy: false,
+                              showClipboardPaste: false,
+                              showRedo: true,
+                              showUndo: true,
+                            ),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
                 ),
               ),
               const SizedBox(height: 8),
-              // Text editor
+              // QuillEditor for rich text editing
               SizedBox(
                 height: 200,
-                child: TextField(
-                  controller: _controller,
-                  focusNode: _focusNode,
-                  maxLines: null,
-                  expands: true,
-                  textAlignVertical: TextAlignVertical.top,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: context.colorScheme.outline.withValues(alpha: 0.5),
                     ),
-                    contentPadding: const EdgeInsets.all(12),
-                    hintText: 'Enter your content here...',
+                    borderRadius: BorderRadius.circular(4),
                   ),
-                  onChanged: (value) {
-                    field.didChange(value);
-                  },
+                  child: QuillEditor.basic(
+                    controller: _quillController,
+                    focusNode: _focusNode,
+                    config: const QuillEditorConfig(
+                      padding: EdgeInsets.all(12),
+                      placeholder: 'Enter your content here...',
+                    ),
+                  ),
                 ),
               ),
             ],

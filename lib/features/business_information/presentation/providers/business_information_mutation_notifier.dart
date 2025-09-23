@@ -3,6 +3,7 @@ import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/di/usecase_providers.dart';
 import 'package:tires/features/business_information/domain/usecases/update_business_information_usecase.dart';
 import 'package:tires/features/business_information/presentation/providers/business_information_mutation_state.dart';
+import 'package:tires/features/business_information/presentation/providers/business_information_providers.dart';
 
 class BusinessInformationMutationNotifier
     extends Notifier<BusinessInformationMutationState> {
@@ -43,6 +44,7 @@ class BusinessInformationMutationNotifier
                   'Business information updated successfully',
             )
             .copyWithClearError();
+        ref.invalidate(businessInformationGetNotifierProvider);
       },
     );
   }

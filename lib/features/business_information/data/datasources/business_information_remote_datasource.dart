@@ -82,7 +82,7 @@ class BusinessInformationRemoteDatasourceImpl
       }
 
       final response = await _dioClient.patch<BusinessInformationModel>(
-        ApiEndpoints.adminBusinessSettings,
+        '${ApiEndpoints.adminBusinessSettings}/update',
         data: formData,
         fromJson: (data) => BusinessInformationModel.fromMap(data),
       );

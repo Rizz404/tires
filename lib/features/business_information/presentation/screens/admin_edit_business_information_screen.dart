@@ -6,7 +6,11 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
+import 'package:tires/features/business_information/domain/entities/business_day_hours.dart';
 import 'package:tires/features/business_information/domain/entities/business_information.dart';
+import 'package:tires/features/business_information/domain/usecases/update_business_information_usecase.dart';
+import 'package:tires/features/business_information/presentation/providers/business_information_mutation_state.dart';
+import 'package:tires/features/business_information/presentation/providers/business_information_providers.dart';
 import 'package:tires/l10n_generated/app_localizations.dart';
 import 'package:tires/shared/presentation/utils/app_toast.dart';
 import 'package:tires/shared/presentation/widgets/admin_app_bar.dart';
@@ -39,7 +43,6 @@ class _AdminEditBusinessInformationScreenState
     extends ConsumerState<AdminEditBusinessInformationScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   List<DomainValidationError>? _validationErrors;
-  bool _isSubmitting = false;
 
   @override
   void initState() {
@@ -78,11 +81,13 @@ class _AdminEditBusinessInformationScreenState
       'sunday',
     ];
     for (final day in days) {
-      final dayData = businessHours[day] as Map<String, dynamic>?;
+      final dayData = businessHours[day];
       if (dayData != null) {
-        formValues['${day}_closed'] = dayData['closed'] ?? false;
-        formValues['${day}_open_time'] = dayData['open'];
-        formValues['${day}_close_time'] = dayData['close'];
+        formValues['${day}_closed'] = dayData.closed;
+        if (!dayData.closed) {
+          formValues['${day}_open_time'] = dayData.openTime;
+          formValues['${day}_close_time'] = dayData.closeTime;
+        }
       } else {
         formValues['${day}_closed'] = false;
       }
@@ -94,33 +99,66 @@ class _AdminEditBusinessInformationScreenState
   }
 
   void _handleSubmit(WidgetRef ref) {
-    if (_isSubmitting) return;
-
     setState(() {
       _validationErrors = null;
-      _isSubmitting = true;
     });
 
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       final values = _formKey.currentState!.value;
+
+      // Construct business hours
+      final Map<String, BusinessDayHours> updatedBusinessHours = {};
+      final days = [
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thursday',
+        'friday',
+        'saturday',
+        'sunday',
+      ];
+      for (final day in days) {
+        final closed = values['${day}_closed'] as bool? ?? false;
+        final openTime = values['${day}_open_time'] as TimeOfDay?;
+        final closeTime = values['${day}_close_time'] as TimeOfDay?;
+        updatedBusinessHours[day] = BusinessDayHours(
+          closed: closed,
+          openTime: closed ? null : openTime,
+          closeTime: closed ? null : closeTime,
+        );
+      }
+
       // TODO: Implement business information update logic with provider
-      // This will be implemented when providers are available
-      print('Form values: $values');
-
-      // Simulate successful update for now
-      setState(() {
-        _isSubmitting = false;
-      });
-
-      AppToast.showSuccess(
-        context,
-        message: 'Business information updated successfully',
+      // Pass updatedBusinessHours to the update method
+      final notifier = ref.read(
+        businessInformationMutationNotifierProvider.notifier,
       );
-      context.router.pop();
+      notifier.updateBusinessInformation(
+        UpdateBusinessInformationParams(
+          shopName: values['shop_name'] as String?,
+          phoneNumber: values['phone_number'] as String?,
+          address: values['address'] as String?,
+          websiteUrl: values['website_url'] as String?,
+          siteName: values['site_name'] as String?,
+          sitePublic: values['site_public'] as bool?,
+          replyEmail: values['reply_email'] as String?,
+          googleAnalyticsId: values['google_analytics_id'] as String?,
+          shopDescription: values['shop_description'] as String?,
+          accessInformation: values['access_information'] as String?,
+          termsOfUse: values['terms_of_use'] as String?,
+          privacyPolicy: values['privacy_policy'] as String?,
+          businessHours: updatedBusinessHours.map(
+            (key, value) => MapEntry(key, {
+              'closed': value.closed,
+              if (!value.closed) ...{
+                'open_time': value.openTime?.toString(),
+                'close_time': value.closeTime?.toString(),
+              },
+            }),
+          ),
+        ),
+      );
     } else {
-      setState(() {
-        _isSubmitting = false;
-      });
       AppToast.showError(
         context,
         message: 'Please correct the errors in the form.',
@@ -132,11 +170,38 @@ class _AdminEditBusinessInformationScreenState
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
+    ref.listen(businessInformationMutationNotifierProvider, (previous, next) {
+      if (next.status == BusinessInformationMutationStatus.success) {
+        AppToast.showSuccess(
+          context,
+          message:
+              next.successMessage ??
+              'Business information updated successfully',
+        );
+        context.router.pop();
+      } else if (next.status == BusinessInformationMutationStatus.error &&
+          next.failure != null) {
+        if (next.failure is ValidationFailure) {
+          setState(() {
+            _validationErrors = (next.failure as ValidationFailure).errors;
+          });
+        } else {
+          AppToast.showError(context, message: next.failure!.message);
+        }
+      }
+    });
+
+    final mutationState = ref.watch(
+      businessInformationMutationNotifierProvider,
+    );
+    final isLoading =
+        mutationState.status == BusinessInformationMutationStatus.loading;
+
     return Scaffold(
       appBar: const AdminAppBar(),
       endDrawer: const AdminEndDrawer(),
       body: LoadingOverlay(
-        isLoading: _isSubmitting,
+        isLoading: isLoading,
         child: ScreenWrapper(
           child: FormBuilder(
             key: _formKey,
@@ -163,7 +228,7 @@ class _AdminEditBusinessInformationScreenState
                 const SliverToBoxAdapter(child: SizedBox(height: 24)),
                 SliverToBoxAdapter(child: _buildPoliciesAndTerms()),
                 const SliverToBoxAdapter(child: SizedBox(height: 32)),
-                SliverToBoxAdapter(child: _buildActionButtons(l10n)),
+                SliverToBoxAdapter(child: _buildActionButtons(l10n, isLoading)),
                 const SliverToBoxAdapter(child: SizedBox(height: 80)),
               ],
             ),
@@ -441,17 +506,22 @@ class _AdminEditBusinessInformationScreenState
       title: "Policies & Terms",
       icon: Icons.policy,
       children: [
-        const AppRichTextEditor(name: 'terms_of_use', label: "Terms of Use"),
+        AppRichTextEditor(
+          name: 'terms_of_use',
+          label: "Terms of Use",
+          initialValue: widget.businessInformation.termsOfUse,
+        ),
         const SizedBox(height: 16),
-        const AppRichTextEditor(
+        AppRichTextEditor(
           name: 'privacy_policy',
           label: "Privacy Policy",
+          initialValue: widget.businessInformation.privacyPolicy,
         ),
       ],
     );
   }
 
-  Widget _buildActionButtons(L10n l10n) {
+  Widget _buildActionButtons(L10n l10n, bool isLoading) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -466,7 +536,7 @@ class _AdminEditBusinessInformationScreenState
         AppButton(
           text: l10n.adminUpsertBusinessInformationScreenButtonsSaveChanges,
           onPressed: () => _handleSubmit(ref),
-          isLoading: _isSubmitting,
+          isLoading: isLoading,
           isFullWidth: false,
         ),
       ],

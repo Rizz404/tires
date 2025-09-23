@@ -3,6 +3,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tires/core/services/provider_invalidation_setup.dart';
 import 'package:tires/core/storage/session_storage_keys.dart';
@@ -56,6 +57,7 @@ Future<void> main() async {
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
+            FlutterQuillLocalizations.delegate,
           ],
           supportedLocales: L10n.supportedLocales,
           home: Scaffold(body: Center(child: Text('Error initializing app'))),
@@ -94,6 +96,7 @@ class MyApp extends ConsumerWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
+        FlutterQuillLocalizations.delegate,
       ],
       supportedLocales: L10n.supportedLocales,
       locale: currentLocale,
