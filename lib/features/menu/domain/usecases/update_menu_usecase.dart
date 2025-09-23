@@ -74,11 +74,11 @@ class UpdateMenuParams extends Equatable {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'requiredTime': requiredTime,
+      'required_time': requiredTime,
       'price': price,
-      'photoPath': photoPath,
-      'displayOrder': displayOrder,
-      'isActive': isActive,
+      'photo_path': photoPath,
+      'display_order': displayOrder,
+      'is_active': isActive,
       'color': color,
       'translations': translations?.toMap(),
     };
@@ -106,15 +106,15 @@ class UpdateMenuParams extends Equatable {
   factory UpdateMenuParams.fromMap(Map<String, dynamic> map) {
     return UpdateMenuParams(
       id: map['id'] as int,
-      requiredTime: map['requiredTime'] != null
-          ? map['requiredTime'] as int
+      requiredTime: map['required_time'] != null
+          ? map['required_time'] as int
           : null,
       price: map['price'] != null ? map['price'] as int : null,
-      photoPath: map['photoPath'] != null ? map['photoPath'] as String : null,
-      displayOrder: map['displayOrder'] != null
-          ? map['displayOrder'] as int
+      photoPath: map['photo_path'] != null ? map['photo_path'] as String : null,
+      displayOrder: map['display_order'] != null
+          ? map['display_order'] as int
           : null,
-      isActive: map['isActive'] != null ? map['isActive'] as bool : null,
+      isActive: map['is_active'] != null ? map['is_active'] as bool : null,
       color: map['color'] != null ? map['color'] as String : null,
       translations: map['translations'] != null
           ? MenuTranslation.fromMap(map['translations'] as Map<String, dynamic>)

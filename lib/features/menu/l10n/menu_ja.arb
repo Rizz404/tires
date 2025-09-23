@@ -161,5 +161,15 @@
   "adminUpsertMenuScreenColorsCyan": "シアン",
   "adminUpsertMenuScreenColorsLime": "ライム",
   "adminUpsertMenuScreenColorsOrange": "オレンジ",
-  "adminUpsertMenuScreenColorsGray": "グレー"
+  "adminUpsertMenuScreenColorsGray": "グレー",
+  "adminUpsertMenuScreenStatusActive": "有効",
+  "adminUpsertMenuScreenStatusInactive": "無効",
+  "adminUpsertMenuScreenHelpInactiveStatus": "メニューは顧客に表示されません",
+  "adminUpsertMenuScreenDeleteModalTitle": "メニューを削除",
+  "adminUpsertMenuScreenDeleteModalContent": "このメニューを削除してもよろしいですか？この操作は元に戻せません。",
+  "adminUpsertMenuScreenDeleteModalCancelButton": "キャンセル",
+  "adminUpsertMenuScreenDeleteModalDeleteButton": "削除",
+  "menuNotificationCreated": "メニューが正常に作成されました。",
+  "menuNotificationUpdated": "メニューが正常に更新されました。",
+  "menuNotificationDeleted": "メニューが正常に削除されました。"
 }

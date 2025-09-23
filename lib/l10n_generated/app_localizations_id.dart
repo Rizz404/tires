@@ -237,6 +237,20 @@ class L10nId extends L10n {
       'Update Announcement';
 
   @override
+  String get adminUpsertAnnouncementScreenDeleteModalTitle =>
+      'Delete Announcement';
+
+  @override
+  String get adminUpsertAnnouncementScreenDeleteModalContent =>
+      'Are you sure you want to delete this announcement? This action cannot be undone.';
+
+  @override
+  String get adminUpsertAnnouncementScreenDeleteModalCancelButton => 'Cancel';
+
+  @override
+  String get adminUpsertAnnouncementScreenDeleteModalDeleteButton => 'Delete';
+
+  @override
   String get announcementNotificationCreated =>
       'Announcement created successfully.';
 
@@ -3989,6 +4003,38 @@ class L10nId extends L10n {
 
   @override
   String get adminUpsertMenuScreenColorsGray => 'Gray';
+
+  @override
+  String get adminUpsertMenuScreenStatusActive => 'Active';
+
+  @override
+  String get adminUpsertMenuScreenStatusInactive => 'Inactive';
+
+  @override
+  String get adminUpsertMenuScreenHelpInactiveStatus =>
+      'Menu will not be visible to customers';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalTitle => 'Delete Menu';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalContent =>
+      'Are you sure you want to delete this menu? This action cannot be undone.';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalCancelButton => 'Cancel';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalDeleteButton => 'Delete';
+
+  @override
+  String get menuNotificationCreated => 'Menu created successfully.';
+
+  @override
+  String get menuNotificationUpdated => 'Menu updated successfully.';
+
+  @override
+  String get menuNotificationDeleted => 'Menu deleted successfully.';
 
   @override
   String get profileShowTitle => 'My Profile';

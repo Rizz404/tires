@@ -66,11 +66,11 @@ class CreateMenuParams extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'requiredTime': requiredTime,
+      'required_time': requiredTime,
       'price': price,
-      'photoPath': photoPath,
-      'displayOrder': displayOrder,
-      'isActive': isActive,
+      'photo_path': photoPath,
+      'display_order': displayOrder,
+      'is_active': isActive,
       'color': color,
       'translations': translations.toMap(),
     };
@@ -96,11 +96,11 @@ class CreateMenuParams extends Equatable {
 
   factory CreateMenuParams.fromMap(Map<String, dynamic> map) {
     return CreateMenuParams(
-      requiredTime: map['requiredTime'] as int,
+      requiredTime: map['required_time'] as int,
       price: map['price'] as int,
-      photoPath: map['photoPath'] as String,
-      displayOrder: map['displayOrder'] as int,
-      isActive: map['isActive'] as bool,
+      photoPath: map['photo_path'] as String,
+      displayOrder: map['display_order'] as int,
+      isActive: map['is_active'] as bool,
       color: map['color'] as String,
       translations: MenuTranslation.fromMap(
         map['translations'] as Map<String, dynamic>,

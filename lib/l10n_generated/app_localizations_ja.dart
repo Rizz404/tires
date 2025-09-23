@@ -226,6 +226,19 @@ class L10nJa extends L10n {
   String get adminUpsertAnnouncementScreenFormButtonsUpdate => 'お知らせを更新';
 
   @override
+  String get adminUpsertAnnouncementScreenDeleteModalTitle => 'お知らせを削除';
+
+  @override
+  String get adminUpsertAnnouncementScreenDeleteModalContent =>
+      'このお知らせを削除してもよろしいですか？この操作は元に戻せません。';
+
+  @override
+  String get adminUpsertAnnouncementScreenDeleteModalCancelButton => 'キャンセル';
+
+  @override
+  String get adminUpsertAnnouncementScreenDeleteModalDeleteButton => '削除';
+
+  @override
   String get announcementNotificationCreated => 'お知らせが正常に作成されました。';
 
   @override
@@ -3762,6 +3775,37 @@ class L10nJa extends L10n {
 
   @override
   String get adminUpsertMenuScreenColorsGray => 'グレー';
+
+  @override
+  String get adminUpsertMenuScreenStatusActive => '有効';
+
+  @override
+  String get adminUpsertMenuScreenStatusInactive => '無効';
+
+  @override
+  String get adminUpsertMenuScreenHelpInactiveStatus => 'メニューは顧客に表示されません';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalTitle => 'メニューを削除';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalContent =>
+      'このメニューを削除してもよろしいですか？この操作は元に戻せません。';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalCancelButton => 'キャンセル';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalDeleteButton => '削除';
+
+  @override
+  String get menuNotificationCreated => 'メニューが正常に作成されました。';
+
+  @override
+  String get menuNotificationUpdated => 'メニューが正常に更新されました。';
+
+  @override
+  String get menuNotificationDeleted => 'メニューが正常に削除されました。';
 
   @override
   String get profileShowTitle => 'マイプロフィール';

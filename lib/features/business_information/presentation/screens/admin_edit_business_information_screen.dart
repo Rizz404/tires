@@ -83,12 +83,12 @@ class _AdminEditBusinessInformationScreenState
       // TODO: Implement business information update logic with provider
       // This will be implemented when providers are available
       print('Form values: $values');
-      
+
       // Simulate successful update for now
       setState(() {
         _isSubmitting = false;
       });
-      
+
       AppToast.showSuccess(
         context,
         message: 'Business information updated successfully',
@@ -155,13 +155,13 @@ class _AdminEditBusinessInformationScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppText(
-          "Edit Business Settings",
+          l10n.adminUpsertBusinessInformationScreenPageTitle,
           style: AppTextStyle.headlineMedium,
           fontWeight: FontWeight.bold,
         ),
         const SizedBox(height: 4),
         AppText(
-          "Update your business information and operating hours",
+          l10n.adminUpsertBusinessInformationScreenPageSubtitle,
           style: AppTextStyle.bodyLarge,
           color: context.colorScheme.onSurface.withOpacity(0.7),
         ),
@@ -223,27 +223,31 @@ class _AdminEditBusinessInformationScreenState
       children: [
         AppTextField(
           name: 'shop_name',
-          label: "Shop Name",
+          label:
+              context.l10n.adminUpsertBusinessInformationScreenLabelsShopName,
           validator: FormBuilderValidators.required(),
         ),
         const SizedBox(height: 16),
         AppTextField(
           name: 'phone_number',
-          label: "Phone Number",
+          label: context
+              .l10n
+              .adminUpsertBusinessInformationScreenLabelsPhoneNumber,
           validator: FormBuilderValidators.required(),
           type: AppTextFieldType.phone,
         ),
         const SizedBox(height: 16),
         AppTextField(
           name: 'address',
-          label: "Address",
+          label: context.l10n.adminUpsertBusinessInformationScreenLabelsAddress,
           validator: FormBuilderValidators.required(),
           maxLines: 3,
         ),
         const SizedBox(height: 16),
         AppTextField(
           name: 'website_url',
-          label: "Website URL",
+          label:
+              context.l10n.adminUpsertBusinessInformationScreenLabelsWebsiteUrl,
           validator: FormBuilderValidators.url(),
         ),
       ],
@@ -313,7 +317,9 @@ class _AdminEditBusinessInformationScreenState
                   Expanded(
                     child: AppTimePicker(
                       name: '${day}_open_time',
-                      label: "Open Time",
+                      label: context
+                          .l10n
+                          .adminUpsertBusinessInformationScreenLabelsOpenTime,
                       enabled: !isClosed,
                     ),
                   ),
@@ -321,7 +327,9 @@ class _AdminEditBusinessInformationScreenState
                   Expanded(
                     child: AppTimePicker(
                       name: '${day}_close_time',
-                      label: "Close Time",
+                      label: context
+                          .l10n
+                          .adminUpsertBusinessInformationScreenLabelsCloseTime,
                       enabled: !isClosed,
                     ),
                   ),
@@ -341,22 +349,34 @@ class _AdminEditBusinessInformationScreenState
       children: [
         AppTextField(
           name: 'site_name',
-          label: "Site Name",
+          label:
+              context.l10n.adminUpsertBusinessInformationScreenLabelsSiteName,
           validator: FormBuilderValidators.required(),
         ),
         const SizedBox(height: 16),
-        const AppCheckbox(name: 'site_public', title: AppText("Make site public")),
+        AppCheckbox(
+          name: 'site_public',
+          title: AppText(
+            context
+                .l10n
+                .adminUpsertBusinessInformationScreenLabelsMakeSitePublic,
+          ),
+        ),
         const SizedBox(height: 16),
         AppTextField(
           name: 'reply_email',
-          label: "Reply Email",
+          label:
+              context.l10n.adminUpsertBusinessInformationScreenLabelsReplyEmail,
           validator: FormBuilderValidators.compose([
             FormBuilderValidators.required(),
             FormBuilderValidators.email(),
           ]),
         ),
         const SizedBox(height: 16),
-        const AppTextField(name: 'google_analytics_id', label: "Google Analytics ID"),
+        const AppTextField(
+          name: 'google_analytics_id',
+          label: "Google Analytics ID",
+        ),
       ],
     );
   }
@@ -379,7 +399,9 @@ class _AdminEditBusinessInformationScreenState
         ),
         const SizedBox(height: 16),
         // TODO: Add image picker
-        const AppText('Top Image (Image Picker to be implemented)'),
+        AppText(
+          '${context.l10n.adminUpsertBusinessInformationScreenLabelsTopImage} (Image Picker to be implemented)',
+        ),
       ],
     );
   }
@@ -391,7 +413,10 @@ class _AdminEditBusinessInformationScreenState
       children: [
         const AppRichTextEditor(name: 'terms_of_use', label: "Terms of Use"),
         const SizedBox(height: 16),
-        const AppRichTextEditor(name: 'privacy_policy', label: "Privacy Policy"),
+        const AppRichTextEditor(
+          name: 'privacy_policy',
+          label: "Privacy Policy",
+        ),
       ],
     );
   }
@@ -401,7 +426,7 @@ class _AdminEditBusinessInformationScreenState
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         AppButton(
-          text: "Cancel",
+          text: l10n.adminUpsertBusinessInformationScreenButtonsCancel,
           onPressed: () => context.router.pop(),
           variant: AppButtonVariant.outlined,
           color: AppButtonColor.neutral,
@@ -409,7 +434,7 @@ class _AdminEditBusinessInformationScreenState
         ),
         const SizedBox(width: 16),
         AppButton(
-          text: "Save Changes",
+          text: l10n.adminUpsertBusinessInformationScreenButtonsSaveChanges,
           onPressed: () => _handleSubmit(ref),
           isLoading: _isSubmitting,
           isFullWidth: false,

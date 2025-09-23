@@ -7,6 +7,7 @@ import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/menu/domain/usecases/create_menu_usecase.dart';
+import 'package:tires/features/menu/domain/usecases/delete_menu_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/update_menu_usecase.dart';
 import 'package:tires/features/menu/presentation/providers/menu_mutation_state.dart';
 import 'package:tires/features/menu/presentation/providers/menu_providers.dart';
@@ -52,11 +53,16 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
   }
 
   Color _colorFromHex(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll("#", "");
-    if (hexColor.length == 6) {
-      hexColor = "FF$hexColor";
+    try {
+      hexColor = hexColor.toUpperCase().replaceAll("#", "");
+      if (hexColor.length == 6) {
+        hexColor = "FF$hexColor";
+      }
+      return Color(int.parse(hexColor, radix: 16));
+    } catch (e) {
+      // Return default color if parsing fails
+      return Colors.grey;
     }
-    return Color(int.parse(hexColor, radix: 16));
   }
 
   void _populateForm() {
@@ -137,6 +143,46 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
         message: 'Please correct the errors in the form.',
       );
     }
+  }
+
+  void _showDeleteConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor:
+              context.theme.dialogTheme.backgroundColor ??
+              context.theme.colorScheme.surface,
+          title: AppText(context.l10n.adminUpsertMenuScreenDeleteModalTitle),
+          content: AppText(
+            context.l10n.adminUpsertMenuScreenDeleteModalContent,
+          ),
+          actions: [
+            AppButton(
+              text: context.l10n.adminUpsertMenuScreenDeleteModalCancelButton,
+              onPressed: () => Navigator.of(context).pop(),
+              variant: AppButtonVariant.outlined,
+              color: AppButtonColor.neutral,
+              isFullWidth: false,
+            ),
+            const SizedBox(width: 8),
+            AppButton(
+              text: context.l10n.adminUpsertMenuScreenDeleteModalDeleteButton,
+              onPressed: () {
+                Navigator.of(context).pop();
+                final notifier = ref.read(
+                  menuMutationNotifierProvider.notifier,
+                );
+                notifier.deleteMenu(DeleteMenuParams(widget.menu!.id));
+              },
+              variant: AppButtonVariant.filled,
+              color: AppButtonColor.error,
+              isFullWidth: false,
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -456,7 +502,7 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const AppText('Active'),
+                  AppText(l10n.adminUpsertMenuScreenStatusActive),
                   AppText(
                     l10n.adminUpsertMenuScreenHelpActiveStatus,
                     style: AppTextStyle.bodySmall,
@@ -464,14 +510,14 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
                 ],
               ),
             ),
-            const FormBuilderFieldOption(
+            FormBuilderFieldOption(
               value: false,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppText('Inactive'),
+                  AppText(l10n.adminUpsertMenuScreenStatusInactive),
                   AppText(
-                    'Menu will not be visible to customers',
+                    l10n.adminUpsertMenuScreenHelpInactiveStatus,
                     style: AppTextStyle.bodySmall,
                   ),
                 ],
@@ -487,13 +533,22 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        AppButton(
-          text: l10n.adminUpsertMenuScreenBack,
-          onPressed: () => context.router.pop(),
-          variant: AppButtonVariant.outlined,
-          color: AppButtonColor.neutral,
-          isFullWidth: false,
-        ),
+        if (_isEditMode)
+          AppButton(
+            text: l10n.adminUpsertMenuScreenDeleteModalDeleteButton,
+            onPressed: _showDeleteConfirmationDialog,
+            variant: AppButtonVariant.outlined,
+            color: AppButtonColor.error,
+            isFullWidth: false,
+          )
+        else
+          AppButton(
+            text: l10n.adminUpsertMenuScreenBack,
+            onPressed: () => context.router.pop(),
+            variant: AppButtonVariant.outlined,
+            color: AppButtonColor.neutral,
+            isFullWidth: false,
+          ),
         const SizedBox(width: 16),
         AppButton(
           text: _isEditMode

@@ -21,11 +21,16 @@ class MenuTableWidget extends StatelessWidget {
   });
 
   Color _colorFromHex(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll("#", "");
-    if (hexColor.length == 6) {
-      hexColor = "FF$hexColor";
+    try {
+      hexColor = hexColor.toUpperCase().replaceAll("#", "");
+      if (hexColor.length == 6) {
+        hexColor = "FF$hexColor";
+      }
+      return Color(int.parse(hexColor, radix: 16));
+    } catch (e) {
+      // Return default color if parsing fails
+      return Colors.grey;
     }
-    return Color(int.parse(hexColor, radix: 16));
   }
 
   @override

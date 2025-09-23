@@ -5,9 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
+import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/features/announcement/domain/entities/announcement.dart';
 import 'package:tires/features/announcement/domain/entities/announcement_translation.dart';
 import 'package:tires/features/announcement/domain/usecases/create_announcement_usecase.dart';
+import 'package:tires/features/announcement/domain/usecases/delete_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/update_announcement_usecase.dart';
 import 'package:tires/features/announcement/presentation/providers/announcement_mutation_state.dart';
 import 'package:tires/features/announcement/presentation/providers/announcement_providers.dart';
@@ -125,9 +127,57 @@ class _AdminUpsertAnnouncementScreenState
       });
       AppToast.showError(
         context,
-        message: 'Please correct the errors in the form.',
+        message: context.l10n.announcementNotificationInvalidData,
       );
     }
+  }
+
+  void _showDeleteConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor:
+              context.theme.dialogTheme.backgroundColor ??
+              context.theme.colorScheme.surface,
+          title: AppText(
+            context.l10n.adminUpsertAnnouncementScreenDeleteModalTitle,
+          ),
+          content: AppText(
+            context.l10n.adminUpsertAnnouncementScreenDeleteModalContent,
+          ),
+          actions: [
+            AppButton(
+              text: context
+                  .l10n
+                  .adminUpsertAnnouncementScreenDeleteModalCancelButton,
+              onPressed: () => Navigator.of(context).pop(),
+              variant: AppButtonVariant.outlined,
+              color: AppButtonColor.neutral,
+              isFullWidth: false,
+            ),
+            const SizedBox(width: 8),
+            AppButton(
+              text: context
+                  .l10n
+                  .adminUpsertAnnouncementScreenDeleteModalDeleteButton,
+              onPressed: () {
+                Navigator.of(context).pop();
+                final notifier = ref.read(
+                  announcementMutationNotifierProvider.notifier,
+                );
+                notifier.deleteAnnouncement(
+                  DeleteAnnouncementParams(widget.announcement!.id),
+                );
+              },
+              variant: AppButtonVariant.filled,
+              color: AppButtonColor.error,
+              isFullWidth: false,
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -147,8 +197,8 @@ class _AdminUpsertAnnouncementScreenState
           message:
               next.successMessage ??
               (_isEditMode
-                  ? 'Announcement updated successfully'
-                  : 'Announcement created successfully'),
+                  ? context.l10n.announcementNotificationUpdated
+                  : context.l10n.announcementNotificationCreated),
         );
         context.router.pop();
       } else if (next.status == AnnouncementMutationStatus.error &&
@@ -347,13 +397,24 @@ class _AdminUpsertAnnouncementScreenState
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        AppButton(
-          text: l10n.adminUpsertAnnouncementScreenCancelButton,
-          onPressed: () => context.router.pop(),
-          variant: AppButtonVariant.outlined,
-          color: AppButtonColor.neutral,
-          isFullWidth: false,
-        ),
+        if (_isEditMode)
+          AppButton(
+            text: context
+                .l10n
+                .adminUpsertAnnouncementScreenDeleteModalDeleteButton,
+            onPressed: _showDeleteConfirmationDialog,
+            variant: AppButtonVariant.outlined,
+            color: AppButtonColor.error,
+            isFullWidth: false,
+          )
+        else
+          AppButton(
+            text: l10n.adminUpsertAnnouncementScreenCancelButton,
+            onPressed: () => context.router.pop(),
+            variant: AppButtonVariant.outlined,
+            color: AppButtonColor.neutral,
+            isFullWidth: false,
+          ),
         const SizedBox(width: 16),
         AppButton(
           text: _isEditMode

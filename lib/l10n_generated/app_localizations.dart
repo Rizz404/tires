@@ -477,6 +477,30 @@ abstract class L10n {
   /// **'Update Announcement'**
   String get adminUpsertAnnouncementScreenFormButtonsUpdate;
 
+  /// No description provided for @adminUpsertAnnouncementScreenDeleteModalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Announcement'**
+  String get adminUpsertAnnouncementScreenDeleteModalTitle;
+
+  /// No description provided for @adminUpsertAnnouncementScreenDeleteModalContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this announcement? This action cannot be undone.'**
+  String get adminUpsertAnnouncementScreenDeleteModalContent;
+
+  /// No description provided for @adminUpsertAnnouncementScreenDeleteModalCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminUpsertAnnouncementScreenDeleteModalCancelButton;
+
+  /// No description provided for @adminUpsertAnnouncementScreenDeleteModalDeleteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminUpsertAnnouncementScreenDeleteModalDeleteButton;
+
   /// No description provided for @announcementNotificationCreated.
   ///
   /// In en, this message translates to:
@@ -6980,6 +7004,66 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Gray'**
   String get adminUpsertMenuScreenColorsGray;
+
+  /// No description provided for @adminUpsertMenuScreenStatusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get adminUpsertMenuScreenStatusActive;
+
+  /// No description provided for @adminUpsertMenuScreenStatusInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get adminUpsertMenuScreenStatusInactive;
+
+  /// No description provided for @adminUpsertMenuScreenHelpInactiveStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu will not be visible to customers'**
+  String get adminUpsertMenuScreenHelpInactiveStatus;
+
+  /// No description provided for @adminUpsertMenuScreenDeleteModalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Menu'**
+  String get adminUpsertMenuScreenDeleteModalTitle;
+
+  /// No description provided for @adminUpsertMenuScreenDeleteModalContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this menu? This action cannot be undone.'**
+  String get adminUpsertMenuScreenDeleteModalContent;
+
+  /// No description provided for @adminUpsertMenuScreenDeleteModalCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminUpsertMenuScreenDeleteModalCancelButton;
+
+  /// No description provided for @adminUpsertMenuScreenDeleteModalDeleteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminUpsertMenuScreenDeleteModalDeleteButton;
+
+  /// No description provided for @menuNotificationCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu created successfully.'**
+  String get menuNotificationCreated;
+
+  /// No description provided for @menuNotificationUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu updated successfully.'**
+  String get menuNotificationUpdated;
+
+  /// No description provided for @menuNotificationDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu deleted successfully.'**
+  String get menuNotificationDeleted;
 
   /// No description provided for @profileShowTitle.
   ///
