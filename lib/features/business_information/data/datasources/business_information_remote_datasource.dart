@@ -59,24 +59,83 @@ class BusinessInformationRemoteDatasourceImpl
       AppLogger.networkInfo('Updating business information');
       final formData = FormData();
 
-      // Add non-file fields
+      // Add non-file fields with proper encoding for multipart
       final mapData = params.toMap();
-      mapData.forEach((key, value) {
-        if (value != null) {
+
+      String _normalizeTime(dynamic v) {
+        if (v == null) return '';
+        final s = v.toString();
+        final match = RegExp(r'TimeOfDay\((\d{1,2}):(\d{2})\)').firstMatch(s);
+        if (match != null) {
+          final h = match.group(1)!.padLeft(2, '0');
+          final m = match.group(2)!.padLeft(2, '0');
+          return '$h:$m';
+        }
+        // Already "HH:mm" or other format
+        return s;
+      }
+
+      void addField(String key, dynamic value) {
+        if (value == null) return;
+        if (value is bool) {
+          formData.fields.add(MapEntry(key, value ? '1' : '0'));
+        } else {
           formData.fields.add(MapEntry(key, value.toString()));
         }
-      });
+      }
+
+      for (final entry in mapData.entries) {
+        final key = entry.key;
+        final value = entry.value;
+
+        if (key == 'business_hours' && value is Map) {
+          // Flatten nested map into Laravel-style bracketed keys
+          value.forEach((dayKey, dayVal) {
+            if (dayVal is Map) {
+              final closed = dayVal['closed'];
+              final openTime = dayVal['open_time'];
+              final closeTime = dayVal['close_time'];
+              addField('business_hours[$dayKey][closed]', closed);
+              if (closed == false || closed == '0' || closed == 0) {
+                if (openTime != null) {
+                  addField(
+                    'business_hours[$dayKey][open_time]',
+                    _normalizeTime(openTime),
+                  );
+                }
+                if (closeTime != null) {
+                  addField(
+                    'business_hours[$dayKey][close_time]',
+                    _normalizeTime(closeTime),
+                  );
+                }
+              }
+            } else {
+              // If dayVal is not a map, just stringify
+              addField('business_hours[$dayKey]', dayVal);
+            }
+          });
+        } else {
+          addField(key, value);
+        }
+      }
+
+      // Debug: log fields being sent (without files)
+      try {
+        for (final f in formData.fields) {
+          AppLogger.networkInfo('Form field => ${f.key}=${f.value}');
+        }
+      } catch (_) {}
 
       // Add file if exists
       if (params.topImage != null) {
-        final fileName = params.topImage!.path.split('/').last;
+        // Handle Windows and POSIX paths safely
+        final filePath = params.topImage!.path;
+        final fileName = filePath.split('\\').last.split('/').last;
         formData.files.add(
           MapEntry(
             'top_image',
-            await MultipartFile.fromFile(
-              params.topImage!.path,
-              filename: fileName,
-            ),
+            await MultipartFile.fromFile(filePath, filename: fileName),
           ),
         );
       }

@@ -29,10 +29,7 @@ class DioClient {
         milliseconds: ApiConstants.defaultReceiveTimeout,
       )
       ..options.responseType = ResponseType.json
-      ..options.headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }
+      ..options.headers = {'Accept': 'application/json'}
       ..interceptors.add(_localeInterceptor)
       ..interceptors.add(_authInterceptor);
 
