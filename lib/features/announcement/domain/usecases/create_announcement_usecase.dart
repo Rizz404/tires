@@ -52,8 +52,8 @@ class CreateAnnouncementParams extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'isActive': isActive,
-      'publishedAt': publishedAt.toIso8601String(),
+      'is_active': isActive,
+      'published_at': publishedAt.toIso8601String(),
       'translations': {
         'en': {
           'title': translations?.en.title,

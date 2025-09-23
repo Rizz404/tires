@@ -66,9 +66,9 @@ class UpdateContactParams extends Equatable {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'fullName': fullName,
+      'full_name': fullName,
       'email': email,
-      'phoneNumber': phoneNumber,
+      'phone_number': phoneNumber,
       'subject': subject,
       'message': message,
     };
@@ -87,10 +87,10 @@ class UpdateContactParams extends Equatable {
   factory UpdateContactParams.fromMap(Map<String, dynamic> map) {
     return UpdateContactParams(
       id: map['id'] as int,
-      fullName: map['fullName'] != null ? map['fullName'] as String : null,
+      fullName: map['full_name'] != null ? map['full_name'] as String : null,
       email: map['email'] != null ? map['email'] as String : null,
-      phoneNumber: map['phoneNumber'] != null
-          ? map['phoneNumber'] as String
+      phoneNumber: map['phone_number'] != null
+          ? map['phone_number'] as String
           : null,
       subject: map['subject'] != null ? map['subject'] as String : null,
       message: map['message'] != null ? map['message'] as String : null,

@@ -67,7 +67,7 @@ class GetAnnouncementsCursorParams extends Equatable {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'paginate': paginate,
-      'perPage': perPage,
+      'per_page': perPage,
       'cursor': cursor,
       if (search != null && search!.isNotEmpty) 'search': search,
       if (status != null && status != 'all') 'status': status,
@@ -78,7 +78,7 @@ class GetAnnouncementsCursorParams extends Equatable {
   factory GetAnnouncementsCursorParams.fromMap(Map<String, dynamic> map) {
     return GetAnnouncementsCursorParams(
       paginate: map['paginate'] as bool,
-      perPage: map['perPage'] as int,
+      perPage: map['per_page'] as int,
       cursor: map['cursor'] != null ? map['cursor'] as String : null,
       search: map['search'] != null ? map['search'] as String : null,
       status: map['status'] != null ? map['status'] as String : null,

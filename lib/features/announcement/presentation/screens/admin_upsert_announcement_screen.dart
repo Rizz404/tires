@@ -93,7 +93,7 @@ class _AdminUpsertAnnouncementScreenState
         notifier.updateAnnouncement(
           UpdateAnnouncementParams(
             id: widget.announcement!.id,
-            translation: AnnouncementTranslation(
+            translations: AnnouncementTranslation(
               en: AnnouncementContent(title: titleEn, content: contentEn),
               ja: AnnouncementContent(
                 title: titleJa ?? '',

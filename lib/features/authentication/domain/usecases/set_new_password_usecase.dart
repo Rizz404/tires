@@ -38,8 +38,8 @@ class SetNewPasswordParams extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'newPassword': newPassword,
-      'confirmNewPassword': confirmNewPassword,
+      'new_password': newPassword,
+      'confirm_new_password': confirmNewPassword,
     };
   }
 

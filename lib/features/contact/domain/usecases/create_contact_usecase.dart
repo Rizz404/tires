@@ -58,9 +58,9 @@ class CreateContactParams extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'fullName': fullName,
+      'full_name': fullName,
       'email': email,
-      'phoneNumber': phoneNumber,
+      'phone_number': phoneNumber,
       'subject': subject,
       'message': message,
     };

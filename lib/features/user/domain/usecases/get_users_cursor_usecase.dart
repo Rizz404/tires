@@ -50,7 +50,7 @@ class GetUsersCursorParams extends Equatable {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'paginate': paginate,
-      'perPage': perPage,
+      'per_page': perPage,
       'cursor': cursor,
     };
   }
@@ -58,7 +58,7 @@ class GetUsersCursorParams extends Equatable {
   factory GetUsersCursorParams.fromMap(Map<String, dynamic> map) {
     return GetUsersCursorParams(
       paginate: map['paginate'] as bool,
-      perPage: map['perPage'] as int,
+      perPage: map['per_page'] as int,
       cursor: map['cursor'] != null ? map['cursor'] as String : null,
     );
   }

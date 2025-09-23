@@ -33,41 +33,41 @@ class UpdateAnnouncementParams extends Equatable {
   final int id;
   final bool? isActive;
   final DateTime? publishedAt;
-  final AnnouncementTranslation? translation;
+  final AnnouncementTranslation? translations;
 
   const UpdateAnnouncementParams({
     required this.id,
     this.isActive,
     this.publishedAt,
-    this.translation,
+    this.translations,
   });
 
   UpdateAnnouncementParams copyWith({
     bool? isActive,
     DateTime? publishedAt,
-    AnnouncementTranslation? translation,
+    AnnouncementTranslation? translations,
   }) {
     return UpdateAnnouncementParams(
       id: id,
       isActive: isActive ?? this.isActive,
       publishedAt: publishedAt ?? this.publishedAt,
-      translation: translation ?? this.translation,
+      translations: translations ?? this.translations,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'isActive': isActive,
-      'publishedAt': publishedAt?.toIso8601String(),
-      'translation': {
+      'is_active': isActive,
+      'published_at': publishedAt?.toIso8601String(),
+      'translations': {
         'en': {
-          'title': translation?.en.title,
-          'content': translation?.en.content,
+          'title': translations?.en.title,
+          'content': translations?.en.content,
         },
         'ja': {
-          'title': translation?.ja.title,
-          'content': translation?.ja.content,
+          'title': translations?.ja.title,
+          'content': translations?.ja.content,
         },
       },
     };
@@ -79,5 +79,5 @@ class UpdateAnnouncementParams extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object?> get props => [id, isActive, publishedAt, translation];
+  List<Object?> get props => [id, isActive, publishedAt, translations];
 }
