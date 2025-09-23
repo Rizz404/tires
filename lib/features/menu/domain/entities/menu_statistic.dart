@@ -14,7 +14,7 @@ class Statistics extends Equatable {
   final int totalMenus;
   final int activeMenus;
   final int inactiveMenus;
-  final int averagePrice;
+  final num averagePrice;
 
   Statistics({
     required this.totalMenus,

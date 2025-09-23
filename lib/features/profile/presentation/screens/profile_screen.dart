@@ -259,12 +259,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             name: 'fullName',
             label: l10n.profileLabelFullName,
             validator: AuthValidators.fullName,
+            type: AppTextFieldType.text,
           ),
           const SizedBox(height: 16),
           AppTextField(
             name: 'fullNameKana',
             label: l10n.profileLabelFullNameKana,
             validator: AuthValidators.fullNameKana,
+            type: AppTextFieldType.text,
           ),
           const SizedBox(height: 16),
           AppTextField(
@@ -277,10 +279,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           AppTextField(
             name: 'phoneNumber',
             label: l10n.profileLabelPhone,
+            type: AppTextFieldType.phone,
             validator: AuthValidators.phoneNumber,
           ),
           const SizedBox(height: 16),
-          AppTextField(name: 'companyName', label: l10n.profileLabelCompany),
+          AppTextField(
+            name: 'companyName',
+            label: l10n.profileLabelCompany,
+            type: AppTextFieldType.text,
+          ),
           const SizedBox(height: 16),
           AppDateTimePicker(
             name: 'dateOfBirth',
@@ -290,7 +297,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             lastDate: DateTime.now(),
           ),
           const SizedBox(height: 16),
-          AppTextField(name: 'homeAddress', label: l10n.profileLabelAddress),
+          AppTextField(
+            name: 'homeAddress',
+            label: l10n.profileLabelAddress,
+            type: AppTextFieldType.multiline,
+            maxLines: 3,
+          ),
           const SizedBox(height: 16),
           AppRadioGroup<UserGender>(
             name: 'gender',

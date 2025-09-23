@@ -24,7 +24,7 @@ class StatisticsModel extends Equatable {
   final int totalMenus;
   final int activeMenus;
   final int inactiveMenus;
-  final int averagePrice;
+  final num averagePrice;
 
   StatisticsModel({
     required this.totalMenus,
@@ -38,7 +38,7 @@ class StatisticsModel extends Equatable {
       totalMenus: json['total_menus'] as int,
       activeMenus: json['active_menus'] as int,
       inactiveMenus: json['inactive_menus'] as int,
-      averagePrice: json['average_price'] as int,
+      averagePrice: json['average_price'] as num,
     );
   }
 

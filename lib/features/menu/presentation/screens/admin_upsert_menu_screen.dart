@@ -65,6 +65,12 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
     }
   }
 
+  /// Helper method to clean formatted numbers before parsing
+  int _parseFormattedNumber(String value) {
+    final cleanValue = value.replaceAll(RegExp(r'[,¥$\s]'), '');
+    return int.parse(cleanValue);
+  }
+
   void _populateForm() {
     final menu = widget.menu;
     if (menu != null) {
@@ -75,7 +81,9 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
         'name_ja': menu.translations?.ja?.name,
         'description_ja': menu.translations?.ja?.description,
         'required_time': menu.requiredTime.toString(),
-        'price': menu.price.amount,
+        'price': menu.price.amount
+            .toString(), // Convert to string for proper formatting
+        'display_order': menu.displayOrder.toString(),
         'color': menu.color.hex,
         'is_active': menu.isActive,
       });
@@ -101,7 +109,13 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
       final nameJa = values['name_ja'] as String?;
       final descriptionJa = values['description_ja'] as String?;
       final requiredTime = int.parse(values['required_time'] as String);
-      final price = int.parse(values['price'] as String);
+
+      // Clean price value by removing commas and currency symbols before parsing
+      final priceString = values['price'] as String;
+      final price = _parseFormattedNumber(priceString);
+
+      final displayOrder = int.parse(values['display_order'] as String);
+
       final color = values['color'] as String;
       final isActive = values['is_active'] as bool;
 
@@ -117,6 +131,7 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
             translations: menuTranslation,
             requiredTime: requiredTime,
             price: price,
+            displayOrder: displayOrder,
             color: color,
             isActive: isActive,
           ),
@@ -319,6 +334,7 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
           label: l10n.adminUpsertMenuScreenMenuNameEn,
           placeHolder: l10n.adminUpsertMenuScreenPlaceholderNameEn,
           validator: MenuValidators.nameEn(context),
+          type: AppTextFieldType.text,
         ),
         const SizedBox(height: 16),
         AppTextField(
@@ -326,6 +342,7 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
           label: l10n.adminUpsertMenuScreenDescriptionEn,
           placeHolder: l10n.adminUpsertMenuScreenPlaceholderDescEn,
           validator: MenuValidators.descriptionEn(context),
+          type: AppTextFieldType.multiline,
           maxLines: 5,
         ),
       ],
@@ -351,6 +368,7 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
           label: l10n.adminUpsertMenuScreenMenuNameJa,
           placeHolder: l10n.adminUpsertMenuScreenPlaceholderNameJa,
           validator: MenuValidators.nameJa(context),
+          type: AppTextFieldType.text,
         ),
         const SizedBox(height: 16),
         AppTextField(
@@ -358,6 +376,7 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
           label: l10n.adminUpsertMenuScreenDescriptionJa,
           placeHolder: l10n.adminUpsertMenuScreenPlaceholderDescJa,
           validator: MenuValidators.descriptionJa(context),
+          type: AppTextFieldType.multiline,
           maxLines: 5,
         ),
       ],
@@ -381,6 +400,8 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
                 label: l10n.adminUpsertMenuScreenFormRequiredTime,
                 placeHolder: '60',
                 validator: MenuValidators.requiredTime(context),
+                type: AppTextFieldType.number,
+                suffixText: 'min',
               ),
             ),
             const SizedBox(width: 16),
@@ -390,6 +411,7 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
                 label: l10n.adminUpsertMenuScreenFormPrice,
                 placeHolder: '5000',
                 validator: MenuValidators.price(context),
+                type: AppTextFieldType.priceJP,
               ),
             ),
           ],
@@ -398,6 +420,14 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
         AppText(
           l10n.adminUpsertMenuScreenHelpRequiredTime,
           style: AppTextStyle.bodySmall,
+        ),
+        const SizedBox(height: 16),
+        AppTextField(
+          name: 'display_order',
+          label: 'Display Order',
+          placeHolder: '0',
+          validator: MenuValidators.displayOrder(context),
+          type: AppTextFieldType.number,
         ),
       ],
     );

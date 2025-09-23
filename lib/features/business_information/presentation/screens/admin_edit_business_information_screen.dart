@@ -51,7 +51,7 @@ class _AdminEditBusinessInformationScreenState
 
   void _populateForm() {
     final businessInfo = widget.businessInformation;
-    _formKey.currentState?.patchValue({
+    final Map<String, dynamic> formValues = {
       'shop_name': businessInfo.shopName,
       'phone_number': businessInfo.phoneNumber,
       'address': businessInfo.address,
@@ -64,8 +64,31 @@ class _AdminEditBusinessInformationScreenState
       'access_information': businessInfo.accessInformation,
       'terms_of_use': businessInfo.termsOfUse,
       'privacy_policy': businessInfo.privacyPolicy,
-      // TODO: Add business hours mapping when available
-    });
+    };
+
+    // Add business hours mapping
+    final businessHours = businessInfo.businessHours;
+    final days = [
+      'monday',
+      'tuesday',
+      'wednesday',
+      'thursday',
+      'friday',
+      'saturday',
+      'sunday',
+    ];
+    for (final day in days) {
+      final dayData = businessHours[day] as Map<String, dynamic>?;
+      if (dayData != null) {
+        formValues['${day}_closed'] = dayData['closed'] ?? false;
+        formValues['${day}_open_time'] = dayData['open'];
+        formValues['${day}_close_time'] = dayData['close'];
+      } else {
+        formValues['${day}_closed'] = false;
+      }
+    }
+
+    _formKey.currentState?.patchValue(formValues);
     // Force rebuild to ensure form fields are updated
     setState(() {});
   }
@@ -226,6 +249,7 @@ class _AdminEditBusinessInformationScreenState
           label:
               context.l10n.adminUpsertBusinessInformationScreenLabelsShopName,
           validator: FormBuilderValidators.required(),
+          type: AppTextFieldType.text,
         ),
         const SizedBox(height: 16),
         AppTextField(
@@ -241,6 +265,7 @@ class _AdminEditBusinessInformationScreenState
           name: 'address',
           label: context.l10n.adminUpsertBusinessInformationScreenLabelsAddress,
           validator: FormBuilderValidators.required(),
+          type: AppTextFieldType.multiline,
           maxLines: 3,
         ),
         const SizedBox(height: 16),
@@ -249,6 +274,7 @@ class _AdminEditBusinessInformationScreenState
           label:
               context.l10n.adminUpsertBusinessInformationScreenLabelsWebsiteUrl,
           validator: FormBuilderValidators.url(),
+          type: AppTextFieldType.url,
         ),
       ],
     );
@@ -294,19 +320,23 @@ class _AdminEditBusinessInformationScreenState
                   Expanded(
                     child: AppText(dayLabel, style: AppTextStyle.titleMedium),
                   ),
-                  // Correctly use FormBuilderCheckbox within the builder
+                  // Use regular Checkbox to avoid duplicate field registration
                   SizedBox(
                     width: 120, // Fixed width for the checkbox
-                    child: FormBuilderCheckbox(
-                      name: '${day}_closed',
-                      title: const Text("Closed"),
-                      initialValue: isClosed,
-                      onChanged: (value) {
-                        field.didChange(value);
-                        setState(() {}); // Rebuild to update time picker state
-                      },
-                      controlAffinity: ListTileControlAffinity.leading,
-                      contentPadding: EdgeInsets.zero,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Checkbox(
+                          value: isClosed,
+                          onChanged: (value) {
+                            field.didChange(value);
+                            setState(
+                              () {},
+                            ); // Rebuild to update time picker state
+                          },
+                        ),
+                        const Text("Closed"),
+                      ],
                     ),
                   ),
                 ],

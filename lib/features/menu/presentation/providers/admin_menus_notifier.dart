@@ -6,7 +6,7 @@ import 'package:tires/features/menu/domain/usecases/get_admin_menus_cursor_useca
 import 'package:tires/features/menu/presentation/providers/admin_menus_state.dart';
 
 class AdminMenusNotifier extends Notifier<AdminMenusState> {
-  late final GetAdminMenusCursorUsecase _getUsersCursorUsecase;
+  late GetAdminMenusCursorUsecase _getUsersCursorUsecase;
 
   @override
   AdminMenusState build() {

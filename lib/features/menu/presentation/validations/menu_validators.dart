@@ -45,25 +45,74 @@ class MenuValidators {
   static FormFieldValidator<String> requiredTime(BuildContext context) {
     return FormBuilderValidators.compose([
       FormBuilderValidators.required(errorText: 'Required time is required'),
-      FormBuilderValidators.min(
-        1,
-        errorText: 'Required time must be at least 1 minute',
-      ),
-      FormBuilderValidators.max(
-        1440, // 24 hours in minutes
-        errorText: 'Required time must be less than 24 hours',
-      ),
+      (value) {
+        if (value == null || value.isEmpty) return null;
+
+        final parsedValue = int.tryParse(value);
+
+        if (parsedValue == null) {
+          return 'Required time must be a valid number';
+        }
+
+        if (parsedValue < 1) {
+          return 'Required time must be at least 1 minute';
+        }
+
+        if (parsedValue > 1440) {
+          // 24 hours in minutes
+          return 'Required time must be less than 24 hours';
+        }
+
+        return null;
+      },
     ]);
   }
 
   static FormFieldValidator<String> price(BuildContext context) {
     return FormBuilderValidators.compose([
       FormBuilderValidators.required(errorText: 'Price is required'),
-      FormBuilderValidators.min(0, errorText: 'Price must be at least 0'),
-      FormBuilderValidators.max(
-        999999,
-        errorText: 'Price must be less than 999,999',
-      ),
+      (value) {
+        if (value == null || value.isEmpty) return null;
+
+        // Remove commas and other formatting for validation
+        final cleanValue = value.replaceAll(RegExp(r'[,¥$\s]'), '');
+        final parsedValue = int.tryParse(cleanValue);
+
+        if (parsedValue == null) {
+          return 'Price must be a valid number';
+        }
+
+        if (parsedValue < 0) {
+          return 'Price must be at least 0';
+        }
+
+        if (parsedValue > 999999999) {
+          return 'Price must be less than 999,999,999';
+        }
+
+        return null;
+      },
+    ]);
+  }
+
+  static FormFieldValidator<String> displayOrder(BuildContext context) {
+    return FormBuilderValidators.compose([
+      FormBuilderValidators.required(errorText: 'Display order is required'),
+      (value) {
+        if (value == null || value.isEmpty) return null;
+
+        final parsedValue = int.tryParse(value);
+
+        if (parsedValue == null) {
+          return 'Display order must be a valid number';
+        }
+
+        if (parsedValue < 0) {
+          return 'Display order must be at least 0';
+        }
+
+        return null;
+      },
     ]);
   }
 }
