@@ -1,18 +1,12 @@
-import 'package:equatable/equatable.dart';
 import 'package:tires/features/availability/data/models/availability_day_model.dart';
 import 'package:tires/features/availability/domain/entities/availability_calendar.dart';
 
-class AvailabilityCalendarModel extends Equatable {
-  final List<AvailabilityDayModel> days;
-  final String currentMonth;
-  final String previousMonth;
-  final String nextMonth;
-
+class AvailabilityCalendarModel extends AvailabilityCalendar {
   const AvailabilityCalendarModel({
-    required this.days,
-    required this.currentMonth,
-    required this.previousMonth,
-    required this.nextMonth,
+    required super.days,
+    required super.currentMonth,
+    required super.previousMonth,
+    required super.nextMonth,
   });
 
   factory AvailabilityCalendarModel.fromMap(Map<String, dynamic> map) {
@@ -33,7 +27,9 @@ class AvailabilityCalendarModel extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'data': {
-        'days': days.map((day) => day.toMap()).toList(),
+        'days': days
+            .map((day) => (day as AvailabilityDayModel).toMap())
+            .toList(),
         'current_month': currentMonth,
         'previous_month': previousMonth,
         'next_month': nextMonth,
@@ -43,16 +39,4 @@ class AvailabilityCalendarModel extends Equatable {
       'next_month': nextMonth,
     };
   }
-
-  AvailabilityCalendar toEntity() {
-    return AvailabilityCalendar(
-      days: days.map((day) => day.toEntity()).toList(),
-      currentMonth: currentMonth,
-      previousMonth: previousMonth,
-      nextMonth: nextMonth,
-    );
-  }
-
-  @override
-  List<Object?> get props => [days, currentMonth, previousMonth, nextMonth];
 }

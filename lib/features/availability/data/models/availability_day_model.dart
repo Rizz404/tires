@@ -1,27 +1,16 @@
-import 'package:equatable/equatable.dart';
 import 'package:tires/features/availability/domain/entities/availability_day.dart';
 
-class AvailabilityDayModel extends Equatable {
-  final String date;
-  final int day;
-  final bool isCurrentMonth;
-  final bool isToday;
-  final bool isPastDate;
-  final bool hasAvailableHours;
-  final String bookingStatus;
-  final List<String> blockedHours;
-  final int reservationCount;
-
+class AvailabilityDayModel extends AvailabilityDay {
   const AvailabilityDayModel({
-    required this.date,
-    required this.day,
-    required this.isCurrentMonth,
-    required this.isToday,
-    required this.isPastDate,
-    required this.hasAvailableHours,
-    required this.bookingStatus,
-    required this.blockedHours,
-    required this.reservationCount,
+    required super.date,
+    required super.day,
+    required super.isCurrentMonth,
+    required super.isToday,
+    required super.isPastDate,
+    required super.hasAvailableHours,
+    required super.bookingStatus,
+    required super.blockedHours,
+    required super.reservationCount,
   });
 
   factory AvailabilityDayModel.fromMap(Map<String, dynamic> map) {
@@ -51,46 +40,4 @@ class AvailabilityDayModel extends Equatable {
       'reservation_count': reservationCount,
     };
   }
-
-  AvailabilityDay toEntity() {
-    return AvailabilityDay(
-      date: date,
-      day: day,
-      isCurrentMonth: isCurrentMonth,
-      isToday: isToday,
-      isPastDate: isPastDate,
-      hasAvailableHours: hasAvailableHours,
-      bookingStatus: _parseBookingStatus(bookingStatus),
-      blockedHours: blockedHours,
-      reservationCount: reservationCount,
-    );
-  }
-
-  BookingStatus _parseBookingStatus(String status) {
-    switch (status.toLowerCase()) {
-      case 'past':
-        return BookingStatus.past;
-      case 'available':
-        return BookingStatus.available;
-      case 'fully_booked':
-        return BookingStatus.fullyBooked;
-      case 'no_available_hours':
-        return BookingStatus.noAvailableHours;
-      default:
-        return BookingStatus.noAvailableHours;
-    }
-  }
-
-  @override
-  List<Object?> get props => [
-        date,
-        day,
-        isCurrentMonth,
-        isToday,
-        isPastDate,
-        hasAvailableHours,
-        bookingStatus,
-        blockedHours,
-        reservationCount,
-      ];
 }

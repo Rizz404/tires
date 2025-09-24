@@ -1,12 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-enum BookingStatus {
-  past,
-  available,
-  fullyBooked,
-  noAvailableHours,
-}
-
 class AvailabilityDay extends Equatable {
   final String date;
   final int day;
@@ -14,7 +7,7 @@ class AvailabilityDay extends Equatable {
   final bool isToday;
   final bool isPastDate;
   final bool hasAvailableHours;
-  final BookingStatus bookingStatus;
+  final String bookingStatus;
   final List<String> blockedHours;
   final int reservationCount;
 
@@ -37,7 +30,7 @@ class AvailabilityDay extends Equatable {
     bool? isToday,
     bool? isPastDate,
     bool? hasAvailableHours,
-    BookingStatus? bookingStatus,
+    String? bookingStatus,
     List<String>? blockedHours,
     int? reservationCount,
   }) {
@@ -56,14 +49,14 @@ class AvailabilityDay extends Equatable {
 
   @override
   List<Object?> get props => [
-        date,
-        day,
-        isCurrentMonth,
-        isToday,
-        isPastDate,
-        hasAvailableHours,
-        bookingStatus,
-        blockedHours,
-        reservationCount,
-      ];
+    date,
+    day,
+    isCurrentMonth,
+    isToday,
+    isPastDate,
+    hasAvailableHours,
+    bookingStatus,
+    blockedHours,
+    reservationCount,
+  ];
 }

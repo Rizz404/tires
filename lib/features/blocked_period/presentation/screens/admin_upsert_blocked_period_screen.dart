@@ -21,6 +21,7 @@ import 'package:tires/shared/presentation/widgets/admin_end_drawer.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/app_text_field.dart';
+import 'package:tires/features/blocked_period/presentation/widgets/blocked_period_calendar.dart';
 
 import 'package:tires/shared/presentation/widgets/loading_overlay.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
@@ -59,6 +60,14 @@ class _AdminUpsertBlockedPeriodScreenState
         _populateForm();
       }
     });
+  }
+
+  void _onDateSelected(DateTime date) {
+    _formKey.currentState?.patchValue({'start_date': date});
+  }
+
+  void _onTimeRangeSelected(DateTime start, DateTime end) {
+    _formKey.currentState?.patchValue({'start_time': start, 'end_time': end});
   }
 
   void _populateForm() {
@@ -371,6 +380,12 @@ class _AdminUpsertBlockedPeriodScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          BlockedPeriodCalendar(
+            initialDate: widget.blockedPeriod?.startDatetime ?? DateTime.now(),
+            onDateSelected: _onDateSelected,
+            onTimeRangeSelected: _onTimeRangeSelected,
+          ),
+          const SizedBox(height: 24),
           Card(
             child: Padding(
               padding: const EdgeInsets.all(24),
@@ -577,10 +592,16 @@ class _AdminUpsertBlockedPeriodScreenState
             suffixIcon: const Icon(Icons.calendar_today_outlined),
             border: const OutlineInputBorder(),
           ),
-          initialValue: DateTime.now(),
+          initialValue: widget.blockedPeriod?.startDatetime ?? DateTime.now(),
           inputType: InputType.date,
           format: DateFormat('yyyy/MM/dd'),
           validator: BlockedPeriodValidators.startDate(context),
+          onChanged: (val) {
+            // This is to make sure the calendar view is updated when the date is changed manually
+            if (val != null) {
+              setState(() {});
+            }
+          },
         ),
         if (isCustom) ...[
           const SizedBox(height: 16),
@@ -609,7 +630,9 @@ class _AdminUpsertBlockedPeriodScreenState
                   suffixIcon: const Icon(Icons.access_time_outlined),
                   border: const OutlineInputBorder(),
                 ),
-                initialValue: DateTime(0, 1, 1, 0, 0),
+                initialValue:
+                    widget.blockedPeriod?.startDatetime ??
+                    DateTime(0, 1, 1, 0, 0),
                 inputType: InputType.time,
                 format: DateFormat('HH:mm'),
                 enabled: isCustom,
@@ -628,7 +651,9 @@ class _AdminUpsertBlockedPeriodScreenState
                   suffixIcon: const Icon(Icons.access_time_outlined),
                   border: const OutlineInputBorder(),
                 ),
-                initialValue: DateTime(0, 1, 1, 23, 59),
+                initialValue:
+                    widget.blockedPeriod?.endDatetime ??
+                    DateTime(0, 1, 1, 23, 59),
                 inputType: InputType.time,
                 format: DateFormat('HH:mm'),
                 enabled: isCustom,

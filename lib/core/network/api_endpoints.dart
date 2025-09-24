@@ -60,6 +60,8 @@ class ApiEndpoints {
       '$_adminPrefix$_questionnairePrefix';
   static const String adminTireStorages = '$_adminPrefix$_tireStoragePrefix';
   static const String adminAvailability = '$_adminPrefix$_availabilityPrefix';
+  static const String adminReservationAvailability =
+      '$_adminPrefix$_reservationPrefix$_availabilityPrefix';
 
   // --- Customer Endpoints ---
   static const String customerProfile = _profilePrefix;
