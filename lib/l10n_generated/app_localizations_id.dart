@@ -1106,12 +1106,35 @@ class L10nId extends L10n {
       'e.g., Regular maintenance, holiday, private event, etc.';
 
   @override
-  String get adminUpsertBlockedPeriodScreenConflictAlertTitle =>
-      'Schedule Conflict Detected!';
+  String get adminUpsertBlockedPeriodScreenTargetMenuTitle => 'Target Menu';
 
   @override
-  String get adminUpsertBlockedPeriodScreenCreateConflictAlertMessage =>
-      'The entered period overlaps with the following schedule(s):';
+  String get adminUpsertBlockedPeriodScreenTargetMenuDescription =>
+      'Choose whether to block all menus or a specific menu';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenReasonTitle => 'Reason Information';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenReasonEnLabel => 'Reason (English)';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenReasonEnPlaceholder =>
+      'e.g., Regular maintenance, holiday, private event, etc.';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenReasonJaLabel => 'Reason (Japanese)';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenReasonJaPlaceholder =>
+      'Optional Japanese translation';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenDurationTitle => 'Duration Settings';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenDurationPresetLabel =>
+      'Duration Preset';
 
   @override
   String get adminUpsertBlockedPeriodScreenEditPageTitle =>
@@ -1267,6 +1290,20 @@ class L10nId extends L10n {
       'Delete';
 
   @override
+  String get adminListBlockedPeriodScreenTableEmptyTitle =>
+      'No blocked periods';
+
+  @override
+  String get adminListBlockedPeriodScreenTableEmptyMessage =>
+      'No blocked periods have been created or match the applied filters.';
+
+  @override
+  String get adminListBlockedPeriodScreenTableRefreshButton => 'Refresh';
+
+  @override
+  String get adminListBlockedPeriodScreenTableNotAvailable => 'N/A';
+
+  @override
   String get adminListBlockedPeriodScreenEmptyTitle => 'No blocked periods';
 
   @override
@@ -1391,6 +1428,113 @@ class L10nId extends L10n {
   @override
   String get adminListBlockedPeriodScreenDetailDeleteModalConfirmButton =>
       'Yes, Delete';
+
+  @override
+  String get adminUpsertMenuScreenEditTitle => 'Edit Menu';
+
+  @override
+  String get adminUpsertMenuScreenEditSubtitle => 'Update menu information';
+
+  @override
+  String get adminUpsertMenuScreenAddSubtitle =>
+      'Create a new service menu for customers';
+
+  @override
+  String get adminUpsertMenuScreenEnglishInfo => 'English Information';
+
+  @override
+  String get adminUpsertMenuScreenMenuNameEn => 'Menu Name (English)';
+
+  @override
+  String get adminUpsertMenuScreenDescriptionEn => 'Description (English)';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderNameEn =>
+      'Enter menu name in English';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderDescEn =>
+      'Enter menu description in English...';
+
+  @override
+  String get adminUpsertMenuScreenJapaneseInfo => 'Japanese Information';
+
+  @override
+  String get adminUpsertMenuScreenMenuNameJa => 'Menu Name (Japanese)';
+
+  @override
+  String get adminUpsertMenuScreenDescriptionJa => 'Description (Japanese)';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderNameJa =>
+      'Enter menu name in Japanese';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderDescJa =>
+      'Enter menu description in Japanese...';
+
+  @override
+  String get adminUpsertMenuScreenBasicSettings => 'Basic Settings';
+
+  @override
+  String get adminUpsertMenuScreenFormRequiredTime => 'Required Time (minutes)';
+
+  @override
+  String get adminUpsertMenuScreenFormPrice => 'Price (\$)';
+
+  @override
+  String get adminUpsertMenuScreenHelpRequiredTime =>
+      'Estimated processing time in minutes';
+
+  @override
+  String get adminUpsertMenuScreenVisualSettings => 'Visual Settings';
+
+  @override
+  String get adminUpsertMenuScreenHelpColor =>
+      'This color will be used for the menu display';
+
+  @override
+  String get adminUpsertMenuScreenStatusSettings => 'Status Settings';
+
+  @override
+  String get adminUpsertMenuScreenFormActiveStatus => 'Active Status';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalTitle => 'Delete Menu';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalContent =>
+      'Are you sure you want to delete this menu? This action cannot be undone.';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalCancelButton => 'Cancel';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalDeleteButton => 'Delete';
+
+  @override
+  String get adminUpsertMenuScreenBack => 'Back';
+
+  @override
+  String get adminUpsertMenuScreenUpdateMenu => 'Update Menu';
+
+  @override
+  String get adminUpsertMenuScreenSaveMenu => 'Save Menu';
+
+  @override
+  String get adminListBlockedPeriodScreenStatsErrorMessage =>
+      'Failed to load statistics';
+
+  @override
+  String get adminListBlockedPeriodScreenStatsNoDataMessage =>
+      'No statistics available';
+
+  @override
+  String get adminListBlockedPeriodScreenTablePaginationPrevious =>
+      'Previous Page';
+
+  @override
+  String get adminListBlockedPeriodScreenTablePaginationNext => 'Next Page';
 
   @override
   String get adminUpsertBusinessInformationScreenPageTitle =>
@@ -3871,86 +4015,7 @@ class L10nId extends L10n {
   String get adminListMenuScreenJsMessagesOk => 'OK';
 
   @override
-  String get adminUpsertMenuScreenAddSubtitle =>
-      'Create a new service menu for customers';
-
-  @override
-  String get adminUpsertMenuScreenEditTitle => 'Edit Menu';
-
-  @override
-  String get adminUpsertMenuScreenEditSubtitle => 'Update menu information';
-
-  @override
   String get adminUpsertMenuScreenViewMenu => 'View Menu';
-
-  @override
-  String get adminUpsertMenuScreenBack => 'Back';
-
-  @override
-  String get adminUpsertMenuScreenSaveMenu => 'Save Menu';
-
-  @override
-  String get adminUpsertMenuScreenUpdateMenu => 'Update Menu';
-
-  @override
-  String get adminUpsertMenuScreenEnglishInfo => 'English Information';
-
-  @override
-  String get adminUpsertMenuScreenJapaneseInfo => 'Japanese Information';
-
-  @override
-  String get adminUpsertMenuScreenMenuNameEn => 'Menu Name (English)';
-
-  @override
-  String get adminUpsertMenuScreenDescriptionEn => 'Description (English)';
-
-  @override
-  String get adminUpsertMenuScreenMenuNameJa => 'Menu Name (Japanese)';
-
-  @override
-  String get adminUpsertMenuScreenDescriptionJa => 'Description (Japanese)';
-
-  @override
-  String get adminUpsertMenuScreenPlaceholderNameEn =>
-      'Enter menu name in English';
-
-  @override
-  String get adminUpsertMenuScreenPlaceholderDescEn =>
-      'Enter menu description in English...';
-
-  @override
-  String get adminUpsertMenuScreenPlaceholderNameJa =>
-      'Enter menu name in Japanese';
-
-  @override
-  String get adminUpsertMenuScreenPlaceholderDescJa =>
-      'Enter menu description in Japanese...';
-
-  @override
-  String get adminUpsertMenuScreenBasicSettings => 'Basic Settings';
-
-  @override
-  String get adminUpsertMenuScreenFormRequiredTime => 'Required Time (minutes)';
-
-  @override
-  String get adminUpsertMenuScreenHelpRequiredTime =>
-      'Estimated processing time in minutes';
-
-  @override
-  String get adminUpsertMenuScreenFormPrice => 'Price (\$)';
-
-  @override
-  String get adminUpsertMenuScreenVisualSettings => 'Visual Settings';
-
-  @override
-  String get adminUpsertMenuScreenHelpColor =>
-      'This color will be used for the menu display';
-
-  @override
-  String get adminUpsertMenuScreenStatusSettings => 'Status Settings';
-
-  @override
-  String get adminUpsertMenuScreenFormActiveStatus => 'Active Status';
 
   @override
   String get adminUpsertMenuScreenHelpActiveStatus =>
@@ -4013,19 +4078,6 @@ class L10nId extends L10n {
   @override
   String get adminUpsertMenuScreenHelpInactiveStatus =>
       'Menu will not be visible to customers';
-
-  @override
-  String get adminUpsertMenuScreenDeleteModalTitle => 'Delete Menu';
-
-  @override
-  String get adminUpsertMenuScreenDeleteModalContent =>
-      'Are you sure you want to delete this menu? This action cannot be undone.';
-
-  @override
-  String get adminUpsertMenuScreenDeleteModalCancelButton => 'Cancel';
-
-  @override
-  String get adminUpsertMenuScreenDeleteModalDeleteButton => 'Delete';
 
   @override
   String get menuNotificationCreated => 'Menu created successfully.';

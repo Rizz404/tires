@@ -12,10 +12,10 @@ extension BlockedPeriodModelMapper on BlockedPeriodModel {
       startDatetime: startDatetime,
       endDatetime: endDatetime,
       reason: reason,
-      allMenus: allMenus,
+      allMenuForBlockedPeriods: allMenuForBlockedPeriods,
       createdAt: createdAt,
       updatedAt: updatedAt,
-      menu: (menu as MenuModel?)?.toEntity(),
+      menu: (menu as MenuModelForBlockedPeriod?)?.toEntity(),
       duration: (duration as DurationModel).toEntity(),
       status: status,
       translations: (translations as BlockedPeriodTranslationModel?)
@@ -25,9 +25,9 @@ extension BlockedPeriodModelMapper on BlockedPeriodModel {
   }
 }
 
-extension MenuModelMapper on MenuModel {
-  Menu toEntity() {
-    return Menu(id: id, name: name, color: color);
+extension MenuModelForBlockedPeriodMapper on MenuModelForBlockedPeriod {
+  MenuForBlockedPeriod toEntity() {
+    return MenuForBlockedPeriod(id: id, name: name, color: color);
   }
 }
 
@@ -86,7 +86,7 @@ extension BlockedPeriodEntityMapper on BlockedPeriod {
       startDatetime: startDatetime,
       endDatetime: endDatetime,
       reason: reason,
-      allMenus: allMenus,
+      allMenuForBlockedPeriods: allMenuForBlockedPeriods,
       createdAt: createdAt,
       updatedAt: updatedAt,
       menu: menu?.toModel(),
@@ -98,9 +98,9 @@ extension BlockedPeriodEntityMapper on BlockedPeriod {
   }
 }
 
-extension MenuEntityMapper on Menu {
-  MenuModel toModel() {
-    return MenuModel(id: id, name: name, color: color);
+extension MenuEntityMapper on MenuForBlockedPeriod {
+  MenuModelForBlockedPeriod toModel() {
+    return MenuModelForBlockedPeriod(id: id, name: name, color: color);
   }
 }
 

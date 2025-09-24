@@ -8,9 +8,9 @@ import 'package:tires/features/menu/presentation/providers/menu_mutation_state.d
 import 'package:tires/features/menu/presentation/providers/menu_providers.dart';
 
 class MenuMutationNotifier extends Notifier<MenuMutationState> {
-  late final CreateMenuUsecase _createMenuUsecase;
-  late final UpdateMenuUsecase _updateMenuUsecase;
-  late final DeleteMenuUsecase _deleteMenuUsecase;
+  late CreateMenuUsecase _createMenuUsecase;
+  late UpdateMenuUsecase _updateMenuUsecase;
+  late DeleteMenuUsecase _deleteMenuUsecase;
 
   @override
   MenuMutationState build() {

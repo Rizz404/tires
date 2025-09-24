@@ -7,10 +7,10 @@ class BlockedPeriod extends Equatable {
   final DateTime startDatetime;
   final DateTime endDatetime;
   final String reason;
-  final bool allMenus;
+  final bool allMenuForBlockedPeriods;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final Menu? menu;
+  final MenuForBlockedPeriod? menu;
   final Duration duration;
   final String status;
   final BlockedPeriodTranslation? translations;
@@ -22,7 +22,7 @@ class BlockedPeriod extends Equatable {
     required this.startDatetime,
     required this.endDatetime,
     required this.reason,
-    required this.allMenus,
+    required this.allMenuForBlockedPeriods,
     required this.createdAt,
     required this.updatedAt,
     this.menu,
@@ -34,28 +34,28 @@ class BlockedPeriod extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        menuId,
-        startDatetime,
-        endDatetime,
-        reason,
-        allMenus,
-        createdAt,
-        updatedAt,
-        menu,
-        duration,
-        status,
-        translations,
-        meta,
-      ];
+    id,
+    menuId,
+    startDatetime,
+    endDatetime,
+    reason,
+    allMenuForBlockedPeriods,
+    createdAt,
+    updatedAt,
+    menu,
+    duration,
+    status,
+    translations,
+    meta,
+  ];
 }
 
-class Menu extends Equatable {
+class MenuForBlockedPeriod extends Equatable {
   final int id;
   final String name;
   final String color;
 
-  const Menu({
+  const MenuForBlockedPeriod({
     required this.id,
     required this.name,
     required this.color,
@@ -86,10 +86,7 @@ class Meta extends Equatable {
   final String locale;
   final bool fallbackUsed;
 
-  const Meta({
-    required this.locale,
-    required this.fallbackUsed,
-  });
+  const Meta({required this.locale, required this.fallbackUsed});
 
   @override
   List<Object> get props => [locale, fallbackUsed];

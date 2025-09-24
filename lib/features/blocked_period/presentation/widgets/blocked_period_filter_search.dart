@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
@@ -30,16 +31,23 @@ class BlockedPeriodFilterSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final menuItems = [
-      const AppDropdownItem<int>(value: 0, label: 'All Menus'),
+      AppDropdownItem<int>(
+        value: 0,
+        label: context.l10n.adminListBlockedPeriodScreenFiltersMenuAll,
+      ),
       ...menus.map(
         (menu) => AppDropdownItem<int>(value: menu.id, label: menu.name),
       ),
     ];
 
     final statusItems = AppDropdownExtensions.createFilterItems(
-      allLabel: 'All Statuses',
+      allLabel: context.l10n.adminListBlockedPeriodScreenFiltersStatusAll,
       filterValues: ['active', 'upcoming', 'expired'],
-      filterLabels: ['Active', 'Upcoming', 'Expired'],
+      filterLabels: [
+        context.l10n.adminListBlockedPeriodScreenFiltersStatusActive,
+        context.l10n.adminListBlockedPeriodScreenFiltersStatusUpcoming,
+        context.l10n.adminListBlockedPeriodScreenFiltersStatusExpired,
+      ],
       filterIcons: [
         Icons.play_circle_fill_outlined,
         Icons.timelapse_outlined,
@@ -62,8 +70,8 @@ class BlockedPeriodFilterSearch extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const AppText(
-                  'Filter & Search',
+                AppText(
+                  context.l10n.adminListBlockedPeriodScreenFiltersTitle,
                   style: AppTextStyle.titleLarge,
                 ),
                 TextButton.icon(
@@ -74,7 +82,9 @@ class BlockedPeriodFilterSearch extends StatelessWidget {
                         : Icons.visibility_outlined,
                   ),
                   label: AppText(
-                    isFilterVisible ? 'Hide Filters' : 'Show Filters',
+                    isFilterVisible
+                        ? context.l10n.adminListBlockedPeriodScreenFiltersHide
+                        : context.l10n.adminListBlockedPeriodScreenFiltersShow,
                   ),
                 ),
               ],
@@ -91,7 +101,9 @@ class BlockedPeriodFilterSearch extends StatelessWidget {
                         Expanded(
                           child: AppDropdown<int>(
                             name: 'menu_id',
-                            label: 'Menu',
+                            label: context
+                                .l10n
+                                .adminListBlockedPeriodScreenFiltersMenuLabel,
                             initialValue: 0,
                             items: menuItems,
                           ),
@@ -100,7 +112,9 @@ class BlockedPeriodFilterSearch extends StatelessWidget {
                         Expanded(
                           child: AppDropdown<String>(
                             name: 'status',
-                            label: 'Status',
+                            label: context
+                                .l10n
+                                .adminListBlockedPeriodScreenFiltersStatusLabel,
                             initialValue: 'all',
                             items: statusItems,
                           ),
@@ -108,34 +122,46 @@ class BlockedPeriodFilterSearch extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    const Row(
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: AppDateTimePicker(
                             name: 'start_date',
-                            label: 'Start Date',
+                            label: context
+                                .l10n
+                                .adminListBlockedPeriodScreenFiltersStartDateLabel,
                           ),
                         ),
                         SizedBox(width: 16),
                         Expanded(
                           child: AppDateTimePicker(
                             name: 'end_date',
-                            label: 'End Date',
+                            label: context
+                                .l10n
+                                .adminListBlockedPeriodScreenFiltersEndDateLabel,
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 8),
-                    const AppCheckbox(
+                    AppCheckbox(
                       name: 'all_menus',
-                      title: AppText('Show periods blocking all menus only'),
+                      title: AppText(
+                        context
+                            .l10n
+                            .adminListBlockedPeriodScreenFiltersAllMenusLabel,
+                      ),
                     ),
                     const SizedBox(height: 16),
-                    const AppSearchField(
+                    AppSearchField(
                       name: 'search',
-                      label: 'Search by Reason',
-                      hintText: 'Enter reason keyword...',
+                      label: context
+                          .l10n
+                          .adminListBlockedPeriodScreenFiltersSearchLabel,
+                      hintText: context
+                          .l10n
+                          .adminListBlockedPeriodScreenFiltersSearchPlaceholder,
                     ),
                     const SizedBox(height: 20),
                     Row(
@@ -143,14 +169,18 @@ class BlockedPeriodFilterSearch extends StatelessWidget {
                       children: [
                         AppButton(
                           onPressed: onReset,
-                          text: 'Reset',
+                          text: context
+                              .l10n
+                              .adminListBlockedPeriodScreenFiltersResetButton,
                           color: AppButtonColor.neutral,
                           isFullWidth: false,
                         ),
                         const SizedBox(width: 8),
                         AppButton(
                           onPressed: onFilter,
-                          text: 'Filter',
+                          text: context
+                              .l10n
+                              .adminListBlockedPeriodScreenFiltersFilterButton,
                           color: AppButtonColor.primary,
                           isFullWidth: false,
                         ),

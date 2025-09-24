@@ -1977,17 +1977,59 @@ abstract class L10n {
   /// **'e.g., Regular maintenance, holiday, private event, etc.'**
   String get adminUpsertBlockedPeriodScreenCreateFormReasonPlaceholder;
 
-  /// No description provided for @adminUpsertBlockedPeriodScreenConflictAlertTitle.
+  /// No description provided for @adminUpsertBlockedPeriodScreenTargetMenuTitle.
   ///
   /// In en, this message translates to:
-  /// **'Schedule Conflict Detected!'**
-  String get adminUpsertBlockedPeriodScreenConflictAlertTitle;
+  /// **'Target Menu'**
+  String get adminUpsertBlockedPeriodScreenTargetMenuTitle;
 
-  /// No description provided for @adminUpsertBlockedPeriodScreenCreateConflictAlertMessage.
+  /// No description provided for @adminUpsertBlockedPeriodScreenTargetMenuDescription.
   ///
   /// In en, this message translates to:
-  /// **'The entered period overlaps with the following schedule(s):'**
-  String get adminUpsertBlockedPeriodScreenCreateConflictAlertMessage;
+  /// **'Choose whether to block all menus or a specific menu'**
+  String get adminUpsertBlockedPeriodScreenTargetMenuDescription;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenReasonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason Information'**
+  String get adminUpsertBlockedPeriodScreenReasonTitle;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenReasonEnLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason (English)'**
+  String get adminUpsertBlockedPeriodScreenReasonEnLabel;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenReasonEnPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Regular maintenance, holiday, private event, etc.'**
+  String get adminUpsertBlockedPeriodScreenReasonEnPlaceholder;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenReasonJaLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason (Japanese)'**
+  String get adminUpsertBlockedPeriodScreenReasonJaLabel;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenReasonJaPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional Japanese translation'**
+  String get adminUpsertBlockedPeriodScreenReasonJaPlaceholder;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenDurationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration Settings'**
+  String get adminUpsertBlockedPeriodScreenDurationTitle;
+
+  /// No description provided for @adminUpsertBlockedPeriodScreenDurationPresetLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration Preset'**
+  String get adminUpsertBlockedPeriodScreenDurationPresetLabel;
 
   /// No description provided for @adminUpsertBlockedPeriodScreenEditPageTitle.
   ///
@@ -2265,6 +2307,30 @@ abstract class L10n {
   /// **'Delete'**
   String get adminListBlockedPeriodScreenTableBodyActionTooltipsDelete;
 
+  /// No description provided for @adminListBlockedPeriodScreenTableEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No blocked periods'**
+  String get adminListBlockedPeriodScreenTableEmptyTitle;
+
+  /// No description provided for @adminListBlockedPeriodScreenTableEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No blocked periods have been created or match the applied filters.'**
+  String get adminListBlockedPeriodScreenTableEmptyMessage;
+
+  /// No description provided for @adminListBlockedPeriodScreenTableRefreshButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get adminListBlockedPeriodScreenTableRefreshButton;
+
+  /// No description provided for @adminListBlockedPeriodScreenTableNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'N/A'**
+  String get adminListBlockedPeriodScreenTableNotAvailable;
+
   /// No description provided for @adminListBlockedPeriodScreenEmptyTitle.
   ///
   /// In en, this message translates to:
@@ -2480,6 +2546,198 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Yes, Delete'**
   String get adminListBlockedPeriodScreenDetailDeleteModalConfirmButton;
+
+  /// No description provided for @adminUpsertMenuScreenEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Menu'**
+  String get adminUpsertMenuScreenEditTitle;
+
+  /// No description provided for @adminUpsertMenuScreenEditSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Update menu information'**
+  String get adminUpsertMenuScreenEditSubtitle;
+
+  /// No description provided for @adminUpsertMenuScreenAddSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new service menu for customers'**
+  String get adminUpsertMenuScreenAddSubtitle;
+
+  /// No description provided for @adminUpsertMenuScreenEnglishInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'English Information'**
+  String get adminUpsertMenuScreenEnglishInfo;
+
+  /// No description provided for @adminUpsertMenuScreenMenuNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu Name (English)'**
+  String get adminUpsertMenuScreenMenuNameEn;
+
+  /// No description provided for @adminUpsertMenuScreenDescriptionEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (English)'**
+  String get adminUpsertMenuScreenDescriptionEn;
+
+  /// No description provided for @adminUpsertMenuScreenPlaceholderNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter menu name in English'**
+  String get adminUpsertMenuScreenPlaceholderNameEn;
+
+  /// No description provided for @adminUpsertMenuScreenPlaceholderDescEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter menu description in English...'**
+  String get adminUpsertMenuScreenPlaceholderDescEn;
+
+  /// No description provided for @adminUpsertMenuScreenJapaneseInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese Information'**
+  String get adminUpsertMenuScreenJapaneseInfo;
+
+  /// No description provided for @adminUpsertMenuScreenMenuNameJa.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu Name (Japanese)'**
+  String get adminUpsertMenuScreenMenuNameJa;
+
+  /// No description provided for @adminUpsertMenuScreenDescriptionJa.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Japanese)'**
+  String get adminUpsertMenuScreenDescriptionJa;
+
+  /// No description provided for @adminUpsertMenuScreenPlaceholderNameJa.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter menu name in Japanese'**
+  String get adminUpsertMenuScreenPlaceholderNameJa;
+
+  /// No description provided for @adminUpsertMenuScreenPlaceholderDescJa.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter menu description in Japanese...'**
+  String get adminUpsertMenuScreenPlaceholderDescJa;
+
+  /// No description provided for @adminUpsertMenuScreenBasicSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Settings'**
+  String get adminUpsertMenuScreenBasicSettings;
+
+  /// No description provided for @adminUpsertMenuScreenFormRequiredTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Required Time (minutes)'**
+  String get adminUpsertMenuScreenFormRequiredTime;
+
+  /// No description provided for @adminUpsertMenuScreenFormPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price (\$)'**
+  String get adminUpsertMenuScreenFormPrice;
+
+  /// No description provided for @adminUpsertMenuScreenHelpRequiredTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated processing time in minutes'**
+  String get adminUpsertMenuScreenHelpRequiredTime;
+
+  /// No description provided for @adminUpsertMenuScreenVisualSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Visual Settings'**
+  String get adminUpsertMenuScreenVisualSettings;
+
+  /// No description provided for @adminUpsertMenuScreenHelpColor.
+  ///
+  /// In en, this message translates to:
+  /// **'This color will be used for the menu display'**
+  String get adminUpsertMenuScreenHelpColor;
+
+  /// No description provided for @adminUpsertMenuScreenStatusSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Status Settings'**
+  String get adminUpsertMenuScreenStatusSettings;
+
+  /// No description provided for @adminUpsertMenuScreenFormActiveStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Active Status'**
+  String get adminUpsertMenuScreenFormActiveStatus;
+
+  /// No description provided for @adminUpsertMenuScreenDeleteModalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Menu'**
+  String get adminUpsertMenuScreenDeleteModalTitle;
+
+  /// No description provided for @adminUpsertMenuScreenDeleteModalContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this menu? This action cannot be undone.'**
+  String get adminUpsertMenuScreenDeleteModalContent;
+
+  /// No description provided for @adminUpsertMenuScreenDeleteModalCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminUpsertMenuScreenDeleteModalCancelButton;
+
+  /// No description provided for @adminUpsertMenuScreenDeleteModalDeleteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminUpsertMenuScreenDeleteModalDeleteButton;
+
+  /// No description provided for @adminUpsertMenuScreenBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get adminUpsertMenuScreenBack;
+
+  /// No description provided for @adminUpsertMenuScreenUpdateMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Menu'**
+  String get adminUpsertMenuScreenUpdateMenu;
+
+  /// No description provided for @adminUpsertMenuScreenSaveMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Menu'**
+  String get adminUpsertMenuScreenSaveMenu;
+
+  /// No description provided for @adminListBlockedPeriodScreenStatsErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load statistics'**
+  String get adminListBlockedPeriodScreenStatsErrorMessage;
+
+  /// No description provided for @adminListBlockedPeriodScreenStatsNoDataMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No statistics available'**
+  String get adminListBlockedPeriodScreenStatsNoDataMessage;
+
+  /// No description provided for @adminListBlockedPeriodScreenTablePaginationPrevious.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous Page'**
+  String get adminListBlockedPeriodScreenTablePaginationPrevious;
+
+  /// No description provided for @adminListBlockedPeriodScreenTablePaginationNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Page'**
+  String get adminListBlockedPeriodScreenTablePaginationNext;
 
   /// No description provided for @adminUpsertBusinessInformationScreenPageTitle.
   ///
@@ -6753,155 +7011,11 @@ abstract class L10n {
   /// **'OK'**
   String get adminListMenuScreenJsMessagesOk;
 
-  /// No description provided for @adminUpsertMenuScreenAddSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Create a new service menu for customers'**
-  String get adminUpsertMenuScreenAddSubtitle;
-
-  /// No description provided for @adminUpsertMenuScreenEditTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Edit Menu'**
-  String get adminUpsertMenuScreenEditTitle;
-
-  /// No description provided for @adminUpsertMenuScreenEditSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Update menu information'**
-  String get adminUpsertMenuScreenEditSubtitle;
-
   /// No description provided for @adminUpsertMenuScreenViewMenu.
   ///
   /// In en, this message translates to:
   /// **'View Menu'**
   String get adminUpsertMenuScreenViewMenu;
-
-  /// No description provided for @adminUpsertMenuScreenBack.
-  ///
-  /// In en, this message translates to:
-  /// **'Back'**
-  String get adminUpsertMenuScreenBack;
-
-  /// No description provided for @adminUpsertMenuScreenSaveMenu.
-  ///
-  /// In en, this message translates to:
-  /// **'Save Menu'**
-  String get adminUpsertMenuScreenSaveMenu;
-
-  /// No description provided for @adminUpsertMenuScreenUpdateMenu.
-  ///
-  /// In en, this message translates to:
-  /// **'Update Menu'**
-  String get adminUpsertMenuScreenUpdateMenu;
-
-  /// No description provided for @adminUpsertMenuScreenEnglishInfo.
-  ///
-  /// In en, this message translates to:
-  /// **'English Information'**
-  String get adminUpsertMenuScreenEnglishInfo;
-
-  /// No description provided for @adminUpsertMenuScreenJapaneseInfo.
-  ///
-  /// In en, this message translates to:
-  /// **'Japanese Information'**
-  String get adminUpsertMenuScreenJapaneseInfo;
-
-  /// No description provided for @adminUpsertMenuScreenMenuNameEn.
-  ///
-  /// In en, this message translates to:
-  /// **'Menu Name (English)'**
-  String get adminUpsertMenuScreenMenuNameEn;
-
-  /// No description provided for @adminUpsertMenuScreenDescriptionEn.
-  ///
-  /// In en, this message translates to:
-  /// **'Description (English)'**
-  String get adminUpsertMenuScreenDescriptionEn;
-
-  /// No description provided for @adminUpsertMenuScreenMenuNameJa.
-  ///
-  /// In en, this message translates to:
-  /// **'Menu Name (Japanese)'**
-  String get adminUpsertMenuScreenMenuNameJa;
-
-  /// No description provided for @adminUpsertMenuScreenDescriptionJa.
-  ///
-  /// In en, this message translates to:
-  /// **'Description (Japanese)'**
-  String get adminUpsertMenuScreenDescriptionJa;
-
-  /// No description provided for @adminUpsertMenuScreenPlaceholderNameEn.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter menu name in English'**
-  String get adminUpsertMenuScreenPlaceholderNameEn;
-
-  /// No description provided for @adminUpsertMenuScreenPlaceholderDescEn.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter menu description in English...'**
-  String get adminUpsertMenuScreenPlaceholderDescEn;
-
-  /// No description provided for @adminUpsertMenuScreenPlaceholderNameJa.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter menu name in Japanese'**
-  String get adminUpsertMenuScreenPlaceholderNameJa;
-
-  /// No description provided for @adminUpsertMenuScreenPlaceholderDescJa.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter menu description in Japanese...'**
-  String get adminUpsertMenuScreenPlaceholderDescJa;
-
-  /// No description provided for @adminUpsertMenuScreenBasicSettings.
-  ///
-  /// In en, this message translates to:
-  /// **'Basic Settings'**
-  String get adminUpsertMenuScreenBasicSettings;
-
-  /// No description provided for @adminUpsertMenuScreenFormRequiredTime.
-  ///
-  /// In en, this message translates to:
-  /// **'Required Time (minutes)'**
-  String get adminUpsertMenuScreenFormRequiredTime;
-
-  /// No description provided for @adminUpsertMenuScreenHelpRequiredTime.
-  ///
-  /// In en, this message translates to:
-  /// **'Estimated processing time in minutes'**
-  String get adminUpsertMenuScreenHelpRequiredTime;
-
-  /// No description provided for @adminUpsertMenuScreenFormPrice.
-  ///
-  /// In en, this message translates to:
-  /// **'Price (\$)'**
-  String get adminUpsertMenuScreenFormPrice;
-
-  /// No description provided for @adminUpsertMenuScreenVisualSettings.
-  ///
-  /// In en, this message translates to:
-  /// **'Visual Settings'**
-  String get adminUpsertMenuScreenVisualSettings;
-
-  /// No description provided for @adminUpsertMenuScreenHelpColor.
-  ///
-  /// In en, this message translates to:
-  /// **'This color will be used for the menu display'**
-  String get adminUpsertMenuScreenHelpColor;
-
-  /// No description provided for @adminUpsertMenuScreenStatusSettings.
-  ///
-  /// In en, this message translates to:
-  /// **'Status Settings'**
-  String get adminUpsertMenuScreenStatusSettings;
-
-  /// No description provided for @adminUpsertMenuScreenFormActiveStatus.
-  ///
-  /// In en, this message translates to:
-  /// **'Active Status'**
-  String get adminUpsertMenuScreenFormActiveStatus;
 
   /// No description provided for @adminUpsertMenuScreenHelpActiveStatus.
   ///
@@ -7022,30 +7136,6 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Menu will not be visible to customers'**
   String get adminUpsertMenuScreenHelpInactiveStatus;
-
-  /// No description provided for @adminUpsertMenuScreenDeleteModalTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Delete Menu'**
-  String get adminUpsertMenuScreenDeleteModalTitle;
-
-  /// No description provided for @adminUpsertMenuScreenDeleteModalContent.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you sure you want to delete this menu? This action cannot be undone.'**
-  String get adminUpsertMenuScreenDeleteModalContent;
-
-  /// No description provided for @adminUpsertMenuScreenDeleteModalCancelButton.
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel'**
-  String get adminUpsertMenuScreenDeleteModalCancelButton;
-
-  /// No description provided for @adminUpsertMenuScreenDeleteModalDeleteButton.
-  ///
-  /// In en, this message translates to:
-  /// **'Delete'**
-  String get adminUpsertMenuScreenDeleteModalDeleteButton;
 
   /// No description provided for @menuNotificationCreated.
   ///

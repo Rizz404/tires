@@ -10,6 +10,7 @@ import 'package:tires/features/authentication/presentation/screens/login_screen.
 import 'package:tires/features/authentication/presentation/screens/register_screen.dart';
 import 'package:tires/features/authentication/presentation/screens/set_new_password_screen.dart';
 import 'package:tires/features/availability/presentation/screens/admin_list_availability_screen.dart';
+import 'package:tires/features/blocked_period/domain/entities/blocked_period.dart';
 import 'package:tires/features/blocked_period/presentation/screens/admin_list_blocked_period_screen.dart';
 import 'package:tires/features/blocked_period/presentation/screens/admin_upsert_blocked_period_screen.dart';
 import 'package:tires/features/business_information/domain/entities/business_information.dart';
@@ -36,7 +37,6 @@ import 'package:tires/features/reservation/presentation/screens/my_reservations_
 import 'package:tires/features/reservation/presentation/screens/reservation_summary_screen.dart';
 import 'package:tires/features/static/presentation/screens/privacy_policy_screen.dart';
 import 'package:tires/features/static/presentation/screens/terms_of_service_screen.dart';
-import 'package:tires/features/user/domain/entities/blocked_period.dart';
 import 'package:tires/shared/presentation/widgets/admin_tab_screen.dart';
 import 'package:tires/shared/presentation/widgets/user_tab_screen.dart';
 

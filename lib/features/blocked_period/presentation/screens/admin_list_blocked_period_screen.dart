@@ -2,7 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
+import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/blocked_period/presentation/widgets/blocked_period_filter_search.dart';
 import 'package:tires/features/blocked_period/presentation/widgets/blocked_period_table_widget.dart';
 import 'package:tires/features/blocked_period/presentation/providers/blocked_periods_state.dart';
@@ -137,14 +139,14 @@ class _AdminListBlockedPeriodScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const AppText(
-            'Blocked Periods Management',
+          AppText(
+            context.l10n.adminListBlockedPeriodScreenPageTitle,
             style: AppTextStyle.headlineMedium,
             fontWeight: FontWeight.bold,
           ),
           const SizedBox(height: 4),
           AppText(
-            'Manage blocked time periods for reservations',
+            context.l10n.adminListBlockedPeriodScreenPageSubtitle,
             style: AppTextStyle.bodyLarge,
             color: context.colorScheme.onSurface.withOpacity(0.7),
           ),
@@ -152,10 +154,10 @@ class _AdminListBlockedPeriodScreenState
           AppButton(
             color: AppButtonColor.primary,
             isFullWidth: false,
-            text: 'Add Period',
+            text: context.l10n.adminListBlockedPeriodScreenAddButton,
             leadingIcon: const Icon(Icons.add),
             onPressed: () {
-              // Navigate to create blocked period screen
+              context.router.push(AdminUpsertBlockedPeriodRoute());
             },
           ),
         ],
@@ -185,7 +187,8 @@ class _AdminListBlockedPeriodScreenState
               const Icon(Icons.error_outline, color: Colors.red, size: 32),
               const SizedBox(height: 8),
               Text(
-                statisticsState.errorMessage ?? 'Failed to load statistics',
+                statisticsState.errorMessage ??
+                    context.l10n.adminListBlockedPeriodScreenStatsErrorMessage,
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.red, fontSize: 12),
               ),
@@ -206,12 +209,12 @@ class _AdminListBlockedPeriodScreenState
 
     final statistics = statisticsState.statistics;
     if (statistics == null) {
-      return const SizedBox(
+      return SizedBox(
         height: 80,
         child: Center(
           child: Text(
-            'No statistics available',
-            style: TextStyle(fontSize: 12),
+            context.l10n.adminListBlockedPeriodScreenStatsNoDataMessage,
+            style: const TextStyle(fontSize: 12),
           ),
         ),
       );
@@ -221,28 +224,28 @@ class _AdminListBlockedPeriodScreenState
       mainAxisSize: MainAxisSize.min,
       children: [
         StatTile(
-          title: 'Total Periods',
+          title: context.l10n.adminListBlockedPeriodScreenStatsTotal,
           value: '${statistics.total}',
           icon: Icons.block,
           color: Colors.blue.shade100,
         ),
         const SizedBox(height: 12),
         StatTile(
-          title: 'Active Periods',
+          title: context.l10n.adminListBlockedPeriodScreenStatsActive,
           value: '${statistics.active}',
           icon: Icons.schedule,
           color: Colors.orange.shade100,
         ),
         const SizedBox(height: 12),
         StatTile(
-          title: 'Upcoming Periods',
+          title: context.l10n.adminListBlockedPeriodScreenStatsUpcoming,
           value: '${statistics.upcoming}',
           icon: Icons.upcoming,
           color: Colors.green.shade100,
         ),
         const SizedBox(height: 12),
         StatTile(
-          title: 'Expired Periods',
+          title: context.l10n.adminListBlockedPeriodScreenStatsExpired,
           value: '${statistics.expired}',
           icon: Icons.history,
           color: Colors.grey.shade100,

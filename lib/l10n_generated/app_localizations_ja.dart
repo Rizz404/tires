@@ -1043,12 +1043,33 @@ class L10nJa extends L10n {
       '例：定期メンテナンス、祝日、貸切イベントなど';
 
   @override
-  String get adminUpsertBlockedPeriodScreenConflictAlertTitle =>
-      'スケジュールの競合が検出されました！';
+  String get adminUpsertBlockedPeriodScreenTargetMenuTitle => '対象メニュー';
 
   @override
-  String get adminUpsertBlockedPeriodScreenCreateConflictAlertMessage =>
-      '入力された期間は、以下のスケジュールと重複しています：';
+  String get adminUpsertBlockedPeriodScreenTargetMenuDescription =>
+      'すべてのメニューをブロックするか、特定のメニューを選択してください';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenReasonTitle => '理由情報';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenReasonEnLabel => '理由（英語）';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenReasonEnPlaceholder =>
+      '例：定期メンテナンス、祝日、プライベートイベントなど';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenReasonJaLabel => '理由（日本語）';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenReasonJaPlaceholder => 'オプションの日本語訳';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenDurationTitle => '期間設定';
+
+  @override
+  String get adminUpsertBlockedPeriodScreenDurationPresetLabel => '期間プリセット';
 
   @override
   String get adminUpsertBlockedPeriodScreenEditPageTitle => 'ブロック期間の編集';
@@ -1197,6 +1218,19 @@ class L10nJa extends L10n {
   String get adminListBlockedPeriodScreenTableBodyActionTooltipsDelete => '削除';
 
   @override
+  String get adminListBlockedPeriodScreenTableEmptyTitle => 'ブロック期間がありません';
+
+  @override
+  String get adminListBlockedPeriodScreenTableEmptyMessage =>
+      '作成されたブロック期間がないか、適用されたフィルターに一致するものがありません。';
+
+  @override
+  String get adminListBlockedPeriodScreenTableRefreshButton => '更新';
+
+  @override
+  String get adminListBlockedPeriodScreenTableNotAvailable => '該当なし';
+
+  @override
   String get adminListBlockedPeriodScreenEmptyTitle => '予約不可期間がありません';
 
   @override
@@ -1316,6 +1350,103 @@ class L10nJa extends L10n {
   @override
   String get adminListBlockedPeriodScreenDetailDeleteModalConfirmButton =>
       'はい、削除します';
+
+  @override
+  String get adminUpsertMenuScreenEditTitle => 'メニューを編集';
+
+  @override
+  String get adminUpsertMenuScreenEditSubtitle => 'メニュー情報を更新します';
+
+  @override
+  String get adminUpsertMenuScreenAddSubtitle => '顧客向けの新しいサービスメニューを作成します';
+
+  @override
+  String get adminUpsertMenuScreenEnglishInfo => '英語情報';
+
+  @override
+  String get adminUpsertMenuScreenMenuNameEn => 'メニュー名（英語）';
+
+  @override
+  String get adminUpsertMenuScreenDescriptionEn => '説明（英語）';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderNameEn => 'メニュー名を英語で入力';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderDescEn => 'メニューの説明を英語で入力...';
+
+  @override
+  String get adminUpsertMenuScreenJapaneseInfo => '日本語情報';
+
+  @override
+  String get adminUpsertMenuScreenMenuNameJa => 'メニュー名（日本語）';
+
+  @override
+  String get adminUpsertMenuScreenDescriptionJa => '説明（日本語）';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderNameJa => 'メニュー名を日本語で入力';
+
+  @override
+  String get adminUpsertMenuScreenPlaceholderDescJa => 'メニューの説明を日本語で入力...';
+
+  @override
+  String get adminUpsertMenuScreenBasicSettings => '基本設定';
+
+  @override
+  String get adminUpsertMenuScreenFormRequiredTime => '所要時間（分）';
+
+  @override
+  String get adminUpsertMenuScreenFormPrice => '価格（円）';
+
+  @override
+  String get adminUpsertMenuScreenHelpRequiredTime => '推定処理時間を分単位で入力';
+
+  @override
+  String get adminUpsertMenuScreenVisualSettings => '表示設定';
+
+  @override
+  String get adminUpsertMenuScreenHelpColor => 'この色はメニュー表示に使用されます';
+
+  @override
+  String get adminUpsertMenuScreenStatusSettings => 'ステータス設定';
+
+  @override
+  String get adminUpsertMenuScreenFormActiveStatus => '有効ステータス';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalTitle => 'メニューを削除';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalContent =>
+      'このメニューを削除してもよろしいですか？この操作は元に戻せません。';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalCancelButton => 'キャンセル';
+
+  @override
+  String get adminUpsertMenuScreenDeleteModalDeleteButton => '削除';
+
+  @override
+  String get adminUpsertMenuScreenBack => '戻る';
+
+  @override
+  String get adminUpsertMenuScreenUpdateMenu => 'メニューを更新';
+
+  @override
+  String get adminUpsertMenuScreenSaveMenu => 'メニューを保存';
+
+  @override
+  String get adminListBlockedPeriodScreenStatsErrorMessage => '統計の読み込みに失敗しました';
+
+  @override
+  String get adminListBlockedPeriodScreenStatsNoDataMessage => '統計データがありません';
+
+  @override
+  String get adminListBlockedPeriodScreenTablePaginationPrevious => '前のページ';
+
+  @override
+  String get adminListBlockedPeriodScreenTablePaginationNext => '次のページ';
 
   @override
   String get adminUpsertBusinessInformationScreenPageTitle => '事業者設定の編集';
@@ -3651,79 +3782,7 @@ class L10nJa extends L10n {
   String get adminListMenuScreenJsMessagesOk => 'OK';
 
   @override
-  String get adminUpsertMenuScreenAddSubtitle => '顧客向けの新しいサービスメニューを作成します';
-
-  @override
-  String get adminUpsertMenuScreenEditTitle => 'メニューを編集';
-
-  @override
-  String get adminUpsertMenuScreenEditSubtitle => 'メニュー情報を更新します';
-
-  @override
   String get adminUpsertMenuScreenViewMenu => 'メニューを表示';
-
-  @override
-  String get adminUpsertMenuScreenBack => '戻る';
-
-  @override
-  String get adminUpsertMenuScreenSaveMenu => 'メニューを保存';
-
-  @override
-  String get adminUpsertMenuScreenUpdateMenu => 'メニューを更新';
-
-  @override
-  String get adminUpsertMenuScreenEnglishInfo => '英語情報';
-
-  @override
-  String get adminUpsertMenuScreenJapaneseInfo => '日本語情報';
-
-  @override
-  String get adminUpsertMenuScreenMenuNameEn => 'メニュー名（英語）';
-
-  @override
-  String get adminUpsertMenuScreenDescriptionEn => '説明（英語）';
-
-  @override
-  String get adminUpsertMenuScreenMenuNameJa => 'メニュー名（日本語）';
-
-  @override
-  String get adminUpsertMenuScreenDescriptionJa => '説明（日本語）';
-
-  @override
-  String get adminUpsertMenuScreenPlaceholderNameEn => 'メニュー名を英語で入力';
-
-  @override
-  String get adminUpsertMenuScreenPlaceholderDescEn => 'メニューの説明を英語で入力...';
-
-  @override
-  String get adminUpsertMenuScreenPlaceholderNameJa => 'メニュー名を日本語で入力';
-
-  @override
-  String get adminUpsertMenuScreenPlaceholderDescJa => 'メニューの説明を日本語で入力...';
-
-  @override
-  String get adminUpsertMenuScreenBasicSettings => '基本設定';
-
-  @override
-  String get adminUpsertMenuScreenFormRequiredTime => '所要時間（分）';
-
-  @override
-  String get adminUpsertMenuScreenHelpRequiredTime => '推定処理時間を分単位で入力';
-
-  @override
-  String get adminUpsertMenuScreenFormPrice => '価格（円）';
-
-  @override
-  String get adminUpsertMenuScreenVisualSettings => '表示設定';
-
-  @override
-  String get adminUpsertMenuScreenHelpColor => 'この色はメニュー表示に使用されます';
-
-  @override
-  String get adminUpsertMenuScreenStatusSettings => 'ステータス設定';
-
-  @override
-  String get adminUpsertMenuScreenFormActiveStatus => '有効ステータス';
 
   @override
   String get adminUpsertMenuScreenHelpActiveStatus => 'メニューが顧客に表示されます';
@@ -3784,19 +3843,6 @@ class L10nJa extends L10n {
 
   @override
   String get adminUpsertMenuScreenHelpInactiveStatus => 'メニューは顧客に表示されません';
-
-  @override
-  String get adminUpsertMenuScreenDeleteModalTitle => 'メニューを削除';
-
-  @override
-  String get adminUpsertMenuScreenDeleteModalContent =>
-      'このメニューを削除してもよろしいですか？この操作は元に戻せません。';
-
-  @override
-  String get adminUpsertMenuScreenDeleteModalCancelButton => 'キャンセル';
-
-  @override
-  String get adminUpsertMenuScreenDeleteModalDeleteButton => '削除';
 
   @override
   String get menuNotificationCreated => 'メニューが正常に作成されました。';

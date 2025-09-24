@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
+import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/blocked_period/domain/entities/blocked_period.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
@@ -83,7 +86,7 @@ class BlockedPeriodTableWidget extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             AppText(
-              'No blocked periods found',
+              context.l10n.adminListBlockedPeriodScreenTableEmptyMessage,
               style: AppTextStyle.bodyLarge,
               color: context.colorScheme.onSurface.withOpacity(0.6),
             ),
@@ -91,7 +94,9 @@ class BlockedPeriodTableWidget extends StatelessWidget {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: onRefresh,
-                child: const AppText('Refresh'),
+                child: AppText(
+                  context.l10n.adminListBlockedPeriodScreenTableRefreshButton,
+                ),
               ),
             ],
           ],
@@ -104,32 +109,50 @@ class BlockedPeriodTableWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       color: context.colorScheme.surface.withOpacity(0.5),
-      child: const Row(
+      child: Row(
         children: [
           SizedBox(
             width: 180,
-            child: AppText('MENU', fontWeight: FontWeight.bold),
+            child: AppText(
+              context.l10n.adminListBlockedPeriodScreenTableHeaderMenu,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(
             width: 200,
-            child: AppText('TIME PERIOD', fontWeight: FontWeight.bold),
+            child: AppText(
+              context.l10n.adminListBlockedPeriodScreenTableHeaderTime,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(
             width: 100,
-            child: AppText('DURATION', fontWeight: FontWeight.bold),
+            child: AppText(
+              context.l10n.adminListBlockedPeriodScreenTableHeaderDuration,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(
             width: 200,
-            child: AppText('REASON', fontWeight: FontWeight.bold),
+            child: AppText(
+              context.l10n.adminListBlockedPeriodScreenTableHeaderReason,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(
             width: 120,
-            child: AppText('STATUS', fontWeight: FontWeight.bold),
+            child: AppText(
+              context.l10n.adminListBlockedPeriodScreenTableHeaderStatus,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(
             width: 80,
             child: Center(
-              child: AppText('ACTION', fontWeight: FontWeight.bold),
+              child: AppText(
+                context.l10n.adminListBlockedPeriodScreenTableHeaderActions,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
@@ -201,8 +224,14 @@ class BlockedPeriodTableWidget extends StatelessWidget {
             child: Center(
               child: IconButton(
                 icon: const Icon(Icons.edit_outlined, size: 20),
-                onPressed: () {},
-                tooltip: 'Edit Period',
+                onPressed: () {
+                  context.router.push(
+                    AdminUpsertBlockedPeriodRoute(blockedPeriod: period),
+                  );
+                },
+                tooltip: context
+                    .l10n
+                    .adminListBlockedPeriodScreenTablePaginationPrevious,
               ),
             ),
           ),
@@ -212,7 +241,7 @@ class BlockedPeriodTableWidget extends StatelessWidget {
   }
 
   Widget _buildMenuColumn(BuildContext context, BlockedPeriod period) {
-    if (period.allMenus) {
+    if (period.allMenuForBlockedPeriods) {
       return Row(
         children: [
           Container(
@@ -237,7 +266,10 @@ class BlockedPeriodTableWidget extends StatelessWidget {
     }
 
     if (period.menu == null) {
-      return const AppText('N/A', color: Colors.grey);
+      return AppText(
+        context.l10n.adminListBlockedPeriodScreenTableNotAvailable,
+        color: Colors.grey,
+      );
     }
 
     // Parse menu color from hex string
@@ -278,15 +310,15 @@ class BlockedPeriodTableWidget extends StatelessWidget {
     final Color textColor;
 
     if (now.isAfter(period.startDatetime) && now.isBefore(period.endDatetime)) {
-      label = 'Active';
+      label = context.l10n.adminListBlockedPeriodScreenFiltersStatusActive;
       backgroundColor = Colors.green.shade100;
       textColor = Colors.green.shade800;
     } else if (now.isBefore(period.startDatetime)) {
-      label = 'Upcoming';
+      label = context.l10n.adminListBlockedPeriodScreenFiltersStatusUpcoming;
       backgroundColor = Colors.yellow.shade200;
       textColor = Colors.yellow.shade900;
     } else {
-      label = 'Expired';
+      label = context.l10n.adminListBlockedPeriodScreenFiltersStatusExpired;
       backgroundColor = Colors.grey.shade300;
       textColor = Colors.grey.shade800;
     }
@@ -318,14 +350,17 @@ class BlockedPeriodTableWidget extends StatelessWidget {
             onPressed: currentPage > 1
                 ? () => onPageChanged(currentPage - 1)
                 : null,
-            tooltip: 'Previous Page',
+            tooltip: context
+                .l10n
+                .adminListBlockedPeriodScreenTablePaginationPrevious,
           ),
           IconButton(
             icon: const Icon(Icons.chevron_right),
             onPressed: currentPage < totalPages
                 ? () => onPageChanged(currentPage + 1)
                 : null,
-            tooltip: 'Next Page',
+            tooltip:
+                context.l10n.adminListBlockedPeriodScreenTablePaginationNext,
           ),
         ],
       ),

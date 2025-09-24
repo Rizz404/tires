@@ -22,7 +22,6 @@ abstract class BlockedPeriodRepository {
   getBlockedPeriodStatistics();
 }
 
-// Parameter classes for type safety
 class CreateBlockedPeriodParams {
   final int? menuId;
   final DateTime startDatetime;

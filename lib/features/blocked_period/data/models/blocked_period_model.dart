@@ -9,7 +9,7 @@ class BlockedPeriodModel extends BlockedPeriod {
     required super.startDatetime,
     required super.endDatetime,
     required super.reason,
-    required super.allMenus,
+    required super.allMenuForBlockedPeriods,
     required super.createdAt,
     required super.updatedAt,
     super.menu,
@@ -27,11 +27,11 @@ class BlockedPeriodModel extends BlockedPeriod {
         startDatetime: DateTime.parse(map['start_datetime'] as String),
         endDatetime: DateTime.parse(map['end_datetime'] as String),
         reason: (map['reason'] as String?) ?? '',
-        allMenus: (map['all_menus'] as bool?) ?? false,
+        allMenuForBlockedPeriods: (map['all_menus'] as bool?) ?? false,
         createdAt: DateTime.parse(map['created_at'] as String),
         updatedAt: DateTime.parse(map['updated_at'] as String),
         menu: map['menu'] != null && map['menu'] is Map<String, dynamic>
-            ? MenuModel.fromMap(map['menu'])
+            ? MenuModelForBlockedPeriod.fromMap(map['menu'])
             : null,
         duration: DurationModel.fromMap(
           map['duration'] as Map<String, dynamic>,
@@ -64,10 +64,10 @@ class BlockedPeriodModel extends BlockedPeriod {
       'start_datetime': startDatetime.toIso8601String(),
       'end_datetime': endDatetime.toIso8601String(),
       'reason': reason,
-      'all_menus': allMenus,
+      'all_menus': allMenuForBlockedPeriods,
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
-      'menu': menu != null ? (menu as MenuModel).toMap() : null,
+      'menu': menu != null ? (menu as MenuModelForBlockedPeriod).toMap() : null,
       'duration': (duration as DurationModel).toMap(),
       'status': status,
       'translations': translations != null
@@ -80,15 +80,15 @@ class BlockedPeriodModel extends BlockedPeriod {
   String toJson() => json.encode(toMap());
 }
 
-class MenuModel extends Menu {
-  const MenuModel({
+class MenuModelForBlockedPeriod extends MenuForBlockedPeriod {
+  const MenuModelForBlockedPeriod({
     required super.id,
     required super.name,
     required super.color,
   });
 
-  factory MenuModel.fromMap(Map<String, dynamic> map) {
-    return MenuModel(
+  factory MenuModelForBlockedPeriod.fromMap(Map<String, dynamic> map) {
+    return MenuModelForBlockedPeriod(
       id: (map['id'] as int?) ?? 0,
       name: (map['name'] as String?) ?? '',
       color: (map['color'] as String?) ?? '',
