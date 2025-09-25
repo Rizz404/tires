@@ -13,6 +13,7 @@ import 'package:tires/features/menu/data/datasources/menu_remote_datasource.dart
 import 'package:tires/features/reservation/data/datasources/reservation_remote_datasource.dart';
 import 'package:tires/features/user/data/datasources/current_user_remote_datasource.dart';
 import 'package:tires/features/user/data/datasources/users_remote_datasource.dart';
+import 'package:tires/features/calendar/data/datasources/calendar_remote_datasource.dart';
 
 final authRemoteDatasourceProvider = Provider<AuthRemoteDatasource>((ref) {
   final _dioClient = ref.watch(dioClientProvider);
@@ -93,3 +94,10 @@ final businessInformationRemoteDatasourceProvider =
       final _dioClient = ref.watch(dioClientProvider);
       return BusinessInformationRemoteDatasourceImpl(_dioClient);
     });
+
+final calendarRemoteDatasourceProvider = Provider<CalendarRemoteDatasource>((
+  ref,
+) {
+  final _dioClient = ref.watch(dioClientProvider);
+  return CalendarRemoteDatasourceImpl(_dioClient);
+});

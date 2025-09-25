@@ -5018,6 +5018,90 @@ abstract class L10n {
   /// **'Please select both date and time.'**
   String get adminUpsertCalendarScreenEditJsSelectDateTimeAlert;
 
+  /// No description provided for @adminListCalendarScreenHeaderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Calendar'**
+  String get adminListCalendarScreenHeaderTitle;
+
+  /// No description provided for @adminListCalendarScreenHeaderSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage and view reservations in calendar format'**
+  String get adminListCalendarScreenHeaderSubtitle;
+
+  /// No description provided for @adminListCalendarScreenStatsTotalReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Reservations'**
+  String get adminListCalendarScreenStatsTotalReservations;
+
+  /// No description provided for @adminListCalendarScreenStatsConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed'**
+  String get adminListCalendarScreenStatsConfirmed;
+
+  /// No description provided for @adminListCalendarScreenStatsPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get adminListCalendarScreenStatsPending;
+
+  /// No description provided for @adminListCalendarScreenStatsCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get adminListCalendarScreenStatsCompleted;
+
+  /// No description provided for @adminListCalendarScreenViewToggleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar View'**
+  String get adminListCalendarScreenViewToggleTitle;
+
+  /// No description provided for @adminListCalendarScreenNoReservationsForDay.
+  ///
+  /// In en, this message translates to:
+  /// **'No reservations for selected day'**
+  String get adminListCalendarScreenNoReservationsForDay;
+
+  /// No description provided for @adminListCalendarScreenReservationsForDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservations for {date}'**
+  String adminListCalendarScreenReservationsForDay(String date);
+
+  /// No description provided for @adminListCalendarScreenNoReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'No reservations'**
+  String get adminListCalendarScreenNoReservations;
+
+  /// No description provided for @adminListCalendarScreenMoreReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'+{count} more'**
+  String adminListCalendarScreenMoreReservations(int count);
+
+  /// No description provided for @adminListCalendarScreenNoStatisticsAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No statistics available'**
+  String get adminListCalendarScreenNoStatisticsAvailable;
+
+  /// No description provided for @adminListCalendarScreenFailedToLoadCalendarData.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load calendar data'**
+  String get adminListCalendarScreenFailedToLoadCalendarData;
+
+  /// No description provided for @adminListCalendarScreenRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get adminListCalendarScreenRetry;
+
   /// No description provided for @contactNotificationNotFound.
   ///
   /// In en, this message translates to:

@@ -805,6 +805,34 @@
   "adminListCalendarScreenShowAdditionalInfoStatusLabel": "予約ステータス",
   "adminListCalendarScreenShowAdditionalInfoCreatedAtLabel": "作成日時",
   "adminListCalendarScreenShowAdditionalInfoLastUpdatedLabel": "最終更新日時",
+  "adminListCalendarScreenHeaderTitle": "予約カレンダー",
+  "adminListCalendarScreenHeaderSubtitle": "カレンダー形式で予約を管理・表示",
+  "adminListCalendarScreenStatsTotalReservations": "合計予約数",
+  "adminListCalendarScreenStatsConfirmed": "確定済み",
+  "adminListCalendarScreenStatsPending": "保留中",
+  "adminListCalendarScreenStatsCompleted": "完了",
+  "adminListCalendarScreenViewToggleTitle": "カレンダー表示",
+  "adminListCalendarScreenNoReservationsForDay": "選択した日に予約はありません",
+  "adminListCalendarScreenReservationsForDay": "{date}の予約",
+  "@adminListCalendarScreenReservationsForDay": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListCalendarScreenNoReservations": "予約なし",
+  "adminListCalendarScreenMoreReservations": "+{count}件",
+  "@adminListCalendarScreenMoreReservations": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "adminListCalendarScreenNoStatisticsAvailable": "統計データがありません",
+  "adminListCalendarScreenFailedToLoadCalendarData": "カレンダーデータの読み込みに失敗しました",
+  "adminListCalendarScreenRetry": "再試行",
   "adminListCalendarScreenShowAdditionalInfoNotesLabel": "備考",
   "adminListCalendarScreenShowBackButton": "カレンダーに戻る",
   "adminListCalendarScreenShowEditButton": "予約を編集",

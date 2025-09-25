@@ -2697,6 +2697,53 @@ class L10nJa extends L10n {
       '日付と時間の両方を選択してください。';
 
   @override
+  String get adminListCalendarScreenHeaderTitle => '予約カレンダー';
+
+  @override
+  String get adminListCalendarScreenHeaderSubtitle => 'カレンダー形式で予約を管理・表示';
+
+  @override
+  String get adminListCalendarScreenStatsTotalReservations => '合計予約数';
+
+  @override
+  String get adminListCalendarScreenStatsConfirmed => '確定済み';
+
+  @override
+  String get adminListCalendarScreenStatsPending => '保留中';
+
+  @override
+  String get adminListCalendarScreenStatsCompleted => '完了';
+
+  @override
+  String get adminListCalendarScreenViewToggleTitle => 'カレンダー表示';
+
+  @override
+  String get adminListCalendarScreenNoReservationsForDay => '選択した日に予約はありません';
+
+  @override
+  String adminListCalendarScreenReservationsForDay(String date) {
+    return '$dateの予約';
+  }
+
+  @override
+  String get adminListCalendarScreenNoReservations => '予約なし';
+
+  @override
+  String adminListCalendarScreenMoreReservations(int count) {
+    return '+$count件';
+  }
+
+  @override
+  String get adminListCalendarScreenNoStatisticsAvailable => '統計データがありません';
+
+  @override
+  String get adminListCalendarScreenFailedToLoadCalendarData =>
+      'カレンダーデータの読み込みに失敗しました';
+
+  @override
+  String get adminListCalendarScreenRetry => '再試行';
+
+  @override
   String get contactNotificationNotFound => 'お問い合わせが見つかりません。';
 
   @override

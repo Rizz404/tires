@@ -50,6 +50,7 @@ import 'package:tires/features/user/domain/usecases/update_current_user_usecase.
 import 'package:tires/features/dashboard/domain/usecases/get_dashboard_usecase.dart';
 import 'package:tires/features/availability/domain/usecases/get_availability_calendar_usecase.dart';
 import 'package:tires/features/availability/domain/usecases/get_reservation_availability_usecase.dart';
+import 'package:tires/features/calendar/domain/usecases/get_calendar_data_usecase.dart';
 
 final registerUsecaseProvider = Provider<RegisterUsecase>((ref) {
   final _authRepository = ref.watch(authRepoProvider);
@@ -363,3 +364,8 @@ final getReservationAvailabilityUsecaseProvider =
       final availabilityRepository = ref.watch(availabilityRepoProvider);
       return GetReservationAvailabilityUsecase(availabilityRepository);
     });
+
+final getCalendarDataUsecaseProvider = Provider<GetCalendarDataUsecase>((ref) {
+  final _calendarRepository = ref.watch(calendarRepoProvider);
+  return GetCalendarDataUsecase(_calendarRepository);
+});

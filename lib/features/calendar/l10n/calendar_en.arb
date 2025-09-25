@@ -322,5 +322,33 @@
   "adminUpsertCalendarScreenEditJsTimeslotUnavailable": "Time slot is not available - conflicts with blocked periods or other reservations.",
   "adminUpsertCalendarScreenEditJsAvailabilityError": "An error occurred while checking availability.",
   "adminUpsertCalendarScreenEditJsSelectMenuFirstAlert": "Please select a menu first.",
-  "adminUpsertCalendarScreenEditJsSelectDateTimeAlert": "Please select both date and time."
+  "adminUpsertCalendarScreenEditJsSelectDateTimeAlert": "Please select both date and time.",
+  "adminListCalendarScreenHeaderTitle": "Reservation Calendar",
+  "adminListCalendarScreenHeaderSubtitle": "Manage and view reservations in calendar format",
+  "adminListCalendarScreenStatsTotalReservations": "Total Reservations",
+  "adminListCalendarScreenStatsConfirmed": "Confirmed",
+  "adminListCalendarScreenStatsPending": "Pending",
+  "adminListCalendarScreenStatsCompleted": "Completed",
+  "adminListCalendarScreenViewToggleTitle": "Calendar View",
+  "adminListCalendarScreenNoReservationsForDay": "No reservations for selected day",
+  "adminListCalendarScreenReservationsForDay": "Reservations for {date}",
+  "@adminListCalendarScreenReservationsForDay": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListCalendarScreenNoReservations": "No reservations",
+  "adminListCalendarScreenMoreReservations": "+{count} more",
+  "@adminListCalendarScreenMoreReservations": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "adminListCalendarScreenNoStatisticsAvailable": "No statistics available",
+  "adminListCalendarScreenFailedToLoadCalendarData": "Failed to load calendar data",
+  "adminListCalendarScreenRetry": "Retry"
 }

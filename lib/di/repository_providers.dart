@@ -27,6 +27,8 @@ import 'package:tires/features/user/data/repositories/users_repository_impl.dart
 import 'package:tires/features/user/domain/repositories/users_repository.dart';
 import 'package:tires/features/dashboard/data/repositories/dashboard_repository_impl.dart';
 import 'package:tires/features/dashboard/domain/repositories/dashboard_repository.dart';
+import 'package:tires/features/calendar/data/repositories/calendar_repository_impl.dart';
+import 'package:tires/features/calendar/domain/repositories/calendar_repository.dart';
 
 final authRepoProvider = Provider<AuthRepository>((ref) {
   final _authRemoteDatasource = ref.watch(authRemoteDatasourceProvider);
@@ -122,3 +124,8 @@ final businessInformationRepoProvider = Provider<BusinessInformationRepository>(
     );
   },
 );
+
+final calendarRepoProvider = Provider<CalendarRepository>((ref) {
+  final _calendarRemoteDatasource = ref.watch(calendarRemoteDatasourceProvider);
+  return CalendarRepositoryImpl(_calendarRemoteDatasource);
+});

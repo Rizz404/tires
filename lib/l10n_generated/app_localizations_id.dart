@@ -2883,6 +2883,57 @@ class L10nId extends L10n {
       'Please select both date and time.';
 
   @override
+  String get adminListCalendarScreenHeaderTitle => 'Reservation Calendar';
+
+  @override
+  String get adminListCalendarScreenHeaderSubtitle =>
+      'Manage and view reservations in calendar format';
+
+  @override
+  String get adminListCalendarScreenStatsTotalReservations =>
+      'Total Reservations';
+
+  @override
+  String get adminListCalendarScreenStatsConfirmed => 'Confirmed';
+
+  @override
+  String get adminListCalendarScreenStatsPending => 'Pending';
+
+  @override
+  String get adminListCalendarScreenStatsCompleted => 'Completed';
+
+  @override
+  String get adminListCalendarScreenViewToggleTitle => 'Calendar View';
+
+  @override
+  String get adminListCalendarScreenNoReservationsForDay =>
+      'No reservations for selected day';
+
+  @override
+  String adminListCalendarScreenReservationsForDay(String date) {
+    return 'Reservations for $date';
+  }
+
+  @override
+  String get adminListCalendarScreenNoReservations => 'No reservations';
+
+  @override
+  String adminListCalendarScreenMoreReservations(int count) {
+    return '+$count more';
+  }
+
+  @override
+  String get adminListCalendarScreenNoStatisticsAvailable =>
+      'No statistics available';
+
+  @override
+  String get adminListCalendarScreenFailedToLoadCalendarData =>
+      'Failed to load calendar data';
+
+  @override
+  String get adminListCalendarScreenRetry => 'Retry';
+
+  @override
   String get contactNotificationNotFound => 'Contact not found.';
 
   @override
