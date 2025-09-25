@@ -48,6 +48,8 @@ import 'package:tires/features/user/domain/usecases/get_users_cursor_usecase.dar
 import 'package:tires/features/user/domain/usecases/update_current_user_password_usecase.dart';
 import 'package:tires/features/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:tires/features/dashboard/domain/usecases/get_dashboard_usecase.dart';
+import 'package:tires/features/availability/domain/usecases/get_availability_calendar_usecase.dart';
+import 'package:tires/features/availability/domain/usecases/get_reservation_availability_usecase.dart';
 
 final registerUsecaseProvider = Provider<RegisterUsecase>((ref) {
   final _authRepository = ref.watch(authRepoProvider);
@@ -347,4 +349,17 @@ final updateBusinessInformationUsecaseProvider =
         businessInformationRepoProvider,
       );
       return UpdateBusinessInformationUsecase(_businessInformationRepository);
+    });
+
+// Availability Usecase Providers
+final getAvailabilityCalendarUsecaseProvider =
+    Provider<GetAvailabilityCalendarUsecase>((ref) {
+      final availabilityRepository = ref.watch(availabilityRepoProvider);
+      return GetAvailabilityCalendarUsecase(availabilityRepository);
+    });
+
+final getReservationAvailabilityUsecaseProvider =
+    Provider<GetReservationAvailabilityUsecase>((ref) {
+      final availabilityRepository = ref.watch(availabilityRepoProvider);
+      return GetReservationAvailabilityUsecase(availabilityRepository);
     });

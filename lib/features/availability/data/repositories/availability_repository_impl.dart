@@ -8,6 +8,7 @@ import 'package:tires/features/availability/domain/entities/availability_calenda
 import 'package:tires/features/availability/domain/entities/availability_date.dart';
 import 'package:tires/features/availability/domain/repositories/availability_repository.dart';
 import 'package:tires/features/availability/domain/usecases/get_availability_calendar_usecase.dart';
+import 'package:tires/features/availability/domain/usecases/get_reservation_availability_usecase.dart';
 
 class AvailabilityRepositoryImpl implements AvailabilityRepository {
   final AvailabilityRemoteDatasource _availabilityRemoteDatasource;
@@ -37,11 +38,11 @@ class AvailabilityRepositoryImpl implements AvailabilityRepository {
 
   @override
   Future<Either<Failure, ItemSuccessResponse<List<AvailabilityDate>>>>
-  getReservationAvailability() async {
+  getReservationAvailability(GetReservationAvailabilityParams params) async {
     try {
       AppLogger.businessInfo('Getting reservation availability in repository');
       final result = await _availabilityRemoteDatasource
-          .getReservationAvailability();
+          .getReservationAvailability(params);
       AppLogger.businessDebug('Reservation availability fetched successfully');
       return Right(ItemSuccessResponse(data: result.data));
     } on ApiErrorResponse catch (e) {

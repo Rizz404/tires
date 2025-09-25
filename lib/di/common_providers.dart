@@ -11,6 +11,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tires/core/storage/language_storage_service.dart';
 import 'package:tires/di/service_providers.dart';
 import 'package:tires/l10n_generated/app_localizations.dart';
+import 'package:tires/features/availability/presentation/providers/availability_calendar_notifier.dart';
+import 'package:tires/features/availability/presentation/providers/availability_calendar_state.dart';
+import 'package:tires/features/availability/presentation/providers/reservation_availability_notifier.dart';
+import 'package:tires/features/availability/presentation/providers/reservation_availability_state.dart';
 
 final secureStorageProvider = Provider<FlutterSecureStorage>((ref) {
   throw UnimplementedError('secureStorageProvider not initialized');
@@ -109,3 +113,15 @@ class LocaleNotifier extends Notifier<Locale> {
     }
   }
 }
+
+// Availability Notifier Providers
+final availabilityCalendarNotifierProvider =
+    NotifierProvider<AvailabilityCalendarNotifier, AvailabilityCalendarState>(
+      AvailabilityCalendarNotifier.new,
+    );
+
+final reservationAvailabilityNotifierProvider =
+    NotifierProvider<
+      ReservationAvailabilityNotifier,
+      ReservationAvailabilityState
+    >(ReservationAvailabilityNotifier.new);

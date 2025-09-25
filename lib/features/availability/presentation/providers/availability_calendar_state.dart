@@ -1,31 +1,31 @@
 import 'package:equatable/equatable.dart';
 import 'package:tires/features/availability/domain/entities/availability_calendar.dart';
 
-enum AvailabilityStatus { initial, loading, success, error }
+enum AvailabilityCalendarStatus { initial, loading, success, error }
 
-class AvailabilityState extends Equatable {
-  final AvailabilityStatus status;
+class AvailabilityCalendarState extends Equatable {
+  final AvailabilityCalendarStatus status;
   final AvailabilityCalendar? availabilityCalendar;
   final String? errorMessage;
   final String? currentMenuId;
   final String? currentMonth;
 
-  const AvailabilityState({
-    this.status = AvailabilityStatus.initial,
+  const AvailabilityCalendarState({
+    this.status = AvailabilityCalendarStatus.initial,
     this.availabilityCalendar,
     this.errorMessage,
     this.currentMenuId,
     this.currentMonth,
   });
 
-  AvailabilityState copyWith({
-    AvailabilityStatus? status,
+  AvailabilityCalendarState copyWith({
+    AvailabilityCalendarStatus? status,
     AvailabilityCalendar? availabilityCalendar,
     String? errorMessage,
     String? currentMenuId,
     String? currentMonth,
   }) {
-    return AvailabilityState(
+    return AvailabilityCalendarState(
       status: status ?? this.status,
       availabilityCalendar: availabilityCalendar ?? this.availabilityCalendar,
       errorMessage: errorMessage ?? this.errorMessage,
@@ -34,8 +34,8 @@ class AvailabilityState extends Equatable {
     );
   }
 
-  AvailabilityState copyWithClearError() {
-    return AvailabilityState(
+  AvailabilityCalendarState copyWithClearError() {
+    return AvailabilityCalendarState(
       status: status,
       availabilityCalendar: availabilityCalendar,
       errorMessage: null,

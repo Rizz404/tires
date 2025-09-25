@@ -2,18 +2,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/availability/domain/usecases/get_availability_calendar_usecase.dart';
-import 'package:tires/features/availability/presentation/providers/availability_provider.dart';
-import 'package:tires/features/availability/presentation/providers/availability_state.dart';
+import 'package:tires/di/usecase_providers.dart';
+import 'package:tires/features/availability/presentation/providers/availability_calendar_state.dart';
 
-class AvailabilityNotifier extends Notifier<AvailabilityState> {
+class AvailabilityCalendarNotifier extends Notifier<AvailabilityCalendarState> {
   late GetAvailabilityCalendarUsecase _getAvailabilityCalendarUsecase;
 
   @override
-  AvailabilityState build() {
+  AvailabilityCalendarState build() {
     _getAvailabilityCalendarUsecase = ref.watch(
       getAvailabilityCalendarUsecaseProvider,
     );
-    return const AvailabilityState();
+    return const AvailabilityCalendarState();
   }
 
   Future<void> getAvailabilityCalendar({
@@ -30,7 +30,7 @@ class AvailabilityNotifier extends Notifier<AvailabilityState> {
     }
 
     state = state.copyWith(
-      status: AvailabilityStatus.loading,
+      status: AvailabilityCalendarStatus.loading,
       currentMenuId: menuId,
       currentMonth: monthString,
     );
@@ -47,7 +47,7 @@ class AvailabilityNotifier extends Notifier<AvailabilityState> {
       (failure) {
         AppLogger.uiError('Failed to get availability calendar', failure);
         state = state.copyWith(
-          status: AvailabilityStatus.error,
+          status: AvailabilityCalendarStatus.error,
           errorMessage: failure.message,
         );
       },
@@ -55,7 +55,7 @@ class AvailabilityNotifier extends Notifier<AvailabilityState> {
         AppLogger.uiInfo('Availability calendar loaded successfully');
         state = state
             .copyWith(
-              status: AvailabilityStatus.success,
+              status: AvailabilityCalendarStatus.success,
               availabilityCalendar: success.data,
             )
             .copyWithClearError();
@@ -72,7 +72,7 @@ class AvailabilityNotifier extends Notifier<AvailabilityState> {
     final monthString = DateFormat('yyyy-MM').format(currentMonth);
 
     state = state.copyWith(
-      status: AvailabilityStatus.loading,
+      status: AvailabilityCalendarStatus.loading,
       currentMenuId: menuId,
       currentMonth: monthString,
     );
@@ -89,7 +89,7 @@ class AvailabilityNotifier extends Notifier<AvailabilityState> {
       (failure) {
         AppLogger.uiError('Failed to refresh availability calendar', failure);
         state = state.copyWith(
-          status: AvailabilityStatus.error,
+          status: AvailabilityCalendarStatus.error,
           errorMessage: failure.message,
         );
       },
@@ -97,7 +97,7 @@ class AvailabilityNotifier extends Notifier<AvailabilityState> {
         AppLogger.uiInfo('Availability calendar refreshed successfully');
         state = state
             .copyWith(
-              status: AvailabilityStatus.success,
+              status: AvailabilityCalendarStatus.success,
               availabilityCalendar: success.data,
             )
             .copyWithClearError();
@@ -106,13 +106,13 @@ class AvailabilityNotifier extends Notifier<AvailabilityState> {
   }
 
   void clearState() {
-    AppLogger.uiInfo('Clearing availability state');
-    state = const AvailabilityState();
+    AppLogger.uiInfo('Clearing availability calendar state');
+    state = const AvailabilityCalendarState();
   }
 
   void clearError() {
     if (state.errorMessage != null) {
-      AppLogger.uiInfo('Clearing availability error');
+      AppLogger.uiInfo('Clearing availability calendar error');
       state = state.copyWithClearError();
     }
   }
