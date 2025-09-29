@@ -6,7 +6,7 @@ import 'package:tires/features/reservation/domain/usecases/get_reservation_curso
 import 'package:tires/features/reservation/presentation/providers/reservation_get_state.dart';
 
 class ReservationGetNotifier extends Notifier<ReservationGetState> {
-  late final GetReservationCursorUsecase _getReservationCursorUsecase;
+  late GetReservationCursorUsecase _getReservationCursorUsecase;
 
   @override
   ReservationGetState build() {

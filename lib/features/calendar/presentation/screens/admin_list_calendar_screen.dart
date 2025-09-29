@@ -5,13 +5,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
-import 'package:tires/features/reservation/domain/entities/reservation.dart'
-    as reservation_entity;
-import 'package:tires/features/reservation/domain/entities/reservation_amount.dart';
-import 'package:tires/features/reservation/domain/entities/reservation_customer_info.dart';
-import 'package:tires/features/reservation/domain/entities/reservation_status.dart';
 
-import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/calendar/presentation/providers/calendar_providers.dart';
 import 'package:tires/features/calendar/presentation/providers/calendar_state.dart';
 import 'package:tires/features/calendar/domain/usecases/get_calendar_data_usecase.dart';
@@ -23,6 +17,12 @@ import 'package:tires/features/calendar/presentation/widgets/calendar_navigation
 import 'package:tires/features/calendar/presentation/widgets/day_view_widget.dart';
 import 'package:tires/features/calendar/presentation/widgets/week_view_widget.dart';
 import 'package:tires/features/calendar/presentation/widgets/reservations_list_widget.dart';
+import 'package:tires/features/calendar/presentation/widgets/calendar_list_view_toggle_widget.dart';
+import 'package:tires/features/calendar/presentation/widgets/calendar_filter_search_widget.dart';
+import 'package:tires/features/calendar/presentation/widgets/reservation_table_widget.dart';
+import 'package:tires/features/reservation/presentation/providers/reservation_providers.dart';
+import 'package:tires/features/reservation/presentation/providers/reservation_get_state.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tires/shared/presentation/widgets/admin_end_drawer.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
@@ -45,6 +45,12 @@ class _AdminListCalendarScreenState
   GetCalendarDataParamsView _currentView = GetCalendarDataParamsView.month;
   GetCalendarDataParamsView? _lastFetchedView;
   DateTime? _lastFetchedDate;
+
+  // List view variables
+  CalendarDisplayMode _displayMode = CalendarDisplayMode.calendar;
+  final GlobalKey<FormBuilderState> _filterFormKey =
+      GlobalKey<FormBuilderState>();
+  bool _isFilterVisible = true;
 
   @override
   void initState() {
@@ -114,6 +120,28 @@ class _AdminListCalendarScreenState
     _lastFetchedView = null;
     _lastFetchedDate = null;
     await _loadCalendarData();
+
+    // Also refresh reservations for list view
+    if (_displayMode == CalendarDisplayMode.list) {
+      await ref
+          .read(reservationGetNotifierProvider.notifier)
+          .refreshReservations();
+    }
+  }
+
+  Future<void> _applyFilters() async {
+    if (_displayMode == CalendarDisplayMode.list) {
+      // Apply filters to reservation list
+      // For now, just refresh the data - filtering logic can be implemented later
+      await ref
+          .read(reservationGetNotifierProvider.notifier)
+          .refreshReservations();
+    }
+  }
+
+  void _resetFilters() {
+    _filterFormKey.currentState?.reset();
+    _applyFilters();
   }
 
   Future<void> _onDaySelected(DateTime selectedDay, DateTime focusedDay) async {
@@ -144,107 +172,6 @@ class _AdminListCalendarScreenState
       });
       // Force refetch data for the new focused day
       await _loadCalendarData();
-    }
-  }
-
-  /// Convert calendar reservation to full reservation entity
-  reservation_entity.Reservation _convertCalendarReservationToFull(
-    CalendarReservation calendarReservation,
-  ) {
-    debugPrint('DEBUG: Converting calendar reservation:');
-    debugPrint('DEBUG: - Reservation ID: ${calendarReservation.id}');
-    debugPrint('DEBUG: - Menu ID: ${calendarReservation.menu.id}');
-    debugPrint('DEBUG: - Menu Name: ${calendarReservation.menu.name}');
-    debugPrint('DEBUG: - Customer: ${calendarReservation.customer.name}');
-
-    // Parse time string to DateTime
-    final now = DateTime.now();
-    final timeParts = calendarReservation.time.split(':');
-    final hour = int.tryParse(timeParts[0]) ?? 0;
-    final minute = int.tryParse(timeParts.length > 1 ? timeParts[1] : '0') ?? 0;
-
-    final reservationDateTime = DateTime(
-      now.year,
-      now.month,
-      now.day,
-      hour,
-      minute,
-    );
-
-    // Parse amount string to int
-    final amountString = calendarReservation.amount.replaceAll(
-      RegExp(r'[^0-9]'),
-      '',
-    );
-    final amountInt = int.tryParse(amountString) ?? 0;
-
-    // Parse menu price amount
-    final menuPriceString = calendarReservation.menu.price.amount.replaceAll(
-      RegExp(r'[^0-9]'),
-      '',
-    );
-    final menuPriceInt = int.tryParse(menuPriceString) ?? 0;
-
-    return reservation_entity.Reservation(
-      id: calendarReservation.id,
-      reservationNumber: calendarReservation.reservationNumber,
-      user: null, // Not available in calendar data
-      customerInfo: ReservationCustomerInfo(
-        fullName: calendarReservation.customer.name ?? 'Unknown',
-        fullNameKana: '', // Not available in calendar data
-        email: calendarReservation.customer.email ?? '',
-        phoneNumber: calendarReservation.customer.phone ?? '',
-        isGuest: calendarReservation.customer.type == 'guest',
-      ),
-      menu: Menu(
-        id: calendarReservation.menu.id, // Use actual menu ID from API
-        name: calendarReservation.menu.name,
-        description: calendarReservation.menu.description,
-        requiredTime: calendarReservation.menu.requiredTime,
-        price: Price(
-          amount: menuPriceInt.toString(),
-          formatted: calendarReservation.menu.price.formatted,
-          currency: calendarReservation.menu.price.currency,
-        ),
-        photoPath: calendarReservation.menu.photoPath,
-        displayOrder: calendarReservation.menu.displayOrder,
-        color: ColorInfo(
-          hex: calendarReservation.menu.color.hex,
-          rgbaLight: calendarReservation.menu.color.rgbaLight,
-          textColor: calendarReservation.menu.color.textColor,
-        ),
-        isActive: calendarReservation.menu.isActive,
-        translations: null, // TODO: Map translations properly if needed
-      ),
-      reservationDatetime: reservationDateTime,
-      numberOfPeople: calendarReservation.peopleCount,
-      amount: ReservationAmount(
-        raw: amountInt.toString(),
-        formatted: calendarReservation.amount,
-      ),
-      status: ReservationStatus(
-        value: _parseReservationStatus(calendarReservation.status),
-        label: calendarReservation.status,
-      ),
-      notes: null, // Not available in calendar data
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    );
-  }
-
-  /// Parse reservation status string to enum
-  ReservationStatusValue _parseReservationStatus(String status) {
-    switch (status.toLowerCase()) {
-      case 'pending':
-        return ReservationStatusValue.pending;
-      case 'confirmed':
-        return ReservationStatusValue.confirmed;
-      case 'completed':
-        return ReservationStatusValue.completed;
-      case 'cancelled':
-        return ReservationStatusValue.cancelled;
-      default:
-        return ReservationStatusValue.pending;
     }
   }
 
@@ -282,9 +209,6 @@ class _AdminListCalendarScreenState
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(calendarNotifierProvider);
-    final selectedDayReservations = _getEventsForDay(
-      _selectedDay ?? DateTime.now(),
-    );
 
     return Scaffold(
       endDrawer: const AdminEndDrawer(),
@@ -308,41 +232,75 @@ class _AdminListCalendarScreenState
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
+              // Display Mode Toggle (Calendar vs List)
               SliverToBoxAdapter(
-                child: CalendarViewToggleWidget(
-                  currentView: _currentView,
-                  onViewChanged: (view) async {
+                child: CalendarListViewToggleWidget(
+                  currentMode: _displayMode,
+                  onModeChanged: (mode) async {
                     setState(() {
-                      _currentView = view;
-                      _calendarFormat = view == GetCalendarDataParamsView.month
-                          ? CalendarFormat.month
-                          : CalendarFormat.week;
+                      _displayMode = mode;
                     });
-                    // Force refetch data for the new view by clearing tracking
-                    _lastFetchedView = null;
-                    _lastFetchedDate = null;
-                    await _loadCalendarData();
+                    if (mode == CalendarDisplayMode.list) {
+                      // Load reservation data when switching to list view
+                      await ref
+                          .read(reservationGetNotifierProvider.notifier)
+                          .getReservations();
+                    }
                   },
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
-              SliverToBoxAdapter(child: _buildCalendarView()),
-              const SliverToBoxAdapter(child: SizedBox(height: 16)),
-              SliverToBoxAdapter(
-                child: ReservationsListWidget(
-                  selectedDay: _selectedDay ?? DateTime.now(),
-                  reservations: selectedDayReservations,
-                  onReservationTap: (calendarReservation) {
-                    // Convert calendar reservation to full reservation entity
-                    final fullReservation = _convertCalendarReservationToFull(
-                      calendarReservation,
-                    );
-                    context.router.push(
-                      AdminUpsertReservationRoute(reservation: fullReservation),
-                    );
-                  },
+              // Calendar View Toggle (only show in calendar mode)
+              if (_displayMode == CalendarDisplayMode.calendar)
+                SliverToBoxAdapter(
+                  child: CalendarViewToggleWidget(
+                    currentView: _currentView,
+                    onViewChanged: (view) async {
+                      setState(() {
+                        _currentView = view;
+                        _calendarFormat =
+                            view == GetCalendarDataParamsView.month
+                            ? CalendarFormat.month
+                            : CalendarFormat.week;
+                      });
+                      // Force refetch data for the new view by clearing tracking
+                      _lastFetchedView = null;
+                      _lastFetchedDate = null;
+                      await _loadCalendarData();
+                    },
+                  ),
                 ),
-              ),
+              // Filter for list mode
+              if (_displayMode == CalendarDisplayMode.list)
+                SliverToBoxAdapter(
+                  child: CalendarFilterSearchWidget(
+                    formKey: _filterFormKey,
+                    isFilterVisible: _isFilterVisible,
+                    onToggleVisibility: () =>
+                        setState(() => _isFilterVisible = !_isFilterVisible),
+                    onFilter: _applyFilters,
+                    onReset: _resetFilters,
+                  ),
+                ),
+              const SliverToBoxAdapter(child: SizedBox(height: 16)),
+              // Main content based on display mode
+              if (_displayMode == CalendarDisplayMode.calendar) ...[
+                SliverToBoxAdapter(child: _buildCalendarView()),
+                const SliverToBoxAdapter(child: SizedBox(height: 16)),
+                SliverToBoxAdapter(
+                  child: ReservationsListWidget(
+                    selectedDay: _selectedDay ?? DateTime.now(),
+                    reservations: _getEventsForDay(
+                      _selectedDay ?? DateTime.now(),
+                    ),
+                    onReservationTap: (calendarReservation) {
+                      context.router.push(AdminUpsertReservationRoute());
+                    },
+                  ),
+                ),
+              ] else ...[
+                SliverToBoxAdapter(child: _buildListView()),
+              ],
               const SliverToBoxAdapter(child: SizedBox(height: 80)),
             ],
           ),
@@ -449,5 +407,19 @@ class _AdminListCalendarScreenState
     );
 
     return calendarDay.reservations;
+  }
+
+  Widget _buildListView() {
+    final reservationState = ref.watch(reservationGetNotifierProvider);
+
+    return ReservationTableWidget(
+      reservations: reservationState.reservations,
+      isLoading: reservationState.status == ReservationGetStatus.loading,
+      onRefresh: () async {
+        await ref
+            .read(reservationGetNotifierProvider.notifier)
+            .refreshReservations();
+      },
+    );
   }
 }

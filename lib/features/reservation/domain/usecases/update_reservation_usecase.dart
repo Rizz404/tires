@@ -74,16 +74,16 @@ class UpdateReservationParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'reservation_number': reservationNumber,
-      'user_id': userId,
+      if (reservationNumber != null) 'reservation_number': reservationNumber,
+      if (userId != null) 'user_id': userId,
       'menu_id': menuId,
       'reservation_datetime': DateFormat(
         'yyyy-MM-dd HH:mm:ss',
       ).format(reservationDatetime),
       'number_of_people': numberOfPeople,
       'amount': amount,
-      'status': status?.name,
-      'notes': notes,
+      if (status != null) 'status': status!.name,
+      if (notes != null) 'notes': notes,
     };
   }
 

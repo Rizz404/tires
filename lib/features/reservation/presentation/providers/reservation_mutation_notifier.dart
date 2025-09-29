@@ -1,11 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/di/usecase_providers.dart';
-import 'package:tires/features/menu/domain/usecases/update_menu_usecase.dart';
+import 'package:tires/features/calendar/presentation/providers/calendar_providers.dart';
 import 'package:tires/features/reservation/domain/usecases/create_reservation_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/delete_reservation_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/update_reservation_usecase.dart';
 import 'package:tires/features/reservation/presentation/providers/reservation_mutation_state.dart';
+import 'package:tires/features/reservation/presentation/providers/reservation_providers.dart';
 
 class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
   late final CreateReservationUsecase _createReservationUsecase;
@@ -55,6 +56,11 @@ class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
                   success.message ?? 'Reservation created successfully',
             )
             .copyWithClearError();
+        ref.invalidate(reservationGetNotifierProvider);
+        ref.invalidate(reservationCalendarGetNotifierProvider);
+        ref.invalidate(reservationAvailableHoursGetNotifierProvider);
+        ref.invalidate(currentUserReservationsGetNotifierProvider);
+        ref.invalidate(calendarNotifierProvider);
       },
     );
   }
@@ -83,6 +89,11 @@ class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
                   success.message ?? 'Reservation updated successfully',
             )
             .copyWithClearError();
+        ref.invalidate(reservationGetNotifierProvider);
+        ref.invalidate(reservationCalendarGetNotifierProvider);
+        ref.invalidate(reservationAvailableHoursGetNotifierProvider);
+        ref.invalidate(currentUserReservationsGetNotifierProvider);
+        ref.invalidate(calendarNotifierProvider);
       },
     );
   }
@@ -112,6 +123,11 @@ class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
                   success.message ?? 'Reservation deleted successfully',
             )
             .copyWithClearError();
+        ref.invalidate(reservationGetNotifierProvider);
+        ref.invalidate(reservationCalendarGetNotifierProvider);
+        ref.invalidate(reservationAvailableHoursGetNotifierProvider);
+        ref.invalidate(currentUserReservationsGetNotifierProvider);
+        ref.invalidate(calendarNotifierProvider);
       },
     );
   }

@@ -168,6 +168,8 @@ class _AdminUpsertReservationScreenState
         notifier.updateReservation(
           UpdateReservationParams(
             id: widget.reservation!.id,
+            reservationNumber: widget.reservation!.reservationNumber,
+            userId: widget.reservation!.user?.id,
             menuId: menuId,
             reservationDatetime: reservationDatetime,
             numberOfPeople: numberOfPeople,
