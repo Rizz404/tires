@@ -7,7 +7,7 @@ import 'package:tires/features/reservation/presentation/providers/current_user_r
 
 class CurrentUserReservationsGetNotifier
     extends Notifier<CurrentUserReservationsGetState> {
-  late final GetCurrentUserReservationsCursorUsecase
+  late GetCurrentUserReservationsCursorUsecase
   _getCurrentUserReservationsCursorUsecase;
 
   @override

@@ -7863,6 +7863,72 @@ abstract class L10n {
   /// **'Got it'**
   String get myReservationModalGotItButton;
 
+  /// No description provided for @reservationDetailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Details'**
+  String get reservationDetailTitle;
+
+  /// No description provided for @reservationDetailBackButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to My Reservations'**
+  String get reservationDetailBackButton;
+
+  /// No description provided for @reservationDetailEditButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Reservation'**
+  String get reservationDetailEditButton;
+
+  /// No description provided for @reservationDetailCancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Reservation'**
+  String get reservationDetailCancelButton;
+
+  /// No description provided for @reservationDetailBasicInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Information'**
+  String get reservationDetailBasicInfoTitle;
+
+  /// No description provided for @reservationDetailServiceInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Information'**
+  String get reservationDetailServiceInfoTitle;
+
+  /// No description provided for @reservationDetailCustomerInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Information'**
+  String get reservationDetailCustomerInfoTitle;
+
+  /// No description provided for @reservationDetailReservationNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Number'**
+  String get reservationDetailReservationNumber;
+
+  /// No description provided for @reservationDetailCreatedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Created At'**
+  String get reservationDetailCreatedAt;
+
+  /// No description provided for @reservationDetailUpdatedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Updated'**
+  String get reservationDetailUpdatedAt;
+
+  /// No description provided for @reservationDetailActionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get reservationDetailActionsTitle;
+
   /// No description provided for @termsOfServiceScreenTitle.
   ///
   /// In en, this message translates to:

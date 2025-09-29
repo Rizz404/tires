@@ -4479,6 +4479,39 @@ class L10nEn extends L10n {
   String get myReservationModalGotItButton => 'Got it';
 
   @override
+  String get reservationDetailTitle => 'Reservation Details';
+
+  @override
+  String get reservationDetailBackButton => 'Back to My Reservations';
+
+  @override
+  String get reservationDetailEditButton => 'Edit Reservation';
+
+  @override
+  String get reservationDetailCancelButton => 'Cancel Reservation';
+
+  @override
+  String get reservationDetailBasicInfoTitle => 'Basic Information';
+
+  @override
+  String get reservationDetailServiceInfoTitle => 'Service Information';
+
+  @override
+  String get reservationDetailCustomerInfoTitle => 'Customer Information';
+
+  @override
+  String get reservationDetailReservationNumber => 'Reservation Number';
+
+  @override
+  String get reservationDetailCreatedAt => 'Created At';
+
+  @override
+  String get reservationDetailUpdatedAt => 'Last Updated';
+
+  @override
+  String get reservationDetailActionsTitle => 'Actions';
+
+  @override
   String get termsOfServiceScreenTitle => 'Terms of Service';
 
   @override

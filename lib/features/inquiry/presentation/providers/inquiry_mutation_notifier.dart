@@ -5,7 +5,7 @@ import 'package:tires/features/inquiry/domain/usecases/create_inquiry_usecase.da
 import 'package:tires/features/inquiry/presentation/providers/inquiry_mutation_state.dart';
 
 class InquiryMutationNotifier extends Notifier<InquiryMutationState> {
-  late final CreateInquiryUsecase _createInquiryUsecase;
+  late CreateInquiryUsecase _createInquiryUsecase;
 
   @override
   InquiryMutationState build() {

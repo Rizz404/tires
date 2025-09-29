@@ -124,7 +124,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         child: ScreenWrapper(
           child: FormBuilder(
             key: _formKey,
-            initialValue: _initialValues,
+            // initialValue: _initialValues,
             child: ListView(
               children: [
                 AppText(

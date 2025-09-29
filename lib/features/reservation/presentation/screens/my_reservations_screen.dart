@@ -262,13 +262,8 @@ class _MyReservationsScreenState extends ConsumerState<MyReservationsScreen> {
       reservation: reservation,
       isExpanded: _expandedReservationId == reservation.reservationNumber,
       onTap: () {
-        setState(() {
-          if (_expandedReservationId == reservation.reservationNumber) {
-            _expandedReservationId = null;
-          } else {
-            _expandedReservationId = reservation.reservationNumber;
-          }
-        });
+        // Navigate to reservation detail screen
+        context.router.push(ReservationDetailRoute(reservation: reservation));
       },
     );
   }

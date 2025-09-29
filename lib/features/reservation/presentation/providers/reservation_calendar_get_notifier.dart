@@ -6,7 +6,7 @@ import 'package:tires/features/reservation/presentation/providers/reservation_ca
 
 class ReservationCalendarGetNotifier
     extends Notifier<ReservationCalendarGetState> {
-  late final GetReservationCalendarUsecase _getReservationCalendarUsecase;
+  late GetReservationCalendarUsecase _getReservationCalendarUsecase;
 
   @override
   ReservationCalendarGetState build() {

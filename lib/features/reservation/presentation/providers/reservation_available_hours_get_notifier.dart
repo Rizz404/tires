@@ -6,8 +6,7 @@ import 'package:tires/features/reservation/presentation/providers/reservation_av
 
 class ReservationAvailableHoursGetNotifier
     extends Notifier<ReservationAvailableHoursGetState> {
-  late final GetReservationAvailableHoursUsecase
-  _getReservationAvailableHoursUsecase;
+  late GetReservationAvailableHoursUsecase _getReservationAvailableHoursUsecase;
 
   @override
   ReservationAvailableHoursGetState build() {

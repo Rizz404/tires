@@ -91,5 +91,16 @@
   "myReservationModalConfirmCancelButton": "Yes, Cancel",
   "myReservationModalFeatureSoonTitle": "Feature Coming Soon",
   "myReservationModalFeatureSoonBody": "Reservation cancellation feature will be implemented soon.",
-  "myReservationModalGotItButton": "Got it"
+  "myReservationModalGotItButton": "Got it",
+  "reservationDetailTitle": "Reservation Details",
+  "reservationDetailBackButton": "Back to My Reservations",
+  "reservationDetailEditButton": "Edit Reservation",
+  "reservationDetailCancelButton": "Cancel Reservation",
+  "reservationDetailBasicInfoTitle": "Basic Information",
+  "reservationDetailServiceInfoTitle": "Service Information",
+  "reservationDetailCustomerInfoTitle": "Customer Information",
+  "reservationDetailReservationNumber": "Reservation Number",
+  "reservationDetailCreatedAt": "Created At",
+  "reservationDetailUpdatedAt": "Last Updated",
+  "reservationDetailActionsTitle": "Actions"
 }

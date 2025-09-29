@@ -4218,6 +4218,39 @@ class L10nJa extends L10n {
   String get myReservationModalGotItButton => '了解しました';
 
   @override
+  String get reservationDetailTitle => '予約詳細';
+
+  @override
+  String get reservationDetailBackButton => 'マイ予約に戻る';
+
+  @override
+  String get reservationDetailEditButton => '予約を編集';
+
+  @override
+  String get reservationDetailCancelButton => '予約をキャンセル';
+
+  @override
+  String get reservationDetailBasicInfoTitle => '基本情報';
+
+  @override
+  String get reservationDetailServiceInfoTitle => 'サービス情報';
+
+  @override
+  String get reservationDetailCustomerInfoTitle => 'お客様情報';
+
+  @override
+  String get reservationDetailReservationNumber => '予約番号';
+
+  @override
+  String get reservationDetailCreatedAt => '作成日時';
+
+  @override
+  String get reservationDetailUpdatedAt => '最終更新日時';
+
+  @override
+  String get reservationDetailActionsTitle => '操作';
+
+  @override
   String get termsOfServiceScreenTitle => '利用規約';
 
   @override

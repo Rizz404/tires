@@ -766,6 +766,56 @@ class RegisterRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ReservationDetailScreen]
+class ReservationDetailRoute extends PageRouteInfo<ReservationDetailRouteArgs> {
+  ReservationDetailRoute({
+    Key? key,
+    required Reservation reservation,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ReservationDetailRoute.name,
+         args: ReservationDetailRouteArgs(key: key, reservation: reservation),
+         initialChildren: children,
+       );
+
+  static const String name = 'ReservationDetailRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ReservationDetailRouteArgs>();
+      return ReservationDetailScreen(
+        key: args.key,
+        reservation: args.reservation,
+      );
+    },
+  );
+}
+
+class ReservationDetailRouteArgs {
+  const ReservationDetailRouteArgs({this.key, required this.reservation});
+
+  final Key? key;
+
+  final Reservation reservation;
+
+  @override
+  String toString() {
+    return 'ReservationDetailRouteArgs{key: $key, reservation: $reservation}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ReservationDetailRouteArgs) return false;
+    return key == other.key && reservation == other.reservation;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ reservation.hashCode;
+}
+
+/// generated route for
 /// [ReservationSummaryScreen]
 class ReservationSummaryRoute extends PageRouteInfo<void> {
   const ReservationSummaryRoute({List<PageRouteInfo>? children})

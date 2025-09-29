@@ -9,9 +9,9 @@ import 'package:tires/features/reservation/presentation/providers/reservation_mu
 import 'package:tires/features/reservation/presentation/providers/reservation_providers.dart';
 
 class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
-  late final CreateReservationUsecase _createReservationUsecase;
-  late final UpdateReservationUsecase _updateReservationUsecase;
-  late final DeleteReservationUsecase _deleteReservationUsecase;
+  late CreateReservationUsecase _createReservationUsecase;
+  late UpdateReservationUsecase _updateReservationUsecase;
+  late DeleteReservationUsecase _deleteReservationUsecase;
 
   @override
   ReservationMutationState build() {
