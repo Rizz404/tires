@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/di/usecase_providers.dart';
+import 'package:tires/features/menu/domain/usecases/update_menu_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/create_reservation_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/delete_reservation_usecase.dart';
 import 'package:tires/features/reservation/domain/usecases/update_reservation_usecase.dart';
@@ -58,11 +59,10 @@ class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
     );
   }
 
-  Future<void> updateReservation({required int id}) async {
+  Future<void> updateReservation(UpdateReservationParams params) async {
     AppLogger.uiInfo('Updating reservation in notifier');
     state = state.copyWith(status: ReservationMutationStatus.loading);
 
-    final params = UpdateReservationParams(id: id);
     final response = await _updateReservationUsecase(params);
 
     response.fold(

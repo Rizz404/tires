@@ -503,6 +503,62 @@ class AdminUpsertMenuRouteArgs {
 }
 
 /// generated route for
+/// [AdminUpsertReservationScreen]
+class AdminUpsertReservationRoute
+    extends PageRouteInfo<AdminUpsertReservationRouteArgs> {
+  AdminUpsertReservationRoute({
+    Key? key,
+    Reservation? reservation,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AdminUpsertReservationRoute.name,
+         args: AdminUpsertReservationRouteArgs(
+           key: key,
+           reservation: reservation,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'AdminUpsertReservationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<AdminUpsertReservationRouteArgs>(
+        orElse: () => const AdminUpsertReservationRouteArgs(),
+      );
+      return AdminUpsertReservationScreen(
+        key: args.key,
+        reservation: args.reservation,
+      );
+    },
+  );
+}
+
+class AdminUpsertReservationRouteArgs {
+  const AdminUpsertReservationRouteArgs({this.key, this.reservation});
+
+  final Key? key;
+
+  final Reservation? reservation;
+
+  @override
+  String toString() {
+    return 'AdminUpsertReservationRouteArgs{key: $key, reservation: $reservation}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AdminUpsertReservationRouteArgs) return false;
+    return key == other.key && reservation == other.reservation;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ reservation.hashCode;
+}
+
+/// generated route for
 /// [ConfirmReservationScreen]
 class ConfirmReservationRoute extends PageRouteInfo<void> {
   const ConfirmReservationRoute({List<PageRouteInfo>? children})
