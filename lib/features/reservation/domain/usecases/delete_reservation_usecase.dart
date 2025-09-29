@@ -10,14 +10,13 @@ import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/reservation/domain/repositories/reservation_repository.dart';
 
 class DeleteReservationUsecase
-    implements
-        Usecase<ItemSuccessResponse<Reservation>, DeleteReservationParams> {
+    implements Usecase<ActionSuccess, DeleteReservationParams> {
   final ReservationRepository _reservationRepository;
 
   DeleteReservationUsecase(this._reservationRepository);
 
   @override
-  Future<Either<Failure, ItemSuccessResponse<Reservation>>> call(
+  Future<Either<Failure, ActionSuccess>> call(
     DeleteReservationParams params,
   ) async {
     AppLogger.businessInfo('Executing delete reservation usecase');

@@ -4,7 +4,7 @@ import 'package:tires/features/calendar/domain/entities/calendar_data.dart';
 
 class WeekViewWidget extends StatelessWidget {
   final DateTime selectedWeek;
-  final List<Reservation> Function(DateTime) eventLoader;
+  final List<CalendarReservation> Function(DateTime) eventLoader;
   final Function(DateTime, DateTime) onDaySelected;
   final DateTime? selectedDay;
 
@@ -68,7 +68,7 @@ class WeekViewWidget extends StatelessWidget {
   Widget _buildDayCard(
     BuildContext context,
     DateTime day,
-    List<Reservation> reservations,
+    List<CalendarReservation> reservations,
     bool isSelected,
     bool isToday,
   ) {

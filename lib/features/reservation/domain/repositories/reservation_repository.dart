@@ -28,7 +28,7 @@ abstract class ReservationRepository {
   Future<Either<Failure, ItemSuccessResponse<Reservation>>> updateReservation(
     UpdateReservationParams params,
   );
-  Future<Either<Failure, ItemSuccessResponse<Reservation>>> deleteReservation(
+  Future<Either<Failure, ActionSuccess>> deleteReservation(
     DeleteReservationParams params,
   );
 }

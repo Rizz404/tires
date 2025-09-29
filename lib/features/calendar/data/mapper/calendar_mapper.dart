@@ -39,7 +39,7 @@ extension CalendarDayModelMapper on CalendarDayModel {
       isCurrentMonth: isCurrentMonth,
       isToday: isToday,
       dayName: dayName,
-      reservations: (reservations as List<ReservationModel>)
+      reservations: (reservations as List<CalendarReservationModel>)
           .map((reservation) => reservation.toEntity())
           .toList(),
       totalReservations: totalReservations,
@@ -59,20 +59,27 @@ extension StatisticsModelMapper on StatisticsModel {
   }
 }
 
-extension ReservationModelMapper on ReservationModel {
-  Reservation toEntity() {
-    return Reservation(
+extension CalendarReservationModelMapper on CalendarReservationModel {
+  CalendarReservation toEntity() {
+    return CalendarReservation(
       id: id,
       reservationNumber: reservationNumber,
-      customerName: customerName,
+      customer: (customer as CalendarCustomerModel).toEntity(),
       time: time,
       endTime: endTime,
       menuName: menuName,
       menuColor: menuColor,
+      menu: (menu as CalendarMenuModel).toEntity(),
       status: status,
       peopleCount: peopleCount,
       amount: amount,
     );
+  }
+}
+
+extension CalendarCustomerModelMapper on CalendarCustomerModel {
+  CalendarCustomer toEntity() {
+    return CalendarCustomer(name: name, email: email, phone: phone, type: type);
   }
 }
 
@@ -136,19 +143,111 @@ extension StatisticsEntityMapper on Statistics {
   }
 }
 
-extension ReservationEntityMapper on Reservation {
-  ReservationModel toModel() {
-    return ReservationModel(
+extension CalendarReservationEntityMapper on CalendarReservation {
+  CalendarReservationModel toModel() {
+    return CalendarReservationModel(
       id: id,
       reservationNumber: reservationNumber,
-      customerName: customerName,
+      customer: customer.toModel(),
       time: time,
       endTime: endTime,
       menuName: menuName,
       menuColor: menuColor,
+      menu: menu.toModel(),
       status: status,
       peopleCount: peopleCount,
       amount: amount,
+    );
+  }
+}
+
+extension CalendarCustomerEntityMapper on CalendarCustomer {
+  CalendarCustomerModel toModel() {
+    return CalendarCustomerModel(
+      name: name,
+      email: email,
+      phone: phone,
+      type: type,
+    );
+  }
+}
+
+extension CalendarMenuModelMapper on CalendarMenuModel {
+  CalendarMenu toEntity() {
+    return CalendarMenu(
+      id: id,
+      name: name,
+      description: description,
+      requiredTime: requiredTime,
+      price: (price as CalendarMenuPriceModel).toEntity(),
+      photoPath: photoPath,
+      displayOrder: displayOrder,
+      isActive: isActive,
+      color: (color as CalendarMenuColorModel).toEntity(),
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      translations: translations,
+      meta: meta,
+    );
+  }
+}
+
+extension CalendarMenuEntityMapper on CalendarMenu {
+  CalendarMenuModel toModel() {
+    return CalendarMenuModel(
+      id: id,
+      name: name,
+      description: description,
+      requiredTime: requiredTime,
+      price: price.toModel(),
+      photoPath: photoPath,
+      displayOrder: displayOrder,
+      isActive: isActive,
+      color: color.toModel(),
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      translations: translations,
+      meta: meta,
+    );
+  }
+}
+
+extension CalendarMenuPriceModelMapper on CalendarMenuPriceModel {
+  CalendarMenuPrice toEntity() {
+    return CalendarMenuPrice(
+      amount: amount,
+      formatted: formatted,
+      currency: currency,
+    );
+  }
+}
+
+extension CalendarMenuPriceEntityMapper on CalendarMenuPrice {
+  CalendarMenuPriceModel toModel() {
+    return CalendarMenuPriceModel(
+      amount: amount,
+      formatted: formatted,
+      currency: currency,
+    );
+  }
+}
+
+extension CalendarMenuColorModelMapper on CalendarMenuColorModel {
+  CalendarMenuColor toEntity() {
+    return CalendarMenuColor(
+      hex: hex,
+      rgbaLight: rgbaLight,
+      textColor: textColor,
+    );
+  }
+}
+
+extension CalendarMenuColorEntityMapper on CalendarMenuColor {
+  CalendarMenuColorModel toModel() {
+    return CalendarMenuColorModel(
+      hex: hex,
+      rgbaLight: rgbaLight,
+      textColor: textColor,
     );
   }
 }

@@ -33,7 +33,7 @@ abstract class ReservationRemoteDatasource {
   Future<ApiResponse<ReservationModel>> updateReservation(
     UpdateReservationParams params,
   );
-  Future<ApiResponse<ReservationModel>> deleteReservation(
+  Future<ApiResponse<dynamic>> deleteReservation(
     DeleteReservationParams params,
   );
 }
@@ -58,7 +58,7 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
           return ReservationModel.fromMap(item);
         },
       );
-
+      AppLogger.networkDebug('Reservation created successfully');
       return response;
     } catch (e) {
       AppLogger.networkError('Error creating reservation', e);
@@ -81,7 +81,7 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
         },
         queryParameters: queryParameters.isNotEmpty ? queryParameters : null,
       );
-
+      AppLogger.networkDebug('Reservations cursor fetched successfully');
       return response;
     } catch (e) {
       AppLogger.networkError('Error getting reservations cursor', e);
@@ -105,7 +105,7 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
         },
         queryParameters: queryParameters.isNotEmpty ? queryParameters : null,
       );
-
+      AppLogger.networkDebug('Current user reservations fetched successfully');
       return response;
     } catch (e) {
       AppLogger.networkError('Error getting current user reservations', e);
@@ -128,7 +128,7 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
         },
         queryParameters: queryParameters.isNotEmpty ? queryParameters : null,
       );
-
+      AppLogger.networkDebug('Reservation calendar fetched successfully');
       return response;
     } catch (e) {
       AppLogger.networkError('Error getting reservation calendar', e);
@@ -151,7 +151,9 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
         },
         queryParameters: queryParameters.isNotEmpty ? queryParameters : null,
       );
-
+      AppLogger.networkDebug(
+        'Reservation available hours fetched successfully',
+      );
       return response;
     } catch (e) {
       AppLogger.networkError('Error getting reservation available hours', e);
@@ -163,15 +165,36 @@ class ReservationRemoteDatasourceImpl implements ReservationRemoteDatasource {
   Future<ApiResponse<ReservationModel>> updateReservation(
     UpdateReservationParams params,
   ) async {
-    // TODO: implement updateReservation - method not available in API
-    throw UnimplementedError('updateReservation method not implemented in API');
+    try {
+      AppLogger.networkInfo('Updating reservation with id: ${params.id}');
+      final response = await _dioClient.patch<ReservationModel>(
+        '${ApiEndpoints.adminReservations}/${params.id}',
+        data: params.toMap(),
+        fromJson: (data) => ReservationModel.fromMap(data),
+      );
+      AppLogger.networkDebug('Reservation updated successfully');
+      return response;
+    } catch (e) {
+      AppLogger.networkError('Error updating reservation', e);
+      rethrow;
+    }
   }
 
   @override
-  Future<ApiResponse<ReservationModel>> deleteReservation(
+  Future<ApiResponse<dynamic>> deleteReservation(
     DeleteReservationParams params,
   ) async {
-    // TODO: implement deleteReservation - method not available in API
-    throw UnimplementedError('deleteReservation method not implemented in API');
+    try {
+      AppLogger.networkInfo('Deleting reservation with id: ${params.id}');
+      final response = await _dioClient.delete<dynamic>(
+        '${ApiEndpoints.adminReservations}/${params.id}',
+        data: params.toMap(),
+      );
+      AppLogger.networkDebug('Reservation deleted successfully');
+      return response;
+    } catch (e) {
+      AppLogger.networkError('Error deleting reservation', e);
+      rethrow;
+    }
   }
 }

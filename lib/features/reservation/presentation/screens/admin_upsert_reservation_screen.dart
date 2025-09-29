@@ -45,10 +45,11 @@ class _AdminUpsertReservationScreenState
   List<DomainValidationError>? _validationErrors;
   bool _isSubmitting = false;
   List<Menu> _availableMenus = [];
+  bool _isLoadingMenus = false;
 
   bool get _isEditMode => widget.reservation != null;
 
-  String? _getInitialMenuValue() {
+  String? get _initialMenuValue {
     if (!_isEditMode || widget.reservation == null || _availableMenus.isEmpty) {
       return null;
     }
@@ -57,6 +58,12 @@ class _AdminUpsertReservationScreenState
     final menuExists = _availableMenus.any(
       (menu) => menu.id.toString() == reservationMenuId,
     );
+
+    debugPrint('DEBUG: _initialMenuValue called');
+    debugPrint('DEBUG: reservationMenuId = $reservationMenuId');
+    debugPrint('DEBUG: availableMenus count = ${_availableMenus.length}');
+    debugPrint('DEBUG: menuExists = $menuExists');
+    debugPrint('DEBUG: returning = ${menuExists ? reservationMenuId : null}');
 
     return menuExists ? reservationMenuId : null;
   }
@@ -70,37 +77,64 @@ class _AdminUpsertReservationScreenState
   }
 
   Future<void> _loadMenus() async {
-    // Load available menus from provider
-    await ref
-        .read(adminMenuGetNotifierProvider.notifier)
-        .getInitialAdminMenus();
-    final menuState = ref.read(adminMenuGetNotifierProvider);
-    if (menuState.menus.isNotEmpty) {
+    setState(() {
+      _isLoadingMenus = true;
+    });
+
+    try {
+      // Load available menus from provider
+      await ref
+          .read(adminMenuGetNotifierProvider.notifier)
+          .getInitialAdminMenus();
+      final menuState = ref.read(adminMenuGetNotifierProvider);
+
       setState(() {
         _availableMenus = menuState.menus;
+        _isLoadingMenus = false;
       });
+
+      debugPrint('DEBUG: Menus loaded, count = ${menuState.menus.length}');
+      debugPrint(
+        'DEBUG: Available menu IDs: ${menuState.menus.map((m) => m.id).toList()}',
+      );
+      if (_isEditMode && widget.reservation != null) {
+        debugPrint(
+          'DEBUG: Current reservation menu ID: ${widget.reservation!.menu.id}',
+        );
+        debugPrint(
+          'DEBUG: Current reservation menu name: ${widget.reservation!.menu.name}',
+        );
+      }
+
       // Populate form after menus are loaded and UI is rebuilt
       if (_isEditMode) {
+        debugPrint('DEBUG: Edit mode, calling _populateForm');
         _populateForm();
       }
+    } catch (e) {
+      setState(() {
+        _isLoadingMenus = false;
+      });
     }
   }
 
   void _populateForm() {
     final reservation = widget.reservation;
-    if (reservation != null && _formKey.currentState != null) {
+    if (reservation != null) {
       // Use Future.delayed to ensure form is fully built before patching values
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _formKey.currentState?.patchValue({
-          'menu_id': reservation.menu.id.toString(),
-          'reservation_datetime': DateFormat(
-            'yyyy-MM-dd HH:mm',
-          ).format(reservation.reservationDatetime),
-          'number_of_people': reservation.numberOfPeople.toString(),
-          'amount': reservation.amount.raw.toString(),
-          'status': reservation.status.value.name,
-          'notes': reservation.notes ?? '',
-        });
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (_formKey.currentState != null) {
+          _formKey.currentState?.patchValue({
+            // Don't set menu_id here, let initialValue handle it
+            'reservation_datetime': DateFormat(
+              'yyyy-MM-dd HH:mm',
+            ).format(reservation.reservationDatetime),
+            'number_of_people': reservation.numberOfPeople.toString(),
+            'amount': reservation.amount.raw.toString(),
+            'status': reservation.status.value.name,
+            'notes': reservation.notes ?? '',
+          });
+        }
       });
     }
   }
@@ -482,26 +516,59 @@ class _AdminUpsertReservationScreenState
         const AppText('Reservation Details', style: AppTextStyle.titleMedium),
         const SizedBox(height: 16),
         // Menu Selection
-        AppDropdown<String>(
-          name: 'menu_id',
-          label: 'Menu',
-          hintText: 'Select a menu',
-          initialValue: _getInitialMenuValue(),
-          items: _availableMenus
-              .map(
-                (menu) => AppDropdownItem<String>(
-                  value: menu.id.toString(),
-                  label: menu.name,
+        _isLoadingMenus
+            ? Container(
+                width: double.infinity,
+                height: 56,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                      SizedBox(width: 12),
+                      AppText(
+                        'Loading menus...',
+                        style: AppTextStyle.bodyMedium,
+                      ),
+                    ],
+                  ),
                 ),
               )
-              .toList(),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please select a menu';
-            }
-            return null;
-          },
-        ),
+            : AppDropdown<String>(
+                key: ValueKey(
+                  'menu_dropdown_${_availableMenus.length}_${_isEditMode}',
+                ),
+                name: 'menu_id',
+                label: 'Menu',
+                hintText: _availableMenus.isEmpty
+                    ? 'No menus available'
+                    : 'Select a menu',
+                initialValue: _initialMenuValue,
+                items: _availableMenus
+                    .map(
+                      (menu) => AppDropdownItem<String>(
+                        value: menu.id.toString(),
+                        label: menu.name,
+                      ),
+                    )
+                    .toList(),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select a menu';
+                  }
+                  return null;
+                },
+              ),
         const SizedBox(height: 16),
         // Reservation Date & Time
         AppTextField(

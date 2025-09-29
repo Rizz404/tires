@@ -149,8 +149,14 @@ class _AdminListCalendarScreenState
 
   /// Convert calendar reservation to full reservation entity
   reservation_entity.Reservation _convertCalendarReservationToFull(
-    Reservation calendarReservation,
+    CalendarReservation calendarReservation,
   ) {
+    debugPrint('DEBUG: Converting calendar reservation:');
+    debugPrint('DEBUG: - Reservation ID: ${calendarReservation.id}');
+    debugPrint('DEBUG: - Menu ID: ${calendarReservation.menu.id}');
+    debugPrint('DEBUG: - Menu Name: ${calendarReservation.menu.name}');
+    debugPrint('DEBUG: - Customer: ${calendarReservation.customer.name}');
+
     // Parse time string to DateTime
     final now = DateTime.now();
     final timeParts = calendarReservation.time.split(':');
@@ -172,36 +178,43 @@ class _AdminListCalendarScreenState
     );
     final amountInt = int.tryParse(amountString) ?? 0;
 
+    // Parse menu price amount
+    final menuPriceString = calendarReservation.menu.price.amount.replaceAll(
+      RegExp(r'[^0-9]'),
+      '',
+    );
+    final menuPriceInt = int.tryParse(menuPriceString) ?? 0;
+
     return reservation_entity.Reservation(
       id: calendarReservation.id,
       reservationNumber: calendarReservation.reservationNumber,
       user: null, // Not available in calendar data
       customerInfo: ReservationCustomerInfo(
-        fullName: calendarReservation.customerName ?? 'Unknown',
+        fullName: calendarReservation.customer.name ?? 'Unknown',
         fullNameKana: '', // Not available in calendar data
-        email: '', // Not available in calendar data
-        phoneNumber: '', // Not available in calendar data
-        isGuest: true, // Assume guest for now
+        email: calendarReservation.customer.email ?? '',
+        phoneNumber: calendarReservation.customer.phone ?? '',
+        isGuest: calendarReservation.customer.type == 'guest',
       ),
       menu: Menu(
-        id: 0, // Not available in calendar data
-        name: calendarReservation.menuName,
-        description: '',
-        requiredTime: 60, // Default 1 hour
+        id: calendarReservation.menu.id, // Use actual menu ID from API
+        name: calendarReservation.menu.name,
+        description: calendarReservation.menu.description,
+        requiredTime: calendarReservation.menu.requiredTime,
         price: Price(
-          amount: amountInt.toString(),
-          formatted: calendarReservation.amount,
-          currency: 'JPY',
+          amount: menuPriceInt.toString(),
+          formatted: calendarReservation.menu.price.formatted,
+          currency: calendarReservation.menu.price.currency,
         ),
-        photoPath: null,
-        displayOrder: 0,
+        photoPath: calendarReservation.menu.photoPath,
+        displayOrder: calendarReservation.menu.displayOrder,
         color: ColorInfo(
-          hex: calendarReservation.menuColor,
-          rgbaLight: calendarReservation.menuColor,
-          textColor: '#FFFFFF',
+          hex: calendarReservation.menu.color.hex,
+          rgbaLight: calendarReservation.menu.color.rgbaLight,
+          textColor: calendarReservation.menu.color.textColor,
         ),
-        isActive: true,
-        translations: null,
+        isActive: calendarReservation.menu.isActive,
+        translations: null, // TODO: Map translations properly if needed
       ),
       reservationDatetime: reservationDateTime,
       numberOfPeople: calendarReservation.peopleCount,
@@ -415,7 +428,7 @@ class _AdminListCalendarScreenState
     );
   }
 
-  List<Reservation> _getEventsForDay(DateTime day) {
+  List<CalendarReservation> _getEventsForDay(DateTime day) {
     final state = ref.watch(calendarNotifierProvider);
     final calendarData = state.calendarData;
 

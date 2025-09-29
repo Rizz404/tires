@@ -6,7 +6,7 @@ class MonthCalendarWidget extends StatelessWidget {
   final DateTime focusedDay;
   final DateTime? selectedDay;
   final CalendarFormat calendarFormat;
-  final List<Reservation> Function(DateTime) eventLoader;
+  final List<CalendarReservation> Function(DateTime) eventLoader;
   final Function(DateTime, DateTime) onDaySelected;
   final Function(CalendarFormat) onFormatChanged;
   final Function(DateTime) onPageChanged;
@@ -27,7 +27,7 @@ class MonthCalendarWidget extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: TableCalendar<Reservation>(
+        child: TableCalendar<CalendarReservation>(
           firstDay: DateTime.utc(2020, 1, 1),
           lastDay: DateTime.utc(2030, 12, 31),
           focusedDay: focusedDay,

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:intl/intl.dart';
 
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
@@ -76,7 +77,9 @@ class UpdateReservationParams extends Equatable {
       'reservation_number': reservationNumber,
       'user_id': userId,
       'menu_id': menuId,
-      'reservation_datetime': reservationDatetime.millisecondsSinceEpoch,
+      'reservation_datetime': DateFormat(
+        'yyyy-MM-dd HH:mm:ss',
+      ).format(reservationDatetime),
       'number_of_people': numberOfPeople,
       'amount': amount,
       'status': status?.name,
@@ -92,9 +95,9 @@ class UpdateReservationParams extends Equatable {
       reservationNumber: map['reservation_number'],
       userId: map['user_id']?.toInt(),
       menuId: map['menu_id']?.toInt() ?? 0,
-      reservationDatetime: DateTime.fromMillisecondsSinceEpoch(
-        map['reservation_datetime'],
-      ),
+      reservationDatetime: map['reservation_datetime'] is String
+          ? DateFormat('yyyy-MM-dd HH:mm:ss').parse(map['reservation_datetime'])
+          : DateTime.fromMillisecondsSinceEpoch(map['reservation_datetime']),
       numberOfPeople: map['number_of_people']?.toInt() ?? 0,
       amount: map['amount']?.toInt() ?? 0,
       status: map['status'] != null

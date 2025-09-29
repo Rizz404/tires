@@ -5,7 +5,7 @@ import 'package:tires/shared/presentation/widgets/app_text.dart';
 
 class DayViewWidget extends StatelessWidget {
   final DateTime selectedDay;
-  final List<Reservation> reservations;
+  final List<CalendarReservation> reservations;
   final VoidCallback onPreviousDay;
   final VoidCallback onNextDay;
 

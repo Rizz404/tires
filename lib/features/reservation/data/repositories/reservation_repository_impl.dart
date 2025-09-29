@@ -34,10 +34,10 @@ class ReservationRepositoryImpl implements ReservationRepository {
       final result = await _reservationRemoteDatasource.createReservation(
         params,
       );
-
+      AppLogger.businessDebug('Reservation created successfully in repository');
       return Right(
         ItemSuccessResponse<Reservation>(
-          data: result.data,
+          data: result.data.toEntity(),
           message: result.message,
         ),
       );
@@ -58,7 +58,9 @@ class ReservationRepositoryImpl implements ReservationRepository {
       final result = await _reservationRemoteDatasource.getReservationsCursor(
         params,
       );
-
+      AppLogger.businessDebug(
+        'Reservations cursor fetched successfully in repository',
+      );
       return Right(
         CursorPaginatedSuccess<Reservation>(
           data: result.data
@@ -85,7 +87,9 @@ class ReservationRepositoryImpl implements ReservationRepository {
       AppLogger.businessInfo('Getting current user reservations in repository');
       final result = await _reservationRemoteDatasource
           .getCurrentUserReservations(params);
-
+      AppLogger.businessDebug(
+        'Current user reservations fetched successfully in repository',
+      );
       return Right(
         CursorPaginatedSuccess<Reservation>(
           data: result.data
@@ -112,7 +116,9 @@ class ReservationRepositoryImpl implements ReservationRepository {
       final result = await _reservationRemoteDatasource.getReservationCalendar(
         params,
       );
-
+      AppLogger.businessDebug(
+        'Reservation calendar fetched successfully in repository',
+      );
       final calendar = result.data.toEntity();
       return Right(
         ItemSuccessResponse(data: calendar, message: result.message),
@@ -137,7 +143,9 @@ class ReservationRepositoryImpl implements ReservationRepository {
       );
       final result = await _reservationRemoteDatasource
           .getReservationAvailableHours(params);
-
+      AppLogger.businessDebug(
+        'Reservation available hours fetched successfully in repository',
+      );
       final calendar = result.data.toEntity();
       return Right(
         ItemSuccessResponse(data: calendar, message: result.message),
@@ -158,19 +166,44 @@ class ReservationRepositoryImpl implements ReservationRepository {
   Future<Either<Failure, ItemSuccessResponse<Reservation>>> updateReservation(
     UpdateReservationParams params,
   ) async {
-    // TODO: implement updateReservation - method not available in datasource
-    throw UnimplementedError(
-      'updateReservation method not implemented in datasource',
-    );
+    try {
+      AppLogger.businessInfo('Updating reservation in repository');
+      final result = await _reservationRemoteDatasource.updateReservation(
+        params,
+      );
+      AppLogger.businessDebug('Reservation updated successfully in repository');
+      return Right(
+        ItemSuccessResponse<Reservation>(
+          data: result.data.toEntity(),
+          message: result.message,
+        ),
+      );
+    } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in update reservation', e);
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      AppLogger.businessError('Unexpected error in update reservation', e);
+      return Left(ServerFailure(message: e.toString()));
+    }
   }
 
   @override
-  Future<Either<Failure, ItemSuccessResponse<Reservation>>> deleteReservation(
+  Future<Either<Failure, ActionSuccess>> deleteReservation(
     DeleteReservationParams params,
   ) async {
-    // TODO: implement deleteReservation - method not available in datasource
-    throw UnimplementedError(
-      'deleteReservation method not implemented in datasource',
-    );
+    try {
+      AppLogger.businessInfo('Deleting reservation in repository');
+      final result = await _reservationRemoteDatasource.deleteReservation(
+        params,
+      );
+      AppLogger.businessDebug('Reservation deleted successfully in repository');
+      return Right(ActionSuccess(message: result.message));
+    } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in delete reservation', e);
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      AppLogger.businessError('Unexpected error in delete reservation', e);
+      return Left(ServerFailure(message: e.toString()));
+    }
   }
 }

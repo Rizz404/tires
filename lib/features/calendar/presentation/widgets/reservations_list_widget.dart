@@ -6,8 +6,8 @@ import 'package:tires/shared/presentation/widgets/app_text.dart';
 
 class ReservationsListWidget extends StatelessWidget {
   final DateTime selectedDay;
-  final List<Reservation> reservations;
-  final Function(Reservation reservation)? onReservationTap;
+  final List<CalendarReservation> reservations;
+  final Function(CalendarReservation reservation)? onReservationTap;
 
   const ReservationsListWidget({
     super.key,
@@ -71,7 +71,10 @@ class ReservationsListWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildReservationCard(BuildContext context, Reservation reservation) {
+  Widget _buildReservationCard(
+    BuildContext context,
+    CalendarReservation reservation,
+  ) {
     return GestureDetector(
       onTap: () => onReservationTap?.call(reservation),
       child: Container(
@@ -137,14 +140,14 @@ class ReservationsListWidget extends StatelessWidget {
                 ),
               ],
             ),
-            if (reservation.customerName != null) ...[
+            if (reservation.customer.name != null) ...[
               const SizedBox(height: 4),
               Row(
                 children: [
                   Icon(Icons.person, size: 14, color: Colors.grey[600]),
                   const SizedBox(width: 4),
                   Text(
-                    reservation.customerName!,
+                    reservation.customer.name!,
                     style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                   ),
                 ],

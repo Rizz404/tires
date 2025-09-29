@@ -31,7 +31,7 @@ class CalendarDay extends Equatable {
   final bool isCurrentMonth;
   final bool isToday;
   final String dayName;
-  final List<Reservation> reservations;
+  final List<CalendarReservation> reservations;
   final int totalReservations;
 
   const CalendarDay({
@@ -111,26 +111,28 @@ class Statistics extends Equatable {
   ];
 }
 
-class Reservation extends Equatable {
+class CalendarReservation extends Equatable {
   final int id;
   final String reservationNumber;
-  final String? customerName;
+  final CalendarCustomer customer;
   final String time;
   final String endTime;
   final String menuName;
   final String menuColor;
+  final CalendarMenu menu;
   final String status;
   final int peopleCount;
   final String amount;
 
-  const Reservation({
+  const CalendarReservation({
     required this.id,
     required this.reservationNumber,
-    this.customerName,
+    required this.customer,
     required this.time,
     required this.endTime,
     required this.menuName,
     required this.menuColor,
+    required this.menu,
     required this.status,
     required this.peopleCount,
     required this.amount,
@@ -140,13 +142,110 @@ class Reservation extends Equatable {
   List<Object?> get props => [
     id,
     reservationNumber,
-    customerName,
+    customer,
     time,
     endTime,
     menuName,
     menuColor,
+    menu,
     status,
     peopleCount,
     amount,
   ];
+}
+
+class CalendarCustomer extends Equatable {
+  final String? name;
+  final String? email;
+  final String? phone;
+  final String type;
+
+  const CalendarCustomer({
+    required this.name,
+    required this.email,
+    required this.phone,
+    required this.type,
+  });
+
+  @override
+  List<Object?> get props => [name, email, phone, type];
+}
+
+class CalendarMenu extends Equatable {
+  final int id;
+  final String name;
+  final String description;
+  final int requiredTime;
+  final CalendarMenuPrice price;
+  final String? photoPath;
+  final int displayOrder;
+  final bool isActive;
+  final CalendarMenuColor color;
+  final String createdAt;
+  final String updatedAt;
+  final Map<String, dynamic>? translations;
+  final Map<String, dynamic>? meta;
+
+  const CalendarMenu({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.requiredTime,
+    required this.price,
+    required this.photoPath,
+    required this.displayOrder,
+    required this.isActive,
+    required this.color,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.translations,
+    required this.meta,
+  });
+
+  @override
+  List<Object?> get props => [
+    id,
+    name,
+    description,
+    requiredTime,
+    price,
+    photoPath,
+    displayOrder,
+    isActive,
+    color,
+    createdAt,
+    updatedAt,
+    translations,
+    meta,
+  ];
+}
+
+class CalendarMenuPrice extends Equatable {
+  final String amount;
+  final String formatted;
+  final String currency;
+
+  const CalendarMenuPrice({
+    required this.amount,
+    required this.formatted,
+    required this.currency,
+  });
+
+  @override
+  List<Object> get props => [amount, formatted, currency];
+}
+
+class CalendarMenuColor extends Equatable {
+  final String hex;
+  final String rgbaLight;
+  final String textColor;
+
+  const CalendarMenuColor({
+    required this.hex,
+    required this.rgbaLight,
+    required this.textColor,
+  });
+
+  @override
+  List<Object> get props => [hex, rgbaLight, textColor];
 }
