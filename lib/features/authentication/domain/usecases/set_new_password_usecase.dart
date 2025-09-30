@@ -25,21 +25,24 @@ class SetNewPasswordUsecase
 }
 
 class SetNewPasswordParams extends Equatable {
+  final String currentPassword;
   final String newPassword;
   final String confirmNewPassword;
 
   const SetNewPasswordParams({
+    required this.currentPassword,
     required this.newPassword,
     required this.confirmNewPassword,
   });
 
   @override
-  List<Object> get props => [newPassword, confirmNewPassword];
+  List<Object> get props => [currentPassword, newPassword, confirmNewPassword];
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'current_password': currentPassword,
       'new_password': newPassword,
-      'confirm_new_password': confirmNewPassword,
+      'new_password_confirmation': confirmNewPassword,
     };
   }
 

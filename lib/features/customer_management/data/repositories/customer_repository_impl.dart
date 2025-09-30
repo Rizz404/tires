@@ -89,9 +89,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
   getCustomerDetail(GetCustomerDetailParams params) async {
     try {
       AppLogger.businessInfo('Getting customer detail in repository');
-      final result = await _customerRemoteDatasource.getCustomerDetail(
-        params.id,
-      );
+      final result = await _customerRemoteDatasource.getCustomerDetail(params);
 
       final customerDetail = result.data.toEntity();
       return Right(

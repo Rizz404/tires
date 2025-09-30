@@ -36,6 +36,16 @@ class CreateBlockedPeriodParams {
     required this.reason,
     required this.allMenus,
   });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      if (menuId != null) 'menu_id': menuId,
+      'start_datetime': startDatetime.toIso8601String(),
+      'end_datetime': endDatetime.toIso8601String(),
+      'reason': reason,
+      'all_menus': allMenus,
+    };
+  }
 }
 
 class GetBlockedPeriodsCursorParams {
@@ -58,6 +68,21 @@ class GetBlockedPeriodsCursorParams {
     this.startDate,
     this.endDate,
   });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      if (cursor != null) 'cursor': cursor,
+      if (perPage != null) 'per_page': perPage,
+      if (search != null) 'search': search,
+      if (status != null) 'status': status,
+      if (menuId != null) 'menu_id': menuId,
+      if (allMenus != null) 'all_menus': allMenus,
+      if (startDate != null)
+        'start_date': startDate!.toIso8601String().split('T').first,
+      if (endDate != null)
+        'end_date': endDate!.toIso8601String().split('T').first,
+    };
+  }
 }
 
 class UpdateBlockedPeriodParams {
@@ -76,10 +101,26 @@ class UpdateBlockedPeriodParams {
     this.reason,
     this.allMenus,
   });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      if (menuId != null) 'menu_id': menuId,
+      if (startDatetime != null)
+        'start_datetime': startDatetime!.toIso8601String(),
+      if (endDatetime != null) 'end_datetime': endDatetime!.toIso8601String(),
+      if (reason != null) 'reason': reason,
+      if (allMenus != null) 'all_menus': allMenus,
+    };
+  }
 }
 
 class DeleteBlockedPeriodParams {
   final int id;
 
   const DeleteBlockedPeriodParams({required this.id});
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'id': id};
+  }
 }

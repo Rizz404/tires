@@ -18,18 +18,7 @@ class UpdateCurrentUserUsecase
     UpdateUserParams params,
   ) async {
     AppLogger.businessInfo('Executing update current user usecase');
-    final result = await _userRepository.updateCurrentUser(
-      fullName: params.fullName,
-      fullNameKana: params.fullNameKana,
-      email: params.email,
-      phoneNumber: params.phoneNumber,
-      companyName: params.companyName,
-      department: params.department,
-      companyAddress: params.companyAddress,
-      homeAddress: params.homeAddress,
-      dateOfBirth: params.dateOfBirth,
-      gender: params.gender,
-    );
+    final result = await _userRepository.updateCurrentUser(params);
     result.fold(
       (failure) => AppLogger.businessError(
         'Update current user usecase failed',
@@ -81,4 +70,19 @@ class UpdateUserParams extends Equatable {
     dateOfBirth,
     gender,
   ];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'full_name': fullName,
+      'full_name_kana': fullNameKana,
+      'email': email,
+      'phone_number': phoneNumber,
+      if (companyName != null) 'company_name': companyName,
+      if (department != null) 'department': department,
+      if (companyAddress != null) 'company_address': companyAddress,
+      if (homeAddress != null) 'home_address': homeAddress,
+      if (dateOfBirth != null) 'date_of_birth': dateOfBirth!.toIso8601String(),
+      if (gender != null) 'gender': gender,
+    };
+  }
 }

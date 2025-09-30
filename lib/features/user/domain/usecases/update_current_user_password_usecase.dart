@@ -17,11 +17,7 @@ class UpdateCurrentUserPasswordUsecase
     UpdateUserPasswordParams params,
   ) async {
     AppLogger.businessInfo('Executing update current user password usecase');
-    final result = await _userRepository.updateCurrentUserPassword(
-      currentPassword: params.currentPassword,
-      newPassword: params.newPassword,
-      confirmPassword: params.confirmPassword,
-    );
+    final result = await _userRepository.updateCurrentUserPassword(params);
     result.fold(
       (failure) => AppLogger.businessError(
         'Update current user password usecase failed',
@@ -48,4 +44,12 @@ class UpdateUserPasswordParams extends Equatable {
 
   @override
   List<Object?> get props => [currentPassword, newPassword, confirmPassword];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'current_password': currentPassword,
+      'password': newPassword,
+      'password_confirmation': confirmPassword,
+    };
+  }
 }

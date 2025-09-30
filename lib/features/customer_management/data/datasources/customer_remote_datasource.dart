@@ -9,6 +9,7 @@ import 'package:tires/features/customer_management/data/models/customer_detail_m
     as detail;
 import 'package:tires/features/customer_management/data/models/customer_statistic_model.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customers_cursor_usecase.dart';
+import 'package:tires/features/customer_management/domain/usecases/get_customer_detail_usecase.dart';
 
 abstract class CustomerRemoteDatasource {
   Future<ApiCursorPaginationResponse<CustomerModel>> getCustomersCursor(
@@ -16,7 +17,9 @@ abstract class CustomerRemoteDatasource {
   );
   Future<ApiResponse<CustomerDashboardModel>> getCurrentUserDashboard();
   Future<ApiResponse<CustomerStatisticModel>> getCustomerStatistics();
-  Future<ApiResponse<detail.CustomerDetailModel>> getCustomerDetail(int id);
+  Future<ApiResponse<detail.CustomerDetailModel>> getCustomerDetail(
+    GetCustomerDetailParams params,
+  );
 }
 
 class CustomerRemoteDatasourceImpl implements CustomerRemoteDatasource {
@@ -79,12 +82,12 @@ class CustomerRemoteDatasourceImpl implements CustomerRemoteDatasource {
 
   @override
   Future<ApiResponse<detail.CustomerDetailModel>> getCustomerDetail(
-    int id,
+    GetCustomerDetailParams params,
   ) async {
     try {
-      AppLogger.networkInfo('Fetching customer detail for id: $id');
+      AppLogger.networkInfo('Fetching customer detail for id: ${params.id}');
       final response = await _dioClient.get<detail.CustomerDetailModel>(
-        '${ApiEndpoints.adminCustomers}/$id',
+        '${ApiEndpoints.adminCustomers}/${params.id}',
         fromJson: (data) => detail.CustomerDetailModel.fromMap(data),
       );
       AppLogger.networkDebug('Customer detail fetched successfully');

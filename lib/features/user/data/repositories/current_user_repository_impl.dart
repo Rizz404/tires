@@ -8,6 +8,8 @@ import 'package:tires/features/user/data/datasources/current_user_remote_datasou
 import 'package:tires/features/user/data/mapper/user_mapper.dart';
 import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:tires/features/user/domain/repositories/current_user_repository.dart';
+import 'package:tires/features/user/domain/usecases/update_current_user_usecase.dart';
+import 'package:tires/features/user/domain/usecases/update_current_user_password_usecase.dart';
 
 class CurrentUserRepositoryImpl implements CurrentUserRepository {
   final CurrentUserRemoteDatasource _userRemoteDatasource;
@@ -58,32 +60,12 @@ class CurrentUserRepositoryImpl implements CurrentUserRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccessResponse<User>>> updateCurrentUser({
-    required String fullName,
-    required String fullNameKana,
-    required String email,
-    required String phoneNumber,
-    String? companyName,
-    String? department,
-    String? companyAddress,
-    String? homeAddress,
-    DateTime? dateOfBirth,
-    String? gender,
-  }) async {
+  Future<Either<Failure, ItemSuccessResponse<User>>> updateCurrentUser(
+    UpdateUserParams params,
+  ) async {
     try {
       AppLogger.businessInfo('Updating current user in repository');
-      final result = await _userRemoteDatasource.updateCurrentUser(
-        fullName: fullName,
-        fullNameKana: fullNameKana,
-        email: email,
-        phoneNumber: phoneNumber,
-        companyName: companyName,
-        department: department,
-        companyAddress: companyAddress,
-        homeAddress: homeAddress,
-        dateOfBirth: dateOfBirth,
-        gender: gender,
-      );
+      final result = await _userRemoteDatasource.updateCurrentUser(params);
 
       final updatedUser = result.data.toEntity();
       // Update the cached user data with the new information
@@ -108,17 +90,13 @@ class CurrentUserRepositoryImpl implements CurrentUserRepository {
   }
 
   @override
-  Future<Either<Failure, ActionSuccess>> updateCurrentUserPassword({
-    required String currentPassword,
-    required String newPassword,
-    required String confirmPassword,
-  }) async {
+  Future<Either<Failure, ActionSuccess>> updateCurrentUserPassword(
+    UpdateUserPasswordParams params,
+  ) async {
     try {
       AppLogger.businessInfo('Updating current user password in repository');
       final result = await _userRemoteDatasource.updateCurrentUserPassword(
-        currentPassword: currentPassword,
-        newPassword: newPassword,
-        confirmPassword: confirmPassword,
+        params,
       );
 
       AppLogger.businessInfo('User password updated successfully');

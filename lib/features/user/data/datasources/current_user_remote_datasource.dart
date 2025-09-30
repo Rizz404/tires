@@ -3,26 +3,15 @@ import 'package:tires/core/network/api_response.dart';
 import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/user/data/models/user_model.dart';
+import 'package:tires/features/user/domain/usecases/update_current_user_usecase.dart';
+import 'package:tires/features/user/domain/usecases/update_current_user_password_usecase.dart';
 
 abstract class CurrentUserRemoteDatasource {
   Future<ApiResponse<UserModel>> getCurrentUser();
-  Future<ApiResponse<UserModel>> updateCurrentUser({
-    required String fullName,
-    required String fullNameKana,
-    required String email,
-    required String phoneNumber,
-    String? companyName,
-    String? department,
-    String? companyAddress,
-    String? homeAddress,
-    DateTime? dateOfBirth,
-    String? gender,
-  });
-  Future<ApiResponse<dynamic>> updateCurrentUserPassword({
-    required String currentPassword,
-    required String newPassword,
-    required String confirmPassword,
-  });
+  Future<ApiResponse<UserModel>> updateCurrentUser(UpdateUserParams params);
+  Future<ApiResponse<dynamic>> updateCurrentUserPassword(
+    UpdateUserPasswordParams params,
+  );
   Future<ApiResponse<dynamic>> deleteCurrentUserAccount();
 }
 
@@ -49,36 +38,14 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<UserModel>> updateCurrentUser({
-    required String fullName,
-    required String fullNameKana,
-    required String email,
-    required String phoneNumber,
-    String? companyName,
-    String? department,
-    String? companyAddress,
-    String? homeAddress,
-    DateTime? dateOfBirth,
-    String? gender,
-  }) async {
+  Future<ApiResponse<UserModel>> updateCurrentUser(
+    UpdateUserParams params,
+  ) async {
     try {
       AppLogger.networkInfo('Updating current user profile');
-      final data = {
-        'full_name': fullName,
-        'full_name_kana': fullNameKana,
-        'email': email,
-        'phone_number': phoneNumber,
-        if (companyName != null) 'company_name': companyName,
-        if (department != null) 'department': department,
-        if (companyAddress != null) 'company_address': companyAddress,
-        if (homeAddress != null) 'home_address': homeAddress,
-        if (dateOfBirth != null) 'date_of_birth': dateOfBirth.toIso8601String(),
-        if (gender != null) 'gender': gender,
-      };
-
       final response = await _dioClient.patch<UserModel>(
         ApiEndpoints.customerProfile,
-        data: data,
+        data: params.toMap(),
         fromJson: (json) {
           return UserModel.fromMap(json);
         },
@@ -93,22 +60,14 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<dynamic>> updateCurrentUserPassword({
-    required String currentPassword,
-    required String newPassword,
-    required String confirmPassword,
-  }) async {
+  Future<ApiResponse<dynamic>> updateCurrentUserPassword(
+    UpdateUserPasswordParams params,
+  ) async {
     try {
       AppLogger.networkInfo('Updating current user password');
-      final data = {
-        'current_password': currentPassword,
-        'password': newPassword,
-        'password_confirmation': confirmPassword,
-      };
-
       final response = await _dioClient.patch<dynamic>(
         '${ApiEndpoints.customerProfile}/password',
-        data: data,
+        data: params.toMap(),
       );
 
       AppLogger.networkInfo('Successfully updated current user password');

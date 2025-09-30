@@ -37,6 +37,7 @@ class _SetNewPasswordScreenState extends ConsumerState<SetNewPasswordScreen> {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       final values = _formKey.currentState!.value;
       final params = SetNewPasswordParams(
+        currentPassword: values['currentPassword'],
         newPassword: values['newPassword'],
         confirmNewPassword: values['confirmNewPassword'],
       );
@@ -113,6 +114,16 @@ class _SetNewPasswordScreenState extends ConsumerState<SetNewPasswordScreen> {
                     padding: const EdgeInsets.only(bottom: 24),
                     child: ErrorSummaryBox(errors: _validationErrors!),
                   ),
+                // Todo: Add translation for currentPasswordLabel
+                // Todo: Add translation for currentPasswordPlaceholder
+                AppTextField(
+                  name: 'currentPassword',
+                  label: 'Current Password',
+                  placeHolder: 'Enter your current password',
+                  type: AppTextFieldType.password,
+                  validator: AuthValidators.password,
+                ),
+                const SizedBox(height: 16),
                 // Todo: Add translation for setNewPasswordLabel
                 // Todo: Add translation for setNewPasswordPlaceholder
                 AppTextField(

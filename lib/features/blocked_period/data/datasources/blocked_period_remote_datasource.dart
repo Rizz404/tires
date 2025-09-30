@@ -40,7 +40,7 @@ class BlockedPeriodRemoteDatasourceImpl
       AppLogger.networkInfo('Creating blocked period');
       final response = await _dioClient.post<BlockedPeriodModel>(
         ApiEndpoints.adminBlockedPeriods,
-        data: _createBlockedPeriodParamsToMap(params),
+        data: params.toMap(),
         fromJson: (data) => BlockedPeriodModel.fromMap(data),
       );
       AppLogger.networkDebug('Blocked period created successfully');
@@ -60,7 +60,7 @@ class BlockedPeriodRemoteDatasourceImpl
         ApiEndpoints.adminBlockedPeriods,
         fromJson: (item) =>
             BlockedPeriodModel.fromMap(item as Map<String, dynamic>),
-        queryParameters: _getBlockedPeriodsCursorParamsToMap(params),
+        queryParameters: params.toMap(),
       );
       AppLogger.networkDebug('Blocked periods retrieved successfully');
       return response;
@@ -78,7 +78,7 @@ class BlockedPeriodRemoteDatasourceImpl
       AppLogger.networkInfo('Updating blocked period with ID: ${params.id}');
       final response = await _dioClient.put<BlockedPeriodModel>(
         '${ApiEndpoints.adminBlockedPeriods}/${params.id}',
-        data: _updateBlockedPeriodParamsToMap(params),
+        data: params.toMap(),
         fromJson: (data) => BlockedPeriodModel.fromMap(data),
       );
       AppLogger.networkDebug('Blocked period updated successfully');
@@ -123,53 +123,5 @@ class BlockedPeriodRemoteDatasourceImpl
       AppLogger.networkError('Error getting blocked period statistics', e);
       rethrow;
     }
-  }
-
-  // Helper methods to convert params to map
-  Map<String, dynamic> _createBlockedPeriodParamsToMap(
-    CreateBlockedPeriodParams params,
-  ) {
-    return {
-      if (params.menuId != null) 'menu_id': params.menuId,
-      'start_datetime': params.startDatetime.toIso8601String(),
-      'end_datetime': params.endDatetime.toIso8601String(),
-      'reason': params.reason,
-      'all_menus': params.allMenus,
-    };
-  }
-
-  Map<String, dynamic> _getBlockedPeriodsCursorParamsToMap(
-    GetBlockedPeriodsCursorParams params,
-  ) {
-    final map = <String, dynamic>{};
-
-    if (params.cursor != null) map['cursor'] = params.cursor;
-    if (params.perPage != null) map['per_page'] = params.perPage;
-    if (params.search != null) map['search'] = params.search;
-    if (params.status != null) map['status'] = params.status;
-    if (params.menuId != null) map['menu_id'] = params.menuId;
-    if (params.allMenus != null) map['all_menus'] = params.allMenus;
-    if (params.startDate != null)
-      map['start_date'] = params.startDate!.toIso8601String();
-    if (params.endDate != null)
-      map['end_date'] = params.endDate!.toIso8601String();
-
-    return map;
-  }
-
-  Map<String, dynamic> _updateBlockedPeriodParamsToMap(
-    UpdateBlockedPeriodParams params,
-  ) {
-    final map = <String, dynamic>{};
-
-    if (params.menuId != null) map['menu_id'] = params.menuId;
-    if (params.startDatetime != null)
-      map['start_datetime'] = params.startDatetime!.toIso8601String();
-    if (params.endDatetime != null)
-      map['end_datetime'] = params.endDatetime!.toIso8601String();
-    if (params.reason != null) map['reason'] = params.reason;
-    if (params.allMenus != null) map['all_menus'] = params.allMenus;
-
-    return map;
   }
 }
