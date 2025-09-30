@@ -82,7 +82,7 @@ class MyApp extends ConsumerWidget {
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: "Test App",
+      title: "Tires",
       theme: AppTheme.lightTheme,
       // darkTheme: AppTheme.darkTheme,
       builder: (context, child) => botToastBuilder(context, child),

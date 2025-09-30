@@ -98,82 +98,88 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         child: ScreenWrapper(
           child: FormBuilder(
             key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AppText(
-                  l10n.loginTitle,
-                  style: AppTextStyle.titleLarge,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 24),
-                if (_validationErrors != null && _validationErrors!.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 24),
-                    child: ErrorSummaryBox(errors: _validationErrors!),
-                  ),
-                AppTextField(
-                  name: 'email',
-                  initialValue: "customer@gmail.com",
-                  label: l10n.loginEmailLabel,
-                  placeHolder: l10n.loginEmailPlaceholder,
-                  type: AppTextFieldType.email,
-                  validator: AuthValidators.email,
-                ),
-                const SizedBox(height: 16),
-                AppTextField(
-                  name: 'password',
-                  initialValue: "customer123",
-                  label: l10n.loginPasswordLabel,
-                  placeHolder: l10n.loginPasswordPlaceholder,
-                  type: AppTextFieldType.password,
-                  validator: AuthValidators.password,
-                ),
-                const SizedBox(height: 8),
-                AppCheckbox(
-                  name: 'remember',
-                  title: AppText(l10n.loginRememberMe),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextButton(
-                      onPressed: () {
-                        context.router.push(const ForgotPasswordRoute());
-                      },
-                      child: AppText(
-                        l10n.loginForgotPassword,
-                        color: theme.colorScheme.primary,
+                    AppText(
+                      l10n.loginTitle,
+                      style: AppTextStyle.titleLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 24),
+                    if (_validationErrors != null &&
+                        _validationErrors!.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 24),
+                        child: ErrorSummaryBox(errors: _validationErrors!),
                       ),
+                    AppTextField(
+                      name: 'email',
+                      initialValue: "customer@gmail.com",
+                      label: l10n.loginEmailLabel,
+                      placeHolder: l10n.loginEmailPlaceholder,
+                      type: AppTextFieldType.email,
+                      validator: AuthValidators.email,
+                    ),
+                    const SizedBox(height: 16),
+                    AppTextField(
+                      name: 'password',
+                      initialValue: "customer123",
+                      label: l10n.loginPasswordLabel,
+                      placeHolder: l10n.loginPasswordPlaceholder,
+                      type: AppTextFieldType.password,
+                      validator: AuthValidators.password,
+                    ),
+                    const SizedBox(height: 8),
+                    AppCheckbox(
+                      name: 'remember',
+                      title: AppText(l10n.loginRememberMe),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            context.router.push(const ForgotPasswordRoute());
+                          },
+                          child: AppText(
+                            l10n.loginForgotPassword,
+                            color: theme.colorScheme.primary,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+                    AppButton(
+                      text: l10n.loginButton,
+                      color: AppButtonColor.secondary,
+                      isLoading: authState.status == AuthStatus.loading,
+                      onPressed: () => _handleSubmit(ref),
+                    ),
+                    const SizedBox(height: 24),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 4.0,
+                      runSpacing: 4.0,
+                      children: [
+                        AppText(l10n.loginNoAccountPrompt),
+                        GestureDetector(
+                          onTap: () =>
+                              context.router.push(const RegisterRoute()),
+                          child: AppText(
+                            l10n.loginSignupLink,
+                            style: AppTextStyle.bodyMedium,
+                            color: theme.colorScheme.primary,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                const SizedBox(height: 24),
-                AppButton(
-                  text: l10n.loginButton,
-                  color: AppButtonColor.secondary,
-                  isLoading: authState.status == AuthStatus.loading,
-                  onPressed: () => _handleSubmit(ref),
-                ),
-                const SizedBox(height: 24),
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  spacing: 4.0,
-                  runSpacing: 4.0,
-                  children: [
-                    AppText(l10n.loginNoAccountPrompt),
-                    GestureDetector(
-                      onTap: () => context.router.push(const RegisterRoute()),
-                      child: AppText(
-                        l10n.loginSignupLink,
-                        style: AppTextStyle.bodyMedium,
-                        color: theme.colorScheme.primary,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              ),
             ),
           ),
         ),

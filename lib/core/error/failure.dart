@@ -20,6 +20,32 @@ class ValidationFailure extends Failure {
   List<Object?> get props => [message, errors];
 
   ValidationFailure({required super.message, this.errors});
+
+  /// Check if this failure has validation errors
+  bool get hasValidationErrors => errors != null && errors!.isNotEmpty;
+
+  /// Get all error messages combined
+  String get allErrorMessages {
+    if (!hasValidationErrors) return message;
+
+    final validationMessages = errors!
+        .map((error) => '${error.field}: ${error.allMessages}')
+        .join('\n');
+
+    return '$message\n$validationMessages';
+  }
+
+  /// Get error message for a specific field
+  String? getErrorForField(String fieldName) {
+    if (!hasValidationErrors) return null;
+
+    final fieldError = errors!.firstWhere(
+      (error) => error.field == fieldName,
+      orElse: () => const DomainValidationError(field: '', messages: []),
+    );
+
+    return fieldError.field.isNotEmpty ? fieldError.firstMessage : null;
+  }
 }
 
 class NetworkFailure extends Failure {
@@ -31,14 +57,13 @@ class NetworkFailure extends Failure {
 
 class DomainValidationError {
   final String field;
-  final String tag;
-  final String value;
-  final String message;
+  final List<String> messages;
 
-  const DomainValidationError({
-    required this.field,
-    required this.tag,
-    required this.value,
-    required this.message,
-  });
+  const DomainValidationError({required this.field, required this.messages});
+
+  /// Get the first message for this field
+  String get firstMessage => messages.isNotEmpty ? messages.first : '';
+
+  /// Get all messages joined with newlines
+  String get allMessages => messages.join('\n');
 }

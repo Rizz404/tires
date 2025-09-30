@@ -3,22 +3,12 @@ import 'package:tires/core/network/api_error_response.dart';
 
 extension FailureValidationMapper on DomainValidationError {
   ValidationError toModel() {
-    return ValidationError(
-      field: field,
-      tag: tag,
-      value: value,
-      message: message,
-    );
+    return ValidationError(field: field, messages: messages);
   }
 }
 
 extension NetworkValidationMapper on ValidationError {
   DomainValidationError toEntity() {
-    return DomainValidationError(
-      field: field,
-      tag: tag,
-      value: value,
-      message: message,
-    );
+    return DomainValidationError(field: field, messages: messages);
   }
 }

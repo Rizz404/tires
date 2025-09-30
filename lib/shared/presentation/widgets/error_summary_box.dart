@@ -38,7 +38,7 @@ class ErrorSummaryBox extends StatelessWidget {
             (error) => Padding(
               padding: const EdgeInsets.only(left: 4, bottom: 4),
               child: AppText(
-                '• ${error.message}', // * Hanya menampilkan pesan error
+                '• ${error.firstMessage}', // * Menampilkan pesan error pertama
                 color: theme.colorScheme.onErrorContainer,
               ),
             ),

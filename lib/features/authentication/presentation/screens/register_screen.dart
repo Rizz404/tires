@@ -86,6 +86,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         dateOfBirth: values['dateOfBirth'],
         homeAddress: values['homeAddress'],
         companyAddress: values['companyAddress'],
+        role: 'customer',
+        passwordConfirmation: values['confirmPassword'],
       );
       ref.read(authNotifierProvider.notifier).register(params);
     } else {
@@ -124,7 +126,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         child: ScreenWrapper(
           child: FormBuilder(
             key: _formKey,
-            // initialValue: _initialValues,
+            initialValue: _initialValues,
             child: ListView(
               children: [
                 AppText(
@@ -264,13 +266,18 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         TextSpan(
                           text: l10n.registerTermsOfServiceLink,
                           style: TextStyle(color: theme.colorScheme.primary),
-                          recognizer: TapGestureRecognizer()..onTap = () {},
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => context.router.push(
+                              const TermsOfServiceRoute(),
+                            ),
                         ),
                         const TextSpan(text: ' and '),
                         TextSpan(
                           text: l10n.registerPrivacyPolicyLink,
                           style: TextStyle(color: theme.colorScheme.primary),
-                          recognizer: TapGestureRecognizer()..onTap = () {},
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () =>
+                                context.router.push(const PrivacyPolicyRoute()),
                         ),
                       ],
                     ),

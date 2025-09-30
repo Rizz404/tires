@@ -6,6 +6,16 @@ enum UserRole { customer, admin }
 
 enum UserGender { male, female, other }
 
+extension UserGenderExtension on UserGender {
+  String toMap() {
+    return name;
+  }
+}
+
+UserGender userGenderFromMap(String value) {
+  return UserGender.values.firstWhere((e) => e.name == value);
+}
+
 class User extends Equatable {
   final int id;
   final String email;

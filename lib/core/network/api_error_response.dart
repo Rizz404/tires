@@ -27,12 +27,19 @@ class ApiErrorResponse extends Equatable {
       message: map['message'] is String
           ? map['message']
           : (map['message']?.toString() ?? 'Unknown errors'),
-      errors: map['errors'] != null
-          ? List<ValidationError>.from(
-              (map['errors'] as List).map<ValidationError?>(
-                (x) => ValidationError.fromMap(x as Map<String, dynamic>),
-              ),
-            )
+      errors: map['errors'] != null && map['errors'] is Map
+          ? (map['errors'] as Map<String, dynamic>).entries
+                .map(
+                  (entry) => ValidationError(
+                    field: entry.key,
+                    messages: entry.value is List
+                        ? List<String>.from(
+                            entry.value.map((msg) => msg?.toString() ?? ''),
+                          )
+                        : [entry.value?.toString() ?? ''],
+                  ),
+                )
+                .toList()
           : null,
     );
   }
@@ -42,74 +49,69 @@ class ApiErrorResponse extends Equatable {
   factory ApiErrorResponse.fromJson(String source) =>
       ApiErrorResponse.fromMap(json.decode(source) as Map<String, dynamic>);
 
+  /// Check if this response has validation errors
+  bool get hasValidationErrors => errors != null && errors!.isNotEmpty;
+
+  /// Get all error messages combined
+  String get allErrorMessages {
+    if (!hasValidationErrors) return message;
+
+    final validationMessages = errors!
+        .map((error) => '${error.field}: ${error.allMessages}')
+        .join('\n');
+
+    return '$message\n$validationMessages';
+  }
+
+  /// Get error message for a specific field
+  String? getErrorForField(String fieldName) {
+    if (!hasValidationErrors) return null;
+
+    final fieldError = errors!.firstWhere(
+      (error) => error.field == fieldName,
+      orElse: () => const ValidationError(field: '', messages: []),
+    );
+
+    return fieldError.field.isNotEmpty ? fieldError.firstMessage : null;
+  }
+
   @override
   String toString() => 'ApiErrorResponse(message: $message, errors: $errors)';
 
   @override
-  List<Object> get props => [message, ?errors];
+  List<Object?> get props => [message, errors];
 }
 
 class ValidationError extends Equatable {
   final String field;
-  final String tag;
-  final String value;
-  final String message;
+  final List<String> messages;
 
-  const ValidationError({
-    required this.field,
-    required this.tag,
-    required this.value,
-    required this.message,
-  });
+  const ValidationError({required this.field, required this.messages});
 
-  ValidationError copyWith({
-    String? field,
-    String? tag,
-    String? value,
-    String? message,
-  }) {
+  ValidationError copyWith({String? field, List<String>? messages}) {
     return ValidationError(
       field: field ?? this.field,
-      tag: tag ?? this.tag,
-      value: value ?? this.value,
-      message: message ?? this.message,
+      messages: messages ?? this.messages,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'field': field,
-      'tag': tag,
-      'value': value,
-      'message': message,
-    };
-  }
-
-  factory ValidationError.fromMap(Map<String, dynamic> map) {
-    return ValidationError(
-      field: map['field'] is String
-          ? map['field']
-          : (map['field']?.toString() ?? ''),
-      tag: map['tag'] is String ? map['tag'] : (map['tag']?.toString() ?? ''),
-      value: map['value'] is String
-          ? map['value']
-          : (map['value']?.toString() ?? ''),
-      message: map['message'] is String
-          ? map['message']
-          : (map['message']?.toString() ?? ''),
-    );
+    return <String, dynamic>{'field': field, 'messages': messages};
   }
 
   String toJson() => json.encode(toMap());
 
-  factory ValidationError.fromJson(String source) =>
-      ValidationError.fromMap(json.decode(source) as Map<String, dynamic>);
+  /// Get the first message for this field
+  String get firstMessage => messages.isNotEmpty ? messages.first : '';
+
+  /// Get all messages joined with newlines
+  String get allMessages => messages.join('\n');
 
   @override
   String toString() {
-    return 'ValidationError(field: $field, tag: $tag, value: $value, message: $message)';
+    return 'ValidationError(field: $field, messages: $messages)';
   }
 
   @override
-  List<Object> get props => [field, tag, value, message];
+  List<Object> get props => [field, messages];
 }
