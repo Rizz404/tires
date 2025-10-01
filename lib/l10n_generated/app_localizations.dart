@@ -8198,6 +8198,18 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Terms of Service'**
   String get drawerItemTermsOfService;
+
+  /// No description provided for @adminDrawerItemReservationManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Management'**
+  String get adminDrawerItemReservationManagement;
+
+  /// No description provided for @adminDrawerItemCustomerSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Support'**
+  String get adminDrawerItemCustomerSupport;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

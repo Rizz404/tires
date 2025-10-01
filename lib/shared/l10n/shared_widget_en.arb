@@ -40,5 +40,7 @@
     "adminDrawerItemMenu": "Menu Management",
     "pressAgainToExit": "Press Again To Exit",
     "drawerItemPrivacyPolicy": "Privacy Policy",
-    "drawerItemTermsOfService": "Terms of Service"
+    "drawerItemTermsOfService": "Terms of Service",
+    "adminDrawerItemReservationManagement": "Reservation Management",
+    "adminDrawerItemCustomerSupport": "Customer Support"
 }

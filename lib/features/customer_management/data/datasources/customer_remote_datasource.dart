@@ -8,6 +8,7 @@ import 'package:tires/features/customer_management/data/models/customer_dashboar
 import 'package:tires/features/customer_management/data/models/customer_detail_model.dart'
     as detail;
 import 'package:tires/features/customer_management/data/models/customer_statistic_model.dart';
+import 'package:tires/features/customer_management/domain/usecases/bulk_delete_customers_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customers_cursor_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_detail_usecase.dart';
 
@@ -19,6 +20,9 @@ abstract class CustomerRemoteDatasource {
   Future<ApiResponse<CustomerStatisticModel>> getCustomerStatistics();
   Future<ApiResponse<detail.CustomerDetailModel>> getCustomerDetail(
     GetCustomerDetailParams params,
+  );
+  Future<ApiResponse<dynamic>> bulkDeleteCustomers(
+    BulkDeleteCustomersUsecaseParams params,
   );
 }
 
@@ -94,6 +98,24 @@ class CustomerRemoteDatasourceImpl implements CustomerRemoteDatasource {
       return response;
     } catch (e) {
       AppLogger.networkError('Error fetching customer detail', e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<dynamic>> bulkDeleteCustomers(
+    BulkDeleteCustomersUsecaseParams params,
+  ) async {
+    try {
+      AppLogger.networkInfo('Deleting customer with');
+      final response = await _dioClient.delete<dynamic>(
+        ApiEndpoints.adminCustomerBulkDelete,
+        data: params.toMap(),
+      );
+      AppLogger.networkDebug('Customer deleted successfully');
+      return response;
+    } catch (e) {
+      AppLogger.networkError('Error deleting customer', e);
       rethrow;
     }
   }

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/di/usecase_providers.dart';
+import 'package:tires/features/contact/domain/usecases/bulk_delete_contacts_usecase.dart';
 import 'package:tires/features/contact/domain/usecases/create_contact_usecase.dart';
 import 'package:tires/features/contact/domain/usecases/delete_contact_usecase.dart';
 import 'package:tires/features/contact/domain/usecases/update_contact_usecase.dart';
@@ -11,12 +12,14 @@ class ContactMutationNotifier extends Notifier<ContactMutationState> {
   late CreateContactUsecase _createContactUsecase;
   late UpdateContactUsecase _updateContactUsecase;
   late DeleteContactUsecase _deleteContactUsecase;
+  late BulkDeleteContactsUsecase _bulkDeleteContactsUsecase;
 
   @override
   ContactMutationState build() {
     _createContactUsecase = ref.watch(createContactUsecaseProvider);
     _updateContactUsecase = ref.watch(updateContactUsecaseProvider);
     _deleteContactUsecase = ref.watch(deleteContactUsecaseProvider);
+    _bulkDeleteContactsUsecase = ref.watch(bulkDeleteContactsUsecaseProvider);
     return const ContactMutationState();
   }
 
@@ -96,6 +99,38 @@ class ContactMutationNotifier extends Notifier<ContactMutationState> {
             .copyWith(
               status: ContactMutationStatus.success,
               successMessage: success.message ?? 'Contact deleted successfully',
+            )
+            .copyWithClearError();
+        ref.invalidate(contactGetNotifierProvider);
+      },
+    );
+  }
+
+  Future<void> bulkDeleteContacts(
+    BulkDeleteContactsUsecaseParams params,
+  ) async {
+    if (state.status == ContactMutationStatus.loading) return;
+
+    AppLogger.uiInfo('Bulk deleting contacts in notifier');
+    state = state.copyWith(status: ContactMutationStatus.loading);
+
+    final response = await _bulkDeleteContactsUsecase(params);
+
+    response.fold(
+      (failure) {
+        AppLogger.uiError('Failed to bulk delete contacts', failure);
+        state = state.copyWith(
+          status: ContactMutationStatus.error,
+          failure: failure,
+        );
+      },
+      (success) {
+        AppLogger.uiDebug('Contacts bulk deleted successfully in notifier');
+        state = state
+            .copyWith(
+              status: ContactMutationStatus.success,
+              successMessage:
+                  success.message ?? 'Contacts bulk deleted successfully',
             )
             .copyWithClearError();
         ref.invalidate(contactGetNotifierProvider);

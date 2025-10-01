@@ -4385,4 +4385,10 @@ class L10nJa extends L10n {
 
   @override
   String get drawerItemTermsOfService => '利用規約';
+
+  @override
+  String get adminDrawerItemReservationManagement => '予約管理';
+
+  @override
+  String get adminDrawerItemCustomerSupport => 'カスタマーサポート';
 }

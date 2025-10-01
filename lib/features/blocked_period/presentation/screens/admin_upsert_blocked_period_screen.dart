@@ -380,12 +380,13 @@ class _AdminUpsertBlockedPeriodScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BlockedPeriodCalendar(
-            initialDate: widget.blockedPeriod?.startDatetime ?? DateTime.now(),
-            onDateSelected: _onDateSelected,
-            onTimeRangeSelected: _onTimeRangeSelected,
-          ),
-          const SizedBox(height: 24),
+          // Todo: Overflowed error, fix nanti
+          // BlockedPeriodCalendar(
+          //   initialDate: widget.blockedPeriod?.startDatetime ?? DateTime.now(),
+          //   onDateSelected: _onDateSelected,
+          //   onTimeRangeSelected: _onTimeRangeSelected,
+          // ),
+          // const SizedBox(height: 24),
           Card(
             child: Padding(
               padding: const EdgeInsets.all(24),

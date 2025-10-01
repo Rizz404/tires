@@ -6,6 +6,7 @@ import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/menu/data/models/menu_model.dart';
 import 'package:tires/features/menu/data/models/menu_statistic_model.dart';
+import 'package:tires/features/menu/domain/usecases/bulk_delete_menus_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/create_menu_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/delete_menu_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/get_admin_menus_cursor_usecase.dart';
@@ -22,6 +23,9 @@ abstract class MenuRemoteDatasource {
   );
   Future<ApiResponse<MenuModel>> updateMenu(UpdateMenuParams params);
   Future<ApiResponse<dynamic>> deleteMenu(DeleteMenuParams params);
+  Future<ApiResponse<dynamic>> bulkDeleteMenus(
+    BulkDeleteMenusUsecaseParams params,
+  );
   Future<ApiResponse<MenuStatisticModel>> getMenuStatistics();
 }
 
@@ -108,6 +112,24 @@ class MenuRemoteDatasourceImpl implements MenuRemoteDatasource {
       AppLogger.networkInfo('Deleting menu with id: ${params.id}');
       final response = await _dioClient.delete<dynamic>(
         '${ApiEndpoints.adminMenus}/${params.id}',
+        data: params.toMap(),
+      );
+      AppLogger.networkDebug('Menu deleted successfully');
+      return response;
+    } catch (e) {
+      AppLogger.networkError('Error deleting menu', e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<dynamic>> bulkDeleteMenus(
+    BulkDeleteMenusUsecaseParams params,
+  ) async {
+    try {
+      AppLogger.networkInfo('Deleting menu with');
+      final response = await _dioClient.delete<dynamic>(
+        ApiEndpoints.adminMenuBulkDelete,
         data: params.toMap(),
       );
       AppLogger.networkDebug('Menu deleted successfully');

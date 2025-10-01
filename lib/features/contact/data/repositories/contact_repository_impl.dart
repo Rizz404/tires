@@ -8,6 +8,7 @@ import 'package:tires/features/contact/data/mapper/contact_mapper.dart';
 import 'package:tires/features/contact/domain/entities/contact.dart';
 import 'package:tires/features/contact/domain/entities/contact_statistic.dart';
 import 'package:tires/features/contact/domain/repositories/contact_repository.dart';
+import 'package:tires/features/contact/domain/usecases/bulk_delete_contacts_usecase.dart';
 import 'package:tires/features/contact/domain/usecases/create_contact_usecase.dart';
 import 'package:tires/features/contact/domain/usecases/delete_contact_usecase.dart';
 import 'package:tires/features/contact/domain/usecases/get_contacts_cursor_usecase.dart';
@@ -129,6 +130,24 @@ class ContactRepositoryImpl implements ContactRepository {
       return Left(ServerFailure(message: e.message));
     } catch (e) {
       AppLogger.businessError('Unexpected error in get contact statistics', e);
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ActionSuccess>> bulkDeleteContacts(
+    BulkDeleteContactsUsecaseParams params,
+  ) async {
+    try {
+      AppLogger.businessInfo('Deleting contact in repository');
+      final result = await _remoteDataSource.bulkDeleteContacts(params);
+      AppLogger.businessDebug('Contact deleted successfully in repository');
+      return Right(ActionSuccess(message: result.message));
+    } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in delete contact', e);
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      AppLogger.businessError('Unexpected error in delete contact', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }

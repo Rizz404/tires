@@ -6,6 +6,7 @@ import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/blocked_period/data/models/blocked_period_model.dart';
 import 'package:tires/features/blocked_period/data/models/blocked_period_statistic_model.dart';
 import 'package:tires/features/blocked_period/domain/repositories/blocked_period_repository.dart';
+import 'package:tires/features/blocked_period/domain/usecases/bulk_delete_blocked_periods_usecase.dart';
 
 abstract class BlockedPeriodRemoteDatasource {
   Future<ApiResponse<BlockedPeriodModel>> createBlockedPeriod(
@@ -21,6 +22,10 @@ abstract class BlockedPeriodRemoteDatasource {
 
   Future<ApiResponse<dynamic>> deleteBlockedPeriod(
     DeleteBlockedPeriodParams params,
+  );
+
+  Future<ApiResponse<dynamic>> bulkDeleteBlockedPeriods(
+    BulkDeleteBlockedPeriodsUsecaseParams params,
   );
 
   Future<ApiResponse<BlockedPeriodStatisticModel>> getBlockedPeriodStatistics();
@@ -97,6 +102,24 @@ class BlockedPeriodRemoteDatasourceImpl
       AppLogger.networkInfo('Deleting blocked period with ID: ${params.id}');
       final response = await _dioClient.delete(
         '${ApiEndpoints.adminBlockedPeriods}/${params.id}',
+      );
+      AppLogger.networkDebug('Blocked period deleted successfully');
+      return response;
+    } catch (e) {
+      AppLogger.networkError('Error deleting blocked period', e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<dynamic>> bulkDeleteBlockedPeriods(
+    BulkDeleteBlockedPeriodsUsecaseParams params,
+  ) async {
+    try {
+      AppLogger.networkInfo('Deleting blocked period with');
+      final response = await _dioClient.delete<dynamic>(
+        ApiEndpoints.adminBlockedPeriodBulkDelete,
+        data: params.toMap(),
       );
       AppLogger.networkDebug('Blocked period deleted successfully');
       return response;

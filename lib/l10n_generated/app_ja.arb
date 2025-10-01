@@ -1539,5 +1539,7 @@
   "adminDrawerItemMenu": "メニュー管理",
   "pressAgainToExit": "もう一度押すと終了します",
   "drawerItemPrivacyPolicy": "プライバシーポリシー",
-  "drawerItemTermsOfService": "利用規約"
+  "drawerItemTermsOfService": "利用規約",
+  "adminDrawerItemReservationManagement": "予約管理",
+  "adminDrawerItemCustomerSupport": "カスタマーサポート"
 }

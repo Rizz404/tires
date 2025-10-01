@@ -7,6 +7,7 @@ import 'package:tires/features/customer_management/domain/entities/customer_dash
 import 'package:tires/features/customer_management/domain/entities/customer_detail.dart'
     as customer_for_detail;
 import 'package:tires/features/customer_management/domain/entities/customer_statistic.dart';
+import 'package:tires/features/customer_management/domain/usecases/bulk_delete_customers_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_detail_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customers_cursor_usecase.dart';
 
@@ -21,4 +22,7 @@ abstract class CustomerRepository {
   getCurrentUserDashboard();
   Future<Either<Failure, ItemSuccessResponse<CustomerStatistic>>>
   getCustomerStatistics();
+  Future<Either<Failure, ActionSuccess>> bulkDeleteCustomers(
+    BulkDeleteCustomersUsecaseParams params,
+  );
 }

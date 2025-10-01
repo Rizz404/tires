@@ -5,6 +5,7 @@ import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/contact/data/models/contact_model.dart';
 import 'package:tires/features/contact/data/models/contact_statistic_model.dart';
+import 'package:tires/features/contact/domain/usecases/bulk_delete_contacts_usecase.dart';
 import 'package:tires/features/contact/domain/usecases/create_contact_usecase.dart';
 import 'package:tires/features/contact/domain/usecases/delete_contact_usecase.dart';
 import 'package:tires/features/contact/domain/usecases/get_contacts_cursor_usecase.dart';
@@ -17,6 +18,9 @@ abstract class ContactRemoteDataSource {
   );
   Future<ApiResponse<ContactModel>> updateContact(UpdateContactParams params);
   Future<ApiResponse<dynamic>> deleteContact(DeleteContactParams params);
+  Future<ApiResponse<dynamic>> bulkDeleteContacts(
+    BulkDeleteContactsUsecaseParams params,
+  );
   Future<ApiResponse<ContactStatisticModel>> getContactStatistics();
 }
 
@@ -90,6 +94,24 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
         '${ApiEndpoints.adminContacts}/${params.id}',
         data: params.toMap(),
         fromJson: (data) => data,
+      );
+      AppLogger.networkDebug('Contact deleted successfully');
+      return response;
+    } catch (e) {
+      AppLogger.networkError('Error deleting contact', e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<dynamic>> bulkDeleteContacts(
+    BulkDeleteContactsUsecaseParams params,
+  ) async {
+    try {
+      AppLogger.networkInfo('Deleting contact with');
+      final response = await _dioClient.delete<dynamic>(
+        ApiEndpoints.adminContactBulkDelete,
+        data: params.toMap(),
       );
       AppLogger.networkDebug('Contact deleted successfully');
       return response;

@@ -66,7 +66,7 @@ class CurrentUserRemoteDatasourceImpl implements CurrentUserRemoteDatasource {
     try {
       AppLogger.networkInfo('Updating current user password');
       final response = await _dioClient.patch<dynamic>(
-        '${ApiEndpoints.customerProfile}/password',
+        ApiEndpoints.setNewPassword,
         data: params.toMap(),
       );
 

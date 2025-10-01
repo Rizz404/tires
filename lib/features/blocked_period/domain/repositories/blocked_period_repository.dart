@@ -3,6 +3,7 @@ import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/features/blocked_period/domain/entities/blocked_period.dart';
 import 'package:tires/features/blocked_period/domain/entities/blocked_period_statistic.dart';
+import 'package:tires/features/blocked_period/domain/usecases/bulk_delete_blocked_periods_usecase.dart';
 
 abstract class BlockedPeriodRepository {
   Future<Either<Failure, ItemSuccessResponse<BlockedPeriod>>>
@@ -16,6 +17,10 @@ abstract class BlockedPeriodRepository {
 
   Future<Either<Failure, ActionSuccess>> deleteBlockedPeriod(
     DeleteBlockedPeriodParams params,
+  );
+
+  Future<Either<Failure, ActionSuccess>> bulkDeleteBlockedPeriods(
+    BulkDeleteBlockedPeriodsUsecaseParams params,
   );
 
   Future<Either<Failure, ItemSuccessResponse<BlockedPeriodStatistic>>>

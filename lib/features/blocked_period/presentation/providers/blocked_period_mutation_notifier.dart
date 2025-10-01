@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/di/usecase_providers.dart';
+import 'package:tires/features/blocked_period/domain/usecases/bulk_delete_blocked_periods_usecase.dart';
 import 'package:tires/features/blocked_period/domain/usecases/create_blocked_period_usecase.dart';
 import 'package:tires/features/blocked_period/domain/usecases/update_blocked_period_usecase.dart';
 import 'package:tires/features/blocked_period/domain/usecases/delete_blocked_period_usecase.dart';
@@ -12,12 +13,16 @@ class BlockedPeriodMutationNotifier
   late CreateBlockedPeriodUsecase _createBlockedPeriodUsecase;
   late UpdateBlockedPeriodUsecase _updateBlockedPeriodUsecase;
   late DeleteBlockedPeriodUsecase _deleteBlockedPeriodUsecase;
+  late BulkDeleteBlockedPeriodsUsecase _bulkDeleteBlockedPeriodsUsecase;
 
   @override
   BlockedPeriodMutationState build() {
     _createBlockedPeriodUsecase = ref.watch(createBlockedPeriodUsecaseProvider);
     _updateBlockedPeriodUsecase = ref.watch(updateBlockedPeriodUsecaseProvider);
     _deleteBlockedPeriodUsecase = ref.watch(deleteBlockedPeriodUsecaseProvider);
+    _bulkDeleteBlockedPeriodsUsecase = ref.watch(
+      bulkDeleteBlockedPeriodsUsecaseProvider,
+    );
     return const BlockedPeriodMutationState();
   }
 
@@ -95,6 +100,35 @@ class BlockedPeriodMutationNotifier
       },
       (success) {
         AppLogger.uiDebug('Blocked period deleted successfully in notifier');
+        state = state
+            .copyWith(status: BlockedPeriodMutationStatus.success)
+            .copyWithClearError();
+      },
+    );
+  }
+
+  Future<void> bulkDeleteBlockedPeriods(
+    BulkDeleteBlockedPeriodsUsecaseParams params,
+  ) async {
+    if (state.status == BlockedPeriodMutationStatus.loading) return;
+
+    AppLogger.uiInfo('Bulk deleting blocked periods in notifier');
+    state = state.copyWith(status: BlockedPeriodMutationStatus.loading);
+
+    final response = await _bulkDeleteBlockedPeriodsUsecase(params);
+
+    response.fold(
+      (failure) {
+        AppLogger.uiError('Failed to bulk delete blocked periods', failure);
+        state = state.copyWith(
+          status: BlockedPeriodMutationStatus.error,
+          errorMessage: failure.message,
+        );
+      },
+      (success) {
+        AppLogger.uiDebug(
+          'Blocked periods bulk deleted successfully in notifier',
+        );
         state = state
             .copyWith(status: BlockedPeriodMutationStatus.success)
             .copyWithClearError();

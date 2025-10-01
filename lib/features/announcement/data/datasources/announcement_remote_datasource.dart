@@ -5,6 +5,7 @@ import 'package:tires/core/network/dio_client.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/announcement/data/models/announcement_model.dart';
 import 'package:tires/features/announcement/data/models/announcement_statistic_model.dart';
+import 'package:tires/features/announcement/domain/usecases/bulk_delete_announcements_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/create_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/delete_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
@@ -22,6 +23,9 @@ abstract class AnnouncementRemoteDatasource {
   );
   Future<ApiResponse<dynamic>> deleteAnnouncement(
     DeleteAnnouncementParams params,
+  );
+  Future<ApiResponse<dynamic>> bulkDeleteAnnouncements(
+    BulkDeleteAnnouncementsUsecaseParams params,
   );
   Future<ApiResponse<AnnouncementStatisticModel>> getAnnouncementStatistics();
 }
@@ -97,6 +101,24 @@ class AnnouncementRemoteDatasourceImpl implements AnnouncementRemoteDatasource {
       AppLogger.networkInfo('Deleting announcement with id: ${params.id}');
       final response = await _dioClient.delete<dynamic>(
         '${ApiEndpoints.adminAnnouncements}/${params.id}',
+        data: params.toMap(),
+      );
+      AppLogger.networkDebug('Announcement deleted successfully');
+      return response;
+    } catch (e) {
+      AppLogger.networkError('Error deleting announcement', e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<dynamic>> bulkDeleteAnnouncements(
+    BulkDeleteAnnouncementsUsecaseParams params,
+  ) async {
+    try {
+      AppLogger.networkInfo('Deleting announcement with');
+      final response = await _dioClient.delete<dynamic>(
+        ApiEndpoints.adminAnnouncementBulkDelete,
         data: params.toMap(),
       );
       AppLogger.networkDebug('Announcement deleted successfully');

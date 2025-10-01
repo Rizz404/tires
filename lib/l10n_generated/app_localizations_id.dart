@@ -4646,4 +4646,10 @@ class L10nId extends L10n {
 
   @override
   String get drawerItemTermsOfService => 'Terms of Service';
+
+  @override
+  String get adminDrawerItemReservationManagement => 'Reservation Management';
+
+  @override
+  String get adminDrawerItemCustomerSupport => 'Customer Support';
 }

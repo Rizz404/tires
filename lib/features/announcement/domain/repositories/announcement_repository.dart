@@ -1,6 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
+import 'package:tires/features/announcement/domain/usecases/bulk_delete_announcements_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/create_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/delete_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
@@ -19,6 +20,9 @@ abstract class AnnouncementRepository {
   );
   Future<Either<Failure, ActionSuccess>> deleteAnnouncement(
     DeleteAnnouncementParams params,
+  );
+  Future<Either<Failure, ActionSuccess>> bulkDeleteAnnouncements(
+    BulkDeleteAnnouncementsUsecaseParams params,
   );
   Future<Either<Failure, ItemSuccessResponse<AnnouncementStatistic>>>
   getAnnouncementStatistics();

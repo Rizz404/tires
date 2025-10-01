@@ -86,7 +86,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   Future<ApiResponse<void>> setNewPassword(SetNewPasswordParams params) async {
     try {
       AppLogger.networkInfo('Setting new password');
-      final response = await _dioClient.post<void>(
+      final response = await _dioClient.patch<void>(
         ApiEndpoints.setNewPassword,
         data: params.toMap(),
       );

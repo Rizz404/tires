@@ -1347,6 +1347,8 @@
     "adminDrawerItemMenu",
     "pressAgainToExit",
     "drawerItemPrivacyPolicy",
-    "drawerItemTermsOfService"
+    "drawerItemTermsOfService",
+    "adminDrawerItemReservationManagement",
+    "adminDrawerItemCustomerSupport"
   ]
 }

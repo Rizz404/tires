@@ -16,6 +16,7 @@ import 'package:tires/features/customer_management/domain/entities/customer_dash
 import 'package:tires/features/customer_management/domain/entities/customer_detail.dart';
 import 'package:tires/features/customer_management/domain/entities/customer_statistic.dart';
 import 'package:tires/features/customer_management/domain/repositories/customer_repository.dart';
+import 'package:tires/features/customer_management/domain/usecases/bulk_delete_customers_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customers_cursor_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_detail_usecase.dart';
 import 'package:tires/shared/data/mapper/cursor_mapper.dart';
@@ -100,6 +101,26 @@ class CustomerRepositoryImpl implements CustomerRepository {
       return Left(ServerFailure(message: e.message));
     } catch (e) {
       AppLogger.businessError('Unexpected error in get customer detail', e);
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ActionSuccess>> bulkDeleteCustomers(
+    BulkDeleteCustomersUsecaseParams params,
+  ) async {
+    try {
+      AppLogger.businessInfo('Deleting customer in repository');
+      final result = await _customerRemoteDatasource.bulkDeleteCustomers(
+        params,
+      );
+      AppLogger.businessDebug('Customer deleted successfully in repository');
+      return Right(ActionSuccess(message: result.message));
+    } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in delete customer', e);
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      AppLogger.businessError('Unexpected error in delete customer', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }

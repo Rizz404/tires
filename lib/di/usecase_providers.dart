@@ -1,15 +1,18 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/di/repository_providers.dart';
+import 'package:tires/features/announcement/domain/usecases/bulk_delete_announcements_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/create_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/delete_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/get_announcement_statistics_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/update_announcement_usecase.dart';
+import 'package:tires/features/blocked_period/domain/usecases/bulk_delete_blocked_periods_usecase.dart';
 import 'package:tires/features/blocked_period/domain/usecases/create_blocked_period_usecase.dart';
 import 'package:tires/features/blocked_period/domain/usecases/delete_blocked_period_usecase.dart';
 import 'package:tires/features/blocked_period/domain/usecases/get_blocked_periods_cursor_usecase.dart';
 import 'package:tires/features/blocked_period/domain/usecases/get_blocked_period_statistics_usecase.dart';
 import 'package:tires/features/blocked_period/domain/usecases/update_blocked_period_usecase.dart';
+import 'package:tires/features/contact/domain/usecases/bulk_delete_contacts_usecase.dart';
 import 'package:tires/features/contact/domain/usecases/create_contact_usecase.dart';
 import 'package:tires/features/contact/domain/usecases/delete_contact_usecase.dart';
 import 'package:tires/features/contact/domain/usecases/get_contacts_cursor_usecase.dart';
@@ -24,11 +27,13 @@ import 'package:tires/features/authentication/domain/usecases/login_usecase.dart
 import 'package:tires/features/authentication/domain/usecases/logout_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/register_usecase.dart';
 import 'package:tires/features/authentication/domain/usecases/set_new_password_usecase.dart';
+import 'package:tires/features/customer_management/domain/usecases/bulk_delete_customers_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_current_user_dashboard_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customers_cursor_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_statistics_usecase.dart';
 import 'package:tires/features/customer_management/domain/usecases/get_customer_detail_usecase.dart';
 import 'package:tires/features/inquiry/domain/usecases/create_inquiry_usecase.dart';
+import 'package:tires/features/menu/domain/usecases/bulk_delete_menus_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/create_menu_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/delete_menu_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/get_admin_menus_cursor_usecase.dart';
@@ -109,6 +114,11 @@ final deleteMenuUsecaseProvider = Provider<DeleteMenuUsecase>((ref) {
   return DeleteMenuUsecase(_menuRepository);
 });
 
+final bulkDeleteMenuUsecaseProvider = Provider<BulkDeleteMenusUsecase>((ref) {
+  final _menuRepository = ref.watch(menuRepoProvider);
+  return BulkDeleteMenusUsecase(_menuRepository);
+});
+
 final getMenuStatisticsUsecaseProvider = Provider<GetMenuStatisticsUsecase>((
   ref,
 ) {
@@ -135,6 +145,13 @@ final getCustomerDetailUsecaseProvider = Provider<GetCustomerDetailUsecase>((
   final _customerRepository = ref.watch(customerRepoProvider);
   return GetCustomerDetailUsecase(_customerRepository);
 });
+
+final bulkDeleteCustomersUsecaseProvider = Provider<BulkDeleteCustomersUsecase>(
+  (ref) {
+    final _customerRepository = ref.watch(customerRepoProvider);
+    return BulkDeleteCustomersUsecase(_customerRepository);
+  },
+);
 
 // User Usecase Providers
 final getCurrentUserUsecaseProvider = Provider<GetCurrentUserUsecase>((ref) {
@@ -257,6 +274,12 @@ final getAnnouncementStatisticsUsecaseProvider =
       return GetAnnouncementStatisticsUsecase(_announcementRepository);
     });
 
+final bulkDeleteAnnouncementsUsecaseProvider =
+    Provider<BulkDeleteAnnouncementsUsecase>((ref) {
+      final _announcementRepository = ref.watch(announcementRepoProvider);
+      return BulkDeleteAnnouncementsUsecase(_announcementRepository);
+    });
+
 // Blocked Period Usecase Providers
 final getBlockedPeriodsCursorUsecaseProvider =
     Provider<GetBlockedPeriodsCursorUsecase>((ref) {
@@ -291,6 +314,12 @@ final getBlockedPeriodStatisticsUsecaseProvider =
       return GetBlockedPeriodStatisticsUsecase(_blockedPeriodRepository);
     });
 
+final bulkDeleteBlockedPeriodsUsecaseProvider =
+    Provider<BulkDeleteBlockedPeriodsUsecase>((ref) {
+      final _blockedPeriodRepository = ref.watch(blockedPeriodRepoProvider);
+      return BulkDeleteBlockedPeriodsUsecase(_blockedPeriodRepository);
+    });
+
 // Contact Usecase Providers
 final getContactsCursorUsecaseProvider = Provider<GetContactsCursorUsecase>((
   ref,
@@ -319,6 +348,13 @@ final getContactStatisticsUsecaseProvider =
       final _contactRepository = ref.watch(contactRepoProvider);
       return GetContactStatisticsUsecase(_contactRepository);
     });
+
+final bulkDeleteContactsUsecaseProvider = Provider<BulkDeleteContactsUsecase>((
+  ref,
+) {
+  final _contactRepository = ref.watch(contactRepoProvider);
+  return BulkDeleteContactsUsecase(_contactRepository);
+});
 
 final getDashboardUsecaseProvider = Provider<GetDashboardUsecase>((ref) {
   final _dashboardRepository = ref.watch(dashboardRepoProvider);

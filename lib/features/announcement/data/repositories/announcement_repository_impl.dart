@@ -6,6 +6,7 @@ import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/announcement/data/datasources/announcement_remote_datasource.dart';
 import 'package:tires/features/announcement/data/mapper/announcement_mapper.dart';
 import 'package:tires/features/announcement/domain/repositories/announcement_repository.dart';
+import 'package:tires/features/announcement/domain/usecases/bulk_delete_announcements_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/create_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/delete_announcement_usecase.dart';
 import 'package:tires/features/announcement/domain/usecases/get_announcements_cursor_usecase.dart';
@@ -151,6 +152,27 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
         'Unexpected error in get announcement statistics',
         e,
       );
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ActionSuccess>> bulkDeleteAnnouncements(
+    BulkDeleteAnnouncementsUsecaseParams params,
+  ) async {
+    try {
+      AppLogger.businessInfo('Deleting announcement in repository');
+      final result = await _announcementRemoteDatasource
+          .bulkDeleteAnnouncements(params);
+      AppLogger.businessDebug(
+        'Announcement deleted successfully in repository',
+      );
+      return Right(ActionSuccess(message: result.message));
+    } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in delete announcement', e);
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      AppLogger.businessError('Unexpected error in delete announcement', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }

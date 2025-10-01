@@ -74,8 +74,7 @@ class _AdminEndDrawerState extends ConsumerState<AdminEndDrawer> {
                   _buildExpandableSection(
                     context,
                     sectionKey: 'reservation',
-                    title:
-                        'Reservation Management', // You might want to add this to l10n
+                    title: l10n.adminDrawerItemReservationManagement,
                     icon: Icons.event_note_outlined,
                     selectedIcon: Icons.event_note,
                     children: [
@@ -131,8 +130,7 @@ class _AdminEndDrawerState extends ConsumerState<AdminEndDrawer> {
                   _buildExpandableSection(
                     context,
                     sectionKey: 'support',
-                    title:
-                        'Customer Support', // You might want to add this to l10n
+                    title: l10n.adminDrawerItemCustomerSupport,
                     icon: Icons.support_agent_outlined,
                     selectedIcon: Icons.support_agent,
                     children: [

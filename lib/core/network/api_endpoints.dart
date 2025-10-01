@@ -33,14 +33,20 @@ class ApiEndpoints {
   // --- Admin Endpoints ---
   static const String adminDashboard = '$_adminPrefix/dashboard';
   static const String adminMenus = '$_adminPrefix$_menuPrefix';
+  static const String adminMenuBulkDelete =
+      '$_adminPrefix$_menuPrefix/bulk-delete';
   static const String adminUsers = '$_adminPrefix$_userPrefix';
   static const String adminCustomers = '$_adminPrefix$_customerApiPrefix';
+  static const String adminCustomerBulkDelete =
+      '$_adminPrefix$_customerApiPrefix/bulk-delete';
   static const String adminCustomerStatistics =
       '$_adminPrefix$_customerApiPrefix/statistics';
   static const String adminReservations = '$_adminPrefix$_reservationPrefix';
   static const String adminReservationCalendar =
       '$_adminPrefix$_reservationPrefix/calendar';
   static const String adminAnnouncements = '$_adminPrefix$_announcementPrefix';
+  static const String adminAnnouncementBulkDelete =
+      '$_adminPrefix$_announcementPrefix/bulk-delete';
   static const String adminAnnouncementStatistics =
       '$_adminPrefix$_announcementPrefix/statistics';
   static const String adminMenuStatistics =
@@ -49,11 +55,15 @@ class ApiEndpoints {
       '$_adminPrefix$_contactPrefix/statistics';
   static const String adminBlockedPeriods =
       '$_adminPrefix$_blockedPeriodPrefix';
+  static const String adminBlockedPeriodBulkDelete =
+      '$_adminPrefix$_blockedPeriodPrefix/bulk-delete';
   static const String adminBlockedPeriodStatistics =
       '$_adminPrefix$_blockedPeriodPrefix/statistics';
   static const String adminBusinessSettings =
       '$_adminPrefix$_businessSettingPrefix';
   static const String adminContacts = '$_adminPrefix$_contactPrefix';
+  static const String adminContactBulkDelete =
+      '$_adminPrefix$_contactPrefix/bulk-delete';
   static const String adminFaqs = '$_adminPrefix$_faqPrefix';
   static const String adminPayments = '$_adminPrefix$_paymentPrefix';
   static const String adminQuestionnaires =

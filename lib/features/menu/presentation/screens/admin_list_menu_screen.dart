@@ -41,6 +41,31 @@ class _AdminListMenuScreenState extends ConsumerState<AdminListMenuScreen> {
     await ref.read(menuStatisticsNotifierProvider.notifier).refresh();
   }
 
+  Future<void> _loadMoreMenus() async {
+    final formValues = _formKey.currentState?.value ?? {};
+
+    final searchQuery = formValues['search'] as String?;
+    final selectedStatus = formValues['status'] as String?;
+    final minPriceStr = formValues['min_price'] as String?;
+    final maxPriceStr = formValues['max_price'] as String?;
+
+    final minPrice = minPriceStr != null && minPriceStr.isNotEmpty
+        ? double.tryParse(minPriceStr)
+        : null;
+    final maxPrice = maxPriceStr != null && maxPriceStr.isNotEmpty
+        ? double.tryParse(maxPriceStr)
+        : null;
+
+    await ref
+        .read(adminMenuGetNotifierProvider.notifier)
+        .loadMore(
+          search: searchQuery?.isNotEmpty == true ? searchQuery : null,
+          status: selectedStatus != 'all' ? selectedStatus : null,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+        );
+  }
+
   Future<void> _applyFilters() async {
     final formValues = _formKey.currentState?.value ?? {};
 
@@ -106,7 +131,10 @@ class _AdminListMenuScreenState extends ConsumerState<AdminListMenuScreen> {
                 child: MenuTableWidget(
                   menus: state.menus,
                   isLoading: state.status == AdminMenusStatus.loading,
+                  isLoadingMore: state.status == AdminMenusStatus.loadingMore,
+                  hasNextPage: state.hasNextPage,
                   onRefresh: _refreshMenus,
+                  onLoadMore: _loadMoreMenus,
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 80)),

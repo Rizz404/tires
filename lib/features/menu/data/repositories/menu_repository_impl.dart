@@ -6,6 +6,7 @@ import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/menu/data/datasources/menu_remote_datasource.dart';
 import 'package:tires/features/menu/data/mapper/menu_mapper.dart';
 import 'package:tires/features/menu/domain/repositories/menu_repository.dart';
+import 'package:tires/features/menu/domain/usecases/bulk_delete_menus_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/create_menu_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/delete_menu_usecase.dart';
 import 'package:tires/features/menu/domain/usecases/get_admin_menus_cursor_usecase.dart';
@@ -123,6 +124,24 @@ class MenuRepositoryImpl implements MenuRepository {
     try {
       AppLogger.businessInfo('Deleting menu in repository');
       final result = await _menuRemoteDatasource.deleteMenu(params);
+      AppLogger.businessDebug('Menu deleted successfully in repository');
+      return Right(ActionSuccess(message: result.message));
+    } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in delete menu', e);
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      AppLogger.businessError('Unexpected error in delete menu', e);
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ActionSuccess>> bulkDeleteMenus(
+    BulkDeleteMenusUsecaseParams params,
+  ) async {
+    try {
+      AppLogger.businessInfo('Deleting menu in repository');
+      final result = await _menuRemoteDatasource.bulkDeleteMenus(params);
       AppLogger.businessDebug('Menu deleted successfully in repository');
       return Right(ActionSuccess(message: result.message));
     } on ApiErrorResponse catch (e) {

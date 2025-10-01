@@ -6,6 +6,7 @@ import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/features/blocked_period/data/datasources/blocked_period_remote_datasource.dart';
 import 'package:tires/features/blocked_period/data/mapper/blocked_period_mapper.dart';
 import 'package:tires/features/blocked_period/domain/repositories/blocked_period_repository.dart';
+import 'package:tires/features/blocked_period/domain/usecases/bulk_delete_blocked_periods_usecase.dart';
 import 'package:tires/features/blocked_period/domain/entities/blocked_period.dart';
 import 'package:tires/features/blocked_period/domain/entities/blocked_period_statistic.dart';
 import 'package:tires/shared/data/mapper/cursor_mapper.dart';
@@ -142,6 +143,27 @@ class BlockedPeriodRepositoryImpl implements BlockedPeriodRepository {
         'Unexpected error in get blocked period statistics',
         e,
       );
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ActionSuccess>> bulkDeleteBlockedPeriods(
+    BulkDeleteBlockedPeriodsUsecaseParams params,
+  ) async {
+    try {
+      AppLogger.businessInfo('Deleting blocked period in repository');
+      final result = await _blockedPeriodRemoteDatasource
+          .bulkDeleteBlockedPeriods(params);
+      AppLogger.businessDebug(
+        'Blocked period deleted successfully in repository',
+      );
+      return Right(ActionSuccess(message: result.message));
+    } on ApiErrorResponse catch (e) {
+      AppLogger.businessError('API error in delete blocked period', e);
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      AppLogger.businessError('Unexpected error in delete blocked period', e);
       return Left(ServerFailure(message: e.toString()));
     }
   }

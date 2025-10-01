@@ -48,7 +48,7 @@ class UpdateUserPasswordParams extends Equatable {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'current_password': currentPassword,
-      'password': newPassword,
+      'new_password': newPassword,
       'password_confirmation': confirmPassword,
     };
   }
