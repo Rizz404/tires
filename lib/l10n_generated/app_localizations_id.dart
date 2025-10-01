@@ -4140,6 +4140,23 @@ class L10nId extends L10n {
   String get menuNotificationDeleted => 'Menu deleted successfully.';
 
   @override
+  String adminListMenuScreenSelected(String count) {
+    return '$count selected';
+  }
+
+  @override
+  String get adminListMenuScreenDeleteSelected => 'Delete';
+
+  @override
+  String get adminListMenuScreenClearSelection => 'Clear';
+
+  @override
+  String get adminListMenuScreenRefresh => 'Refresh';
+
+  @override
+  String get adminListMenuScreenMinUnit => 'min';
+
+  @override
   String get profileShowTitle => 'My Profile';
 
   @override

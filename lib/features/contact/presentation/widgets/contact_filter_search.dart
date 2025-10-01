@@ -60,10 +60,15 @@ class _ContactFilterSearchState extends State<ContactFilterSearch> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppText(
-                  context.l10n.adminListContactScreenFilterTitle,
-                  style: AppTextStyle.titleLarge,
+                Expanded(
+                  child: AppText(
+                    context.l10n.adminListContactScreenFilterTitle,
+                    style: AppTextStyle.titleLarge,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
                 ),
+                const SizedBox(width: 8),
                 TextButton.icon(
                   onPressed: widget.onToggleVisibility,
                   icon: Icon(
@@ -75,6 +80,11 @@ class _ContactFilterSearchState extends State<ContactFilterSearch> {
                     widget.isFilterVisible
                         ? context.l10n.adminListContactScreenFilterHideButton
                         : context.l10n.adminListContactScreenFilterShowButton,
+                  ),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                 ),
               ],

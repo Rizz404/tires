@@ -70,10 +70,15 @@ class BlockedPeriodFilterSearch extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppText(
-                  context.l10n.adminListBlockedPeriodScreenFiltersTitle,
-                  style: AppTextStyle.titleLarge,
+                Expanded(
+                  child: AppText(
+                    context.l10n.adminListBlockedPeriodScreenFiltersTitle,
+                    style: AppTextStyle.titleLarge,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
                 ),
+                const SizedBox(width: 8),
                 TextButton.icon(
                   onPressed: onToggleVisibility,
                   icon: Icon(
@@ -85,6 +90,11 @@ class BlockedPeriodFilterSearch extends StatelessWidget {
                     isFilterVisible
                         ? context.l10n.adminListBlockedPeriodScreenFiltersHide
                         : context.l10n.adminListBlockedPeriodScreenFiltersShow,
+                  ),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                 ),
               ],

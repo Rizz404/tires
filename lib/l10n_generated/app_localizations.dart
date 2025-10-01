@@ -7239,6 +7239,36 @@ abstract class L10n {
   /// **'Menu deleted successfully.'**
   String get menuNotificationDeleted;
 
+  /// No description provided for @adminListMenuScreenSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String adminListMenuScreenSelected(String count);
+
+  /// No description provided for @adminListMenuScreenDeleteSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminListMenuScreenDeleteSelected;
+
+  /// No description provided for @adminListMenuScreenClearSelection.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get adminListMenuScreenClearSelection;
+
+  /// No description provided for @adminListMenuScreenRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get adminListMenuScreenRefresh;
+
+  /// No description provided for @adminListMenuScreenMinUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'min'**
+  String get adminListMenuScreenMinUnit;
+
   /// No description provided for @profileShowTitle.
   ///
   /// In en, this message translates to:

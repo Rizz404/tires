@@ -117,11 +117,14 @@ class _AdminListBlockedPeriodScreenState
                 child: BlockedPeriodTableWidget(
                   blockedPeriods: state.blockedPeriods,
                   isLoading: state.status == BlockedPeriodsStatus.loading,
+                  isLoadingMore:
+                      state.status == BlockedPeriodsStatus.loadingMore,
+                  hasNextPage: state.hasNextPage,
                   onRefresh: _refreshBlockedPeriods,
-                  currentPage: 1, // TODO: Add pagination logic
-                  totalPages: 1, // TODO: Add pagination logic
-                  onPageChanged: (page) {
-                    // TODO: Implement pagination
+                  onLoadMore: () {
+                    ref
+                        .read(blockedPeriodGetNotifierProvider.notifier)
+                        .loadMore();
                   },
                 ),
               ),

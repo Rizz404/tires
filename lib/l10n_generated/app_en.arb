@@ -1370,6 +1370,18 @@
   "menuNotificationCreated": "Menu created successfully.",
   "menuNotificationUpdated": "Menu updated successfully.",
   "menuNotificationDeleted": "Menu deleted successfully.",
+  "adminListMenuScreenSelected": "{count} selected",
+  "@adminListMenuScreenSelected": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "adminListMenuScreenDeleteSelected": "Delete",
+  "adminListMenuScreenClearSelection": "Clear",
+  "adminListMenuScreenRefresh": "Refresh",
+  "adminListMenuScreenMinUnit": "min",
   "profileShowTitle": "My Profile",
   "profileEditTitle": "Edit Profile",
   "profileSuccessMessage": "Profile updated successfully!",

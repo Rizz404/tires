@@ -49,6 +49,8 @@ class CalendarFilterSearchWidget extends StatelessWidget {
                       'Search & Filter Reservations',
                       style: AppTextStyle.titleMedium,
                       fontWeight: FontWeight.w600,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                   ),
                   Icon(

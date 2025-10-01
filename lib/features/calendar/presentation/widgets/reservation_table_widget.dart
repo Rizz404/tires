@@ -6,21 +6,67 @@ import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:intl/intl.dart';
 
-class ReservationTableWidget extends StatelessWidget {
+class ReservationTableWidget extends StatefulWidget {
   final List<Reservation> reservations;
   final bool isLoading;
+  final bool isLoadingMore;
+  final bool hasNextPage;
   final VoidCallback? onRefresh;
+  final VoidCallback? onLoadMore;
 
   const ReservationTableWidget({
     super.key,
     required this.reservations,
     this.isLoading = false,
+    this.isLoadingMore = false,
+    this.hasNextPage = false,
     this.onRefresh,
+    this.onLoadMore,
   });
 
   @override
+  State<ReservationTableWidget> createState() => _ReservationTableWidgetState();
+}
+
+class _ReservationTableWidgetState extends State<ReservationTableWidget> {
+  final ScrollController _scrollController = ScrollController();
+  bool _showRightFade = true;
+  bool _showLeftFade = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    // Auto-load more when scrolling to 80% of the content
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent * 0.8) {
+      if (widget.hasNextPage && !widget.isLoadingMore) {
+        widget.onLoadMore?.call();
+      }
+    }
+
+    // Update fade indicator visibility based on scroll position
+    setState(() {
+      _showRightFade =
+          _scrollController.position.pixels <
+          _scrollController.position.maxScrollExtent - 10;
+      _showLeftFade = _scrollController.position.pixels > 10;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (isLoading && reservations.isEmpty) {
+    if (widget.isLoading && widget.reservations.isEmpty) {
       return const Center(
         child: Padding(
           padding: EdgeInsets.all(40.0),
@@ -29,7 +75,7 @@ class ReservationTableWidget extends StatelessWidget {
       );
     }
 
-    if (reservations.isEmpty) {
+    if (widget.reservations.isEmpty) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(40.0),
@@ -53,9 +99,12 @@ class ReservationTableWidget extends StatelessWidget {
                 style: AppTextStyle.bodyMedium,
                 color: context.colorScheme.onSurface.withValues(alpha: 0.5),
               ),
-              if (onRefresh != null) ...[
+              if (widget.onRefresh != null) ...[
                 const SizedBox(height: 16),
-                ElevatedButton(onPressed: onRefresh, child: AppText('Refresh')),
+                ElevatedButton(
+                  onPressed: widget.onRefresh,
+                  child: AppText('Refresh'),
+                ),
               ],
             ],
           ),
@@ -71,20 +120,106 @@ class ReservationTableWidget extends StatelessWidget {
       ),
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: IntrinsicWidth(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: Column(
+        children: [
+          // Horizontal scroll indicator
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            color: context.colorScheme.surfaceVariant.withOpacity(0.3),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.swipe,
+                  size: 16,
+                  color: context.colorScheme.onSurfaceVariant,
+                ),
+                const SizedBox(width: 8),
+                AppText(
+                  'Swipe horizontally to see more columns',
+                  style: AppTextStyle.bodySmall,
+                  color: context.colorScheme.onSurfaceVariant,
+                ),
+                const Spacer(),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  size: 12,
+                  color: context.colorScheme.onSurfaceVariant,
+                ),
+              ],
+            ),
+          ),
+          Stack(
             children: [
-              _buildTableHeader(context),
-              const Divider(height: 1, thickness: 1),
-              ...reservations.map(
-                (reservation) => _buildTableRow(context, reservation),
+              SingleChildScrollView(
+                controller: _scrollController,
+                scrollDirection: Axis.horizontal,
+                child: IntrinsicWidth(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _buildTableHeader(context),
+                      const Divider(height: 1, thickness: 1),
+                      ...widget.reservations.map(
+                        (reservation) => _buildTableRow(context, reservation),
+                      ),
+                      if (widget.isLoadingMore) ...[
+                        const Divider(height: 1, thickness: 1),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
               ),
+              // Left fade indicator - show when scrolled from the start
+              if (_showLeftFade)
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  bottom: 0,
+                  width: 30,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          context.colorScheme.surface,
+                          context.colorScheme.surface.withOpacity(0.8),
+                          context.colorScheme.surface.withOpacity(0.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              // Right fade indicator - only show when there's more content to scroll
+              if (_showRightFade)
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                  width: 30,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerRight,
+                        end: Alignment.centerLeft,
+                        colors: [
+                          context.colorScheme.surface,
+                          context.colorScheme.surface.withOpacity(0.8),
+                          context.colorScheme.surface.withOpacity(0.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

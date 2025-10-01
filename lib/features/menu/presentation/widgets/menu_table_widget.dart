@@ -38,6 +38,8 @@ class MenuTableWidget extends ConsumerStatefulWidget {
 class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
   final Set<int> _selectedMenuIds = <int>{};
   final ScrollController _scrollController = ScrollController();
+  bool _showRightFade = true;
+  bool _showLeftFade = false;
 
   @override
   void initState() {
@@ -59,6 +61,14 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
         widget.onLoadMore?.call();
       }
     }
+
+    // Update fade indicator visibility based on scroll position
+    setState(() {
+      _showRightFade =
+          _scrollController.position.pixels <
+          _scrollController.position.maxScrollExtent - 10;
+      _showLeftFade = _scrollController.position.pixels > 10;
+    });
   }
 
   void _toggleSelection(int menuId) {
@@ -119,7 +129,8 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                mutationState.successMessage ?? 'Menus deleted successfully',
+                mutationState.successMessage ??
+                    context.l10n.menuNotificationDeleted,
               ),
               backgroundColor: Colors.green,
             ),
@@ -130,7 +141,8 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                mutationState.failure?.message ?? 'Failed to delete menus',
+                mutationState.failure?.message ??
+                    context.l10n.adminListMenuScreenJsMessagesDeleteFailed,
               ),
               backgroundColor: Colors.red,
             ),
@@ -209,7 +221,7 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: widget.onRefresh,
-                  child: const AppText('Refresh'),
+                  child: AppText(context.l10n.adminListMenuScreenRefresh),
                 ),
               ],
             ],
@@ -231,23 +243,43 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
             ),
             child: Row(
               children: [
-                AppText(
-                  '${_selectedMenuIds.length} selected',
-                  fontWeight: FontWeight.w600,
-                ),
-                const Spacer(),
-                TextButton.icon(
-                  onPressed: _bulkDelete,
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                  label: const Text(
-                    'Delete Selected',
-                    style: TextStyle(color: Colors.red),
+                Expanded(
+                  flex: 2,
+                  child: AppText(
+                    context.l10n.adminListMenuScreenSelected(
+                      _selectedMenuIds.length.toString(),
+                    ),
+                    fontWeight: FontWeight.w600,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                 ),
                 const SizedBox(width: 8),
+                TextButton.icon(
+                  onPressed: _bulkDelete,
+                  icon: const Icon(Icons.delete, color: Colors.red, size: 18),
+                  label: Text(
+                    context.l10n.adminListMenuScreenDeleteSelected,
+                    style: TextStyle(color: Colors.red, fontSize: 12),
+                  ),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                ),
+                const SizedBox(width: 4),
                 TextButton(
                   onPressed: _clearSelection,
-                  child: const Text('Clear'),
+                  child: Text(
+                    context.l10n.adminListMenuScreenClearSelection,
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
                 ),
               ],
             ),
@@ -272,30 +304,105 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
           clipBehavior: Clip.antiAlias,
           child: Column(
             children: [
-              SingleChildScrollView(
-                controller: _scrollController,
-                scrollDirection: Axis.horizontal,
-                child: IntrinsicWidth(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      _buildTableHeader(context),
-                      const Divider(height: 1, thickness: 1),
-                      ...widget.menus.map(
-                        (menu) => _buildTableRow(context, menu),
+              // Horizontal scroll indicator
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                color: context.colorScheme.surfaceVariant.withOpacity(0.3),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.swipe,
+                      size: 16,
+                      color: context.colorScheme.onSurfaceVariant,
+                    ),
+                    const SizedBox(width: 8),
+                    AppText(
+                      'Swipe horizontally to see more columns',
+                      style: AppTextStyle.bodySmall,
+                      color: context.colorScheme.onSurfaceVariant,
+                    ),
+                    const Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 12,
+                      color: context.colorScheme.onSurfaceVariant,
+                    ),
+                  ],
+                ),
+              ),
+              Stack(
+                children: [
+                  SingleChildScrollView(
+                    controller: _scrollController,
+                    scrollDirection: Axis.horizontal,
+                    child: IntrinsicWidth(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          _buildTableHeader(context),
+                          const Divider(height: 1, thickness: 1),
+                          ...widget.menus.map(
+                            (menu) => _buildTableRow(context, menu),
+                          ),
+                          if (widget.isLoadingMore) ...[
+                            const Divider(height: 1, thickness: 1),
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              child: const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                          ],
+                        ],
                       ),
-                      if (widget.isLoadingMore) ...[
-                        const Divider(height: 1, thickness: 1),
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          child: const Center(
-                            child: CircularProgressIndicator(),
+                    ),
+                  ),
+                  // Left fade indicator - show when scrolled from the start
+                  if (_showLeftFade)
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      bottom: 0,
+                      width: 30,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [
+                              context.colorScheme.surface,
+                              context.colorScheme.surface.withOpacity(0.8),
+                              context.colorScheme.surface.withOpacity(0.0),
+                            ],
                           ),
                         ),
-                      ],
-                    ],
-                  ),
-                ),
+                      ),
+                    ),
+                  // Right fade indicator - only show when there's more content to scroll
+                  if (_showRightFade)
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      bottom: 0,
+                      width: 30,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.centerRight,
+                            end: Alignment.centerLeft,
+                            colors: [
+                              context.colorScheme.surface,
+                              context.colorScheme.surface.withOpacity(0.8),
+                              context.colorScheme.surface.withOpacity(0.0),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
               ),
             ],
           ),
@@ -315,6 +422,8 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
             child: AppText(
               context.l10n.adminListMenuScreenThMenu,
               fontWeight: FontWeight.bold,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
           ),
           SizedBox(
@@ -322,6 +431,8 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
             child: AppText(
               context.l10n.adminListMenuScreenThPrice,
               fontWeight: FontWeight.bold,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
           ),
           SizedBox(
@@ -329,6 +440,8 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
             child: AppText(
               context.l10n.adminListMenuScreenThTimeRequired,
               fontWeight: FontWeight.bold,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
           ),
           SizedBox(
@@ -336,6 +449,8 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
             child: AppText(
               context.l10n.adminListMenuScreenThOrder,
               fontWeight: FontWeight.bold,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
           ),
           SizedBox(
@@ -343,6 +458,8 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
             child: AppText(
               context.l10n.adminListMenuScreenThStatus,
               fontWeight: FontWeight.bold,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
           ),
           SizedBox(
@@ -351,6 +468,8 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
               child: AppText(
                 context.l10n.adminListMenuScreenThActions,
                 fontWeight: FontWeight.bold,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
             ),
           ),
@@ -363,8 +482,8 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
     final isSelected = _selectedMenuIds.contains(menu.id);
 
     return GestureDetector(
-      onLongPress: () => _toggleSelection(menu.id),
-      onTap: isSelected ? () => _toggleSelection(menu.id) : null,
+      onLongPress: isSelected ? null : () => _toggleSelection(menu.id),
+      onTap: () => _toggleSelection(menu.id),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
@@ -440,7 +559,7 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
             SizedBox(
               width: 150,
               child: AppText(
-                '${menu.requiredTime} min',
+                '${menu.requiredTime} ${context.l10n.adminListMenuScreenMinUnit}',
                 color: context.colorScheme.onSurface.withOpacity(0.7),
               ),
             ),

@@ -100,7 +100,26 @@ class _AdminListCustomerManagementScreenState
                 child: CustomerTableWidget(
                   customers: customersState.customers,
                   isLoading: customersState.status == CustomersStatus.loading,
+                  isLoadingMore:
+                      customersState.status == CustomersStatus.loadingMore,
+                  hasNextPage: customersState.hasNextPage,
                   onRefresh: _refreshCustomers,
+                  onLoadMore: () {
+                    final formValues = _formKey.currentState?.value ?? {};
+                    final searchQuery = formValues['search'] as String?;
+                    final selectedStatus = formValues['status'] as String?;
+
+                    ref
+                        .read(customersNotifierProvider.notifier)
+                        .loadMore(
+                          search: searchQuery?.isNotEmpty == true
+                              ? searchQuery
+                              : null,
+                          status: selectedStatus != 'all'
+                              ? selectedStatus
+                              : null,
+                        );
+                  },
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 80)),

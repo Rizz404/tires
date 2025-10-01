@@ -7,21 +7,68 @@ import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/announcement/domain/entities/announcement.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
-class AnnouncementTableWidget extends StatelessWidget {
+class AnnouncementTableWidget extends StatefulWidget {
   final List<Announcement> announcements;
   final bool isLoading;
+  final bool isLoadingMore;
+  final bool hasNextPage;
   final VoidCallback? onRefresh;
+  final VoidCallback? onLoadMore;
 
   const AnnouncementTableWidget({
     super.key,
     required this.announcements,
     this.isLoading = false,
+    this.isLoadingMore = false,
+    this.hasNextPage = false,
     this.onRefresh,
+    this.onLoadMore,
   });
 
   @override
+  State<AnnouncementTableWidget> createState() =>
+      _AnnouncementTableWidgetState();
+}
+
+class _AnnouncementTableWidgetState extends State<AnnouncementTableWidget> {
+  final ScrollController _scrollController = ScrollController();
+  bool _showRightFade = true;
+  bool _showLeftFade = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    // Auto-load more when scrolling to 80% of the content
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent * 0.8) {
+      if (widget.hasNextPage && !widget.isLoadingMore) {
+        widget.onLoadMore?.call();
+      }
+    }
+
+    // Update fade indicator visibility based on scroll position
+    setState(() {
+      _showRightFade =
+          _scrollController.position.pixels <
+          _scrollController.position.maxScrollExtent - 10;
+      _showLeftFade = _scrollController.position.pixels > 10;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (isLoading && announcements.isEmpty) {
+    if (widget.isLoading && widget.announcements.isEmpty) {
       return const Center(
         child: Padding(
           padding: EdgeInsets.all(40.0),
@@ -30,7 +77,7 @@ class AnnouncementTableWidget extends StatelessWidget {
       );
     }
 
-    if (announcements.isEmpty) {
+    if (widget.announcements.isEmpty) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(40.0),
@@ -48,10 +95,10 @@ class AnnouncementTableWidget extends StatelessWidget {
                 style: AppTextStyle.bodyLarge,
                 color: context.colorScheme.onSurface.withOpacity(0.6),
               ),
-              if (onRefresh != null) ...[
+              if (widget.onRefresh != null) ...[
                 const SizedBox(height: 16),
                 ElevatedButton(
-                  onPressed: onRefresh,
+                  onPressed: widget.onRefresh,
                   child: const AppText('Refresh'),
                 ),
               ],
@@ -69,18 +116,106 @@ class AnnouncementTableWidget extends StatelessWidget {
       ),
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: IntrinsicWidth(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: Column(
+        children: [
+          // Horizontal scroll indicator
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            color: context.colorScheme.surfaceVariant.withOpacity(0.3),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.swipe,
+                  size: 16,
+                  color: context.colorScheme.onSurfaceVariant,
+                ),
+                const SizedBox(width: 8),
+                AppText(
+                  'Swipe horizontally to see more columns',
+                  style: AppTextStyle.bodySmall,
+                  color: context.colorScheme.onSurfaceVariant,
+                ),
+                const Spacer(),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  size: 12,
+                  color: context.colorScheme.onSurfaceVariant,
+                ),
+              ],
+            ),
+          ),
+          Stack(
             children: [
-              _buildTableHeader(context),
-              const Divider(height: 1, thickness: 1),
-              ...announcements.map((ann) => _buildTableRow(context, ann)),
+              SingleChildScrollView(
+                controller: _scrollController,
+                scrollDirection: Axis.horizontal,
+                child: IntrinsicWidth(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _buildTableHeader(context),
+                      const Divider(height: 1, thickness: 1),
+                      ...widget.announcements.map(
+                        (ann) => _buildTableRow(context, ann),
+                      ),
+                      if (widget.isLoadingMore) ...[
+                        const Divider(height: 1, thickness: 1),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ),
+              // Left fade indicator - show when scrolled from the start
+              if (_showLeftFade)
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  bottom: 0,
+                  width: 30,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          context.colorScheme.surface,
+                          context.colorScheme.surface.withOpacity(0.8),
+                          context.colorScheme.surface.withOpacity(0.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              // Right fade indicator - only show when there's more content to scroll
+              if (_showRightFade)
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                  width: 30,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerRight,
+                        end: Alignment.centerLeft,
+                        colors: [
+                          context.colorScheme.surface,
+                          context.colorScheme.surface.withOpacity(0.8),
+                          context.colorScheme.surface.withOpacity(0.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

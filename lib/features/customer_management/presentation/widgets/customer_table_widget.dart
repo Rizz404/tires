@@ -7,21 +7,59 @@ import 'package:tires/features/customer_management/domain/entities/customer.dart
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:intl/intl.dart';
 
-class CustomerTableWidget extends StatelessWidget {
+class CustomerTableWidget extends StatefulWidget {
   final List<Customer> customers;
   final bool isLoading;
+  final bool isLoadingMore;
+  final bool hasNextPage;
   final VoidCallback? onRefresh;
+  final VoidCallback? onLoadMore;
 
   const CustomerTableWidget({
     super.key,
     required this.customers,
     this.isLoading = false,
+    this.isLoadingMore = false,
+    this.hasNextPage = false,
     this.onRefresh,
+    this.onLoadMore,
   });
 
   @override
+  State<CustomerTableWidget> createState() => _CustomerTableWidgetState();
+}
+
+class _CustomerTableWidgetState extends State<CustomerTableWidget> {
+  final ScrollController _scrollController = ScrollController();
+  bool _showRightFade = true;
+  bool _showLeftFade = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    // Update fade indicator visibility based on scroll position
+    setState(() {
+      _showRightFade =
+          _scrollController.position.pixels <
+          _scrollController.position.maxScrollExtent - 10;
+      _showLeftFade = _scrollController.position.pixels > 10;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (isLoading && customers.isEmpty) {
+    if (widget.isLoading && widget.customers.isEmpty) {
       return const Center(
         child: Padding(
           padding: EdgeInsets.all(40.0),
@@ -30,7 +68,7 @@ class CustomerTableWidget extends StatelessWidget {
       );
     }
 
-    if (customers.isEmpty) {
+    if (widget.customers.isEmpty) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(40.0),
@@ -48,10 +86,10 @@ class CustomerTableWidget extends StatelessWidget {
                 style: AppTextStyle.bodyLarge,
                 color: context.colorScheme.onSurface.withValues(alpha: 0.6),
               ),
-              if (onRefresh != null) ...[
+              if (widget.onRefresh != null) ...[
                 const SizedBox(height: 16),
                 ElevatedButton(
-                  onPressed: onRefresh,
+                  onPressed: widget.onRefresh,
                   child: AppText(
                     context.l10n.adminListCustomerManagementFiltersResetButton,
                   ),
@@ -71,18 +109,127 @@ class CustomerTableWidget extends StatelessWidget {
       ),
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: IntrinsicWidth(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: Column(
+        children: [
+          // Horizontal scroll indicator
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            color: context.colorScheme.surfaceVariant.withOpacity(0.3),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.swipe,
+                  size: 16,
+                  color: context.colorScheme.onSurfaceVariant,
+                ),
+                const SizedBox(width: 8),
+                AppText(
+                  'Swipe horizontally to see more columns',
+                  style: AppTextStyle.bodySmall,
+                  color: context.colorScheme.onSurfaceVariant,
+                ),
+                const Spacer(),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  size: 12,
+                  color: context.colorScheme.onSurfaceVariant,
+                ),
+              ],
+            ),
+          ),
+          Stack(
             children: [
-              _buildTableHeader(context),
-              const Divider(height: 1, thickness: 1),
-              ...customers.map((customer) => _buildTableRow(context, customer)),
+              SingleChildScrollView(
+                controller: _scrollController,
+                scrollDirection: Axis.horizontal,
+                child: IntrinsicWidth(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _buildTableHeader(context),
+                      const Divider(height: 1, thickness: 1),
+                      ...widget.customers.asMap().entries.map(
+                        (entry) =>
+                            _buildTableRow(context, entry.value, entry.key),
+                      ),
+                      if (widget.isLoadingMore) ...[
+                        const Divider(height: 1, thickness: 1),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      ],
+                      if (widget.hasNextPage && !widget.isLoadingMore) ...[
+                        const Divider(height: 1, thickness: 1),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          child: Center(
+                            child: TextButton.icon(
+                              onPressed: widget.onLoadMore,
+                              icon: const Icon(Icons.expand_more, size: 16),
+                              label: AppText(
+                                'Load More',
+                                style: AppTextStyle.bodyMedium,
+                              ),
+                              style: TextButton.styleFrom(
+                                foregroundColor: context.colorScheme.primary,
+                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ),
+              // Left fade indicator - show when scrolled from the start
+              if (_showLeftFade)
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  bottom: 0,
+                  width: 30,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          context.colorScheme.surface,
+                          context.colorScheme.surface.withOpacity(0.8),
+                          context.colorScheme.surface.withOpacity(0.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              // Right fade indicator - only show when there's more content to scroll
+              if (_showRightFade)
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                  width: 30,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerRight,
+                        end: Alignment.centerLeft,
+                        colors: [
+                          context.colorScheme.surface,
+                          context.colorScheme.surface.withOpacity(0.8),
+                          context.colorScheme.surface.withOpacity(0.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }
@@ -93,6 +240,10 @@ class CustomerTableWidget extends StatelessWidget {
       color: context.colorScheme.surface.withOpacity(0.5),
       child: Row(
         children: [
+          SizedBox(
+            width: 60,
+            child: AppText('NO.'.toUpperCase(), fontWeight: FontWeight.bold),
+          ),
           SizedBox(
             width: 200,
             child: AppText(
@@ -156,7 +307,7 @@ class CustomerTableWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildTableRow(BuildContext context, Customer customer) {
+  Widget _buildTableRow(BuildContext context, Customer customer, int index) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
@@ -169,6 +320,15 @@ class CustomerTableWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
+          // Number Column
+          SizedBox(
+            width: 60,
+            child: AppText(
+              '${index + 1}',
+              style: AppTextStyle.bodyMedium,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           // Customer Column
           SizedBox(width: 200, child: _buildCustomerInfo(context, customer)),
           // Contact Info Column

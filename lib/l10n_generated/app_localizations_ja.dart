@@ -3628,13 +3628,13 @@ class L10nJa extends L10n {
   String get adminListMenuScreenAveragePrice => '平均価格';
 
   @override
-  String get adminListMenuScreenFiltersSearch => 'フィルターと検索';
+  String get adminListMenuScreenFiltersSearch => '検索・フィルター';
 
   @override
-  String get adminListMenuScreenShowFilters => 'フィルターを表示';
+  String get adminListMenuScreenShowFilters => 'フィルター表示';
 
   @override
-  String get adminListMenuScreenHideFilters => 'フィルターを非表示';
+  String get adminListMenuScreenHideFilters => 'フィルター非表示';
 
   @override
   String get adminListMenuScreenStatus => 'ステータス';
@@ -3643,10 +3643,10 @@ class L10nJa extends L10n {
   String get adminListMenuScreenAllStatuses => 'すべてのステータス';
 
   @override
-  String get adminListMenuScreenMinPriceRange => '最低価格範囲';
+  String get adminListMenuScreenMinPriceRange => '最低価格';
 
   @override
-  String get adminListMenuScreenMaxPriceRange => '最高価格範囲';
+  String get adminListMenuScreenMaxPriceRange => '最高価格';
 
   @override
   String get adminListMenuScreenSearch => '検索';
@@ -3669,13 +3669,13 @@ class L10nJa extends L10n {
   String get adminListMenuScreenThPrice => '価格';
 
   @override
-  String get adminListMenuScreenThTimeRequired => '所要時間';
+  String get adminListMenuScreenThTimeRequired => '時間';
 
   @override
   String get adminListMenuScreenThOrder => '順序';
 
   @override
-  String get adminListMenuScreenThStatus => 'ステータス';
+  String get adminListMenuScreenThStatus => '状態';
 
   @override
   String get adminListMenuScreenThActions => '操作';
@@ -3899,6 +3899,23 @@ class L10nJa extends L10n {
 
   @override
   String get menuNotificationDeleted => 'メニューが正常に削除されました。';
+
+  @override
+  String adminListMenuScreenSelected(String count) {
+    return '$count件選択中';
+  }
+
+  @override
+  String get adminListMenuScreenDeleteSelected => '削除';
+
+  @override
+  String get adminListMenuScreenClearSelection => '選択解除';
+
+  @override
+  String get adminListMenuScreenRefresh => '更新';
+
+  @override
+  String get adminListMenuScreenMinUnit => '分';
 
   @override
   String get profileShowTitle => 'マイプロフィール';

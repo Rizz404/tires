@@ -61,10 +61,15 @@ class _AnnouncementFilterSearchState extends State<AnnouncementFilterSearch> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppText(
-                  context.l10n.adminListAnnouncementScreenFiltersTitle,
-                  style: AppTextStyle.titleLarge,
+                Expanded(
+                  child: AppText(
+                    context.l10n.adminListAnnouncementScreenFiltersTitle,
+                    style: AppTextStyle.titleLarge,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
                 ),
+                const SizedBox(width: 8),
                 TextButton.icon(
                   onPressed: widget.onToggleVisibility,
                   icon: Icon(
@@ -76,6 +81,11 @@ class _AnnouncementFilterSearchState extends State<AnnouncementFilterSearch> {
                     widget.isFilterVisible
                         ? context.l10n.adminListAnnouncementScreenJsHideFilters
                         : context.l10n.adminListAnnouncementScreenJsShowFilters,
+                  ),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                 ),
               ],

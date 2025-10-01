@@ -62,10 +62,15 @@ class _CustomerFilterSearchState extends State<CustomerFilterSearch> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppText(
-                  context.l10n.adminListCustomerManagementFiltersTitle,
-                  style: AppTextStyle.titleLarge,
+                Expanded(
+                  child: AppText(
+                    context.l10n.adminListCustomerManagementFiltersTitle,
+                    style: AppTextStyle.titleLarge,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
                 ),
+                const SizedBox(width: 8),
                 TextButton.icon(
                   onPressed: widget.onToggleVisibility,
                   icon: Icon(
@@ -81,6 +86,11 @@ class _CustomerFilterSearchState extends State<CustomerFilterSearch> {
                         : context
                               .l10n
                               .adminListCustomerManagementFiltersShowFilters,
+                  ),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                 ),
               ],

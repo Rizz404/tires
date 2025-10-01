@@ -7,27 +7,68 @@ import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/blocked_period/domain/entities/blocked_period.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
-class BlockedPeriodTableWidget extends StatelessWidget {
+class BlockedPeriodTableWidget extends StatefulWidget {
   final List<BlockedPeriod> blockedPeriods;
   final bool isLoading;
+  final bool isLoadingMore;
+  final bool hasNextPage;
   final VoidCallback? onRefresh;
-  final int currentPage;
-  final int totalPages;
-  final ValueChanged<int> onPageChanged;
+  final VoidCallback? onLoadMore;
 
   const BlockedPeriodTableWidget({
     super.key,
     required this.blockedPeriods,
     this.isLoading = false,
+    this.isLoadingMore = false,
+    this.hasNextPage = false,
     this.onRefresh,
-    required this.currentPage,
-    required this.totalPages,
-    required this.onPageChanged,
+    this.onLoadMore,
   });
 
   @override
+  State<BlockedPeriodTableWidget> createState() =>
+      _BlockedPeriodTableWidgetState();
+}
+
+class _BlockedPeriodTableWidgetState extends State<BlockedPeriodTableWidget> {
+  final ScrollController _scrollController = ScrollController();
+  bool _showRightFade = true;
+  bool _showLeftFade = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    // Auto-load more when scrolling to 80% of the content
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent * 0.8) {
+      if (widget.hasNextPage && !widget.isLoadingMore) {
+        widget.onLoadMore?.call();
+      }
+    }
+
+    // Update fade indicator visibility based on scroll position
+    setState(() {
+      _showRightFade =
+          _scrollController.position.pixels <
+          _scrollController.position.maxScrollExtent - 10;
+      _showLeftFade = _scrollController.position.pixels > 10;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (isLoading && blockedPeriods.isEmpty) {
+    if (widget.isLoading && widget.blockedPeriods.isEmpty) {
       return const Center(
         child: Padding(
           padding: EdgeInsets.all(40.0),
@@ -36,7 +77,7 @@ class BlockedPeriodTableWidget extends StatelessWidget {
       );
     }
 
-    if (blockedPeriods.isEmpty) {
+    if (widget.blockedPeriods.isEmpty) {
       return _buildEmptyState(context);
     }
 
@@ -50,23 +91,103 @@ class BlockedPeriodTableWidget extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: IntrinsicWidth(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _buildTableHeader(context),
-                  const Divider(height: 1, thickness: 1),
-                  ...blockedPeriods.map(
-                    (period) => _buildTableRow(context, period),
-                  ),
-                ],
-              ),
+          // Horizontal scroll indicator
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            color: context.colorScheme.surfaceVariant.withOpacity(0.3),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.swipe,
+                  size: 16,
+                  color: context.colorScheme.onSurfaceVariant,
+                ),
+                const SizedBox(width: 8),
+                AppText(
+                  'Swipe horizontally to see more columns',
+                  style: AppTextStyle.bodySmall,
+                  color: context.colorScheme.onSurfaceVariant,
+                ),
+                const Spacer(),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  size: 12,
+                  color: context.colorScheme.onSurfaceVariant,
+                ),
+              ],
             ),
           ),
-          const Divider(height: 1, thickness: 1),
-          _buildPaginationControls(context),
+          Stack(
+            children: [
+              SingleChildScrollView(
+                controller: _scrollController,
+                scrollDirection: Axis.horizontal,
+                child: IntrinsicWidth(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _buildTableHeader(context),
+                      const Divider(height: 1, thickness: 1),
+                      ...widget.blockedPeriods.map(
+                        (period) => _buildTableRow(context, period),
+                      ),
+                      if (widget.isLoadingMore) ...[
+                        const Divider(height: 1, thickness: 1),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ),
+              // Left fade indicator - show when scrolled from the start
+              if (_showLeftFade)
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  bottom: 0,
+                  width: 30,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          context.colorScheme.surface,
+                          context.colorScheme.surface.withOpacity(0.8),
+                          context.colorScheme.surface.withOpacity(0.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              // Right fade indicator - only show when there's more content to scroll
+              if (_showRightFade)
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                  width: 30,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerRight,
+                        end: Alignment.centerLeft,
+                        colors: [
+                          context.colorScheme.surface,
+                          context.colorScheme.surface.withOpacity(0.8),
+                          context.colorScheme.surface.withOpacity(0.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ],
       ),
     );
@@ -90,10 +211,10 @@ class BlockedPeriodTableWidget extends StatelessWidget {
               style: AppTextStyle.bodyLarge,
               color: context.colorScheme.onSurface.withOpacity(0.6),
             ),
-            if (onRefresh != null) ...[
+            if (widget.onRefresh != null) ...[
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: onRefresh,
+                onPressed: widget.onRefresh,
                 child: AppText(
                   context.l10n.adminListBlockedPeriodScreenTableRefreshButton,
                 ),
@@ -330,40 +451,6 @@ class BlockedPeriodTableWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       visualDensity: VisualDensity.compact,
       side: BorderSide.none,
-    );
-  }
-
-  Widget _buildPaginationControls(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          AppText(
-            'Page $currentPage of $totalPages',
-            style: AppTextStyle.bodyMedium,
-            color: context.colorScheme.onSurface.withOpacity(0.7),
-          ),
-          const SizedBox(width: 16),
-          IconButton(
-            icon: const Icon(Icons.chevron_left),
-            onPressed: currentPage > 1
-                ? () => onPageChanged(currentPage - 1)
-                : null,
-            tooltip: context
-                .l10n
-                .adminListBlockedPeriodScreenTablePaginationPrevious,
-          ),
-          IconButton(
-            icon: const Icon(Icons.chevron_right),
-            onPressed: currentPage < totalPages
-                ? () => onPageChanged(currentPage + 1)
-                : null,
-            tooltip:
-                context.l10n.adminListBlockedPeriodScreenTablePaginationNext,
-          ),
-        ],
-      ),
     );
   }
 }
