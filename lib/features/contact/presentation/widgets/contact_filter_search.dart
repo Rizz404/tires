@@ -1,10 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
+import 'package:tires/shared/presentation/widgets/app_button.dart';
+import 'package:tires/shared/presentation/widgets/app_dropdown.dart';
+import 'package:tires/shared/presentation/widgets/app_search_field.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
 class ContactFilterSearch extends StatefulWidget {
@@ -28,18 +28,8 @@ class ContactFilterSearch extends StatefulWidget {
 }
 
 class _ContactFilterSearchState extends State<ContactFilterSearch> {
-  Timer? _debounceTimer;
-
-  void _onSearchChanged(String? value) {
-    _debounceTimer?.cancel();
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-      widget.onFilter();
-    });
-  }
-
   @override
   void dispose() {
-    _debounceTimer?.cancel();
     super.dispose();
   }
 
@@ -95,118 +85,89 @@ class _ContactFilterSearchState extends State<ContactFilterSearch> {
                 key: widget.formKey,
                 child: Column(
                   children: [
+                    AppDropdown<String>(
+                      name: 'status',
+                      initialValue: 'all',
+                      label:
+                          context.l10n.adminListContactScreenFilterStatusLabel,
+                      items: [
+                        AppDropdownItem(
+                          value: 'all',
+                          label: context
+                              .l10n
+                              .adminListContactScreenFilterStatusAll,
+                        ),
+                        AppDropdownItem(
+                          value: 'pending',
+                          label: context
+                              .l10n
+                              .adminUpsertContactScreenStatusPending,
+                        ),
+                        AppDropdownItem(
+                          value: 'replied',
+                          label: context
+                              .l10n
+                              .adminUpsertContactScreenStatusReplied,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: FormBuilderDropdown<String>(
-                            name: 'status',
-                            initialValue: 'all',
-                            onChanged: (value) => widget.onFilter(),
-                            decoration: InputDecoration(
-                              labelText: context
-                                  .l10n
-                                  .adminListContactScreenFilterStatusLabel,
-                            ),
-                            items: [
-                              DropdownMenuItem(
-                                value: 'all',
-                                child: Text(
-                                  context
-                                      .l10n
-                                      .adminListContactScreenFilterStatusAll,
-                                ),
-                              ),
-                              DropdownMenuItem(
-                                value: 'pending',
-                                child: Text(
-                                  context
-                                      .l10n
-                                      .adminUpsertContactScreenStatusPending,
-                                ),
-                              ),
-                              DropdownMenuItem(
-                                value: 'replied',
-                                child: Text(
-                                  context
-                                      .l10n
-                                      .adminUpsertContactScreenStatusReplied,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: FormBuilderDateTimePicker(
+                          child: FormBuilderTextField(
                             name: 'start_date',
-                            inputType: InputType.date,
-                            onChanged: (value) => widget.onFilter(),
                             decoration: InputDecoration(
                               labelText: context
                                   .l10n
                                   .adminListContactScreenFilterStartDateLabel,
                             ),
-                            format: DateFormat('dd/MM/yyyy'),
+                            keyboardType: TextInputType.datetime,
                           ),
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                        const SizedBox(width: 16),
                         Expanded(
-                          child: FormBuilderDateTimePicker(
+                          child: FormBuilderTextField(
                             name: 'end_date',
-                            inputType: InputType.date,
-                            onChanged: (value) => widget.onFilter(),
                             decoration: InputDecoration(
                               labelText: context
                                   .l10n
                                   .adminListContactScreenFilterEndDateLabel,
                             ),
-                            format: DateFormat('dd/MM/yyyy'),
+                            keyboardType: TextInputType.datetime,
                           ),
                         ),
-                        const SizedBox(width: 16),
-                        const Spacer(),
                       ],
                     ),
                     const SizedBox(height: 16),
-                    FormBuilderTextField(
+                    AppSearchField(
                       name: 'search',
-                      onChanged: _onSearchChanged,
-                      decoration: InputDecoration(
-                        labelText: context
-                            .l10n
-                            .adminListContactScreenFilterSearchLabel,
-                        hintText: context
-                            .l10n
-                            .adminListContactScreenFilterSearchPlaceholder,
-                        prefixIcon: const Icon(Icons.search),
-                      ),
+                      hintText: context
+                          .l10n
+                          .adminListContactScreenFilterSearchPlaceholder,
+                      label:
+                          context.l10n.adminListContactScreenFilterSearchLabel,
                     ),
                     const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        TextButton(
+                        AppButton(
+                          text: context
+                              .l10n
+                              .adminListContactScreenFilterResetButton,
                           onPressed: widget.onReset,
-                          child: Text(
-                            context
-                                .l10n
-                                .adminListContactScreenFilterResetButton,
-                          ),
+                          variant: AppButtonVariant.text,
+                          isFullWidth: false,
                         ),
                         const SizedBox(width: 8),
-                        ElevatedButton(
+                        AppButton(
+                          text: context
+                              .l10n
+                              .adminListContactScreenFilterFilterButton,
                           onPressed: widget.onFilter,
-                          child: Text(
-                            context
-                                .l10n
-                                .adminListContactScreenFilterFilterButton,
-                          ),
+                          variant: AppButtonVariant.filled,
+                          isFullWidth: false,
                         ),
                       ],
                     ),

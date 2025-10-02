@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/shared/presentation/widgets/app_dropdown.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
-import 'package:tires/shared/presentation/widgets/app_text_field.dart';
+import 'package:tires/shared/presentation/widgets/app_search_field.dart';
 import 'package:intl/intl.dart';
 
-class CalendarFilterSearchWidget extends StatelessWidget {
+class CalendarFilterSearchWidget extends StatefulWidget {
   final GlobalKey<FormBuilderState> formKey;
   final bool isFilterVisible;
   final VoidCallback onToggleVisibility;
@@ -25,6 +24,18 @@ class CalendarFilterSearchWidget extends StatelessWidget {
   });
 
   @override
+  State<CalendarFilterSearchWidget> createState() =>
+      _CalendarFilterSearchWidgetState();
+}
+
+class _CalendarFilterSearchWidgetState
+    extends State<CalendarFilterSearchWidget> {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
@@ -32,68 +43,62 @@ class CalendarFilterSearchWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(color: context.colorScheme.outlineVariant),
       ),
-      child: Column(
-        children: [
-          // Header with toggle
-          InkWell(
-            onTap: onToggleVisibility,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Icon(Icons.filter_list, color: context.colorScheme.primary),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: AppText(
-                      'Search & Filter Reservations',
-                      style: AppTextStyle.titleMedium,
-                      fontWeight: FontWeight.w600,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
+      margin: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: AppText(
+                    'Search & Filter Reservations',
+                    style: AppTextStyle.titleLarge,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
-                  Icon(
-                    isFilterVisible
-                        ? Icons.keyboard_arrow_up
-                        : Icons.keyboard_arrow_down,
-                    color: context.colorScheme.onSurfaceVariant,
+                ),
+                const SizedBox(width: 8),
+                TextButton.icon(
+                  onPressed: widget.onToggleVisibility,
+                  icon: Icon(
+                    widget.isFilterVisible
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
                   ),
-                ],
-              ),
+                  label: AppText(
+                    widget.isFilterVisible ? 'Hide Filters' : 'Show Filters',
+                  ),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                ),
+              ],
             ),
-          ),
-
-          // Filter content
-          if (isFilterVisible) ...[
-            const Divider(height: 1),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: FormBuilder(
-                key: formKey,
+            if (widget.isFilterVisible) ...[
+              const SizedBox(height: 16),
+              FormBuilder(
+                key: widget.formKey,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Search field
-                    AppTextField(
+                    AppSearchField(
                       name: 'search',
+                      hintText: 'Enter search term...',
                       label:
                           'Search by customer name, phone, or reservation number',
-                      placeHolder: 'Enter search term...',
-                      prefixIcon: const Icon(Icons.search),
-                      validator: FormBuilderValidators.compose([]),
                     ),
                     const SizedBox(height: 16),
-
-                    // Row for dropdowns and date range
                     Row(
                       children: [
-                        // Status dropdown
                         Expanded(
                           child: AppDropdown<String>(
                             name: 'status',
+                            initialValue: 'all',
                             label: 'Status',
-                            hintText: 'All Status',
                             items: [
                               AppDropdownItem(
                                 value: 'all',
@@ -116,29 +121,23 @@ class CalendarFilterSearchWidget extends StatelessWidget {
                                 label: 'Cancelled',
                               ),
                             ],
-                            initialValue: 'all',
                           ),
                         ),
                         const SizedBox(width: 16),
-
-                        // Menu dropdown - placeholder for now
                         Expanded(
                           child: AppDropdown<String>(
                             name: 'menu',
+                            initialValue: 'all',
                             label: 'Menu',
-                            hintText: 'All Menus',
                             items: [
                               AppDropdownItem(value: 'all', label: 'All Menus'),
                               // TODO: Add actual menu items from provider
                             ],
-                            initialValue: 'all',
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 16),
-
-                    // Date range
                     Row(
                       children: [
                         Expanded(
@@ -178,52 +177,35 @@ class CalendarFilterSearchWidget extends StatelessWidget {
                                 vertical: 16,
                               ),
                             ),
-                            validator: (val) {
-                              final startDate = formKey
-                                  .currentState
-                                  ?.fields['start_date']
-                                  ?.value;
-                              if (val != null &&
-                                  startDate != null &&
-                                  val.isBefore(startDate)) {
-                                return 'End date must be after start date';
-                              }
-                              return null;
-                            },
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 20),
-
-                    // Action buttons
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Expanded(
-                          child: AppButton(
-                            text: 'Apply Filters',
-                            color: AppButtonColor.primary,
-                            leadingIcon: const Icon(Icons.search, size: 18),
-                            onPressed: onFilter,
-                          ),
+                        AppButton(
+                          text: 'Reset',
+                          onPressed: widget.onReset,
+                          variant: AppButtonVariant.text,
+                          isFullWidth: false,
                         ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: AppButton(
-                            text: 'Reset',
-                            color: AppButtonColor.secondary,
-                            leadingIcon: const Icon(Icons.refresh, size: 18),
-                            onPressed: onReset,
-                          ),
+                        const SizedBox(width: 8),
+                        AppButton(
+                          text: 'Apply Filters',
+                          onPressed: widget.onFilter,
+                          variant: AppButtonVariant.filled,
+                          isFullWidth: false,
                         ),
                       ],
                     ),
                   ],
                 ),
               ),
-            ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

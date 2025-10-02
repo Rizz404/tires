@@ -1,8 +1,10 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
+import 'package:tires/shared/presentation/widgets/app_button.dart';
+import 'package:tires/shared/presentation/widgets/app_dropdown.dart';
+import 'package:tires/shared/presentation/widgets/app_search_field.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
 class MenuFilterSearch extends StatefulWidget {
@@ -26,22 +28,8 @@ class MenuFilterSearch extends StatefulWidget {
 }
 
 class _MenuFilterSearchState extends State<MenuFilterSearch> {
-  Timer? _debounceTimer;
-
-  void _onSearchChanged(String? value) {
-    _debounceTimer?.cancel();
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-      widget.onFilter();
-    });
-  }
-
-  void _onFilterChanged() {
-    widget.onFilter();
-  }
-
   @override
   void dispose() {
-    _debounceTimer?.cancel();
     super.dispose();
   }
 
@@ -97,27 +85,22 @@ class _MenuFilterSearchState extends State<MenuFilterSearch> {
                 key: widget.formKey,
                 child: Column(
                   children: [
-                    FormBuilderDropdown<String>(
+                    AppDropdown<String>(
                       name: 'status',
                       initialValue: 'all',
-                      decoration: InputDecoration(
-                        labelText: context.l10n.adminListMenuScreenStatus,
-                      ),
-                      onChanged: (_) => _onFilterChanged(),
+                      label: context.l10n.adminListMenuScreenStatus,
                       items: [
-                        DropdownMenuItem(
+                        AppDropdownItem(
                           value: 'all',
-                          child: Text(
-                            context.l10n.adminListMenuScreenAllStatuses,
-                          ),
+                          label: context.l10n.adminListMenuScreenAllStatuses,
                         ),
-                        DropdownMenuItem(
+                        AppDropdownItem(
                           value: 'active',
-                          child: Text(context.l10n.adminListMenuScreenActive),
+                          label: context.l10n.adminListMenuScreenActive,
                         ),
-                        DropdownMenuItem(
+                        AppDropdownItem(
                           value: 'inactive',
-                          child: Text(context.l10n.adminListMenuScreenInactive),
+                          label: context.l10n.adminListMenuScreenInactive,
                         ),
                       ],
                     ),
@@ -132,7 +115,6 @@ class _MenuFilterSearchState extends State<MenuFilterSearch> {
                                   context.l10n.adminListMenuScreenMinPriceRange,
                             ),
                             keyboardType: TextInputType.number,
-                            onChanged: (_) => _onFilterChanged(),
                           ),
                         ),
                         const SizedBox(width: 16),
@@ -144,34 +126,33 @@ class _MenuFilterSearchState extends State<MenuFilterSearch> {
                                   context.l10n.adminListMenuScreenMaxPriceRange,
                             ),
                             keyboardType: TextInputType.number,
-                            onChanged: (_) => _onFilterChanged(),
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 16),
-                    FormBuilderTextField(
+                    AppSearchField(
                       name: 'search',
-                      decoration: InputDecoration(
-                        labelText: context.l10n.adminListMenuScreenSearch,
-                        hintText:
-                            context.l10n.adminListMenuScreenSearchPlaceholder,
-                        prefixIcon: const Icon(Icons.search),
-                      ),
-                      onChanged: _onSearchChanged,
+                      hintText:
+                          context.l10n.adminListMenuScreenSearchPlaceholder,
+                      label: context.l10n.adminListMenuScreenSearch,
                     ),
                     const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        TextButton(
+                        AppButton(
+                          text: context.l10n.adminListMenuScreenReset,
                           onPressed: widget.onReset,
-                          child: Text(context.l10n.adminListMenuScreenReset),
+                          variant: AppButtonVariant.text,
+                          isFullWidth: false,
                         ),
                         const SizedBox(width: 8),
-                        ElevatedButton(
+                        AppButton(
+                          text: context.l10n.adminListMenuScreenFilter,
                           onPressed: widget.onFilter,
-                          child: Text(context.l10n.adminListMenuScreenFilter),
+                          variant: AppButtonVariant.filled,
+                          isFullWidth: false,
                         ),
                       ],
                     ),

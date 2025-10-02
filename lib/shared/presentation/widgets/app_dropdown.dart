@@ -18,8 +18,6 @@ class AppDropdown<T> extends StatelessWidget {
   final String? hintText;
   final String? label;
   final bool enabled;
-  final EdgeInsetsGeometry? contentPadding;
-  final Color? fillColor;
   final Widget? prefixIcon;
   final bool isExpanded;
   final double? width;
@@ -34,8 +32,6 @@ class AppDropdown<T> extends StatelessWidget {
     this.hintText,
     this.label,
     this.enabled = true,
-    this.contentPadding,
-    this.fillColor,
     this.prefixIcon,
     this.isExpanded = true,
     this.width,
@@ -44,8 +40,6 @@ class AppDropdown<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     Widget dropdown = FormBuilderDropdown<T>(
       name: name,
       initialValue: initialValue,
@@ -75,48 +69,8 @@ class AppDropdown<T> extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         hintText: hintText ?? 'Select option',
-        hintStyle: theme.textTheme.bodyMedium?.copyWith(
-          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-        ),
         prefixIcon: prefixIcon,
-        filled: true,
-        fillColor:
-            fillColor ?? theme.colorScheme.surface.withValues(alpha: 0.8),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.3),
-            width: 1,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.3),
-            width: 1,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.1),
-            width: 1,
-          ),
-        ),
-        contentPadding:
-            contentPadding ??
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
-      style: theme.textTheme.bodyMedium?.copyWith(
-        color: theme.colorScheme.onSurface,
-      ),
-      dropdownColor: theme.colorScheme.surface,
-      iconEnabledColor: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-      iconDisabledColor: theme.colorScheme.onSurface.withValues(alpha: 0.3),
     );
 
     if (width != null) {

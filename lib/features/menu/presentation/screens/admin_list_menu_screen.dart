@@ -31,38 +31,34 @@ class _AdminListMenuScreenState extends ConsumerState<AdminListMenuScreen> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   bool _isFilterVisible = true;
 
+  // Store current filter values
+  String? _currentSearch;
+  String? _currentStatus;
+  double? _currentMinPrice;
+  double? _currentMaxPrice;
+
   Future<void> _refreshMenus() async {
-    final formValues = _formKey.currentState?.value;
-    if (formValues != null) {
-      await _applyFilters();
-    } else {
-      await ref.read(adminMenuGetNotifierProvider.notifier).refresh();
-    }
+    // Use stored filter values when refreshing
+    await ref
+        .read(adminMenuGetNotifierProvider.notifier)
+        .refresh(
+          search: _currentSearch,
+          status: _currentStatus,
+          minPrice: _currentMinPrice,
+          maxPrice: _currentMaxPrice,
+        );
     await ref.read(menuStatisticsNotifierProvider.notifier).refresh();
   }
 
   Future<void> _loadMoreMenus() async {
-    final formValues = _formKey.currentState?.value ?? {};
-
-    final searchQuery = formValues['search'] as String?;
-    final selectedStatus = formValues['status'] as String?;
-    final minPriceStr = formValues['min_price'] as String?;
-    final maxPriceStr = formValues['max_price'] as String?;
-
-    final minPrice = minPriceStr != null && minPriceStr.isNotEmpty
-        ? double.tryParse(minPriceStr)
-        : null;
-    final maxPrice = maxPriceStr != null && maxPriceStr.isNotEmpty
-        ? double.tryParse(maxPriceStr)
-        : null;
-
+    // Use stored filter values when loading more
     await ref
         .read(adminMenuGetNotifierProvider.notifier)
         .loadMore(
-          search: searchQuery?.isNotEmpty == true ? searchQuery : null,
-          status: selectedStatus != 'all' ? selectedStatus : null,
-          minPrice: minPrice,
-          maxPrice: maxPrice,
+          search: _currentSearch,
+          status: _currentStatus,
+          minPrice: _currentMinPrice,
+          maxPrice: _currentMaxPrice,
         );
   }
 
@@ -81,19 +77,33 @@ class _AdminListMenuScreenState extends ConsumerState<AdminListMenuScreen> {
         ? double.tryParse(maxPriceStr)
         : null;
 
+    // Store current filter values
+    _currentSearch = searchQuery?.isNotEmpty == true ? searchQuery : null;
+    _currentStatus = selectedStatus != 'all' ? selectedStatus : null;
+    _currentMinPrice = minPrice;
+    _currentMaxPrice = maxPrice;
+
     await ref
         .read(adminMenuGetNotifierProvider.notifier)
         .getInitialAdminMenus(
-          search: searchQuery?.isNotEmpty == true ? searchQuery : null,
-          status: selectedStatus != 'all' ? selectedStatus : null,
-          minPrice: minPrice,
-          maxPrice: maxPrice,
+          search: _currentSearch,
+          status: _currentStatus,
+          minPrice: _currentMinPrice,
+          maxPrice: _currentMaxPrice,
         );
   }
 
   void _resetFilters() {
     _formKey.currentState?.reset();
-    _applyFilters(); // Apply filters after reset to fetch all data
+
+    // Clear stored filter values
+    _currentSearch = null;
+    _currentStatus = null;
+    _currentMinPrice = null;
+    _currentMaxPrice = null;
+
+    // Fetch data without filters
+    ref.read(adminMenuGetNotifierProvider.notifier).getInitialAdminMenus();
   }
 
   @override

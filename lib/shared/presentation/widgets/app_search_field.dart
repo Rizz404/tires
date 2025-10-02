@@ -66,8 +66,6 @@ class _AppSearchFieldState extends State<AppSearchField> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return FormBuilderTextField(
       key: _fieldKey,
       name: widget.name,
@@ -79,59 +77,15 @@ class _AppSearchFieldState extends State<AppSearchField> {
       decoration: InputDecoration(
         labelText: widget.label,
         hintText: widget.hintText ?? 'Search...',
-        hintStyle: theme.textTheme.bodyMedium?.copyWith(
-          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-        ),
-        prefixIcon:
-            widget.prefixIcon ??
-            Icon(
-              Icons.search,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-            ),
+        prefixIcon: widget.prefixIcon ?? Icon(Icons.search),
         suffixIcon: widget.showClearButton && _hasText
             ? IconButton(
-                icon: Icon(
-                  Icons.clear,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                ),
+                icon: Icon(Icons.clear),
                 onPressed: widget.enabled ? _clearText : null,
                 tooltip: 'Clear',
               )
             : null,
-        filled: true,
-        fillColor:
-            widget.fillColor ??
-            theme.colorScheme.surface.withValues(alpha: 0.8),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.3),
-            width: 1,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.3),
-            width: 1,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.1),
-            width: 1,
-          ),
-        ),
-        contentPadding:
-            widget.contentPadding ??
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
-      style: theme.textTheme.bodyMedium,
     );
   }
 }

@@ -1,8 +1,10 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
+import 'package:tires/shared/presentation/widgets/app_button.dart';
+import 'package:tires/shared/presentation/widgets/app_dropdown.dart';
+import 'package:tires/shared/presentation/widgets/app_search_field.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
 class CustomerFilterSearch extends StatefulWidget {
@@ -26,22 +28,8 @@ class CustomerFilterSearch extends StatefulWidget {
 }
 
 class _CustomerFilterSearchState extends State<CustomerFilterSearch> {
-  Timer? _debounceTimer;
-
-  void _onSearchChanged(String? value) {
-    _debounceTimer?.cancel();
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-      widget.onFilter();
-    });
-  }
-
-  void _onFilterChanged() {
-    widget.onFilter();
-  }
-
   @override
   void dispose() {
-    _debounceTimer?.cancel();
     super.dispose();
   }
 
@@ -101,84 +89,69 @@ class _CustomerFilterSearchState extends State<CustomerFilterSearch> {
                 key: widget.formKey,
                 child: Column(
                   children: [
-                    FormBuilderDropdown<String>(
+                    AppDropdown<String>(
                       name: 'status',
                       initialValue: 'all',
-                      decoration: InputDecoration(
-                        labelText: context
-                            .l10n
-                            .adminListCustomerManagementFiltersTypeLabel,
-                      ),
-                      onChanged: (_) => _onFilterChanged(),
+                      label: context
+                          .l10n
+                          .adminListCustomerManagementFiltersTypeLabel,
                       items: [
-                        DropdownMenuItem(
+                        AppDropdownItem(
                           value: 'all',
-                          child: Text(
-                            context
-                                .l10n
-                                .adminListCustomerManagementFiltersAllTypes,
-                          ),
+                          label: context
+                              .l10n
+                              .adminListCustomerManagementFiltersAllTypes,
                         ),
-                        DropdownMenuItem(
+                        AppDropdownItem(
                           value: 'first_time',
-                          child: Text(
-                            context
-                                .l10n
-                                .adminListCustomerManagementFiltersFirstTime,
-                          ),
+                          label: context
+                              .l10n
+                              .adminListCustomerManagementFiltersFirstTime,
                         ),
-                        DropdownMenuItem(
+                        AppDropdownItem(
                           value: 'repeat',
-                          child: Text(
-                            context
-                                .l10n
-                                .adminListCustomerManagementFiltersRepeat,
-                          ),
+                          label: context
+                              .l10n
+                              .adminListCustomerManagementFiltersRepeat,
                         ),
-                        DropdownMenuItem(
+                        AppDropdownItem(
                           value: 'dormant',
-                          child: Text(
-                            context
-                                .l10n
-                                .adminListCustomerManagementFiltersDormant,
-                          ),
+                          label: context
+                              .l10n
+                              .adminListCustomerManagementFiltersDormant,
                         ),
                       ],
                     ),
                     const SizedBox(height: 16),
-                    FormBuilderTextField(
+                    AppSearchField(
                       name: 'search',
-                      decoration: InputDecoration(
-                        labelText: context
-                            .l10n
-                            .adminListCustomerManagementFiltersSearchLabel,
-                        hintText: context
-                            .l10n
-                            .adminListCustomerManagementFiltersSearchPlaceholder,
-                        prefixIcon: const Icon(Icons.search),
-                      ),
-                      onChanged: _onSearchChanged,
+                      hintText: context
+                          .l10n
+                          .adminListCustomerManagementFiltersSearchPlaceholder,
+                      label: context
+                          .l10n
+                          .adminListCustomerManagementFiltersSearchLabel,
                     ),
                     const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        TextButton(
+                        AppButton(
+                          text: context
+                              .l10n
+                              .adminListCustomerManagementFiltersResetButton,
                           onPressed: widget.onReset,
-                          child: Text(
-                            context
-                                .l10n
-                                .adminListCustomerManagementFiltersResetButton,
-                          ),
+                          variant: AppButtonVariant.text,
+                          isFullWidth: false,
                         ),
                         const SizedBox(width: 8),
-                        ElevatedButton(
+                        AppButton(
+                          text: context
+                              .l10n
+                              .adminListCustomerManagementFiltersFilterButton,
                           onPressed: widget.onFilter,
-                          child: Text(
-                            context
-                                .l10n
-                                .adminListCustomerManagementFiltersFilterButton,
-                          ),
+                          variant: AppButtonVariant.filled,
+                          isFullWidth: false,
                         ),
                       ],
                     ),

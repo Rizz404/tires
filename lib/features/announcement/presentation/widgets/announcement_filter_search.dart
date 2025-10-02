@@ -1,10 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
+import 'package:tires/shared/presentation/widgets/app_button.dart';
+import 'package:tires/shared/presentation/widgets/app_dropdown.dart';
+import 'package:tires/shared/presentation/widgets/app_search_field.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
 class AnnouncementFilterSearch extends StatefulWidget {
@@ -29,18 +29,8 @@ class AnnouncementFilterSearch extends StatefulWidget {
 }
 
 class _AnnouncementFilterSearchState extends State<AnnouncementFilterSearch> {
-  Timer? _debounceTimer;
-
-  void _onSearchChanged(String? value) {
-    _debounceTimer?.cancel();
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-      widget.onFilter();
-    });
-  }
-
   @override
   void dispose() {
-    _debounceTimer?.cancel();
     super.dispose();
   }
 
@@ -100,93 +90,78 @@ class _AnnouncementFilterSearchState extends State<AnnouncementFilterSearch> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: FormBuilderDropdown<String>(
+                          child: AppDropdown<String>(
                             name: 'status',
                             initialValue: 'all',
-                            onChanged: (value) => widget.onFilter(),
-                            decoration: InputDecoration(
-                              labelText: context
-                                  .l10n
-                                  .adminListAnnouncementScreenFiltersStatusLabel,
-                            ),
+                            label: context
+                                .l10n
+                                .adminListAnnouncementScreenFiltersStatusLabel,
                             items: [
-                              DropdownMenuItem(
+                              AppDropdownItem(
                                 value: 'all',
-                                child: Text(
-                                  context
-                                      .l10n
-                                      .adminListAnnouncementScreenFiltersAllStatuses,
-                                ),
+                                label: context
+                                    .l10n
+                                    .adminListAnnouncementScreenFiltersAllStatuses,
                               ),
-                              DropdownMenuItem(
+                              AppDropdownItem(
                                 value: 'active',
-                                child: Text(
-                                  context
-                                      .l10n
-                                      .adminUpsertAnnouncementScreenStatusActive,
-                                ),
+                                label: context
+                                    .l10n
+                                    .adminUpsertAnnouncementScreenStatusActive,
                               ),
-                              DropdownMenuItem(
+                              AppDropdownItem(
                                 value: 'inactive',
-                                child: Text(
-                                  context
-                                      .l10n
-                                      .adminUpsertAnnouncementScreenStatusInactive,
-                                ),
+                                label: context
+                                    .l10n
+                                    .adminUpsertAnnouncementScreenStatusInactive,
                               ),
                             ],
                           ),
                         ),
                         const SizedBox(width: 16),
                         Expanded(
-                          child: FormBuilderDateTimePicker(
+                          child: FormBuilderTextField(
                             name: 'published_at',
-                            inputType: InputType.date,
-                            onChanged: (value) => widget.onFilter(),
                             decoration: InputDecoration(
                               labelText: context
                                   .l10n
                                   .adminListAnnouncementScreenFiltersStartDateLabel,
                             ),
-                            format: DateFormat('dd/MM/yyyy'),
+                            keyboardType: TextInputType.datetime,
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 16),
-                    FormBuilderTextField(
+                    AppSearchField(
                       name: 'search',
-                      onChanged: _onSearchChanged,
-                      decoration: InputDecoration(
-                        labelText: context
-                            .l10n
-                            .adminListAnnouncementScreenFiltersSearchLabel,
-                        hintText: context
-                            .l10n
-                            .adminListAnnouncementScreenFiltersSearchPlaceholder,
-                        prefixIcon: const Icon(Icons.search),
-                      ),
+                      hintText: context
+                          .l10n
+                          .adminListAnnouncementScreenFiltersSearchPlaceholder,
+                      label: context
+                          .l10n
+                          .adminListAnnouncementScreenFiltersSearchLabel,
                     ),
                     const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        TextButton(
+                        AppButton(
+                          text: context
+                              .l10n
+                              .adminListAnnouncementScreenFiltersResetButton,
                           onPressed: widget.onReset,
-                          child: Text(
-                            context
-                                .l10n
-                                .adminListAnnouncementScreenFiltersResetButton,
-                          ),
+                          variant: AppButtonVariant.text,
+                          isFullWidth: false,
                         ),
                         const SizedBox(width: 8),
-                        ElevatedButton(
+                        AppButton(
+                          text: context
+                              .l10n
+                              .adminListAnnouncementScreenFiltersFilterButton,
                           onPressed: widget.onFilter,
-                          child: Text(
-                            context
-                                .l10n
-                                .adminListAnnouncementScreenFiltersFilterButton,
-                          ),
+                          variant: AppButtonVariant.filled,
+                          isFullWidth: false,
                         ),
                       ],
                     ),
