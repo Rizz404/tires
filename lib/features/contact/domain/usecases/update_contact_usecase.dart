@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fpdart/fpdart.dart';
 
 import 'package:tires/core/domain/domain_response.dart';
@@ -30,48 +31,25 @@ class UpdateContactUsecase
 
 class UpdateContactParams extends Equatable {
   final int id;
-  final String? fullName;
-  final String? email;
-  final String? phoneNumber;
-  final String? subject;
-  final String? message;
+  final ContactStatus? status;
+  final String? adminReply;
 
-  const UpdateContactParams({
-    required this.id,
-    this.fullName,
-    this.email,
-    this.phoneNumber,
-    this.subject,
-    this.message,
-  });
+  const UpdateContactParams({required this.id, this.status, this.adminReply});
 
   UpdateContactParams copyWith({
     int? id,
-    String? fullName,
-    String? email,
-    String? phoneNumber,
-    String? subject,
-    String? message,
+    ValueGetter<ContactStatus?>? status,
+    ValueGetter<String?>? adminReply,
   }) {
     return UpdateContactParams(
       id: id ?? this.id,
-      fullName: fullName ?? this.fullName,
-      email: email ?? this.email,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      subject: subject ?? this.subject,
-      message: message ?? this.message,
+      status: status != null ? status() : this.status,
+      adminReply: adminReply != null ? adminReply() : this.adminReply,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'full_name': fullName,
-      'email': email,
-      'phone_number': phoneNumber,
-      'subject': subject,
-      'message': message,
-    };
+    return {'id': id, 'status': status?.name, 'adminReply': adminReply};
   }
 
   String toJson() => json.encode(toMap());
@@ -80,23 +58,22 @@ class UpdateContactParams extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object?> get props {
-    return [id, fullName, email, phoneNumber, subject, message];
-  }
+  List<Object?> get props => [id, status, adminReply];
 
   factory UpdateContactParams.fromMap(Map<String, dynamic> map) {
     return UpdateContactParams(
-      id: map['id'] as int,
-      fullName: map['full_name'] != null ? map['full_name'] as String : null,
-      email: map['email'] != null ? map['email'] as String : null,
-      phoneNumber: map['phone_number'] != null
-          ? map['phone_number'] as String
+      id: map['id']?.toInt() ?? 0,
+      status: map['status'] != null
+          ? ContactStatus.values.byName(map['status'])
           : null,
-      subject: map['subject'] != null ? map['subject'] as String : null,
-      message: map['message'] != null ? map['message'] as String : null,
+      adminReply: map['adminReply'],
     );
   }
 
   factory UpdateContactParams.fromJson(String source) =>
-      UpdateContactParams.fromMap(json.decode(source) as Map<String, dynamic>);
+      UpdateContactParams.fromMap(json.decode(source));
+
+  @override
+  String toString() =>
+      'UpdateContactParams(id: $id, status: $status, adminReply: $adminReply)';
 }
