@@ -117,7 +117,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                     AppTextField(
                       name: 'email',
-                      initialValue: "customer@gmail.com",
                       label: l10n.loginEmailLabel,
                       placeHolder: l10n.loginEmailPlaceholder,
                       type: AppTextFieldType.email,
@@ -126,7 +125,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     const SizedBox(height: 16),
                     AppTextField(
                       name: 'password',
-                      initialValue: "customer123",
                       label: l10n.loginPasswordLabel,
                       placeHolder: l10n.loginPasswordPlaceholder,
                       type: AppTextFieldType.password,

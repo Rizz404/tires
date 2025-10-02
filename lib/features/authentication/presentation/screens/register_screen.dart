@@ -37,34 +37,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   List<DomainValidationError>? _validationErrors;
 
-  late final Map<String, dynamic> _initialValues;
-
   @override
   void initState() {
     super.initState();
-    final faker = Faker();
-    final password = faker.internet.password(length: 10);
-    final genderOptions = [
-      UserGender.male,
-      UserGender.female,
-      UserGender.other,
-    ];
-
-    _initialValues = {
-      'fullName': faker.person.name(),
-      'fullNameKana': faker.person.name(),
-      'email': faker.internet.email(),
-      'phoneNumber': faker.phoneNumber.us().replaceAll(RegExp(r'\D'), ''),
-      'companyName': faker.company.name(),
-      'department': faker.company.position(),
-      'password': password,
-      'confirmPassword': password,
-      'gender': genderOptions[Random().nextInt(genderOptions.length)],
-      'dateOfBirth': faker.date.dateTime(minYear: 1980, maxYear: 2005),
-      'homeAddress': faker.address.streetAddress(),
-      'companyAddress': faker.address.streetAddress(),
-      'terms': true,
-    };
   }
 
   void _handleSubmit(WidgetRef ref) {
@@ -126,7 +101,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         child: ScreenWrapper(
           child: FormBuilder(
             key: _formKey,
-            initialValue: _initialValues,
             child: ListView(
               children: [
                 AppText(
