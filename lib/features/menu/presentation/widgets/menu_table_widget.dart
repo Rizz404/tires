@@ -55,13 +55,6 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
   }
 
   void _onScroll() {
-    if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent * 0.8) {
-      if (widget.hasNextPage && !widget.isLoadingMore) {
-        widget.onLoadMore?.call();
-      }
-    }
-
     // Update fade indicator visibility based on scroll position
     setState(() {
       _showRightFade =
@@ -344,8 +337,9 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
                         children: [
                           _buildTableHeader(context),
                           const Divider(height: 1, thickness: 1),
-                          ...widget.menus.map(
-                            (menu) => _buildTableRow(context, menu),
+                          ...widget.menus.asMap().entries.map(
+                            (entry) =>
+                                _buildTableRow(context, entry.value, entry.key),
                           ),
                           if (widget.isLoadingMore) ...[
                             const Divider(height: 1, thickness: 1),
@@ -353,6 +347,30 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
                               padding: const EdgeInsets.all(16),
                               child: const Center(
                                 child: CircularProgressIndicator(),
+                              ),
+                            ),
+                          ],
+                          if (widget.hasNextPage && !widget.isLoadingMore) ...[
+                            const Divider(height: 1, thickness: 1),
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              child: Center(
+                                child: TextButton.icon(
+                                  onPressed: widget.onLoadMore,
+                                  icon: const Icon(Icons.expand_more, size: 16),
+                                  label: AppText(
+                                    'Load More',
+                                    style: AppTextStyle.bodyMedium,
+                                  ),
+                                  style: TextButton.styleFrom(
+                                    foregroundColor:
+                                        context.colorScheme.primary,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 8,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -418,6 +436,10 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
       child: Row(
         children: [
           SizedBox(
+            width: 60,
+            child: AppText('NO.'.toUpperCase(), fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
             width: 320,
             child: AppText(
               context.l10n.adminListMenuScreenThMenu,
@@ -478,7 +500,7 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
     );
   }
 
-  Widget _buildTableRow(BuildContext context, Menu menu) {
+  Widget _buildTableRow(BuildContext context, Menu menu, int index) {
     final isSelected = _selectedMenuIds.contains(menu.id);
 
     return GestureDetector(
@@ -499,6 +521,15 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
         ),
         child: Row(
           children: [
+            // Number Column
+            SizedBox(
+              width: 60,
+              child: AppText(
+                '${index + 1}',
+                style: AppTextStyle.bodyMedium,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
             SizedBox(
               width: 320,
               child: Row(

@@ -175,7 +175,10 @@ class _CustomerTableWidgetState extends State<CustomerTableWidget> {
                               ),
                               style: TextButton.styleFrom(
                                 foregroundColor: context.colorScheme.primary,
-                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 8,
+                                ),
                               ),
                             ),
                           ),
@@ -608,11 +611,22 @@ class _CustomerTableWidgetState extends State<CustomerTableWidget> {
   }
 
   String _getInitials(String fullName) {
-    final parts = fullName.trim().split(' ');
+    final parts = fullName
+        .trim()
+        .split(RegExp(r'\s+'))
+        .where((part) => part.isNotEmpty)
+        .toList();
     if (parts.isEmpty) return 'N/A';
-    if (parts.length == 1) return parts[0].substring(0, 1).toUpperCase();
-    return '${parts[0].substring(0, 1)}${parts[parts.length - 1].substring(0, 1)}'
-        .toUpperCase();
+    if (parts.length == 1) {
+      return parts[0].isNotEmpty
+          ? parts[0].substring(0, 1).toUpperCase()
+          : 'N/A';
+    }
+    final firstInitial = parts[0].isNotEmpty ? parts[0].substring(0, 1) : '';
+    final lastInitial = parts[parts.length - 1].isNotEmpty
+        ? parts[parts.length - 1].substring(0, 1)
+        : '';
+    return '$firstInitial$lastInitial'.toUpperCase();
   }
 
   // Mock data helpers - replace with actual data later

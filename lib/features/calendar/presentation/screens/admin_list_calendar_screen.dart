@@ -415,10 +415,18 @@ class _AdminListCalendarScreenState
     return ReservationTableWidget(
       reservations: reservationState.reservations,
       isLoading: reservationState.status == ReservationGetStatus.loading,
+      isLoadingMore:
+          reservationState.status == ReservationGetStatus.loadingMore,
+      hasNextPage: reservationState.hasNextPage,
       onRefresh: () async {
         await ref
             .read(reservationGetNotifierProvider.notifier)
             .refreshReservations();
+      },
+      onLoadMore: () async {
+        await ref
+            .read(reservationGetNotifierProvider.notifier)
+            .loadMoreReservations();
       },
     );
   }

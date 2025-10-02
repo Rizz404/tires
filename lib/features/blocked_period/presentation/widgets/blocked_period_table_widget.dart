@@ -1,13 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/blocked_period/domain/entities/blocked_period.dart';
+import 'package:tires/features/blocked_period/domain/usecases/bulk_delete_blocked_periods_usecase.dart';
+import 'package:tires/features/blocked_period/presentation/providers/blocked_period_mutation_state.dart';
+import 'package:tires/features/blocked_period/presentation/providers/blocked_period_providers.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
-class BlockedPeriodTableWidget extends StatefulWidget {
+class BlockedPeriodTableWidget extends ConsumerStatefulWidget {
   final List<BlockedPeriod> blockedPeriods;
   final bool isLoading;
   final bool isLoadingMore;
@@ -26,11 +30,13 @@ class BlockedPeriodTableWidget extends StatefulWidget {
   });
 
   @override
-  State<BlockedPeriodTableWidget> createState() =>
+  ConsumerState<BlockedPeriodTableWidget> createState() =>
       _BlockedPeriodTableWidgetState();
 }
 
-class _BlockedPeriodTableWidgetState extends State<BlockedPeriodTableWidget> {
+class _BlockedPeriodTableWidgetState
+    extends ConsumerState<BlockedPeriodTableWidget> {
+  final Set<int> _selectedBlockedPeriodIds = <int>{};
   final ScrollController _scrollController = ScrollController();
   bool _showRightFade = true;
   bool _showLeftFade = false;
@@ -49,14 +55,6 @@ class _BlockedPeriodTableWidgetState extends State<BlockedPeriodTableWidget> {
   }
 
   void _onScroll() {
-    // Auto-load more when scrolling to 80% of the content
-    if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent * 0.8) {
-      if (widget.hasNextPage && !widget.isLoadingMore) {
-        widget.onLoadMore?.call();
-      }
-    }
-
     // Update fade indicator visibility based on scroll position
     setState(() {
       _showRightFade =
@@ -66,8 +64,114 @@ class _BlockedPeriodTableWidgetState extends State<BlockedPeriodTableWidget> {
     });
   }
 
+  void _toggleSelection(int blockedPeriodId) {
+    setState(() {
+      if (_selectedBlockedPeriodIds.contains(blockedPeriodId)) {
+        _selectedBlockedPeriodIds.remove(blockedPeriodId);
+      } else {
+        _selectedBlockedPeriodIds.add(blockedPeriodId);
+      }
+    });
+  }
+
+  void _clearSelection() {
+    setState(() {
+      _selectedBlockedPeriodIds.clear();
+    });
+  }
+
+  Future<void> _bulkDelete() async {
+    if (_selectedBlockedPeriodIds.isEmpty) return;
+
+    final shouldDelete = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(context.l10n.adminListMenuScreenConfirmDeletionTitle),
+        content: Text(
+          context.l10n.adminListMenuScreenDeleteMultipleConfirm(
+            _selectedBlockedPeriodIds.length.toString(),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(context.l10n.adminListMenuScreenCancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: Text(context.l10n.adminListMenuScreenDelete),
+          ),
+        ],
+      ),
+    );
+
+    if (shouldDelete == true) {
+      final params = BulkDeleteBlockedPeriodsUsecaseParams(
+        _selectedBlockedPeriodIds.toList(),
+      );
+
+      await ref
+          .read(blockedPeriodMutationNotifierProvider.notifier)
+          .bulkDeleteBlockedPeriods(params);
+
+      final mutationState = ref.read(blockedPeriodMutationNotifierProvider);
+      if (mutationState.status == BlockedPeriodMutationStatus.success) {
+        _clearSelection();
+        widget.onRefresh?.call();
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                mutationState.errorMessage ??
+                    context.l10n.menuNotificationDeleted,
+              ),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      } else if (mutationState.status == BlockedPeriodMutationStatus.error) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                mutationState.errorMessage ??
+                    context.l10n.adminListMenuScreenJsMessagesDeleteFailed,
+              ),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Listen to mutation state for bulk delete feedback
+    ref.listen(blockedPeriodMutationNotifierProvider, (previous, next) {
+      if (previous?.status != next.status) {
+        if (next.status == BlockedPeriodMutationStatus.success &&
+            next.errorMessage != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(next.errorMessage!),
+              backgroundColor: Colors.green,
+            ),
+          );
+        } else if (next.status == BlockedPeriodMutationStatus.error &&
+            next.errorMessage != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(next.errorMessage!),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    });
+
     if (widget.isLoading && widget.blockedPeriods.isEmpty) {
       return const Center(
         child: Padding(
@@ -81,115 +185,214 @@ class _BlockedPeriodTableWidgetState extends State<BlockedPeriodTableWidget> {
       return _buildEmptyState(context);
     }
 
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-        side: BorderSide(color: context.colorScheme.outlineVariant),
-      ),
-      margin: EdgeInsets.zero,
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        children: [
-          // Horizontal scroll indicator
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Selection header with bulk actions
+        if (_selectedBlockedPeriodIds.isNotEmpty) ...[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            color: context.colorScheme.surfaceVariant.withOpacity(0.3),
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: context.colorScheme.primaryContainer.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(8),
+            ),
             child: Row(
               children: [
-                Icon(
-                  Icons.swipe,
-                  size: 16,
-                  color: context.colorScheme.onSurfaceVariant,
+                Expanded(
+                  flex: 2,
+                  child: AppText(
+                    context.l10n.adminListMenuScreenSelected(
+                      _selectedBlockedPeriodIds.length.toString(),
+                    ),
+                    fontWeight: FontWeight.w600,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
                 ),
                 const SizedBox(width: 8),
-                AppText(
-                  'Swipe horizontally to see more columns',
-                  style: AppTextStyle.bodySmall,
-                  color: context.colorScheme.onSurfaceVariant,
+                TextButton.icon(
+                  onPressed: _bulkDelete,
+                  icon: const Icon(Icons.delete, color: Colors.red, size: 18),
+                  label: Text(
+                    'Delete Selected',
+                    style: TextStyle(color: Colors.red, fontSize: 12),
+                  ),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
                 ),
-                const Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 12,
-                  color: context.colorScheme.onSurfaceVariant,
+                const SizedBox(width: 8),
+                TextButton.icon(
+                  onPressed: _clearSelection,
+                  icon: Icon(
+                    Icons.clear,
+                    color: context.colorScheme.onSurface,
+                    size: 18,
+                  ),
+                  label: Text(
+                    'Clear Selection',
+                    style: TextStyle(
+                      color: context.colorScheme.onSurface,
+                      fontSize: 12,
+                    ),
+                  ),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
                 ),
               ],
             ),
           ),
-          Stack(
+          const SizedBox(height: 16),
+        ],
+
+        Padding(
+          padding: const EdgeInsets.only(left: 4, bottom: 8),
+          child: AppText('Blocked Periods', style: AppTextStyle.titleLarge),
+        ),
+        Card(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: BorderSide(color: context.colorScheme.outlineVariant),
+          ),
+          margin: EdgeInsets.zero,
+          clipBehavior: Clip.antiAlias,
+          child: Column(
             children: [
-              SingleChildScrollView(
-                controller: _scrollController,
-                scrollDirection: Axis.horizontal,
-                child: IntrinsicWidth(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      _buildTableHeader(context),
-                      const Divider(height: 1, thickness: 1),
-                      ...widget.blockedPeriods.map(
-                        (period) => _buildTableRow(context, period),
-                      ),
-                      if (widget.isLoadingMore) ...[
-                        const Divider(height: 1, thickness: 1),
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          child: const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
+              // Horizontal scroll indicator
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                color: context.colorScheme.surfaceVariant.withOpacity(0.3),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.swipe,
+                      size: 16,
+                      color: context.colorScheme.onSurfaceVariant,
+                    ),
+                    const SizedBox(width: 8),
+                    AppText(
+                      'Swipe horizontally to see more columns',
+                      style: AppTextStyle.bodySmall,
+                      color: context.colorScheme.onSurfaceVariant,
+                    ),
+                    const Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 12,
+                      color: context.colorScheme.onSurfaceVariant,
+                    ),
+                  ],
                 ),
               ),
-              // Left fade indicator - show when scrolled from the start
-              if (_showLeftFade)
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  bottom: 0,
-                  width: 30,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          context.colorScheme.surface,
-                          context.colorScheme.surface.withOpacity(0.8),
-                          context.colorScheme.surface.withOpacity(0.0),
+              Stack(
+                children: [
+                  SingleChildScrollView(
+                    controller: _scrollController,
+                    scrollDirection: Axis.horizontal,
+                    child: IntrinsicWidth(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          _buildTableHeader(context),
+                          const Divider(height: 1, thickness: 1),
+                          ...widget.blockedPeriods.asMap().entries.map(
+                            (entry) =>
+                                _buildTableRow(context, entry.value, entry.key),
+                          ),
+                          if (widget.isLoadingMore) ...[
+                            const Divider(height: 1, thickness: 1),
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              child: const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                          ],
+                          if (widget.hasNextPage && !widget.isLoadingMore) ...[
+                            const Divider(height: 1, thickness: 1),
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              child: Center(
+                                child: TextButton.icon(
+                                  onPressed: widget.onLoadMore,
+                                  icon: const Icon(Icons.expand_more, size: 16),
+                                  label: AppText(
+                                    'Load More',
+                                    style: AppTextStyle.bodyMedium,
+                                  ),
+                                  style: TextButton.styleFrom(
+                                    foregroundColor:
+                                        context.colorScheme.primary,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 8,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ],
                       ),
                     ),
                   ),
-                ),
-              // Right fade indicator - only show when there's more content to scroll
-              if (_showRightFade)
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  bottom: 0,
-                  width: 30,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.centerRight,
-                        end: Alignment.centerLeft,
-                        colors: [
-                          context.colorScheme.surface,
-                          context.colorScheme.surface.withOpacity(0.8),
-                          context.colorScheme.surface.withOpacity(0.0),
-                        ],
+                  // Left fade indicator - show when scrolled from the start
+                  if (_showLeftFade)
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      bottom: 0,
+                      width: 30,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [
+                              context.colorScheme.surface,
+                              context.colorScheme.surface.withOpacity(0.8),
+                              context.colorScheme.surface.withOpacity(0.0),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
+                  // Right fade indicator - only show when there's more content to scroll
+                  if (_showRightFade)
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      bottom: 0,
+                      width: 30,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.centerRight,
+                            end: Alignment.centerLeft,
+                            colors: [
+                              context.colorScheme.surface,
+                              context.colorScheme.surface.withOpacity(0.8),
+                              context.colorScheme.surface.withOpacity(0.0),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -232,6 +435,11 @@ class _BlockedPeriodTableWidgetState extends State<BlockedPeriodTableWidget> {
       color: context.colorScheme.surface.withOpacity(0.5),
       child: Row(
         children: [
+          SizedBox(
+            width: 60,
+            child: AppText('NO.', fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(width: 50, child: Text('')), // Checkbox
           SizedBox(
             width: 180,
             child: AppText(
@@ -281,7 +489,8 @@ class _BlockedPeriodTableWidgetState extends State<BlockedPeriodTableWidget> {
     );
   }
 
-  Widget _buildTableRow(BuildContext context, BlockedPeriod period) {
+  Widget _buildTableRow(BuildContext context, BlockedPeriod period, int index) {
+    final isSelected = _selectedBlockedPeriodIds.contains(period.id);
     final dateFormat = DateFormat('dd MMM yyyy, HH:mm');
     final timeFormat = DateFormat('HH:mm');
     final dateOnlyFormat = DateFormat('dd MMM yyyy');
@@ -297,66 +506,89 @@ class _BlockedPeriodTableWidgetState extends State<BlockedPeriodTableWidget> {
           '${dateFormat.format(period.startDatetime)}\n${dateFormat.format(period.endDatetime)}';
     }
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: context.colorScheme.outlineVariant,
-            width: 1,
+    return GestureDetector(
+      onLongPress: isSelected ? null : () => _toggleSelection(period.id),
+      onTap: () => _toggleSelection(period.id),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? context.colorScheme.primaryContainer.withOpacity(0.3)
+              : null,
+          border: Border(
+            bottom: BorderSide(
+              color: context.colorScheme.outlineVariant,
+              width: 1,
+            ),
           ),
         ),
-      ),
-      child: Row(
-        children: [
-          SizedBox(width: 180, child: _buildMenuColumn(context, period)),
-          SizedBox(
-            width: 200,
-            child: AppText(
-              timePeriod,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              color: context.colorScheme.onSurface.withOpacity(0.7),
-              style: AppTextStyle.bodySmall,
-            ),
-          ),
-          SizedBox(
-            width: 100,
-            child: AppText(
-              period.duration.text,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              color: context.colorScheme.onSurface.withOpacity(0.7),
-              style: AppTextStyle.bodySmall,
-            ),
-          ),
-          SizedBox(
-            width: 200,
-            child: AppText(
-              period.reason,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              color: context.colorScheme.onSurface.withOpacity(0.7),
-            ),
-          ),
-          SizedBox(width: 120, child: _buildStatusChip(context, period)),
-          SizedBox(
-            width: 80,
-            child: Center(
-              child: IconButton(
-                icon: const Icon(Icons.edit_outlined, size: 20),
-                onPressed: () {
-                  context.router.push(
-                    AdminUpsertBlockedPeriodRoute(blockedPeriod: period),
-                  );
-                },
-                tooltip: context
-                    .l10n
-                    .adminListBlockedPeriodScreenTablePaginationPrevious,
+        child: Row(
+          children: [
+            // Number Column
+            SizedBox(
+              width: 60,
+              child: AppText(
+                '${index + 1}',
+                style: AppTextStyle.bodyMedium,
+                fontWeight: FontWeight.w500,
               ),
             ),
-          ),
-        ],
+            SizedBox(
+              width: 50,
+              child: Checkbox(
+                value: isSelected,
+                onChanged: (v) => _toggleSelection(period.id),
+              ),
+            ),
+            SizedBox(width: 180, child: _buildMenuColumn(context, period)),
+            SizedBox(
+              width: 200,
+              child: AppText(
+                timePeriod,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                color: context.colorScheme.onSurface.withOpacity(0.7),
+                style: AppTextStyle.bodySmall,
+              ),
+            ),
+            SizedBox(
+              width: 100,
+              child: AppText(
+                period.duration.text,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                color: context.colorScheme.onSurface.withOpacity(0.7),
+                style: AppTextStyle.bodySmall,
+              ),
+            ),
+            SizedBox(
+              width: 200,
+              child: AppText(
+                period.reason,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                color: context.colorScheme.onSurface.withOpacity(0.7),
+              ),
+            ),
+            SizedBox(width: 120, child: _buildStatusChip(context, period)),
+            SizedBox(
+              width: 80,
+              child: Center(
+                child: IconButton(
+                  icon: const Icon(Icons.more_horiz, size: 20),
+                  onPressed: () {
+                    context.router.push(
+                      AdminUpsertBlockedPeriodRoute(blockedPeriod: period),
+                    );
+                  },
+                  tooltip: context
+                      .l10n
+                      .adminListBlockedPeriodScreenTablePaginationPrevious,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

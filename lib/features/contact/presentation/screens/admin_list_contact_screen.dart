@@ -58,9 +58,23 @@ class _AdminListContactScreenState
         .getContacts(search: searchQuery, status: selectedStatus);
   }
 
+  Future<void> _loadMoreContacts() async {
+    final formValues = _formKey.currentState?.value ?? {};
+
+    final searchQuery = formValues['search'] as String?;
+    final selectedStatus = formValues['status'] as String?;
+
+    await ref
+        .read(contactGetNotifierProvider.notifier)
+        .loadMore(
+          search: searchQuery?.isNotEmpty == true ? searchQuery : null,
+          status: selectedStatus != 'all' ? selectedStatus : null,
+        );
+  }
+
   void _resetFilters() {
     _formKey.currentState?.reset();
-    ref.read(contactGetNotifierProvider.notifier).getContacts();
+    _applyFilters();
   }
 
   @override
@@ -98,7 +112,10 @@ class _AdminListContactScreenState
                 child: ContactTableWidget(
                   contacts: state.contacts,
                   isLoading: state.status == ContactsStatus.loading,
+                  isLoadingMore: state.status == ContactsStatus.loadingMore,
+                  hasNextPage: state.hasNextPage,
                   onRefresh: _refreshContacts,
+                  onLoadMore: _loadMoreContacts,
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 80)),

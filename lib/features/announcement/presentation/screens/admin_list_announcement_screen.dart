@@ -72,6 +72,22 @@ class _AdminListAnnouncementScreenState
     ref.read(announcementGetNotifierProvider.notifier).getAnnouncements();
   }
 
+  Future<void> _loadMoreAnnouncements() async {
+    final formValues = _formKey.currentState?.value ?? {};
+
+    final searchQuery = formValues['search'] as String?;
+    final selectedStatus = formValues['status'] as String?;
+    final publishedAtFilter = formValues['published_at'] as DateTime?;
+
+    await ref
+        .read(announcementGetNotifierProvider.notifier)
+        .loadMore(
+          search: searchQuery,
+          status: selectedStatus,
+          publishedAt: publishedAtFilter,
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(announcementGetNotifierProvider);
@@ -106,7 +122,11 @@ class _AdminListAnnouncementScreenState
                 child: AnnouncementTableWidget(
                   announcements: state.announcements,
                   isLoading: state.status == AnnouncementsStatus.loading,
+                  isLoadingMore:
+                      state.status == AnnouncementsStatus.loadingMore,
+                  hasNextPage: state.hasNextPage,
                   onRefresh: _refreshAnnouncements,
+                  onLoadMore: _loadMoreAnnouncements,
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 80)),
