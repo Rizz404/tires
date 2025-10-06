@@ -7,6 +7,7 @@ import 'package:tires/features/announcement/domain/usecases/delete_announcement_
 import 'package:tires/features/announcement/domain/usecases/update_announcement_usecase.dart';
 import 'package:tires/features/announcement/presentation/providers/announcement_mutation_state.dart';
 import 'package:tires/features/announcement/presentation/providers/announcement_providers.dart';
+import 'package:tires/features/dashboard/presentation/providers/dashboard_providers.dart';
 
 class AnnouncementMutationNotifier extends Notifier<AnnouncementMutationState> {
   late CreateAnnouncementUsecase _createAnnouncementUsecase;
@@ -50,6 +51,7 @@ class AnnouncementMutationNotifier extends Notifier<AnnouncementMutationState> {
             )
             .copyWithClearError();
         ref.invalidate(announcementGetNotifierProvider);
+        ref.invalidate(dashboardNotifierProvider);
       },
     );
   }
@@ -79,6 +81,7 @@ class AnnouncementMutationNotifier extends Notifier<AnnouncementMutationState> {
             )
             .copyWithClearError();
         ref.invalidate(announcementGetNotifierProvider);
+        ref.invalidate(dashboardNotifierProvider);
       },
     );
   }
@@ -106,6 +109,7 @@ class AnnouncementMutationNotifier extends Notifier<AnnouncementMutationState> {
             )
             .copyWithClearError();
         ref.invalidate(announcementGetNotifierProvider);
+        ref.invalidate(dashboardNotifierProvider);
       },
     );
   }
@@ -140,6 +144,7 @@ class AnnouncementMutationNotifier extends Notifier<AnnouncementMutationState> {
             )
             .copyWithClearError();
         ref.invalidate(announcementGetNotifierProvider);
+        ref.invalidate(dashboardNotifierProvider);
       },
     );
   }

@@ -84,7 +84,10 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
         slivers: [
           // Announcements Section
           SliverToBoxAdapter(
-            child: AnnouncementsSection(announcements: dashboard.announcements),
+            child: AnnouncementsSection(
+              announcements: dashboard.announcements,
+              onPressed: () {},
+            ),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
 

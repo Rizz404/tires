@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/features/announcement/domain/entities/announcement.dart';
+import 'package:tires/features/announcement/domain/usecases/delete_announcement_usecase.dart';
+import 'package:tires/features/announcement/presentation/providers/announcement_providers.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 
-class AnnouncementsSection extends StatelessWidget {
+class AnnouncementsSection extends ConsumerWidget {
   final List<Announcement> announcements;
+  final VoidCallback? onPressed;
 
-  const AnnouncementsSection({super.key, required this.announcements});
+  const AnnouncementsSection({
+    super.key,
+    required this.announcements,
+    this.onPressed,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: announcements.map((announcement) {
         return Container(
@@ -76,14 +84,53 @@ class AnnouncementsSection extends StatelessWidget {
                   color: context.colorScheme.onSurface.withValues(alpha: 0.6),
                   size: 20,
                 ),
-                onPressed: () {
-                  // Handle close action, e.g., remove announcement
-                },
+                onPressed: () =>
+                    _showDeleteConfirmation(context, ref, announcement),
               ),
             ],
           ),
         );
       }).toList(),
     );
+  }
+
+  void _showDeleteConfirmation(
+    BuildContext context,
+    WidgetRef ref,
+    Announcement announcement,
+  ) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Delete Announcement'),
+          content: Text(
+            'Are you sure you want to delete "${announcement.title}"?',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _deleteAnnouncement(ref, announcement);
+              },
+              style: TextButton.styleFrom(
+                foregroundColor: context.colorScheme.error,
+              ),
+              child: Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _deleteAnnouncement(WidgetRef ref, Announcement announcement) {
+    ref
+        .read(announcementMutationNotifierProvider.notifier)
+        .deleteAnnouncement(DeleteAnnouncementParams(announcement.id));
   }
 }

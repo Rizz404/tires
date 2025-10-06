@@ -7,6 +7,7 @@ import 'package:tires/features/reservation/domain/usecases/delete_reservation_us
 import 'package:tires/features/reservation/domain/usecases/update_reservation_usecase.dart';
 import 'package:tires/features/reservation/presentation/providers/reservation_mutation_state.dart';
 import 'package:tires/features/reservation/presentation/providers/reservation_providers.dart';
+import 'package:tires/features/dashboard/presentation/providers/dashboard_providers.dart';
 
 class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
   late CreateReservationUsecase _createReservationUsecase;
@@ -61,6 +62,7 @@ class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
         ref.invalidate(reservationAvailableHoursGetNotifierProvider);
         ref.invalidate(currentUserReservationsGetNotifierProvider);
         ref.invalidate(calendarNotifierProvider);
+        ref.invalidate(dashboardNotifierProvider);
       },
     );
   }
@@ -94,6 +96,7 @@ class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
         ref.invalidate(reservationAvailableHoursGetNotifierProvider);
         ref.invalidate(currentUserReservationsGetNotifierProvider);
         ref.invalidate(calendarNotifierProvider);
+        ref.invalidate(dashboardNotifierProvider);
       },
     );
   }
@@ -128,6 +131,7 @@ class ReservationMutationNotifier extends Notifier<ReservationMutationState> {
         ref.invalidate(reservationAvailableHoursGetNotifierProvider);
         ref.invalidate(currentUserReservationsGetNotifierProvider);
         ref.invalidate(calendarNotifierProvider);
+        ref.invalidate(dashboardNotifierProvider);
       },
     );
   }

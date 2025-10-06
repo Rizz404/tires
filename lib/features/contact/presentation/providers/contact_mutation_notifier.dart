@@ -7,6 +7,7 @@ import 'package:tires/features/contact/domain/usecases/delete_contact_usecase.da
 import 'package:tires/features/contact/domain/usecases/update_contact_usecase.dart';
 import 'package:tires/features/contact/presentation/providers/contact_mutation_state.dart';
 import 'package:tires/features/contact/presentation/providers/contact_providers.dart';
+import 'package:tires/features/dashboard/presentation/providers/dashboard_providers.dart';
 
 class ContactMutationNotifier extends Notifier<ContactMutationState> {
   late CreateContactUsecase _createContactUsecase;
@@ -47,6 +48,7 @@ class ContactMutationNotifier extends Notifier<ContactMutationState> {
             )
             .copyWithClearError();
         ref.invalidate(contactGetNotifierProvider);
+        ref.invalidate(dashboardNotifierProvider);
       },
     );
   }
@@ -75,6 +77,7 @@ class ContactMutationNotifier extends Notifier<ContactMutationState> {
             )
             .copyWithClearError();
         ref.invalidate(contactGetNotifierProvider);
+        ref.invalidate(dashboardNotifierProvider);
       },
     );
   }
@@ -102,6 +105,7 @@ class ContactMutationNotifier extends Notifier<ContactMutationState> {
             )
             .copyWithClearError();
         ref.invalidate(contactGetNotifierProvider);
+        ref.invalidate(dashboardNotifierProvider);
       },
     );
   }
@@ -134,6 +138,7 @@ class ContactMutationNotifier extends Notifier<ContactMutationState> {
             )
             .copyWithClearError();
         ref.invalidate(contactGetNotifierProvider);
+        ref.invalidate(dashboardNotifierProvider);
       },
     );
   }
