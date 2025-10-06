@@ -23,7 +23,7 @@ class BlockedPeriodModel extends BlockedPeriod {
     try {
       return BlockedPeriodModel(
         id: (map['id'] as int?) ?? 0,
-        menuId: map['menu_id'] as int?,
+        menuId: map['menu_id'] as num?,
         startDatetime: DateTime.parse(map['start_datetime'] as String),
         endDatetime: DateTime.parse(map['end_datetime'] as String),
         reason: (map['reason'] as String?) ?? '',
@@ -110,8 +110,8 @@ class DurationModel extends Duration {
 
   factory DurationModel.fromMap(Map<String, dynamic> map) {
     return DurationModel(
-      hours: (map['hours'] as int?) ?? 0,
-      minutes: (map['minutes'] as int?) ?? 0,
+      hours: (map['hours'] as num?) ?? 0,
+      minutes: (map['minutes'] as num?) ?? 0,
       text: (map['text'] as String?) ?? '',
       isShort: (map['is_short'] as bool?) ?? false,
     );

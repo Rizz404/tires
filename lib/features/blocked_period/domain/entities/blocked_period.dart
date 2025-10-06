@@ -3,7 +3,7 @@ import 'package:tires/features/blocked_period/domain/entities/blocked_period_tra
 
 class BlockedPeriod extends Equatable {
   final int id;
-  final int? menuId;
+  final num? menuId;
   final DateTime startDatetime;
   final DateTime endDatetime;
   final String reason;
@@ -66,8 +66,8 @@ class MenuForBlockedPeriod extends Equatable {
 }
 
 class Duration extends Equatable {
-  final int hours;
-  final int minutes;
+  final num hours;
+  final num minutes;
   final String text;
   final bool isShort;
 

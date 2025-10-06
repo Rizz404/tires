@@ -210,7 +210,7 @@ class _ReservationSummaryScreenState
                             reservationDatetime:
                                 reservation.reservationDatetime,
                             amount: amountAsInt,
-                            numberOfPeople: reservation.numberOfPeople,
+                            numberOfPeople: reservation.numberOfPeople.toInt(),
                           );
                     } else {
                       AppToast.showError(

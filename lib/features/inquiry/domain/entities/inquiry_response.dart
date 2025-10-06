@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class InquiryResponse extends Equatable {
-  final int inquiryId;
+  final num inquiryId;
   final String referenceNumber;
   final String submittedBy;
   final String email;

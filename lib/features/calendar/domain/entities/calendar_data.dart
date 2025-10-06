@@ -27,12 +27,12 @@ class CalendarData extends Equatable {
 
 class CalendarDay extends Equatable {
   final String date;
-  final int day;
+  final num day;
   final bool isCurrentMonth;
   final bool isToday;
   final String dayName;
   final List<CalendarReservation> reservations;
-  final int totalReservations;
+  final num totalReservations;
 
   const CalendarDay({
     required this.date,
@@ -121,7 +121,7 @@ class CalendarReservation extends Equatable {
   final String menuColor;
   final CalendarMenu menu;
   final String status;
-  final int peopleCount;
+  final num peopleCount;
   final String amount;
 
   const CalendarReservation({
@@ -175,10 +175,10 @@ class CalendarMenu extends Equatable {
   final int id;
   final String name;
   final String description;
-  final int requiredTime;
+  final num requiredTime;
   final CalendarMenuPrice price;
   final String? photoPath;
-  final int displayOrder;
+  final num displayOrder;
   final bool isActive;
   final CalendarMenuColor color;
   final String createdAt;

@@ -5,10 +5,10 @@ class Menu extends Equatable {
   final int id;
   final String name;
   final String? description;
-  final int requiredTime;
+  final num requiredTime;
   final Price price;
   final String? photoPath;
-  final int displayOrder;
+  final num displayOrder;
   final bool isActive;
   final ColorInfo color;
   final MenuTranslation? translations;

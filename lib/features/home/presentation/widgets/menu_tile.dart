@@ -132,7 +132,7 @@ class MenuTile extends StatelessWidget {
     );
   }
 
-  String _formatTime(BuildContext context, int minutes) {
+  String _formatTime(BuildContext context, num minutes) {
     final l10n = context.l10n;
     if (minutes < 60) {
       return '$minutes ${minutes == 1 ? l10n.timeMinute : l10n.timeMinutes}';

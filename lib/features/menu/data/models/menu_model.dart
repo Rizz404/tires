@@ -20,9 +20,9 @@ class MenuModel extends Menu {
       final id = (map['id'] as int?) ?? 0;
       final name = (map['name'] as String?) ?? '';
       final description = map['description'] as String?;
-      final requiredTime = (map['required_time'] as int?) ?? 0;
+      final requiredTime = (map['required_time'] as num?) ?? 0;
       final photoPath = map['photo_path'] as String?;
-      final displayOrder = (map['display_order'] as int?) ?? 0;
+      final displayOrder = (map['display_order'] as num?) ?? 0;
       final isActive = (map['is_active'] as bool?) ?? true;
 
       // Debug price creation

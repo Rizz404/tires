@@ -13,7 +13,7 @@ class InquiryResponseModel extends InquiryResponse {
 
   factory InquiryResponseModel.fromMap(Map<String, dynamic> map) {
     return InquiryResponseModel(
-      inquiryId: map['inquiry_id'] as int,
+      inquiryId: map['inquiry_id'] as num,
       referenceNumber: map['reference_number'] as String,
       submittedBy: map['submitted_by'] as String,
       email: map['email'] as String,
@@ -47,7 +47,7 @@ class InquiryResponseModel extends InquiryResponse {
   String toJson() => json.encode(toMap());
 
   InquiryResponseModel copyWith({
-    int? inquiryId,
+    num? inquiryId,
     String? referenceNumber,
     String? submittedBy,
     String? email,

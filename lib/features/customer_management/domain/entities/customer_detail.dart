@@ -24,7 +24,7 @@ class Customer extends Equatable {
   final String fullNameKana;
   final String email;
   final String phoneNumber;
-  final int isRegistered;
+  final num isRegistered;
   final String? userId;
   final String? companyName;
   final String? department;
@@ -32,7 +32,7 @@ class Customer extends Equatable {
   final String? homeAddress;
   final String? dateOfBirth;
   final String? gender;
-  final int reservationCount;
+  final num reservationCount;
   final DateTime latestReservation;
   final String totalAmount;
 
@@ -86,9 +86,9 @@ class ReservationHistory extends Equatable {
   final String fullNameKana;
   final String email;
   final String phoneNumber;
-  final int menuId;
+  final num menuId;
   final DateTime reservationDatetime;
-  final int numberOfPeople;
+  final num numberOfPeople;
   final String amount;
   final String status;
   final String? notes;
@@ -139,9 +139,9 @@ class ReservationHistory extends Equatable {
 }
 
 class Stats {
-  int reservationCount;
+  num reservationCount;
   String totalAmount;
-  int tireStorageCount;
+  num tireStorageCount;
 
   Stats({
     required this.reservationCount,

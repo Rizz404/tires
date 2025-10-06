@@ -98,7 +98,7 @@ class ReservationModel extends Reservation {
       customerInfo: ReservationCustomerInfoModel.fromMap(customerInfoData),
       menu: MenuModel.fromMap(menuData),
       reservationDatetime: reservationDatetime,
-      numberOfPeople: (map['number_of_people'] as int?) ?? 1,
+      numberOfPeople: (map['number_of_people'] as num?) ?? 1,
       amount: ReservationAmountModel.fromMap(amountData),
       status: _createStatusFromResponse(map['status']),
       notes: map['notes'] as String?,

@@ -57,7 +57,7 @@ class CalendarDayModel extends CalendarDay {
   factory CalendarDayModel.fromMap(Map<String, dynamic> map) {
     return CalendarDayModel(
       date: (map['date'] as String?) ?? '',
-      day: (map['day'] as int?) ?? 0,
+      day: (map['day'] as num?) ?? 0,
       isCurrentMonth: (map['is_current_month'] as bool?) ?? false,
       isToday: (map['is_today'] as bool?) ?? false,
       dayName: (map['day_name'] as String?) ?? '',
@@ -66,7 +66,7 @@ class CalendarDayModel extends CalendarDay {
           (x) => CalendarReservationModel.fromMap(x),
         ),
       ),
-      totalReservations: (map['total_reservations'] as int?) ?? 0,
+      totalReservations: (map['total_reservations'] as num?) ?? 0,
     );
   }
 
@@ -185,7 +185,7 @@ class CalendarReservationModel extends CalendarReservation {
       menuColor: (map['menu_color'] as String?) ?? '',
       menu: CalendarMenuModel.fromMap(map['menu']),
       status: (map['status'] as String?) ?? '',
-      peopleCount: (map['people_count'] as int?) ?? 0,
+      peopleCount: (map['people_count'] as num?) ?? 0,
       amount: (map['amount'] as String?) ?? '',
     );
   }
@@ -251,10 +251,10 @@ class CalendarMenuModel extends CalendarMenu {
       id: (map['id'] as int?) ?? 0,
       name: (map['name'] as String?) ?? '',
       description: (map['description'] as String?) ?? '',
-      requiredTime: (map['required_time'] as int?) ?? 0,
+      requiredTime: (map['required_time'] as num?) ?? 0,
       price: CalendarMenuPriceModel.fromMap(map['price']),
       photoPath: map['photo_path'] as String?,
-      displayOrder: (map['display_order'] as int?) ?? 0,
+      displayOrder: (map['display_order'] as num?) ?? 0,
       isActive: (map['is_active'] as bool?) ?? true,
       color: CalendarMenuColorModel.fromMap(map['color']),
       createdAt: (map['created_at'] as String?) ?? '',

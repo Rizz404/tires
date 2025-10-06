@@ -13,7 +13,7 @@ class Reservation extends Equatable {
   final ReservationCustomerInfo customerInfo;
   final Menu menu;
   final DateTime reservationDatetime;
-  final int numberOfPeople;
+  final num numberOfPeople;
   final ReservationAmount amount;
   final ReservationStatus status;
   final String? notes;
@@ -58,7 +58,7 @@ class Reservation extends Equatable {
     ReservationCustomerInfo? customerInfo,
     Menu? menu,
     DateTime? reservationDatetime,
-    int? numberOfPeople,
+    num? numberOfPeople,
     ReservationAmount? amount,
     ReservationStatus? status,
     String? notes,

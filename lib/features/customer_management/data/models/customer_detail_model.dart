@@ -76,7 +76,7 @@ class CustomerModel extends Customer {
       fullNameKana: (map['full_name_kana'] as String?) ?? '',
       email: (map['email'] as String?) ?? '',
       phoneNumber: (map['phone_number'] as String?) ?? '',
-      isRegistered: (map['is_registered'] as int?) ?? 0,
+      isRegistered: (map['is_registered'] as num?) ?? 0,
       userId: map['user_id'] as String?,
       companyName: map['company_name'] as String?,
       department: map['department'] as String?,
@@ -84,7 +84,7 @@ class CustomerModel extends Customer {
       homeAddress: map['home_address'] as String?,
       dateOfBirth: map['date_of_birth'] as String?,
       gender: map['gender'] as String?,
-      reservationCount: (map['reservation_count'] as int?) ?? 0,
+      reservationCount: (map['reservation_count'] as num?) ?? 0,
       latestReservation: map['latest_reservation'] != null
           ? DateTime.parse(map['latest_reservation'] as String)
           : DateTime.now(),
@@ -143,11 +143,11 @@ class ReservationHistoryModel extends ReservationHistory {
       fullNameKana: (map['full_name_kana'] as String?) ?? '',
       email: (map['email'] as String?) ?? '',
       phoneNumber: (map['phone_number'] as String?) ?? '',
-      menuId: (map['menu_id'] as int?) ?? 0,
+      menuId: (map['menu_id'] as num?) ?? 0,
       reservationDatetime: map['reservation_datetime'] != null
           ? DateTime.parse(map['reservation_datetime'] as String)
           : DateTime.now(),
-      numberOfPeople: (map['number_of_people'] as int?) ?? 0,
+      numberOfPeople: (map['number_of_people'] as num?) ?? 0,
       amount: (map['amount'] as String?) ?? '0',
       status: (map['status'] as String?) ?? '',
       notes: map['notes'] as String?,
@@ -194,9 +194,9 @@ class StatsModel extends Stats {
 
   factory StatsModel.fromMap(Map<String, dynamic> map) {
     return StatsModel(
-      reservationCount: (map['reservation_count'] as int?) ?? 0,
+      reservationCount: (map['reservation_count'] as num?) ?? 0,
       totalAmount: (map['total_amount'] as String?) ?? '0',
-      tireStorageCount: (map['tire_storage_count'] as int?) ?? 0,
+      tireStorageCount: (map['tire_storage_count'] as num?) ?? 0,
     );
   }
 
