@@ -103,14 +103,14 @@ class AnnouncementsSection extends ConsumerWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Delete Announcement'),
+          title: const Text('Delete Announcement'),
           content: Text(
             'Are you sure you want to delete "${announcement.title}"?',
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
@@ -120,7 +120,7 @@ class AnnouncementsSection extends ConsumerWidget {
               style: TextButton.styleFrom(
                 foregroundColor: context.colorScheme.error,
               ),
-              child: Text('Delete'),
+              child: const Text('Delete'),
             ),
           ],
         );

@@ -212,7 +212,7 @@ class _BlockedPeriodTableWidgetState
                 TextButton.icon(
                   onPressed: _bulkDelete,
                   icon: const Icon(Icons.delete, color: Colors.red, size: 18),
-                  label: Text(
+                  label: const Text(
                     'Delete Selected',
                     style: TextStyle(color: Colors.red, fontSize: 12),
                   ),
@@ -249,8 +249,8 @@ class _BlockedPeriodTableWidgetState
           const SizedBox(height: 16),
         ],
 
-        Padding(
-          padding: const EdgeInsets.only(left: 4, bottom: 8),
+        const Padding(
+          padding: EdgeInsets.only(left: 4, bottom: 8),
           child: AppText('Blocked Periods', style: AppTextStyle.titleLarge),
         ),
         Card(
@@ -269,7 +269,9 @@ class _BlockedPeriodTableWidgetState
                   horizontal: 16,
                   vertical: 8,
                 ),
-                color: context.colorScheme.surfaceVariant.withOpacity(0.3),
+                color: context.colorScheme.surfaceContainerHighest.withOpacity(
+                  0.3,
+                ),
                 child: Row(
                   children: [
                     Icon(
@@ -324,7 +326,7 @@ class _BlockedPeriodTableWidgetState
                                 child: TextButton.icon(
                                   onPressed: widget.onLoadMore,
                                   icon: const Icon(Icons.expand_more, size: 16),
-                                  label: AppText(
+                                  label: const AppText(
                                     'Load More',
                                     style: AppTextStyle.bodyMedium,
                                   ),
@@ -434,7 +436,7 @@ class _BlockedPeriodTableWidgetState
       color: context.colorScheme.surface.withOpacity(0.5),
       child: Row(
         children: [
-          SizedBox(
+          const SizedBox(
             width: 60,
             child: AppText('NO.', fontWeight: FontWeight.bold),
           ),
@@ -505,8 +507,12 @@ class _BlockedPeriodTableWidgetState
     }
 
     return GestureDetector(
-      onLongPress: isSelected ? null : () => _toggleSelection(period.id),
-      onTap: () => _toggleSelection(period.id),
+      onLongPress: _selectedBlockedPeriodIds.isEmpty
+          ? () => _toggleSelection(period.id)
+          : null,
+      onTap: _selectedBlockedPeriodIds.isNotEmpty
+          ? () => _toggleSelection(period.id)
+          : null,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(

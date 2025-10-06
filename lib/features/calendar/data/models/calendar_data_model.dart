@@ -172,6 +172,8 @@ class CalendarReservationModel extends CalendarReservation {
     required super.status,
     required super.peopleCount,
     required super.amount,
+    required CustomerInfoModel super.customerInfo,
+    required CalendarUserModel super.user,
   });
 
   factory CalendarReservationModel.fromMap(Map<String, dynamic> map) {
@@ -187,6 +189,8 @@ class CalendarReservationModel extends CalendarReservation {
       status: (map['status'] as String?) ?? '',
       peopleCount: (map['people_count'] as num?) ?? 0,
       amount: (map['amount'] as String?) ?? '',
+      customerInfo: CustomerInfoModel.fromMap(map['customer_info']),
+      user: CalendarUserModel.fromMap(map['user']),
     );
   }
 
@@ -203,6 +207,8 @@ class CalendarReservationModel extends CalendarReservation {
       'status': status,
       'people_count': peopleCount,
       'amount': amount,
+      'customer_info': (customerInfo as CustomerInfoModel).toMap(),
+      'user': (user as CalendarUserModel).toMap(),
     };
   }
 }
@@ -320,5 +326,62 @@ class CalendarMenuColorModel extends CalendarMenuColor {
 
   Map<String, dynamic> toMap() {
     return {'hex': hex, 'rgba_light': rgbaLight, 'text_color': textColor};
+  }
+}
+
+class CustomerInfoModel extends CustomerInfo {
+  const CustomerInfoModel({
+    required super.fullName,
+    required super.fullNameKana,
+    required super.email,
+    required super.phoneNumber,
+    required super.isGuest,
+  });
+
+  factory CustomerInfoModel.fromMap(Map<String, dynamic> map) {
+    return CustomerInfoModel(
+      fullName: (map['full_name'] as String?) ?? '',
+      fullNameKana: (map['full_name_kana'] as String?) ?? '',
+      email: (map['email'] as String?) ?? '',
+      phoneNumber: (map['phone_number'] as String?) ?? '',
+      isGuest: (map['is_guest'] as bool?) ?? false,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'full_name': fullName,
+      'full_name_kana': fullNameKana,
+      'email': email,
+      'phone_number': phoneNumber,
+      'is_guest': isGuest,
+    };
+  }
+}
+
+class CalendarUserModel extends CalendarUser {
+  const CalendarUserModel({
+    required super.id,
+    required super.fullName,
+    required super.email,
+    required super.phoneNumber,
+  });
+
+  factory CalendarUserModel.fromMap(Map<String, dynamic> map) {
+    return CalendarUserModel(
+      id: (map['id'] as int?) ?? 0,
+      fullName: (map['full_name'] as String?) ?? '',
+      email: (map['email'] as String?) ?? '',
+      phoneNumber: (map['phone_number'] as String?) ?? '',
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'full_name': fullName,
+      'email': email,
+      'phone_number': phoneNumber,
+    };
   }
 }

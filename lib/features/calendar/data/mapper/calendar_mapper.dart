@@ -73,6 +73,8 @@ extension CalendarReservationModelMapper on CalendarReservationModel {
       status: status,
       peopleCount: peopleCount,
       amount: amount,
+      customerInfo: (customerInfo as CustomerInfoModel).toEntity(),
+      user: (user as CalendarUserModel).toEntity(),
     );
   }
 }
@@ -157,6 +159,8 @@ extension CalendarReservationEntityMapper on CalendarReservation {
       status: status,
       peopleCount: peopleCount,
       amount: amount,
+      customerInfo: customerInfo.toModel(),
+      user: user.toModel(),
     );
   }
 }
@@ -248,6 +252,52 @@ extension CalendarMenuColorEntityMapper on CalendarMenuColor {
       hex: hex,
       rgbaLight: rgbaLight,
       textColor: textColor,
+    );
+  }
+}
+
+extension CustomerInfoModelMapper on CustomerInfoModel {
+  CustomerInfo toEntity() {
+    return CustomerInfo(
+      fullName: fullName,
+      fullNameKana: fullNameKana,
+      email: email,
+      phoneNumber: phoneNumber,
+      isGuest: isGuest,
+    );
+  }
+}
+
+extension CustomerInfoEntityMapper on CustomerInfo {
+  CustomerInfoModel toModel() {
+    return CustomerInfoModel(
+      fullName: fullName,
+      fullNameKana: fullNameKana,
+      email: email,
+      phoneNumber: phoneNumber,
+      isGuest: isGuest,
+    );
+  }
+}
+
+extension CalendarUserModelMapper on CalendarUserModel {
+  CalendarUser toEntity() {
+    return CalendarUser(
+      id: id,
+      fullName: fullName,
+      email: email,
+      phoneNumber: phoneNumber,
+    );
+  }
+}
+
+extension CalendarUserEntityMapper on CalendarUser {
+  CalendarUserModel toModel() {
+    return CalendarUserModel(
+      id: id,
+      fullName: fullName,
+      email: email,
+      phoneNumber: phoneNumber,
     );
   }
 }

@@ -107,15 +107,15 @@ class CustomerRemoteDatasourceImpl implements CustomerRemoteDatasource {
     BulkDeleteCustomersUsecaseParams params,
   ) async {
     try {
-      AppLogger.networkInfo('Deleting customer with');
-      final response = await _dioClient.delete<dynamic>(
+      AppLogger.networkInfo('Bulk deleting customers');
+      final response = await _dioClient.patch<dynamic>(
         ApiEndpoints.adminCustomerBulkDelete,
         data: params.toMap(),
       );
-      AppLogger.networkDebug('Customer deleted successfully');
+      AppLogger.networkDebug('Customers bulk deleted successfully');
       return response;
     } catch (e) {
-      AppLogger.networkError('Error deleting customer', e);
+      AppLogger.networkError('Error bulk deleting customers', e);
       rethrow;
     }
   }

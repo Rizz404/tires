@@ -20,29 +20,29 @@ class BulkDeleteBlockedPeriodsUsecase
     BulkDeleteBlockedPeriodsUsecaseParams params,
   ) {
     AppLogger.businessInfo(
-      'Executing delete blocked period usecase for id: ${params.id}',
+      'Executing delete blocked period usecase for ids: ${params.ids}',
     );
     return _repository.bulkDeleteBlockedPeriods(params);
   }
 }
 
 class BulkDeleteBlockedPeriodsUsecaseParams extends Equatable {
-  final List<int> id;
+  final List<int> ids;
 
-  BulkDeleteBlockedPeriodsUsecaseParams(this.id);
+  BulkDeleteBlockedPeriodsUsecaseParams(this.ids);
 
-  BulkDeleteBlockedPeriodsUsecaseParams copyWith({List<int>? id}) {
-    return BulkDeleteBlockedPeriodsUsecaseParams(id ?? this.id);
+  BulkDeleteBlockedPeriodsUsecaseParams copyWith({List<int>? ids}) {
+    return BulkDeleteBlockedPeriodsUsecaseParams(ids ?? this.ids);
   }
 
   Map<String, dynamic> toMap() {
-    return {'id': id};
+    return {'ids': ids};
   }
 
   factory BulkDeleteBlockedPeriodsUsecaseParams.fromMap(
     Map<String, dynamic> map,
   ) {
-    return BulkDeleteBlockedPeriodsUsecaseParams(List<int>.from(map['id']));
+    return BulkDeleteBlockedPeriodsUsecaseParams(List<int>.from(map['ids']));
   }
 
   String toJson() => json.encode(toMap());
@@ -54,8 +54,8 @@ class BulkDeleteBlockedPeriodsUsecaseParams extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [ids];
 
   @override
-  String toString() => 'BulkDeleteBlockedPeriodsUsecaseParams(id: $id)';
+  String toString() => 'BulkDeleteBlockedPeriodsUsecaseParams(ids: $ids)';
 }

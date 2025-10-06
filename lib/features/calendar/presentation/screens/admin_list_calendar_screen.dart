@@ -10,6 +10,7 @@ import 'package:tires/features/calendar/presentation/providers/calendar_provider
 import 'package:tires/features/calendar/presentation/providers/calendar_state.dart';
 import 'package:tires/features/calendar/domain/usecases/get_calendar_data_usecase.dart';
 import 'package:tires/features/calendar/domain/entities/calendar_data.dart';
+import 'package:tires/features/calendar/domain/entities/calendar_reservation_extension.dart';
 import 'package:tires/features/calendar/presentation/widgets/calendar_stats_widget.dart';
 import 'package:tires/features/calendar/presentation/widgets/calendar_view_toggle_widget.dart';
 import 'package:tires/features/calendar/presentation/widgets/month_calendar_widget.dart';
@@ -320,7 +321,14 @@ class _AdminListCalendarScreenState
                     ),
                     onReservationTap: (calendarReservation) {
                       if (mounted) {
-                        context.router.push(AdminUpsertReservationRoute());
+                        // Convert CalendarReservation to Reservation using extension
+                        final reservation = calendarReservation.toReservation(
+                          dateContext: _selectedDay ?? _focusedDay,
+                        );
+
+                        context.router.push(
+                          AdminUpsertReservationRoute(reservation: reservation),
+                        );
                       }
                     },
                   ),

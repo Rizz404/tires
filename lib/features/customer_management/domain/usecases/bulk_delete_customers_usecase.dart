@@ -20,27 +20,27 @@ class BulkDeleteCustomersUsecase
     BulkDeleteCustomersUsecaseParams params,
   ) {
     AppLogger.businessInfo(
-      'Executing delete customer usecase for id: ${params.id}',
+      'Executing delete customer usecase for ids: ${params.ids}',
     );
     return _repository.bulkDeleteCustomers(params);
   }
 }
 
 class BulkDeleteCustomersUsecaseParams extends Equatable {
-  final List<int> id;
+  final List<int> ids;
 
-  BulkDeleteCustomersUsecaseParams(this.id);
+  BulkDeleteCustomersUsecaseParams(this.ids);
 
-  BulkDeleteCustomersUsecaseParams copyWith({List<int>? id}) {
-    return BulkDeleteCustomersUsecaseParams(id ?? this.id);
+  BulkDeleteCustomersUsecaseParams copyWith({List<int>? ids}) {
+    return BulkDeleteCustomersUsecaseParams(ids ?? this.ids);
   }
 
   Map<String, dynamic> toMap() {
-    return {'id': id};
+    return {'ids': ids};
   }
 
   factory BulkDeleteCustomersUsecaseParams.fromMap(Map<String, dynamic> map) {
-    return BulkDeleteCustomersUsecaseParams(List<int>.from(map['id']));
+    return BulkDeleteCustomersUsecaseParams(List<int>.from(map['ids']));
   }
 
   String toJson() => json.encode(toMap());
@@ -52,8 +52,8 @@ class BulkDeleteCustomersUsecaseParams extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [ids];
 
   @override
-  String toString() => 'BulkDeleteCustomersUsecaseParams(id: $id)';
+  String toString() => 'BulkDeleteCustomersUsecaseParams(ids: $ids)';
 }

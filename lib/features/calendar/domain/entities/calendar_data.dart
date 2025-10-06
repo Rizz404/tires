@@ -25,37 +25,6 @@ class CalendarData extends Equatable {
   ];
 }
 
-class CalendarDay extends Equatable {
-  final String date;
-  final num day;
-  final bool isCurrentMonth;
-  final bool isToday;
-  final String dayName;
-  final List<CalendarReservation> reservations;
-  final num totalReservations;
-
-  const CalendarDay({
-    required this.date,
-    required this.day,
-    required this.isCurrentMonth,
-    required this.isToday,
-    required this.dayName,
-    required this.reservations,
-    required this.totalReservations,
-  });
-
-  @override
-  List<Object> get props => [
-    date,
-    day,
-    isCurrentMonth,
-    isToday,
-    dayName,
-    reservations,
-    totalReservations,
-  ];
-}
-
 class CurrentPeriod extends Equatable {
   final String month;
   final String startDate;
@@ -111,6 +80,37 @@ class Statistics extends Equatable {
   ];
 }
 
+class CalendarDay extends Equatable {
+  final String date;
+  final num day;
+  final bool isCurrentMonth;
+  final bool isToday;
+  final String dayName;
+  final List<CalendarReservation> reservations;
+  final num totalReservations;
+
+  const CalendarDay({
+    required this.date,
+    required this.day,
+    required this.isCurrentMonth,
+    required this.isToday,
+    required this.dayName,
+    required this.reservations,
+    required this.totalReservations,
+  });
+
+  @override
+  List<Object> get props => [
+    date,
+    day,
+    isCurrentMonth,
+    isToday,
+    dayName,
+    reservations,
+    totalReservations,
+  ];
+}
+
 class CalendarReservation extends Equatable {
   final int id;
   final String reservationNumber;
@@ -123,6 +123,8 @@ class CalendarReservation extends Equatable {
   final String status;
   final num peopleCount;
   final String amount;
+  final CustomerInfo customerInfo;
+  final CalendarUser user;
 
   const CalendarReservation({
     required this.id,
@@ -136,6 +138,8 @@ class CalendarReservation extends Equatable {
     required this.status,
     required this.peopleCount,
     required this.amount,
+    required this.customerInfo,
+    required this.user,
   });
 
   @override
@@ -151,6 +155,8 @@ class CalendarReservation extends Equatable {
     status,
     peopleCount,
     amount,
+    customerInfo,
+    user,
   ];
 }
 
@@ -169,6 +175,48 @@ class CalendarCustomer extends Equatable {
 
   @override
   List<Object?> get props => [name, email, phone, type];
+}
+
+class CustomerInfo extends Equatable {
+  final String fullName;
+  final String fullNameKana;
+  final String email;
+  final String phoneNumber;
+  final bool isGuest;
+
+  const CustomerInfo({
+    required this.fullName,
+    required this.fullNameKana,
+    required this.email,
+    required this.phoneNumber,
+    required this.isGuest,
+  });
+
+  @override
+  List<Object?> get props => [
+    fullName,
+    fullNameKana,
+    email,
+    phoneNumber,
+    isGuest,
+  ];
+}
+
+class CalendarUser extends Equatable {
+  final int id;
+  final String fullName;
+  final String email;
+  final String phoneNumber;
+
+  const CalendarUser({
+    required this.id,
+    required this.fullName,
+    required this.email,
+    required this.phoneNumber,
+  });
+
+  @override
+  List<Object?> get props => [id, fullName, email, phoneNumber];
 }
 
 class CalendarMenu extends Equatable {

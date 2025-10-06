@@ -116,15 +116,15 @@ class AnnouncementRemoteDatasourceImpl implements AnnouncementRemoteDatasource {
     BulkDeleteAnnouncementsUsecaseParams params,
   ) async {
     try {
-      AppLogger.networkInfo('Deleting announcement with');
-      final response = await _dioClient.delete<dynamic>(
+      AppLogger.networkInfo('Bulk deleting announcements');
+      final response = await _dioClient.patch<dynamic>(
         ApiEndpoints.adminAnnouncementBulkDelete,
         data: params.toMap(),
       );
-      AppLogger.networkDebug('Announcement deleted successfully');
+      AppLogger.networkDebug('Announcements bulk deleted successfully');
       return response;
     } catch (e) {
-      AppLogger.networkError('Error deleting announcement', e);
+      AppLogger.networkError('Error bulk deleting announcements', e);
       rethrow;
     }
   }

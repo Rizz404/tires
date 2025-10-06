@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
-import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/shared/presentation/widgets/app_searchable_dropdown.dart';
 
@@ -177,7 +176,7 @@ class _ExampleSearchableDropdownScreenState
     ),
   ];
 
-  List<AppSearchableDropdownItem<String>> _cities = _allCities
+  final List<AppSearchableDropdownItem<String>> _cities = _allCities
       .take(10)
       .toList();
   int _currentCityPage = 1;

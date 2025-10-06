@@ -116,15 +116,15 @@ class BlockedPeriodRemoteDatasourceImpl
     BulkDeleteBlockedPeriodsUsecaseParams params,
   ) async {
     try {
-      AppLogger.networkInfo('Deleting blocked period with');
-      final response = await _dioClient.delete<dynamic>(
+      AppLogger.networkInfo('Bulk deleting blocked periods');
+      final response = await _dioClient.patch<dynamic>(
         ApiEndpoints.adminBlockedPeriodBulkDelete,
         data: params.toMap(),
       );
-      AppLogger.networkDebug('Blocked period deleted successfully');
+      AppLogger.networkDebug('Blocked periods bulk deleted successfully');
       return response;
     } catch (e) {
-      AppLogger.networkError('Error deleting blocked period', e);
+      AppLogger.networkError('Error bulk deleting blocked periods', e);
       rethrow;
     }
   }

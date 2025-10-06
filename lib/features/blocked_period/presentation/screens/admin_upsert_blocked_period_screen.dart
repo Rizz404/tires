@@ -21,7 +21,6 @@ import 'package:tires/shared/presentation/widgets/admin_end_drawer.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/app_text_field.dart';
-import 'package:tires/features/blocked_period/presentation/widgets/blocked_period_calendar.dart';
 
 import 'package:tires/shared/presentation/widgets/loading_overlay.dart';
 import 'package:tires/shared/presentation/widgets/screen_wrapper.dart';

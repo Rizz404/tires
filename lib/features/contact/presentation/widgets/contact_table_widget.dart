@@ -241,7 +241,7 @@ class _ContactTableWidgetState extends ConsumerState<ContactTableWidget> {
                   icon: const Icon(Icons.delete, color: Colors.red, size: 18),
                   label: Text(
                     context.l10n.adminListContactScreenBulkActionsDeleteButton,
-                    style: TextStyle(color: Colors.red, fontSize: 12),
+                    style: const TextStyle(color: Colors.red, fontSize: 12),
                   ),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -254,7 +254,7 @@ class _ContactTableWidgetState extends ConsumerState<ContactTableWidget> {
                   onPressed: _clearSelection,
                   child: Text(
                     context.l10n.adminListMenuScreenClearSelection,
-                    style: TextStyle(fontSize: 12),
+                    style: const TextStyle(fontSize: 12),
                   ),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -268,8 +268,8 @@ class _ContactTableWidgetState extends ConsumerState<ContactTableWidget> {
           const SizedBox(height: 16),
         ],
 
-        Padding(
-          padding: const EdgeInsets.only(left: 4, bottom: 8),
+        const Padding(
+          padding: EdgeInsets.only(left: 4, bottom: 8),
           child: AppText('Contacts', style: AppTextStyle.titleLarge),
         ),
         Card(
@@ -288,7 +288,9 @@ class _ContactTableWidgetState extends ConsumerState<ContactTableWidget> {
                   horizontal: 16,
                   vertical: 8,
                 ),
-                color: context.colorScheme.surfaceVariant.withOpacity(0.3),
+                color: context.colorScheme.surfaceContainerHighest.withOpacity(
+                  0.3,
+                ),
                 child: Row(
                   children: [
                     Icon(
@@ -343,7 +345,7 @@ class _ContactTableWidgetState extends ConsumerState<ContactTableWidget> {
                                 child: TextButton.icon(
                                   onPressed: widget.onLoadMore,
                                   icon: const Icon(Icons.expand_more, size: 16),
-                                  label: AppText(
+                                  label: const AppText(
                                     'Load More',
                                     style: AppTextStyle.bodyMedium,
                                   ),
@@ -474,8 +476,12 @@ class _ContactTableWidgetState extends ConsumerState<ContactTableWidget> {
     final isSelected = _selectedContactIds.contains(contact.id);
 
     return GestureDetector(
-      onLongPress: isSelected ? null : () => _toggleSelection(contact.id),
-      onTap: () => _toggleSelection(contact.id),
+      onLongPress: _selectedContactIds.isEmpty
+          ? () => _toggleSelection(contact.id)
+          : null,
+      onTap: _selectedContactIds.isNotEmpty
+          ? () => _toggleSelection(contact.id)
+          : null,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(

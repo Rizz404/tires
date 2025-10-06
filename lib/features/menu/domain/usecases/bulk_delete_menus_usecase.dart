@@ -20,27 +20,27 @@ class BulkDeleteMenusUsecase
     BulkDeleteMenusUsecaseParams params,
   ) {
     AppLogger.businessInfo(
-      'Executing delete menu usecase for id: ${params.id}',
+      'Executing delete menu usecase for ids: ${params.ids}',
     );
     return _repository.bulkDeleteMenus(params);
   }
 }
 
 class BulkDeleteMenusUsecaseParams extends Equatable {
-  final List<int> id;
+  final List<int> ids;
 
-  BulkDeleteMenusUsecaseParams(this.id);
+  BulkDeleteMenusUsecaseParams(this.ids);
 
-  BulkDeleteMenusUsecaseParams copyWith({List<int>? id}) {
-    return BulkDeleteMenusUsecaseParams(id ?? this.id);
+  BulkDeleteMenusUsecaseParams copyWith({List<int>? ids}) {
+    return BulkDeleteMenusUsecaseParams(ids ?? this.ids);
   }
 
   Map<String, dynamic> toMap() {
-    return {'id': id};
+    return {'ids': ids};
   }
 
   factory BulkDeleteMenusUsecaseParams.fromMap(Map<String, dynamic> map) {
-    return BulkDeleteMenusUsecaseParams(List<int>.from(map['id']));
+    return BulkDeleteMenusUsecaseParams(List<int>.from(map['ids']));
   }
 
   String toJson() => json.encode(toMap());
@@ -52,8 +52,8 @@ class BulkDeleteMenusUsecaseParams extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [ids];
 
   @override
-  String toString() => 'BulkDeleteMenusUsecaseParams(id: $id)';
+  String toString() => 'BulkDeleteMenusUsecaseParams(ids: $ids)';
 }

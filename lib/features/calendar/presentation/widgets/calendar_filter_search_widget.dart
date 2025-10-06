@@ -52,7 +52,7 @@ class _CalendarFilterSearchWidgetState
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
+                const Expanded(
                   child: AppText(
                     'Search & Filter Reservations',
                     style: AppTextStyle.titleLarge,
@@ -85,14 +85,14 @@ class _CalendarFilterSearchWidgetState
                 key: widget.formKey,
                 child: Column(
                   children: [
-                    AppSearchField(
+                    const AppSearchField(
                       name: 'search',
                       hintText: 'Enter search term...',
                       label:
                           'Search by customer name, phone, or reservation number',
                     ),
                     const SizedBox(height: 16),
-                    Row(
+                    const Row(
                       children: [
                         Expanded(
                           child: AppDropdown<String>(
@@ -123,7 +123,7 @@ class _CalendarFilterSearchWidgetState
                             ],
                           ),
                         ),
-                        const SizedBox(width: 16),
+                        SizedBox(width: 16),
                         Expanded(
                           child: AppDropdown<String>(
                             name: 'menu',

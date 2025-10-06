@@ -22,7 +22,7 @@ class CalendarListViewToggleWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppText(
+            const AppText(
               'Display Mode',
               style: AppTextStyle.titleMedium,
               fontWeight: FontWeight.bold,

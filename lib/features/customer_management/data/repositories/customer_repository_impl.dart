@@ -10,8 +10,6 @@ import 'package:tires/features/customer_management/data/mapper/customer_mapper.d
 import 'package:tires/features/customer_management/data/mapper/customer_statistic_mapper.dart';
 import 'package:tires/features/customer_management/domain/entities/customer.dart'
     as customer_entity;
-import 'package:tires/features/user/data/mapper/user_mapper.dart';
-import 'package:tires/features/user/domain/entities/user.dart';
 import 'package:tires/features/customer_management/domain/entities/customer_dashboard.dart';
 import 'package:tires/features/customer_management/domain/entities/customer_detail.dart';
 import 'package:tires/features/customer_management/domain/entities/customer_statistic.dart';

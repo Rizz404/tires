@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
@@ -99,7 +98,7 @@ class _ReservationTableWidgetState
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: widget.onRefresh,
-                  child: AppText('Refresh'),
+                  child: const AppText('Refresh'),
                 ),
               ],
             ],
@@ -111,8 +110,8 @@ class _ReservationTableWidgetState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 4, bottom: 8),
+        const Padding(
+          padding: EdgeInsets.only(left: 4, bottom: 8),
           child: AppText('Reservations', style: AppTextStyle.titleLarge),
         ),
         Card(
@@ -131,7 +130,7 @@ class _ReservationTableWidgetState
                   horizontal: 16,
                   vertical: 8,
                 ),
-                color: context.colorScheme.surfaceVariant.withOpacity(0.3),
+                color: context.colorScheme.surfaceContainerHighest.withOpacity(0.3),
                 child: Row(
                   children: [
                     Icon(
@@ -186,7 +185,7 @@ class _ReservationTableWidgetState
                                 child: TextButton.icon(
                                   onPressed: widget.onLoadMore,
                                   icon: const Icon(Icons.expand_more, size: 16),
-                                  label: AppText(
+                                  label: const AppText(
                                     'Load More',
                                     style: AppTextStyle.bodyMedium,
                                   ),
@@ -261,7 +260,7 @@ class _ReservationTableWidgetState
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       color: context.colorScheme.surface.withOpacity(0.5),
-      child: Row(
+      child: const Row(
         children: [
           SizedBox(
             width: 60,

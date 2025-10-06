@@ -127,15 +127,15 @@ class MenuRemoteDatasourceImpl implements MenuRemoteDatasource {
     BulkDeleteMenusUsecaseParams params,
   ) async {
     try {
-      AppLogger.networkInfo('Deleting menu with');
-      final response = await _dioClient.delete<dynamic>(
+      AppLogger.networkInfo('Bulk deleting menus');
+      final response = await _dioClient.patch<dynamic>(
         ApiEndpoints.adminMenuBulkDelete,
         data: params.toMap(),
       );
-      AppLogger.networkDebug('Menu deleted successfully');
+      AppLogger.networkDebug('Menus bulk deleted successfully');
       return response;
     } catch (e) {
-      AppLogger.networkError('Error deleting menu', e);
+      AppLogger.networkError('Error bulk deleting menus', e);
       rethrow;
     }
   }

@@ -2,10 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
-import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
-import 'package:tires/shared/presentation/widgets/app_button.dart';
 
 class AppSearchableDropdownItem<T> {
   final T value;
@@ -111,8 +109,9 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
     if (_isDisposed ||
         !mounted ||
         !widget.enableInfiniteScroll ||
-        widget.onLoadMore == null)
+        widget.onLoadMore == null) {
       return;
+    }
 
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 100) {
@@ -125,8 +124,9 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
         _isDisposed ||
         !mounted ||
         !widget.enableInfiniteScroll ||
-        widget.onLoadMore == null)
+        widget.onLoadMore == null) {
       return;
+    }
 
     AppLogger.uiDebug('Loading more items for dropdown');
     if (mounted) {
@@ -333,7 +333,7 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
                 padding: const EdgeInsets.all(16),
                 child:
                     widget.emptySearchResult ??
-                    AppText(
+                    const AppText(
                       'No items found',
                       style: AppTextStyle.bodyMedium,
                       textAlign: TextAlign.center,
@@ -347,9 +347,9 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
                   itemCount: _displayedItems.length + (_isLoadingMore ? 1 : 0),
                   itemBuilder: (context, index) {
                     if (index == _displayedItems.length) {
-                      return Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: const Center(child: CircularProgressIndicator()),
+                      return const Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Center(child: CircularProgressIndicator()),
                       );
                     }
 

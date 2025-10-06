@@ -108,15 +108,15 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
     BulkDeleteContactsUsecaseParams params,
   ) async {
     try {
-      AppLogger.networkInfo('Deleting contact with');
-      final response = await _dioClient.delete<dynamic>(
+      AppLogger.networkInfo('Bulk deleting contacts');
+      final response = await _dioClient.patch<dynamic>(
         ApiEndpoints.adminContactBulkDelete,
         data: params.toMap(),
       );
-      AppLogger.networkDebug('Contact deleted successfully');
+      AppLogger.networkDebug('Contacts bulk deleted successfully');
       return response;
     } catch (e) {
-      AppLogger.networkError('Error deleting contact', e);
+      AppLogger.networkError('Error bulk deleting contacts', e);
       rethrow;
     }
   }

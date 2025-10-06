@@ -8,7 +8,6 @@ import 'package:tires/core/domain/domain_response.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/core/usecases/usecase.dart';
-import 'package:tires/features/customer_management/domain/entities/customer.dart';
 import 'package:tires/features/customer_management/domain/entities/customer_detail.dart';
 import 'package:tires/features/customer_management/domain/repositories/customer_repository.dart';
 

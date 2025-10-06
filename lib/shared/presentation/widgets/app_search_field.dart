@@ -77,10 +77,10 @@ class _AppSearchFieldState extends State<AppSearchField> {
       decoration: InputDecoration(
         labelText: widget.label,
         hintText: widget.hintText ?? 'Search...',
-        prefixIcon: widget.prefixIcon ?? Icon(Icons.search),
+        prefixIcon: widget.prefixIcon ?? const Icon(Icons.search),
         suffixIcon: widget.showClearButton && _hasText
             ? IconButton(
-                icon: Icon(Icons.clear),
+                icon: const Icon(Icons.clear),
                 onPressed: widget.enabled ? _clearText : null,
                 tooltip: 'Clear',
               )

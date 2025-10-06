@@ -114,7 +114,7 @@ class _CustomerTableWidgetState extends State<CustomerTableWidget> {
           // Horizontal scroll indicator
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            color: context.colorScheme.surfaceVariant.withOpacity(0.3),
+            color: context.colorScheme.surfaceContainerHighest.withOpacity(0.3),
             child: Row(
               children: [
                 Icon(
@@ -169,7 +169,7 @@ class _CustomerTableWidgetState extends State<CustomerTableWidget> {
                             child: TextButton.icon(
                               onPressed: widget.onLoadMore,
                               icon: const Icon(Icons.expand_more, size: 16),
-                              label: AppText(
+                              label: const AppText(
                                 'Load More',
                                 style: AppTextStyle.bodyMedium,
                               ),

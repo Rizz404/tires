@@ -7,8 +7,8 @@ import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/menu/presentation/providers/menu_providers.dart';
-import 'package:tires/features/customer_management/domain/entities/customer.dart';
-import 'package:tires/features/customer_management/presentation/providers/customers_providers.dart';
+import 'package:tires/features/user/domain/entities/user.dart';
+import 'package:tires/features/user/presentation/providers/users_providers.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/reservation/domain/entities/reservation_status.dart';
 
@@ -21,7 +21,6 @@ import 'package:tires/shared/presentation/utils/app_toast.dart';
 import 'package:tires/shared/presentation/widgets/admin_app_bar.dart';
 import 'package:tires/shared/presentation/widgets/admin_end_drawer.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
-import 'package:tires/shared/presentation/widgets/app_dropdown.dart';
 import 'package:tires/shared/presentation/widgets/app_radio_group.dart';
 import 'package:tires/shared/presentation/widgets/app_searchable_dropdown.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
@@ -49,9 +48,10 @@ class _AdminUpsertReservationScreenState
   bool _isSubmitting = false;
   List<Menu> _availableMenus = [];
   bool _isLoadingMenus = false;
-  List<Customer> _availableCustomers = [];
-  bool _isLoadingCustomers = false;
+  List<User> _availableUsers = [];
+  bool _isLoadingUsers = false;
   bool _isDisposed = false;
+  bool _hasPopulatedForm = false;
 
   bool get _isEditMode => widget.reservation != null;
 
@@ -69,20 +69,28 @@ class _AdminUpsertReservationScreenState
     return reservationMenuId;
   }
 
-  String? get _initialCustomerValue {
+  String? get _initialUserValue {
     if (!_isEditMode ||
         widget.reservation == null ||
         widget.reservation!.user == null) {
       return null;
     }
 
-    final reservationCustomerId = widget.reservation!.user!.id.toString();
+    final reservationUserId = widget.reservation!.user!.id.toString();
 
-    debugPrint('DEBUG: _initialCustomerValue called');
-    debugPrint('DEBUG: reservationCustomerId = $reservationCustomerId');
-    debugPrint('DEBUG: returning = $reservationCustomerId');
+    debugPrint('DEBUG: _initialUserValue called');
+    debugPrint('DEBUG: reservationUserId = $reservationUserId');
+    debugPrint('DEBUG: returning = $reservationUserId');
 
-    return reservationCustomerId;
+    return reservationUserId;
+  }
+
+  String? get _initialNotesValue {
+    if (!_isEditMode || widget.reservation == null) {
+      return null;
+    }
+
+    return widget.reservation!.notes;
   }
 
   @override
@@ -90,7 +98,15 @@ class _AdminUpsertReservationScreenState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadMenus();
-      _loadCustomers();
+      _loadUsers();
+
+      // If in edit mode, try to populate form immediately
+      // This handles the case where menus/customers might already be loaded
+      if (_isEditMode) {
+        Future.delayed(const Duration(milliseconds: 300), () {
+          _tryPopulateForm();
+        });
+      }
     });
   }
 
@@ -138,11 +154,8 @@ class _AdminUpsertReservationScreenState
         );
       }
 
-      // Populate form after menus are loaded and UI is rebuilt
-      if (_isEditMode && !_isDisposed) {
-        debugPrint('DEBUG: Edit mode, calling _populateForm');
-        _populateForm();
-      }
+      // Check if both menus and customers are loaded before populating form
+      _tryPopulateForm();
     } catch (e) {
       if (mounted && !_isDisposed) {
         setState(() {
@@ -152,77 +165,97 @@ class _AdminUpsertReservationScreenState
     }
   }
 
-  Future<void> _loadCustomers() async {
+  Future<void> _loadUsers() async {
     if (_isDisposed) return;
 
     if (mounted) {
       setState(() {
-        _isLoadingCustomers = true;
+        _isLoadingUsers = true;
       });
     }
 
     try {
-      // Load available customers from search provider
+      // Load available users from search provider
       await ref
-          .read(customersSearchNotifierProvider.notifier)
-          .searchCustomers(search: '');
-      final customerState = ref.read(customersSearchNotifierProvider);
+          .read(usersSearchNotifierProvider.notifier)
+          .searchUsers(search: '');
+      final userState = ref.read(usersSearchNotifierProvider);
 
       if (mounted && !_isDisposed) {
         setState(() {
-          _availableCustomers = customerState.customers;
-          _isLoadingCustomers = false;
+          _availableUsers = userState.users;
+          _isLoadingUsers = false;
         });
       }
 
+      debugPrint('DEBUG: Users loaded, count = ${userState.users.length}');
       debugPrint(
-        'DEBUG: Customers loaded, count = ${customerState.customers.length}',
-      );
-      debugPrint(
-        'DEBUG: Available customer IDs: ${customerState.customers.map((c) => c.id).toList()}',
+        'DEBUG: Available user IDs: ${userState.users.map((u) => u.id).toList()}',
       );
       if (_isEditMode && widget.reservation?.user != null) {
         debugPrint(
-          'DEBUG: Current reservation customer ID: ${widget.reservation!.user!.id}',
+          'DEBUG: Current reservation user ID: ${widget.reservation!.user!.id}',
         );
       }
 
-      // Populate form after customers are loaded and UI is rebuilt
-      if (_isEditMode && !_isDisposed) {
-        debugPrint('DEBUG: Edit mode, calling _populateForm');
-        _populateForm();
-      }
+      // Check if both menus and users are loaded before populating form
+      _tryPopulateForm();
     } catch (e) {
       if (mounted && !_isDisposed) {
         setState(() {
-          _isLoadingCustomers = false;
+          _isLoadingUsers = false;
         });
       }
     }
   }
 
-  void _populateForm() {
-    if (_isDisposed) return;
-
-    final reservation = widget.reservation;
-    if (reservation != null) {
-      // Use Future.delayed to ensure form is fully built before patching values
-      Future.delayed(const Duration(milliseconds: 100), () {
-        if (_formKey.currentState != null && mounted && !_isDisposed) {
-          _formKey.currentState?.patchValue({
-            // Don't set menu_id here, let initialValue handle it
-            'customer_id': reservation.user?.id.toString(),
-            'reservation_datetime': DateFormat(
-              'yyyy-MM-dd HH:mm',
-            ).format(reservation.reservationDatetime),
-            'number_of_people': reservation.numberOfPeople.toString(),
-            'amount': reservation.amount.raw.toString(),
-            'status': reservation.status.value.name,
-            'notes': reservation.notes ?? '',
-          });
-        }
-      });
+  void _tryPopulateForm() {
+    // Only populate form if we're in edit mode, haven't populated yet,
+    // and both menus and users are loaded
+    if (_isEditMode &&
+        !_hasPopulatedForm &&
+        !_isLoadingMenus &&
+        !_isLoadingUsers &&
+        !_isDisposed &&
+        widget.reservation != null) {
+      debugPrint('DEBUG: All data loaded, populating form');
+      _populateForm();
+      _hasPopulatedForm = true;
     }
+  }
+
+  void _populateForm() {
+    if (_isDisposed || widget.reservation == null) return;
+
+    final reservation = widget.reservation!;
+    debugPrint('DEBUG: Populating form with reservation data');
+    debugPrint('DEBUG: Reservation ID: ${reservation.id}');
+    debugPrint('DEBUG: Menu ID: ${reservation.menu.id}');
+    debugPrint('DEBUG: User ID: ${reservation.user?.id}');
+    debugPrint(
+      'DEBUG: Reservation datetime: ${reservation.reservationDatetime}',
+    );
+
+    // Use Future.delayed to ensure form is fully built before patching values
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (_formKey.currentState != null && mounted && !_isDisposed) {
+        debugPrint('DEBUG: Patching form values');
+        _formKey.currentState?.patchValue({
+          // Don't set menu_id and customer_id here, let initialValue handle them
+          'reservation_datetime': DateFormat(
+            'yyyy-MM-dd HH:mm',
+          ).format(reservation.reservationDatetime),
+          'number_of_people': reservation.numberOfPeople.toString(),
+          'amount': reservation.amount.raw,
+          'status': reservation.status.value.name,
+          'notes': reservation.notes ?? '',
+        });
+
+        debugPrint('DEBUG: Form values patched successfully');
+      } else {
+        debugPrint('DEBUG: Form state is null or widget disposed');
+      }
+    });
   }
 
   void _handleSubmit(WidgetRef ref) {
@@ -238,7 +271,7 @@ class _AdminUpsertReservationScreenState
       final notifier = ref.read(reservationMutationNotifierProvider.notifier);
 
       final menuId = int.parse(values['menu_id'] as String);
-      final customerId = values['customer_id'] as String?;
+      final userId = values['user_id'] as String?;
       final reservationDatetime = DateFormat(
         'yyyy-MM-dd HH:mm',
       ).parse(values['reservation_datetime'] as String);
@@ -252,13 +285,15 @@ class _AdminUpsertReservationScreenState
           (s) => s.name == statusString,
         );
 
+        // Only update with userId if a new user is selected
+        // If no user is selected in the form, don't try to update with the old user ID
+        final selectedUserId = userId != null ? int.tryParse(userId) : null;
+
         notifier.updateReservation(
           UpdateReservationParams(
             id: widget.reservation!.id,
             reservationNumber: widget.reservation!.reservationNumber,
-            userId: customerId != null
-                ? int.tryParse(customerId)
-                : widget.reservation!.user?.id,
+            userId: selectedUserId,
             menuId: menuId,
             reservationDatetime: reservationDatetime,
             numberOfPeople: numberOfPeople,
@@ -455,85 +490,84 @@ class _AdminUpsertReservationScreenState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const AppText('Customer Information', style: AppTextStyle.titleMedium),
+        const AppText('User Information', style: AppTextStyle.titleMedium),
         const SizedBox(height: 16),
-        // Customer Selection Dropdown
+        // User Selection Dropdown
         AppSearchableDropdown<String>(
-          key: ValueKey('customer_searchable_dropdown_${_isEditMode}'),
-          name: 'customer_id',
-          label: 'Customer',
-          hintText: 'Search and select a customer',
-          initialValue: _initialCustomerValue,
-          items: _availableCustomers
+          key: ValueKey(
+            'user_searchable_dropdown_${widget.reservation?.id ?? "new"}',
+          ),
+          name: 'user_id',
+          label: 'User (Optional)',
+          hintText:
+              'Search and select a user or leave empty to remove user association',
+          initialValue: _initialUserValue,
+          items: _availableUsers
               .map(
-                (customer) => AppSearchableDropdownItem<String>(
-                  value: customer.id,
-                  label: '${customer.fullName} (${customer.email})',
+                (user) => AppSearchableDropdownItem<String>(
+                  value: user.id.toString(),
+                  label: '${user.fullName} (${user.email})',
                   searchKey:
-                      '${customer.fullName} ${customer.fullNameKana} ${customer.email} ${customer.phoneNumber ?? ''}',
+                      '${user.fullName} ${user.fullNameKana} ${user.email} ${user.phoneNumber}',
                 ),
               )
               .toList(),
           onSearch: (query) async {
             await ref
-                .read(customersSearchNotifierProvider.notifier)
-                .searchCustomers(search: query);
-            final customerState = ref.read(customersSearchNotifierProvider);
+                .read(usersSearchNotifierProvider.notifier)
+                .searchUsers(search: query);
+            final userState = ref.read(usersSearchNotifierProvider);
 
-            return customerState.customers
+            return userState.users
                 .map(
-                  (customer) => AppSearchableDropdownItem<String>(
-                    value: customer.id,
-                    label: '${customer.fullName} (${customer.email})',
+                  (user) => AppSearchableDropdownItem<String>(
+                    value: user.id.toString(),
+                    label: '${user.fullName} (${user.email})',
                     searchKey:
-                        '${customer.fullName} ${customer.fullNameKana} ${customer.email} ${customer.phoneNumber ?? ''}',
+                        '${user.fullName} ${user.fullNameKana} ${user.email} ${user.phoneNumber}',
                   ),
                 )
                 .toList();
           },
           onLoadMore: () async {
-            final customerState = ref.read(customersSearchNotifierProvider);
+            final userState = ref.read(usersSearchNotifierProvider);
             await ref
-                .read(customersSearchNotifierProvider.notifier)
+                .read(usersSearchNotifierProvider.notifier)
                 .loadMoreSearchResults(search: '');
-            final updatedState = ref.read(customersSearchNotifierProvider);
+            final updatedState = ref.read(usersSearchNotifierProvider);
 
-            final currentCustomers = customerState.customers
-                .map((c) => c.id)
-                .toSet();
-            final newCustomers = updatedState.customers
-                .where((c) => !currentCustomers.contains(c.id))
+            final currentUsers = userState.users.map((u) => u.id).toSet();
+            final newUsers = updatedState.users
+                .where((u) => !currentUsers.contains(u.id))
                 .toList();
 
-            return newCustomers
+            return newUsers
                 .map(
-                  (customer) => AppSearchableDropdownItem<String>(
-                    value: customer.id,
-                    label: '${customer.fullName} (${customer.email})',
+                  (user) => AppSearchableDropdownItem<String>(
+                    value: user.id.toString(),
+                    label: '${user.fullName} (${user.email})',
                     searchKey:
-                        '${customer.fullName} ${customer.fullNameKana} ${customer.email} ${customer.phoneNumber ?? ''}',
+                        '${user.fullName} ${user.fullNameKana} ${user.email} ${user.phoneNumber}',
                   ),
                 )
                 .toList();
           },
           enableInfiniteScroll: true,
           validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please select a customer';
-            }
+            // User is now optional, so no validation required
             return null;
           },
         ),
         const SizedBox(height: 16),
         if (_isEditMode && widget.reservation?.customerInfo != null)
-          // Show existing customer info for edit mode
+          // Show existing user info for edit mode
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Theme.of(
                 context,
-              ).colorScheme.surfaceVariant.withOpacity(0.3),
+              ).colorScheme.surfaceContainerHighest.withOpacity(0.3),
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
                 color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
@@ -647,7 +681,7 @@ class _AdminUpsertReservationScreenState
             decoration: BoxDecoration(
               color: Theme.of(
                 context,
-              ).colorScheme.surfaceVariant.withOpacity(0.1),
+              ).colorScheme.surfaceContainerHighest.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
                 color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
@@ -662,14 +696,14 @@ class _AdminUpsertReservationScreenState
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
                 const SizedBox(height: 8),
-                AppText(
+                const AppText(
                   'New Reservation',
                   style: AppTextStyle.bodyMedium,
                   fontWeight: FontWeight.w500,
                 ),
                 const SizedBox(height: 4),
-                AppText(
-                  'Customer information will be collected during reservation process',
+                const AppText(
+                  'User information will be collected during reservation process',
                   style: AppTextStyle.bodySmall,
                   textAlign: TextAlign.center,
                 ),
@@ -688,7 +722,9 @@ class _AdminUpsertReservationScreenState
         const SizedBox(height: 16),
         // Menu Selection
         AppSearchableDropdown<String>(
-          key: ValueKey('menu_searchable_dropdown_${_isEditMode}'),
+          key: ValueKey(
+            'menu_searchable_dropdown_${widget.reservation?.id ?? "new"}',
+          ),
           name: 'menu_id',
           label: 'Menu',
           hintText: 'Search and select a menu',
@@ -755,6 +791,11 @@ class _AdminUpsertReservationScreenState
           label: 'Reservation Date & Time',
           placeHolder: 'YYYY-MM-DD HH:MM',
           type: AppTextFieldType.text,
+          initialValue: _isEditMode && widget.reservation != null
+              ? DateFormat(
+                  'yyyy-MM-dd HH:mm',
+                ).format(widget.reservation!.reservationDatetime)
+              : null,
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter reservation date and time';
@@ -776,6 +817,9 @@ class _AdminUpsertReservationScreenState
                 label: 'Number of People',
                 placeHolder: '1',
                 type: AppTextFieldType.number,
+                initialValue: _isEditMode && widget.reservation != null
+                    ? widget.reservation!.numberOfPeople.toString()
+                    : null,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter number of people';
@@ -795,6 +839,9 @@ class _AdminUpsertReservationScreenState
                 label: 'Amount',
                 placeHolder: '0',
                 type: AppTextFieldType.number,
+                initialValue: _isEditMode && widget.reservation != null
+                    ? widget.reservation!.amount.raw
+                    : null,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter amount';
@@ -814,14 +861,11 @@ class _AdminUpsertReservationScreenState
   }
 
   Widget _buildCustomerSettings(L10n l10n) {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const AppText(
-          'Additional Information',
-          style: AppTextStyle.titleMedium,
-        ),
-        const SizedBox(height: 16),
+        AppText('Additional Information', style: AppTextStyle.titleMedium),
+        SizedBox(height: 16),
         AppTextField(
           name: 'notes',
           label: 'Notes',

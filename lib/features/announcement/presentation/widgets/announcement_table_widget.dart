@@ -243,7 +243,7 @@ class _AnnouncementTableWidgetState
                 TextButton.icon(
                   onPressed: _bulkDelete,
                   icon: const Icon(Icons.delete, color: Colors.red, size: 18),
-                  label: Text(
+                  label: const Text(
                     'Delete Selected',
                     style: TextStyle(color: Colors.red, fontSize: 12),
                   ),
@@ -280,8 +280,8 @@ class _AnnouncementTableWidgetState
           const SizedBox(height: 16),
         ],
 
-        Padding(
-          padding: const EdgeInsets.only(left: 4, bottom: 8),
+        const Padding(
+          padding: EdgeInsets.only(left: 4, bottom: 8),
           child: AppText('Announcements', style: AppTextStyle.titleLarge),
         ),
         Card(
@@ -300,7 +300,9 @@ class _AnnouncementTableWidgetState
                   horizontal: 16,
                   vertical: 8,
                 ),
-                color: context.colorScheme.surfaceVariant.withOpacity(0.3),
+                color: context.colorScheme.surfaceContainerHighest.withOpacity(
+                  0.3,
+                ),
                 child: Row(
                   children: [
                     Icon(
@@ -355,7 +357,7 @@ class _AnnouncementTableWidgetState
                                 child: TextButton.icon(
                                   onPressed: widget.onLoadMore,
                                   icon: const Icon(Icons.expand_more, size: 16),
-                                  label: AppText(
+                                  label: const AppText(
                                     'Load More',
                                     style: AppTextStyle.bodyMedium,
                                   ),
@@ -432,7 +434,7 @@ class _AnnouncementTableWidgetState
       color: context.colorScheme.surface.withOpacity(0.5),
       child: Row(
         children: [
-          SizedBox(
+          const SizedBox(
             width: 60,
             child: AppText('NO.', fontWeight: FontWeight.bold),
           ),
@@ -483,8 +485,12 @@ class _AnnouncementTableWidgetState
     final isSelected = _selectedAnnouncementIds.contains(announcement.id);
 
     return GestureDetector(
-      onLongPress: isSelected ? null : () => _toggleSelection(announcement.id),
-      onTap: () => _toggleSelection(announcement.id),
+      onLongPress: _selectedAnnouncementIds.isEmpty
+          ? () => _toggleSelection(announcement.id)
+          : null,
+      onTap: _selectedAnnouncementIds.isNotEmpty
+          ? () => _toggleSelection(announcement.id)
+          : null,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(

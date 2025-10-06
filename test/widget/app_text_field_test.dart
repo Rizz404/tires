@@ -11,7 +11,7 @@ void main() {
           home: Scaffold(
             body: FormBuilder(
               key: GlobalKey<FormBuilderState>(),
-              child: AppTextField(
+              child: const AppTextField(
                 name: 'test',
                 label: 'Test Label',
                 placeHolder: 'Test Placeholder',
@@ -33,7 +33,7 @@ void main() {
           home: Scaffold(
             body: FormBuilder(
               key: GlobalKey<FormBuilderState>(),
-              child: AppTextField(
+              child: const AppTextField(
                 name: 'price',
                 label: 'Price',
                 type: AppTextFieldType.priceJP,
@@ -55,7 +55,7 @@ void main() {
           home: Scaffold(
             body: FormBuilder(
               key: GlobalKey<FormBuilderState>(),
-              child: AppTextField(
+              child: const AppTextField(
                 name: 'price',
                 label: 'Price',
                 type: AppTextFieldType.priceUS,
@@ -77,7 +77,7 @@ void main() {
           home: Scaffold(
             body: FormBuilder(
               key: GlobalKey<FormBuilderState>(),
-              child: AppTextField(
+              child: const AppTextField(
                 name: 'password',
                 label: 'Password',
                 type: AppTextFieldType.password,
@@ -97,7 +97,7 @@ void main() {
           home: Scaffold(
             body: FormBuilder(
               key: GlobalKey<FormBuilderState>(),
-              child: AppTextField(
+              child: const AppTextField(
                 name: 'email',
                 label: 'Email',
                 type: AppTextFieldType.email,
@@ -117,7 +117,7 @@ void main() {
           home: Scaffold(
             body: FormBuilder(
               key: GlobalKey<FormBuilderState>(),
-              child: AppTextField(
+              child: const AppTextField(
                 name: 'description',
                 label: 'Description',
                 type: AppTextFieldType.multiline,
@@ -138,7 +138,7 @@ void main() {
           home: Scaffold(
             body: FormBuilder(
               key: GlobalKey<FormBuilderState>(),
-              child: AppTextField(
+              child: const AppTextField(
                 name: 'number',
                 label: 'Number',
                 type: AppTextFieldType.number,
@@ -158,7 +158,7 @@ void main() {
           home: Scaffold(
             body: FormBuilder(
               key: GlobalKey<FormBuilderState>(),
-              child: AppTextField(
+              child: const AppTextField(
                 name: 'phone',
                 label: 'Phone',
                 type: AppTextFieldType.phone,
@@ -178,7 +178,7 @@ void main() {
           home: Scaffold(
             body: FormBuilder(
               key: GlobalKey<FormBuilderState>(),
-              child: AppTextField(
+              child: const AppTextField(
                 name: 'url',
                 label: 'Website',
                 type: AppTextFieldType.url,
@@ -198,7 +198,7 @@ void main() {
           home: Scaffold(
             body: FormBuilder(
               key: GlobalKey<FormBuilderState>(),
-              child: Column(
+              child: const Column(
                 children: [
                   AppTextField(
                     name: 'email',

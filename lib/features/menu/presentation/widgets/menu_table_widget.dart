@@ -253,7 +253,7 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
                   icon: const Icon(Icons.delete, color: Colors.red, size: 18),
                   label: Text(
                     context.l10n.adminListMenuScreenDeleteSelected,
-                    style: TextStyle(color: Colors.red, fontSize: 12),
+                    style: const TextStyle(color: Colors.red, fontSize: 12),
                   ),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -266,7 +266,7 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
                   onPressed: _clearSelection,
                   child: Text(
                     context.l10n.adminListMenuScreenClearSelection,
-                    style: TextStyle(fontSize: 12),
+                    style: const TextStyle(fontSize: 12),
                   ),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -303,7 +303,9 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
                   horizontal: 16,
                   vertical: 8,
                 ),
-                color: context.colorScheme.surfaceVariant.withOpacity(0.3),
+                color: context.colorScheme.surfaceContainerHighest.withOpacity(
+                  0.3,
+                ),
                 child: Row(
                   children: [
                     Icon(
@@ -358,7 +360,7 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
                                 child: TextButton.icon(
                                   onPressed: widget.onLoadMore,
                                   icon: const Icon(Icons.expand_more, size: 16),
-                                  label: AppText(
+                                  label: const AppText(
                                     'Load More',
                                     style: AppTextStyle.bodyMedium,
                                   ),
@@ -504,8 +506,12 @@ class _MenuTableWidgetState extends ConsumerState<MenuTableWidget> {
     final isSelected = _selectedMenuIds.contains(menu.id);
 
     return GestureDetector(
-      onLongPress: isSelected ? null : () => _toggleSelection(menu.id),
-      onTap: () => _toggleSelection(menu.id),
+      onLongPress: _selectedMenuIds.isEmpty
+          ? () => _toggleSelection(menu.id)
+          : null,
+      onTap: _selectedMenuIds.isNotEmpty
+          ? () => _toggleSelection(menu.id)
+          : null,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
