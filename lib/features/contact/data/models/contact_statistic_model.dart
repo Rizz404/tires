@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:tires/features/contact/domain/entities/contact_statistic.dart';
 
 class ContactStatisticModel {
-  final int total;
-  final int pending;
-  final int replied;
-  final int today;
+  final num total;
+  final num pending;
+  final num replied;
+  final num today;
 
   ContactStatisticModel({
     required this.total,
@@ -17,10 +17,10 @@ class ContactStatisticModel {
 
   factory ContactStatisticModel.fromMap(Map<String, dynamic> map) {
     return ContactStatisticModel(
-      total: map['total'] as int,
-      pending: map['pending'] as int,
-      replied: map['replied'] as int,
-      today: map['today'] as int? ?? 0,
+      total: map['total'] as num,
+      pending: map['pending'] as num,
+      replied: map['replied'] as num,
+      today: map['today'] as num? ?? 0,
     );
   }
 

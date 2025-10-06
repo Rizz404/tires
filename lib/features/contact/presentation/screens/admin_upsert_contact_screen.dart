@@ -52,6 +52,14 @@ class _AdminUpsertContactScreenState
     }
   }
 
+  @override
+  void dispose() {
+    _formKey.currentState?.fields.forEach((key, field) {
+      field.dispose();
+    });
+    super.dispose();
+  }
+
   void _populateForm() {
     final contact = widget.contact;
     if (contact != null) {

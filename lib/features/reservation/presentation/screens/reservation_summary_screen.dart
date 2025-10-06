@@ -35,6 +35,14 @@ class _ReservationSummaryScreenState
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override
+  void dispose() {
+    _formKey.currentState?.fields.forEach((key, field) {
+      field.dispose();
+    });
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final reservation = ref.watch(pendingReservationProvider);
     final mutationState = ref.watch(reservationMutationNotifierProvider);

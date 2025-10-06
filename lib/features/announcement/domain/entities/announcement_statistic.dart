@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 class AnnouncementStatistic extends Equatable {
-  final int totalAnnouncements;
-  final int active;
-  final int inactive;
-  final int today;
+  final num totalAnnouncements;
+  final num active;
+  final num inactive;
+  final num today;
 
   AnnouncementStatistic({
     required this.totalAnnouncements,

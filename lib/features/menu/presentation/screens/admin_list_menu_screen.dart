@@ -31,6 +31,14 @@ class _AdminListMenuScreenState extends ConsumerState<AdminListMenuScreen> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   bool _isFilterVisible = true;
 
+  @override
+  void dispose() {
+    _formKey.currentState?.fields.forEach((key, field) {
+      field.dispose();
+    });
+    super.dispose();
+  }
+
   // Store current filter values
   String? _currentSearch;
   String? _currentStatus;

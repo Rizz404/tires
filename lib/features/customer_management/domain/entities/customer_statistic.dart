@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class CustomerStatistic extends Equatable {
   final Statistic statistics;
-  final int totalCustomers;
+  final num totalCustomers;
 
   const CustomerStatistic({
     required this.statistics,
@@ -14,9 +14,9 @@ class CustomerStatistic extends Equatable {
 }
 
 class Statistic extends Equatable {
-  final int firstTime;
-  final int repeat;
-  final int dormant;
+  final num firstTime;
+  final num repeat;
+  final num dormant;
 
   Statistic({
     required this.firstTime,

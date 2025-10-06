@@ -15,13 +15,13 @@ class BlockedPeriodStatisticModel extends BlockedPeriodStatistic {
   factory BlockedPeriodStatisticModel.fromMap(Map<String, dynamic> map) {
     try {
       return BlockedPeriodStatisticModel(
-        total: (map['total'] as int?) ?? 0,
-        active: (map['active'] as int?) ?? 0,
-        upcoming: (map['upcoming'] as int?) ?? 0,
-        expired: (map['expired'] as int?) ?? 0,
-        allMenus: (map['all_menus'] as int?) ?? 0,
-        specificMenus: (map['specific_menus'] as int?) ?? 0,
-        totalDurationHours: (map['total_duration_hours'] as int?) ?? 0,
+        total: (map['total'] as num?) ?? 0,
+        active: (map['active'] as num?) ?? 0,
+        upcoming: (map['upcoming'] as num?) ?? 0,
+        expired: (map['expired'] as num?) ?? 0,
+        allMenus: (map['all_menus'] as num?) ?? 0,
+        specificMenus: (map['specific_menus'] as num?) ?? 0,
+        totalDurationHours: (map['total_duration_hours'] as num?) ?? 0,
       );
     } catch (e, stackTrace) {
       print('❌ Error in BlockedPeriodStatisticModel.fromMap: $e');

@@ -131,6 +131,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   }
 
   @override
+  void dispose() {
+    _formKey.currentState?.fields.forEach((key, field) {
+      field.dispose();
+    });
+    _passwordFormKey.currentState?.fields.forEach((key, field) {
+      field.dispose();
+    });
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // Watch the current user state and populate form immediately if user exists
     final userGetState = ref.watch(currentUserGetNotifierProvider);

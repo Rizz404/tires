@@ -76,6 +76,14 @@ class _AdminUpsertReservationScreenState
     });
   }
 
+  @override
+  void dispose() {
+    _formKey.currentState?.fields.forEach((key, field) {
+      field.dispose();
+    });
+    super.dispose();
+  }
+
   Future<void> _loadMenus() async {
     setState(() {
       _isLoadingMenus = true;

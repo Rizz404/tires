@@ -13,10 +13,10 @@ class AnnouncementStatisticModel extends AnnouncementStatistic {
     try {
       print('🔍 AnnouncementStatisticModel.fromMap called with: $map');
       return AnnouncementStatisticModel(
-        totalAnnouncements: (map['total_announcements'] as int?) ?? 0,
-        active: (map['active'] as int?) ?? 0,
-        inactive: (map['inactive'] as int?) ?? 0,
-        today: (map['today'] as int?) ?? 0,
+        totalAnnouncements: (map['total_announcements'] as num?) ?? 0,
+        active: (map['active'] as num?) ?? 0,
+        inactive: (map['inactive'] as num?) ?? 0,
+        today: (map['today'] as num?) ?? 0,
       );
     } catch (e, stackTrace) {
       print('❌ Error in AnnouncementStatisticModel.fromMap: $e');

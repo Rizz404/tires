@@ -42,6 +42,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _formKey.currentState?.fields.forEach((key, field) {
+      field.dispose();
+    });
+    super.dispose();
+  }
+
   void _handleSubmit(WidgetRef ref) {
     setState(() {
       _validationErrors = null;

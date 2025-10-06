@@ -140,11 +140,11 @@ class StatisticsModel extends Statistics {
 
   factory StatisticsModel.fromMap(Map<String, dynamic> map) {
     return StatisticsModel(
-      totalReservations: (map['total_reservations'] as int?) ?? 0,
-      pending: (map['pending'] as int?) ?? 0,
-      confirmed: (map['confirmed'] as int?) ?? 0,
-      completed: (map['completed'] as int?) ?? 0,
-      cancelled: (map['cancelled'] as int?) ?? 0,
+      totalReservations: (map['total_reservations'] as num?) ?? 0,
+      pending: (map['pending'] as num?) ?? 0,
+      confirmed: (map['confirmed'] as num?) ?? 0,
+      completed: (map['completed'] as num?) ?? 0,
+      cancelled: (map['cancelled'] as num?) ?? 0,
     );
   }
 

@@ -41,11 +41,11 @@ class Dashboard extends Equatable {
 }
 
 class Statistics extends Equatable {
-  final int newCustomersThisMonth;
-  final int onlineReservationsThisMonth;
-  final int totalCustomers;
-  final int customersUntilLimit;
-  final int customerLimit;
+  final num newCustomersThisMonth;
+  final num onlineReservationsThisMonth;
+  final num totalCustomers;
+  final num customersUntilLimit;
+  final num customerLimit;
 
   Statistics({
     required this.newCustomersThisMonth,

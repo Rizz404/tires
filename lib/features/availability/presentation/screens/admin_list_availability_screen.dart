@@ -45,6 +45,9 @@ class _AdminListAvailabilityScreenState
 
   @override
   void dispose() {
+    _formKey.currentState?.fields.forEach((key, field) {
+      field.dispose();
+    });
     _scrollController.dispose();
     super.dispose();
   }

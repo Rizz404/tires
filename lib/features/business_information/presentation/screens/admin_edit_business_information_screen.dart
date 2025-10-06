@@ -52,6 +52,14 @@ class _AdminEditBusinessInformationScreenState
     });
   }
 
+  @override
+  void dispose() {
+    _formKey.currentState?.fields.forEach((key, field) {
+      field.dispose();
+    });
+    super.dispose();
+  }
+
   void _populateForm() {
     final businessInfo = widget.businessInformation;
     final Map<String, dynamic> formValues = {

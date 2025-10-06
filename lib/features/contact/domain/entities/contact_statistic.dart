@@ -11,10 +11,10 @@ class ContactStatistic extends Equatable {
 }
 
 class Statistics extends Equatable {
-  final int total;
-  final int pending;
-  final int replied;
-  final int today;
+  final num total;
+  final num pending;
+  final num replied;
+  final num today;
 
   Statistics({
     required this.total,

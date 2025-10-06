@@ -87,11 +87,11 @@ class Navigation extends Equatable {
 }
 
 class Statistics extends Equatable {
-  final int totalReservations;
-  final int pending;
-  final int confirmed;
-  final int completed;
-  final int cancelled;
+  final num totalReservations;
+  final num pending;
+  final num confirmed;
+  final num completed;
+  final num cancelled;
 
   const Statistics({
     required this.totalReservations,

@@ -30,6 +30,14 @@ class _AdminListAnnouncementScreenState
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   bool _isFilterVisible = true;
 
+  @override
+  void dispose() {
+    _formKey.currentState?.fields.forEach((key, field) {
+      field.dispose();
+    });
+    super.dispose();
+  }
+
   Future<void> _refreshAnnouncements() async {
     // Save the form first to ensure all values are captured
     _formKey.currentState?.save();

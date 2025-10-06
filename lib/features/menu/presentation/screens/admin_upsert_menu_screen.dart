@@ -52,6 +52,14 @@ class _AdminUpsertMenuScreenState extends ConsumerState<AdminUpsertMenuScreen> {
     }
   }
 
+  @override
+  void dispose() {
+    _formKey.currentState?.fields.forEach((key, field) {
+      field.dispose();
+    });
+    super.dispose();
+  }
+
   Color _colorFromHex(String hexColor) {
     try {
       hexColor = hexColor.toUpperCase().replaceAll("#", "");

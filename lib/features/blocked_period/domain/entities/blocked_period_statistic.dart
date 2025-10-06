@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 class BlockedPeriodStatistic extends Equatable {
-  final int total;
-  final int active;
-  final int upcoming;
-  final int expired;
-  final int allMenus;
-  final int specificMenus;
-  final int totalDurationHours;
+  final num total;
+  final num active;
+  final num upcoming;
+  final num expired;
+  final num allMenus;
+  final num specificMenus;
+  final num totalDurationHours;
 
   const BlockedPeriodStatistic({
     required this.total,

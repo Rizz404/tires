@@ -38,6 +38,14 @@ class _AdminListCustomerManagementScreenState
     });
   }
 
+  @override
+  void dispose() {
+    _formKey.currentState?.fields.forEach((key, field) {
+      field.dispose();
+    });
+    super.dispose();
+  }
+
   Future<void> _refreshCustomers() async {
     await Future.wait([
       ref.read(customersNotifierProvider.notifier).refresh(),

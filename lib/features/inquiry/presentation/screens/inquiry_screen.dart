@@ -32,6 +32,14 @@ class _InquiryScreenState extends ConsumerState<InquiryScreen> {
   User? _currentUser;
   bool _isSubmitting = false; // Add flag to prevent multiple submissions
 
+  @override
+  void dispose() {
+    _formKey.currentState?.fields.forEach((key, field) {
+      field.dispose();
+    });
+    super.dispose();
+  }
+
   void _populateForm() {
     if (_currentUser != null && _formKey.currentState != null) {
       _formKey.currentState!.patchValue({

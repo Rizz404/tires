@@ -11,11 +11,11 @@ class CustomerStatisticModel extends CustomerStatistic {
     final statistics = map['statistics'] as Map<String, dynamic>;
 
     return CustomerStatisticModel(
-      totalCustomers: map['total_customers'] as int,
+      totalCustomers: map['total_customers'] as num,
       statistics: Statistic(
-        firstTime: statistics['first_time'] as int,
-        repeat: statistics['repeat'] as int,
-        dormant: statistics['dormant'] as int,
+        firstTime: statistics['first_time'] as num,
+        repeat: statistics['repeat'] as num,
+        dormant: statistics['dormant'] as num,
       ),
     );
   }

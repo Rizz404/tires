@@ -56,6 +56,14 @@ class _AdminUpsertAnnouncementScreenState
     }
   }
 
+  @override
+  void dispose() {
+    _formKey.currentState?.fields.forEach((key, field) {
+      field.dispose();
+    });
+    super.dispose();
+  }
+
   void _populateForm() {
     final announcement = widget.announcement;
     if (announcement != null) {

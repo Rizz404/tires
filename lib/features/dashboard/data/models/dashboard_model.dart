@@ -107,12 +107,12 @@ class StatisticsModel extends Statistics {
 
   factory StatisticsModel.fromMap(Map<String, dynamic> map) {
     return StatisticsModel(
-      newCustomersThisMonth: (map['new_customers_this_month'] as int?) ?? 0,
+      newCustomersThisMonth: (map['new_customers_this_month'] as num?) ?? 0,
       onlineReservationsThisMonth:
-          (map['online_reservations_this_month'] as int?) ?? 0,
-      totalCustomers: (map['total_customers'] as int?) ?? 0,
-      customersUntilLimit: (map['customers_until_limit'] as int?) ?? 0,
-      customerLimit: (map['customer_limit'] as int?) ?? 0,
+          (map['online_reservations_this_month'] as num?) ?? 0,
+      totalCustomers: (map['total_customers'] as num?) ?? 0,
+      customersUntilLimit: (map['customers_until_limit'] as num?) ?? 0,
+      customerLimit: (map['customer_limit'] as num?) ?? 0,
     );
   }
 
