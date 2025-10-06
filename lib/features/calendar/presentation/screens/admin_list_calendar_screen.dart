@@ -51,17 +51,28 @@ class _AdminListCalendarScreenState
   final GlobalKey<FormBuilderState> _filterFormKey =
       GlobalKey<FormBuilderState>();
   bool _isFilterVisible = true;
+  bool _isDisposed = false;
 
   @override
   void initState() {
     super.initState();
     _selectedDay = DateTime.now();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadCalendarData();
+      if (mounted) {
+        _loadCalendarData();
+      }
     });
   }
 
+  @override
+  void dispose() {
+    _isDisposed = true;
+    super.dispose();
+  }
+
   Future<void> _loadCalendarData() async {
+    if (_isDisposed) return;
+
     // Determine the appropriate date parameter based on current view
     DateTime dateParam;
     switch (_currentView) {
@@ -88,9 +99,11 @@ class _AdminListCalendarScreenState
           forceRefresh: needsForceRefresh,
         );
 
-    // Update tracking
-    _lastFetchedView = _currentView;
-    _lastFetchedDate = dateParam;
+    // Update tracking only if widget is still mounted
+    if (mounted && !_isDisposed) {
+      _lastFetchedView = _currentView;
+      _lastFetchedDate = dateParam;
+    }
   }
 
   bool _isSamePeriod(
@@ -116,13 +129,15 @@ class _AdminListCalendarScreenState
   }
 
   Future<void> _refreshData() async {
+    if (_isDisposed) return;
+
     // Force refresh by clearing tracking
     _lastFetchedView = null;
     _lastFetchedDate = null;
     await _loadCalendarData();
 
     // Also refresh reservations for list view
-    if (_displayMode == CalendarDisplayMode.list) {
+    if (_displayMode == CalendarDisplayMode.list && mounted && !_isDisposed) {
       await ref
           .read(reservationGetNotifierProvider.notifier)
           .refreshReservations();
@@ -145,6 +160,8 @@ class _AdminListCalendarScreenState
   }
 
   Future<void> _onDaySelected(DateTime selectedDay, DateTime focusedDay) async {
+    if (_isDisposed || !mounted) return;
+
     if (!isSameDay(_selectedDay, selectedDay)) {
       setState(() {
         _selectedDay = selectedDay;
@@ -166,6 +183,8 @@ class _AdminListCalendarScreenState
 
   Future<void> _onPageChanged(DateTime focusedDay) async {
     // Only update if the focused day actually changed to prevent unnecessary calls during scroll
+    if (_isDisposed || !mounted) return;
+
     if (!isSameDay(_focusedDay, focusedDay)) {
       setState(() {
         _focusedDay = focusedDay;
@@ -198,7 +217,9 @@ class _AdminListCalendarScreenState
             text: 'Add Reservation',
             leadingIcon: const Icon(Icons.add),
             onPressed: () {
-              context.router.push(AdminUpsertReservationRoute());
+              if (mounted) {
+                context.router.push(AdminUpsertReservationRoute());
+              }
             },
           ),
         ],
@@ -237,6 +258,8 @@ class _AdminListCalendarScreenState
                 child: CalendarListViewToggleWidget(
                   currentMode: _displayMode,
                   onModeChanged: (mode) async {
+                    if (!mounted) return;
+
                     setState(() {
                       _displayMode = mode;
                     });
@@ -256,6 +279,8 @@ class _AdminListCalendarScreenState
                   child: CalendarViewToggleWidget(
                     currentView: _currentView,
                     onViewChanged: (view) async {
+                      if (!mounted) return;
+
                       setState(() {
                         _currentView = view;
                         _calendarFormat =
@@ -294,7 +319,9 @@ class _AdminListCalendarScreenState
                       _selectedDay ?? DateTime.now(),
                     ),
                     onReservationTap: (calendarReservation) {
-                      context.router.push(AdminUpsertReservationRoute());
+                      if (mounted) {
+                        context.router.push(AdminUpsertReservationRoute());
+                      }
                     },
                   ),
                 ),

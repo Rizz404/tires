@@ -8,6 +8,7 @@ import 'package:tires/features/menu/presentation/providers/menu_notifier.dart';
 import 'package:tires/features/menu/presentation/providers/menu_state.dart';
 import 'package:tires/features/menu/presentation/providers/menu_statistics_notifier.dart';
 import 'package:tires/features/menu/presentation/providers/menu_statistics_state.dart';
+import 'package:tires/features/menu/presentation/providers/admin_menus_search_notifier.dart';
 
 final adminMenuGetNotifierProvider =
     NotifierProvider<AdminMenusNotifier, AdminMenusState>(
@@ -49,3 +50,8 @@ final menuErrorProvider = Provider<String?>((ref) {
   final menuState = ref.watch(menuNotifierProvider);
   return menuState.errorMessage;
 });
+
+final adminMenusSearchNotifierProvider =
+    NotifierProvider<AdminMenusSearchNotifier, AdminMenusState>(
+      AdminMenusSearchNotifier.new,
+    );

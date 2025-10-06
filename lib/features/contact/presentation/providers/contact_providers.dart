@@ -5,6 +5,7 @@ import 'package:tires/features/contact/presentation/providers/contacts_notifier.
 import 'package:tires/features/contact/presentation/providers/contacts_state.dart';
 import 'package:tires/features/contact/presentation/providers/contact_statistics_notifier.dart';
 import 'package:tires/features/contact/presentation/providers/contact_statistics_state.dart';
+import 'package:tires/features/contact/presentation/providers/contacts_search_notifier.dart';
 
 final contactGetNotifierProvider =
     NotifierProvider<ContactsNotifier, ContactsState>(ContactsNotifier.new);
@@ -17,4 +18,9 @@ final contactMutationNotifierProvider =
 final contactStatisticsNotifierProvider =
     NotifierProvider<ContactStatisticsNotifier, ContactStatisticsState>(
       ContactStatisticsNotifier.new,
+    );
+
+final contactSearchNotifierProvider =
+    NotifierProvider<ContactsSearchNotifier, ContactsState>(
+      ContactsSearchNotifier.new,
     );

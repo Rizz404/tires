@@ -5,6 +5,7 @@ import 'package:tires/features/announcement/presentation/providers/announcements
 import 'package:tires/features/announcement/presentation/providers/announcements_state.dart';
 import 'package:tires/features/announcement/presentation/providers/announcement_statistics_notifier.dart';
 import 'package:tires/features/announcement/presentation/providers/announcement_statistics_state.dart';
+import 'package:tires/features/announcement/presentation/providers/announcements_search_notifier.dart';
 
 final announcementGetNotifierProvider =
     NotifierProvider<AnnouncementsNotifier, AnnouncementsState>(
@@ -21,3 +22,8 @@ final announcementStatisticsNotifierProvider =
       AnnouncementStatisticsNotifier,
       AnnouncementStatisticsState
     >(AnnouncementStatisticsNotifier.new);
+
+final announcementSearchNotifierProvider =
+    NotifierProvider<AnnouncementsSearchNotifier, AnnouncementsState>(
+      AnnouncementsSearchNotifier.new,
+    );

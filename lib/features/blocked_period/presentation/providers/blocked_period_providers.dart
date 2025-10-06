@@ -5,6 +5,7 @@ import 'package:tires/features/blocked_period/presentation/providers/blocked_per
 import 'package:tires/features/blocked_period/presentation/providers/blocked_periods_state.dart';
 import 'package:tires/features/blocked_period/presentation/providers/blocked_period_statistics_notifier.dart';
 import 'package:tires/features/blocked_period/presentation/providers/blocked_period_statistics_state.dart';
+import 'package:tires/features/blocked_period/presentation/providers/blocked_periods_search_notifier.dart';
 
 final blockedPeriodGetNotifierProvider =
     NotifierProvider<BlockedPeriodsNotifier, BlockedPeriodsState>(
@@ -21,3 +22,8 @@ final blockedPeriodStatisticsNotifierProvider =
       BlockedPeriodStatisticsNotifier,
       BlockedPeriodStatisticsState
     >(BlockedPeriodStatisticsNotifier.new);
+
+final blockedPeriodSearchNotifierProvider =
+    NotifierProvider<BlockedPeriodsSearchNotifier, BlockedPeriodsState>(
+      BlockedPeriodsSearchNotifier.new,
+    );

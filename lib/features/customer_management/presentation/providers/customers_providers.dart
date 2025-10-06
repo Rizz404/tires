@@ -7,6 +7,7 @@ import 'package:tires/features/customer_management/presentation/providers/custom
 import 'package:tires/features/customer_management/presentation/providers/customer_detail_state.dart';
 import 'package:tires/features/customer_management/presentation/providers/current_user_dashboard_get_notifier.dart';
 import 'package:tires/features/customer_management/presentation/providers/current_user_dashboard_get_state.dart';
+import 'package:tires/features/customer_management/presentation/providers/customers_search_notifier.dart';
 
 final customersNotifierProvider =
     NotifierProvider<CustomersNotifier, CustomersState>(CustomersNotifier.new);
@@ -26,3 +27,8 @@ final currentUserDashboardGetNotifierProvider =
       CurrentUserDashboardGetNotifier,
       CurrentUserDashboardGetState
     >(CurrentUserDashboardGetNotifier.new);
+
+final customersSearchNotifierProvider =
+    NotifierProvider<CustomersSearchNotifier, CustomersState>(
+      CustomersSearchNotifier.new,
+    );

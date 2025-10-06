@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/core/routes/app_router.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
@@ -334,7 +335,20 @@ class _ReservationTableWidgetState
           // Status Column
           SizedBox(width: 120, child: _buildStatusInfo(context, reservation)),
           // Actions Column
-          SizedBox(width: 80, child: _buildActions(context, reservation)),
+          SizedBox(
+            width: 80,
+            child: Center(
+              child: IconButton(
+                icon: const Icon(Icons.more_horiz, size: 20),
+                onPressed: () {
+                  context.router.push(
+                    AdminUpsertReservationRoute(reservation: reservation),
+                  );
+                },
+                tooltip: "To reservation detail",
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -522,52 +536,6 @@ class _ReservationTableWidgetState
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildActions(BuildContext context, Reservation reservation) {
-    return PopupMenuButton<String>(
-      icon: Icon(
-        Icons.more_horiz,
-        size: 20,
-        color: context.colorScheme.primary,
-      ),
-      onSelected: (value) {
-        switch (value) {
-          case 'view':
-            // Navigate to reservation detail - we need to convert CalendarReservation to Reservation
-            // For now, just navigate without reservation object
-            context.router.push(AdminUpsertReservationRoute());
-            break;
-          case 'edit':
-            // Navigate to edit reservation - we need to convert CalendarReservation to Reservation
-            // For now, just navigate without reservation object
-            context.router.push(AdminUpsertReservationRoute());
-            break;
-        }
-      },
-      itemBuilder: (context) => [
-        PopupMenuItem<String>(
-          value: 'view',
-          child: Row(
-            children: [
-              Icon(Icons.visibility_outlined, size: 16),
-              SizedBox(width: 8),
-              Text('View Details'),
-            ],
-          ),
-        ),
-        PopupMenuItem<String>(
-          value: 'edit',
-          child: Row(
-            children: [
-              Icon(Icons.edit_outlined, size: 16),
-              SizedBox(width: 8),
-              Text('Edit'),
-            ],
-          ),
-        ),
-      ],
     );
   }
 

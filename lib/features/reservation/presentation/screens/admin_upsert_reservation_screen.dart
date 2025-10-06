@@ -7,6 +7,8 @@ import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
 import 'package:tires/features/menu/domain/entities/menu.dart';
 import 'package:tires/features/menu/presentation/providers/menu_providers.dart';
+import 'package:tires/features/customer_management/domain/entities/customer.dart';
+import 'package:tires/features/customer_management/presentation/providers/customers_providers.dart';
 import 'package:tires/features/reservation/domain/entities/reservation.dart';
 import 'package:tires/features/reservation/domain/entities/reservation_status.dart';
 
@@ -21,6 +23,7 @@ import 'package:tires/shared/presentation/widgets/admin_end_drawer.dart';
 import 'package:tires/shared/presentation/widgets/app_button.dart';
 import 'package:tires/shared/presentation/widgets/app_dropdown.dart';
 import 'package:tires/shared/presentation/widgets/app_radio_group.dart';
+import 'package:tires/shared/presentation/widgets/app_searchable_dropdown.dart';
 import 'package:tires/shared/presentation/widgets/app_text.dart';
 import 'package:tires/shared/presentation/widgets/app_text_field.dart';
 import 'package:tires/shared/presentation/widgets/error_summary_box.dart';
@@ -46,26 +49,40 @@ class _AdminUpsertReservationScreenState
   bool _isSubmitting = false;
   List<Menu> _availableMenus = [];
   bool _isLoadingMenus = false;
+  List<Customer> _availableCustomers = [];
+  bool _isLoadingCustomers = false;
+  bool _isDisposed = false;
 
   bool get _isEditMode => widget.reservation != null;
 
   String? get _initialMenuValue {
-    if (!_isEditMode || widget.reservation == null || _availableMenus.isEmpty) {
+    if (!_isEditMode || widget.reservation == null) {
       return null;
     }
 
     final reservationMenuId = widget.reservation!.menu.id.toString();
-    final menuExists = _availableMenus.any(
-      (menu) => menu.id.toString() == reservationMenuId,
-    );
 
     debugPrint('DEBUG: _initialMenuValue called');
     debugPrint('DEBUG: reservationMenuId = $reservationMenuId');
-    debugPrint('DEBUG: availableMenus count = ${_availableMenus.length}');
-    debugPrint('DEBUG: menuExists = $menuExists');
-    debugPrint('DEBUG: returning = ${menuExists ? reservationMenuId : null}');
+    debugPrint('DEBUG: returning = $reservationMenuId');
 
-    return menuExists ? reservationMenuId : null;
+    return reservationMenuId;
+  }
+
+  String? get _initialCustomerValue {
+    if (!_isEditMode ||
+        widget.reservation == null ||
+        widget.reservation!.user == null) {
+      return null;
+    }
+
+    final reservationCustomerId = widget.reservation!.user!.id.toString();
+
+    debugPrint('DEBUG: _initialCustomerValue called');
+    debugPrint('DEBUG: reservationCustomerId = $reservationCustomerId');
+    debugPrint('DEBUG: returning = $reservationCustomerId');
+
+    return reservationCustomerId;
   }
 
   @override
@@ -73,21 +90,26 @@ class _AdminUpsertReservationScreenState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadMenus();
+      _loadCustomers();
     });
   }
 
   @override
   void dispose() {
-    _formKey.currentState?.fields.forEach((key, field) {
-      field.dispose();
-    });
+    _isDisposed = true;
+    // Don't manually dispose form fields as FormBuilder handles this
+    // Manual disposal can cause issues if the widget is already being disposed
     super.dispose();
   }
 
   Future<void> _loadMenus() async {
-    setState(() {
-      _isLoadingMenus = true;
-    });
+    if (_isDisposed) return;
+
+    if (mounted) {
+      setState(() {
+        _isLoadingMenus = true;
+      });
+    }
 
     try {
       // Load available menus from provider
@@ -96,10 +118,12 @@ class _AdminUpsertReservationScreenState
           .getInitialAdminMenus();
       final menuState = ref.read(adminMenuGetNotifierProvider);
 
-      setState(() {
-        _availableMenus = menuState.menus;
-        _isLoadingMenus = false;
-      });
+      if (mounted && !_isDisposed) {
+        setState(() {
+          _availableMenus = menuState.menus;
+          _isLoadingMenus = false;
+        });
+      }
 
       debugPrint('DEBUG: Menus loaded, count = ${menuState.menus.length}');
       debugPrint(
@@ -115,25 +139,79 @@ class _AdminUpsertReservationScreenState
       }
 
       // Populate form after menus are loaded and UI is rebuilt
-      if (_isEditMode) {
+      if (_isEditMode && !_isDisposed) {
         debugPrint('DEBUG: Edit mode, calling _populateForm');
         _populateForm();
       }
     } catch (e) {
+      if (mounted && !_isDisposed) {
+        setState(() {
+          _isLoadingMenus = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _loadCustomers() async {
+    if (_isDisposed) return;
+
+    if (mounted) {
       setState(() {
-        _isLoadingMenus = false;
+        _isLoadingCustomers = true;
       });
+    }
+
+    try {
+      // Load available customers from search provider
+      await ref
+          .read(customersSearchNotifierProvider.notifier)
+          .searchCustomers(search: '');
+      final customerState = ref.read(customersSearchNotifierProvider);
+
+      if (mounted && !_isDisposed) {
+        setState(() {
+          _availableCustomers = customerState.customers;
+          _isLoadingCustomers = false;
+        });
+      }
+
+      debugPrint(
+        'DEBUG: Customers loaded, count = ${customerState.customers.length}',
+      );
+      debugPrint(
+        'DEBUG: Available customer IDs: ${customerState.customers.map((c) => c.id).toList()}',
+      );
+      if (_isEditMode && widget.reservation?.user != null) {
+        debugPrint(
+          'DEBUG: Current reservation customer ID: ${widget.reservation!.user!.id}',
+        );
+      }
+
+      // Populate form after customers are loaded and UI is rebuilt
+      if (_isEditMode && !_isDisposed) {
+        debugPrint('DEBUG: Edit mode, calling _populateForm');
+        _populateForm();
+      }
+    } catch (e) {
+      if (mounted && !_isDisposed) {
+        setState(() {
+          _isLoadingCustomers = false;
+        });
+      }
     }
   }
 
   void _populateForm() {
+    if (_isDisposed) return;
+
     final reservation = widget.reservation;
     if (reservation != null) {
       // Use Future.delayed to ensure form is fully built before patching values
       Future.delayed(const Duration(milliseconds: 100), () {
-        if (_formKey.currentState != null) {
+        if (_formKey.currentState != null && mounted && !_isDisposed) {
           _formKey.currentState?.patchValue({
             // Don't set menu_id here, let initialValue handle it
+            'customer_id': reservation.user?.id.toString(),
             'reservation_datetime': DateFormat(
               'yyyy-MM-dd HH:mm',
             ).format(reservation.reservationDatetime),
@@ -148,7 +226,7 @@ class _AdminUpsertReservationScreenState
   }
 
   void _handleSubmit(WidgetRef ref) {
-    if (_isSubmitting) return;
+    if (_isSubmitting || !mounted) return;
 
     setState(() {
       _validationErrors = null;
@@ -160,6 +238,7 @@ class _AdminUpsertReservationScreenState
       final notifier = ref.read(reservationMutationNotifierProvider.notifier);
 
       final menuId = int.parse(values['menu_id'] as String);
+      final customerId = values['customer_id'] as String?;
       final reservationDatetime = DateFormat(
         'yyyy-MM-dd HH:mm',
       ).parse(values['reservation_datetime'] as String);
@@ -177,7 +256,9 @@ class _AdminUpsertReservationScreenState
           UpdateReservationParams(
             id: widget.reservation!.id,
             reservationNumber: widget.reservation!.reservationNumber,
-            userId: widget.reservation!.user?.id,
+            userId: customerId != null
+                ? int.tryParse(customerId)
+                : widget.reservation!.user?.id,
             menuId: menuId,
             reservationDatetime: reservationDatetime,
             numberOfPeople: numberOfPeople,
@@ -195,17 +276,21 @@ class _AdminUpsertReservationScreenState
         );
       }
     } else {
-      setState(() {
-        _isSubmitting = false;
-      });
-      AppToast.showError(
-        context,
-        message: 'Please correct the errors in the form.',
-      );
+      if (mounted) {
+        setState(() {
+          _isSubmitting = false;
+        });
+        AppToast.showError(
+          context,
+          message: 'Please correct the errors in the form.',
+        );
+      }
     }
   }
 
   void _showDeleteConfirmationDialog() {
+    if (!mounted) return;
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -230,10 +315,12 @@ class _AdminUpsertReservationScreenState
               text: 'Delete',
               onPressed: () {
                 Navigator.of(context).pop();
-                final notifier = ref.read(
-                  reservationMutationNotifierProvider.notifier,
-                );
-                notifier.deleteReservation(id: widget.reservation!.id);
+                if (mounted) {
+                  final notifier = ref.read(
+                    reservationMutationNotifierProvider.notifier,
+                  );
+                  notifier.deleteReservation(id: widget.reservation!.id);
+                }
               },
               variant: AppButtonVariant.filled,
               color: AppButtonColor.error,
@@ -251,31 +338,37 @@ class _AdminUpsertReservationScreenState
 
     ref.listen(reservationMutationNotifierProvider, (previous, next) {
       if (next.status != ReservationMutationStatus.loading) {
-        setState(() {
-          _isSubmitting = false;
-        });
+        if (mounted) {
+          setState(() {
+            _isSubmitting = false;
+          });
+        }
       }
 
       if (next.status == ReservationMutationStatus.success) {
-        AppToast.showSuccess(
-          context,
-          message:
-              next.successMessage ??
-              (_isEditMode
-                  ? 'Reservation updated successfully'
-                  : 'Reservation created successfully'),
-        );
-        context.router.pop();
+        if (mounted) {
+          AppToast.showSuccess(
+            context,
+            message:
+                next.successMessage ??
+                (_isEditMode
+                    ? 'Reservation updated successfully'
+                    : 'Reservation created successfully'),
+          );
+          context.router.pop();
+        }
       } else if (next.status == ReservationMutationStatus.error &&
           next.failure != null) {
-        if (next.failure is ValidationFailure) {
-          setState(() {
-            _validationErrors = (next.failure as ValidationFailure).errors;
-          });
-        } else {
-          debugPrint(next.failure.toString());
-          debugPrint(next.failure?.message);
-          AppToast.showError(context, message: next.failure!.message);
+        if (mounted) {
+          if (next.failure is ValidationFailure) {
+            setState(() {
+              _validationErrors = (next.failure as ValidationFailure).errors;
+            });
+          } else {
+            debugPrint(next.failure.toString());
+            debugPrint(next.failure?.message);
+            AppToast.showError(context, message: next.failure!.message);
+          }
         }
       }
     });
@@ -363,6 +456,74 @@ class _AdminUpsertReservationScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const AppText('Customer Information', style: AppTextStyle.titleMedium),
+        const SizedBox(height: 16),
+        // Customer Selection Dropdown
+        AppSearchableDropdown<String>(
+          key: ValueKey('customer_searchable_dropdown_${_isEditMode}'),
+          name: 'customer_id',
+          label: 'Customer',
+          hintText: 'Search and select a customer',
+          initialValue: _initialCustomerValue,
+          items: _availableCustomers
+              .map(
+                (customer) => AppSearchableDropdownItem<String>(
+                  value: customer.id,
+                  label: '${customer.fullName} (${customer.email})',
+                  searchKey:
+                      '${customer.fullName} ${customer.fullNameKana} ${customer.email} ${customer.phoneNumber ?? ''}',
+                ),
+              )
+              .toList(),
+          onSearch: (query) async {
+            await ref
+                .read(customersSearchNotifierProvider.notifier)
+                .searchCustomers(search: query);
+            final customerState = ref.read(customersSearchNotifierProvider);
+
+            return customerState.customers
+                .map(
+                  (customer) => AppSearchableDropdownItem<String>(
+                    value: customer.id,
+                    label: '${customer.fullName} (${customer.email})',
+                    searchKey:
+                        '${customer.fullName} ${customer.fullNameKana} ${customer.email} ${customer.phoneNumber ?? ''}',
+                  ),
+                )
+                .toList();
+          },
+          onLoadMore: () async {
+            final customerState = ref.read(customersSearchNotifierProvider);
+            await ref
+                .read(customersSearchNotifierProvider.notifier)
+                .loadMoreSearchResults(search: '');
+            final updatedState = ref.read(customersSearchNotifierProvider);
+
+            final currentCustomers = customerState.customers
+                .map((c) => c.id)
+                .toSet();
+            final newCustomers = updatedState.customers
+                .where((c) => !currentCustomers.contains(c.id))
+                .toList();
+
+            return newCustomers
+                .map(
+                  (customer) => AppSearchableDropdownItem<String>(
+                    value: customer.id,
+                    label: '${customer.fullName} (${customer.email})',
+                    searchKey:
+                        '${customer.fullName} ${customer.fullNameKana} ${customer.email} ${customer.phoneNumber ?? ''}',
+                  ),
+                )
+                .toList();
+          },
+          enableInfiniteScroll: true,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please select a customer';
+            }
+            return null;
+          },
+        ),
         const SizedBox(height: 16),
         if (_isEditMode && widget.reservation?.customerInfo != null)
           // Show existing customer info for edit mode
@@ -526,59 +687,67 @@ class _AdminUpsertReservationScreenState
         const AppText('Reservation Details', style: AppTextStyle.titleMedium),
         const SizedBox(height: 16),
         // Menu Selection
-        _isLoadingMenus
-            ? Container(
-                width: double.infinity,
-                height: 56,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      ),
-                      SizedBox(width: 12),
-                      AppText(
-                        'Loading menus...',
-                        style: AppTextStyle.bodyMedium,
-                      ),
-                    ],
-                  ),
+        AppSearchableDropdown<String>(
+          key: ValueKey('menu_searchable_dropdown_${_isEditMode}'),
+          name: 'menu_id',
+          label: 'Menu',
+          hintText: 'Search and select a menu',
+          initialValue: _initialMenuValue,
+          items: _availableMenus
+              .map(
+                (menu) => AppSearchableDropdownItem<String>(
+                  value: menu.id.toString(),
+                  label: menu.name,
+                  searchKey: '${menu.name} ${menu.description ?? ''}',
                 ),
               )
-            : AppDropdown<String>(
-                key: ValueKey(
-                  'menu_dropdown_${_availableMenus.length}_${_isEditMode}',
-                ),
-                name: 'menu_id',
-                label: 'Menu',
-                hintText: _availableMenus.isEmpty
-                    ? 'No menus available'
-                    : 'Select a menu',
-                initialValue: _initialMenuValue,
-                items: _availableMenus
-                    .map(
-                      (menu) => AppDropdownItem<String>(
-                        value: menu.id.toString(),
-                        label: menu.name,
-                      ),
-                    )
-                    .toList(),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please select a menu';
-                  }
-                  return null;
-                },
-              ),
+              .toList(),
+          onSearch: (query) async {
+            await ref
+                .read(adminMenusSearchNotifierProvider.notifier)
+                .searchAdminMenus(search: query);
+            final menuState = ref.read(adminMenusSearchNotifierProvider);
+
+            return menuState.menus
+                .map(
+                  (menu) => AppSearchableDropdownItem<String>(
+                    value: menu.id.toString(),
+                    label: menu.name,
+                    searchKey: '${menu.name} ${menu.description ?? ''}',
+                  ),
+                )
+                .toList();
+          },
+          onLoadMore: () async {
+            final menuState = ref.read(adminMenusSearchNotifierProvider);
+            await ref
+                .read(adminMenusSearchNotifierProvider.notifier)
+                .loadMoreSearchResults(search: '');
+            final updatedState = ref.read(adminMenusSearchNotifierProvider);
+
+            final currentMenus = menuState.menus.map((m) => m.id).toSet();
+            final newMenus = updatedState.menus
+                .where((m) => !currentMenus.contains(m.id))
+                .toList();
+
+            return newMenus
+                .map(
+                  (menu) => AppSearchableDropdownItem<String>(
+                    value: menu.id.toString(),
+                    label: menu.name,
+                    searchKey: '${menu.name} ${menu.description ?? ''}',
+                  ),
+                )
+                .toList();
+          },
+          enableInfiniteScroll: true,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please select a menu';
+            }
+            return null;
+          },
+        ),
         const SizedBox(height: 16),
         // Reservation Date & Time
         AppTextField(
