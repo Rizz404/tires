@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/di/service_providers.dart';
 import 'package:tires/features/customer_management/presentation/providers/customers_providers.dart';
-import 'package:tires/features/home/presentation/providers/menu_provider.dart';
+import 'package:tires/features/menu/presentation/providers/menu_providers.dart';
 import 'package:tires/features/reservation/presentation/providers/reservation_providers.dart';
 import 'package:tires/features/user/presentation/providers/current_user_providers.dart';
 

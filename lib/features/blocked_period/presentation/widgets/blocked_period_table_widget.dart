@@ -171,7 +171,6 @@ class _BlockedPeriodTableWidgetState
         }
       }
     });
-
     if (widget.isLoading && widget.blockedPeriods.isEmpty) {
       return const Center(
         child: Padding(
@@ -439,7 +438,6 @@ class _BlockedPeriodTableWidgetState
             width: 60,
             child: AppText('NO.', fontWeight: FontWeight.bold),
           ),
-          const SizedBox(width: 50, child: Text('')), // Checkbox
           SizedBox(
             width: 180,
             child: AppText(
@@ -534,13 +532,21 @@ class _BlockedPeriodTableWidgetState
               ),
             ),
             SizedBox(
-              width: 50,
-              child: Checkbox(
-                value: isSelected,
-                onChanged: (v) => _toggleSelection(period.id),
+              width: 180,
+              child: Row(
+                children: [
+                  Expanded(child: _buildMenuColumn(context, period)),
+                  if (isSelected) ...[
+                    const SizedBox(width: 8),
+                    Icon(
+                      Icons.check_circle,
+                      color: context.colorScheme.primary,
+                      size: 20,
+                    ),
+                  ],
+                ],
               ),
             ),
-            SizedBox(width: 180, child: _buildMenuColumn(context, period)),
             SizedBox(
               width: 200,
               child: AppText(

@@ -171,7 +171,6 @@ class _ContactTableWidgetState extends ConsumerState<ContactTableWidget> {
         }
       }
     });
-
     if (widget.isLoading && widget.contacts.isEmpty) {
       return const Center(
         child: Padding(
@@ -425,7 +424,6 @@ class _ContactTableWidgetState extends ConsumerState<ContactTableWidget> {
             width: 60,
             child: AppText('NO.'.toUpperCase(), fontWeight: FontWeight.bold),
           ),
-          const SizedBox(width: 50, child: Text('')), // Checkbox
           SizedBox(
             width: 200,
             child: AppText(
@@ -503,30 +501,39 @@ class _ContactTableWidgetState extends ConsumerState<ContactTableWidget> {
               ),
             ),
             SizedBox(
-              width: 50,
-              child: Checkbox(
-                value: isSelected,
-                onChanged: (v) => _toggleSelection(contact.id),
-              ),
-            ),
-            SizedBox(
               width: 200,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
-                  AppText(
-                    contact.fullName ?? contact.email ?? 'Unknown',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  if (contact.email != null && contact.fullName != null)
-                    AppText(
-                      contact.email!,
-                      style: AppTextStyle.bodySmall,
-                      color: context.colorScheme.onSurface.withOpacity(0.7),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppText(
+                          contact.fullName ?? contact.email ?? 'Unknown',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        if (contact.email != null && contact.fullName != null)
+                          AppText(
+                            contact.email!,
+                            style: AppTextStyle.bodySmall,
+                            color: context.colorScheme.onSurface.withOpacity(
+                              0.7,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                      ],
                     ),
+                  ),
+                  if (isSelected) ...[
+                    const SizedBox(width: 8),
+                    Icon(
+                      Icons.check_circle,
+                      color: context.colorScheme.primary,
+                      size: 20,
+                    ),
+                  ],
                 ],
               ),
             ),

@@ -266,7 +266,6 @@ class _ReservationTableWidgetState
             width: 60,
             child: AppText('NO.', fontWeight: FontWeight.bold),
           ),
-          const SizedBox(width: 50, child: Text('')), // Checkbox
           SizedBox(
             width: 200,
             child: AppText('CUSTOMER', fontWeight: FontWeight.bold),

@@ -175,7 +175,6 @@ class _AnnouncementTableWidgetState
         }
       }
     });
-
     if (widget.isLoading && widget.announcements.isEmpty) {
       return const Center(
         child: Padding(
@@ -437,7 +436,6 @@ class _AnnouncementTableWidgetState
             width: 60,
             child: AppText('NO.', fontWeight: FontWeight.bold),
           ),
-          const SizedBox(width: 50, child: Text('')), // Checkbox
           SizedBox(
             width: 300,
             child: AppText(
@@ -512,18 +510,25 @@ class _AnnouncementTableWidgetState
               ),
             ),
             SizedBox(
-              width: 50,
-              child: Checkbox(
-                value: isSelected,
-                onChanged: (v) => _toggleSelection(announcement.id),
-              ),
-            ),
-            SizedBox(
               width: 300,
-              child: AppText(
-                announcement.title,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: AppText(
+                      announcement.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  if (isSelected) ...[
+                    const SizedBox(width: 8),
+                    Icon(
+                      Icons.check_circle,
+                      color: context.colorScheme.primary,
+                      size: 20,
+                    ),
+                  ],
+                ],
               ),
             ),
             SizedBox(

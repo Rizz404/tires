@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tires/di/usecase_providers.dart';
-import 'package:tires/features/home/presentation/providers/menu_state.dart';
+import 'package:tires/features/menu/presentation/providers/menu_state.dart';
 import 'package:tires/features/menu/domain/usecases/get_menus_cursor_usecase.dart';
 
 class MenuNotifier extends Notifier<MenuState> {
