@@ -24,9 +24,10 @@ Modern multi-module Flutter application with clean architecture, feature-based f
 15. Testing Guidelines
 16. Environment & Configuration
 17. Security Considerations
-18. Common Commands
-19. Roadmap / Possible Enhancements
-20. License
+18. Documentation & Resources
+19. Common Commands
+20. Roadmap / Possible Enhancements
+21. License
 
 ---
 
@@ -221,7 +222,20 @@ Currently `ApiConstants` centralizes the base URL & timeouts. For multi-environm
 * Interceptors ensure tokens not leaked in logs (verify logger configuration before production)
 * Consider adding certificate pinning (dio interceptors) for improved transport security
 
-## 17. Common Commands
+## 17. Documentation & Resources
+
+### Visual Documentation
+For comprehensive visual documentation including screenshots and video walkthroughs of the application's features and user flows, please refer to our Google Drive folder:
+
+**📁 [Application Documentation - Screenshots & Videos](https://drive.google.com/drive/folders/102f5xyQLPVihSbEx_YKX0DF7M4nyt2_X?usp=sharing)**
+
+This folder contains:
+* Video demonstrations of user workflows
+* Screen flow documentation
+
+The visual documentation complements this technical README and provides practical insights into the application's design and functionality.
+
+## 18. Common Commands
 | Action | Command |
 |--------|---------|
 | Fetch dependencies | `flutter pub get` |
