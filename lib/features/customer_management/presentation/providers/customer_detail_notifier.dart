@@ -13,7 +13,7 @@ class CustomerDetailNotifier extends Notifier<CustomerDetailState> {
     return const CustomerDetailState();
   }
 
-  Future<void> getCustomerDetail(int id) async {
+  Future<void> getCustomerDetail(String id) async {
     if (state.status == CustomerDetailStatus.loading) return;
 
     AppLogger.uiInfo('Fetching customer detail for id: $id in notifier');
@@ -43,7 +43,7 @@ class CustomerDetailNotifier extends Notifier<CustomerDetailState> {
     );
   }
 
-  Future<void> refresh(int id) async {
+  Future<void> refresh(String id) async {
     await getCustomerDetail(id);
   }
 }

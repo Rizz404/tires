@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
@@ -10,6 +9,29 @@ import 'package:tires/core/services/app_logger.dart';
 import 'package:tires/core/usecases/usecase.dart';
 import 'package:tires/features/business_information/domain/repositories/business_information_repository.dart';
 import 'package:tires/features/business_information/domain/entities/business_information.dart';
+
+class BusinessHour extends Equatable {
+  final bool closed;
+  final String open;
+  final String close;
+
+  const BusinessHour({
+    required this.closed,
+    required this.open,
+    required this.close,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'closed': closed,
+      'open': open,
+      'close': close,
+    };
+  }
+
+  @override
+  List<Object?> get props => [closed, open, close];
+}
 
 class UpdateBusinessInformationUsecase
     implements
@@ -39,9 +61,8 @@ class UpdateBusinessInformationParams extends Equatable {
   final String? privacyPolicy;
   final String? address;
   final String? phoneNumber;
-  final Map<String, dynamic>? businessHours;
+  final List<BusinessHour>? businessHours;
   final String? websiteUrl;
-  final File? topImage;
   final bool? sitePublic;
   final String? replyEmail;
   final String? googleAnalyticsId;
@@ -57,7 +78,6 @@ class UpdateBusinessInformationParams extends Equatable {
     this.phoneNumber,
     this.businessHours,
     this.websiteUrl,
-    this.topImage,
     this.sitePublic,
     this.replyEmail,
     this.googleAnalyticsId,
@@ -72,9 +92,8 @@ class UpdateBusinessInformationParams extends Equatable {
     String? privacyPolicy,
     String? address,
     String? phoneNumber,
-    Map<String, dynamic>? businessHours,
+    List<BusinessHour>? businessHours,
     String? websiteUrl,
-    File? topImage,
     bool? sitePublic,
     String? replyEmail,
     String? googleAnalyticsId,
@@ -90,7 +109,6 @@ class UpdateBusinessInformationParams extends Equatable {
       phoneNumber: phoneNumber ?? this.phoneNumber,
       businessHours: businessHours ?? this.businessHours,
       websiteUrl: websiteUrl ?? this.websiteUrl,
-      topImage: topImage ?? this.topImage,
       sitePublic: sitePublic ?? this.sitePublic,
       replyEmail: replyEmail ?? this.replyEmail,
       googleAnalyticsId: googleAnalyticsId ?? this.googleAnalyticsId,
@@ -107,7 +125,7 @@ class UpdateBusinessInformationParams extends Equatable {
       if (privacyPolicy != null) 'privacy_policy': privacyPolicy,
       if (address != null) 'address': address,
       if (phoneNumber != null) 'phone_number': phoneNumber,
-      if (businessHours != null) 'business_hours': businessHours,
+      if (businessHours != null) 'business_hours': businessHours!.map((e) => e.toMap()).toList(),
       if (websiteUrl != null) 'website_url': websiteUrl,
       if (sitePublic != null) 'site_public': sitePublic,
       if (replyEmail != null) 'reply_email': replyEmail,
@@ -132,7 +150,6 @@ class UpdateBusinessInformationParams extends Equatable {
     phoneNumber,
     businessHours,
     websiteUrl,
-    topImage,
     sitePublic,
     replyEmail,
     googleAnalyticsId,

@@ -6,7 +6,6 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:tires/core/error/failure.dart';
 import 'package:tires/core/extensions/localization_extensions.dart';
 import 'package:tires/core/extensions/theme_extensions.dart';
-import 'package:tires/features/business_information/domain/entities/business_day_hours.dart';
 import 'package:tires/features/business_information/domain/entities/business_information.dart';
 import 'package:tires/features/business_information/domain/usecases/update_business_information_usecase.dart';
 import 'package:tires/features/business_information/presentation/providers/business_information_mutation_state.dart';
@@ -114,8 +113,8 @@ class _AdminEditBusinessInformationScreenState
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       final values = _formKey.currentState!.value;
 
-      // Construct business hours
-      final Map<String, BusinessDayHours> updatedBusinessHours = {};
+      // Construct business hours as List<BusinessHour>
+      final List<BusinessHour> businessHoursList = [];
       final days = [
         'monday',
         'tuesday',
@@ -129,15 +128,15 @@ class _AdminEditBusinessInformationScreenState
         final closed = values['${day}_closed'] as bool? ?? false;
         final openTime = values['${day}_open_time'] as TimeOfDay?;
         final closeTime = values['${day}_close_time'] as TimeOfDay?;
-        updatedBusinessHours[day] = BusinessDayHours(
-          closed: closed,
-          openTime: closed ? null : openTime,
-          closeTime: closed ? null : closeTime,
+        businessHoursList.add(
+          BusinessHour(
+            closed: closed,
+            open: closed ? '' : openTime?.format(context) ?? '',
+            close: closed ? '' : closeTime?.format(context) ?? '',
+          ),
         );
       }
 
-      // TODO: Implement business information update logic with provider
-      // Pass updatedBusinessHours to the update method
       final notifier = ref.read(
         businessInformationMutationNotifierProvider.notifier,
       );
@@ -155,15 +154,7 @@ class _AdminEditBusinessInformationScreenState
           accessInformation: values['access_information'] as String?,
           termsOfUse: values['terms_of_use'] as String?,
           privacyPolicy: values['privacy_policy'] as String?,
-          businessHours: updatedBusinessHours.map(
-            (key, value) => MapEntry(key, {
-              'closed': value.closed,
-              if (!value.closed) ...{
-                'open_time': value.openTime?.toString(),
-                'close_time': value.closeTime?.toString(),
-              },
-            }),
-          ),
+          businessHours: businessHoursList,
         ),
       );
     } else {
@@ -499,11 +490,6 @@ class _AdminEditBusinessInformationScreenState
           name: 'access_information',
           label: "Access Information",
           maxLines: 3,
-        ),
-        const SizedBox(height: 16),
-        // TODO: Add image picker
-        AppText(
-          '${context.l10n.adminUpsertBusinessInformationScreenLabelsTopImage} (Image Picker to be implemented)',
         ),
       ],
     );

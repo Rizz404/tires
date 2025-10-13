@@ -560,9 +560,7 @@ class _CustomerTableWidgetState extends State<CustomerTableWidget> {
   Widget _buildActions(BuildContext context, Customer customer) {
     return IconButton(
       onPressed: () {
-        context.router.push(
-          AdminCustomerDetailRoute(customerId: int.parse(customer.id)),
-        );
+        context.router.push(AdminCustomerDetailRoute(customerId: customer.id));
       },
       icon: Icon(
         Icons.visibility_outlined,

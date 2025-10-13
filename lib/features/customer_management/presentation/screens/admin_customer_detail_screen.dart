@@ -14,7 +14,7 @@ import 'package:tires/shared/presentation/widgets/stat_tile.dart';
 
 @RoutePage()
 class AdminCustomerDetailScreen extends ConsumerStatefulWidget {
-  final int customerId;
+  final String customerId;
   const AdminCustomerDetailScreen({super.key, required this.customerId});
 
   @override

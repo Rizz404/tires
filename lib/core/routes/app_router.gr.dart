@@ -16,7 +16,7 @@ class AdminCustomerDetailRoute
     extends PageRouteInfo<AdminCustomerDetailRouteArgs> {
   AdminCustomerDetailRoute({
     Key? key,
-    required int customerId,
+    required String customerId,
     List<PageRouteInfo>? children,
   }) : super(
          AdminCustomerDetailRoute.name,
@@ -43,7 +43,7 @@ class AdminCustomerDetailRouteArgs {
 
   final Key? key;
 
-  final int customerId;
+  final String customerId;
 
   @override
   String toString() {

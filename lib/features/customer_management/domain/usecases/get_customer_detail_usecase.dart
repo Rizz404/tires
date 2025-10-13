@@ -28,11 +28,11 @@ class GetCustomerDetailUsecase
 }
 
 class GetCustomerDetailParams extends Equatable {
-  final int id;
+  final String id;
 
   const GetCustomerDetailParams({required this.id});
 
-  GetCustomerDetailParams copyWith({int? id}) {
+  GetCustomerDetailParams copyWith({String? id}) {
     return GetCustomerDetailParams(id: id ?? this.id);
   }
 
@@ -46,7 +46,7 @@ class GetCustomerDetailParams extends Equatable {
   String toJson() => json.encode(toMap());
 
   factory GetCustomerDetailParams.fromMap(Map<String, dynamic> map) {
-    return GetCustomerDetailParams(id: map['id'] as int);
+    return GetCustomerDetailParams(id: map['id'] as String);
   }
 
   factory GetCustomerDetailParams.fromJson(String source) =>
